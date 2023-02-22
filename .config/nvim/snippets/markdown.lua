@@ -1,0 +1,52 @@
+-- local ls = require("luasnip")
+-- local s = ls.snippet
+-- local sn = ls.snippet_node
+-- local isn = ls.indent_snippet_node
+-- local v = ls.text_node
+-- local i = ls.insert_node
+-- local f = ls.function_node
+-- local c = ls.choice_node
+-- local d = ls.dynamic_node
+-- local r = ls.restore_node
+-- local events = require("luasnip.util.events")
+-- local ai = require("luasnip.nodes.absolute_indexer")
+-- local extras = require("luasnip.extras")
+-- local l = extras.lambda
+-- local rep = extras.rep
+-- local p = extras.partial
+-- local m = extras.match
+-- local n = extras.nonempty
+-- local dl = extras.dynamic_lambda
+-- local fmt = require("luasnip.extras.fmt").fmt
+-- local fmta = require("luasnip.extras.fmt").fmta
+-- local conds = require("luasnip.extras.expand_conditions")
+-- local postfix = require("luasnip.extras.postfix").postfix
+-- local types = require("luasnip.util.types")
+-- local parse = require("luasnip.util.parser").parse_snippet
+--
+-- local M = {}
+--
+--
+-- table.insert(M, s({trig = '[]', dscr = 'Link'}, fmta([[ [<>](<>) ]], {v(1, 'text'), i(2, 'url')})))
+-- table.insert(M, s({trig = '!', dscr = 'Image'}, fmta([[ ![<>](<>) ]], {v(1, 'alt'), i(2, 'url')})))
+--
+-- table.insert(M, s({trig = '|(%d+)x(%d+)', dscr = 'Table', regTrig = true},
+--         f(function(_, snip)
+--             local w = snip.captures[1]
+--             local h = snip.captures[2]
+--             local res = {}
+--
+--             -- Template
+--             local row = {}
+--             for _ = 0, w do table.insert(row, '|') end
+--             local row_text = table.concat(row, '   ')
+--
+--             -- Format
+--             table.insert(res, row_text)
+--             table.insert(res, table.concat(row, '---'))
+--             for _ = 0, h do table.insert(res, row_text) end
+--             return res
+--         end)))
+-- -- (\\d+)(?:x|X)(\\d+)
+--
+-- return M
