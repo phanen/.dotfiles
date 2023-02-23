@@ -123,3 +123,9 @@ cmd bulk-rename ${{
 }}
 
 map <c-z> $ kill -STOP $PPID
+map a push %mkdir<space>
+# cmd mkdir %mkdir "$@"
+# map a push :mkdir<space>
+#
+map Md %lf-mkdir
+map Mf %lf-mkfile

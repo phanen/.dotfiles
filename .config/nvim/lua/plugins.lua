@@ -15,13 +15,10 @@ require('packer').startup(function(use)
   use { -- lsp
     'neovim/nvim-lspconfig',
     requires = {
-      -- automatically install lsps to stdpath for neovim
-      'williamboman/mason.nvim',
+      'williamboman/mason.nvim', -- automatically install lsps to stdpath for neovim
       'williamboman/mason-lspconfig.nvim',
-      -- useful status updates for lsp
-      'j-hui/fidget.nvim',
-      -- additional lua configuration, makes nvim stuff amazing
-      'folke/neodev.nvim',
+      'j-hui/fidget.nvim', -- useful status updates for lsp
+      'folke/neodev.nvim', -- additional lua configuration, makes nvim stuff amazing
     },
   }
 
@@ -82,7 +79,7 @@ require('packer').startup(function(use)
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
 
   -- fuzzy finder files, lsp, etc
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
+  use { 'nvim-telescope/telescope.nvim', branch = '0.1.0', requires = { 'nvim-lua/plenary.nvim' } }
 
   -- fuzzy finder algorithm which requires local dependencies to be built. only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
@@ -115,15 +112,26 @@ require('packer').startup(function(use)
   use({ "alec-gibson/nvim-tetris"})
 
   -- latex
-  use({
-    'f3fora/nvim-texlabconfig',
+  -- use({
+  --   'f3fora/nvim-texlabconfig',
+  --   config = function()
+  --     require('texlabconfig').setup()
+  --   end,
+  --   ft = { 'tex', 'bib' }, -- for lazy loading
+  --   run = 'go build'
+  --   -- run = 'go build -o ~/.bin/' if e.g. ~/.bin/ is in $PATH
+  -- })
+
+  -- use {'lervag/vimtex'}
+  use {
+    "iurimateus/luasnip-latex-snippets.nvim",
+    branch = 'markdown',
+    requires = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
     config = function()
-      require('texlabconfig').setup()
+      require'luasnip-latex-snippets'.setup({ use_treesitter = true }) --{ use_treesitter = true }
     end,
-    ft = { 'tex', 'bib' }, -- for lazy loading
-    run = 'go build'
-    -- run = 'go build -o ~/.bin/' if e.g. ~/.bin/ is in $PATH
-  })
+    ft = { "tex", "markdown" },
+  }
 
   use { "karb94/neoscroll.nvim" }
 
@@ -146,10 +154,10 @@ require('packer').startup(function(use)
     end,
   }
 
-    use {
-      'stevearc/aerial.nvim',
-      config = function() require('aerial').setup() end
-    }
+  use {
+    'stevearc/aerial.nvim',
+    config = function() require('aerial').setup() end
+  }
 
   if is_bootstrap then
     require('packer').sync()
@@ -248,14 +256,14 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
-  texlab = {
-    texlab = {
-      forwardSearch = {
-        executable = executable,
-        args = args,
-      }
-    }
-  },
+  -- texlab = {
+  --   texlab = {
+  --     forwardSearch = {
+  --       executable = executable,
+  --       args = args,
+  --     }
+  --   }
+  -- },
   -- sumneko_lua = {
   --   Lua = {
   --     workspace = { checkThirdParty = false },
@@ -348,24 +356,24 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<s-tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+    -- ['<tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item()
+    --   elseif luasnip.expand_or_jumpable() then
+    --     luasnip.expand_or_jump()
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
+    -- ['<s-tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_prev_item()
+    --   elseif luasnip.jumpable(-1) then
+    --     luasnip.jump(-1)
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
   },
   sources = {
     { name = 'nvim_lsp' },

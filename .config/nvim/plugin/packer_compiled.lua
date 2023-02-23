@@ -132,6 +132,14 @@ _G.packer_plugins = {
     path = "/home/phanium/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
+  ["luasnip-latex-snippets.nvim"] = {
+    config = { "\27LJ\2\n[\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\19use_treesitter\2\nsetup\27luasnip-latex-snippets\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/home/phanium/.local/share/nvim/site/pack/packer/opt/luasnip-latex-snippets.nvim",
+    url = "https://github.com/iurimateus/luasnip-latex-snippets.nvim"
+  },
   ["markdown-preview.nvim"] = {
     loaded = false,
     needs_bufread = false,
@@ -191,14 +199,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/phanium/.local/share/nvim/site/pack/packer/start/nvim-tetris",
     url = "https://github.com/alec-gibson/nvim-tetris"
-  },
-  ["nvim-texlabconfig"] = {
-    config = { "\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17texlabconfig\frequire\0" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/phanium/.local/share/nvim/site/pack/packer/opt/nvim-texlabconfig",
-    url = "https://github.com/f3fora/nvim-texlabconfig"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
@@ -285,6 +285,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/phanium/.local/share/nvim/site/pack/packer/start/vim-sleuth",
     url = "https://github.com/tpope/vim-sleuth"
+  },
+  vimtex = {
+    loaded = true,
+    path = "/home/phanium/.local/share/nvim/site/pack/packer/start/vimtex",
+    url = "https://github.com/lervag/vimtex"
   }
 }
 
@@ -293,26 +298,6 @@ time([[Defining packer_plugins]], false)
 time([[Setup for markdown-preview.nvim]], true)
 try_loadstring("\27LJ\2\n=\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\2\0\0\rmarkdown\19mkdp_filetypes\6g\bvim\0", "setup", "markdown-preview.nvim")
 time([[Setup for markdown-preview.nvim]], false)
--- Config for: nvim-surround
-time([[Config for nvim-surround]], true)
-try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
-time([[Config for nvim-surround]], false)
--- Config for: aerial.nvim
-time([[Config for aerial.nvim]], true)
-try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vaerial\frequire\0", "config", "aerial.nvim")
-time([[Config for aerial.nvim]], false)
--- Config for: inc-rename.nvim
-time([[Config for inc-rename.nvim]], true)
-try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15inc_rename\frequire\0", "config", "inc-rename.nvim")
-time([[Config for inc-rename.nvim]], false)
--- Config for: mkdnflow.nvim
-time([[Config for mkdnflow.nvim]], true)
-try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rmkdnflow\frequire\0", "config", "mkdnflow.nvim")
-time([[Config for mkdnflow.nvim]], false)
--- Config for: nvim-picgo
-time([[Config for nvim-picgo]], true)
-try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15nvim-picgo\frequire\0", "config", "nvim-picgo")
-time([[Config for nvim-picgo]], false)
 -- Config for: toggleterm.nvim
 time([[Config for toggleterm.nvim]], true)
 try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15toggleterm\frequire\0", "config", "toggleterm.nvim")
@@ -321,6 +306,26 @@ time([[Config for toggleterm.nvim]], false)
 time([[Config for bufferline.nvim]], true)
 try_loadstring("\27LJ\2\n\v\0\0\1\0\0\0\1K\0\1\0\0", "config", "bufferline.nvim")
 time([[Config for bufferline.nvim]], false)
+-- Config for: mkdnflow.nvim
+time([[Config for mkdnflow.nvim]], true)
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rmkdnflow\frequire\0", "config", "mkdnflow.nvim")
+time([[Config for mkdnflow.nvim]], false)
+-- Config for: nvim-surround
+time([[Config for nvim-surround]], true)
+try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
+time([[Config for nvim-surround]], false)
+-- Config for: aerial.nvim
+time([[Config for aerial.nvim]], true)
+try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vaerial\frequire\0", "config", "aerial.nvim")
+time([[Config for aerial.nvim]], false)
+-- Config for: nvim-picgo
+time([[Config for nvim-picgo]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15nvim-picgo\frequire\0", "config", "nvim-picgo")
+time([[Config for nvim-picgo]], false)
+-- Config for: inc-rename.nvim
+time([[Config for inc-rename.nvim]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15inc_rename\frequire\0", "config", "inc-rename.nvim")
+time([[Config for inc-rename.nvim]], false)
 -- Conditional loads
 time([[Conditional loading of telescope-fzf-native.nvim]], true)
   require("packer.load")({"telescope-fzf-native.nvim"}, {}, _G.packer_plugins)
@@ -334,9 +339,8 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType tex ++once lua require("packer.load")({'nvim-texlabconfig'}, { ft = "tex" }, _G.packer_plugins)]]
-vim.cmd [[au FileType bib ++once lua require("packer.load")({'nvim-texlabconfig'}, { ft = "bib" }, _G.packer_plugins)]]
-vim.cmd [[au FileType markdown ++once lua require("packer.load")({'markdown-preview.nvim'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'luasnip-latex-snippets.nvim', 'markdown-preview.nvim'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tex ++once lua require("packer.load")({'luasnip-latex-snippets.nvim'}, { ft = "tex" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 
