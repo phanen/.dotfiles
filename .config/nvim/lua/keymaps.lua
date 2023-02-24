@@ -128,6 +128,8 @@ keymap("n", "<leader>ls", "<cmd>ls<cr>", opts)
 -- TODO
 keymap('n', '<leader>q', '<cmd>q!<cr>', opts)
 keymap('n', '<leader>w', '<cmd>w<cr>', opts)
+keymap('n', '<leader>fo', '<cmd>set foldenable!<cr>', opts)
+
 -- get img
 keymap('n', '<leader>gi', '<cmd>UploadClipboard<cr>', opts)
 

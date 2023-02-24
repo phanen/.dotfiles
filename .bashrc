@@ -12,6 +12,7 @@ export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="chromium"
 export PDF="chromium"
+export MANPAGER="/bin/sh -c \"col -b | vi -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 # export PAGER="most"
 # export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
 # export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta
@@ -29,7 +30,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export XDG_CONFIG_DIRS="/etc/xdg"
 
-export PATH="$PATH:$HOME/script:$XDG_DATA_HOME/nvim/mason/bin:$HOME/.local/bin"
+export PATH="$PATH:$HOME/bin:$XDG_DATA_HOME/nvim/mason/bin:$HOME/.local/bin"
 
 # proxy
 export http_proxy="http://localhost:7890"
@@ -76,6 +77,11 @@ alias cn="$EDITOR $XDG_CONFIG_HOME/nvim"
 alias cs="$EDITOR $XDG_CONFIG_HOME/friendly-snippets/"
 alias cf="$EDITOR $XDG_CONFIG_HOME/lf"
 
+## sdu wifi
+# export sduwifi=101.76.193.1
+sdulan() { nmcli dev wifi connect sdu_net; }
+chtox() { chmod 755 $1; }
+reorder () { ls * | sort -n -t _ -k 2; }
 
 # docker
 alias doc="sudo systemctl start docker"
@@ -94,26 +100,10 @@ fcd() { cd $(dirname $(fzf)); }
 fvi() { du -a $FZF_DIR | awk '{print $2}' | fzf | xargs -r $EDITOR;}
 # fpd() { du -a $FZF_DIR | awk '{print $2}' | fzf --query pdf$ | xargs -r $PDF;}
 
-fpd() { $PDF "`fzf`" > /dev/null 2>&1; }
+fpd() { $PDF "$(fzf)" > /dev/null 2>&1; }
 
 fhis() { stty -echo && history | grep ""$@ | awk '{$1=$2=$3=""; print $0}' | fzf | xargs -I {} xdotool type {}  && stty echo; }
 
-## sdu wifi
-# export sduwifi=101.76.193.1
-sdulan() { nmcli dev wifi connect sdu_net; }
-chtox() { chmod 755 $1; }
-reorder () { ls * | sort -n -t _ -k 2; }
-
-
-[[ `tty` = '/dev/tty1' ]] && 
-  # sudo dhcpcd &&
-  sudo rfkill unblock wifi &&
-  # sudo ip a add 192.168.1.222/24 dev wlp0s20f3 &&
-  # sudo ip r add default via 192.168.1.1 dev wlp0s20f3 &&
-  systemctl restart --user clash &&
-  cd ~ && startx
-
-[[ -z $MYVIMRC ]] && neofetch
 
 calc() {
     echo "scale=3;$@" | bc -l
@@ -162,13 +152,40 @@ ipif() {
     echo
 }
 
+
+
+ATHEME="$XDG_CONFIG_HOME"/alacritty/alacritty-theme/themes/
+ACONFIG="$XDG_CONFIG_HOME"/alacritty/alacritty.yml
+alswitch() { # alacritty switch theme
+  theme=$(ls -1 "$ATHEME" | shuf -n1) 
+  sed -i '3s/themes\/.*\.ya\?ml$/themes\/'$theme'/'  $ACONFIG
+  echo "$theme"
+  # xsetroot -name "$random_theme  $(date)"
+}
+
+alselect() { # alacritty select theme
+  theme=$(ls -1 "$ATHEME" | fzf) 
+  sed -i '3s/themes\/.*\.ya\?ml$/themes\/'$theme'/'  $ACONFIG
+  echo "$theme"
+}
+
+alblink() { # alacritty blink theme
+  while true; do alswitch && sleep 0.1; done > /dev/null
+}
+
 alias mx='chmod 755'
-export MANPAGER="/bin/sh -c \"col -b | vi -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 # export MANPAGER="/bin/sh -c \"col -b | vi -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
+## key bindings
 bind '"\C-o":"lfcd\C-m"'
 
-# if [[ $SECONDS < 1 ]]; then
-#
-# fi
-#   startx
+
+[[ -z $MYVIMRC ]] && neofetch
+
+[[ $(tty) = '/dev/tty1' ]] && 
+  # sudo dhcpcd &&
+  sudo rfkill unblock wifi &&
+  # sudo ip a add 192.168.1.222/24 dev wlp0s20f3 &&
+  # sudo ip r add default via 192.168.1.1 dev wlp0s20f3 &&
+  systemctl restart --user clash &&
+  cd ~ && startx

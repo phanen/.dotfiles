@@ -1,6 +1,6 @@
 # /usr/share/doc/alacritty/example/alacritty.yml
 import:
-  - ~/.config/alacritty/.alacritty-colorscheme/themes/thelovelace.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/blood_moon.yaml
 
 
 window:
