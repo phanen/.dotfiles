@@ -136,7 +136,7 @@ require('packer').startup(function(use)
   use { "karb94/neoscroll.nvim" }
 
   -- TODO
-  -- better markdown 
+  -- better markdown
   use({'jakewvincent/mkdnflow.nvim',
     config = function()
       require('mkdnflow').setup({
@@ -145,19 +145,46 @@ require('packer').startup(function(use)
     end
   })
 
+  -- makrdown header fzf
   use('crispgm/telescope-heading.nvim')
 
-  use {
+  use { -- incremental rename
     "smjonas/inc-rename.nvim",
     config = function()
       require("inc_rename").setup()
     end,
   }
 
-  use {
+  use { --outline
     'stevearc/aerial.nvim',
     config = function() require('aerial').setup() end
   }
+
+  -- use({
+  --   "jghauser/papis.nvim",
+  --   after = { "telescope.nvim", "nvim-cmp" },
+  --   requires = {
+  --     "kkharji/sqlite.lua",
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   rocks = {
+  --     {
+  --       "lyaml"
+  --       -- If using macOS or Linux, you may need to install the `libyaml` (and
+  --       -- possibly the `libyaml-devel`) package.
+  --       -- If you install libyaml with homebrew you will need to set the YAML_DIR
+  --       -- to the location of the homebrew installation of libyaml e.g.
+  --       -- env = { YAML_DIR = '/opt/homebrew/Cellar/libyaml/0.2.5/' },
+  --     }
+  --   },
+  --   config = function()
+  --     require("papis").setup(
+  --       -- Your configuration goes here
+  --     )
+  --   end,
+  -- })
 
   if is_bootstrap then
     require('packer').sync()
@@ -349,31 +376,31 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<c-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<c-f>'] = cmp.mapping.scroll_docs(4),
-    ['<c-space>'] = cmp.mapping.complete(),
+    -- ['<c-d>'] = cmp.mapping.scroll_docs(-4),
+    -- ['<c-f>'] = cmp.mapping.scroll_docs(4),
+    ['<c-s>'] = cmp.mapping.complete(),
     ['<cr>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    -- ['<tab>'] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   elseif luasnip.expand_or_jumpable() then
-    --     luasnip.expand_or_jump()
-    --   else
-    --     fallback()
-    --   end
-    -- end, { 'i', 's' }),
-    -- ['<s-tab>'] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   elseif luasnip.jumpable(-1) then
-    --     luasnip.jump(-1)
-    --   else
-    --     fallback()
-    --   end
-    -- end, { 'i', 's' }),
+    ['<tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<s-tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
   },
   sources = {
     { name = 'nvim_lsp' },

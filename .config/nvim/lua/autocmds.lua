@@ -7,14 +7,14 @@
 -- })
 
 -- Open help window in a vertical split to the right.
-vim.api.nvim_create_autocmd("BufWinEnter", {
-    group = vim.api.nvim_create_augroup("HelpWindowLeft", {}),
-    pattern = { "*.txt" },
-    callback = function()
-        if vim.o.filetype == 'help' then vim.cmd.wincmd("H") end
-    end
-})
-
+-- vim.api.nvim_create_autocmd("BufWinEnter", {
+--     group = vim.api.nvim_create_augroup("HelpWindowLeft", {}),
+--     pattern = { "*.txt" },
+--     callback = function()
+--         if vim.o.filetype == 'help' then vim.cmd.wincmd("H") end
+--     end
+-- })
+--
 -- highlight on yank
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {

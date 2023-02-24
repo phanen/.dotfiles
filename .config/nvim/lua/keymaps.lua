@@ -115,23 +115,27 @@ keymap('n', '<leader>ds', vim.diagnostic.setloclist, opts)
 
 
 -------- shortcut --------------
--- tab
-keymap("n", "<leader>tn", "<cmd>tabnew<cr>", opts)
--- edit some config
-keymap("n", "<leader>en", "<cmd>tabnew $HOME/notes<cr>", opts)
-keymap("n", "<leader>ev", "<cmd>tabnew $XDG_CONFIG_HOME/nvim<cr>", opts)
+-- tab new
+keymap("n", "<leader>nt", "<cmd>tabnew<cr>", opts)
+
+-- config
+keymap("n", "<leader>cc", "<cmd>tabnew $XDG_CONFIG_HOME/nvim<cr>", opts)
+keymap("n", "<leader>cs", "<cmd>source $XDG_CONFIG_HOME/nvim/init.lua<cr>", opts)
+
 -- ls
 keymap("n", "<leader>ls", "<cmd>ls<cr>", opts)
 
 -- TODO
 keymap('n', '<leader>q', '<cmd>q!<cr>', opts)
 keymap('n', '<leader>w', '<cmd>w<cr>', opts)
-keymap('n', '<leader>am', '<cmd>UploadClipboard<cr>', opts)
+-- get img
+keymap('n', '<leader>gi', '<cmd>UploadClipboard<cr>', opts)
 
 -- symbol rename
 vim.keymap.set("n", "<leader>rn", ":IncRename ")
+-- 全角2半角
 keymap('n', '<leader>rp', [[
-        <cmd>%s/[，、（）［］｛｝＜＞？／；]/\={'，':', ', '、':', ', '（':'(', '）':')', '［':'[', '］':']', '｛':'{', '｝':'}', '＜':'<', '＞':'>', '？':'? ', '／':'\/', '；':'; '}[submatch(0)]/g<cr>]])
+        <cmd>%s/[，、（）［］｛｝＜＞？／；。]/\={'，':', ', '、':', ', '（':'(', '）':')', '［':'[', '］':']', '｛':'{', '｝':'}', '＜':'<', '＞':'>', '？':'? ', '／':'\/', '；':'; ', '。':'. '}[submatch(0)]/g<cr>]])
 -- { silent = true }? ??
 -- １２３４５６７ａｂｃｄｅｆｇ
 --     -- :%s/[，、１２３４５６７ａｂｃｄｅｆｇ]/\={'，':', ','、':', ','１':'1','２':'2','３':'3','４':'4','５':'5','６':'6','７':'7','ａ':'a', 'ｂ':'b', 'ｃ':'c', 'ｄ':'d', 'ｅ':'e', 'ｆ':'f', 'ｇ':'g'}[submatch(0)]/g
