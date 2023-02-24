@@ -80,15 +80,15 @@ alias cf="$EDITOR $XDG_CONFIG_HOME/lf"
 # docker
 alias doc="sudo systemctl start docker"
 dop() {
-  docker start $1 && docker attach $1;
+  docker start "$1" && docker attach "$1";
 }
 
 # mvp() {
 #   mkdir -p $2 && mv $1 $2;
 # }
 
-
 FZF_DIR=". $HOME/Downloads $HOME/mnt $HOME/QQ_recv"
+fzp() { fzf --margin 5% --padding 5% --border --preview 'cat {}'; }
 # awesome fzf 
 fcd() { cd $(dirname $(fzf)); }
 fvi() { du -a $FZF_DIR | awk '{print $2}' | fzf | xargs -r $EDITOR;}

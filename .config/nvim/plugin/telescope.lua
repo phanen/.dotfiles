@@ -16,8 +16,6 @@ tl.setup {
 pcall(tl.load_extension, 'heading')
 pcall(tl.load_extension, 'fzf')
 
-
-
 -- buffer search
 vim.keymap.set('n', '<leader><space>', tb.buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/',
@@ -38,3 +36,4 @@ vim.keymap.set('n', '<leader>sh', tb.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>ss', tb.lsp_document_symbols, { desc = '[S]earch [S]ymbol' })
 
 vim.keymap.set('n', '<leader>fh', "<cmd>Telescope heading<cr>", { desc = '[F]ind [H]eading' })
+vim.keymap.set('n', '<leader>sb', tb.builtin, { desc = '[S]earch [M]eta' })
