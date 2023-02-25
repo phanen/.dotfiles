@@ -1,6 +1,6 @@
 # /usr/share/doc/alacritty/example/alacritty.yml
 import:
-  - ~/.config/alacritty/alacritty-theme/themes/blood_moon.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/iterm.yaml
 
 
 window:
