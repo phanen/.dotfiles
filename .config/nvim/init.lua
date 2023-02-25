@@ -32,4 +32,3 @@ require 'keymaps'
 -- t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', speed}}
 --
 -- require('neoscroll.config').set_mappings(t)
---

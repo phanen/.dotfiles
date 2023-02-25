@@ -1,201 +1,161 @@
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+if not vim.loop.fs_stat(lazypath) then
   is_bootstrap = true
-  vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
-  vim.cmd [[packadd packer.nvim]]
+  vim.fn.system { "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath, }
 end
+vim.opt.rtp:prepend(lazypath)
 
-require('packer').startup(function(use)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
-  use {
-    'wbthomason/packer.nvim'
-  }
+require('lazy').setup {
 
-  use { -- lsp
+  -- lsps managers (to stdpath)
+  'williamboman/mason.nvim',
+  'williamboman/mason-lspconfig.nvim',
+
+  { -- lsp
     'neovim/nvim-lspconfig',
-    requires = {
-      'williamboman/mason.nvim', -- automatically install lsps to stdpath for neovim
-      'williamboman/mason-lspconfig.nvim',
+    dependencies = {
       'j-hui/fidget.nvim', -- useful status updates for lsp
       'folke/neodev.nvim', -- additional lua configuration, makes nvim stuff amazing
     },
-  }
+  },
 
-  use { -- autocompletion
+  { -- autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-  }
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+  },
 
-  use 'L3MON4D3/LuaSnip'
+  'L3MON4D3/LuaSnip',
 
-  use { -- highlight, edit, navigation
+  { -- highlight, edit, navigation
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    build = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
-  }
+    dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
+  },
 
-  use { -- additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
+  -- additional text objects via treesitter
+  'nvim-treesitter/nvim-treesitter-textobjects',
 
   -- git
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'lewis6991/gitsigns.nvim'
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+  'lewis6991/gitsigns.nvim',
 
   -- theme
-  use 'navarasu/onedark.nvim'
-  use 'folke/tokyonight.nvim'
-  -- use 'rose-pine/neovim'
+  'navarasu/onedark.nvim',
+  'folke/tokyonight.nvim',
+  'rose-pine/neovim',
 
   -- file management
-  use {
+  {
     'nvim-tree/nvim-tree.lua',
-    requires = {
+    dependencies = {
       'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
-  }
+    tag = 'nightly', -- optional, updated every week. (see issue #1193)
+  },
 
-  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-    require("toggleterm").setup()
-  end}
-  use {
-    'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons',
-    config = function()
+  {"akinsho/toggleterm.nvim", 
+    -- tag = '*',
+    config = function() require("toggleterm").setup() end,
+  },
 
-    end
-  }
+  {
+    'akinsho/bufferline.nvim', -- tag = "v3.*", 
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function() end,
+  },
 
-  use 'nvim-lualine/lualine.nvim' -- statusline
-
-  use 'lukas-reineke/indent-blankline.nvim' -- add indentation guides even on blank lines
-
-  use 'numToStr/Comment.nvim'
-
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  'nvim-lualine/lualine.nvim', -- statusline
+  'lukas-reineke/indent-blankline.nvim', -- add indentation guides even on blank lines
 
   -- fuzzy finder files, lsp, etc
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.0', requires = { 'nvim-lua/plenary.nvim' } }
+  {
+    'nvim-telescope/telescope.nvim', tag = '0.1.1', dependencies = { 'nvim-lua/plenary.nvim' }
+  },
 
   -- fuzzy finder algorithm which requires local dependencies to be built. only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
-
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', cond = vim.fn.executable 'make' == 1 },
 
   -- markdown
   -- use 'davidgranstrom/nvim-markdown-preview' -- based on floated pacdoc
-  use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+  { "iamcco/markdown-preview.nvim", build = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, },
 
-  use ({
+  {
     'askfiy/nvim-picgo',
-    config = function()
-      -- it doesn't require you to do any configuration
+    config = function() -- it doesn't require you to do any configuration
       require("nvim-picgo").setup()
     end
-  })
-
+  },
 
   -- edit
-  use({ "linty-org/readline.nvim"})
-  use({ "kylechui/nvim-surround",
-    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+  { "linty-org/readline.nvim"},
+  { "kylechui/nvim-surround",
+    -- tag = "*",
     config = function()
-      require("nvim-surround").setup({
-      })
+      require("nvim-surround").setup({})
     end
-  })
+  },
+
+  'numToStr/Comment.nvim',
+  'tpope/vim-sleuth', -- detect tabstop and shiftwidth automatically
 
   -- game
-  use({ "alec-gibson/nvim-tetris"})
+  "alec-gibson/nvim-tetris",
 
   -- latex
-  -- use({
+  -- {
   --   'f3fora/nvim-texlabconfig',
   --   config = function()
   --     require('texlabconfig').setup()
   --   end,
   --   ft = { 'tex', 'bib' }, -- for lazy loading
-  --   run = 'go build'
-  --   -- run = 'go build -o ~/.bin/' if e.g. ~/.bin/ is in $PATH
-  -- })
+  --   build = 'go build'
+  --   -- build = 'go build -o ~/.bin/' if e.g. ~/.bin/ is in $PATH
+  -- },
 
-  -- use {'lervag/vimtex'}
-  use {
+  -- {'lervag/vimtex'},
+  {
     "iurimateus/luasnip-latex-snippets.nvim",
     branch = 'markdown',
-    requires = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
+    dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
     config = function()
       require'luasnip-latex-snippets'.setup({ use_treesitter = true }) --{ use_treesitter = true }
     end,
     ft = { "tex", "markdown" },
-  }
+  },
 
-  use { "karb94/neoscroll.nvim" }
+  { "karb94/neoscroll.nvim" },
 
   -- TODO
   -- better markdown
-  use({'jakewvincent/mkdnflow.nvim',
+  {'jakewvincent/mkdnflow.nvim',
     config = function()
-      require('mkdnflow').setup({
-        -- Config goes here; leave blank for defaults
-      })
+      require('mkdnflow').setup({})
     end
-  })
+  },
 
   -- makrdown header fzf
-  use('crispgm/telescope-heading.nvim')
+  'crispgm/telescope-heading.nvim',
 
-  use { -- incremental rename
+  { -- incremental rename
     "smjonas/inc-rename.nvim",
     config = function()
       require("inc_rename").setup()
     end,
-  }
+  },
 
-  use { --outline
+  { --outline
     'stevearc/aerial.nvim',
     config = function() require('aerial').setup() end
-  }
+  },
 
-  -- use({
-  --   "jghauser/papis.nvim",
-  --   after = { "telescope.nvim", "nvim-cmp" },
-  --   requires = {
-  --     "kkharji/sqlite.lua",
-  --     "nvim-lua/plenary.nvim",
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-treesitter/nvim-treesitter",
-  --   },
-  --   rocks = {
-  --     {
-  --       "lyaml"
-  --       -- If using macOS or Linux, you may need to install the `libyaml` (and
-  --       -- possibly the `libyaml-devel`) package.
-  --       -- If you install libyaml with homebrew you will need to set the YAML_DIR
-  --       -- to the location of the homebrew installation of libyaml e.g.
-  --       -- env = { YAML_DIR = '/opt/homebrew/Cellar/libyaml/0.2.5/' },
-  --     }
-  --   },
-  --   config = function()
-  --     require("papis").setup(
-  --       -- Your configuration goes here
-  --     )
-  --   end,
-  -- })
-
-  if is_bootstrap then
-    require('packer').sync()
-    print '=================================='
-    print '    Plugins are being installed'
-    print '    Wait until Packer completes,'
-    print '       then restart nvim'
-    print '=================================='
-    return
-  end
-end)
+}
 
 require('lualine').setup {
   options = {
