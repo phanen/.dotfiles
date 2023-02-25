@@ -1,0 +1,14 @@
+/*
+
+!.gitignore
+
+!.bashrc
+!.bash_profile
+!.inputrc
+
+# .config
+!.config/nvim
+!.config/lf
+!.config/alacritty
+!.config/kitty
+!.config/friendly-snippets
