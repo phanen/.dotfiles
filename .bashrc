@@ -5,6 +5,7 @@
 # sudo kbdrate -d 150 -r 25
 
 PS1='[\u@\h \W]\$ '
+eval "$(starship init bash)"
 
 # alias sl='slstatus &'
 
