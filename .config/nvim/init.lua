@@ -1,8 +1,11 @@
 
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 require 'plugins'
+require 'keymaps'
 require 'settings'
 require 'autocmds'
-require 'keymaps'
 
 -- toggle checked / create checkbox if it doesn't exist
 -- vim.keymap.set('n', '<leader>nn', require('markdown-togglecheck').toggle)

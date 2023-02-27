@@ -73,12 +73,15 @@ alias ssc="systemctl restart --user clash"
 alias svi="sudo -E vi"
 alias ni="/usr/local/bin/nvim"
 alias sni="sudo -E ni"
+
+# config
 alias sb="source $HOME/.bashrc"
 alias cb="$EDITOR $HOME/.bashrc"
 alias ca="$EDITOR $XDG_CONFIG_HOME/alacritty/alacritty.yml"
 alias cn="$EDITOR $XDG_CONFIG_HOME/nvim"
 alias cs="$EDITOR $XDG_CONFIG_HOME/friendly-snippets/"
 alias cf="$EDITOR $XDG_CONFIG_HOME/lf"
+alias ct="$EDITOR $XDG_CONFIG_HOME/tmux/tmux.conf"
 
 ## sdu wifi
 # export sduwifi=101.76.193.1
@@ -181,7 +184,9 @@ alias mx='chmod 755'
 
 ## key bindings
 bind '"\C-o":"lfcd\C-m"'
+bind '"\C-t":"`dmenu_path | fzf`\C-m"'
 
+# tmux
 
 [[ -z $MYVIMRC ]] && neofetch
 

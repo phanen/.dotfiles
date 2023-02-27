@@ -1,6 +1,6 @@
 # /usr/share/doc/alacritty/example/alacritty.yml
 import:
-  - ~/.config/alacritty/alacritty-theme/themes/iterm.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/xterm.yaml
 
 
 window:
@@ -34,19 +34,34 @@ window:
 
 font:
   normal:
+    # family: Fira Mono Medium
+    # family: Source Code Pro
     family: FiraCode Nerd Font Mono
+    # family: Hack Nerd Font
     style: Regular
 
   # bold:
   #   family: monospace
   #   style: Bold
-  #
+  # 
   # italic:
   #   family: monospace
   #   style: Italic
-  #
+  # 
   # bold_italic:
   #   family: monospace
+  #   style: Bold Italic
+  
+  # bold:
+  #   family: FiraCode Nerd Font Mono
+  #   style: Bold
+  # 
+  # italic:
+  #   family: FiraCode Nerd Font Mono
+  #   style: Italic
+  # 
+  # bold_italic:
+  #   family: FiraCode Nerd Font Mono
   #   style: Bold Italic
 
   size: 11

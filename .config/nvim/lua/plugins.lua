@@ -1,15 +1,10 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local is_bootstrap = false
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-  is_bootstrap = true
-  vim.fn.system { "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath, }
-end
-vim.opt.rtp:prepend(lazypath)
-
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+  vim.fn.system { 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath, } end vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
+
+  'folke/lazy.nvim',
 
   -- lsps managers (to stdpath)
   'williamboman/mason.nvim',
@@ -18,9 +13,13 @@ require('lazy').setup {
   { -- lsp
     'neovim/nvim-lspconfig',
     dependencies = {
-      'j-hui/fidget.nvim', -- useful status updates for lsp
       'folke/neodev.nvim', -- additional lua configuration, makes nvim stuff amazing
     },
+  },
+
+  { -- useful status updates for lsp
+    'j-hui/fidget.nvim',
+    config = function() require('fidget').setup() end,
   },
 
   { -- autocompletion
@@ -33,7 +32,7 @@ require('lazy').setup {
   { -- highlight, edit, navigation
     'nvim-treesitter/nvim-treesitter',
     build = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
+      require('nvim-treesitter.install').update { with_sync = true }
     end,
     dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
   },
@@ -54,19 +53,18 @@ require('lazy').setup {
   -- file management
   {
     'nvim-tree/nvim-tree.lua',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
-    },
+    priority = 1000,
+    dependencies = { 'nvim-tree/nvim-web-devicons', }, -- icons
     tag = 'nightly', -- optional, updated every week. (see issue #1193)
   },
 
-  {"akinsho/toggleterm.nvim", 
-    -- tag = '*',
-    config = function() require("toggleterm").setup() end,
+  {
+    'akinsho/toggleterm.nvim', -- tag = '*',
+    config = function() require('toggleterm').setup() end,
   },
 
   {
-    'akinsho/bufferline.nvim', -- tag = "v3.*", 
+    'akinsho/bufferline.nvim', -- tag = 'v3.*', 
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function() end,
   },
@@ -83,22 +81,27 @@ require('lazy').setup {
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', cond = vim.fn.executable 'make' == 1 },
 
   -- markdown
-  -- use 'davidgranstrom/nvim-markdown-preview' -- based on floated pacdoc
-  { "iamcco/markdown-preview.nvim", build = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, },
+  {
+    'iamcco/markdown-preview.nvim', 
+    build = 'cd app && npm install', 
+    config = function() vim.g.mkdp_filetypes = { 'markdown' } end, 
+    ft = { 'markdown' }, 
+  },
 
   {
     'askfiy/nvim-picgo',
     config = function() -- it doesn't require you to do any configuration
-      require("nvim-picgo").setup()
+      require('nvim-picgo').setup()
     end
   },
 
   -- edit
-  { "linty-org/readline.nvim"},
-  { "kylechui/nvim-surround",
-    -- tag = "*",
+  'linty-org/readline.nvim',
+  {
+    'kylechui/nvim-surround',
+    -- tag = '*',
     config = function()
-      require("nvim-surround").setup({})
+      require('nvim-surround').setup({})
     end
   },
 
@@ -106,7 +109,7 @@ require('lazy').setup {
   'tpope/vim-sleuth', -- detect tabstop and shiftwidth automatically
 
   -- game
-  "alec-gibson/nvim-tetris",
+  'alec-gibson/nvim-tetris',
 
   -- latex
   -- {
@@ -121,16 +124,16 @@ require('lazy').setup {
 
   -- {'lervag/vimtex'},
   {
-    "iurimateus/luasnip-latex-snippets.nvim",
+    'iurimateus/luasnip-latex-snippets.nvim',
     branch = 'markdown',
-    dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
+    dependencies = { 'L3MON4D3/LuaSnip', 'lervag/vimtex' },
     config = function()
       require'luasnip-latex-snippets'.setup({ use_treesitter = true }) --{ use_treesitter = true }
     end,
-    ft = { "tex", "markdown" },
+    ft = { 'tex', 'markdown' },
   },
 
-  { "karb94/neoscroll.nvim" },
+  { 'karb94/neoscroll.nvim' },
 
   -- TODO
   -- better markdown
@@ -144,9 +147,9 @@ require('lazy').setup {
   'crispgm/telescope-heading.nvim',
 
   { -- incremental rename
-    "smjonas/inc-rename.nvim",
+    'smjonas/inc-rename.nvim',
     config = function()
-      require("inc_rename").setup()
+      require('inc_rename').setup()
     end,
   },
 
@@ -155,6 +158,11 @@ require('lazy').setup {
     config = function() require('aerial').setup() end
   },
 
+  -- rust
+
+  'simrat39/rust-tools.nvim',
+  'mfussenegger/nvim-dap',
+  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"} },
 }
 
 require('lualine').setup {
@@ -222,6 +230,34 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+local rt_opt = {
+  tools = {
+    runnables = {
+      use_telescope = true,
+    },
+    inlay_hints = {
+      auto = true,
+      show_parameter_hints = false,
+      parameter_hints_prefix = "",
+      other_hints_prefix = "",
+    },
+  },
+
+  server = {
+    on_attach = on_attach,
+    settings = {
+      ["rust-analyzer"] = {
+        -- enable clippy on save
+        checkOnSave = {
+          command = "clippy",
+        },
+      },
+    },
+  },
+}
+
+require('rust-tools').setup(rt_opt)
+
 -- setup neovim lua configuration
 require('neodev').setup()
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -238,10 +274,10 @@ local args = {
 }
 
 local servers = {
-  -- clangd = {},
+  clangd = {},
   gopls = {},
+  rust_analyzer = {},
   -- pyright = {},
-  -- rust_analyzer = {},
   -- tsserver = {},
   -- texlab = {
   --   texlab = {
@@ -251,12 +287,12 @@ local servers = {
   --     }
   --   }
   -- },
-  -- sumneko_lua = {
-  --   Lua = {
-  --     workspace = { checkThirdParty = false },
-  --     telemetry = { enable = false },
-  --   },
-  -- },
+  lua_ls = {
+    Lua = {
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
+    },
+  },
 }
 
 -- setup mason so it can manage external tooling
@@ -277,11 +313,11 @@ mason_lspconfig.setup_handlers {
     }
   end,
 
-  -- ["texlab"] = function ()
+  -- ['texlab'] = function ()
   --   require('lspconfig').texlab.setup({
   -- end
   --   })
-  -- ["marksman"] = function()
+  -- ['marksman'] = function()
   --   require('lspconfig').marksman.setup {
   --     on_attach = on_attach,
   --     capabilities = capabilities,
@@ -298,7 +334,7 @@ mason_lspconfig.setup_handlers {
 
 -- core API
 -- LaunchMarksman = function()
---   local client_id = vim.lsp.start_client({cmd = {"marksman", "server"}})
+--   local client_id = vim.lsp.start_client({cmd = {'marksman', 'server'}})
 --   vim.lsp.buf_attach_client(0, client_id)
 --   local client = vim.lsp.get_client_by_id(client_id)
 --
@@ -322,8 +358,6 @@ mason_lspconfig.setup_handlers {
 --   -- capabilities=capabilities,
 -- }
 
--- turn on lsp status information
-require('fidget').setup()
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
