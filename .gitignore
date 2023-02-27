@@ -12,4 +12,4 @@
 !.config/alacritty
 !.config/kitty
 !.config/friendly-snippets
-
+!.config/tmux/tmux.conf
