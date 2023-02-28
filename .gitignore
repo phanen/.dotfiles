@@ -13,10 +13,11 @@
 
 !.config/nvim
 !.config/lf
-!.config/alacritty
 !.config/kitty
+!.config/alacritty
 !.config/friendly-snippets
 
-!.config/tmux/*
+!.config/tmux/
+.config/tmux/*
 !.config/tmux/tmux.conf
 
