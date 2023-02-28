@@ -5,7 +5,7 @@
 # sudo kbdrate -d 150 -r 25
 
 PS1='[\u@\h \W]\$ '
-eval "$(starship init bash)"
+# eval "$(starship init bash)"
 
 # alias sl='slstatus &'
 
@@ -32,6 +32,10 @@ export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export XDG_CONFIG_DIRS="/etc/xdg"
 
 export PATH="$PATH:$HOME/bin:$XDG_DATA_HOME/nvim/mason/bin:$HOME/.local/bin"
+
+cdev() {
+    export PATH="$PATH:$HOME/bin:$XDG_DATA_HOME/nvim/mason/bin:$HOME/.local/bin:$HOME/demo/dev/depot_tools"
+}
 
 # proxy
 export http_proxy="http://localhost:7890"
@@ -158,8 +162,6 @@ ipif() {
     echo
 }
 
-
-
 ATHEME="$XDG_CONFIG_HOME"/alacritty/alacritty-theme/themes/
 ACONFIG="$XDG_CONFIG_HOME"/alacritty/alacritty.yml
 alswitch() { # alacritty switch theme
@@ -187,6 +189,12 @@ bind '"\C-o":"lfcd\C-m"'
 bind '"\C-t":"`dmenu_path | fzf`\C-m"'
 
 # tmux
+
+diskcheck() {
+   sudo smartctl -a /dev/nvme0n1
+   sudo smartctl -a /dev/nvme1n1
+}
+
 
 [[ -z $MYVIMRC ]] && neofetch
 
