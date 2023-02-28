@@ -11,6 +11,10 @@
 !.config/
 .config/*
 
+!.config/git
+.config/git/*
+!.config/git/config
+
 !.config/nvim
 !.config/lf
 !.config/kitty
@@ -20,4 +24,5 @@
 !.config/tmux/
 .config/tmux/*
 !.config/tmux/tmux.conf
+
 
