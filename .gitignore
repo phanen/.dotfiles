@@ -1,15 +1,22 @@
 /*
 
 !.gitignore
+!.gitmodules
 
 !.bashrc
 !.bash_profile
 !.inputrc
 
 # .config
+!.config/
+.config/*
+
 !.config/nvim
 !.config/lf
 !.config/alacritty
 !.config/kitty
 !.config/friendly-snippets
+
+!.config/tmux/*
 !.config/tmux/tmux.conf
+
