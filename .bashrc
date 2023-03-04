@@ -86,6 +86,7 @@ alias cn="$EDITOR $XDG_CONFIG_HOME/nvim"
 alias cs="$EDITOR $XDG_CONFIG_HOME/friendly-snippets/"
 alias cf="$EDITOR $XDG_CONFIG_HOME/lf"
 alias ct="$EDITOR $XDG_CONFIG_HOME/tmux/tmux.conf"
+alias cg="$EDITOR $XDG_CONFIG_HOME/git/config"
 
 ## sdu wifi
 # export sduwifi=101.76.193.1
