@@ -40,6 +40,7 @@ cdev() {
 # proxy
 export http_proxy="http://localhost:7890"
 export https_proxy="http://localhost:7890"
+export all_proxy="http://localhost:7890"
 
 shopt -s autocd
 shopt -s checkwinsize
@@ -104,14 +105,14 @@ dop() {
 #   mkdir -p $2 && mv $1 $2;
 # }
 
+# awesome fzf 
 FZF_DIR=". $HOME/Downloads $HOME/mnt $HOME/QQ_recv"
 fzp() { fzf --margin 5% --padding 5% --border --preview 'cat {}'; }
-# awesome fzf 
 fcd() { cd $(dirname $(fzf)); }
 fvi() { du -a $FZF_DIR | awk '{print $2}' | fzf | xargs -r $EDITOR;}
 # fpd() { du -a $FZF_DIR | awk '{print $2}' | fzf --query pdf$ | xargs -r $PDF;}
-
 fpd() { $PDF "$(fzf)" > /dev/null 2>&1; }
+fmp() { mpv "$(fzf)" > /dev/null 2>&1; }
 
 fhis() { stty -echo && history | grep ""$@ | awk '{$1=$2=$3=""; print $0}' | fzf | xargs -I {} xdotool type {}  && stty echo; }
 

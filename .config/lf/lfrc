@@ -129,3 +129,8 @@ map a push %mkdir<space>
 #
 map Md %lf-mkdir
 map Mf %lf-mkfile
+
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
