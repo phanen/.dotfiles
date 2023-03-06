@@ -6,6 +6,7 @@
 !.bashrc
 !.bash_profile
 !.inputrc
+!.vimrc
 
 # .config
 !.config/
