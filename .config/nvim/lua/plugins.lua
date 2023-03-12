@@ -50,7 +50,8 @@ require('lazy').setup {
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
 
-  { -- highlight, edit, navigation
+  {
+    -- highlight, edit, navigation
     'nvim-treesitter/nvim-treesitter',
     build = function() require('nvim-treesitter.install').update { with_sync = true } end,
     dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
@@ -73,7 +74,8 @@ require('lazy').setup {
   'crispgm/telescope-heading.nvim',
 
   -- functionality
-  { -- file
+  {
+    -- file
     'nvim-tree/nvim-tree.lua',
     lazy = false,
     priority = 1000,
@@ -130,93 +132,93 @@ require('lazy').setup {
   },
 
   {
-  -- incremental rename
-  'smjonas/inc-rename.nvim',
-  config = function()
-  require('inc_rename').setup()
-  end,
+    -- incremental rename
+    'smjonas/inc-rename.nvim',
+    config = function()
+      require('inc_rename').setup()
+    end,
   },
 
   -- TODO
   -- markdown
   {
-  'iamcco/markdown-preview.nvim',
-  build = 'cd app && npm install',
-  config = function() vim.g.mkdp_filetypes = { 'markdown' } end,
-  ft = { 'markdown' },
+    'iamcco/markdown-preview.nvim',
+    build = 'cd app && npm install',
+    config = function() vim.g.mkdp_filetypes = { 'markdown' } end,
+    ft = { 'markdown' },
   },
 
   {
-  'askfiy/nvim-picgo',
-  config = function() require('nvim-picgo').setup() end
+    'askfiy/nvim-picgo',
+    config = function() require('nvim-picgo').setup() end
   },
 
   {
-  'jakewvincent/mkdnflow.nvim',
-  config = function()
-  require('mkdnflow').setup {
-  mappings = {
-  MkdnEnter = { { 'n', 'v' }, '<CR>' },
-  MkdnTab = false,
-  MkdnSTab = false,
-  MkdnNextLink = { 'n', '<Tab>' },
-  MkdnPrevLink = { 'n', '<S-Tab>' },
-  MkdnNextHeading = { 'n', ']]' },
-MkdnPrevHeading = { 'n', '[[' },
-MkdnGoBack = { 'n', '<BS>' },
-MkdnGoForward = { 'n', '<Del>' },
-MkdnCreateLink = false,                                      -- see MkdnEnter
-MkdnCreateLinkFromClipboard = { { 'n', 'v' }, '<leader>p' }, -- see MkdnEnter
-MkdnFollowLink = false,                                      -- see MkdnEnter
-MkdnDestroyLink = { 'n', '<M-CR>' },
-MkdnTagSpan = { 'v', '<M-CR>' },
-MkdnMoveSource = false,
-MkdnYankAnchorLink = { 'n', 'ya' },
-MkdnYankFileAnchorLink = { 'n', 'yfa' },
-MkdnIncreaseHeading = { 'n', '+' },
-MkdnDecreaseHeading = { 'n', '-' },
-MkdnToggleToDo = { { 'n', 'v' }, '<C-Space>' },
-MkdnNewListItem = false,
-MkdnNewListItemBelowInsert = { 'n', 'o' },
-MkdnNewListItemAboveInsert = { 'n', 'O' },
-MkdnExtendList = false,
-MkdnUpdateNumbering = { 'n', '<leader>nn' },
-MkdnTableNextCell = { 'i', '<Tab>' },
-MkdnTablePrevCell = { 'i', '<S-Tab>' },
-MkdnTableNextRow = false,
-MkdnTablePrevRow = { 'i', '<M-CR>' },
-MkdnTableNewRowBelow = { 'n', '<leader>ir' },
-MkdnTableNewRowAbove = { 'n', '<leader>iR' },
-MkdnTableNewColAfter = { 'n', '<leader>ic' },
-MkdnTableNewColBefore = { 'n', '<leader>iC' },
-MkdnFoldSection = { 'n', '<leader>f' },
-MkdnUnfoldSection = { 'n', '<leader>F' }
+    'jakewvincent/mkdnflow.nvim',
+    config = function()
+      require('mkdnflow').setup {
+        mappings = {
+          MkdnNextHeading = { 'n', ']]' },
+          MkdnPrevHeading = { 'n', '[[' },
+          MkdnNewListItemBelowInsert = { 'n', 'o' },
+          MkdnNewListItemAboveInsert = { 'n', 'O' },
+          MkdnCreateLinkFromClipboard = { { 'n', 'v' }, '<leader>p' }, -- see MkdnEnter
+          MkdnEnter = false,
+          MkdnTab = false,
+          MkdnSTab = false,
+          MkdnNextLink = false,
+          MkdnPrevLink = false,
+          MkdnGoBack = { 'n', '<BS>' },
+          MkdnGoForward = { 'n', '<Del>' },
+          MkdnCreateLink = false,                            -- see MkdnEnter
+          MkdnFollowLink = false,                            -- see MkdnEnter
+          MkdnDestroyLink = { 'n', '<M-CR>' },
+          MkdnTagSpan = { 'v', '<M-CR>' },
+          MkdnMoveSource = false,
+          MkdnYankAnchorLink = { 'n', 'ya' },
+          MkdnYankFileAnchorLink = { 'n', 'yfa' },
+          MkdnIncreaseHeading = { 'n', '+' },
+          MkdnDecreaseHeading = { 'n', '-' },
+          MkdnToggleToDo = { { 'n', 'v' }, '<C-Space>' },
+          MkdnNewListItem = false,
+          MkdnExtendList = false,
+          MkdnUpdateNumbering = { 'n', '<leader>nn' },
+          MkdnTableNextCell = { 'i', '<Tab>' },
+          MkdnTablePrevCell = { 'i', '<S-Tab>' },
+          MkdnTableNextRow = false,
+          MkdnTablePrevRow = { 'i', '<M-CR>' },
+          MkdnTableNewRowBelow = { 'n', '<leader>ir' },
+          MkdnTableNewRowAbove = { 'n', '<leader>iR' },
+          MkdnTableNewColAfter = { 'n', '<leader>ic' },
+          MkdnTableNewColBefore = { 'n', '<leader>iC' },
+          MkdnFoldSection = { 'n', '<leader>f' },
+          MkdnUnfoldSection = { 'n', '<leader>F' }
         }
       }
-end
+    end
   },
 
--- latex
--- {
---   'f3fora/nvim-texlabconfig',
---   config = function() require('texlabconfig').setup() end,
---   ft = { 'tex', 'bib' }, -- for lazy loading build = 'go build'
--- },
--- {'lervag/vimtex'},
+  -- latex
+  -- {
+  --   'f3fora/nvim-texlabconfig',
+  --   config = function() require('texlabconfig').setup() end,
+  --   ft = { 'tex', 'bib' }, -- for lazy loading build = 'go build'
+  -- },
+  -- {'lervag/vimtex'},
 
-{
-  -- math mode snippets
-  'iurimateus/luasnip-latex-snippets.nvim',
-  branch = 'markdown',
-  dependencies = { 'L3MON4D3/LuaSnip', 'lervag/vimtex' },
-  config = function()
-    require 'luasnip-latex-snippets'.setup({ use_treesitter = true }) --{ use_treesitter = true }
-  end,
-  ft = { 'tex', 'markdown' },
-},
+  {
+    -- math mode snippets
+    'iurimateus/luasnip-latex-snippets.nvim',
+    branch = 'markdown',
+    dependencies = { 'L3MON4D3/LuaSnip', 'lervag/vimtex' },
+    config = function()
+      require 'luasnip-latex-snippets'.setup({ use_treesitter = true }) --{ use_treesitter = true }
+    end,
+    ft = { 'tex', 'markdown' },
+  },
 
--- rust
-'simrat39/rust-tools.nvim',
+  -- rust
+  'simrat39/rust-tools.nvim',
 
   -- debug
   'mfussenegger/nvim-dap',
@@ -226,7 +228,7 @@ end
     dependencies = "neovim/nvim-lspconfig"
   },
   'theHamsta/nvim-dap-virtual-text',
-  -- 
+  --
   -- game
   'alec-gibson/nvim-tetris',
 }
@@ -291,4 +293,3 @@ require("nvim-tree").setup({
     dotfiles = true,
   },
 })
-

@@ -33,6 +33,9 @@ export XDG_CONFIG_DIRS="/etc/xdg"
 
 export PATH="$PATH:$HOME/bin:$XDG_DATA_HOME/nvim/mason/bin:$HOME/.local/bin"
 
+export JAVA_HOME="/opt/jdk-14"
+export PATH=$JAVA_HOME/bin:$PATH
+
 cdev() {
     export PATH="$PATH:$HOME/bin:$XDG_DATA_HOME/nvim/mason/bin:$HOME/.local/bin:$HOME/demo/dev/depot_tools"
 }
@@ -117,6 +120,10 @@ fmp() { mpv "$(fzf)" > /dev/null 2>&1; }
 fhis() { stty -echo && history | grep ""$@ | awk '{$1=$2=$3=""; print $0}' | fzf | xargs -I {} xdotool type {}  && stty echo; }
 
 
+fclash() {
+    clash -d `echo -e "$XDG_CONFIG_HOME/clash/\n$XDG_CONFIG_HOME/clash/yy" | fzf`
+}
+
 calc() {
     echo "scale=3;$@" | bc -l
 }
@@ -173,13 +180,13 @@ alswitch() { # alacritty switch theme
   # xsetroot -name "$random_theme  $(date)"
 }
 
-alselect() { # alacritty select theme
+sala() { # alacritty select theme
   theme=$(ls -1 "$ATHEME" | fzf) 
   sed -i '3s/themes\/.*\.ya\?ml$/themes\/'$theme'/'  $ACONFIG
   echo "$theme"
 }
 
-alblink() { # alacritty blink theme
+bala() { # alacritty blink theme
   while true; do alswitch && sleep 0.1; done > /dev/null
 }
 

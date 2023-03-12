@@ -36,11 +36,12 @@ vim.o.scrolloff = 8
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
--- Set colorscheme
 vim.o.termguicolors = true
+-- Set colorscheme
 -- vim.cmd [[colorscheme onedark]]
 -- vim.o.autochdir = true
 
+-- vim.cmd [[colorscheme tokyonight]]
 vim.cmd [[colorscheme tokyonight]]
 
 -- Set completeo to have a better completion experience

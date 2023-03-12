@@ -34,7 +34,7 @@ vim.keymap.set('n', '<leader>fg', tb.live_grep, { desc = '[f]ind by [g]rep' })
 vim.keymap.set('n', '<leader>fw', tb.grep_string, { desc = '[f]ind current [w]ord' })
 vim.keymap.set('n', '<leader>fd', tb.diagnostics, { desc = '[f]ind [d]iagnostics' })
 
-vim.keymap.set('n', '<leader>fh', "<cmd>Telescope heading", { desc = '[f]ind [h]eadings' })
+vim.keymap.set('n', '<leader>fh', "<cmd>Telescope heading<cr>", { desc = '[f]ind [h]eadings' })
 vim.keymap.set('n', '<leader>fp', tb.help_tags, { desc = '[f]ind [h]elp' })
 vim.keymap.set('n', '<leader>fs', tb.lsp_document_symbols, { desc = '[s]earch [s]ymbol' })
 
