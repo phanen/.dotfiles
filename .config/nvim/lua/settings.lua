@@ -51,6 +51,11 @@ vim.cmd [[colorscheme tokyonight]]
 -- vim.api.nvim_set_hl(1, "Normal", {bg = "none"})
 -- vim.api.nvim_set_hl(1, "NormalFloat", {bg = "none"})
 
+-- vim.cmd [[
+-- 	set list
+-- 	set listchars+=eol:↳
+-- ]]
+
 -- dump result of Ex
 vim.cmd [[
 function! s:Capture(bang, cmd)

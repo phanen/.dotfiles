@@ -41,6 +41,9 @@ cdev() {
 }
 
 # proxy
+# http_proxy="http://localhost:7890" https_proxy="http://localhost:7890" all_proxy="http://localhost:7890"
+
+# proxy
 export http_proxy="http://localhost:7890"
 export https_proxy="http://localhost:7890"
 export all_proxy="http://localhost:7890"
