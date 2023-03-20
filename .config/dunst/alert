@@ -1,0 +1,3 @@
+#!/bin/sh
+
+paplay /home/phanium/.local/share/sounds/where-the-fuck-i-am.ogg
