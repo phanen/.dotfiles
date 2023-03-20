@@ -1,6 +1,9 @@
 # non-interactively
 [[ $- != *i* ]] && return
 
+# better cd
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
 # sudo wpa_supplicant -B -i wlp0s20f3 -c /etc/wpa_supplicant/wpa_supplicant.conf &&
 # sudo kbdrate -d 150 -r 25
 
