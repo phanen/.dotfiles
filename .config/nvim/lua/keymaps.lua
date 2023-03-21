@@ -79,7 +79,7 @@ map('n', '<f4>', '<cmd>MarkdownPreview<cr>', opts)
 require('toggleterm').setup({
     open_mapping = [[<c-\>]],
     start_in_insert = true,
-    direction = 'horizontal'
+    direction = 'float'
 })
 
 local Term = require('toggleterm.terminal').Terminal

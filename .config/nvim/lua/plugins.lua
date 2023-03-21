@@ -25,6 +25,8 @@ require('lazy').setup {
       local null_ls = require("null-ls")
       null_ls.setup({
         sources = {
+          -- null_ls.builtins.diagnostics.cspell,
+          -- null_ls.builtins.code_actions.cspell,
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.diagnostics.eslint,
           null_ls.builtins.completion.spell,
@@ -75,7 +77,7 @@ require('lazy').setup {
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.1',
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-tree.lua' }
+    dependencies = { 'nvim-lua/plenary.nvim' }
   },
 
   {
@@ -91,7 +93,6 @@ require('lazy').setup {
     -- file
     'nvim-tree/nvim-tree.lua',
     lazy = false,
-    priority = 1000,
     dependencies = { 'nvim-tree/nvim-web-devicons', },
     tag = 'nightly',
   },
@@ -116,6 +117,18 @@ require('lazy').setup {
     config = function() require('toggleterm').setup() end,
   },
 
+  -- { -- cmdline
+  --   "folke/noice.nvim",
+  --   config = function() require("noice").setup({}) end,
+  --   dependencies = {
+  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+  --     "MunifTanjim/nui.nvim",
+  --     -- OPTIONAL:
+  --     --   `nvim-notify` is only needed, if you want to use the notification view.
+  --     --   If not available, we use `mini` as the fallback
+  --     "rcarriga/nvim-notify",
+  --   }
+  -- },
   -- scroll
   { 'karb94/neoscroll.nvim' },
 
@@ -126,8 +139,39 @@ require('lazy').setup {
 
   -- theme
   'navarasu/onedark.nvim',
-  'folke/tokyonight.nvim',
+  {
+    'folke/tokyonight.nvim',
+  },
   'rose-pine/neovim',
+  -- funcy
+  -- {
+  --   'xiyaowong/transparent.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("transparent").setup({
+  --       groups = { -- table: default groups
+  --         'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
+  --         'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
+  --         'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
+  --         'SignColumn', 'CursorLineNr', 'EndOfBuffer' 
+  --       },
+  --       extra_groups = { -- table/string: additional groups that should be cleared
+  --         -- In particular, when you set it to 'all', that means all available groups
+  --
+  --         -- example of akinsho/nvim-bufferline.lua
+  --         "BufferLineTabClose",
+  --         "BufferlineBufferSelected",
+  --         "BufferLineFill",
+  --         "BufferLineBackground",
+  --         "BufferLineSeparator",
+  --         "BufferLineIndicatorSelected",
+  --         'NvimTreeNormal',
+  --       },
+  --       exclude_groups = {}, -- table: groups you don't want to clear
+  --     })
+  --   end,
+  -- },
 
   -- edit enhancement
   'linty-org/readline.nvim',
@@ -241,7 +285,12 @@ require('lazy').setup {
     dependencies = "neovim/nvim-lspconfig"
   },
   'theHamsta/nvim-dap-virtual-text',
-  --
+  -- disgnose
+  {
+    "folke/trouble.nvim",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    config = function() require("trouble").setup {} end
+  },
   -- game
   'alec-gibson/nvim-tetris',
 }
@@ -290,19 +339,69 @@ require('Comment').setup()
 
 
 require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
+  hijack_netrw = true,
 })
+
+
+-- local setup, nvimtree = pcall(require, "nvim-tree")
+-- if not setup then return end
+--
+-- vim.cmd([[
+--   nnoremap - :NvimTreeToggle<CR>
+-- ]])
+--
+-- -- local keymap = vim.keymap -- for conciseness
+-- -- keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>") -- toggle file explorer
+--
+-- -- vim.opt.foldmethod = "expr"
+-- -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- -- vim.opt.foldenable = false --                  " Disable folding at startup.
+--
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+--
+-- vim.opt.termguicolors = true
+--
+-- local HEIGHT_RATIO = 0.8 -- You can change this
+-- local WIDTH_RATIO = 0.5  -- You can change this too
+--
+-- nvimtree.setup({
+--   disable_netrw = true,
+--   hijack_netrw = true,
+--   respect_buf_cwd = true,
+--   sync_root_with_cwd = true,
+--   view = {
+--     relativenumber = true,
+--     float = {
+--       enable = true,
+--       open_win_config = function()
+--         local screen_w = vim.opt.columns:get()
+--         local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+--         local window_w = screen_w * WIDTH_RATIO
+--         local window_h = screen_h * HEIGHT_RATIO
+--         local window_w_int = math.floor(window_w)
+--         local window_h_int = math.floor(window_h)
+--         local center_x = (screen_w - window_w) / 2
+--         local center_y = ((vim.opt.lines:get() - window_h) / 2)
+--                          - vim.opt.cmdheight:get()
+--         return {
+--           border = "rounded",
+--           relative = "editor",
+--           row = center_y,
+--           col = center_x,
+--           width = window_w_int,
+--           height = window_h_int,
+--         }
+--         end,
+--     },
+--     width = function()
+--       return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
+--     end,
+--   },
+--   -- filters = {
+--   --   custom = { "^.git$" },
+--   -- },
+--   -- renderer = {
+--   --   indent_width = 1,
+--   -- },
+-- })

@@ -39,6 +39,9 @@ export PATH="$PATH:$HOME/bin:$XDG_DATA_HOME/nvim/mason/bin:$HOME/.local/bin"
 export JAVA_HOME="/opt/jdk-14"
 export PATH=$JAVA_HOME/bin:$PATH
 
+# source $HOME/bin/fzf-bash-cmp
+# bind -x '"\t": /home/phanium/bin/fzf-bash-cmp'
+
 cdev() {
     export PATH="$PATH:$HOME/bin:$XDG_DATA_HOME/nvim/mason/bin:$HOME/.local/bin:$HOME/demo/dev/depot_tools"
 }
@@ -220,3 +223,5 @@ diskcheck() {
   # sudo ip r add default via 192.168.1.1 dev wlp0s20f3 &&
   systemctl restart --user clash &&
   cd ~ && startx
+
+# source $HOME/bin/fzf-obc/bin/fzf-obc.bash

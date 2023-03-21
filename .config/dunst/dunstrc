@@ -1,9 +1,5 @@
-# See dunst(5) for all configuration options
-
 [global]
     ### Display ###
-
-    # Which monitor should the notifications be displayed on.
     monitor = 0
 
     # Display notification on focused monitor.  Possible modes are:
@@ -73,7 +69,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.). (X11 only)
-    transparency = 0
+    transparency = 50
 
     # Draw a line of "separator_height" pixel height between two
     # notifications.
@@ -258,28 +254,6 @@
     # user defined timeout.
     ignore_dbusclose = false
 
-    ### Wayland ###
-    # These settings are Wayland-specific. They have no effect when using X11
-
-    # Uncomment this if you want to let notications appear under fullscreen
-    # applications (default: overlay)
-    # layer = top
-
-    # Set this to true to use X11 output on Wayland.
-    force_xwayland = false
-
-    ### Legacy
-
-    # Use the Xinerama extension instead of RandR for multi-monitor support.
-    # This setting is provided for compatibility with older nVidia drivers that
-    # do not support RandR and using it on systems that support RandR is highly
-    # discouraged.
-    #
-    # By enabling this setting dunst will not be able to detect when a monitor
-    # is connected or disconnected which might break follow mode if the screen
-    # layout changes.
-    force_xinerama = false
-
     ### mouse
 
     # Defines list of actions for each mouse event
@@ -299,8 +273,6 @@
     mouse_middle_click = do_action, close_current
     mouse_right_click = close_all
 
-# Experimental features that may or may not work correctly. Do not expect them
-# to have a consistent behaviour across releases.
 [experimental]
     # Calculate the dpi to use on a per-monitor basis.
     # If this setting is enabled the Xft.dpi value will be ignored and instead
@@ -311,20 +283,14 @@
 
 
 [urgency_low]
-    # IMPORTANT: colors have to be defined in quotation marks.
-    # Otherwise the "#" and following would be interpreted as a comment.
     background = "#222222"
     foreground = "#888888"
     timeout = 10
-    # Icon for notifications with low urgency, uncomment to enable
-    #default_icon = /path/to/icon
 
 [urgency_normal]
     background = "#285577"
     foreground = "#ffffff"
     timeout = 10
-    # Icon for notifications with normal urgency, uncomment to enable
-    #default_icon = /path/to/icon
 
 [urgency_critical]
     background = "#900000"
