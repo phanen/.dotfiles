@@ -20,10 +20,9 @@ vim.o.smartcase = true
 vim.o.hlsearch = false
 
 -- 1 tab = 2 space
-vim.o.tabstop = 2
+vim.o.tabstop = 4
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
-
 
 vim.o.expandtab = true
 vim.o.autoindent = true
@@ -37,12 +36,11 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
 vim.o.termguicolors = true
--- Set colorscheme
--- vim.cmd [[colorscheme onedark]]
--- vim.o.autochdir = true
 
+-- Set colorscheme
+-- vim.o.autochdir = true
 -- vim.cmd [[colorscheme tokyonight]]
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd [[colorscheme catppuccin]]
 
 -- Set completeo to have a better completion experience
 -- TODO
