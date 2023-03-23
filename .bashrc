@@ -214,7 +214,7 @@ diskcheck() {
 }
 
 
-[[ -z $MYVIMRC ]] && neofetch
+[[ -z $MYVIMRC ]] && uwufetch
 
 [[ $(tty) = '/dev/tty1' ]] && 
   # sudo dhcpcd &&
@@ -225,3 +225,4 @@ diskcheck() {
   cd ~ && startx
 
 # source $HOME/bin/fzf-obc/bin/fzf-obc.bash
+# source ~/.local/share/blesh/ble.sh
