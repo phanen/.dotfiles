@@ -56,6 +56,7 @@ require('lazy').setup {
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-buffer',
+  'hrsh7th/cmp-cmdline',
   'L3MON4D3/LuaSnip',
   'saadparwaiz1/cmp_luasnip',
 
@@ -295,10 +296,10 @@ require('lazy').setup {
   {
     "folke/trouble.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
-    config = function() require("trouble").setup {} end
-  },
-  -- game
-  'alec-gibson/nvim-tetris',
+config = function() require("trouble").setup {} end
+},
+-- game
+'alec-gibson/nvim-tetris',
 }
 
 

@@ -11,7 +11,7 @@ cmp.setup {
     ['<c-p>'] = cmp.mapping.select_prev_item(),
     ['<c-n>'] = cmp.mapping.select_next_item(),
     ["<c-space>"] = cmp.mapping.complete({}),
-    ['<cr>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false, }),
+    ['<cr>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false, }), {"i", "c"}),
     ['<tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then luasnip.expand_or_jump()
@@ -40,6 +40,7 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer' },
+    { name = 'cmdline' },
   },
 
   formatting = {
@@ -58,9 +59,30 @@ cmp.setup {
 
 }
 
+
 -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 -- cmp.event:on(
 -- 'confirm_done',
 -- cmp_autopairs.on_confirm_done()
 -- )
 
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+      {
+        name = 'cmdline',
+        option = {
+          ignore_cmds = { 'Man', '!' }
+        }
+      }
+    })
+})
