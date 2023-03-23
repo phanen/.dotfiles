@@ -3,6 +3,7 @@ local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 
 cmp.setup {
+  enabled = function() vim.api.nvim_buf_get_option(0, 'modifiable') end,
   preselect = cmp.PreselectMode.None,
   mapping = {
     ['<c-d>'] = cmp.mapping.scroll_docs(-4),
