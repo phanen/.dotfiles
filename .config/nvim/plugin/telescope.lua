@@ -29,6 +29,7 @@ vim.keymap.set('n', '<leader>fb', tb.buffers, { desc = '[f]ind [b]uffers' })
 vim.keymap.set('n', '<leader>fr', tb.oldfiles, { desc = '[f]ind [r]ecents' })
 vim.keymap.set('n', '<leader>ff', tb.find_files, { desc = '[f]ind [f]iles' })
 vim.keymap.set('n', '<leader><space>', tb.find_files, { desc = '[f]ind [f]iles' })
+vim.keymap.set('n', '<leader>:', tb.command_history, { desc = 'command' })
 
 vim.keymap.set('n', '<leader>fg', tb.live_grep, { desc = '[f]ind by [g]rep' })
 vim.keymap.set('n', '<leader>fw', tb.grep_string, { desc = '[f]ind current [w]ord' })
