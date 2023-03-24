@@ -9,9 +9,10 @@
 
 PS1='[\u@\h \W]\$ '
 
-export EDITOR="nvim"
-export TERMINAL="alacritty"
-export BROWSER="chromium"
+export EDITOR=nvim
+export VISUAL=nvim
+export TERMINAL=alacritty
+[ -n "$DISPLAY" ] && export BROWSER=chromium || export BROWSER=links
 export PDF="chromium"
 export MANPAGER="/bin/sh -c \"col -b | vi -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 # export PAGER="most"
