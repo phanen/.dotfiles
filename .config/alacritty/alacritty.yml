@@ -65,7 +65,7 @@ font:
   #   family: FiraCode Nerd Font Mono
   #   style: Bold Italic
 
-  size: 11
+  size: 13
 
   # letter/line spacing
   offset:
