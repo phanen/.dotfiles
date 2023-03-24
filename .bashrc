@@ -8,9 +8,6 @@
 # sudo kbdrate -d 150 -r 25
 
 PS1='[\u@\h \W]\$ '
-# eval "$(starship init bash)"
-
-# alias sl='slstatus &'
 
 export EDITOR="nvim"
 export TERMINAL="alacritty"
@@ -30,21 +27,35 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
-
 export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export XDG_CONFIG_DIRS="/etc/xdg"
 
-export PATH="$PATH:$HOME/bin:$XDG_DATA_HOME/nvim/mason/bin:$HOME/.local/bin"
-
 export JAVA_HOME="/opt/jdk-14"
-export PATH=$JAVA_HOME/bin:$PATH
 
-# source $HOME/bin/fzf-bash-cmp
-# bind -x '"\t": /home/phanium/bin/fzf-bash-cmp'
-
-cdev() {
-    export PATH="$PATH:$HOME/bin:$XDG_DATA_HOME/nvim/mason/bin:$HOME/.local/bin:$HOME/demo/dev/depot_tools"
+append_path(){
+    # [ "$(id -u)" -ge 1000 ] || return
+    for p in "$@";
+    do
+        [ -d "$p" ] || continue
+        echo "$PATH" | grep -Eq "(^|:)$p(:|$)" && continue
+        export PATH="${PATH:+$PATH:}$p"
+    done
 }
+
+prepend_path(){
+    # [ "$(id -u)" -ge 1000 ] || return
+    for p in "$@";
+    do
+        [ -d "$p" ] || continue
+        echo "$PATH" | grep -Eq "(^|:)$p(:|$)" && continue
+        export PATH="$p${PATH:+:$PATH}"
+    done
+}
+
+append_path "$HOME/bin" "$XDG_DATA_HOME/nvim/mason/bin" "$HOME/.local/bin"
+prepend_path "$JAVA_HOME/bin"
+
+cdev() { append_path "$HOME/demo/dev/depot_tools"; }
 
 # proxy
 # http_proxy="http://localhost:7890" https_proxy="http://localhost:7890" all_proxy="http://localhost:7890"
@@ -68,8 +79,8 @@ xset r rate 200 45
 # xinput --set-prop 16 'libinput Accel Speed' 1
 # xset m 10 1
 
-alias ls='ls --color=auto'
-alias ll='ls -lah --color=auto'
+alias ls='lsd --color=auto'
+alias ll='lsd -lah --color=auto'
 alias l='ll'
 alias rm='rm -i'
 
@@ -123,8 +134,8 @@ fzp() { fzf --margin 5% --padding 5% --border --preview 'cat {}'; }
 fcd() { cd $(dirname $(fzf)); }
 fvi() { du -a $FZF_DIR | awk '{print $2}' | fzf | xargs -r $EDITOR;}
 # fpd() { du -a $FZF_DIR | awk '{print $2}' | fzf --query pdf$ | xargs -r $PDF;}
-fpd() { $PDF "$(fzf)" > /dev/null 2>&1; }
-fmp() { mpv "$(fzf)" > /dev/null 2>&1; }
+fpd() { $PDF "$(fzf)" >/dev/null 2>&1; }
+fmp() { mpv "$(fzf)" >/dev/null 2>&1; }
 
 fhis() { stty -echo && history | grep ""$@ | awk '{$1=$2=$3=""; print $0}' | fzf | xargs -I {} xdotool type {}  && stty echo; }
 
@@ -203,10 +214,16 @@ alias mx='chmod 755'
 # export MANPAGER="/bin/sh -c \"col -b | vi -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 ## key bindings
-bind '"\C-o":"lfcd\C-m"'
-bind '"\C-t":"`dmenu_path | fzf`\C-m"'
+bind '"\C-o":"\C-alfcd \C-e"'
+bind '"\C-t":"$(compgen -c | fzf)"'
+bind '"\C-v": "\C-avi \C-e"'
+bind '"\es": "\C-asudo \C-e"'
+bind '"\e\C-b": "\C-e > /dev/null 2>&1 &"'
+bind '"\e\C-l": "\C-e | less"'
+run-help() { help "$READLINE_LINE" 2>/dev/null || man "$READLINE_LINE"; }
+bind -m vi-insert -x '"\eh": run-help'
+bind -m emacs -x     '"\eh": run-help'
 
-# tmux
 
 diskcheck() {
    sudo smartctl -a /dev/nvme0n1
@@ -226,3 +243,7 @@ diskcheck() {
 
 # source $HOME/bin/fzf-obc/bin/fzf-obc.bash
 # source ~/.local/share/blesh/ble.sh
+# eval "$(zoxide init bash)"
+# eval "$(starship init bash)"
+# source $HOME/bin/fzf-bash-cmp
+# bind -x '"\t": /home/phanium/bin/fzf-bash-cmp'
