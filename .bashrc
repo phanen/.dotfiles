@@ -59,9 +59,6 @@ prepend_path "$JAVA_HOME/bin"
 cdev() { append_path "$HOME/demo/dev/depot_tools"; }
 
 # proxy
-# http_proxy="http://localhost:7890" https_proxy="http://localhost:7890" all_proxy="http://localhost:7890"
-
-# proxy
 export http_proxy="http://localhost:7890"
 export https_proxy="http://localhost:7890"
 export all_proxy="http://localhost:7890"
@@ -69,10 +66,8 @@ export all_proxy="http://localhost:7890"
 shopt -s autocd
 shopt -s checkwinsize
 
-LFCD="$XDG_CONFIG_HOME/lf/lfcd.sh"                                #  pre-built binary, make sure to use absolute path
-if [ -f "$LFCD" ]; then
-    . "$LFCD"
-fi
+LFCD="$XDG_CONFIG_HOME/lf/lfcd.sh"
+[ -f "$LFCD" ] && . "$LFCD"
 
 # set -o vi
 set -o emacs
@@ -84,11 +79,8 @@ alias ls='lsd --color=auto'
 alias ll='lsd -lah --color=auto'
 alias l='ll'
 alias rm='rm -i'
-
 alias grep='grep --color'
-
-alias chrome="chromium"
-## --proxy-server=\"localhost:7890\""
+alias chrome="chromium" ## --proxy-server=\"localhost:7890\""
 
 alias uma="sudo umount -R /mnt"
 alias todo="$EDITOR $HOME/TODO.md"
@@ -116,7 +108,7 @@ alias cg="$EDITOR $XDG_CONFIG_HOME/git/config"
 ## sdu wifi
 # export sduwifi=101.76.193.1
 sdulan() { nmcli dev wifi connect sdu_net; }
-chtox() { chmod 755 $1; }
+chtox() { chmod +x $1; }
 reorder () { ls * | sort -n -t _ -k 2; }
 
 # docker
@@ -124,10 +116,6 @@ alias doc="sudo systemctl start docker"
 dop() {
   docker start "$1" && docker attach "$1";
 }
-
-# mvp() {
-#   mkdir -p $2 && mv $1 $2;
-# }
 
 # awesome fzf 
 FZF_DIR=". $HOME/Downloads $HOME/mnt $HOME/QQ_recv"
