@@ -270,16 +270,16 @@ require('lazy').setup {
   -- },
   -- {'lervag/vimtex'},
 
-  {
-    -- math mode snippets
-    'iurimateus/luasnip-latex-snippets.nvim',
-    branch = 'markdown',
-    dependencies = { 'L3MON4D3/LuaSnip', 'lervag/vimtex' },
-    config = function()
-      require 'luasnip-latex-snippets'.setup({ use_treesitter = true }) --{ use_treesitter = true }
-    end,
-    ft = { 'tex', 'markdown' },
-  },
+  -- {
+  --   -- math mode snippets
+  --   'iurimateus/luasnip-latex-snippets.nvim',
+  --   branch = 'markdown',
+  --   dependencies = { 'L3MON4D3/LuaSnip', 'lervag/vimtex' },
+  --   config = function()
+  --     require 'luasnip-latex-snippets'.setup({ use_treesitter = true }) --{ use_treesitter = true }
+  --   end,
+  --   ft = { 'tex', 'markdown' },
+  -- },
 
   -- rust
   'simrat39/rust-tools.nvim',
