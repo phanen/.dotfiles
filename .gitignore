@@ -13,7 +13,7 @@
 .config/*
 
 # public configs
-!.config/.pkglist
+!.config/.pkglists
 !.config/nvim
 !.config/lf
 !.config/kitty
