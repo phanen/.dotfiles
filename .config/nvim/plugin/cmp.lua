@@ -6,11 +6,9 @@ cmp.setup {
   enabled = function() return vim.api.nvim_buf_get_option(0, 'modifiable') end,
   preselect = cmp.PreselectMode.None,
   mapping = {
-    ['<c-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<c-f>'] = cmp.mapping.scroll_docs(4),
     ['<c-e>'] = cmp.mapping.abort(),
-    ['<c-p>'] = cmp.mapping.select_prev_item(),
-    ['<c-n>'] = cmp.mapping.select_next_item(),
+    ['<c-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), {"i", "c"}),
+    ['<c-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "c"}),
     ["<c-space>"] = cmp.mapping.complete({}),
     ['<cr>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false, }), {"i", "c"}),
     ['<tab>'] = cmp.mapping(function(fallback)
@@ -41,7 +39,6 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer' },
-    { name = 'cmdline' },
   },
 
   formatting = {
