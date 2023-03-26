@@ -81,6 +81,9 @@ alias l='ll'
 alias rm='rm -i'
 alias grep='grep --color'
 alias chrome="chromium" ## --proxy-server=\"localhost:7890\""
+alias du=dust
+alias lt="ls --tree"
+alias lta="ls -a --tree"
 
 alias uma="sudo umount -R /mnt"
 alias todo="$EDITOR $HOME/TODO.md"
