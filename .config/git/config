@@ -6,13 +6,15 @@
 	defaultBranch = master
 
 [alias]
-	c = commit -am
+	a = add
+	c = commit
  	s = status
-	sclone = clone --depth=1
+	cl = clone
+	sl = clone --depth=1
 	co = checkout
  	df = diff --color --color-words --abbrev
  	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
-
+	who = shortlog -sn
 ; 	fpush = push --force
 ; 	amend = commit --amend --all --no-edit
 ; 	undocommit = reset HEAD~
