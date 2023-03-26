@@ -10,7 +10,7 @@ cmp.setup {
     ['<c-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), {"i", "c"}),
     ['<c-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "c"}),
     ["<c-space>"] = cmp.mapping.complete({}),
-    ['<cr>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false, }), {"i", "c"}),
+    ['<cr>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false, }), {"i"}),
     ['<tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then luasnip.expand_or_jump()
@@ -64,23 +64,23 @@ cmp.setup {
 -- cmp_autopairs.on_confirm_done()
 -- )
 
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-      {
-        name = 'cmdline',
-        option = {
-          ignore_cmds = { 'Man', '!' }
-        }
-      }
-    })
-})
+-- cmp.setup.cmdline('/', {
+--   mapping = cmp.mapping.preset.cmdline(),
+--   sources = {
+--     { name = 'buffer' }
+--   }
+-- })
+--
+-- cmp.setup.cmdline(':', {
+--   mapping = cmp.mapping.preset.cmdline(),
+--   sources = cmp.config.sources({
+--     { name = 'path' }
+--   }, {
+--       {
+--         name = 'cmdline',
+--         option = {
+--           ignore_cmds = { 'Man', '!' }
+--         }
+--       }
+--     })
+-- })
