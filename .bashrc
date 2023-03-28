@@ -75,15 +75,16 @@ xset r rate 200 45
 # xinput --set-prop 16 'libinput Accel Speed' 1
 # xset m 10 1
 
-alias ls='lsd --color=auto'
-alias ll='lsd -lah --color=auto'
-alias l='ll'
-alias rm='rm -i'
-alias grep='grep --color'
+alias ls="lsd --color=auto"
+alias ll="lsd -lah --color=auto"
+alias l="ll"
+alias rm="rm -i"
+alias grep="grep --color"
 alias chrome="chromium" ## --proxy-server=\"localhost:7890\""
 alias du=dust
 alias lt="ls --tree"
 alias lta="ls -a --tree"
+alias em="emacs -nw"
 
 alias uma="sudo umount -R /mnt"
 alias todo="$EDITOR $HOME/TODO.md"
@@ -95,8 +96,8 @@ alias cdswap="cd $XDG_STATE_HOME/nvim/swap/"
 alias ssu="sudo systemctl restart udevmon"
 alias ssc="systemctl restart --user clash"
 alias svi="sudo -E vi"
-alias ni="/usr/local/bin/nvim"
-alias sni="sudo -E ni"
+alias ni="neovide"
+alias sni="sudo -E neovide"
 
 # config
 alias sb="source $HOME/.bashrc"
