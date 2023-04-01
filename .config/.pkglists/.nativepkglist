@@ -8,6 +8,7 @@ asciiquarium
 autoconf
 automake
 awesome
+baidupcs-go
 base
 base-devel
 bash-completion
@@ -50,6 +51,7 @@ efibootmgr
 egl-wayland
 eglexternalplatform
 emacs
+eog
 evince
 exa
 fakeroot
@@ -126,7 +128,6 @@ namcap
 nano
 neofetch
 neovim
-neovim-qt
 networkmanager
 ninja
 nmap
