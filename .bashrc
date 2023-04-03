@@ -85,6 +85,9 @@ alias du=dust
 alias lt="ls --tree"
 alias lta="ls -a --tree"
 alias em="emacs -nw"
+alias lg="lazygit"
+
+alias rigdb="riscv64-linux-gnu-gdb"
 
 alias uma="sudo umount -R /mnt"
 alias todo="$EDITOR $HOME/TODO.md"
