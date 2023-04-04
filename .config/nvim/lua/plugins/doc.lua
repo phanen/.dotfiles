@@ -1,4 +1,5 @@
 return {
+
   {
     'iamcco/markdown-preview.nvim',
     build = 'cd app && npm install',
@@ -6,7 +7,7 @@ return {
     ft = { 'markdown' },
   },
 
-  {
+  { -- TODO lazy
     'askfiy/nvim-picgo',
     config = function() require('nvim-picgo').setup() end
   },
@@ -62,10 +63,11 @@ return {
     cond = false,
     config = function() require('texlabconfig').setup() end,
     ft = { 'tex', 'bib' }, -- for lazy loading 
-    build = 'go build'
+    build = 'go build',
   },
+
   {
-    'lervag/vimtex'
+    'lervag/vimtex',
     cond = false,
   },
 
