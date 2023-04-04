@@ -1,4 +1,3 @@
-
 -- overwrite "=
 vim.o.clipboard = "unnamedplus"
 vim.o.mouse = 'a'
@@ -36,11 +35,6 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
 vim.o.termguicolors = true
-
--- Set colorscheme
--- vim.o.autochdir = true
--- vim.cmd [[colorscheme tokyonight]]
-vim.cmd [[colorscheme catppuccin]]
 
 -- Set completeo to have a better completion experience
 -- TODO

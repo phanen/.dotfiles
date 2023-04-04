@@ -30,23 +30,6 @@ map('v', '>', '>gv', opts)
 -- better paste
 map('v', 'p', '"_dp', opts)
 
--- add readline mode
-local rdl = require 'readline'
--- kill
-map('!', '<c-k>', rdl.kill_line)
-map('!', '<c-u>', rdl.backward_kill_line)
-map('!', '<m-d>', rdl.kill_word)
-map('!', '<c-q>', rdl.backward_kill_word)
--- motion
-map('!', '<c-a>', rdl.beginning_of_line)
-map('!', '<c-e>', rdl.end_of_line)
-map('!', '<m-f>', rdl.forward_word)
-map('!', '<m-b>', rdl.backward_word)
-map('!', '<c-f>', '<right>')
-map('!', '<c-b>', '<left>')
-map('!', '<c-n>', '<down>')
-map('!', '<c-p>', '<up>')
-
 -- windows navigation
 map('n', '<c-h>', '<c-w>h', opts)
 map('n', '<c-j>', '<c-w>j', opts)
@@ -67,30 +50,10 @@ map('n', '<s-h>', ':bprevious<cr>', opts)
 map('n', '<a-j>', ':m .+1<cr>', opts)
 map('n', '<a-k>', ':m .-2<cr>', opts)
 
-map('n', '<f2>', '<cmd>NvimTreeToggle<cr>', opts)
-map('n', '<f3>', '<cmd>AerialToggle<cr>', opts)
-map('n', '<f4>', '<cmd>MarkdownPreview<cr>', opts)
-
 -- -- toy term
 -- map('n', '<m-t>', ':split term://bash<CR>i', opts)
 -- map('t', '<m-t>', '<c-\\><c-n>:bdelete! %<CR>', opts)
 
--- advanced term
-require('toggleterm').setup({
-    open_mapping = [[<c-\>]],
-    start_in_insert = true,
-    direction = 'float'
-})
-
-local Term = require('toggleterm.terminal').Terminal
-local pyterm = Term:new({
-    cmd = 'python',
-    directon = 'horizontal',
-})
-
-map('t', '<esc>', '<c-\\><c-n>', opts)
-map('n', '<leader>tt',  '<c-\\>', { noremap = true, silent = true })
-map('n', '<leader>tp', function() pyterm:toggle() end, opts)
 
 -- diagnostic
 map('n', '[d', vim.diagnostic.goto_prev, opts)

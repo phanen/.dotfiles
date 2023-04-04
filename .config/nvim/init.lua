@@ -1,39 +1,42 @@
+local g, fn, opt, loop, env, cmd = vim.g, vim.fn, vim.opt, vim.loop, vim.env, vim.cmd
+
+vim.g.os = vim.loop.os_uname().sysname
+vim.g.open_cmd = vim.g.os == 'Linux' and 'xdg-open' or 'open'
 
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = ','
 
--- vim.cmd [[set autochdir]]
-require 'plugins'
-require 'keymaps'
-require 'settings'
-require 'autocmds'
+require('keymaps')
+require('settings')
+require('autocmds')
+require('pm')
 
+vim.keymap.set('n', '<leader>pm', '<cmd>Lazy<cr>', { desc = 'manage' })
 
--- toggle checked / create checkbox if it doesn't exist
--- vim.keymap.set('n', '<leader>nn', require('markdown-togglecheck').toggle)
--- -- toggle checkbox (it doesn't remember toggle state and always creates [ ])
--- vim.keymap.set('n', '<leader>nN', require('markdown-togglecheck').toggle_box)
+-- set colorscheme
+vim.cmd [[colorscheme tokyonight]]
+-- catppuccin
 
--- vim.cmd [[
--- nnoremap <leader>ev :vsplit $MYVIMRC<cr>
--- nnoremap <leader>sv :source $MYVIMRC<cr>
--- ]]
---
+-- advanced term
+require('toggleterm').setup({
+    open_mapping = [[<c-\>]],
+    start_in_insert = true,
+    direction = 'float'
+})
 
+local Term = require('toggleterm.terminal').Terminal
+local pyterm = Term:new({
+    cmd = 'python',
+    directon = 'horizontal',
+})
 
+vim.keymap.set('t', '<esc>', '<c-\\><c-n>', opts)
+vim.keymap.set('n', '<leader>tt',  '<c-\\>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tp', function() pyterm:toggle() end, opts)
+vim.keymap.set('n', '<f2>', '<cmd>NvimTreeToggle<cr>', opts)
+vim.keymap.set('n', '<f3>', '<cmd>AerialToggle<cr>', opts)
+vim.keymap.set('n', '<f4>', '<cmd>MarkdownPreview<cr>', opts)
 
--- require('neoscroll').setup {
---     mappings = {'<C-u>', '<C-d>', -- '<C-y>', '<C-e>',
---     -- 'zt', 'zz', 'zb'
---   },
--- }
---
---
--- local t = {}
--- -- Syntax: t[keys] = {function, {function arguments}}
---
--- local speed = '100'
--- t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', speed}}
--- t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', speed}}
---
--- require('neoscroll.config').set_mappings(t)
+-- built-in packages
+-- filter down a quickfix list
+cmd.packadd('cfilter')
