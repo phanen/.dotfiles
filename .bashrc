@@ -226,6 +226,9 @@ diskcheck() {
    sudo smartctl -a /dev/nvme1n1
 }
 
+archman() { 
+  curl -sL "https://man.archlinux.org/man/$1.raw" | man -l -
+}
 
 [[ -z $MYVIMRC ]] && uwufetch
 
