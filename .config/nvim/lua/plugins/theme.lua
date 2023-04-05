@@ -1,19 +1,23 @@
 return {
 
-  'navarasu/onedark.nvim',
+  { 'igorgue/danger', lazy = false },
 
-  'folke/tokyonight.nvim',
+  { 'navarasu/onedark.nvim', lazy = false, },
+
+  { 'folke/tokyonight.nvim', lazy = false, },
+
+  { 'rose-pine/neovim', name = 'rose-pine', lazy = false, },
 
   {
-    'rose-pine/neovim', name = 'rose-pine',
+    'catppuccin/nvim', name = 'catppuccin', lazy = false,
+    opts = { transparent_background = true, }
   },
 
   {
-    'catppuccin/nvim', name = 'catppuccin',
+    'NTBBloodbath/doom-one.nvim', lazy = false,
     config = function()
-      require('catppuccin').setup{
-        transparent_background = true,
-      }
+      vim.g.doom_one_pumblend_enable = true
+      vim.g.doom_one_pumblend_transparency = 3
     end,
   },
 
