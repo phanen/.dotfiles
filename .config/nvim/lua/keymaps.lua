@@ -4,23 +4,25 @@ vim.g.maplocalleader = ' '
 local opts = { noremap = true, silent = true }
 local map = vim.keymap.set -- vim.api.nvim_set_keymap
 
--- disable default behavior
+map('n', '<leader>pm', '<cmd>Lazy<cr>', { desc = 'manage' })
+-- disable some default behaviors
+map({ 'n', 'v', 'i' }, '<left>', '', opts)
+map({ 'n', 'v', 'i' }, '<right>', '', opts)
+map({ 'n', 'v', 'i' }, '<up>', '', opts)
+map({ 'n', 'v', 'i' }, '<down>', '', opts)
 map({ 'n', 'v' }, '<space>', '<nop>', opts)
 map({ 'n', 'v' }, '<space>f', '<nop>', opts)
 -- TODO: disbale p in select mode
 -- TODO: disable clipboard in x or d
 
 -- word wrap
+-- TODO: how to jump over a long line
 map('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true })
 map('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true, silent = true })
 
 -- fix the cursor the middle of screen
 map('n', '<c-u>', '<c-u>zz')
 map('n', '<c-d>', '<c-d>zz')
-
--- switch tab
-map('n', '<c-f>', 'gt')
-map('n', '<c-b>', 'gT')
 
 -- stay in visual mode
 map('v', '<', '<gv', opts)
@@ -29,21 +31,24 @@ map('v', '>', '>gv', opts)
 -- better paste
 map('v', 'p', '"_dp', opts)
 
--- windows navigation
+-- switch themes
+map('n', '<leader>cl', ':colorscheme ')
+
+-- switch buffers
+map('n', '<c-f>', ':bnext<cr>', opts)
+map('n', '<c-b>', ':bprevious<cr>', opts)
+
+-- switch windows
 map('n', '<c-h>', '<c-w>h', opts)
 map('n', '<c-j>', '<c-w>j', opts)
 map('n', '<c-k>', '<c-w>k', opts)
 map('n', '<c-l>', '<c-w>l', opts)
 
--- windows resize
-map('n', '<c-up>', ':resize -2<cr>', opts)
-map('n', '<c-down>', ':resize +2<cr>', opts)
-map('n', '<c-left>', ':vertical resize -2<cr>', opts)
-map('n', '<c-right>', ':vertical resize +2<cr>', opts)
-
--- buffers nevigation
-map('n', '<s-l>', ':bnext<cr>', opts)
-map('n', '<s-h>', ':bprevious<cr>', opts)
+-- resize windows
+map('n', '<c-s-k>', ':resize -2<cr>', opts)
+map('n', '<c-s-j>', ':resize +2<cr>', opts)
+map('n', '<c-s-h>', ':vertical resize -2<cr>', opts)
+map('n', '<c-s-l>', ':vertical resize +2<cr>', opts)
 
 -- text motion
 map('n', '<a-j>', ':m .+1<cr>', opts)
@@ -71,8 +76,8 @@ map('n', '<leader>cs', '<cmd>source $XDG_CONFIG_HOME/nvim/init.lua<cr>', opts)
 -- ls
 map('n', '<leader>ls', '<cmd>ls<cr>', opts)
 
--- TODO
-map('n', '<leader>q', '<cmd>q!<cr>', opts)
+-- 
+map('n', '<leader>q', '<cmd>bdelete!<cr>', opts)
 map('n', '<leader>w', '<cmd>w<cr>', opts)
 map('n', '<leader>fo', '<cmd>set foldenable!<cr>', opts)
 
@@ -99,6 +104,3 @@ map('n', '<leader>rs', '<cmd>%s/\\s*$//g<cr>')
 map('n', '<leader>rh', '<cmd>%s/\\s*$//g<cr>')
 -- 清除空行
 map('n', '<leader>rl', '<cmd>g/^$/d<cr>')
-
--- switch theme
-map('n', '<leader>cl', ':colorscheme ')
