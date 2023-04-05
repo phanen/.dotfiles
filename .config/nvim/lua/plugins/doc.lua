@@ -1,5 +1,4 @@
 return {
-
   {
     'iamcco/markdown-preview.nvim',
     build = 'cd app && npm install',
@@ -75,10 +74,9 @@ return {
   {
     'iurimateus/luasnip-latex-snippets.nvim',
     cond = false,
-    branch = 'markdown',
     dependencies = { 'L3MON4D3/LuaSnip', 'lervag/vimtex' },
     config = function()
-      require 'luasnip-latex-snippets'.setup({ use_treesitter = true }) --{ use_treesitter = true }
+      require 'luasnip-latex-snippets'.setup({ use_treesitter = true })
     end,
     ft = { 'tex', 'markdown' },
   },
