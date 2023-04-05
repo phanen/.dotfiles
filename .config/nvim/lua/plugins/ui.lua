@@ -1,10 +1,10 @@
 return {
-  
+
   -- file explorer
   {
     'nvim-tree/nvim-tree.lua', tag = 'nightly',
     lazy = false,
-    opts = { },
+    opts = { hijack_netrw = true, },
     dependencies = { 'nvim-tree/nvim-web-devicons', },
   },
 
@@ -58,8 +58,8 @@ return {
       show_first_indent_level = true,
       -- stylua: ignore
       filetype_exclude = {
-        'NvimTree', 'log', 'gitcommit', 'git', 
-        'txt', 'help', 'undotree', 
+        'NvimTree', 'log', 'gitcommit', 'git',
+        'txt', 'help', 'undotree',
         'markdown', 'norg', 'org', 'orgagenda',
         '', -- for all buffers without a file type
       },
@@ -75,16 +75,22 @@ return {
 
   -- outline
   {
-    'SmiteshP/nvim-navic',
-    dependencies = { 'neovim/nvim-lspconfig' },
-    opts = function()
-      require('nvim-navic').setup({
-        highlight = false,
-        icons = require('lspkind').symbol_map,
-        depth_limit_indicator = ui.icons.misc.ellipsis,
-        lsp = { auto_attach = true },
-      })
-    end,
+    "glepnir/lspsaga.nvim",
+    event = "LspAttach",
+    cond = false,
+    config = true,
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons" },
+      -- Please make sure you install markdown and markdown_inline parser
+      { "nvim-treesitter/nvim-treesitter" }
+    }
+  },
+
+  {
+    -- outline
+    'stevearc/aerial.nvim',
+    lazy = true,
+    config = true,
   },
 
   -- scroll
