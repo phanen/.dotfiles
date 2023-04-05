@@ -8,7 +8,6 @@ vim.g.maplocalleader = ','
 
 require('keymaps')
 require('settings')
-require('autocmds')
 require('pm')
 
 vim.keymap.set('n', '<leader>pm', '<cmd>Lazy<cr>', { desc = 'manage' })

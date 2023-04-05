@@ -1,21 +1,3 @@
-
--- local format_group = vim.api.nvim_create_augroup("Format", { clear = true })
--- vim.api.nvim_create_autocmd({"BufWritePost"}, {
---   pattern = "*",
---   command = 'normal! gg=G``',
---   group = format_group
--- })
-
--- Open help window in a vertical split to the right.
--- vim.api.nvim_create_autocmd("BufWinEnter", {
---     group = vim.api.nvim_create_augroup("HelpWindowLeft", {}),
---     pattern = { "*.txt" },
---     callback = function()
---         if vim.o.filetype == 'help' then vim.cmd.wincmd("H") end
---     end
--- })
---
-
 -- highlight on yank
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -48,3 +30,21 @@ vim.api.nvim_create_autocmd({ "InsertEnter" }, {
 
 -- 自动切换目录
 -- vim.cmd [[ autocmd BufWinEnter * lcd %:p:h ]]
+
+-- -- format on save
+-- local format_group = vim.api.nvim_create_augroup("Format", { clear = true })
+-- vim.api.nvim_create_autocmd({"BufWritePost"}, {
+--   pattern = "*",
+--   command = 'normal! gg=G``',
+--   group = format_group
+-- })
+
+-- -- open :h in vsplit right
+-- vim.api.nvim_create_autocmd("BufWinEnter", {
+--     group = vim.api.nvim_create_augroup("HelpWindowLeft", {}),
+--     pattern = { "*.txt" },
+--     callback = function()
+--         if vim.o.filetype == 'help' then vim.cmd.wincmd("H") end
+--     end
+-- })
+--
