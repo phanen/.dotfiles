@@ -8,11 +8,13 @@ return {
 
   { -- TODO lazy
     'askfiy/nvim-picgo',
+    ft = { 'markdown' },
     config = function() require('nvim-picgo').setup() end
   },
 
   {
     'jakewvincent/mkdnflow.nvim',
+    ft = { 'markdown' },
     config = function()
       require('mkdnflow').setup {
         mappings = {
