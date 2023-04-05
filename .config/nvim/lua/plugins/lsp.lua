@@ -49,7 +49,8 @@ local lsp_servers = {
 }
 
 return {
-  { 
+
+  {
     'neovim/nvim-lspconfig',
     dependencies = {
       {
@@ -63,23 +64,25 @@ return {
     },
   },
 
-  { -- status updates for lsp
-    'j-hui/fidget.nvim', 
+  -- status updates for lsp
+  {
+    'j-hui/fidget.nvim',
     lazy = false,
     config = true,
   },
 
   {
     'williamboman/mason.nvim',
-    config = true,
+    build = ':MasonUpdate',
     cmd = "Mason",
+    config = true,
     -- opts = { ui = { border = border, height = 0.8 } },
   },
 
   {
     'williamboman/mason-lspconfig.nvim',
-    dependencies = { 'mason.nvim', },
-
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'williamboman/mason.nvim', },
     config = function()
       local mlsp = require 'mason-lspconfig'
       mlsp.setup { ensure_installed = vim.tbl_keys(lsp_servers), }
@@ -99,5 +102,4 @@ return {
   --   'jose-elias-alvarez/null-ls.nvim',
   --   config = function() end,
   -- },
-
 }
