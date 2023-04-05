@@ -17,7 +17,7 @@ return {
       options = {
         mode = "buffers",
         numbers = "ordinal",
-        offsets = {
+        offsets = { -- left for file explorer
           {
             filetype = "NvimTree",
             text = "time wait for no man",
@@ -89,7 +89,7 @@ return {
   {
     -- outline
     'stevearc/aerial.nvim',
-    lazy = true,
+    lazy = false,
     config = true,
   },
 
