@@ -29,9 +29,8 @@ alias cdswap="cd $XDG_STATE_HOME/nvim/swap/"
 
 alias ssu="sudo systemctl restart udevmon"
 alias ssc="systemctl restart --user clash"
-alias svi="sudo -E vi"
-alias ni="neovide"
-alias sni="sudo -E neovide"
+alias ni="nvim"
+alias sni="sudo -E ni"
 
 # config
 alias sb="source $HOME/.bashrc"
