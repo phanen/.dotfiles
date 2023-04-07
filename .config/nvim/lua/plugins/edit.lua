@@ -1,9 +1,6 @@
-local n = 2;
-
 return {
 
   'tpope/vim-fugitive',
-
   {
     'linty-org/readline.nvim',
     keys = {

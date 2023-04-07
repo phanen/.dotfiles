@@ -2,6 +2,10 @@ return {
   {
     'akinsho/toggleterm.nvim',
     lazy = false,
-    config = function() require('toggleterm').setup() end,
+    opts = {
+      open_mapping = [[<c-\>]],
+      start_in_insert = true,
+      direction = 'float'
+    }
   },
 }

@@ -21,6 +21,10 @@ return {
     end,
   },
 
+  {
+    'EdenEast/nightfox.nvim', lazy = false,
+  },
+
   -- funcy
   {
     'xiyaowong/transparent.nvim',
