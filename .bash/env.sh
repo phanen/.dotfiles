@@ -3,7 +3,7 @@ export VISUAL=nvim
 export TERMINAL=alacritty
 [ -n "$DISPLAY" ] && export BROWSER=chromium || export BROWSER=links
 export PDF="chromium"
-export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+export MANPAGER="/bin/sh -c \"col -b | nvim -u NORC -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 # export PAGER="most"
 # export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
 # export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta

@@ -9,6 +9,7 @@ alias grep="grep --color"
 alias rm="rm -i"
 alias rfa="rm -rf"
 alias df="df -h"
+alias pc="pacman"
 
 alias find="fd"
 alias du="dust"
