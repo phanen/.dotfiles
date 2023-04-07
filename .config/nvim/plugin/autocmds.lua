@@ -28,8 +28,13 @@ vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   group = input_method_group,
 })
 
--- 自动切换目录
--- vim.cmd [[ autocmd BufWinEnter * lcd %:p:h ]]
+local function open_nvim_tree(data)
+  if not (vim.fn.isdirectory(data.file) == 1) then return end
+  vim.cmd.cd(data.file)
+  -- require("nvim-tree.api").tree.open()
+end
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
 -- -- format on save
 -- local format_group = vim.api.nvim_create_augroup("Format", { clear = true })
@@ -47,4 +52,4 @@ vim.api.nvim_create_autocmd({ "InsertEnter" }, {
 --         if vim.o.filetype == 'help' then vim.cmd.wincmd("H") end
 --     end
 -- })
---
+
