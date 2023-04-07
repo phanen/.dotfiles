@@ -4,12 +4,14 @@ return {
     'nvim-treesitter/nvim-treesitter',
     build = function() require('nvim-treesitter.install').update { with_sync = true } end,
     event = "BufReadPre",
-    dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
+    dependencies =  {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
     config = function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
           'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript',
-          'markdown', 'latex', 'help', 'toml'
+          'markdown', 'latex', 'toml'
         },
 
         highlight = { enable = true },
@@ -70,4 +72,21 @@ return {
       }
     end
   },
+
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    event = 'VeryLazy',
+    opts = {
+      multiline_threshold = 4,
+      separator = { '─', 'ContextBorder' }, -- alternatives: ▁ ─ ▄
+      mode = 'cursor',
+    },
+  },
+
+  {
+    'nvim-treesitter/playground',
+    cmd = { 'TSPlaygroundToggle' },
+    dependencies = { 'nvim-treesitter' },
+  },
+
 }
