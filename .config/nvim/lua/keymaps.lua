@@ -1,106 +1,102 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+local kmp = require('utils.keymaps')
 
-local opts = { noremap = true, silent = true }
-local map = vim.keymap.set -- vim.api.nvim_set_keymap
+local map = kmp.map
+local nnoremap = kmp.nnoremap
+local inoremap = kmp.inoremap
+local cnoremap = kmp.cnoremap
+local vnoremap = kmp.vnoremap
+local xnoremap = kmp.xnoremap
+local onoremap = kmp.onoremap
+local tnoremap = kmp.tnoremap
+local lnoremap = kmp.lnoremap
 
-map('n', '<leader>pm', '<cmd>Lazy<cr>', { desc = 'manage' })
 -- disable some default behaviors
-map({ 'n', 'v', 'i' }, '<left>', '', opts)
-map({ 'n', 'v', 'i' }, '<right>', '', opts)
-map({ 'n', 'v', 'i' }, '<up>', '', opts)
-map({ 'n', 'v', 'i' }, '<down>', '', opts)
-map({ 'n', 'v' }, '<space>', '<nop>', opts)
-map({ 'n', 'v' }, '<space>f', '<nop>', opts)
 -- TODO: disbale p in select mode
 -- TODO: disable clipboard in x or d
+map({ 'n', 'v', 'i' }, '<left>', '<nop>')
+map({ 'n', 'v', 'i' }, '<right>', '<nop>')
+map({ 'n', 'v', 'i' }, '<up>', '<nop>')
+map({ 'n', 'v', 'i' }, '<down>', '<nop>')
+map({ 'n', 'v' }, '<space>', '<nop>')
+map({ 'n', 'v' }, '<space>f', '<nop>')
+
+nnoremap('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
+nnoremap('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
+nnoremap('<c-u>', '<c-u>zz')
+nnoremap('<c-d>', '<c-d>zz')
+vnoremap('<', '<gv')
+vnoremap('>', '>gv')
+vnoremap('p', '"_dp')
 
 -- word wrap
--- TODO: how to jump over a long line
-map('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true })
-map('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true, silent = true })
-
--- fix the cursor the middle of screen
-map('n', '<c-u>', '<c-u>zz')
-map('n', '<c-d>', '<c-d>zz')
-
--- stay in visual mode
-map('v', '<', '<gv', opts)
-map('v', '>', '>gv', opts)
-
--- better paste
-map('v', 'p', '"_dp', opts)
-
--- switch themes
-map('n', '<leader>cl', ':colorscheme ')
-
--- switch buffers
-map('n', '<c-f>', ':bnext<cr>', opts)
-map('n', '<c-b>', ':bprevious<cr>', opts)
-
--- switch windows
-map('n', '<c-h>', '<c-w>h', opts)
-map('n', '<c-j>', '<c-w>j', opts)
-map('n', '<c-k>', '<c-w>k', opts)
-map('n', '<c-l>', '<c-w>l', opts)
-
--- resize windows
-map('n', '<c-s-k>', ':resize -2<cr>', opts)
-map('n', '<c-s-j>', ':resize +2<cr>', opts)
-map('n', '<c-s-h>', ':vertical resize -2<cr>', opts)
-map('n', '<c-s-l>', ':vertical resize +2<cr>', opts)
 
 -- text motion
-map('n', '<a-j>', ':m .+1<cr>', opts)
-map('n', '<a-k>', ':m .-2<cr>', opts)
-
--- toy term
-map('n', '<m-t>', ':split term://bash<CR>i', opts)
-map('t', '<m-t>', '<c-\\><c-n>:bdelete! %<CR>', opts)
-
--- diagnostic
-map('n', '[d', vim.diagnostic.goto_prev, opts)
-map('n', ']d', vim.diagnostic.goto_next, opts)
-map('n', '<leader>df', vim.diagnostic.open_float, opts)
-map('n', '<leader>ds', vim.diagnostic.setloclist, opts)
-
-
--------- shortcut --------------
--- tab new
-map('n', '<leader>nt', '<cmd>tabnew<cr>', opts)
+nnoremap('<a-j>', ':m .+1<cr>')
+nnoremap('<a-k>', ':m .-2<cr>')
 
 -- config
-map('n', '<leader>cc', '<cmd>tabnew $XDG_CONFIG_HOME/nvim<cr>', opts)
-map('n', '<leader>cs', '<cmd>source $XDG_CONFIG_HOME/nvim/init.lua<cr>', opts)
+nnoremap('<leader>cc', '<cmd>tabnew $XDG_CONFIG_HOME/nvim<cr>')
+nnoremap('<leader>cs', '<cmd>source $XDG_CONFIG_HOME/nvim/init.lua<cr>')
+
+
+-- switch buffers
+nnoremap('<c-f>', '<cmd>BufferLineCycleNext<cr>')
+nnoremap('<c-b>', '<cmd>BufferLineCyclePrev<cr>')
+
+-- switch windows
+nnoremap('<c-h>', '<cmd>wincmd h<cr>')
+nnoremap('<c-j>', '<cmd>wincmd j<cr>')
+nnoremap('<c-k>', '<cmd>wincmd k<cr>')
+nnoremap('<c-l>', '<cmd>wincmd l<cr>')
+
+-- resize windows
+nnoremap('<c-up>', '<cmd>resize -2<cr>')
+nnoremap('<c-down>', '<cmd>resize +2<cr>')
+nnoremap('<c-left>', '<cmd>vertical resize -2<cr>')
+nnoremap('<c-right>', '<cmd>vertical resize +2<cr>')
+
+-- tab new
+nnoremap('<leader>tn', '<cmd>tabnew<cr>')
 
 -- ls
-map('n', '<leader>ls', '<cmd>ls<cr>', opts)
-
--- 
-map('n', '<leader>q', '<cmd>bdelete!<cr>', opts)
-map('n', '<leader>w', '<cmd>w<cr>', opts)
-map('n', '<leader>fo', '<cmd>set foldenable!<cr>', opts)
+nnoremap('<leader>ls', '<cmd>ls<cr>')
 
 -- get img
-map('n', '<leader>gi', '<cmd>UploadClipboard<cr>', opts)
+nnoremap('<leader>gi', '<cmd>UploadClipboard<cr>')
 
 -- symbol rename
 vim.keymap.set('n', '<leader>rn', ':IncRename ')
 
 -- style
 -- 全角2半角
-map('n', '<leader>rp', [[
-        <cmd>%s/[，、（）［］｛｝＜＞？／；。！“”：]/\={'，':', ', '、':', ', '（':'(', '）':')', '［':'[', '］':']', '｛':'{', '｝':'}', '＜':'<', '＞':'>', '？':'? ', '／':'\/', '；':'; ', '。':'. ', '：': ': ', '！': '! ', '”': '"', '“': '"'}[submatch(0)]/g<cr>]])
--- { silent = true }? ??
--- １２３４５６７ａｂｃｄｅｆｇ
---     -- :%s/[，、１２３４５６７ａｂｃｄｅｆｇ]/\={'，':', ','、':', ','１':'1','２':'2','３':'3','４':'4','５':'5','６':'6','７':'7','ａ':'a', 'ｂ':'b', 'ｃ':'c', 'ｄ':'d', 'ｅ':'e', 'ｆ':'f', 'ｇ':'g'}[submatch(0)]/g
+-- TODO refactor in lua
+nnoremap('<leader>rp', require('utils').get_full2half_vimcmd())
+nnoremap('<leader>rs', '<cmd>%s/\\s*$//g<cr>', { desc = 'clean head space'})
+nnoremap('<leader>rh', '<cmd>g/^$/d<cr>', { desc = 'clean tail space'})
+nnoremap('<leader>rs', '<cmd>%s/\\s*$//g<cr>', { desc = 'swap quote make'})
 
--- math mode bracket
-map('v', '<leader>mb', [[
-        <cmd>'<,'>s/[{}]/\={'{':'\{', '}':'\}'}[submatch(0)]/g<cr>]])
--- 清除行尾空格
-map('n', '<leader>rs', '<cmd>%s/\\s*$//g<cr>')
--- 清除行首空格
-map('n', '<leader>rh', '<cmd>%s/\\s*$//g<cr>')
--- 清除空行
-map('n', '<leader>rl', '<cmd>g/^$/d<cr>')
+-- diagnostic
+nnoremap('[d', vim.diagnostic.goto_prev)
+nnoremap(']d', vim.diagnostic.goto_next)
+nnoremap('<leader>df', vim.diagnostic.open_float)
+nnoremap('<leader>ds', vim.diagnostic.setloclist)
+
+-- toggle windows
+nnoremap('<leader>q', '<cmd>bdelete!<cr>')
+nnoremap('<localleader>q', '<cmd>wincmd q<cr>')
+nnoremap('<localleader>  ', '<cmd>w<cr>')
+
+nnoremap('<leader>wr', '<cmd>NvimTreeToggle<cr>')
+nnoremap('<leader>wn', '<cmd>NvimTreeToggle<cr>')
+nnoremap('<leader>wa', '<cmd>AerialToggle<cr>')
+nnoremap('<leader>wm', '<cmd>MarkdownPreview<cr>')
+
+-- toggle options
+nnoremap('<leader>of', '<cmd>set foldenable!<cr>')
+nnoremap('<leader>ob', function() vim.o.background = vim.o.background == 'dark' and 'light' or 'dark' end)
+nnoremap('<leader><tab>', require('utils').next_colorscheme, { desc = 'switch colorscheme'})
+
+-- toy term
+nnoremap('<m-t>', ':split term://bash<CR>i')
+tnoremap('<esc>', '<c-\\><c-n>')
+tnoremap('<m-t>', '<c-\\><c-n>:bdelete! %<CR>')
