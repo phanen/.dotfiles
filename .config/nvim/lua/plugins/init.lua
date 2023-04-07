@@ -1,10 +1,18 @@
 return {
-
   'folke/lazy.nvim',
+
   {
     'folke/which-key.nvim',
     event = 'VeryLazy',
-    config = true,
+    config = function()
+      local presets = require("which-key.plugins.presets")
+      presets.operators["v"] = nil
+      presets.operators["c"] = nil
+      presets.operators["y"] = nil
+      vim.o.timeout = true
+      vim.o.timeoutlen = 100
+      require('which-key').setup()
+    end,
   },
 
   'tpope/vim-sleuth', -- detect tabstop and shiftwidth automatically
