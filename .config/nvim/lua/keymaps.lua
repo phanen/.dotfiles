@@ -93,7 +93,7 @@ nnoremap('<leader>wm', '<cmd>MarkdownPreview<cr>')
 
 -- toggle options
 nnoremap('<leader>of', '<cmd>set foldenable!<cr>')
-nnoremap('<leader>ob', function() vim.o.background = vim.o.background == 'dark' and 'light' or 'dark' end)
+nnoremap('<leader>ob', require('utils.themes').toggle_bg, { desc = 'toggle background'} )
 nnoremap('<leader><tab>', require('utils').next_colorscheme, { desc = 'switch colorscheme'})
 
 -- toy term
