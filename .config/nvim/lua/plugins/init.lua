@@ -1,6 +1,11 @@
 return {
 
   'folke/lazy.nvim',
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    config = true,
+  },
 
   'tpope/vim-sleuth', -- detect tabstop and shiftwidth automatically
 
@@ -19,11 +24,14 @@ return {
   -- },
   'mfussenegger/nvim-dap',
   'rcarriga/nvim-dap-ui',
+
   {
     "SmiteshP/nvim-navic",
     dependencies = "neovim/nvim-lspconfig"
   },
+
   'theHamsta/nvim-dap-virtual-text',
+
   -- game
   'alec-gibson/nvim-tetris',
 }
