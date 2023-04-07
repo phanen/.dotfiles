@@ -1,13 +1,23 @@
 " basic
+set number
+set relativenumber
+
+set encoding=utf8
+
+set mouse=a
+set clipboard=unnamed,unnamedplus
+set term=xterm-256color
+
+set timeoutlen=50
+set hidden
+
+" layout
+set wrap
+
+
+
 set autoread                                     " reload on external file changes
 set backspace=indent,eol,start                   " backspace behaviour
-set clipboard=unnamed,unnamedplus                " enable clipboard
-set encoding=utf8                                " enable utf8 support
-set hidden                                       " hide buffers, don't close
-set mouse=a                                      " enable mouse support
-set nowrap                                       " disable wrapping
-set number                                       " show line numbers
-set term=xterm-256color                          " terminal type
 set wildmenu wildmode=longest:full,full          " wildmode settings
 
 " ui
