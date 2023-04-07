@@ -13,10 +13,10 @@ end
 -- context ...
 M.next_colorscheme = (function()
   local id = 1
-  local tb = { 'nordfox', 'tokyonight', 'catppuccin', 'rose-pine', }
+  local tab = { 'nordfox', 'tokyonight', 'catppuccin', 'rose-pine', 'doom-one', }
   return  function()
-    id = (id + 1) % (#tb) + 1
-    vim.cmd('colorscheme' .. tb[id])
+    id = (id + 1) % (#tab)
+    vim.cmd('colorscheme ' .. tab[id + 1])
   end
 end)()
 
