@@ -10,6 +10,7 @@ alias rm="rm -i"
 alias rfa="rm -rf"
 alias df="df -h"
 alias pc="pacman"
+alias mx='chmod 755'
 
 alias find="fd"
 alias du="dust"

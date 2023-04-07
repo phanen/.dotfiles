@@ -11,7 +11,12 @@ return {
       presets.operators["y"] = nil
       vim.o.timeout = true
       vim.o.timeoutlen = 100
-      require('which-key').setup()
+      require('which-key').setup({
+        disable = {
+          buftypes = {'help'},
+          filetypes = {'man'},
+        },
+      })
     end,
   },
 

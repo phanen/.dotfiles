@@ -22,6 +22,7 @@ xset r rate 200 45
 [[ -r $BASHRC_DIR/env.sh ]] && . $BASHRC_DIR/env.sh
 [[ -r $BASHRC_DIR/alias.sh ]] && . $BASHRC_DIR/alias.sh
 [[ -r $BASHRC_DIR/functions.sh ]] && . $BASHRC_DIR/functions.sh
+[[ -r $BASHRC_DIR/keybindings.sh ]] && . $BASHRC_DIR/keybindings.sh
 
 [[ -z $MYVIMRC ]] && uwufetch
 

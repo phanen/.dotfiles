@@ -88,9 +88,6 @@ bala() { # alacritty blink theme
   while true; do alswitch && sleep 0.1; done > /dev/null
 }
 
-alias mx='chmod 755'
-# export MANPAGER="/bin/sh -c \"col -b | vi -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
-
 diskcheck() {
    sudo smartctl -a /dev/nvme0n1
    sudo smartctl -a /dev/nvme1n1
