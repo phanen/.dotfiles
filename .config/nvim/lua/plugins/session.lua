@@ -4,22 +4,17 @@ return {
     keys = {
       {
         "<leader>ss",
-        "<cmd>SessionManager save_current_session<CR>",
+        "<cmd>SessionManager save_current_session<cr>",
         desc = "save current session",
       },
       {
         "<leader>sl",
-        "<cmd>SessionManager load_last_session<CR>",
+        "<cmd>SessionManager load_session<cr>",
         desc = "load last session",
       },
       {
-        "<leader>sc",
-        "<cmd>SessionManager load_session<CR>",
-        desc = "load session"
-      },
-      {
         "<leader>sd",
-        "<cmd>SessionManager delete_session<CR>",
+        "<cmd>SessionManager delete_session<cr>",
         desc = "delete session"
       },
     },
