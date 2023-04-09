@@ -85,7 +85,7 @@ nnoremap('<leader>wl', '<cmd>Lazy<cr>')
 nnoremap('<leader>of', '<cmd>set foldenable!<cr>')
 nnoremap('<leader>ob', require('utils.themes').toggle_bg, { desc = 'toggle background'} )
 nnoremap('<leader><tab>', require('utils').next_colorscheme, { desc = 'switch colorscheme'})
-nnoremap('<leader>ls!', '<cmd>ls<cr>')
+nnoremap('<leader>ls', '<cmd>ls<cr>')
 
 -- toy term
 nnoremap('<m-t>', ':split term://bash<CR>i')

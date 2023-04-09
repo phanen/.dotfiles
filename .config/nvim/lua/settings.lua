@@ -1,52 +1,45 @@
--- overwrite "=
-vim.o.clipboard = "unnamedplus"
-vim.o.mouse = 'a'
-vim.o.undofile = true
+local o, wo = vim.o, vim.wo
 
-vim.o.number = true
-vim.o.relativenumber = true
+o.clipboard = "unnamedplus"
+o.mouse = 'a'
+o.undofile = true
 
--- awesome utf-8
-vim.scriptencoding = 'utf-8'
-vim.o.encoding = 'utf-8'
-vim.o.fileencoding = 'utf-8'
-vim.o.termencoding = 'utf-8'
+o.number = true
+o.relativenumber = true
+
+--TODO
+-- o.list = true
+-- o.listchars = (o.listchars .. 'eol:↳')
 
 -- case insensitive
 -- UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.hlsearch = false
+o.ignorecase = true
+o.smartcase = true
+o.hlsearch = false
 
 -- 1 tab = 2 space
-vim.o.tabstop = 4
-vim.o.softtabstop = 2
-vim.o.shiftwidth = 2
+o.tabstop = 4
+o.softtabstop = 2
+o.shiftwidth = 2
 
-vim.o.expandtab = true
-vim.o.autoindent = true
-vim.o.breakindent = true
+o.expandtab = true
+o.autoindent = true
+o.breakindent = true
 
-vim.o.scrolloff = 8
-
+o.scrolloff = 16
 
 -- Decrease update time
-vim.o.updatetime = 250
+o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
-vim.o.termguicolors = true
+o.termguicolors = true
 
 -- Set completeo to have a better completion experience
 -- TODO
--- vim.o.completeopt = 'menuone,noselect,noinsert'
+-- o.completeopt = 'menuone,noselect,noinsert'
 
 -- vim.api.nvim_set_hl(1, "Normal", {bg = "none"})
 -- vim.api.nvim_set_hl(1, "NormalFloat", {bg = "none"})
-
--- vim.cmd [[
--- 	set list
--- 	set listchars+=eol:↳
--- ]]
 
 -- dump result of Ex
 vim.cmd [[
