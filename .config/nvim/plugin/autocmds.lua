@@ -1,52 +1,64 @@
+local api, fn = vim.api, vim.fn
+local au = api.nvim_create_autocmd
+local ag = api.nvim_create_augroup
+
 -- highlight on yank
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  pattern = '*',
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+local highlight_group = ag('YankHighlight', { clear = true })
+au('TextYankPost', {
+  pattern = '*', -- TODO: why to wrap it
+  callback = function() vim.highlight.on_yank() end,
   group = highlight_group,
 })
 
 -- stash the IM when switching modes
-local input_method_group = vim.api.nvim_create_augroup('InputMethod', { clear = true })
-IM="keyboard-us" -- current input method
-vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+local input_method_group = ag('InputMethod', { clear = true })
+
+local cur_im ="keyboard-us"
+au({ "InsertLeave" }, {
   pattern = "*",
-  callback = function()
-    IM = tostring(vim.fn.system("fcitx5-remote -n"))
-    vim.fn.system("fcitx5-remote -c")
+  callback = function() -- inactivate and record
+    cur_im = tostring(fn.system("fcitx5-remote -n"))
+    fn.system("fcitx5-remote -c")
   end,
   group = input_method_group,
 })
 
-vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+au({ "InsertEnter" }, {
   pattern = "*",
   callback = function()
-    vim.fn.system("fcitx5-remote -s" .. IM)
+    fn.system("fcitx5-remote -s" .. cur_im)
   end,
   group = input_method_group,
 })
 
 local function open_nvim_tree(data)
-  if not (vim.fn.isdirectory(data.file) == 1) then return end
+  if not (fn.isdirectory(data.file) == 1) then return end
   vim.cmd.cd(data.file)
   -- require("nvim-tree.api").tree.open()
 end
 
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+au({ "VimEnter" }, { callback = open_nvim_tree })
+
+-- smart number from https://github.com/jeffkreeftmeijer/vim-numbertoggle {{{
+au({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+    command = [[if &nu && mode() != 'i' | set rnu   | endif]],
+})
+
+au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+    command = [[if &nu | set nornu | endif]],
+})
 
 -- -- format on save
--- local format_group = vim.api.nvim_create_augroup("Format", { clear = true })
--- vim.api.nvim_create_autocmd({"BufWritePost"}, {
+-- local format_group = ag("Format", { clear = true })
+-- au({"BufWritePost"}, {
 --   pattern = "*",
 --   command = 'normal! gg=G``',
 --   group = format_group
 -- })
 
 -- -- open :h in vsplit right
--- vim.api.nvim_create_autocmd("BufWinEnter", {
---     group = vim.api.nvim_create_augroup("HelpWindowLeft", {}),
+-- au("BufWinEnter", {
+--     group = ag("HelpWindowLeft", {}),
 --     pattern = { "*.txt" },
 --     callback = function()
 --         if vim.o.filetype == 'help' then vim.cmd.wincmd("H") end
