@@ -19,7 +19,6 @@ beep
 bind
 binutils
 bison
-bless
 bluez
 bluez-utils
 boost
@@ -41,6 +40,7 @@ cronie
 dash
 debugedit
 dhcpcd
+difftastic
 dmenu
 docker
 docker-compose
@@ -51,7 +51,6 @@ efibootmgr
 egl-wayland
 eglexternalplatform
 emacs
-eog
 evince
 exa
 fakeroot
@@ -79,7 +78,9 @@ gawk
 gcc
 gdb
 gettext
+ghc
 git
+github-cli
 go
 gperf
 graphviz
@@ -115,7 +116,10 @@ light
 linux
 linux-firmware
 lldb
+love
 lsd
+lsof
+ltrace
 lua
 m4
 make
@@ -126,8 +130,8 @@ mpv
 mtools
 namcap
 nano
+nasm
 neofetch
-neovim
 networkmanager
 ninja
 nmap
@@ -168,13 +172,13 @@ riscv64-linux-gnu-gdb
 rofi
 rsync
 rtorrent
+ruby
 rustup
 scrcpy
 screen
 screenfetch
 sed
 shellcheck
-simplescreenrecorder
 slock
 soft-serve
 soundfont-fluid
@@ -203,12 +207,12 @@ the_silver_searcher
 tmux
 traceroute
 tree
+tree-sitter
 ttf-fira-mono
 ttf-firacode-nerd
 ttf-hack-nerd
 ttf-jetbrains-mono-nerd
 ttf-sourcecodepro-nerd
-typespeed
 unzip
 upx
 usbutils
@@ -217,6 +221,7 @@ virt-viewer
 viu
 vlc
 vmpk
+wdiff
 wezterm
 wget
 which
@@ -224,6 +229,7 @@ wpa_supplicant
 x11vnc
 xclip
 xf86-video-vesa
+xfsdump
 xorg-bdftopcf
 xorg-docs
 xorg-font-util
@@ -269,6 +275,7 @@ xpdf
 xsel
 xterm
 xwallpaper
+yasm
 you-get
 youtube-dl
 yt-dlp
