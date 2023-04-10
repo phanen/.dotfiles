@@ -11,7 +11,7 @@ return {
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
           'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript',
-          'markdown', 'latex', 'toml'
+          'markdown', 'markdown_inline', 'latex', 'toml'
         },
 
         highlight = { enable = true },
