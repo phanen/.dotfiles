@@ -12,4 +12,4 @@ require('lazyman')
 
 -- filter down a quickfix list
 cmd.packadd('cfilter')
-vim.cmd [[colorscheme default]]
+vim.cmd [[colorscheme kanagawa-lotus]]
