@@ -48,6 +48,11 @@ au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
     command = [[if &nu | set nornu | endif]],
 })
 
+-- au({ "InsertLeave" }, {
+--   pattern = '*.md',
+--   command = 'w',
+-- })
+
 -- -- format on save
 -- local format_group = ag("Format", { clear = true })
 -- au({"BufWritePost"}, {
