@@ -15,7 +15,7 @@ return {
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       cmp.setup {
-        enabled = function() return vim.api.nvim_buf_get_option(0, 'modifiable') end,
+        enabled = function() return vim.api.nvim_buf_get_option(0, 'modifiable') and vim.bo.buftype ~= 'prompt' end,
         preselect = cmp.PreselectMode.None,
         mapping = {
           -- ['<c-e>'] = cmp.mapping.abort(),
