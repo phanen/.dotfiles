@@ -2,6 +2,8 @@ return {
 
   { 'igorgue/danger', lazy = false },
 
+  { 'rebelot/kanagawa.nvim', lazy = false, },
+
   { 'navarasu/onedark.nvim', lazy = false, },
 
   { 'folke/tokyonight.nvim', lazy = false, },
@@ -27,9 +29,8 @@ return {
 
   -- funcy
   {
-    'xiyaowong/transparent.nvim',
+    'xiyaowong/transparent.nvim', lazy = false,
     cond = false,
-    lazy = false,
     priority = 1000,
     config = function()
       require("transparent").setup({

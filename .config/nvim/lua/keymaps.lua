@@ -29,8 +29,8 @@ vnoremap('p', '"_dp')
 nnoremap('<a-j>', ':m .+1<cr>')
 nnoremap('<a-k>', ':m .-2<cr>')
 
-nnoremap('<c-p>', '<c-y>')
-nnoremap('<c-n>', '<c-e>')
+-- nnoremap('<c-p>', '<c-y>')
+-- nnoremap('<c-n>', '<c-e>')
 
 nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
 
@@ -83,9 +83,10 @@ nnoremap('<leader>wl', '<cmd>Lazy<cr>')
 
 -- toggle options
 nnoremap('<leader>of', '<cmd>set foldenable!<cr>')
+nnoremap('<leader>os', '<cmd>set spell!<cr>')
 nnoremap('<leader>ob', require('utils.themes').toggle_bg, { desc = 'toggle background'} )
 nnoremap('<leader><tab>', require('utils').next_colorscheme, { desc = 'switch colorscheme'})
-nnoremap('<leader>ls', '<cmd>ls<cr>')
+nnoremap('<leader>ls', '<cmd>ls!<cr>')
 
 -- toy term
 nnoremap('<m-t>', ':split term://bash<CR>i')
