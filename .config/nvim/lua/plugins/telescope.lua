@@ -1,57 +1,71 @@
+local nnoremap = require('utils.keymaps').nnoremap
+
+-- local tel_ex = function(name) return require('telescope').extensions[name] end
+-- local live_grep = function(_) tel_ex('menufacture').live_grep(opts) end
+-- local find_files = function(opts) return tel_ex('menufacture').find_files(opts) end
+
+-- local find_files = function(name)  return extensions('')/
+-- local function dotfiles()
+--   find_files({
+--     prompt_title = 'dotfiles',
+--     cwd = '',
+--   })
+-- end
+
 return {
   {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make', cond = vim.fn.executable 'make' == 1
-  },
-
-  'crispgm/telescope-heading.nvim',
-
-  {
     'nvim-telescope/telescope.nvim', tag = '0.1.1',
+    dependencies = {
+      { 'nvim-lua/plenary.nvim', },
+      -- { 'molecule-man/telescope-menufacture' },
+      { 'natecraddock/telescope-zf-native.nvim' },
+    },
+
+    -- TODO: why
+    -- 1. map leader to nop
+    -- 2. add leader to keys
+    -- then leader will be enable again...
+
     cmd = 'Telescope',
-    dependencies = { 'nvim-lua/plenary.nvim', },
-    keys = { '<leader><space>' },
+    keys = { '<leader><leader>', },
     config = function()
-      local tl = require 'telescope'
-      local tb = require 'telescope.builtin'
+      local tl = require('telescope')
+      local tb = require('telescope.builtin')
 
       tl.setup {
         defaults = {
           mappings = {
-            i = {
-              ['<c-u>'] = false,
-              ['<c-d>'] = false,
-            },
+            i = { ['<c-u>'] = false, ['<c-d>'] = false, },
           },
         },
       }
       -- enable fzf native
-      pcall(tl.load_extension, 'heading')
       pcall(tl.load_extension, 'fzf')
-      pcall(tl.load_extension, 'file_browser')
-      vim.keymap.set('n', '<leader>/', function()
-        tb.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        }) end,
-        { desc = 'fuzzily [/]' }
-        )
 
-        vim.keymap.set('n', '<leader>fb', tb.buffers, { desc = '[f]ind [b]uffers' })
-        vim.keymap.set('n', '<leader>fr', tb.oldfiles, { desc = '[f]ind [r]ecents' })
-        vim.keymap.set('n', '<leader>ff', tb.find_files, { desc = '[f]ind [f]iles' })
-        vim.keymap.set('n', '<leader><space>', tb.find_files, { desc = '[f]ind [f]iles' })
-        vim.keymap.set('n', '<leader>:', tb.command_history, { desc = 'command' })
+      nnoremap('<leader>/', function()
+        tb.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown { previewer = false, }) end, { desc = 'fzf curbuf' }
+      )
+      nnoremap('<leader>fj', tb.find_files, { desc = 'fzf bufs' })
+      nnoremap('<leader>fk', tb.live_grep, { desc = 'fzf grep' })
+      nnoremap('<leader>fl', tb.buffers, { desc = 'fzf buffers' })
+      -- nnoremap('<leader>f;;', tb, { desc = 'fzf files' })
 
-        vim.keymap.set('n', '<leader>fg', tb.live_grep, { desc = '[f]ind by [g]rep' })
-        vim.keymap.set('n', '<leader>fw', tb.grep_string, { desc = '[f]ind current [w]ord' })
-        vim.keymap.set('n', '<leader>fd', tb.diagnostics, { desc = '[f]ind [d]iagnostics' })
+      nnoremap('<leader>fb', tb.buffers, { desc = 'fzf bufs' })
+      nnoremap('<leader>fr', tb.oldfiles, { desc = 'fzf recents' })
+      nnoremap('<leader>ff', tb.find_files, { desc = 'fzf files' })
+      nnoremap('<leader><space>', tb.find_files, { desc = 'fzf files' })
+      nnoremap('<leader>:', tb.command_history, { desc = 'command' })
+      nnoremap('<leader>fs', tb.live_grep, { desc = 'fzf grep' })
+      nnoremap('<leader>fw', tb.grep_string, { desc = 'find word' })
+      nnoremap('<leader>fd', tb.diagnostics, { desc = 'find diagnostics' })
+      -- nnoremap('<leader>fh', "<cmd>Telescope heading<cr>", { desc = 'find headings' })
+      nnoremap('<leader>fp', tb.help_tags, { desc = 'find help' })
+      nnoremap('<leader>fm', tb.builtin, { desc = 'fnd meta' })
+    end,
+  },
 
-        vim.keymap.set('n', '<leader>fh', "<cmd>Telescope heading<cr>", { desc = '[f]ind [h]eadings' })
-        vim.keymap.set('n', '<leader>fp', tb.help_tags, { desc = '[f]ind [h]elp' })
-        vim.keymap.set('n', '<leader>fs', tb.lsp_document_symbols, { desc = '[s]earch [s]ymbol' })
-
-        vim.keymap.set('n', '<leader>fm', tb.builtin, { desc = '[f]nd [m]eta' })
-      end,
-    },
-  }
+  -- {
+  --   'crispgm/telescope-heading.nvim',
+  --   ft = { 'markdown', 'tex', },
+  -- }
+}
