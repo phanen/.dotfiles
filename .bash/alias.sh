@@ -11,11 +11,13 @@ alias rfa="rm -rf"
 alias df="df -h"
 alias pc="pacman"
 alias mx='chmod 755'
+alias hx='hexdump'
+alias vn='vi -u NONE'
 
 alias find="fd"
 alias du="dust"
 alias em="emacs -nw"
-alias hx="helix"
+# alias hx="helix"
 alias nf="neofetch"
 alias lg="lazygit"
 alias chrome="chromium" ## --proxy-server=\"localhost:7890\""
