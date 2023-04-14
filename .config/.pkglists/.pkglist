@@ -1,4 +1,5 @@
 acpi
+acpica
 alacritty
 alsa-utils
 apr
@@ -93,6 +94,7 @@ grub
 grub-customizer
 gsmartcontrol
 gtk-vnc
+gtk2
 gzip
 helix
 htop
