@@ -64,7 +64,7 @@ nnoremap('<leader>rs', '<cmd>%s/\\s*$//g<cr>', { desc = 'clean tail space'})
 nnoremap('<leader>rl', '<cmd>g/^$/d<cr>', { desc = 'clean the blank line'})
 -- TODO (complete comment char)
 nnoremap('<leader>rc', '<cmd>g/^#/d<cr>', { desc = 'clean the comment line'})
-vnoremap('<leader>rk', [[<cmd>'<,'>s/\/\* \(.*\) \*\//\/\/ \1/g'<cr>]])
+vnoremap('<leader>rk', [[<cmd>'<,'>s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
 
 -- how to quit in vim
 nnoremap('<leader>q', '<cmd>bdelete!<cr>')
