@@ -32,6 +32,9 @@ nnoremap('<a-k>', ':m .-2<cr>')
 -- nnoremap('<c-p>', '<c-y>')
 -- nnoremap('<c-n>', '<c-e>')
 
+vnoremap('d', '"_d')
+vnoremap('c', '"_c')
+
 nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
 
 -- navigation
