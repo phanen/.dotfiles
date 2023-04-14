@@ -13,7 +13,6 @@ export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist non
 # export LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode - yellow
 # export LESS_TERMCAP_ue=$(printf '\e[0m')     # leave underline mode
 # export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode - cyan
-
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -22,6 +21,8 @@ export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export XDG_CONFIG_DIRS="/etc/xdg"
 
 # proxy
-export http_proxy="http://localhost:7890"
-export https_proxy="http://localhost:7890"
-export all_proxy="http://localhost:7890"
+export http_proxy="http://127.0.0.1:7890"
+export https_proxy="http://127.0.0.1:7890"
+export all_proxy="http://127.0.0.1:7890"
+
+export EDK_TOOLS_PATH=$HOME/demo/hard/edk2/BaseTools
