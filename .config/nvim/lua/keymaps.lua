@@ -88,6 +88,13 @@ nnoremap('<leader>wl', '<cmd>Lazy<cr>')
 -- toggle options
 nnoremap('<leader>of', '<cmd>set foldenable!<cr>')
 nnoremap('<leader>os', '<cmd>set spell!<cr>')
+nnoremap('<leader>on', function()
+  if string.match(vim.o.nrformats, 'alpha') then
+      vim.cmd [[set nrformats-=alpha]]
+  else
+      vim.cmd [[set nrformats+=alpha]]
+  end
+end)
 nnoremap('<leader>ob', require('utils.themes').toggle_bg, { desc = 'toggle background'} )
 nnoremap('<leader><tab>', require('utils').next_colorscheme, { desc = 'switch colorscheme'})
 nnoremap('<leader>ls', '<cmd>ls!<cr>')
