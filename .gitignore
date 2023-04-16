@@ -22,6 +22,7 @@
 !.config/mpv
 !.config/dunst
 !.config/sxiv
+!.config/vimium_c.json
 
 # semi-public configs
 !.config/git
