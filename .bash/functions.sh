@@ -94,3 +94,9 @@ diskcheck() {
 }
 
 archman() { curl -sL "https://man.archlinux.org/man/$1.raw" | man -l -; }
+
+toggle_proxy() {
+  unset http_proxy
+  unset https_proxy
+  unset all_proxy
+}
