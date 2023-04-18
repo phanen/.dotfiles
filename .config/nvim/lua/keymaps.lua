@@ -101,7 +101,7 @@ nnoremap('<leader>ls', '<cmd>ls!<cr>')
 
 -- toy term
 nnoremap('<m-t>', ':split term://bash<CR>i')
-tnoremap('<esc>', '<c-\\><c-n>')
+tnoremap('<c-q>', '<c-\\><c-n>')
 tnoremap('<m-t>', '<c-\\><c-n>:bdelete! %<CR>')
 
 -- diagnostic
