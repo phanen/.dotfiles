@@ -36,5 +36,9 @@ require('lazy').setup('plugins',
         disabled_plugins = { 'netrw', 'netrwPlugin' },
       },
     },
+    dev = {
+      path = require('utils').dev_dir,
+    },
+
   }
 )

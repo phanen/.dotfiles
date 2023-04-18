@@ -22,6 +22,6 @@ M.next_colorscheme = (function()
   end
 end)()
 
-
+M.dev_dir = vim.env.DEV_DIR or vim.fn.expand('~/demo')
 
 return M
