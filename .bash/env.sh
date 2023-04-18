@@ -28,3 +28,4 @@ export all_proxy="http://127.0.0.1:7890"
 export EDK_TOOLS_PATH=$HOME/demo/hard/edk2/BaseTools
 
 export CHROOT=$HOME/chroot
+export dev_dir="$HOME/demo/ndev"

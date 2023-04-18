@@ -12,7 +12,9 @@ alias df="df -h"
 alias pc="pacman"
 alias mx='chmod 755'
 alias hx='hexdump'
+alias vi='nvim'
 alias vn='vi -u NONE'
+alias pa='paru --bottomup'
 
 alias find="fd"
 alias du="dust"
