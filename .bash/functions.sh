@@ -100,3 +100,7 @@ toggle_proxy() {
   unset https_proxy
   unset all_proxy
 }
+
+clip2img() {
+  xclip -selection clipboard -target image/png -o > $1.png
+}
