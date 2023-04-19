@@ -6,6 +6,7 @@ apr
 apr-util
 archlinux-keyring
 asciiquarium
+asp
 autoconf
 automake
 awesome
@@ -22,6 +23,7 @@ binutils
 bison
 bluez
 bluez-utils
+bochs-gdb-stub
 boost
 broot
 bspwm
@@ -41,6 +43,7 @@ cpio
 cronie
 dash
 debugedit
+devtools
 dhcpcd
 difftastic
 dmenu
@@ -64,6 +67,8 @@ fcitx5-configtool
 fcitx5-gtk
 fcitx5-kkc
 fcitx5-mozc
+fcitx5-nord
+fcitx5-pinyin-moegirl
 fcitx5-pinyin-zhwiki
 fcitx5-qt
 fd
@@ -127,6 +132,7 @@ lsd
 lsof
 ltrace
 lua
+luarocks
 m4
 make
 man-db
@@ -139,12 +145,15 @@ namcap
 nano
 nasm
 neofetch
+neovim
 networkmanager
 ninja
+nix
 nmap
 nodejs
 notion
 noto-fonts-cjk
+noto-fonts-emoji
 npm
 ntfs-3g
 ntl
@@ -186,6 +195,7 @@ rustup
 scrcpy
 screen
 screenfetch
+screenkey
 sed
 shellcheck
 simplescreenrecorder
@@ -194,6 +204,7 @@ soft-serve
 soundfont-fluid
 speedtest-cli
 starship
+stow
 strace
 sudo
 sway
@@ -297,6 +308,7 @@ ytfzf
 z
 zathura
 zathura-pdf-mupdf
+zellij
 zip
 zotero-bin
 zoxide
