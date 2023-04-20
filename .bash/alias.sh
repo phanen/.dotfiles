@@ -1,9 +1,10 @@
-alias ls="lsd --color=auto"
-alias ll="lsd -lah --color=auto"
+alias ls="exa --color=auto"
+alias ll="exa -lah --color=auto"
 alias l="ll"
 alias lt="ls --tree"
 alias lta="ls -a --tree"
 alias type="type -a"
+alias t="type -a"
 alias which="which -a"
 alias grep="grep --color"
 alias rm="rm -i"
@@ -15,6 +16,13 @@ alias hx='hexdump'
 alias vi='nvim'
 alias vn='vi -u NONE'
 alias pa='paru --bottomup'
+alias pac='paru --bottomup'
+alias pao='pacman -Qo'
+alias pal='pacman -Ql'
+alias pas='pacman -Ss'
+alias paf='pacman -Fl'
+alias pt='pactree --color'
+
 
 alias find="fd"
 alias du="dust"
