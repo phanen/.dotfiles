@@ -1,0 +1,21 @@
+# annoying
+chromium
+clash
+icalingua
+pulse
+
+tmux/
+!tmux/tmux.conf
+git/
+!git/config
+
+# dont know...
+QtProject.conf
+ibus
+fcitx
+mozc
+dconf
+
+# for future
+keepassxc
+lazygit

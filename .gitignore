@@ -8,27 +8,7 @@
 !.bash/
 !.inputrc
 
-# .config
-!.config/
-.config/*
+!.config
 
-# public configs
-!.config/.pkglists
-!.config/nvim
-!.config/lf
-!.config/kitty
-!.config/alacritty
-!.config/friendly-snippets
-!.config/mpv
-!.config/dunst
-!.config/sxiv
-!.config/vimium_c.json
-
-# semi-public configs
-!.config/git
-.config/git/*
-!.config/git/config
-
-!.config/tmux/
-.config/tmux/*
-!.config/tmux/tmux.conf
+*.log
+*.db
