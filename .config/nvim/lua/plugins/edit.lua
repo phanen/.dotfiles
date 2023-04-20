@@ -50,7 +50,7 @@ return {
       autopairs.setup({
         close_triple_quotes = true,
         check_ts = true,
-        fast_wrap = { map = '<c-e>' },
+        -- fast_wrap = { map = '<c-e>' },
         ts_config = {
           lua = { 'string' },
           dart = { 'string' },
