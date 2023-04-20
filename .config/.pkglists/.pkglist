@@ -27,6 +27,7 @@ bochs-gdb-stub
 boost
 broot
 bspwm
+canto-curses
 catimg
 chromium
 clang
@@ -61,11 +62,9 @@ exa
 fakeroot
 farbfeld
 fcitx5
-fcitx5-anthy
 fcitx5-chinese-addons
 fcitx5-configtool
 fcitx5-gtk
-fcitx5-kkc
 fcitx5-mozc
 fcitx5-nord
 fcitx5-pinyin-moegirl
@@ -113,6 +112,7 @@ interception-caps2esc
 interception-tools
 jdk8-openjdk
 jq
+keepassxc
 kitty
 lazygit
 lf
@@ -147,6 +147,7 @@ nasm
 neofetch
 neovim
 networkmanager
+newsboat
 ninja
 nix
 nmap
@@ -166,7 +167,6 @@ os-prober
 p7zip
 pacman
 pacman-contrib
-pandoc-cli
 paru
 paruz
 patch
@@ -175,6 +175,7 @@ picom
 pipewire-pulse
 pkgconf
 polybar
+pwgen
 python
 python-markdown-it-py
 python-pip
