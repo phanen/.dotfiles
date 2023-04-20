@@ -1,8 +1,8 @@
 " basic
 set number
 set relativenumber
-
 set encoding=utf8
+set shortmess=atI
 
 set mouse=a
 set clipboard=unnamed,unnamedplus

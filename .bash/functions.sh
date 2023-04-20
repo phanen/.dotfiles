@@ -20,7 +20,14 @@ fpd() { $PDF "$(fzf)" >/dev/null 2>&1; }
 fmp() { mpv "$(fzf)" >/dev/null 2>&1; }
 
 fhs() { stty -echo && history | grep ""$@ | awk '{$1=$2=$3=""; print $0}' | fzf | xargs -I {} xdotool type {}  && stty echo; }
-fcl() { clash -d `echo -e "$XDG_CONFIG_HOME/clash/\n$XDG_CONFIG_HOME/clash/yy" | fzf`; }
+
+fcl() { 
+  (
+    cd $XDG_CONFIG_HOME/clash/
+    ln -sf `ls *.yaml | fzf` config.yaml
+    clash
+  )
+}
 
 calc() {
     echo "scale=3;$@" | bc -l
