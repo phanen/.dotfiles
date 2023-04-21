@@ -57,4 +57,14 @@ return {
     end,
   },
 
+  -- syntax highlight
+  {
+    'kovetskiy/sxhkd-vim',
+    ft = 'sxhkd',
+  },
+
+  {
+    'Fymyte/rasi.vim',
+    ft = 'rasi',
+  },
 }
