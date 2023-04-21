@@ -12,4 +12,6 @@ require('lazyman')
 
 -- filter down a quickfix list
 cmd.packadd('cfilter')
-vim.cmd [[colorscheme kanagawa-lotus]]
+
+g.colorscheme = env.TERM == 'linux' and 'default' or 'kanagawa-lotus'
+vim.cmd('colorscheme ' .. g.colorscheme )
