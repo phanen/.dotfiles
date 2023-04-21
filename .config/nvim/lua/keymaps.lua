@@ -34,6 +34,10 @@ nnoremap('<a-k>', ':m .-2<cr>')
 
 vnoremap('d', '"_d')
 vnoremap('c', '"_c')
+nnoremap('c', '"_c')
+nnoremap('d', '"_d')
+nnoremap('C', '"_C')
+nnoremap('D', '"_D')
 
 nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
 
