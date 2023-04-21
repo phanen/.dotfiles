@@ -26,7 +26,6 @@ bluez-utils
 boost
 broot
 bspwm
-canto-curses
 catimg
 chromium
 clang
@@ -142,7 +141,6 @@ neovim
 networkmanager
 newsboat
 ninja
-nix
 nmap
 nodejs
 notion
@@ -227,6 +225,7 @@ ttf-jetbrains-mono-nerd
 ttf-sourcecodepro-nerd
 unzip
 upx
+urxvt-perls
 usbutils
 uwufetch
 virt-viewer

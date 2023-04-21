@@ -27,7 +27,6 @@ bochs-gdb-stub
 boost
 broot
 bspwm
-canto-curses
 catimg
 chromium
 clang
@@ -109,6 +108,7 @@ hyperv
 icalingua++
 intel-ucode
 interception-caps2esc
+interception-space2meta
 interception-tools
 jdk8-openjdk
 jq
@@ -149,7 +149,6 @@ neovim
 networkmanager
 newsboat
 ninja
-nix
 nmap
 nodejs
 notion
@@ -239,6 +238,7 @@ ttf-sourcecodepro-nerd
 ttyper-git
 unzip
 upx
+urxvt-perls
 usbutils
 uwufetch
 virt-viewer

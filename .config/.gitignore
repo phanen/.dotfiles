@@ -6,6 +6,7 @@ pulse
 Kingsoft
 Electron
 Kitware
+libreoffice
 
 tmux/
 !tmux/tmux.conf
@@ -23,3 +24,4 @@ dconf
 keepassxc
 lazygit
 gh
+nushell

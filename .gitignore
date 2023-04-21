@@ -7,8 +7,9 @@
 !.bash_profile
 !.bash/
 !.inputrc
+!.xinitrc
 
-!.config
+!.config/
 
 *.log
 *.db
