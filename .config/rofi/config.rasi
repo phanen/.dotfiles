@@ -1,0 +1,5 @@
+@theme "/home/phanium/.local/share/rofi/themes/spotlight-dark.rasi"
+
+configuration {
+  font: "FiraCode Nerd Font Mono 12";
+}
