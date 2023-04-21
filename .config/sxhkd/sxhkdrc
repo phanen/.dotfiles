@@ -1,14 +1,7 @@
+# never try to "remap"..., use script instead
+
 super + {_, ctrl +} n
 	{alacritty, alacritty}
-
-# super + p
-#   xdotool keydown Control_L keydown Shift_L key V ; xdotool keyup V keyup Shift_L keyup Control_L
-
-super + p
-	xdotool key ctrl+shift+v
-
-# super + p
-# 	xdotool keydown Control_L keydown Shift_L key V ; xdotool keyup V keyup Shift_L keyup Control_L
 
 super + semicolon
 	rofi -show drun
@@ -18,6 +11,26 @@ super + w
 
 super + Escape
 	pkill -USR1 -x sxhkd
+
+super + y
+	xsel -po | xsel -bi
+
+@super + p
+	/home/phanium/bin/rclip.sh
+
+super + F2
+	sound-control down
+
+super + F3
+	sound-control up
+
+super + F5
+	light -U 20
+
+super + F6
+	light -A 20
+
+static const char *bldncmd[] = { "light", "-U", "20", NULL};
 
 # bspwn navigate
   # /usr/share/doc/bspwm/examples/sxhkdrc
