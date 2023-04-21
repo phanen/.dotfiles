@@ -22,7 +22,7 @@ alias pal='pacman -Ql'
 alias pas='pacman -Ss'
 alias paf='pacman -Fl'
 alias pt='pactree --color'
-
+alias k='pkill'
 
 alias find="fd"
 alias du="dust"

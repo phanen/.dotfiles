@@ -3,6 +3,9 @@ chromium
 clash
 icalingua
 pulse
+Kingsoft
+Electron
+Kitware
 
 tmux/
 !tmux/tmux.conf
@@ -19,3 +22,4 @@ dconf
 # for future
 keepassxc
 lazygit
+gh
