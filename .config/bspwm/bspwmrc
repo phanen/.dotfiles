@@ -8,6 +8,8 @@ bspc config window_gap          1
 
 bspc config focused_border_color \#00ffff
 
+bspc config focus_follows_pointer true
+
 bspc config split_ratio          0.6
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
