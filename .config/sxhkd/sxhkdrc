@@ -12,11 +12,16 @@ super + w
 super + Escape
 	pkill -USR1 -x sxhkd
 
-super + y
-	xsel -po | xsel -bi
+super + apostrophe
+	rofi -show ssh
 
-@super + p
-	/home/phanium/bin/rclip.sh
+# super + y
+# 	xsel -po | xsel -bi
+#
+# @super + p
+# 	/home/phanium/bin/rclip.sh
+super + p
+	clipmenu
 
 super + F2
 	sound-control down
@@ -30,27 +35,32 @@ super + F5
 super + F6
 	light -A 20
 
-static const char *bldncmd[] = { "light", "-U", "20", NULL};
+super + ctrl + s
+	flameshot gui
 
-# bspwn navigate
-  # /usr/share/doc/bspwm/examples/sxhkdrc
-  # next/previous
-super + {k, j}
+# bspwn 
+# /usr/share/doc/bspwm/examples/sxhkdrc
+
+  # navigate
+super + {j, k}
 	bspc node -f {next, prev}.local.!hidden.window
 
-  # win
 super + ctrl + {k, j}
 	bspc desktop -f {prev,next}.local
+
+super + g
+    bspc node -s biggest.window.local || \
+    bspc node -s last.local
 
 super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # resize
-super + shift + {h,j,k,l}
-  bspc node -z {left -20 0 || bspc node -z right -20 0, \
-                bottom 0 20 || bspc node -z top 0 20,\
-                top 0 -20 || bspc node -z bottom 0 -20,\
-                right 20 0 || bspc node -z left 20 0}
+# super + shift + {h,j,k,l}
+#   bspc node -z {left -20 0 || bspc node -z right -20 0, \
+#                 bottom 0 20 || bspc node -z top 0 20,\
+#                 top 0 -20 || bspc node -z bottom 0 -20,\
+#                 right 20 0 || bspc node -z left 20 0}
 
 # set the node flags
 super + ctrl + {m, x, y, z}
@@ -89,3 +99,10 @@ super + m
 # switch mode
 super + {t, shift + t, s, f}
 	bspc node -t {tiled, pseudo_tiled, floating, fullscreen}
+
+# preselect the direction
+super + shift + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+super + shift + semicolon
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
