@@ -11,7 +11,7 @@ dop() {
 LFCD="$XDG_CONFIG_HOME/lf/lfcd.sh"
 [ -f "$LFCD" ] && . "$LFCD"
 
-# awesome fzf 
+# awesome fzf
 FZF_DIR=". $HOME/Downloads $HOME/mnt $HOME/QQ_recv"
 fsl() { fzf -m --margin 5% --padding 5% --border --preview 'cat {}'; }
 frm() { fsl | rm; }
@@ -21,7 +21,7 @@ fmp() { mpv "$(fzf)" >/dev/null 2>&1; }
 
 fhs() { stty -echo && history | grep ""$@ | awk '{$1=$2=$3=""; print $0}' | fzf | xargs -I {} xdotool type {}  && stty echo; }
 
-fcl() { 
+fcl() {
   (
     cd $XDG_CONFIG_HOME/clash/
     ln -sf `ls *.yaml | fzf` config.yaml
@@ -66,7 +66,7 @@ gg() {
     fi
 }
 
-ipif() { 
+ipif() {
     if grep -P "(([1-9]\d{0,2})\.){3}(?2)" <<< "$1"; then
 	 curl ipinfo.io/"$1"
     else
@@ -79,14 +79,14 @@ ipif() {
 ATHEME="$XDG_CONFIG_HOME"/alacritty/alacritty-theme/themes/
 ACONFIG="$XDG_CONFIG_HOME"/alacritty/alacritty.yml
 alswitch() { # alacritty switch theme
-  theme=$(ls -1 "$ATHEME" | shuf -n1) 
+  theme=$(ls -1 "$ATHEME" | shuf -n1)
   sed -i '3s/themes\/.*\.ya\?ml$/themes\/'$theme'/'  $ACONFIG
   echo "$theme"
   # xsetroot -name "$random_theme  $(date)"
 }
 
 sala() { # alacritty select theme
-  theme=$(ls -1 "$ATHEME" | fzf) 
+  theme=$(ls -1 "$ATHEME" | fzf)
   sed -i '3s/themes\/.*\.ya\?ml$/themes\/'$theme'/'  $ACONFIG
   echo "$theme"
 }
@@ -123,3 +123,6 @@ pcfg() {
     *                 ) exec $1;;
   esac
 }
+
+cdev() { append_path "$HOME/demo/dev/depot_tools"; }
+

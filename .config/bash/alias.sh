@@ -49,7 +49,7 @@ alias sni="sudo -E ni"
 
 # config
 alias sb="source $HOME/.bashrc"
-alias ca="$EDITOR $XDG_CONFIG_HOME/bash"
+alias cb="$EDITOR $XDG_CONFIG_HOME/bash"
 alias ca="$EDITOR $XDG_CONFIG_HOME/alacritty"
 alias cn="$EDITOR $XDG_CONFIG_HOME/nvim"
 alias cf="$EDITOR $XDG_CONFIG_HOME/lf"

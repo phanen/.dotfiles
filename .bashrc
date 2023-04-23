@@ -1,8 +1,10 @@
+echo before local bashrc
 # non-interactively
 [[ $- != *i* ]] && return
 
 # better cd
 [[ -r "/usr/share/z/z.sh" ]] && . /usr/share/z/z.sh
+echo local bashrc
 
 PS1='[\u@\h \W]\$ '
 export BASHRC_DIR=$HOME/.bash

@@ -8,3 +8,6 @@
 
 # . $HOME/bin/fzf-bash-cmp
 # bind -x '"\t": /home/phanium/bin/fzf-bash-cmp'
+
+# better cd
+[[ -r "/usr/share/z/z.sh" ]] && . /usr/share/z/z.sh
