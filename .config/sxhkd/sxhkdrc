@@ -20,8 +20,9 @@ super + apostrophe
 #
 # @super + p
 # 	/home/phanium/bin/rclip.sh
+
 super + p
-	clipmenu
+	CM_LAUNCHER=rofi clipmenu
 
 super + F2
 	sound-control down
@@ -85,8 +86,11 @@ super + {_, shift + }{1-9, 0}
 	bspc {desktop -f, node -d} '^{1-9, 10}'
 
 # quit restart
-super + ctrl + {q, r}
-	bspc {quit, wm -r}
+super + ctrl + q
+	rm -f /tmp/fuckx.lock && bspc quit
+
+super + ctrl + r
+	bspc wm -r
 
 # close kill
 super + ctrl + {_, alt + }w
@@ -106,3 +110,22 @@ super + shift + {h,j,k,l}
 
 super + shift + semicolon
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+
+# xiao
+# rotate the whole desktop
+super + shift + r
+    bspc node @/ -R 90
+
+# rotate the parent of current focused
+super + r
+    bspc node @parent -R 90
+
+# hide window
+super + v
+    bspc node -g hidden
+
+# unhide window
+super + shift + v
+    bspc node {,$(bspc query -N -n .hidden | tail -n1)} -g hidden=off
+
