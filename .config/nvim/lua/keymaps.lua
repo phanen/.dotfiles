@@ -38,6 +38,7 @@ nnoremap('c', '"_c')
 nnoremap('d', '"_d')
 nnoremap('C', '"_C')
 nnoremap('D', '"_D')
+nnoremap('X', 'D')
 
 nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
 
@@ -45,10 +46,13 @@ nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
 nnoremap('<c-f>', '<cmd>BufferLineCycleNext<cr>')
 nnoremap('<c-b>', '<cmd>BufferLineCyclePrev<cr>')
 
-nnoremap('<c-h>', '<cmd>wincmd h<cr>')
-nnoremap('<c-j>', '<cmd>wincmd j<cr>')
-nnoremap('<c-k>', '<cmd>wincmd k<cr>')
-nnoremap('<c-l>', '<cmd>wincmd l<cr>')
+nnoremap('<c-j>', '<cmd>wincmd w<cr>')
+nnoremap('<c-k>', '<cmd>wincmd W<cr>')
+
+nnoremap('<c-h>', '^')
+nnoremap('<c-l>', '$')
+vnoremap('<c-h>', '^')
+vnoremap('<c-l>', '$')
 
 nnoremap('<leader>tn', '<cmd>tabnew<cr>')
 
@@ -79,7 +83,6 @@ nnoremap('<leader>q', '<cmd>bdelete!<cr>')
 nnoremap('<localleader>q', '<cmd>quit!<cr>')
 nnoremap('<localleader>w', '<cmd>write<cr>')
 nnoremap('<localleader>w', '<cmd>write<cr>')
-nnoremap('X', '<cmd>bdelete!<cr>')
 inoremap('<c-q>', '<cmd>bdelete!<cr>')
 inoremap('<c-s>', '<cmd>write<cr>')
 
