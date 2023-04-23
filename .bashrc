@@ -23,7 +23,7 @@ set -o emacs
 [[ -r $BASHRC_DIR/keybindings.sh ]] && . $BASHRC_DIR/keybindings.sh
 [[ -r $BASHRC_DIR/plugins.sh ]] && . $BASHRC_DIR/plugins.sh
 
-[[ -z $MYVIMRC ]] && uwufetch
+[[ -z $MYVIMRC ]] && eval $FETCHER
 
 [[ $(tty) = '/dev/tty1' ]] && 
   _util_netcfg &&

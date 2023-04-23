@@ -31,3 +31,5 @@ export EDK_TOOLS_PATH=$HOME/demo/hard/edk2/BaseTools
 
 export CHROOT=$HOME/chroot
 export dev_dir="$HOME/demo/ndev"
+
+FETCHER=uwufetch

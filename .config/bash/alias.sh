@@ -15,13 +15,12 @@ alias mx='chmod 755'
 alias hx='hexdump'
 alias vi='nvim'
 alias vn='vi -u NONE'
+
 alias pa='paru --bottomup'
-alias pac='paru --bottomup'
 alias pao='pacman -Qo'
 alias pal='pacman -Ql'
 alias pas='pacman -Ss'
-alias paf='pacman -Fl'
-alias pt='pactree --color'
+alias pat='pactree --color'
 alias k='pkill'
 alias x='xsel'
 
@@ -37,7 +36,7 @@ alias cm="chromium"
 alias rigdb="riscv64-linux-gnu-gdb"
 
 alias uma="sudo umount -R /mnt"
-alias todo="$EDITOR $HOME/TODO.md"
+alias todo="$EDITOR $HOME/notes/todo.md"
 alias log="$EDITOR $HOME/LOG.md"
 alias hm="l | wc -l"
 alias cdswap="cd $XDG_STATE_HOME/nvim/swap/"
