@@ -2,4 +2,8 @@
 
 configuration {
   font: "FiraCode Nerd Font Mono 12";
+  kb-remove-word-back: "Control+w,Control+BackSpace";
+  kb-clear-line: "";
+  kb-row-first: "Control+g";
+  kb-cancel: "Escape";
 }
