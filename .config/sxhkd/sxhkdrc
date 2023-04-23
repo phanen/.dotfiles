@@ -1,16 +1,23 @@
+# /usr/share/doc/bspwm/examples/sxhkdrc
 # never try to "remap"..., use script instead
-
-super + {_, ctrl +} n
-	{alacritty, alacritty}
-
-super + semicolon
-	rofi -show drun
-
-super + w
-	rofi -show window
 
 super + Escape
 	pkill -USR1 -x sxhkd
+
+super + shift + slash
+	alacritty --command nvim ~/.config/sxhkd/sxhkdrc
+
+super + n
+	{alacritty, alacritty}
+
+super + slash
+	alacritty --command nvim
+
+super + semicolon
+	rofi -show run -matching fuzzy
+
+super + w
+	rofi -show window
 
 super + apostrophe
 	rofi -show ssh
@@ -39,22 +46,26 @@ super + F6
 super + ctrl + s
 	flameshot gui
 
-# bspwn 
-# /usr/share/doc/bspwm/examples/sxhkdrc
-
-  # navigate
+# bspwm
+# navigate
 super + {j, k}
 	bspc node -f {next, prev}.local.!hidden.window
 
 super + ctrl + {k, j}
 	bspc desktop -f {prev,next}.local
 
-super + g
-    bspc node -s biggest.window.local || \
-    bspc node -s last.local
+# dwm like?
+super + Return
+	(bspc node -f biggest.window.local && \
+		bspc node -f last.window.local && \
+		bspc node -s biggest.window.local) || \
+	(bspc node -f last.window.local && bspc node -s biggest.window.local)
 
-super + bracket{left,right}
-	bspc desktop -f {prev,next}.local
+super + g
+	bspc node -s next.window.local
+
+super + ctrl + g
+	bspc node -s prev.window.local
 
 # resize
 # super + shift + {h,j,k,l}
@@ -73,12 +84,12 @@ super + ctrl + {p, b, comma, period}
 
 # focus the last node/desktop
 super + {grave, Tab}
-	bspc {node, desktop} -f last
+	bspc {node -f last.local, desktop -f last}
 
 # history
 super + {o, i}
 	bspc wm -h off; \
-	bspc node {older, newer} -f; \
+	bspc node -f {older, newer}; \
 	bspc wm -h on
 
 # focus or send to the given desktop
@@ -100,32 +111,27 @@ super + ctrl + {_, alt + }w
 super + m
 	bspc desktop -l next
 
-# switch mode
-super + {t, shift + t, s, f}
-	bspc node -t {tiled, pseudo_tiled, floating, fullscreen}
-
-# preselect the direction
-super + shift + {h,j,k,l}
-	bspc node -p {west,south,north,east}
-
-super + shift + semicolon
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
-
-
-# xiao
-# rotate the whole desktop
-super + shift + r
-    bspc node @/ -R 90
-
-# rotate the parent of current focused
-super + r
-    bspc node @parent -R 90
-
 # hide window
 super + v
-    bspc node -g hidden
+	bspc node -g hidden
 
 # unhide window
 super + shift + v
-    bspc node {,$(bspc query -N -n .hidden | tail -n1)} -g hidden=off
+	bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
 
+
+# # switch mode
+# super + {t, shift + t, s, f}
+# 	bspc node -t {tiled, pseudo_tiled, floating, fullscreen}
+#
+# # preselect the direction
+# super + shift + {h,j,k,l}
+# 	bspc node -p {west,south,north,east}
+#
+# super + alt + {h,j,k,l}
+# 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+#
+# # contract a window by moving one of its side inward
+# super + alt + shift + {h,j,k,l}
+# 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+#
