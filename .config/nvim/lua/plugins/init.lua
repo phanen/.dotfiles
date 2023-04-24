@@ -12,6 +12,13 @@ return {
       vim.o.timeout = true
       vim.o.timeoutlen = 100
       require('which-key').setup({
+        triggers_blacklist = {
+          -- list of mode / prefixes that should never be hooked by WhichKey
+          -- this is mostly relevant for keymaps that start with a native binding
+          i = { "j", "k" },
+          v = { "j", "k" },
+          c = { "w",},
+        },
         disable = {
           buftypes = {'help'},
           filetypes = {'man'},
@@ -20,7 +27,9 @@ return {
     end,
   },
 
-  'tpope/vim-sleuth', -- detect tabstop and shiftwidth automatically
+  { 'tpope/vim-eunuch', cmd = { 'Move', 'Rename', 'Remove', 'Delete', 'Mkdir' } },
+  { 'tpope/vim-sleuth', event = 'VeryLazy' },
+  { 'tpope/vim-repeat', event = 'VeryLazy' },
 
   -- rust
   'simrat39/rust-tools.nvim',

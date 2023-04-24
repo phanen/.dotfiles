@@ -1,6 +1,6 @@
 run-help() { help "$READLINE_LINE" 2>/dev/null || man "$READLINE_LINE"; }
 
-# WHICH_SHELL=$(ps -o comm= -p $$)
+# bind -pm vi
 bind '"\eq": "\C-e >/dev/null 2>&1 &"'
 bind '"\ew": "\C-asudo \C-e"'
 bind '"\ee": "\C-anvim \C-e"'

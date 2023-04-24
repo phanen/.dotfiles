@@ -29,6 +29,9 @@ vnoremap('p', '"_dp')
 nnoremap('<a-j>', ':m .+1<cr>')
 nnoremap('<a-k>', ':m .-2<cr>')
 
+-- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
+cnoremap('w!!', 'w !sudo tee > /dev/null')
+
 -- nnoremap('<c-p>', '<c-y>')
 -- nnoremap('<c-n>', '<c-e>')
 
@@ -81,7 +84,6 @@ vnoremap('<leader>r,', [[<cmd>'<,'>s/,\([^ ]\)/, \1/g<cr>]])
 -- how to quit in vim
 nnoremap('<leader>q', '<cmd>bdelete!<cr>')
 nnoremap('<localleader>q', '<cmd>quit!<cr>')
-nnoremap('<localleader>w', '<cmd>write<cr>')
 nnoremap('<localleader>w', '<cmd>write<cr>')
 inoremap('<c-q>', '<cmd>bdelete!<cr>')
 inoremap('<c-s>', '<cmd>write<cr>')

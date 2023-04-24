@@ -28,8 +28,6 @@ set showbreak=¬\                                 " Wrapping character
 set showmatch                                    " show matching brackets
 syntax on
 
-" color
-colorscheme koehler                                " set colorscheme
 " hi Normal guibg=NONE ctermbg=NONE|               " transparency fix
 " let g:onedark_termcolors=256                     " enable 256 colors support
 

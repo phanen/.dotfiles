@@ -4,8 +4,14 @@
 super + Escape
 	pkill -USR1 -x sxhkd
 
-super + shift + slash
+super + ctrl + slash
 	alacritty --command nvim ~/.config/sxhkd/sxhkdrc
+
+super + ctrl + comma
+	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
+
+super + ctrl + period
+	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
 
 super + n
 	{alacritty, alacritty}
