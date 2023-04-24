@@ -68,3 +68,12 @@ $if mode=emacs
   "\e[F": end-of-line
 
 $endif
+
+
+# switch between vi or emacs
+set keymap emacs
+"\e[": vi-editing-mode
+set keymap vi-insert
+"\e[": emacs-editing-mode
+set keymap vi-command
+"\e[": emacs-editing-mode
