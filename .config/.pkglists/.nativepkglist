@@ -121,6 +121,7 @@ light
 linux
 linux-firmware
 lldb
+lolcat
 love
 lsd
 lsof
@@ -301,3 +302,6 @@ zellij
 zip
 zoxide
 zsh
+zsh-autosuggestions
+zsh-completions
+zsh-syntax-highlighting
