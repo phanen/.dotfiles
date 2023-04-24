@@ -7,6 +7,8 @@ EnumerateSkipFirst=False
 EnumerateGroupForwardKeys=
 # Enumerate Input Method Group Backward
 EnumerateGroupBackwardKeys=
+# Toggle embedded preedit
+TogglePreedit=
 
 [Hotkey/TriggerKeys]
 0=Control+space
@@ -39,9 +41,6 @@ EnumerateGroupBackwardKeys=
 
 [Hotkey/NextCandidate]
 0=Control+J
-
-[Hotkey/TogglePreedit]
-0=Control+Alt+P
 
 [Behavior]
 # Active By Default
