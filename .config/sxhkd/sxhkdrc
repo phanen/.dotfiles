@@ -80,6 +80,11 @@ super + ctrl + g
 #                 top 0 -20 || bspc node -z bottom 0 -20,\
 #                 right 20 0 || bspc node -z left 20 0}
 
+super + s : {h,j,k,l}
+	STEP=20; SELECTION={1,2,3,4}; \
+	bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
+	bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
+
 # set the node flags
 super + ctrl + {m, x, y, z}
 	bspc node -g {marked, locked, sticky, private}
