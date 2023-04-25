@@ -35,9 +35,9 @@ bindkey -s '\ew' '\C-asudo \C-e'
 bindkey -s '\ee' '\C-anvim \C-e'
 bindkey -s '\et' '$(compgen -c | fzf)\C-m'
 bindkey -s '\eo' 'lfcd\C-m'
-bindkey -s '\eg' '\C-e2>&1 | rg '
-bindkey -s '\ej' '\C-e2>&1 | nvim -'
-bindkey -s '\ek' '\C-e\C-uclear\C-m'
+bindkey -s '\ej' '\C-e 2>&1 | rg '
+bindkey -s '\eg' '\C-e 2>&1 | nvim -'
+bindkey -s '\ek' '\C-uclear\C-m'
 bindkey -s '\el' '\C-e | bat'
 
 # zsh complete
@@ -56,3 +56,8 @@ zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:
 # . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
 . /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+
+# # https://stackoverflow.com/questions/4405382/how-can-i-read-documentation-about-built-in-zsh-commands
+unalias run-help
+autoload run-help
+alias help='run-help'
