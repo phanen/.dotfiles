@@ -5,7 +5,7 @@
 # TODO to started from tty or wm, that's a question...
 
 _bootstrap() { if ! pgrep "$1"; then eval "$@"; fi }
-_bootstrap sxhkd -a tab &
+_bootstrap sxhkd -a Tab &
 _bootstrap polybar -r &
 _bootstrap fcitx5 -d
 _bootstrap udiskie &
