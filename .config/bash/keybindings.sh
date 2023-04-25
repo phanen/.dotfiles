@@ -1,4 +1,7 @@
-run-help() { help "$READLINE_LINE" 2>/dev/null || man "$READLINE_LINE"; }
+run-help() {
+    cmd=$(echo $READLINE_LINE | xargs)
+    help "$cmd" 2>/dev/null || man "$cmd";
+}
 
 # bind -pm vi
 bind '"\eq": "\C-e >/dev/null 2>&1 &"'
@@ -9,7 +12,7 @@ bind '"\eo": "\C-alfcd\C-m"'
 
 bind -m vi-insert -x '"\eh": run-help'
 bind -m emacs -x '"\eh": run-help'
-bind '"\eg": "\C-e2>&1 | rg "'
-bind '"\ej": "\C-e2>&1 | nvim -"'
-bind '"\ek": "\C-e\C-uclear\C-m"'
+bind '"\eg": "\C-e 2>&1 | nvim -"'
+bind '"\ej": "\C-e 2>&1 | rg "'
+bind -x '"\ek": "clear"'
 bind '"\el": "\C-e | bat"'

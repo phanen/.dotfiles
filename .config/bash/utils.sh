@@ -25,11 +25,19 @@ _util_netcfg() {
   # sudo wpa_supplicant -B -i wlp0s20f3 -c /etc/wpa_supplicant/wpa_supplicant.conf &&
 }
 
-_util_post_x() {
-  test ! -f /tmp/fuckx.lock &&
+# xinput --set-prop 16 'libinput Accel Speed' 1
+_util_kmonad() {
+  pkill kmonad
+  kmonad .config/kmonad/kmonad.kbd &
+}
+
+_util_udevmon() {
     touch /tmp/fuckx.lock &&
     sudo systemctl restart udevmon &&
-    sleep 1 &&
+    sleep .3 &&
     xset r rate 150 65
-  # xinput --set-prop 16 'libinput Accel Speed' 1
+}
+
+_util_post_x() {
+  test ! -f /tmp/fuckx.lock && _util_kmonad
 }
