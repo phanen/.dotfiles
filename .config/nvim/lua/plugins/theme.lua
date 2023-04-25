@@ -67,4 +67,9 @@ return {
     'Fymyte/rasi.vim',
     ft = 'rasi',
   },
+
+  {
+    'kmonad/kmonad-vim',
+    ft = 'kbd',
+  },
 }
