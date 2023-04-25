@@ -32,12 +32,13 @@ _util_kmonad() {
 }
 
 _util_udevmon() {
-    touch /tmp/fuckx.lock &&
     sudo systemctl restart udevmon &&
     sleep .3 &&
     xset r rate 150 65
 }
 
 _util_post_x() {
-  test ! -f /tmp/fuckx.lock && _util_kmonad
+  test ! -f /tmp/fuckx.lock &&
+    touch /tmp/fuckx.lock &&
+    _util_kmonad
 }
