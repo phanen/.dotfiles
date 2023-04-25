@@ -55,6 +55,7 @@ egl-wayland
 eglexternalplatform
 emacs
 evince
+evtest
 exa
 fakeroot
 fcitx5

@@ -18,6 +18,7 @@ alias vn='vi -u NONE'
 
 alias pa='paru --bottomup'
 alias pao='pacman -Qo'
+alias pai='pacman -Qi'
 alias pal='pacman -Ql'
 alias pas='pacman -Ss'
 alias pat='pactree --color'

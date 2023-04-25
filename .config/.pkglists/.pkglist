@@ -57,6 +57,7 @@ egl-wayland
 eglexternalplatform
 emacs
 evince
+evtest
 exa
 fakeroot
 farbfeld
@@ -115,6 +116,7 @@ jdk8-openjdk
 jq
 keepassxc
 kitty
+kmonad-bin
 lazygit
 lf
 lib32-gcc-libs
