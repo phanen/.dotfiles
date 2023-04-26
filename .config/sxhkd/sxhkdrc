@@ -5,8 +5,11 @@
 super + r
 	pkill -USR1 -x sxhkd
 
+super + slash
+	alacritty --working-directory ~ --command nvim
+
 super + ctrl + slash
-	alacritty --command nvim ~/.config/sxhkd/sxhkdrc
+	alacritty --working-directory ~ --command nvim ~/.config/sxhkd/sxhkdrc
 
 super + ctrl + comma
 	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
@@ -15,10 +18,8 @@ super + ctrl + period
 	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
 
 super + n
-	alacritty
+	tabbed -c alacritty --embed
 
-super + slash
-	alacritty --command nvim
 
 super + semicolon
 	rofi -show run -matching fuzzy
