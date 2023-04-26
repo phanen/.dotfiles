@@ -117,16 +117,16 @@
 )
 
 (deflayer full
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-  @tm  q    w    e    r    t    y    u    i    o    p    @[m  ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
-  @ec  a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
-  lsft z    x    c    v    b    n    m    ,    .    @/c  rsft                 up         kp1  kp2  kp3  kprt
-  lctl lmet lalt           @sm            ralt rmet cmp  rctl            left down rght  kp0  kp.)
+  caps  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
+  grv  @1   @2   @3    4   @5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
+  @tm   q    w    e    r    t    y    u   @i   @o    p    @[m  ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
+  @ec   a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
+  lsft  z    x    c    v    b    n    m    ,    .   @/a   rsft                 up         kp1  kp2  kp3  kprt
+  lctl  lmet lalt           @sm            ralt rmet cmp  rctl            left down rght  kp0  kp.)
 
 ;; (defalias
 ;;   ec  (tap-next esc lctl)
-;;   /c  (tap-hold-next-release 500 / lctl)
+;;   /a  (tap-hold-next-release 500 / lalt)
 ;;   tm  (tap-next tab lmet)
 ;;   [m  (tap-hold-next 500 [ lmet))
 
@@ -134,10 +134,19 @@
   sm (tap-hold-next-release 500 spc lmet)
   ;; ec  (tap-hold-next-release 500 esc lctl)
   ec  (tap-next esc lctl)
-  /c  (tap-hold-next-release 500 / lctl)
+  /a  (tap-hold-next-release 500 / lalt)
   tm  (tap-next tab lmet)
-  [m  (tap-hold-next 500 [ lmet))
+  [m  (tap-hold-next 500 [ lmet)
 
+  o  (tap-hold-next-release 500 o lalt)
+  i  (tap-hold-next-release 500 i lalt)
+
+  1  (tap-next 1 lsft)
+  2  (tap-next-release 2 (around lsft lctl))
+  3  (tap-hold 500 3 (around lsft lctl))
+  ;; 4  (tap-hold-next 4 (around lsft lctl))
+  5  (tap-hold-next-release 500 5 (around lsft lctl))
+)
 
 ;; /usr/share/doc/kmonad-bin/keymap/tutorial.kbd
 ;; (defalias
