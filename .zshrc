@@ -61,3 +61,8 @@ zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:
 unalias run-help
 autoload run-help
 alias help='run-help'
+
+## edit in editor
+# autoload -Uz edit-command-line
+# zle -N edit-command-line
+# bindkey '^X^E' edit-command-line
