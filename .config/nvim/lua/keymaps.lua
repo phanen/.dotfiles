@@ -52,10 +52,10 @@ nnoremap('<c-b>', '<cmd>BufferLineCyclePrev<cr>')
 nnoremap('<c-j>', '<cmd>wincmd w<cr>')
 nnoremap('<c-k>', '<cmd>wincmd W<cr>')
 
-nnoremap('<c-h>', '^')
-nnoremap('<c-l>', '$')
-vnoremap('<c-h>', '^')
-vnoremap('<c-l>', '$')
+nnoremap('<c-h>', 'g^')
+nnoremap('<c-l>', 'g$')
+vnoremap('<c-h>', 'g^')
+vnoremap('<c-l>', 'g$')
 
 nnoremap('<leader>tn', '<cmd>tabnew<cr>')
 

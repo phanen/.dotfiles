@@ -7,7 +7,9 @@ o.undofile = true
 o.number = true
 o.relativenumber = true
 
---TODO
+-- https://stackoverflow.com/questions/2574027/automatically-go-to-next-line-in-vim--TODO
+vim.cmd [[set whichwrap+=h,l]]
+
 -- o.list = true
 -- o.listchars = (o.listchars .. 'eol:↳')
 
