@@ -29,6 +29,7 @@ _util_netcfg() {
 _util_kmonad() {
   pkill kmonad
   kmonad .config/kmonad/kmonad.kbd &
+  disown
 }
 
 _util_udevmon() {

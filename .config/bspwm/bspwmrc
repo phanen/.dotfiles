@@ -5,6 +5,7 @@
 # TODO to started from tty or wm, that's a question...
 
 _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
+_bootstrap kmonad ~/.config/kmonad/kmonad.kbd &
 _bootstrap sxhkd -a Tab &
 _bootstrap polybar -r &
 _bootstrap fcitx5 -d &

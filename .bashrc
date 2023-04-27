@@ -28,7 +28,5 @@ fi
 
 [[ -z $MYVIMRC ]] && eval $FETCHER
 
-[[ $(tty) = '/dev/tty1' ]] && 
-  (_util_netcfg && cd ~ && startx && sudo kbdrate -d 150 -r 65) ||
-  _util_post_x # a handler to set keymap and keyrate
-
+[[ $(tty) = '/dev/tty1' ]] && _util_netcfg && cd ~ && startx && sudo kbdrate -d 150 -r 65
+# [[ $(tty) != '/dev/tty1' ]] && _util_post_x # a handler to set keymap and keyrate
