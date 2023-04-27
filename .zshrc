@@ -28,17 +28,17 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 # bash-like
 # setopt NO_AUTOLIST BASH_AUTOLIST NO_MENUCOMPLETE
 
-
 bindkey -e # must set first
-bindkey -s '\eq' '\C-e >/dev/null 2>&1 &'
-bindkey -s '\ew' '\C-asudo \C-e'
-bindkey -s '\ee' '\C-anvim \C-e'
-bindkey -s '\et' '$(compgen -c | fzf)\C-m'
-bindkey -s '\eo' 'lfcd\C-m'
-bindkey -s '\ej' '\C-e 2>&1 | rg '
-bindkey -s '\eg' '\C-e 2>&1 | nvim -'
+bindkey -s '\eq' '\C-a\C-e >/dev/null 2>&1 &'
+bindkey -s '\ew' '\C-asudo \C-a\C-e'
+bindkey -s '\ee' '\C-anvim \C-a\C-e'
+bindkey -s '\et' '\C-u$(compgen -c | fzf)\C-m'
+bindkey -s '\eo' '\C-ulfcd\C-m'
+bindkey -s '\ej' '\C-a\C-e 2>&1 | rg '
+bindkey -s '\eg' '\C-a\C-e 2>&1 | nvim -'
 bindkey -s '\ek' '\C-uclear\C-m'
-bindkey -s '\el' '\C-e | bat'
+bindkey -s '\el' '\C-a\C-e | bat'
+
 
 # zsh complete
 autoload -U compinit
