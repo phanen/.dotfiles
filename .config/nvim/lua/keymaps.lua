@@ -103,7 +103,8 @@ nnoremap('<leader>on', function()
   else
       vim.cmd [[set nrformats+=alpha]]
   end
-end)
+end, { desc = 'toggle nrformats'})
+
 nnoremap('<leader>ob', require('utils.themes').toggle_bg, { desc = 'toggle background'} )
 nnoremap('<leader><tab>', require('utils').next_colorscheme, { desc = 'switch colorscheme'})
 nnoremap('<leader>ls', '<cmd>ls!<cr>')

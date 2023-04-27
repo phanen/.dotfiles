@@ -91,6 +91,7 @@ gibo
 git
 github-cli
 go
+go-musicfox-bin
 gperf
 graphviz
 grep
@@ -166,6 +167,7 @@ nushell
 nvidia
 nvidia-utils
 nyancat
+obsidian
 openssh
 os-prober
 p7zip

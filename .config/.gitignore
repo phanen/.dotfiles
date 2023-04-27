@@ -7,6 +7,8 @@ Kingsoft
 Electron
 Kitware
 libreoffice
+virt-viewer
+obsidian
 
 tmux/
 !tmux/tmux.conf
@@ -20,8 +22,12 @@ fcitx
 mozc
 dconf
 
-# for future
+# for future maybe...
 keepassxc
 lazygit
 gh
 nushell
+htop
+tabbed
+emacs
+doom
