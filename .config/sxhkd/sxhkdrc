@@ -9,7 +9,7 @@ super + slash
 	alacritty --working-directory ~ --command nvim
 
 super + ctrl + slash
-	alacritty --working-directory ~ --command nvim ~/.config/sxhkd/sxhkdrc
+	alacritty --working-directory ~ --command nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc
 
 super + ctrl + comma
 	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
@@ -18,17 +18,16 @@ super + ctrl + period
 	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
 
 super + n
-	tabbed -c alacritty --embed
-
+	tabbed -c alacritty --working-directory ~ --embed
 
 super + semicolon
 	rofi -show run -matching fuzzy
 
 super + w
-	rofi -show window
+	rofi -show window -matching fuzzy
 
 super + apostrophe
-	rofi -show ssh
+	rofi -show ssh -matching fuzzy
 
 # super + y
 # 	xsel -po | xsel -bi
@@ -54,15 +53,24 @@ super + F6
 super + ctrl + s
 	flameshot gui
 
-# bspwm
-# navigate
+
+# bspwm --------------------------------------------------
+	# navigate
 super + {j, k}
 	bspc node -f {next, prev}.local.!hidden.window
 
-super + ctrl + {k, j}
-	bspc desktop -f {prev,next}.local
+super + ctrl + {j, k}
+	bspc desktop -f {next, prev}.local 
 
-# dwm like?
+super + {grave, Tab}
+	bspc {node -f last.local, desktop -f last}
+
+super + {o, i}
+	bspc wm -h off; \
+	bspc node -f {older, newer}; \
+	bspc wm -h on
+
+	# move
 super + Return
 	(bspc node -f biggest.window.local && \
 		bspc node -f last.window.local && \
@@ -78,38 +86,29 @@ super + ctrl + g
 super + ctrl + t
 	. $XDG_CONFIG_HOME/sxhkd/scripts/toggle-polybar.sh
 
-# super + ctrl + t
-# 	notify-send oawijeffe
+# move a floating window
+super + {Left, Down, Up, Right}
+	bspc node -v {-20 0, 0 20, 0 -20, 20 0}
 
 # resize
-# super + shift + {h,j,k,l}
+# super + shift + {h, j, k, l}
 #   bspc node -z {left -20 0 || bspc node -z right -20 0, \
-#                 bottom 0 20 || bspc node -z top 0 20,\
-#                 top 0 -20 || bspc node -z bottom 0 -20,\
+#                 bottom 0 20 || bspc node -z top 0 20, \
+#                 top 0 -20 || bspc node -z bottom 0 -20, \
 #                 right 20 0 || bspc node -z left 20 0}
 
-super + s : {h,j,k,l}
-	STEP=20; SELECTION={1,2,3,4}; \
-	bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
-	bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
+super + s : {h, j, k, l}
+	STEP=20; SELECTION={1, 2, 3, 4}; \
+	bspc node -z $(echo "left -$STEP 0, bottom 0 $STEP, top 0 -$STEP, right $STEP 0" | cut -d', ' -f$SELECTION) || \
+	bspc node -z $(echo "right -$STEP 0, top 0 $STEP, bottom 0 -$STEP, left $STEP 0" | cut -d', ' -f$SELECTION)
 
 # set the node flags
 super + ctrl + {m, x, y, z}
 	bspc node -g {marked, locked, sticky, private}
 
 # focus the node for the given path jump
-super + ctrl + {p, b, comma, period}
+super + ctrl + {p, b, 9, 8}
 	bspc node -f @{parent, brother, first, second}
-
-# focus the last node/desktop
-super + {grave, Tab}
-	bspc {node -f last.local, desktop -f last}
-
-# history
-super + {o, i}
-	bspc wm -h off; \
-	bspc node -f {older, newer}; \
-	bspc wm -h on
 
 # focus or send to the given desktop
 super + {_, shift + }{1-9, 0}
@@ -147,31 +146,19 @@ super + v
 super + shift + v
 	bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
 
+# preselect the direction
+super + d : {h, j, k, l, semicolon}
+	bspc node -p {west, south, north, east, cancel}
+
+
+# rotate the parent of current focused
+super + shift + r
+	bspc node @parent -R 90
+
+# rotate the whole desktop
+super + shift + alt + r
+	bspc node @/ -R 90
 
 # # switch mode
 # super + {t, shift + t, s, f}
 # 	bspc node -t {tiled, pseudo_tiled, floating, fullscreen}
-#
-# # preselect the direction
-# super + shift + {h,j,k,l}
-# 	bspc node -p {west,south,north,east}
-#
-# super + alt + {h,j,k,l}
-# 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-#
-# # contract a window by moving one of its side inward
-# super + alt + shift + {h,j,k,l}
-# 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-
-# move a floating window
-super + {Left,Down,Up,Right}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
-
-# rotate the whole desktop
-# super + shift + r
-#     bspc node @/ -R 90
-
-# rotate the parent of current focused
-super + shift + r
-    bspc node @parent -R 90
-
