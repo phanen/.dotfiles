@@ -116,6 +116,14 @@
   lctl lmet lalt           spc            ralt rmet cmp  rctl            left down rght  kp0  kp.
 )
 
+(deflayer fingerkiller
+  caps  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
+  grv  @1   @2   @3    4   @5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
+  @tm  @q    w   @e   @r   @t   @y    u   @i   @o    p    @[m  ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
+  @ec  @a   @s    d    f   @g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
+  lsft @z   @x   @c   @v    b    n   @m    ,    .   @/a   rsft                 up         kp1  kp2  kp3  kprt
+  lctl  lmet lalt           @sm            ralt rmet cmp  rctl            left down rght  kp0  kp.)
+
 (deflayer full
   caps  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
   grv  @1   @2   @3    4   @5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
@@ -138,14 +146,41 @@
   tm  (tap-next tab lmet)
   [m  (tap-hold-next 500 [ lmet)
 
-  o  (tap-hold-next-release 500 o lalt)
-  i  (tap-hold-next-release 500 i lalt)
-
+  ;; o  (tap-hold-next-release 500 o lalt)
+  ;; i  (tap-hold-next-release 500 i lalt)
   1  (tap-next 1 lsft)
   2  (tap-next-release 2 (around lsft lctl))
   3  (tap-hold 500 3 (around lsft lctl))
   ;; 4  (tap-hold-next 4 (around lsft lctl))
   5  (tap-hold-next-release 500 5 (around lsft lctl))
+
+
+  a  (tap-hold-next-release 500 a lalt)
+  b  (tap-hold-next-release 500 b lalt)
+  c  (tap-hold-next-release 500 c lalt)
+  d  (tap-hold-next-release 500 d lalt)
+  e  (tap-hold-next-release 500 e lalt)
+  f  (tap-hold-next-release 500 f lalt)
+  g  (tap-hold-next-release 500 g lalt)
+  h  (tap-hold-next-release 500 h lalt)
+  i  (tap-hold-next-release 500 i lalt)
+  j  (tap-hold-next-release 500 j lalt)
+  k  (tap-hold-next-release 500 k lalt)
+  l  (tap-hold-next-release 500 l lalt)
+  m  (tap-hold-next-release 500 m lalt)
+  n  (tap-hold-next-release 500 n lalt)
+  o  (tap-hold-next-release 500 o lalt)
+  p  (tap-hold-next-release 500 p lalt)
+  q  (tap-hold-next-release 500 q lalt)
+  r  (tap-hold-next-release 500 r lalt)
+  s  (tap-hold-next-release 500 s lalt)
+  t  (tap-hold-next-release 500 t lalt)
+  u  (tap-hold-next-release 500 u lalt)
+  v  (tap-hold-next-release 500 v lalt)
+  w  (tap-hold-next-release 500 w lalt)
+  x  (tap-hold-next-release 500 x lalt)
+  y  (tap-hold-next-release 500 y lalt)
+  z  (tap-hold-next-release 500 z lalt)
 )
 
 ;; /usr/share/doc/kmonad-bin/keymap/tutorial.kbd
