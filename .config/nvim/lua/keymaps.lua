@@ -82,7 +82,7 @@ vnoremap('<leader>rk', [[<cmd>'<,'>s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
 vnoremap('<leader>r,', [[<cmd>'<,'>s/,\([^ ]\)/, \1/g<cr>]])
 
 -- how to quit in vim
-nnoremap('<leader>q', '<cmd>bdelete!<cr>')
+nnoremap('<leader>q', '<cmd>Bdelete!<cr>')
 nnoremap('<localleader>q', '<cmd>quit!<cr>')
 nnoremap('<localleader>w', '<cmd>write<cr>')
 inoremap('<c-q>', '<cmd>bdelete!<cr>')

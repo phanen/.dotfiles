@@ -347,4 +347,9 @@ return {
     config = function() require("trouble").setup {} end
   },
 
+
+  {
+    'famiu/bufdelete.nvim',
+    lazy = false,
+  }
 }
