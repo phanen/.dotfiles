@@ -2,7 +2,10 @@ return {
   {
     'iamcco/markdown-preview.nvim',
     build = 'cd app && npm install',
-    config = function() vim.g.mkdp_filetypes = { 'markdown' } end,
+    config = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+      -- vim.g.mkdp_markdown_css = '/home/phanium/Downloads/typora-onedark-theme-1.10/theme/onedark_linux.css'
+    end,
     ft = { 'markdown' },
   },
 
@@ -63,7 +66,7 @@ return {
     'f3fora/nvim-texlabconfig',
     cond = false,
     config = function() require('texlabconfig').setup() end,
-    ft = { 'tex', 'bib' }, -- for lazy loading 
+    ft = { 'tex', 'bib' }, -- for lazy loading
     build = 'go build',
   },
 
