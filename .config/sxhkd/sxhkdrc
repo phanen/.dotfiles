@@ -80,9 +80,8 @@ super + {l, h}
 super + alt + {j, k}
 	bspc node -d {next, prev} --follow
 
-super + shift + alt + {j, k}
+super + alt + {l, h}
 	bspc node -d {next, prev}
-
 
 # bspwm status ----------------------------------------------
 
