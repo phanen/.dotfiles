@@ -26,6 +26,7 @@ bluez-utils
 bochs-gdb-stub
 boost
 broot
+bsp-layout
 bspwm
 catimg
 chromium
@@ -91,7 +92,7 @@ gibo
 git
 github-cli
 go
-go-musicfox-bin
+go-musicfox
 gperf
 graphviz
 grep
@@ -117,7 +118,6 @@ jdk8-openjdk
 jq
 keepassxc
 kitty
-kmonad-bin
 lazygit
 lf
 lib32-gcc-libs
@@ -312,6 +312,7 @@ yasm
 yay
 you-get
 youtube-dl
+yq
 yt-dlp
 ytfzf
 z
