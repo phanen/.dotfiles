@@ -1,640 +1,275 @@
-#| --------------------------------------------------------------------------
-                         Necessary: the `defcfg` block
-
-  There are a few bits of information that are required to be present in a
-  KMonad configuration file. One of these is the existence of exactly 1 `defcfg`
-  statement. This statement is used to customize various configuration settings.
-  Many of these settings have default values, but a minimal definition must
-  include at least an 'input' field and an 'output' field. These describe how
-  KMonad captures its inputs and how it emits its outputs.
-
-  First, let's go over the optional, non-OS specific settings. Currently there is
-  only 2:
-
-  - fallthrough: `true` or `false`, defaults to `false`
-
-    KMonad catches input events and tries to match them to various handlers. If
-    it cannot match an event to any handler (for example, if it isn't included
-    in the `defsrc` block, or if it is, but the current keymap does not map any
-    buttons to it), then the event gets quietly ignored. If `fallthrough` is set
-    to `true`, any unhandled events simply get reemitted.
-
-  - allow-cmd: `true` or `false`, defaults to `false`
-
-    If this is set to `false`, any action that runs a shell-command will simply
-    log to `stdout` without ever running (log-level info). Don't ever enable
-    this on a configuration that you do not trust, because:
-      (cmd-button "rm -rf ~/*")
-    is a thing.
-
-  Secondly, let's go over how to specify the `input` and `output` fields of a
-  `defcfg` block. This differs between OS'es, and so do the capabilities of
-  these interfaces.
-
-
-  -- Linux ------
-    (device-file "/dev/input/by-id/my-keyboard-kbd")
-
-  NOTE: Any valid path to a device-file will work, but it is recommended to use
-  the 'by-id' directory, since these names will not change if you replug the
-  device.
-
-  We deal with output by creating a 'uinput' device. This requires that the
-  'uinput' kernel module is loaded. The easiest way to ensure this is by calling
-  'sudo modprobe uinput'. We create a uinput device using:
-    (uinput-sink "name" "optional post-init command")
-  -------------------------------------------------------------------------- |#
-
+;; /usr/share/doc/kmonad-bin/keymap/tutorial.kbd
 (defcfg
   input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
-  output (uinput-sink "My KMonad output" "sleep 1 && xset r rate 160 75 && setxkbmap -option compose:ralt")
+  output (uinput-sink "My KMonad output" "sleep .3 && xset r rate 150 75 && setxkbmap -option compose:ralt")
   cmp-seq ralt
-  fallthrough true
+  fallthrough false ;; unhandled events simply get reemitted?
   allow-cmd true
 )
 
+;; switch layer
+(defalias
+  t1  (layer-switch tap-next-layer)
+  t2  (layer-switch tap-hold-layer)
+  t3  (layer-switch tap-hold-next-layer)
+  t4  (layer-switch tap-next-release-layer)
+  t5  (layer-switch tap-hold-next-release-layer)
+  t6  (layer-switch qwerty-layer)
+  t7  (layer-switch smooth-layer)
+  cmk (layer-switch colemak-layer)
+)
 
-#| --------------------------------------------------------------------------
-                         Necessary: the `defsrc` block
+;; multi key
+(defalias
+  #ec (tap-next esc lctl)
+  #sm (tap-hold-next-release 500 spc lmet)
+  #/a (tap-hold-next-release 500 / lalt)
 
-  It is difficult to explain the `defsrc` block without immediately going into
-  `deflayer` blocks as well. Essentially, KMonad maps input-events to various
-  internal actions, many of which generate output events. The `defsrc` block
-  explains the layout on which we specify our `deflayer`s down the line.
+  #ls (tap-hold-next-release 500 \( lsft)
+  #rs (tap-hold-next-release 500 \) rsft)
 
-  It is important to realize that the `defsrc` block doesn't *necessarily* have
-  to coincide with your actual input keyboard. You can specify a full 100%
-  `defsrc` block, but only use a 40% keyboard. This will mean that every
-  `deflayer` you specify will also have to match your 100% `defsrc`, and that
-  your actual keyboard would be physically unable to trigger about 60% of your
-  keymap, but it would be perfectly valid syntax.
+  #tm (tap-hold-next-release 500 tab (layer-toggle mod-layer))
+  #'m (tap-hold-next-release 500 '   (layer-toggle mod-layer))
+)
 
-  The dual of this (and more useful) is that it is also perfectly valid to only
-  specify that part of your keyboard in `defsrc` that you want to remap. If you
-  use a 100% keyboard, but don't want to remap the numpad at all you can simply
-  leave the numpad out of your `defsrc`, and it should work just fine. In that
-  particular case you probably want to set `fallthrough` to `true` in your
-  `defcfg` block though.
-
-  In the future we would like to provide support for multiple, named `defsrc`
-  blocks, so that it becomes easier to specify various layers for just the
-  numpad, for example, but at the moment any more or less than 1 `defsrc` block
-  will result in an error.
-
-  The layouting in the `defsrc` block is completely free, whitespace simply gets
-  ignored. We strive to provide a name for every keycode that is no longer than
-  4 characters, so we find that laying out your keymap in columns of 5 works out
-  quite nicely (although wider columns will allow for more informative aliases,
-  see below).
-
-  Most keycodes should be obvious. If you are unsure, check
-  './src/KMonad/Keyboard/Keycode.hs'. Every Keycode has a name corresponding to
-  its Keycode name, but all lower-case and with the 'Key' prefix removed. There
-  are also various aliases for Keycodes starting around line 350. If you are
-  trying to bind a key and there is not a 4-letter alias, please file an issue,
-  or better yet, a pull-request, and it will be added promptly.
-
-  Also, you can consult './keymap/template/' for various input templates. Here
-  we use the input-template for 'us_ansi_60.kbd'
-
-  -------------------------------------------------------------------------- |#
-
-;; (defsrc
-;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-;;   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-;;   caps a    s    d    f    g    h    j    k    l    ;    '    ret
-;;   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-;;   lctl lmet lalt           spc            ralt rmet cmp  rctl
-;; )
+;; stciky key
+(defalias
+  sls (sticky-key 300 lsft)
+  srs (sticky-key 300 lsft)
+)
 
 (defsrc
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up         kp1  kp2  kp3  kprt
-  lctl lmet lalt           spc            ralt rmet cmp  rctl            left down rght  kp0  kp.
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rctl
 )
 
-(deflayer fingerkiller
-  caps  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
-  grv  @1   @2   @3    4   @5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-  @tm  @q    w   @e   @r   @t   @y    u   @i   @o    p    @[m  ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
-  @ec  @a   @s    d    f   @g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
-  lsft @z   @x   @c   @v    b    n   @m    ,    .   @/a   rsft                 up         kp1  kp2  kp3  kprt
-  lctl  lmet lalt           @sm            ralt rmet cmp  rctl            left down rght  kp0  kp.)
-
-(deflayer full
-  caps  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
-  grv  @1   @2   @3    4   @5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-  @tm   q    w    e    r    t    y    u   @i   @o    p    @[m  ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
-  @ec   a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
-  lsft  z    x    c    v    b    n    m    ,    .   @/a   rsft                 up         kp1  kp2  kp3  kprt
-  lctl  lmet lalt           @sm            ralt rmet cmp  rctl            left down rght  kp0  kp.)
-
-;; (defalias
-;;   ec  (tap-next esc lctl)
-;;   /a  (tap-hold-next-release 500 / lalt)
-;;   tm  (tap-next tab lmet)
-;;   [m  (tap-hold-next 500 [ lmet))
-
-(defalias 
-  sm (tap-hold-next-release 500 spc lmet)
-  ;; ec  (tap-hold-next-release 500 esc lctl)
-  ec  (tap-next esc lctl)
-  /a  (tap-hold-next-release 500 / lalt)
-  tm  (tap-next tab lmet)
-  [m  (tap-hold-next 500 [ lmet)
-
-  ;; o  (tap-hold-next-release 500 o lalt)
-  ;; i  (tap-hold-next-release 500 i lalt)
-  1  (tap-next 1 lsft)
-  2  (tap-next-release 2 (around lsft lctl))
-  3  (tap-hold 500 3 (around lsft lctl))
-  ;; 4  (tap-hold-next 4 (around lsft lctl))
-  5  (tap-hold-next-release 500 5 (around lsft lctl))
-
-
-  a  (tap-hold-next-release 500 a lalt)
-  b  (tap-hold-next-release 500 b lalt)
-  c  (tap-hold-next-release 500 c lalt)
-  d  (tap-hold-next-release 500 d lalt)
-  e  (tap-hold-next-release 500 e lalt)
-  f  (tap-hold-next-release 500 f lalt)
-  g  (tap-hold-next-release 500 g lalt)
-  h  (tap-hold-next-release 500 h lalt)
-  i  (tap-hold-next-release 500 i lalt)
-  j  (tap-hold-next-release 500 j lalt)
-  k  (tap-hold-next-release 500 k lalt)
-  l  (tap-hold-next-release 500 l lalt)
-  m  (tap-hold-next-release 500 m lalt)
-  n  (tap-hold-next-release 500 n lalt)
-  o  (tap-hold-next-release 500 o lalt)
-  p  (tap-hold-next-release 500 p lalt)
-  q  (tap-hold-next-release 500 q lalt)
-  r  (tap-hold-next-release 500 r lalt)
-  s  (tap-hold-next-release 500 s lalt)
-  t  (tap-hold-next-release 500 t lalt)
-  u  (tap-hold-next-release 500 u lalt)
-  v  (tap-hold-next-release 500 v lalt)
-  w  (tap-hold-next-release 500 w lalt)
-  x  (tap-hold-next-release 500 x lalt)
-  y  (tap-hold-next-release 500 y lalt)
-  z  (tap-hold-next-release 500 z lalt)
+(deflayer qwerty-layer
+  caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  @q   w    @e   @r   @t   @y   u    @i   @o   p    [    ]    \
+  @#ec @a   @s   d    f    @g   h    j    k    l    ;    @#'m  ret
+  @sls @z   @x   @c   @v   b    n    @m   ,    .    @#/a @srs
+  lctl lmet lalt           @#sm           ralt rctl
 )
 
-;; /usr/share/doc/kmonad-bin/keymap/tutorial.kbd
-;; (defalias
-;;   num  (layer-toggle numbers) ;; Bind num to a button that switches to a layer
-;;   kil  C-A-del                ;; Bind kil to a button that Ctrl-Alt-deletes
-;; )
+(deflayer smooth-layer
+  caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @#tm q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @#ec a    s    d    f    g    h    j    k    l    ;    @#'m ret
+  @sls z    x    c    v    b    n    m    ,    .    /    @srs
+  lctl lmet lalt           @#sm           ralt rctl
+)
 
-#| --------------------------------------------------------------------------
-;;   3. The '_' character evaluates to transparent. I.e. no handler for that
-;;      key-event in this layer, causing this event to be handed down the layer
-;;      stack to perhaps be handled by the next layer.
-;;
-;;   4. The 'XX' character evaluates to blocked. I.e. no action bound to that
-;;      key-event in this layer, but do actually catch event, preventing any
-;;      underlying layer from handling it.
-;;   -------------------------------------------------------------------------- |#
+(deflayer colemak-layer
+  caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @#tm q    w    f    p    g    j    l    u    y    ;    [    ]    \
+  @#ec a    r    s    t    d    h    n    e    i    o    @#'m ret
+  @sls z    x    c    v    b    k    m    ,    .    /    @srs
+  lctl lmet lalt           @#sm           ralt rctl
+)
 
-;; (deflayer qwerty
-;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-;;   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-;;   caps a    s    d    f    g    h    j    k    l    ;    '    ret
-;;   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-;;   lctl @num lalt           spc            ralt rmet @sym @tst
-;; )
-;;
+(deflayer mod-layer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  @t1  @t2  @t3  4    5    6    7    8    9    0    -    =    bspc
+  tab  q    @t4  @t5  r    t    y    u    i    o    p    [    ]    \
+  @#ec a    s    d    f    g    h    @t6  @t7  @cmk ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           @#sm           ralt rctl
+)
 
-;; (deflayer numbers
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    XX   /    7    8    9    -    _    _    _
-;;   _    _    _    _    _    XX   *    4    5    6    +    _    _
-;;   _    _    \(   \)   .    XX   0    1    2    3    _    _
-;;   _    _    _              _              _    _    _    _
-;; )
-;;
-;;
-;; #| --------------------------------------------------------------------------
-;;                           Optional: modded buttons
-;;
-;;     C-A-del
-;;     (around ctl (around alt del))
-;;     (around foo bar)
-;;   `around` takes two buttons and creates a new button.
-;;   This new button will, on a press, first press foo, then press bar, and on a
-;;   release first release bar, and then foo
-;; no keycode for \(, \), *, and +
-;; they modded buttons
-;;   To wrap up 'modded-buttons', let's look back at C-A-del. We have 8 variants:
-;;   C- : (around lctl X)
-;;   A- : (around lalt X)
-;;   M- : (around lmet X)
-;;   S- : (around lsft X)
-;;  
-;;   Then RC-, RA-, RM-, and RS- behave exactly the same, except using the
-;;   right-modifier.
-;;
-;;   These can be combined however you please:
-;;     C-A-M-S-x          ;; Perfectly valid
-;;     C-%                ;; Perfectly valid: same as C-S-5
-;;     C-RC-RA-A-M-S-RS-m ;; Sure, but why would you?
-;;     (around a (around b c)) ;; Perfectly valid
-;;   -------------------------------------------------------------------------- |#
-;;
-;; (defalias
-;;
-;;   ;; Something useful
-;;   cpy C-c
-;;   pst C-v
-;;   cut C-x
-;;   ;; Something silly
-;;   md1 (around a (around b c))    ;; abc
-;;   md2 (around a (around lsft b)) ;; aB
-;;   md3 C-A-M-S-l
-;;   md4 (around % b)               ;; BEWARE: %B, not %b, do you see why?
-;; )
+(defalias
+  a   (tap-hold-next-release 500 a lalt)
+  b   (tap-hold-next-release 500 b lalt)
+  c   (tap-hold-next-release 500 c lalt)
+  d   (tap-hold-next-release 500 d lalt)
+  e   (tap-hold-next-release 500 e lalt)
+  f   (tap-hold-next-release 500 f lalt)
+  g   (tap-hold-next-release 500 g lalt)
+  h   (tap-hold-next-release 500 h lalt)
+  i   (tap-hold-next-release 500 i lalt)
+  j   (tap-hold-next-release 500 j lalt)
+  k   (tap-hold-next-release 500 k lalt)
+  l   (tap-hold-next-release 500 l lalt)
+  m   (tap-hold-next-release 500 m lalt)
+  n   (tap-hold-next-release 500 n lalt)
+  o   (tap-hold-next-release 500 o lalt)
+  p   (tap-hold-next-release 500 p lalt)
+  q   (tap-hold-next-release 500 q lalt)
+  r   (tap-hold-next-release 500 r lalt)
+  s   (tap-hold-next-release 500 s lalt)
+  t   (tap-hold-next-release 500 t lalt)
+  u   (tap-hold-next-release 500 u lalt)
+  v   (tap-hold-next-release 500 v lalt)
+  w   (tap-hold-next-release 500 w lalt)
+  x   (tap-hold-next-release 500 x lalt)
+  y   (tap-hold-next-release 500 y lalt)
+  z   (tap-hold-next-release 500 z lalt)
+)
 
-;;;;  (around (around lsft 5) b)
+(defalias
+  an  (tap-next-release a lalt)
+  bn  (tap-next-release b lalt)
+  cn  (tap-next-release c lalt)
+  dn  (tap-next-release d lalt)
+  en  (tap-next-release e lalt)
+  fn  (tap-next-release f lalt)
+  gn  (tap-next-release g lalt)
+  hn  (tap-next-release h lalt)
+  in  (tap-next-release i lalt)
+  jn  (tap-next-release j lalt)
+  kn  (tap-next-release k lalt)
+  ln  (tap-next-release l lalt)
+  mn  (tap-next-release m lalt)
+  nn  (tap-next-release n lalt)
+  on  (tap-next-release o lalt)
+  pn  (tap-next-release p lalt)
+  qn  (tap-next-release q lalt)
+  rn  (tap-next-release r lalt)
+  sn  (tap-next-release s lalt)
+  tn  (tap-next-release t lalt)
+  un  (tap-next-release u lalt)
+  vn  (tap-next-release v lalt)
+  wn  (tap-next-release w lalt)
+  xn  (tap-next-release x lalt)
+  yn  (tap-next-release y lalt)
+  zn  (tap-next-release z lalt)
+)
 
-;; ;; Now we define the 'tst' button as opening and closing a bunch of layers at
-;; ;; the same time. If you understand why this works, you're starting to grok
-;; ;; KMonad.
-;; (defalias tst (around (layer-toggle macro-test)
-;;                 (around (layer-toggle layer-test)
-;;                   (around (layer-toggle around-next-test)
-;;                     (around (layer-toggle command-test)
-;;                             (layer-toggle modded-test))))))
-;;
-;; (deflayer modded-test
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    @md4 _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    @md1 @md2 @md3 _    _    _    _    _    _    _    _
-;;   _    _    @cut @cpy @pst _    _    _    _    _    _    _
-;;   _    _    _              _              _    _    _    _
-;; )
-;;
-;; #| --------------------------------------------------------------------------
-;;                               Optional: tap-macros
-;;
-;;
-;;     (tap-macro K M o n a d)
-;;     #(K M o n a d)
-;;
-;;   If you are going to use a `tap-macro` to perform a sequence of actions inside
-;;   some program you probably want to include short pauses between inputs to give
-;;   the program time to register all the key-presses. Therefore we also provide
-;;   the 'pause' function, which simply pauses processing for a certain amount of
-;;   milliseconds. Pauses can be created like this:
-;;     (pause 20)
-;;     P20
-;;
-;;
-;;   -------------------------------------------------------------------------- |#
-;;
-;; (defalias
-;;   mc1 #(K M o n a d)
-;;   mc2 #(C-c P50 A-tab P50 C-v) ;; Careful, this might do something
-;;   mc3 #(P200 h P150 4 P100 > < P50 > < P20 0 r z 1 ! 1 ! !)
-;;   mc4 (tap-macro a (pause 50) @md2 (pause 50) c)
-;;   mc5 #(@mc3 spc @mc3 spc @mc3)
-;; )
-;;
-;; (deflayer macro-test
-;;   _    @mc1 @mc2 @mc3 @mc4 @mc5 _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _              _              _    _    _    _
-;; )
-;;
-;;
-;; #| --------------------------------------------------------------------------
-;;                           Optional: layer manipulation
+(defalias
+  ah  (tap-hold 500 a lalt)
+  bh  (tap-hold 500 b lalt)
+  ch  (tap-hold 500 c lalt)
+  dh  (tap-hold 500 d lalt)
+  eh  (tap-hold 500 e lalt)
+  fh  (tap-hold 500 f lalt)
+  gh  (tap-hold 500 g lalt)
+  hh  (tap-hold 500 h lalt)
+  ih  (tap-hold 500 i lalt)
+  jh  (tap-hold 500 j lalt)
+  kh  (tap-hold 500 k lalt)
+  lh  (tap-hold 500 l lalt)
+  mh  (tap-hold 500 m lalt)
+  nh  (tap-hold 500 n lalt)
+  oh  (tap-hold 500 o lalt)
+  ph  (tap-hold 500 p lalt)
+  qh  (tap-hold 500 q lalt)
+  rh  (tap-hold 500 r lalt)
+  sh  (tap-hold 500 s lalt)
+  th  (tap-hold 500 t lalt)
+  uh  (tap-hold 500 u lalt)
+  vh  (tap-hold 500 v lalt)
+  wh  (tap-hold 500 w lalt)
+  xh  (tap-hold 500 x lalt)
+  yh  (tap-hold 500 y lalt)
+  zh  (tap-hold 500 z lalt)
+)
 
-;;   `layer-toggle` works as described before, 2 things to note:
+(defalias
+  aQ  (tap-hold-next 500 a lalt)
+  bQ  (tap-hold-next 500 b lalt)
+  cQ  (tap-hold-next 500 c lalt)
+  dQ  (tap-hold-next 500 d lalt)
+  eQ  (tap-hold-next 500 e lalt)
+  fQ  (tap-hold-next 500 f lalt)
+  gQ  (tap-hold-next 500 g lalt)
+  hQ  (tap-hold-next 500 h lalt)
+  iQ  (tap-hold-next 500 i lalt)
+  jQ  (tap-hold-next 500 j lalt)
+  kQ  (tap-hold-next 500 k lalt)
+  lQ  (tap-hold-next 500 l lalt)
+  mQ  (tap-hold-next 500 m lalt)
+  nQ  (tap-hold-next 500 n lalt)
+  oQ  (tap-hold-next 500 o lalt)
+  pQ  (tap-hold-next 500 p lalt)
+  qQ  (tap-hold-next 500 q lalt)
+  rQ  (tap-hold-next 500 r lalt)
+  sQ  (tap-hold-next 500 s lalt)
+  tQ  (tap-hold-next 500 t lalt)
+  uQ  (tap-hold-next 500 u lalt)
+  vQ  (tap-hold-next 500 v lalt)
+  wQ  (tap-hold-next 500 w lalt)
+  xQ  (tap-hold-next 500 x lalt)
+  yQ  (tap-hold-next 500 y lalt)
+  zQ  (tap-hold-next 500 z lalt)
+)
 
-;;   1. If you are confused or worried about pressing a key, changing layers, and
-;;      then releasing a key and this causing issues: don't be. KMonad handles
-;;      presses and releases in very different ways. Presses get passed directly to
-;;      the stacked keymap as previously described. When a KMonad button has its
-;;      press-action triggered, it then registers a callback that will catch its
-;;      own release before we ever touch the keymap. This guarantees that the
-;;      button triggered by the press of X *will be* the button whose release is
-;;      triggered by the release of X (the release of X might trigger other things
-;;      as well, but that is besides the point.)
-;;   2. If `layer-toggle` can only ever add and then necessarily remove 1 layer
-;;      from the stack, then it will never cause a permanent change, and is
-;;      perfectly safe.
-;;
-;;   `layer-delay`, once pressed, temporarily switches to some layer for some
-;;   milliseconds. Just like `layer-toggle` this will never permanently mess-up the
-;;   layer stack. This button was initially implemented to provide some
-;;   'leader-key' style behavior. Although I think in the future better solutions
-;;   will be available. For now this will temporarily add a layer to the top of the
-;;   stack:
-;;     (layer-delay 500 my-layer)
-;;
-;;   `layer-next`, once pressed, primes KMonad to handle the next press from some
-;;   arbitrary layer. This aims to fill the same usecase as `layer-delay`: the
-;;   beginnings of 'leader-key' style behavior. I think this whole button will get
-;;   deleted soon, because the more general `around-next` now exists (see below)
-;;   and this is nothing more than:
-;;     (around-next (layer-toggle layer-name) some-button)
-;;   Until then though, use `layer-next` like this:
-;;     (layer-next layer-name)
-;;
-;;   `layer-switch`: change the base-layer of KMonad. As described at the top of
-;;   this document, the first `deflayer` statement is the layer that is active when
-;;   KMonad starts. Since `layer-toggle` can only ever add on and remove from the
-;;   top of that, it can never change the base-layer. The following button will
-;;   unregister the bottom-most layer of the keymap, and replace it with another
-;;   layer.
-;;     (layer-switch my-layer)
-;;
-;;   This is where things start getting potentially dangerous (i.e. get KMonad into
-;;   an unusuable state until a restart has occured). It is perfectly possible to
-;;   switch into a layer that you can never get out of. Or worse, you could
-;;   theoretically have a layer full of only `XX`s and switch into that, rendering
-;;   your keyboard unuseable until you somehow manage to kill KMonad (without using
-;;   your keyboard).
-;;
-;;   However, when handled well, `layer-switch` is very useful, letting you switch
-;;   between 'modes' for your keyboard. I have a tiny keyboard with a weird keymap,
-;;   but I switch into a simple 'qwerty' keymap shifted 1 button to the right for
-;;   gaming. Just make sure that any 'mode' you switch into has a button that
-;;   allows you to switch back out of the 'mode' (or content yourself restarting
-;;   KMonad somehow).
-;;
-;;   `layer-add` and `layer-rem`. This is where you can very quickly cause yourself
-;;   a big headache. Originally I didn't expose these operations, but someone
-;;   wanted to use them, and I am not one to deny someone else a chainsaw. As the
-;;   names might give away:
-;;     (layer-add name) ;; Add a layer to the top of the stack
-;;     (layer-rem name) ;; Remove a layer by name (noop if no such layer)
-;;
-;;   To use `layer-add` and `layer-rem` well, you should take a moment to think
-;;   about how to create a layout that will prevent you from getting into
-;;   situations where you enter a key-configuration you cannot get out of again.
-;;   These two operations together, however, are very useful for activating a
-;;   permanent overlay for a while. This technique is illustrated in the tap-hold
-;;   overlay a bit further down.
-;;
-;;
-;;   -------------------------------------------------------------------------- |#
-;;
-;; (defalias
-;;
-;;   yah (layer-toggle asking-for-trouble) ;; Completely safe
-;;   nah (layer-add asking-for-trouble)    ;; Completely unsafe
-;;
-;;   ld1 (layer-delay 500 numbers) ;; One way to get a leader-key
-;;   ld2 (layer-next numbers)      ;; Another way to get a leader key
-;;
-;;   ;; NOTE, this is safe because both `qwerty` and `colemak` contain the `@tst`
-;;   ;; button which will get us to the `layer-test` layer, which itself contains
-;;   ;; both `@qwe` and `@col`.
-;;   qwe (layer-switch qwerty) ;; Set qwerty as the base layer
-;;   col (layer-switch colemak) ;; Set colemak as the base layer
-;; )
-;; (deflayer layer-test
-;;   @qwe _    _    _    _    _    _    _    _    _    _    @add _    @nah
-;;   @col _    _    _    _    _    _    _    _    _    _    _    _    @yah
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    @ld1 @ld2 _
-;;   _    _    _              _              _    _    _    _
-;; )
-;;
-;; ;; Exactly like qwerty, but with the letters switched around
-;; (deflayer colemak
-;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-;;   tab  q    w    f    p    g    j    l    u    y    ;    [    ]    \
-;;   @xcp a    r    s    t    d    h    n    e    i    o    '    ret
-;;   lsft z    x    c    v    b    k    m    ,    .    /    rsft
-;;   lctl @num lalt           spc            ralt rmet @sym @tst
-;; )
-;;
-;; (defalias lol #(: - D))
-;;
-;; ;; Contrived example
-;; (deflayer asking-for-trouble
-;;   @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol
-;;   @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol
-;;   @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol
-;;   @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol @lol
-;;   @lol @lol @lol           @lol           @lol @lol @lol @lol
-;; )
-;;
-;; ;; One way to safely use layer-add and layer-rem: the button bound to layer-add
-;; ;; is the same button bound to layer-rem in the layer that `add` adds to the
-;; ;; stack. I.e., it becomes impossible to add or remove multiple copies of a
-;; ;; layer.
-;; (defalias
-;;   add (layer-add multi-overlay) ;; multi-overlay is defined in the next
-;;   rem (layer-rem multi-overlay) ;; section below this
-;;   )
-;;
-;; #| --------------------------------------------------------------------------
-;;                           Optional: Multi-use buttons
-;;   For the next section being able to talk about examples is going to be handy,
-;;   so consider the following scenario and mini-language that will be the same
-;;   between scenarios.
-;;     - We have some button `foo` that will be different between scenarios
-;;     - `foo` is bound to 'Esc' on the input keyboard
-;;     - the letters a s d f are bound to themselves
-;;     - Px  signifies the press of button x on the keyboard
-;;     - Rx  signifies the release of said button
-;;     - Tx  signifies the sequential and near instantaneous press and release of a
-;;     - 100 signifies 100ms pass
-;;
-;;   So for example:
-;;     Tesc Ta:
-;;       tap of 'Esc' (triggering `foo`), tap of 'a' triggering `a`
-;;     Pesc 100 Ta Tb Resc:
-;;       press of 'Esc', 100ms pause, tap of 'a', tap of 'b', release of 'Esc'
-;;
-;;   The `tap-next` button takes 2 buttons, one for tapping, one for holding, and
-;;   combines them into a single button. When pressed, if the next event is its own
-;;   release, we tap the 'tapping' button. In all other cases we first press the
-;;   'holding' button then we handle the event. Then when the `tap-next` gets
-;;   released, we release the 'holding' button.
-;;
-;;   So, using our mini-language, we set foo to:
-;;     (tap-next x lsft)
-;;   Then:
-;;     Tesc            -> x
-;;     Tesc Ta         -> xa
-;;     Pesc Ta Resc    -> A
-;;     Pesc Ta Tr Resc -> AR
-;;
-;;   The `tap-hold` button is very similar to `tap-next` (a theme, trust me). The
-;;   difference lies in how the decision is made whether to tap or hold. A
-;;   `tap-hold` waits for a particular timeout, if the `tap-hold` is released
-;;   anywhere before that moment we execute a tap immediately. If the timeout
-;;   occurs and the `tap-hold` is still held, we switch to holding mode.
-;;
-;;   The additional feature of a `tap-hold` is that it pauses event-processing
-;;   until it makes its decision and then rolls back processing when the decision
-;;   has been made.
-;;
-;;   So, again with the mini-language, we set foo to:
-;;     (tap-hold 200 x lsft) ;; Like tap-next, but with a 200ms timeout
-;;   Then:
-;;     Tesc            -> x
-;;     Tesc Ta         -> xa
-;;     Pesc 300 a      -> A (the moment you press a)
-;;     Pesc a 300      -> A (after 200 ms)
-;;     Pesc a 100 Resc -> xa (both happening immediately on Resc)
-;;
-;;   The `tap-hold-next` button is a combination of the previous 2. Essentially,
-;;   think of it as a `tap-next` button, but it also switches to held after a
-;;   period of time. This is useful, because if you have a (tap-next ret ctl) for
-;;   example, and you press it thinking you want to press C-v, but then you change
-;;   your mind, you now cannot release the button without triggering a 'ret', that
-;;   you then have to backspace. With the `tap-hold-next` button, you simply
-;;   outwait the delay, and you're good. I see no benefit of `tap-next` over
-;;   `tap-hold-next` with a decent timeout value.
-;;
-;;   The `tap-next-release` is like `tap-next`, except it decides whether to tap or
-;;   hold based on the next release of a key that was *not* pressed before us. This
-;;   also performs rollback like `tap-hold`.So, using the minilanguage and foo as:
-;;     (tap-next-release x lsft)
-;;   Then:
-;;     Tesc Ta         -> xa
-;;     Pa Pesc Ra Resc -> ax (because 'a' was already pressed when we started, so
-;;                            foo decides it is tapping)
-;;     Pesc Ta Resc    -> A (because a was pressed *and* released after we started,
-;;                           so foo decides it is holding)
-;;
-;;   These increasingly stranger buttons are, I think, coming from the stubborn
-;;   drive of some of my more eccentric (and I mean that in the most positive way)
-;;   users to make typing with modifiers on the home-row more comfortable.
-;;   Especially layouts that encourage a lot of rolling motions are nicer to use
-;;   with the `release` style buttons.
-;;
-;;   The `tap-hold-next-release` (notice a trend?) is just like `tap-next-release`,
-;;   but it comes with an additional timeout that, just like `tap-hold-next` will
-;;   jump into holding-mode after a timeout.
-;;
-;;   I honestly think that `tap-hold-next-release`, although it seems the most
-;;   complicated, probably is the most comfortable to use. But I've put all of them
-;;   in a testing layer down below, so give them a go and see what is nice.
-;;
-;;   -------------------------------------------------------------------------- |#
-;;
-;;
-;; (defalias
-;;   xtn (tap-next x lsft)         ;; Shift that does 'x' on tap
-;;   xth (tap-hold 400 x lsft)     ;; Long delay for easier testing
-;;   thn (tap-hold-next 400 x lsft)
-;;   tnr (tap-next-release x lsft)
-;;   tnh (tap-hold-next-release 2000 x lsft)
-;;
-;;   ;; Used it the colemak layer
-;;   xcp (tap-hold-next 400 esc ctl)
-;; )
-;;
-;; ;; Some of the buttons used here are defined in the next section
-;; (deflayer multi-overlay
-;;   @mt  _    _    _    _    _    _    _    _    _    _    _    @rem _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   @thn _    _    _    _    _    _    _    _    _    _    _    _
-;;   @xtn _    _    _    _    _    _    _    _    _    _    @xth
-;;   @tnr _    _              _              _    _    _    @tnh
-;; )
-;;
-;;
-;; #| --------------------------------------------------------------------------
-;;                               Optional: Multi-tap
-;;
-;;   Besides the tap-hold style buttons there is another multi-use button (with.
-;;   only 1 variant, at the moment). The `multi-tap`.
-;;
-;;   A `multi-tap` codes for different buttons depending on how often it is tapped.
-;;   It is defined by a series of delays and buttons, followed by a last button
-;;   without delay. As long as you tap the `multi-tap` within the delay specified,
-;;   it will jump to the next button. Once the delay is exceeded the selected
-;;   button is pressed. If the last button in the list is reached, it is
-;;   immediately pressed.
-;;
-;;   Note that you can actually hold the button, so in the below example, going:
-;;   tap-tap-hold (wait 300ms) will get you a pressed c, until you release again.
-;;
-;;   -------------------------------------------------------------------------- |#
-;;
-;; (defalias
-;;   mt  (multi-tap 300 a 300 b 300 c 300 d e))
-;;
-;;
-;; #| --------------------------------------------------------------------------
-;;                               Optional: Around-next
-;;
-;;   The `around-next` function creates a button that primes KMonad to perform the
-;;   next button-press inside some context. This could be the context of 'having
-;;   Shift pressed' or 'being inside some layer' or, less usefully, 'having d
-;;   pressed'. It is a more general and powerful version of `layer-next`.
-;;
-;;   I think expansion of this button-style is probably the future of leader-key,
-;;   hydra-style functionality support in KMonad.
-;;
-;;   -------------------------------------------------------------------------- |#
-;;
-;; (defalias
-;;   ns  (around-next sft)  ;; Shift the next press
-;;   nnm (around-next @num) ;; Perform next press in numbers layer
-;;   nd  (around-next d)    ;; Silly, but possible
-;; )
-;;
-;; (deflayer around-next-test
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   @nd  _    _    _    _    _    _    _    _    _    _    _    _
-;;   @nnm _    _    _    _    _    _    _    _    _    _    _
-;;   @ns  _    _              _              _    _    _    _
-;; )
-;;
-;; #| --------------------------------------------------------------------------
-;;                         Optional: Compose-key sequences
-;;
-;;   To get this to work on Linux you will need to set your compose-key to RightAlt
 
-;;    wait slightly for the keyboard to register with linux before the command gets
-;;   executed, that's why the `sleep 1`. 
-;;   1. Sleep a moment
-;;   2. Set the compose-key to ralt
-;;;
-;;   In addition to hard-coded symbols, we also provide 'uncompleted' macros. Since
-;;   a compose-key sequence is literally just a series of keystrokes, we can omit
-;;   the last one, and enter the sequence for 'add an umlaut' and let the user then
-;;   press some letter to add this umlaut to. These are created using the `+"`
-;;   syntax.
-;;
-;;   -------------------------------------------------------------------------- |#
-;;
-;; (defalias
-;;   sym (layer-toggle symbols)
-;;
-;; )
-;;
-;; (deflayer symbols
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    ä    é    ©    _    _    _    _    _    _    _    _    _    _
-;;   _    +'   +~   +`   +^   _    _    _    _    _    _    _    _
-;;   _    +"   _    _    _    _    _    _    _    _    _    _
-;;   _    _    _              _              _    _    _    _)
-;;
-;;
-;; (defalias
-;;   dat (cmd-button "date >> /tmp/kmonad_example.txt")   ;; Append date to tmpfile
-;;   pth (cmd-button "echo $PATH > /tmp/kmonad_path.txt") ;; Write out PATH
-;; )
-;;
-;; (deflayer command-test
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    @dat @pth _
-;;   _    _    _              _              _    _    _    _
-;; )
+(defalias
+  aN  (tap-next a lalt)
+  bN  (tap-next b lalt)
+  cN  (tap-next c lalt)
+  dN  (tap-next d lalt)
+  eN  (tap-next e lalt)
+  fN  (tap-next f lalt)
+  gN  (tap-next g lalt)
+  hN  (tap-next h lalt)
+  iN  (tap-next i lalt)
+  jN  (tap-next j lalt)
+  kN  (tap-next k lalt)
+  lN  (tap-next l lalt)
+  mN  (tap-next m lalt)
+  nN  (tap-next n lalt)
+  oN  (tap-next o lalt)
+  pN  (tap-next p lalt)
+  qN  (tap-next q lalt)
+  rN  (tap-next r lalt)
+  sN  (tap-next s lalt)
+  tN  (tap-next t lalt)
+  uN  (tap-next u lalt)
+  vN  (tap-next v lalt)
+  wN  (tap-next w lalt)
+  xN  (tap-next x lalt)
+  yN  (tap-next y lalt)
+  zN  (tap-next z lalt)
+)
+
+(deflayer tap-hold-next-release-layer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @#tm @q   @w   @e   @r   @t   @y   @u   @i   @o   @p   [    ]    \
+  @#ec @a   @s   @d   @f   @g   @h   @j   @k   @l   ;    '    ret
+  lsft @z   @x   @c   @v   @b   @n   @m   ,    .    /    rsft
+  lctl lmet lalt           @#sm           ralt rctl
+)
+
+(deflayer tap-next-release-layer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @#tm @qn  @wn  @en  @rn  @tn  @yn  @un  @in  @on  @pn  [    ]    \
+  @#ec @an  @sn  @dn  @fn  @gn  @hn  @jn  @kn  @ln  ;    '    ret
+  lsft @zn  @xn  @cn  @vn  @bn  @nn  @mn  ,    .    /    rsft
+  lctl lmet lalt           @#sm           ralt rctl
+)
+
+(deflayer tap-hold-layer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @#tm @qh  @wh  @eh  @rh  @th  @yh  @uh  @ih  @oh  @ph  [    ]    \
+  @#ec @ah  @sh  @dh  @fh  @gh  @hh  @jh  @kh  @lh  ;    '    ret
+  lsft @zh  @xh  @ch  @vh  @bh  @nh  @mh  ,    .    /    rsft
+  lctl lmet lalt           @#sm           ralt rctl
+)
+
+(deflayer tap-next-layer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @#tm @qN  @wN  @eN  @rN  @tN  @yN  @uN  @iN  @oN  @pN  [    ]    \
+  @#ec @aN  @sN  @dN  @fN  @gN  @hN  @jN  @kN  @lN  ;    '    ret
+  lsft @zN  @xN  @cN  @vN  @bN  @nN  @mN  ,    .    /    rsft
+  lctl lmet lalt           @#sm           ralt rctl
+)
+
+(deflayer tap-hold-next-layer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @#tm @qQ  @wQ  @eQ  @rQ  @tQ  @yQ  @uQ  @iQ  @oQ  @pQ  [    ]    \
+  @#ec @aQ  @sQ  @dQ  @fQ  @gQ  @hQ  @jQ  @kQ  @lQ  ;    '    ret
+  lsft @zQ  @xQ  @cQ  @vQ  @bQ  @nQ  @mQ  ,    .    /    rsft
+  lctl lmet lalt           @#sm           ralt rctl
+)
