@@ -1,21 +1,18 @@
 # /usr/share/doc/bspwm/examples/sxhkdrc
-# never try to "remap"..., use script instead
+# key remap is not available, script/executable only
 
 # dont use Espace...
 super + r
 	pkill -USR1 -x sxhkd
 
 super + slash
-	alacritty --working-directory ~ --command nvim
+	tabbed -c alacritty --working-directory ~ --command nvim --embed
 
 super + ctrl + slash
-	alacritty --working-directory ~ --command nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc
+	tabbed -c alacritty --working-directory ~ --command nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc --embed
 
-super + ctrl + comma
-	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
-
-super + ctrl + period
-	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
+super + alt + slash
+	tabbed -c alacritty --working-directory ~/notes --command nvim ~/notes/todo.md --embed
 
 super + n
 	tabbed -c alacritty --working-directory ~ --embed
@@ -23,11 +20,11 @@ super + n
 super + semicolon
 	rofi -show run -matching fuzzy
 
-super + w
-	rofi -show window -matching fuzzy
-
 super + apostrophe
 	rofi -show ssh -matching fuzzy
+
+super + w
+	rofi -show window -matching fuzzy
 
 # super + y
 # 	xsel -po | xsel -bi
@@ -38,127 +35,101 @@ super + apostrophe
 super + p
 	CM_LAUNCHER=rofi clipmenu
 
-super + F2
-	sound-control down
+super + {F2, F3}
+	sound-control {down, up}
 
-super + F3
-	sound-control up
-
-super + F5
-	light -U 20
-
-super + F6
-	light -A 20
+super + {F5, F6}
+	light-control {down, up}
 
 super + ctrl + s
 	flameshot gui
 
+# bspwm navigate --------------------------------------------------
 
-# bspwm --------------------------------------------------
-	# navigate
 super + {j, k}
 	bspc node -f {next, prev}.local.!hidden.window
 
 super + ctrl + {j, k}
-	bspc desktop -f {next, prev}.local 
+	bspc desktop -f {next, prev}.local
 
-super + {grave, Tab}
-	bspc {node -f last.local, desktop -f last}
+super + {_, ctrl + } e
+	bspc {desktop -f last, node -f last.local}
 
 super + {o, i}
 	bspc wm -h off; \
 	bspc node -f {older, newer}; \
 	bspc wm -h on
 
-	# move
+super + ctrl + {p, b, w, e}
+	bspc node -f @{parent, brother, first, second}
+
+super + {_, ctrl + }{1-9, 0}
+	bspc {desktop -f, node -d} '^{1-9, 10}'
+
+# bspwm move ---------------------------------------------
+
 super + Return
 	(bspc node -f biggest.window.local && \
 		bspc node -f last.window.local && \
 		bspc node -s biggest.window.local) || \
 	(bspc node -f last.window.local && bspc node -s biggest.window.local)
 
-super + g
-	bspc node -s next.window.local
+super + {l, h}
+	bspc node -s {next, prev}.window.local
 
-super + ctrl + g
-	bspc node -s prev.window.local
+super + alt + {j, k}
+	bspc node -d {next, prev} --follow
+
+super + shift + alt + {j, k}
+	bspc node -d {next, prev}
+
+
+# bspwm status ----------------------------------------------
+
+super + m
+	bspc desktop -l next
+
+	# hide
+super + {_, alt + } v
+	bspc node {-g hidden, $(bspc query -N -n .hidden | tail -n1) -g hidden=off}
+
+super + alt + {m, l, s, p}
+	bspc node -g {marked, locked, sticky, private}
+
+	# mode
+super + f
+	bspc node -t \~floating
+
+# misc -------------------------------
+
+super + ctrl + {h, l}
+	bspc node -z {left -20 0 || bspc node -z right -20 0, \
+				right 20 0 || bspc node -z left 20 0}
+
+super + ctrl + alt + {h, j, k, l}
+	bspc node -z {left -20 0 || bspc node -z right -20 0, \
+				bottom 0 20 || bspc node -z top 0 20, \
+				top 0 -20 || bspc node -z bottom 0 -20, \
+				right 20 0 || bspc node -z left 20 0}
+
+super + shift + {h, j, k, l, semicolon}
+	bspc node -p {west || bspc node -v -40 0, \
+				south || bspc node -v 0 40, \
+				north || bspc node -v 0 -40, \
+				east  || bspc node -v 40 0, \
+				cancel}
+
+# bspwm bar -------------------------------------------
 
 super + ctrl + t
 	. $XDG_CONFIG_HOME/sxhkd/scripts/toggle-polybar.sh
 
-# move a floating window
-super + {Left, Down, Up, Right}
-	bspc node -v {-20 0, 0 20, 0 -20, 20 0}
-
-# resize
-# super + shift + {h, j, k, l}
-#   bspc node -z {left -20 0 || bspc node -z right -20 0, \
-#                 bottom 0 20 || bspc node -z top 0 20, \
-#                 top 0 -20 || bspc node -z bottom 0 -20, \
-#                 right 20 0 || bspc node -z left 20 0}
-
-super + s : {h, j, k, l}
-	STEP=20; SELECTION={1, 2, 3, 4}; \
-	bspc node -z $(echo "left -$STEP 0, bottom 0 $STEP, top 0 -$STEP, right $STEP 0" | cut -d', ' -f$SELECTION) || \
-	bspc node -z $(echo "right -$STEP 0, top 0 $STEP, bottom 0 -$STEP, left $STEP 0" | cut -d', ' -f$SELECTION)
-
-# set the node flags
-super + ctrl + {m, x, y, z}
-	bspc node -g {marked, locked, sticky, private}
-
-# focus the node for the given path jump
-super + ctrl + {p, b, 9, 8}
-	bspc node -f @{parent, brother, first, second}
-
-# focus or send to the given desktop
-super + {_, shift + }{1-9, 0}
-	bspc {desktop -f, node -d} '^{1-9, 10}'
-
-# send to near desktop
-super + shift + {j, k}
-	bspc node -d {next, prev} --follow
-
-# send to near desktop
-super + shift + {n, p}
-	bspc node -d {next, prev}
-
-
-# quit restart
+# bspwm manage ------------------------------------------
 super + ctrl + q
 	rm -f /tmp/fuckx.lock && bspc quit
 
 super + ctrl + r
 	bspc wm -r
 
-# close kill
-super + ctrl + {_, alt + }w
+super + alt + w
 	bspc node -{c, k}
-
-# tiled or monocle
-super + m
-	bspc desktop -l next
-
-# hide window
-super + v
-	bspc node -g hidden
-
-# unhide window
-super + shift + v
-	bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
-
-# preselect the direction
-super + d : {h, j, k, l, semicolon}
-	bspc node -p {west, south, north, east, cancel}
-
-
-# rotate the parent of current focused
-super + shift + r
-	bspc node @parent -R 90
-
-# rotate the whole desktop
-super + shift + alt + r
-	bspc node @/ -R 90
-
-# # switch mode
-# super + {t, shift + t, s, f}
-# 	bspc node -t {tiled, pseudo_tiled, floating, fullscreen}
