@@ -3,7 +3,7 @@
   input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
   output (uinput-sink "My KMonad output" "sleep .3 && xset r rate 150 75 && setxkbmap -option compose:ralt")
   cmp-seq ralt
-  fallthrough false ;; unhandled events simply get reemitted?
+  fallthrough true ;; unhandled events simply get reemitted?
   allow-cmd true
 )
 
@@ -14,8 +14,7 @@
   t3  (layer-switch tap-hold-next-layer)
   t4  (layer-switch tap-next-release-layer)
   t5  (layer-switch tap-hold-next-release-layer)
-  t6  (layer-switch qwerty-layer)
-  t7  (layer-switch smooth-layer)
+  qwe  (layer-switch qwerty-layer)
   cmk (layer-switch colemak-layer)
 )
 
@@ -23,13 +22,12 @@
 (defalias
   #ec (tap-next esc lctl)
   #sm (tap-hold-next-release 500 spc lmet)
-  #/a (tap-hold-next-release 500 / lalt)
 
-  #ls (tap-hold-next-release 500 \( lsft)
-  #rs (tap-hold-next-release 500 \) rsft)
+  #tb (tap-hold-next-release 500 tab (layer-toggle mod-layer))
 
-  #tm (tap-hold-next-release 500 tab (layer-toggle mod-layer))
-  #'m (tap-hold-next-release 500 '   (layer-toggle mod-layer))
+  / (tap-hold-next-release 500 /   lalt)
+  ' (tap-hold-next-release 500 '   (around lctrl lalt))
+  . (tap-hold-next-release 500 .   (around lctrl lsft))
 )
 
 ;; stciky key
@@ -50,27 +48,18 @@
 (deflayer qwerty-layer
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  @q   w    @e   @r   @t   @y   u    @i   @o   p    [    ]    \
-  @#ec @a   @s   d    f    @g   h    j    k    l    ;    @#'m  ret
-  @sls @z   @x   @c   @v   b    n    @m   ,    .    @#/a @srs
-  lctl lmet lalt           @#sm           ralt rctl
-)
-
-(deflayer smooth-layer
-  caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tm q    w    e    r    t    y    u    i    o    p    [    ]    \
-  @#ec a    s    d    f    g    h    j    k    l    ;    @#'m ret
-  @sls z    x    c    v    b    n    m    ,    .    /    @srs
+  @#tb q    w    e    r    t    y    u    i    o    p    [    ]     \
+  @#ec a    s    d    f    g    h    j    k    l    ;    @'   ret
+  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet lalt           @#sm           ralt rctl
 )
 
 (deflayer colemak-layer
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tm q    w    f    p    g    j    l    u    y    ;    [    ]    \
-  @#ec a    r    s    t    d    h    n    e    i    o    @#'m ret
-  @sls z    x    c    v    b    k    m    ,    .    /    @srs
+  @#tb q    w    f    p    g    j    l    u    y    ;    [    ]    \
+  @#ec a    r    s    t    d    h    n    e    i    o    @'  ret
+  @sls z    x    c    v    b    k    m    ,    @.   @/   @srs
   lctl lmet lalt           @#sm           ralt rctl
 )
 
@@ -78,7 +67,7 @@
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  @t1  @t2  @t3  4    5    6    7    8    9    0    -    =    bspc
   tab  q    @t4  @t5  r    t    y    u    i    o    p    [    ]    \
-  @#ec a    s    d    f    g    h    @t6  @t7  @cmk ;    '    ret
+  @#ec a    s    d    f    g    h    @qwe @cmk l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           @#sm           ralt rctl
 )
@@ -232,7 +221,7 @@
 (deflayer tap-hold-next-release-layer
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tm @q   @w   @e   @r   @t   @y   @u   @i   @o   @p   [    ]    \
+  @#tb @q   @w   @e   @r   @t   @y   @u   @i   @o   @p   [    ]    \
   @#ec @a   @s   @d   @f   @g   @h   @j   @k   @l   ;    '    ret
   lsft @z   @x   @c   @v   @b   @n   @m   ,    .    /    rsft
   lctl lmet lalt           @#sm           ralt rctl
@@ -241,7 +230,7 @@
 (deflayer tap-next-release-layer
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tm @qn  @wn  @en  @rn  @tn  @yn  @un  @in  @on  @pn  [    ]    \
+  @#tb @qn  @wn  @en  @rn  @tn  @yn  @un  @in  @on  @pn  [    ]    \
   @#ec @an  @sn  @dn  @fn  @gn  @hn  @jn  @kn  @ln  ;    '    ret
   lsft @zn  @xn  @cn  @vn  @bn  @nn  @mn  ,    .    /    rsft
   lctl lmet lalt           @#sm           ralt rctl
@@ -250,7 +239,7 @@
 (deflayer tap-hold-layer
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tm @qh  @wh  @eh  @rh  @th  @yh  @uh  @ih  @oh  @ph  [    ]    \
+  @#tb @qh  @wh  @eh  @rh  @th  @yh  @uh  @ih  @oh  @ph  [    ]    \
   @#ec @ah  @sh  @dh  @fh  @gh  @hh  @jh  @kh  @lh  ;    '    ret
   lsft @zh  @xh  @ch  @vh  @bh  @nh  @mh  ,    .    /    rsft
   lctl lmet lalt           @#sm           ralt rctl
@@ -259,7 +248,7 @@
 (deflayer tap-next-layer
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tm @qN  @wN  @eN  @rN  @tN  @yN  @uN  @iN  @oN  @pN  [    ]    \
+  @#tb @qN  @wN  @eN  @rN  @tN  @yN  @uN  @iN  @oN  @pN  [    ]    \
   @#ec @aN  @sN  @dN  @fN  @gN  @hN  @jN  @kN  @lN  ;    '    ret
   lsft @zN  @xN  @cN  @vN  @bN  @nN  @mN  ,    .    /    rsft
   lctl lmet lalt           @#sm           ralt rctl
@@ -268,7 +257,7 @@
 (deflayer tap-hold-next-layer
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tm @qQ  @wQ  @eQ  @rQ  @tQ  @yQ  @uQ  @iQ  @oQ  @pQ  [    ]    \
+  @#tb @qQ  @wQ  @eQ  @rQ  @tQ  @yQ  @uQ  @iQ  @oQ  @pQ  [    ]    \
   @#ec @aQ  @sQ  @dQ  @fQ  @gQ  @hQ  @jQ  @kQ  @lQ  ;    '    ret
   lsft @zQ  @xQ  @cQ  @vQ  @bQ  @nQ  @mQ  ,    .    /    rsft
   lctl lmet lalt           @#sm           ralt rctl
