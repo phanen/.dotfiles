@@ -6,13 +6,13 @@ super + r
 	pkill -USR1 -x sxhkd
 
 super + slash
-	tabbed -c alacritty --working-directory ~ --command nvim --embed
+	alacritty --working-directory ~ --command nvim
 
 super + ctrl + slash
-	tabbed -c alacritty --working-directory ~ --command nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc --embed
+	alacritty --working-directory ~ --command nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc
 
 super + alt + slash
-	tabbed -c alacritty --working-directory ~/notes --command nvim ~/notes/todo.md --embed
+	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
 
 super + n
 	tabbed -c alacritty --working-directory ~ --embed
@@ -60,9 +60,6 @@ super + {o, i}
 	bspc node -f {older, newer}; \
 	bspc wm -h on
 
-super + ctrl + {p, b, w, e}
-	bspc node -f @{parent, brother, first, second}
-
 super + {_, ctrl + }{1-9, 0}
 	bspc {desktop -f, node -d} '^{1-9, 10}'
 
@@ -105,7 +102,7 @@ super + ctrl + {h, l}
 	bspc node -z {left -20 0 || bspc node -z right -20 0, \
 				right 20 0 || bspc node -z left 20 0}
 
-super + ctrl + alt + {h, j, k, l}
+super + shift + alt + {h, j, k, l}
 	bspc node -z {left -20 0 || bspc node -z right -20 0, \
 				bottom 0 20 || bspc node -z top 0 20, \
 				top 0 -20 || bspc node -z bottom 0 -20, \
@@ -117,6 +114,9 @@ super + shift + {h, j, k, l, semicolon}
 				north || bspc node -v 0 -40, \
 				east  || bspc node -v 40 0, \
 				cancel}
+
+super + shift + {p, b, w, e}
+	bspc node -f @{parent, brother, first, second}
 
 # bspwm bar -------------------------------------------
 
@@ -130,5 +130,5 @@ super + ctrl + q
 super + ctrl + r
 	bspc wm -r
 
-super + alt + w
-	bspc node -{c, k}
+super + ctrl + w
+	bspc node -c
