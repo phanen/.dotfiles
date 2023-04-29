@@ -39,6 +39,20 @@ bindkey -s '\eg' '\C-a\C-e 2>&1 | nvim -'
 bindkey -s '\ek' '\C-uclear\C-m'
 bindkey -s '\el' '\C-a\C-e | bat'
 
+# edit in editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
+# fish-like smart c-w
+# https://unix.stackexchange.com/questions/258656/how-can-i-have-two-keystrokes-to-delete-to-either-a-slash-or-a-word-in-zsh
+backward-kill-path-component () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle backward-kill-word
+    zle -f kill
+}
+zle -N backward-kill-path-component
+bindkey '^W' backward-kill-path-component
 
 # zsh complete
 autoload -U compinit
@@ -61,8 +75,3 @@ zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:
 unalias run-help
 autoload run-help
 alias help='run-help'
-
-## edit in editor
-# autoload -Uz edit-command-line
-# zle -N edit-command-line
-# bindkey '^X^E' edit-command-line
