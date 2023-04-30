@@ -41,6 +41,9 @@ $endif
 
 $if mode=emacs
 
+  "\C-P": history-search-backward
+  "\C-N": history-search-forward
+
   # for linux console and RH/Debian xterm
   "\e[1~": beginning-of-line
   "\e[4~": end-of-line

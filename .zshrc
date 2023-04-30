@@ -39,6 +39,9 @@ bindkey -s '\eg' '\C-a\C-e 2>&1 | nvim -'
 bindkey -s '\ek' '\C-uclear\C-m'
 bindkey -s '\el' '\C-a\C-e | bat'
 
+bindkey "^N" history-search-forward
+bindkey "^P" history-search-backward
+
 # edit in editor
 autoload -Uz edit-command-line
 zle -N edit-command-line
