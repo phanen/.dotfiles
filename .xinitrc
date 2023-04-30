@@ -31,14 +31,20 @@ fi
 
 # setxkbmap -option caps:escape
 # setxkbmap -option altwin:swap_alt_win
-# Here Xfce is kept as default
 
-sxhkd &
+_bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
+_bootstrap kmonad ~/.config/kmonad/kmonad.kbd &
+_bootstrap sxhkd -a Tab &
+_bootstrap polybar -r &
+_bootstrap fcitx5 -d &
+_bootstrap udiskie &
+_bootstrap picom &
+
 session=${1:-bspwm}
 case $session in
     bspwm             ) exec bspwm;;
     dwm               ) exec dwm;;
-    awesme            ) exec awesome;;
+    awesome            ) exec awesome;;
     kde               ) exec startplasma-x11;;
     xfce|xfce4        ) exec startxfce4;;
     *                 ) exec $1;;
