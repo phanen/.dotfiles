@@ -95,6 +95,7 @@ grub-customizer
 gsmartcontrol
 gtk-vnc
 gtk2
+gvim
 gzip
 helix
 htop
@@ -133,6 +134,7 @@ m4
 make
 man-db
 man-pages
+miniflux
 most
 mpv
 mtools
@@ -145,6 +147,7 @@ networkmanager
 newsboat
 ninja
 nitrogen
+nix
 nmap
 nodejs
 notion
@@ -263,6 +266,7 @@ xorg-sessreg
 xorg-smproxy
 xorg-x11perf
 xorg-xbacklight
+xorg-xclock
 xorg-xcmsdb
 xorg-xcursorgen
 xorg-xdpyinfo

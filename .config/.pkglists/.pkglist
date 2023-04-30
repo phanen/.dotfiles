@@ -32,7 +32,6 @@ catimg
 chromium
 clang
 clash
-clash-for-windows-bin
 clipmenu
 clisp
 cmake
@@ -102,6 +101,7 @@ grub-customizer
 gsmartcontrol
 gtk-vnc
 gtk2
+gvim
 gzip
 helix
 htop
@@ -142,6 +142,7 @@ m4
 make
 man-db
 man-pages
+miniflux
 mit-scheme
 most
 mpv
@@ -155,6 +156,7 @@ networkmanager
 newsboat
 ninja
 nitrogen
+nix
 nmap
 nodejs
 notion
@@ -279,6 +281,7 @@ xorg-sessreg
 xorg-smproxy
 xorg-x11perf
 xorg-xbacklight
+xorg-xclock
 xorg-xcmsdb
 xorg-xcursorgen
 xorg-xdpyinfo
