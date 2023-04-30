@@ -22,11 +22,10 @@ CUR_SHELL=$(ps -o comm= -p $$) # or $BASH?
 if [[ $CUR_SHELL == 'bash' ]]; then
     PS1='[\u@\h \W]\$ '
     shopt -s autocd checkwinsize
-    set -o emacs
+    # set -o emacs
     [[  -r $BASHRC_DIR/keybindings.sh ]] && . $BASHRC_DIR/keybindings.sh
 fi
 
 [[ -z $MYVIMRC ]] && eval $FETCHER
 
-[[ $(tty) = '/dev/tty1' ]] && _util_netcfg && cd ~ && startx && sudo kbdrate -d 150 -r 65
-# [[ $(tty) != '/dev/tty1' ]] && _util_post_x # a handler to set keymap and keyrate
+[ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && _util_netcfg && cd ~ && startx # && sudo kbdrate -d 150 -r 65
