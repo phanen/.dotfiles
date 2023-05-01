@@ -32,13 +32,17 @@ fi
 # setxkbmap -option caps:escape
 # setxkbmap -option altwin:swap_alt_win
 
+# exec chromium
+
 _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
 _bootstrap kmonad ~/.config/kmonad/kmonad.kbd &
-_bootstrap sxhkd -a Tab &
-_bootstrap polybar -r &
-_bootstrap fcitx5 -d &
-_bootstrap udiskie &
-_bootstrap picom &
+
+sxhkd -a Tab &
+polybar -r &
+fcitx5 -d &
+picom &
+
+# udiskie &
 
 session=${1:-bspwm}
 case $session in
