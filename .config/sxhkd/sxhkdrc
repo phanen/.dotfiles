@@ -124,11 +124,12 @@ super + ctrl + t
 	. $XDG_CONFIG_HOME/sxhkd/scripts/toggle-polybar.sh
 
 # bspwm manage ------------------------------------------
-super + ctrl + q
-	rm -f /tmp/fuckx.lock && bspc quit
 
 super + ctrl + r
 	bspc wm -r
 
-super + ctrl + w
+super + q
 	bspc node -c
+
+super + ctrl + q
+	rm -f /tmp/fuckx.lock && bspc quit
