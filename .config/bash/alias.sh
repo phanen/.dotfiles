@@ -58,3 +58,7 @@ alias cg="$EDITOR $XDG_CONFIG_HOME/git/config"
 
 # docker
 alias doc="sudo systemctl start docker"
+
+# fuck
+alias ok='echo $?'
+alias km='pkill kmonad; kmonad ~/.config/kmonad/kmonad.kbd & disown'
