@@ -13,10 +13,10 @@ local lnoremap = kmp.lnoremap
 -- disable some default behaviors
 -- TODO: disbale p in select mode
 -- TODO: disable clipboard in x or d
-map({ 'n', 'v', 'i' }, '<left>', '<nop>')
-map({ 'n', 'v', 'i' }, '<right>', '<nop>')
-map({ 'n', 'v', 'i' }, '<up>', '<nop>')
-map({ 'n', 'v', 'i' }, '<down>', '<nop>')
+-- map({ 'n', 'v', 'i' }, '<left>', '<nop>')
+-- map({ 'n', 'v', 'i' }, '<right>', '<nop>')
+-- map({ 'n', 'v', 'i' }, '<up>', '<nop>')
+-- map({ 'n', 'v', 'i' }, '<down>', '<nop>')
 map({ 'n', 'v' }, '<space>', '<nop>')
 
 nnoremap('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
