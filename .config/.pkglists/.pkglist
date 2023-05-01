@@ -263,6 +263,7 @@ wpa_supplicant
 wps-office
 x11vnc
 xclip
+xdo
 xf86-video-vesa
 xfsdump
 xorg-bdftopcf
@@ -308,6 +309,7 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xpdf
+xremap-x11-bin
 xsel
 xterm
 xwallpaper
