@@ -24,7 +24,7 @@
   #ec (tap-next esc (layer-toggle ctrl-layer))
   #sm (tap-hold-next-release 500 spc (layer-toggle meta-layer))
 
-  #a  (tap-hold-next-release 500 M-a (layer-toggle a-layer))
+  #a  (tap-hold-next-release 500 C-spc (layer-toggle a-layer))
   #s  (tap-hold-next-release 500 M-s (layer-toggle s-layer))
   #w  (tap-hold-next-release 500 M-w (layer-toggle w-layer))
 
@@ -86,11 +86,11 @@
   M-grv  M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  M--  M-=  M-bspc
   M-tab  M-q  @#w  M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
   (tap-next esc lctl) @#a  @#s  @#d  M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
-  lsft M-z  M-x  M-c  M-v  M-b  M-n  M-m  M-,  M-.  M-/  rsft
+  lsft M-z  Mpodman network inspect podman -x  M-c  M-v  M-b  M-n  M-m  M-,  M-.  M-/  rsft
   M-lctl M-lmet M-lalt           @#sm           M-ralt M-rctl
 )
 
-(deflayer a-layer
+(deflayer s-layer
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  C-A-1  C-A-2  C-A-3  C-A-4  C-A-5  C-A-6  C-A-7  C-A-8  C-A-9  C-A-0  C-A--  C-A-=  bspc
   @#tb C-A-q  C-A-w  C-A-e  C-A-r  C-A-t  C-A-y  C-A-u  C-A-i  C-A-o  C-A-p  C-A-[  C-A-]   \
@@ -99,7 +99,7 @@
   lctl lmet lalt           @#sm           ralt rctl
 )
 
-(deflayer s-layer
+(deflayer a-layer
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  A-1  A-2  A-3  A-4  A-5  A-6  A-7  A-8  A-9  A-0  A--  A-=  bspc
   @#tb A-q  A-w  A-e  A-r  A-t  A-y  A-u  A-i  A-o  A-p  A-[  A-]   \

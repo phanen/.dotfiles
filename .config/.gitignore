@@ -9,6 +9,7 @@ Kitware
 libreoffice
 virt-viewer
 obsidian
+ttyper
 
 tmux/
 !tmux/tmux.conf
