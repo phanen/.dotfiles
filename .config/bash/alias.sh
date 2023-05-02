@@ -58,6 +58,8 @@ alias cg="$EDITOR $XDG_CONFIG_HOME/git/config"
 
 # docker
 alias doc="sudo systemctl start docker"
+alias pov='podman volume'
+alias por='podman run'
 
 # fuck
 alias ok='echo $?'
