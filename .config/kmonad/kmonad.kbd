@@ -9,11 +9,6 @@
 
 ;; switch layer
 (defalias
-  t1  (layer-switch tap-next-layer)
-  t2  (layer-switch tap-hold-layer)
-  t3  (layer-switch tap-hold-next-layer)
-  t4  (layer-switch tap-next-release-layer)
-  t5  (layer-switch tap-hold-next-release-layer)
   qwe  (layer-switch qwerty-layer)
   cmk (layer-switch colemak-layer)
 )
@@ -37,7 +32,6 @@
   ' (tap-hold-next-release 500 '   (around lctrl lalt))
   . (tap-hold-next-release 500 .   (around lctrl lsft))
 )
-
 
 ;; stciky key
 (defalias
@@ -157,8 +151,8 @@
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @#tb q    w    e    r    t    C-c  C-z  @vii o    C-v  [    ]     \
-  @#vc @vii s    d    f    g    left down up   down ;    @'   ret
-  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
+  @#vc @vii s    d    f    g    left down up   right ;    @'   ret
+  @sls @z   x    c    @viv b    n    m    ,    @.   @/   @srs
   lctl lmet lalt           @#sm           ralt rctl
 )
 
@@ -180,7 +174,13 @@
   lctl lmet lalt           @#sm           ralt rctl
 )
 
-
+(defalias
+  t1  (layer-switch tap-next-layer)
+  t2  (layer-switch tap-hold-layer)
+  t3  (layer-switch tap-hold-next-layer)
+  t4  (layer-switch tap-next-release-layer)
+  t5  (layer-switch tap-hold-next-release-layer)
+)
 
 (defalias
   a   (tap-hold-next-release 500 a lalt)
