@@ -124,6 +124,7 @@ linux
 linux-firmware
 lldb
 lolcat
+lostfiles
 love
 lsd
 lsof
@@ -171,6 +172,7 @@ pdfgrep
 picom
 pipewire-pulse
 pkgconf
+pkgfile
 polybar
 pwgen
 python
