@@ -16,17 +16,16 @@
 ;; multi key
 (defalias
 
-  #ec (tap-next esc (layer-toggle ctrl-layer))
+  #ec (tap-next esc (around lctrl (layer-toggle ctrl-layer)))
   #sm (tap-hold-next-release 500 spc (layer-toggle meta-layer))
+  #tb (tap-hold-next-release 500 tab (layer-toggle mod-layer))
 
   #a  (tap-hold-next-release 500 C-spc (layer-toggle a-layer))
   #s  (tap-hold-next-release 500 M-s (layer-toggle s-layer))
   #w  (tap-hold-next-release 500 M-w (layer-toggle w-layer))
-
   ;; meta+d -> C-spc...
   #d  (tap-hold-next-release 500 C-spc (layer-toggle d-layer))
 
-  #tb (tap-hold-next-release 500 tab (layer-toggle mod-layer))
 
   / (tap-hold-next-release 500 /   lalt)
   ' (tap-hold-next-release 500 '   (around lctrl lalt))
@@ -68,8 +67,8 @@
 
 (deflayer mod-layer
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  @t1  @t2  @t3  4    5    6    7    8    9    0    -    =    bspc
-  tab  q    @t4  @t5  r    t    y    u    i    o    p    [    ]    \
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @#tb q    w    e    r    t    y    u    i    o    p    [    ]     \
   @#ec a    s    d    f    g    h    @qwe @cmk l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           @#sm           ralt rctl
@@ -121,20 +120,21 @@
 )
 
 (deflayer ctrl-layer
-  C-caps C-f1 C-f2 C-f3 C-f4 C-f5 C-f6 C-f7 C-f8 C-f9 C-f10 C-f11 C-f12
-  grv  C-1  C-2  C-3  C-4  C-5  C-6  C-7  C-8  C-9  C-0  C--  C-=  bspc
-  @vii C-q  C-w  C-e  C-r  C-t  C-y  C-u  C-i  C-o  C-p  C-[  C-]   C-\
-  @#ec C-a  C-s  C-d  C-f  C-g  C-h  C-j  C-k  C-l  C-;  @'   C-ret
-  C-@sls C-z  C-x  C-c  C-v  C-b  C-n  C-m  C-,  @.   @/   @srs
-  lctl  C-lmet  C-lalt            C-@#sm            C-ralt  C-rctl 
+  caps  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @vi  q    w    e    r    t    y    u    i    o    p    [    ]     \
+  @#ec a    s    d    f    g    h    j    k    l    ;    @'   ret
+  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
+  lctl lmet lalt           @#sm           ralt rctl
 )
+
 
 ;; fake vim-like
 (defalias 
-  vin (layer-switch vim-normal-layer)
-  vii (layer-switch vim-insert-layer)
-  viv (layer-switch vim-visual-layer)
-  #vc (tap-next @vin (layer-toggle vctrl-layer))
+  vn (layer-switch vim-normal-layer)
+  vi (layer-switch vim-insert-layer)
+  vv (layer-switch vim-visual-layer)
+  #vc (tap-next @vn (layer-toggle vctrl-layer))
   ;; #vt (tap-hold-next-release 500  (layer-toggle mod-layer))
 )
 
@@ -150,9 +150,9 @@
 (deflayer vim-normal-layer
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tb q    w    e    r    t    C-c  C-z  @vii o    C-v  [    ]     \
-  @#vc @vii s    d    f    g    left down up   right ;    @'   ret
-  @sls @z   x    c    @viv b    n    m    ,    @.   @/   @srs
+  @#tb q    w    e    r    t    C-c  C-z  @vi o    C-v  [    ]     \
+  @#vc @vi s    d    f    g    left down up   right ;    @'   ret
+  @sls @z   x    c    @vv b    n    m    ,    @.   @/   @srs
   lctl lmet lalt           @#sm           ralt rctl
 )
 
@@ -174,13 +174,6 @@
   lctl lmet lalt           @#sm           ralt rctl
 )
 
-(defalias
-  t1  (layer-switch tap-next-layer)
-  t2  (layer-switch tap-hold-layer)
-  t3  (layer-switch tap-hold-next-layer)
-  t4  (layer-switch tap-next-release-layer)
-  t5  (layer-switch tap-hold-next-release-layer)
-)
 
 (defalias
   a   (tap-hold-next-release 500 a lalt)
@@ -211,164 +204,173 @@
   z   (tap-hold-next-release 500 z lalt)
 )
 
-(defalias
-  an  (tap-next-release a lalt)
-  bn  (tap-next-release b lalt)
-  cn  (tap-next-release c lalt)
-  dn  (tap-next-release d lalt)
-  en  (tap-next-release e lalt)
-  fn  (tap-next-release f lalt)
-  gn  (tap-next-release g lalt)
-  hn  (tap-next-release h lalt)
-  in  (tap-next-release i lalt)
-  jn  (tap-next-release j lalt)
-  kn  (tap-next-release k lalt)
-  ln  (tap-next-release l lalt)
-  mn  (tap-next-release m lalt)
-  nn  (tap-next-release n lalt)
-  on  (tap-next-release o lalt)
-  pn  (tap-next-release p lalt)
-  qn  (tap-next-release q lalt)
-  rn  (tap-next-release r lalt)
-  sn  (tap-next-release s lalt)
-  tn  (tap-next-release t lalt)
-  un  (tap-next-release u lalt)
-  vn  (tap-next-release v lalt)
-  wn  (tap-next-release w lalt)
-  xn  (tap-next-release x lalt)
-  yn  (tap-next-release y lalt)
-  zn  (tap-next-release z lalt)
-)
-
-(defalias
-  ah  (tap-hold 130 a lalt)
-  bh  (tap-hold 500 b lalt)
-  ch  (tap-hold 500 c lalt)
-  dh  (tap-hold 500 d lalt)
-  eh  (tap-hold 500 e lalt)
-  fh  (tap-hold 500 f lalt)
-  gh  (tap-hold 500 g lalt)
-  hh  (tap-hold 500 h lalt)
-  ih  (tap-hold 500 i lalt)
-  jh  (tap-hold 500 j lalt)
-  kh  (tap-hold 500 k lalt)
-  lh  (tap-hold 500 l lalt)
-  mh  (tap-hold 500 m lalt)
-  nh  (tap-hold 500 n lalt)
-  oh  (tap-hold 500 o lalt)
-  ph  (tap-hold 500 p lalt)
-  qh  (tap-hold 500 q lalt)
-  rh  (tap-hold 500 r lalt)
-  sh  (tap-hold 500 s lalt)
-  th  (tap-hold 500 t lalt)
-  uh  (tap-hold 500 u lalt)
-  vh  (tap-hold 500 v lalt)
-  wh  (tap-hold 500 w lalt)
-  xh  (tap-hold 500 x lalt)
-  yh  (tap-hold 500 y lalt)
-  zh  (tap-hold 500 z lalt)
-)
-
-(defalias
-  aQ  (tap-hold-next 500 a lalt)
-  bQ  (tap-hold-next 500 b lalt)
-  cQ  (tap-hold-next 500 c lalt)
-  dQ  (tap-hold-next 500 d lalt)
-  eQ  (tap-hold-next 500 e lalt)
-  fQ  (tap-hold-next 500 f lalt)
-  gQ  (tap-hold-next 500 g lalt)
-  hQ  (tap-hold-next 500 h lalt)
-  iQ  (tap-hold-next 500 i lalt)
-  jQ  (tap-hold-next 500 j lalt)
-  kQ  (tap-hold-next 500 k lalt)
-  lQ  (tap-hold-next 500 l lalt)
-  mQ  (tap-hold-next 500 m lalt)
-  nQ  (tap-hold-next 500 n lalt)
-  oQ  (tap-hold-next 500 o lalt)
-  pQ  (tap-hold-next 500 p lalt)
-  qQ  (tap-hold-next 500 q lalt)
-  rQ  (tap-hold-next 500 r lalt)
-  sQ  (tap-hold-next 500 s lalt)
-  tQ  (tap-hold-next 500 t lalt)
-  uQ  (tap-hold-next 500 u lalt)
-  vQ  (tap-hold-next 500 v lalt)
-  wQ  (tap-hold-next 500 w lalt)
-  xQ  (tap-hold-next 500 x lalt)
-  yQ  (tap-hold-next 500 y lalt)
-  zQ  (tap-hold-next 500 z lalt)
-)
-
-
-(defalias
-  aN  (tap-next a lalt)
-  bN  (tap-next b lalt)
-  cN  (tap-next c lalt)
-  dN  (tap-next d lalt)
-  eN  (tap-next e lalt)
-  fN  (tap-next f lalt)
-  gN  (tap-next g lalt)
-  hN  (tap-next h lalt)
-  iN  (tap-next i lalt)
-  jN  (tap-next j lalt)
-  kN  (tap-next k lalt)
-  lN  (tap-next l lalt)
-  mN  (tap-next m lalt)
-  nN  (tap-next n lalt)
-  oN  (tap-next o lalt)
-  pN  (tap-next p lalt)
-  qN  (tap-next q lalt)
-  rN  (tap-next r lalt)
-  sN  (tap-next s lalt)
-  tN  (tap-next t lalt)
-  uN  (tap-next u lalt)
-  vN  (tap-next v lalt)
-  wN  (tap-next w lalt)
-  xN  (tap-next x lalt)
-  yN  (tap-next y lalt)
-  zN  (tap-next z lalt)
-)
-
-(deflayer tap-hold-next-release-layer
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tb @q   @w   @e   @r   @t   @y   @u   @i   @o   @p   [    ]    \
-  @#ec @a   @s   @d   @f   @g   @h   @j   @k   @l   ;    '    ret
-  lsft @z   @x   @c   @v   @b   @n   @m   ,    .    /    rsft
-  lctl lmet lalt           @#sm           ralt rctl
-)
-
-(deflayer tap-next-release-layer
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tb @qn  @wn  @en  @rn  @tn  @yn  @un  @in  @on  @pn  [    ]    \
-  @#ec @an  @sn  @dn  @fn  @gn  @hn  @jn  @kn  @ln  ;    '    ret
-  lsft @zn  @xn  @cn  @vn  @bn  @nn  @mn  ,    .    /    rsft
-  lctl lmet lalt           @#sm           ralt rctl
-)
-
-(deflayer tap-hold-layer
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tb @qh  @wh  @eh  @rh  @th  @yh  @uh  @ih  @oh  @ph  [    ]    \
-  @#ec @ah  @sh  @dh  @fh  @gh  @hh  @jh  @kh  @lh  ;    '    ret
-  lsft @zh  @xh  @ch  @vh  @bh  @nh  @mh  ,    .    /    rsft
-  lctl lmet lalt           @#sm           ralt rctl
-)
-
-(deflayer tap-next-layer
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tb @qN  @wN  @eN  @rN  @tN  @yN  @uN  @iN  @oN  @pN  [    ]    \
-  @#ec @aN  @sN  @dN  @fN  @gN  @hN  @jN  @kN  @lN  ;    '    ret
-  lsft @zN  @xN  @cN  @vN  @bN  @nN  @mN  ,    .    /    rsft
-  lctl lmet lalt           @#sm           ralt rctl
-)
-
-(deflayer tap-hold-next-layer
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @#tb @qQ  @wQ  @eQ  @rQ  @tQ  @yQ  @uQ  @iQ  @oQ  @pQ  [    ]    \
-  @#ec @aQ  @sQ  @dQ  @fQ  @gQ  @hQ  @jQ  @kQ  @lQ  ;    '    ret
-  lsft @zQ  @xQ  @cQ  @vQ  @bQ  @nQ  @mQ  ,    .    /    rsft
-  lctl lmet lalt           @#sm           ralt rctl
-)
+;; (defalias
+;;   t1  (layer-switch tap-next-layer)
+;;   t2  (layer-switch tap-hold-layer)
+;;   t3  (layer-switch tap-hold-next-layer)
+;;   t4  (layer-switch tap-next-release-layer)
+;;   t5  (layer-switch tap-hold-next-release-layer)
+;; )
+;;
+;;
+;; (defalias
+;;   an  (tap-next-release a lalt)
+;;   bn  (tap-next-release b lalt)
+;;   cn  (tap-next-release c lalt)
+;;   dn  (tap-next-release d lalt)
+;;   en  (tap-next-release e lalt)
+;;   fn  (tap-next-release f lalt)
+;;   gn  (tap-next-release g lalt)
+;;   hn  (tap-next-release h lalt)
+;;   in  (tap-next-release i lalt)
+;;   jn  (tap-next-release j lalt)
+;;   kn  (tap-next-release k lalt)
+;;   ln  (tap-next-release l lalt)
+;;   mn  (tap-next-release m lalt)
+;;   nn  (tap-next-release n lalt)
+;;   on  (tap-next-release o lalt)
+;;   pn  (tap-next-release p lalt)
+;;   qn  (tap-next-release q lalt)
+;;   rn  (tap-next-release r lalt)
+;;   sn  (tap-next-release s lalt)
+;;   tn  (tap-next-release t lalt)
+;;   un  (tap-next-release u lalt)
+;;   vn  (tap-next-release v lalt)
+;;   wn  (tap-next-release w lalt)
+;;   xn  (tap-next-release x lalt)
+;;   yn  (tap-next-release y lalt)
+;;   zn  (tap-next-release z lalt)
+;; )
+;;
+;; (defalias
+;;   ah  (tap-hold 130 a lalt)
+;;   bh  (tap-hold 500 b lalt)
+;;   ch  (tap-hold 500 c lalt)
+;;   dh  (tap-hold 500 d lalt)
+;;   eh  (tap-hold 500 e lalt)
+;;   fh  (tap-hold 500 f lalt)
+;;   gh  (tap-hold 500 g lalt)
+;;   hh  (tap-hold 500 h lalt)
+;;   ih  (tap-hold 500 i lalt)
+;;   jh  (tap-hold 500 j lalt)
+;;   kh  (tap-hold 500 k lalt)
+;;   lh  (tap-hold 500 l lalt)
+;;   mh  (tap-hold 500 m lalt)
+;;   nh  (tap-hold 500 n lalt)
+;;   oh  (tap-hold 500 o lalt)
+;;   ph  (tap-hold 500 p lalt)
+;;   qh  (tap-hold 500 q lalt)
+;;   rh  (tap-hold 500 r lalt)
+;;   sh  (tap-hold 500 s lalt)
+;;   th  (tap-hold 500 t lalt)
+;;   uh  (tap-hold 500 u lalt)
+;;   vh  (tap-hold 500 v lalt)
+;;   wh  (tap-hold 500 w lalt)
+;;   xh  (tap-hold 500 x lalt)
+;;   yh  (tap-hold 500 y lalt)
+;;   zh  (tap-hold 500 z lalt)
+;; )
+;;
+;; (defalias
+;;   aQ  (tap-hold-next 500 a lalt)
+;;   bQ  (tap-hold-next 500 b lalt)
+;;   cQ  (tap-hold-next 500 c lalt)
+;;   dQ  (tap-hold-next 500 d lalt)
+;;   eQ  (tap-hold-next 500 e lalt)
+;;   fQ  (tap-hold-next 500 f lalt)
+;;   gQ  (tap-hold-next 500 g lalt)
+;;   hQ  (tap-hold-next 500 h lalt)
+;;   iQ  (tap-hold-next 500 i lalt)
+;;   jQ  (tap-hold-next 500 j lalt)
+;;   kQ  (tap-hold-next 500 k lalt)
+;;   lQ  (tap-hold-next 500 l lalt)
+;;   mQ  (tap-hold-next 500 m lalt)
+;;   nQ  (tap-hold-next 500 n lalt)
+;;   oQ  (tap-hold-next 500 o lalt)
+;;   pQ  (tap-hold-next 500 p lalt)
+;;   qQ  (tap-hold-next 500 q lalt)
+;;   rQ  (tap-hold-next 500 r lalt)
+;;   sQ  (tap-hold-next 500 s lalt)
+;;   tQ  (tap-hold-next 500 t lalt)
+;;   uQ  (tap-hold-next 500 u lalt)
+;;   vQ  (tap-hold-next 500 v lalt)
+;;   wQ  (tap-hold-next 500 w lalt)
+;;   xQ  (tap-hold-next 500 x lalt)
+;;   yQ  (tap-hold-next 500 y lalt)
+;;   zQ  (tap-hold-next 500 z lalt)
+;; )
+;;
+;;
+;; (defalias
+;;   aN  (tap-next a lalt)
+;;   bN  (tap-next b lalt)
+;;   cN  (tap-next c lalt)
+;;   dN  (tap-next d lalt)
+;;   eN  (tap-next e lalt)
+;;   fN  (tap-next f lalt)
+;;   gN  (tap-next g lalt)
+;;   hN  (tap-next h lalt)
+;;   iN  (tap-next i lalt)
+;;   jN  (tap-next j lalt)
+;;   kN  (tap-next k lalt)
+;;   lN  (tap-next l lalt)
+;;   mN  (tap-next m lalt)
+;;   nN  (tap-next n lalt)
+;;   oN  (tap-next o lalt)
+;;   pN  (tap-next p lalt)
+;;   qN  (tap-next q lalt)
+;;   rN  (tap-next r lalt)
+;;   sN  (tap-next s lalt)
+;;   tN  (tap-next t lalt)
+;;   uN  (tap-next u lalt)
+;;   vN  (tap-next v lalt)
+;;   wN  (tap-next w lalt)
+;;   xN  (tap-next x lalt)
+;;   yN  (tap-next y lalt)
+;;   zN  (tap-next z lalt)
+;; )
+;;
+;; (deflayer tap-hold-next-release-layer
+;;   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;   @#tb @q   @w   @e   @r   @t   @y   @u   @i   @o   @p   [    ]    \
+;;   @#ec @a   @s   @d   @f   @g   @h   @j   @k   @l   ;    '    ret
+;;   lsft @z   @x   @c   @v   @b   @n   @m   ,    .    /    rsft
+;;   lctl lmet lalt           @#sm           ralt rctl
+;; )
+;;
+;; (deflayer tap-next-release-layer
+;;   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;   @#tb @qn  @wn  @en  @rn  @tn  @yn  @un  @in  @on  @pn  [    ]    \
+;;   @#ec @an  @sn  @dn  @fn  @gn  @hn  @jn  @kn  @ln  ;    '    ret
+;;   lsft @zn  @xn  @cn  @vn  @bn  @nn  @mn  ,    .    /    rsft
+;;   lctl lmet lalt           @#sm           ralt rctl
+;; )
+;;
+;; (deflayer tap-hold-layer
+;;   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;   @#tb @qh  @wh  @eh  @rh  @th  @yh  @uh  @ih  @oh  @ph  [    ]    \
+;;   @#ec @ah  @sh  @dh  @fh  @gh  @hh  @jh  @kh  @lh  ;    '    ret
+;;   lsft @zh  @xh  @ch  @vh  @bh  @nh  @mh  ,    .    /    rsft
+;;   lctl lmet lalt           @#sm           ralt rctl
+;; )
+;;
+;; (deflayer tap-next-layer
+;;   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;   @#tb @qN  @wN  @eN  @rN  @tN  @yN  @uN  @iN  @oN  @pN  [    ]    \
+;;   @#ec @aN  @sN  @dN  @fN  @gN  @hN  @jN  @kN  @lN  ;    '    ret
+;;   lsft @zN  @xN  @cN  @vN  @bN  @nN  @mN  ,    .    /    rsft
+;;   lctl lmet lalt           @#sm           ralt rctl
+;; )
+;;
+;; (deflayer tap-hold-next-layer
+;;   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;   @#tb @qQ  @wQ  @eQ  @rQ  @tQ  @yQ  @uQ  @iQ  @oQ  @pQ  [    ]    \
+;;   @#ec @aQ  @sQ  @dQ  @fQ  @gQ  @hQ  @jQ  @kQ  @lQ  ;    '    ret
+;;   lsft @zQ  @xQ  @cQ  @vQ  @bQ  @nQ  @mQ  ,    .    /    rsft
+;;   lctl lmet lalt           @#sm           ralt rctl
+;; )
