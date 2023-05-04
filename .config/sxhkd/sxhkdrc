@@ -20,8 +20,8 @@ super + n
 super + semicolon
 	rofi -show run -matching fuzzy
 
-super + apostrophe
-	rofi -show ssh -matching fuzzy
+# super + apostrophe
+# 	rofi -show ssh -matching fuzzy
 
 super + w
 	rofi -show window -matching fuzzy
@@ -35,10 +35,10 @@ super + w
 super + p
 	CM_LAUNCHER=rofi clipmenu
 
-super + {F2, F3}
+super + {F1, F2}
 	sound-control {down, up}
 
-super + {F5, F6}
+super + {F3, F4}
 	light-control {down, up}
 
 super + ctrl + s
@@ -71,8 +71,11 @@ super + Return
 		bspc node -s biggest.window.local) || \
 	(bspc node -f last.window.local && bspc node -s biggest.window.local)
 
-super + {l, h}
-	bspc node -s {next, prev}.window.local
+super + {_, ctrl + } g
+	bspc node -s next, prev}.window.local
+
+# super + {l, h}
+# 	bspc node -s {next, prev}.window.local
 
 super + alt + {j, k}
 	bspc node -d {next, prev} --follow
