@@ -104,6 +104,7 @@ zle -N expand-ealias
 # Bind the space key to the expand-alias function above, so that space will expand any expandable aliases
 bindkey ' '        expand-ealias
 bindkey -M isearch " "      magic-space     # normal space during searches
+# disable is search mode?
 
 # A function for expanding any aliases before accepting the line as is and executing the entered command
 expand-alias-and-accept-line() {
@@ -115,3 +116,6 @@ zle -N accept-line expand-alias-and-accept-line
 
 abbrev-alias px='http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890 all_proxy=http://127.0.0.1:7890'
 abbrev-alias spx='--preserve-env=http_proxy,https_proxy,all_proxy'
+
+# auto rehash
+zstyle ':completion:*' rehash true
