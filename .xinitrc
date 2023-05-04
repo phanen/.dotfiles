@@ -34,9 +34,8 @@ fi
 
 # exec chromium
 
-_bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
-_bootstrap kmonad ~/.config/kmonad/kmonad.kbd &
-
+# _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
+kmonad ~/.config/kmonad/kmonad.kbd -w 10 & disown
 sxhkd -a Tab &
 polybar -r &
 fcitx5 -d &
