@@ -15,6 +15,7 @@ base
 base-devel
 bash-completion
 bat
+bat-extras
 bc
 bear
 beep
@@ -180,6 +181,7 @@ paru
 paruz
 patch
 pdfgrep
+perl-cgi
 picom
 pipewire-pulse
 pkgconf
@@ -193,6 +195,7 @@ python-pynvim
 python-qrcode
 qemu-emulators-full
 qemu-full
+qutebrowser
 reflector
 ripgrep
 riscv64-linux-gnu-binutils
