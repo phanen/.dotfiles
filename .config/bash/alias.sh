@@ -1,5 +1,6 @@
 alias ls="exa --color=auto"
-alias ll="exa -lah --color=auto"
+alias ll="ls -lah --color=auto"
+alias la="ls -a --color=auto"
 alias l="ll"
 alias lt="ls --tree"
 alias lta="ls -a --tree"
@@ -8,31 +9,36 @@ alias t="type -a"
 alias which="which -a"
 alias grep="grep --color"
 alias rm="rm -i"
-alias rfa="rm -rf"
 alias df="df -h"
-alias pc="pacman"
-alias mx='chmod 755'
+alias mx='chmod +x'
 alias hx='hexdump'
+
 alias vi='nvim'
 alias vn='vi -u NONE'
+alias ni="nvim"
+alias sni="sudo -E ni"
 
-alias pa='paru --bottomup'
+alias paru='paru --bottomup'
 alias pao='pacman -Qo'
+alias pfo='pacman -F'
 alias pai='pacman -Qi'
+alias psi='pacman -Si'
 alias pal='pacman -Ql'
-alias pas='pacman -Ss'
-alias pat='pactree --color'
+alias pfl='pacman -Fl'
+alias pas='pacman -Qs'
+alias pss='pacman -Ss'
+alias pat='pactree -lu --color'
+alias pst='pactree -slu --color'
+
 alias k='pkill'
 alias x='xsel'
 
-alias find="fd"
 alias du="dust"
 alias em="emacs -nw"
 # alias hx="helix"
-alias nf="neofetch"
+alias nf="uwufetch"
 alias lg="lazygit"
 alias chrome="chromium" ## --proxy-server=\"localhost:7890\""
-alias cm="chromium"
 
 alias rigdb="riscv64-linux-gnu-gdb"
 
@@ -43,18 +49,10 @@ alias hm="l | wc -l"
 alias cdswap="cd $XDG_STATE_HOME/nvim/swap/"
 
 alias ssu="sudo systemctl restart udevmon"
-alias ssc="systemctl restart --user clash"
-alias ni="nvim"
-alias sni="sudo -E ni"
 
 # config
 alias sb="source $HOME/.bashrc"
-alias cb="$EDITOR $XDG_CONFIG_HOME/bash"
-alias ca="$EDITOR $XDG_CONFIG_HOME/alacritty"
-alias cn="$EDITOR $XDG_CONFIG_HOME/nvim"
-alias cf="$EDITOR $XDG_CONFIG_HOME/lf"
-alias ct="$EDITOR $XDG_CONFIG_HOME/tmux/"
-alias cg="$EDITOR $XDG_CONFIG_HOME/git/config"
+alias c="$EDITOR $HOME"
 
 # docker
 alias doc="sudo systemctl start docker"
