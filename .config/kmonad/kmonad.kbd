@@ -30,8 +30,8 @@
   /    (tap-hold-next-release 500 /   lalt)
   .    (tap-hold-next-release 500 .   (around lctrl lsft))
 
-  '    (tap-hold-next-release 500 '   (layer-toggle number-l))
-  ;    (tap-next-release ;            (layer-toggle number-l))
+  '    (tap-next-press '   (layer-toggle number-l))
+  ;    (tap-next-press ;            (layer-toggle number-l))
 
   sls  (around lsft (layer-toggle shift-l))
   srs  \
@@ -46,7 +46,7 @@
 )
 
 (deflayer qwerty-l
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  grv  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
   @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc  \
   @EC  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
@@ -71,9 +71,9 @@
 
 (deflayer number-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
-  @TB  S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  bspc bspc _
-  @EC  [    ]    \(   \)   @    %    {    }    9    S-1  @'   _
-  grv  ~    _    grv  +    =    \_   -    ,    @.   @/   @srs
+  !    1    2    3    4    5    6    7    8    9    0    bspc bspc _
+  @EC  [    ]    \(   \)   @    %    \_   -    =    ^    @'   _
+  grv  ^    &    $    +    *    {    }    ,    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
 )
 
@@ -109,12 +109,25 @@
   lctl lmet lalt           @SM            ralt rctl
 )
 
+(defalias
+  spa #(spc + spc)
+  sps #(spc - spc)
+  spm #(spc * spc)
+  spd #(spc \ spc)
+
+  spg #(spc > = spc)
+  spl #(spc < = spc)
+  spn #(spc ! = spc)
+
+  aro #(spc - > spc)
+)
+
 (deflayer w-l
-  grv  C-S-1  C-S-2  C-S-3  C-S-4  C-S-5  C-S-6  C-S-7  C-S-8  C-S-9  C-S-0  C-S--  C-S-=  bspc
-  @TB  C-S-q  C-S-w  C-S-e  C-S-r  C-S-t  C-S-y  C-S-u  C-S-i  C-S-o  C-S-p  C-S-[  C-S-]   \
-  @EC  C-S-a  C-S-s  C-S-d  C-S-f  C-S-g  C-S-h  C-S-j  C-S-k  C-S-l  C-S-;  @'   ret
-  @sls C-S-z  C-S-x  C-S-c  C-S-v  C-S-b  C-S-n  C-S-m  C-S-,  @.   @/   @srs
-  lctl lmet lalt           @SM            ralt rctl
+  grv  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
+  @TB  q    w    e    r    t    y    u    &    ^    p    bspc bspc  \
+  @EC  a    s    d    f    @spg @spg @aro @spa @spl @;   @'   ret
+  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
+  lctl lmet @rl            @SM            @num rctl
 )
 
 (deflayer d-l ;; reserved...
