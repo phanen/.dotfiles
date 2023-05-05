@@ -105,14 +105,21 @@ nnoremap('<leader>on', function()
   end
 end, { desc = 'toggle nrformats'})
 
+nnoremap('<leader>oj', '<cmd>wincmd _<cr>')
+nnoremap('<leader>ok', '<cmd>wincmd =<cr>')
 nnoremap('<leader>ob', require('utils.themes').toggle_bg, { desc = 'toggle background'} )
 nnoremap('<leader><tab>', require('utils').next_colorscheme, { desc = 'switch colorscheme'})
 nnoremap('<leader>ls', '<cmd>ls!<cr>')
 
+
 -- toy term
-nnoremap('<m-t>', ':split term://bash<CR>i')
+nnoremap('<m-t>', ':split term://bash<cr>i')
 tnoremap('<c-q>', '<c-\\><c-n>')
-tnoremap('<m-t>', '<c-\\><c-n>:bdelete! %<CR>')
+tnoremap('<m-t>', '<c-\\><c-n>:bdelete! %<cr>')
+
+-- toggleterm
+-- nnoremap('<c-;>', '<cmd>ls<cr>')
+-- tnoremap('<c-;>', '<cmd>ToggleTerm<cr>')
 
 -- diagnostic
 nnoremap('[d', vim.diagnostic.goto_prev)

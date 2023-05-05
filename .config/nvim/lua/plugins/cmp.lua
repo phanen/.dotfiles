@@ -18,7 +18,7 @@ return {
         enabled = function() return vim.api.nvim_buf_get_option(0, 'modifiable') and vim.bo.buftype ~= 'prompt' end,
         preselect = cmp.PreselectMode.None,
         mapping = {
-          -- ['<c-e>'] = cmp.mapping.abort(),
+          ['<c-e>'] = cmp.mapping.abort(),
           ['<c-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), {"i", "c"}),
           ['<c-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "c"}),
           ["<c-space>"] = cmp.mapping.complete({}),
