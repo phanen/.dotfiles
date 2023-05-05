@@ -31,10 +31,10 @@
   .    (tap-hold-next-release 500 .   (around lctrl lsft))
 
   '    (tap-hold-next-release 500 '   (layer-toggle number-l))
+  ;    (tap-hold-next-release 500 ;   (layer-toggle number-l))
 
-    ;; stciky key
-  sls  (sticky-key 300 lsft)
-  srs  -
+  sls  (around lsft (layer-toggle shift-l))
+  srs  \
 )
 
 (defsrc
@@ -48,9 +48,17 @@
 (deflayer qwerty-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @TB  q    w    e    r    t    y    u    i    o    p    [    ]     \
+  @EC  a    s    d    f    g    h    j    k    l    @;   @'   ret
+  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
+  lctl lmet @vn            @SM            @num rctl
+)
+
+(deflayer shift-l
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @TB  q    w    e    r    t    y    u    i    o    p    [    ]     \
   @EC  a    s    d    f    g    h    j    k    l    ;    @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
-  lctl lmet lalt           @SM            @num rctl
+  lctl lmet @vn            @SM            @num rctl
 )
 
 (deflayer colemak-l
@@ -61,19 +69,19 @@
   lctl lmet lalt           @SM            @qwe rctl
 )
 
+(deflayer number-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
+  @TB  S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  [    ]     _
+  @EC  [    ]    \(   \)   @    %    {    }    9    S-1  @'   _
+  grv  ~    _    grv  +    -    \_   =    ,    @.   @/   @srs
+  lctl lmet lalt           @SM            @qwe rctl
+)
+
 (deflayer capslock-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  Q    W    E    R    T    Y    U    I    O    P    [    ]    \
   caps A    S    D    F    G    H    J    K    L    ;    '    ret
   lsft Z    X    C    V    B    N    M    ,    .    /    rsft
-  lctl lmet lalt           @SM            @qwe rctl
-)
-
-(deflayer number-l
-  _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
-  @TB  S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  0    [    ]     \
-  -    1    2    3    4    5    6    7    8    9    0    @'   ret
-  +    =    _    grv  {    }    [    ]    ,    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
 )
 
@@ -120,7 +128,7 @@
 (deflayer ctrl-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @vi  q    w    e    r    t    y    u    i    o    p    [    ]     \
-  @EC  a    s    d    f    g    h    j    k    l    ;    @'   ret
+  @EC  a    s    d    f    g    h    j    k    l    \    @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet lalt           @SM            ralt rctl
 )
@@ -128,7 +136,7 @@
 
 ;; fake vim-like
 (defalias 
-  vn (layer-switch vim-normal-l)
+  vn (layer-toggle vim-normal-l)
   vi (layer-switch vim-insert-l)
   vv (layer-switch vim-visual-l)
   #vc (tap-next @vn (layer-toggle vctrl-l))
@@ -144,8 +152,8 @@
 )
 
 (deflayer vim-normal-l
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  q    w    e    r    t    C-c  C-z  @vi o    C-v  [    ]     \
+  grv  1    2    3    4    5   6    7    8    9    0    -    =    bspc
+  @TB  q    w    e    r    t   C-c  C-z  @vi o    C-v  [    ]     \
   @#vc @vi s    d    f    g    left down up   right ;    @'   ret
   @sls @z   x    c    @vv b    n    m    ,    @.   @/   @srs
   lctl lmet lalt           @SM            ralt rctl
