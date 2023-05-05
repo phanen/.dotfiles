@@ -10,7 +10,7 @@
 
 (defalias
     ;; switch layer
-  qwe  (layer-switch qwerty-l)
+  qwe  #((layer-switch qwerty-l) (cmd-button "~/.config/kmonad/keypress.sh"))
   cmk  (layer-switch colemak-l)
   cps  (layer-switch capslock-l)
   num  (layer-switch number-l)
@@ -31,7 +31,7 @@
   .    (tap-hold-next-release 500 .   (around lctrl lsft))
 
   '    (tap-hold-next-release 500 '   (layer-toggle number-l))
-  ;    (tap-hold-next-release 500 ;   (layer-toggle number-l))
+  ;    (tap-next-release ;            (layer-toggle number-l))
 
   sls  (around lsft (layer-toggle shift-l))
   srs  \
@@ -47,23 +47,23 @@
 
 (deflayer qwerty-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  q    w    e    r    t    y    u    i    o    p    [    ]     \
+  @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc  \
   @EC  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
-  lctl lmet @vn            @SM            @num rctl
+  lctl lmet @rl            @SM            @num rctl
 )
 
 (deflayer shift-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  q    w    e    r    t    y    u    i    o    p    [    ]     \
+  @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc \
   @EC  a    s    d    f    g    h    j    k    l    ;    @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
-  lctl lmet @vn            @SM            @num rctl
+  lctl lmet @rl            @SM            @num rctl
 )
 
 (deflayer colemak-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  q    w    f    p    g    j    l    u    y    ;    [    ]    \
+  @TB  q    w    f    p    g    j    l    u    y    ;    bspc bspc \
   @EC  a    r    s    t    d    h    n    e    i    o    @'  ret
   @sls z    x    c    v    b    k    m    ,    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
@@ -71,15 +71,15 @@
 
 (deflayer number-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
-  @TB  S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  [    ]     _
+  @TB  S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  bspc bspc _
   @EC  [    ]    \(   \)   @    %    {    }    9    S-1  @'   _
-  grv  ~    _    grv  +    -    \_   =    ,    @.   @/   @srs
+  grv  ~    _    grv  +    =    \_   -    ,    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
 )
 
 (deflayer capslock-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  Q    W    E    R    T    Y    U    I    O    P    [    ]    \
+  tab  Q    W    E    R    T    Y    U    I    O    P    bspc bspc \
   caps A    S    D    F    G    H    J    K    L    ;    '    ret
   lsft Z    X    C    V    B    N    M    ,    .    /    rsft
   lctl lmet lalt           @SM            @qwe rctl
@@ -87,7 +87,7 @@
 
 (deflayer mod-l
   grv  M-f1 M-f2 M-f3 M-f4 M-f5 6    7    8    9    0    -    =    bspc
-  @TB  @cps w    e    r    t    y    u    i    o    p    [    ]     \
+  @TB  @cps w    e    r    t    y    u    i    o    p    bspc bspc \
   @EC  a    s    d    f    g    h    @qwe @cmk l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           @SM            ralt rctl
@@ -127,54 +127,37 @@
 
 (deflayer ctrl-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @vi  q    w    e    r    t    y    u    i    o    p    [    ]     \
+  @rl  q    w    e    r    t    y    u    i    o    p    bspc bspc \
   @EC  a    s    d    f    g    h    j    k    l    \    @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet lalt           @SM            ralt rctl
 )
 
-
-;; fake vim-like
-(defalias 
-  vn (layer-toggle vim-normal-l)
-  vi (layer-switch vim-insert-l)
-  vv (layer-switch vim-visual-l)
-  #vc (tap-next @vn (layer-toggle vctrl-l))
-  ;; #vt (tap-hold-next-release 500  (layer-toggle mod-l))
+;; readline: mainly for chromium
+(defalias
+  enter-readline #((layer-switch readline-l) (cmd-button "~/.config/kmonad/keypress.sh"))
+  rl (tap-hold 500 @enter-readline lalt)
+  rc (tap-next esc (layer-toggle readline-ctrl-l))
+  rgh right
+  klw C-bspc
+  kll C-S-bspc
 )
 
-(deflayer vim-insert-l
+(deflayer readline-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  q    w    e    r    t    y    u    i    o    p    [    ]     \
-  @#vc a    s    d    f    g    h    j    k    l    ;    @'   ret
+  @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc \
+  @rc  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
-  lctl lmet lalt           @SM            ralt rctl
+  lctl lmet @qwe           @SM            @num rctl
 )
 
-(deflayer vim-normal-l
-  grv  1    2    3    4    5   6    7    8    9    0    -    =    bspc
-  @TB  q    w    e    r    t   C-c  C-z  @vi o    C-v  [    ]     \
-  @#vc @vi s    d    f    g    left down up   right ;    @'   ret
-  @sls @z   x    c    @vv b    n    m    ,    @.   @/   @srs
-  lctl lmet lalt           @SM            ralt rctl
-)
-
-(deflayer vctrl-l ;; used in non-vim environment
-  grv  C-1    C-2    C-3    C-4    C-5    C-6    C-7    C-8    C-9    C-0    C--    C-=    bspc
-  @qwe C-q    C-bspc C-e    C-r    C-t    C-y    C-u    C-i    C-o    up     C-[    C-]     \
-  @#vc C-a    C-s    C-d    right  C-g    bspc   C-j    C-k    C-l    C-;    @'     C-ret
-  @sls C-z    C-x    C-c    C-v    left   down   C-m    C-,    @.     @/     @srs
-  C-lctl  C-lmet  C-lalt            C-@SM             C-ralt  C-rctl 
-)
-
-(deflayer vim-visual-l
+(deflayer readline-ctrl-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  q    w    e    r    t    y    u    i    o    p    [    ]     \
-  @#vc a    s    d    f    g    h    j    k    l    ;    @'   ret
-  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
-  lctl lmet lalt           @SM            ralt rctl
+  @qwe q    @klw end  r    t    y    @kll i    o    up   bspc bspc \
+  @rc  home s    d    @rgh g    bspc j    k    l    \    @'   ret
+  @sls @z   x    c    v    left down m    ,    @.   @/   @srs
+  lctl lmet @rl            @SM            ralt rctl
 )
-
 
 (defalias
   a   (tap-hold-next-release 500 a lalt)
@@ -204,169 +187,3 @@
   y   (tap-hold-next-release 500 y lalt)
   z   (tap-hold-next-release 500 z lalt)
 )
-
-;; (defalias
-;;   t1  (layer-switch tap-next-l)
-;;   t2  (layer-switch tap-hold-l)
-;;   t3  (layer-switch tap-hold-next-l)
-;;   t4  (layer-switch tap-next-release-l)
-;;   t5  (layer-switch tap-hold-next-release-l)
-;; )
-;;
-;;
-;; (defalias
-;;   an  (tap-next-release a lalt)
-;;   bn  (tap-next-release b lalt)
-;;   cn  (tap-next-release c lalt)
-;;   dn  (tap-next-release d lalt)
-;;   en  (tap-next-release e lalt)
-;;   fn  (tap-next-release f lalt)
-;;   gn  (tap-next-release g lalt)
-;;   hn  (tap-next-release h lalt)
-;;   in  (tap-next-release i lalt)
-;;   jn  (tap-next-release j lalt)
-;;   kn  (tap-next-release k lalt)
-;;   ln  (tap-next-release l lalt)
-;;   mn  (tap-next-release m lalt)
-;;   nn  (tap-next-release n lalt)
-;;   on  (tap-next-release o lalt)
-;;   pn  (tap-next-release p lalt)
-;;   qn  (tap-next-release q lalt)
-;;   rn  (tap-next-release r lalt)
-;;   sn  (tap-next-release s lalt)
-;;   tn  (tap-next-release t lalt)
-;;   un  (tap-next-release u lalt)
-;;   vn  (tap-next-release v lalt)
-;;   wn  (tap-next-release w lalt)
-;;   xn  (tap-next-release x lalt)
-;;   yn  (tap-next-release y lalt)
-;;   zn  (tap-next-release z lalt)
-;; )
-;;
-;; (defalias
-;;   ah  (tap-hold 130 a lalt)
-;;   bh  (tap-hold 500 b lalt)
-;;   ch  (tap-hold 500 c lalt)
-;;   dh  (tap-hold 500 d lalt)
-;;   eh  (tap-hold 500 e lalt)
-;;   fh  (tap-hold 500 f lalt)
-;;   gh  (tap-hold 500 g lalt)
-;;   hh  (tap-hold 500 h lalt)
-;;   ih  (tap-hold 500 i lalt)
-;;   jh  (tap-hold 500 j lalt)
-;;   kh  (tap-hold 500 k lalt)
-;;   lh  (tap-hold 500 l lalt)
-;;   mh  (tap-hold 500 m lalt)
-;;   nh  (tap-hold 500 n lalt)
-;;   oh  (tap-hold 500 o lalt)
-;;   ph  (tap-hold 500 p lalt)
-;;   qh  (tap-hold 500 q lalt)
-;;   rh  (tap-hold 500 r lalt)
-;;   sh  (tap-hold 500 s lalt)
-;;   th  (tap-hold 500 t lalt)
-;;   uh  (tap-hold 500 u lalt)
-;;   vh  (tap-hold 500 v lalt)
-;;   wh  (tap-hold 500 w lalt)
-;;   xh  (tap-hold 500 x lalt)
-;;   yh  (tap-hold 500 y lalt)
-;;   zh  (tap-hold 500 z lalt)
-;; )
-;;
-;; (defalias
-;;   aQ  (tap-hold-next 500 a lalt)
-;;   bQ  (tap-hold-next 500 b lalt)
-;;   cQ  (tap-hold-next 500 c lalt)
-;;   dQ  (tap-hold-next 500 d lalt)
-;;   eQ  (tap-hold-next 500 e lalt)
-;;   fQ  (tap-hold-next 500 f lalt)
-;;   gQ  (tap-hold-next 500 g lalt)
-;;   hQ  (tap-hold-next 500 h lalt)
-;;   iQ  (tap-hold-next 500 i lalt)
-;;   jQ  (tap-hold-next 500 j lalt)
-;;   kQ  (tap-hold-next 500 k lalt)
-;;   lQ  (tap-hold-next 500 l lalt)
-;;   mQ  (tap-hold-next 500 m lalt)
-;;   nQ  (tap-hold-next 500 n lalt)
-;;   oQ  (tap-hold-next 500 o lalt)
-;;   pQ  (tap-hold-next 500 p lalt)
-;;   qQ  (tap-hold-next 500 q lalt)
-;;   rQ  (tap-hold-next 500 r lalt)
-;;   sQ  (tap-hold-next 500 s lalt)
-;;   tQ  (tap-hold-next 500 t lalt)
-;;   uQ  (tap-hold-next 500 u lalt)
-;;   vQ  (tap-hold-next 500 v lalt)
-;;   wQ  (tap-hold-next 500 w lalt)
-;;   xQ  (tap-hold-next 500 x lalt)
-;;   yQ  (tap-hold-next 500 y lalt)
-;;   zQ  (tap-hold-next 500 z lalt)
-;; )
-;;
-;;
-;; (defalias
-;;   aN  (tap-next a lalt)
-;;   bN  (tap-next b lalt)
-;;   cN  (tap-next c lalt)
-;;   dN  (tap-next d lalt)
-;;   eN  (tap-next e lalt)
-;;   fN  (tap-next f lalt)
-;;   gN  (tap-next g lalt)
-;;   hN  (tap-next h lalt)
-;;   iN  (tap-next i lalt)
-;;   jN  (tap-next j lalt)
-;;   kN  (tap-next k lalt)
-;;   lN  (tap-next l lalt)
-;;   mN  (tap-next m lalt)
-;;   nN  (tap-next n lalt)
-;;   oN  (tap-next o lalt)
-;;   pN  (tap-next p lalt)
-;;   qN  (tap-next q lalt)
-;;   rN  (tap-next r lalt)
-;;   sN  (tap-next s lalt)
-;;   tN  (tap-next t lalt)
-;;   uN  (tap-next u lalt)
-;;   vN  (tap-next v lalt)
-;;   wN  (tap-next w lalt)
-;;   xN  (tap-next x lalt)
-;;   yN  (tap-next y lalt)
-;;   zN  (tap-next z lalt)
-;; )
-;;
-;; (deflayer tap-hold-next-release-l
-;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-;;   @TB  @q   @w   @e   @r   @t   @y   @u   @i   @o   @p   [    ]    \
-;;   @EC  @a   @s   @d   @f   @g   @h   @j   @k   @l   ;    '    ret
-;;   lsft @z   @x   @c   @v   @b   @n   @m   ,    .    /    rsft
-;;   lctl lmet lalt           @SM            ralt rctl
-;; )
-;;
-;; (deflayer tap-next-release-l
-;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-;;   @TB  @qn  @wn  @en  @rn  @tn  @yn  @un  @in  @on  @pn  [    ]    \
-;;   @EC  @an  @sn  @dn  @fn  @gn  @hn  @jn  @kn  @ln  ;    '    ret
-;;   lsft @zn  @xn  @cn  @vn  @bn  @nn  @mn  ,    .    /    rsft
-;;   lctl lmet lalt           @SM            ralt rctl
-;; )
-;;
-;; (deflayer tap-hold-l
-;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-;;   @TB  @qh  @wh  @eh  @rh  @th  @yh  @uh  @ih  @oh  @ph  [    ]    \
-;;   @EC  @ah  @sh  @dh  @fh  @gh  @hh  @jh  @kh  @lh  ;    '    ret
-;;   lsft @zh  @xh  @ch  @vh  @bh  @nh  @mh  ,    .    /    rsft
-;;   lctl lmet lalt           @SM            ralt rctl
-;; )
-;;
-;; (deflayer tap-next-l
-;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-;;   @TB  @qN  @wN  @eN  @rN  @tN  @yN  @uN  @iN  @oN  @pN  [    ]    \
-;;   @EC  @aN  @sN  @dN  @fN  @gN  @hN  @jN  @kN  @lN  ;    '    ret
-;;   lsft @zN  @xN  @cN  @vN  @bN  @nN  @mN  ,    .    /    rsft
-;;   lctl lmet lalt           @SM            ralt rctl
-;; )
-;;
-;; (deflayer tap-hold-next-l
-;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-;;   @TB  @qQ  @wQ  @eQ  @rQ  @tQ  @yQ  @uQ  @iQ  @oQ  @pQ  [    ]    \
-;;   @EC  @aQ  @sQ  @dQ  @fQ  @gQ  @hQ  @jQ  @kQ  @lQ  ;    '    ret
-;;   lsft @zQ  @xQ  @cQ  @vQ  @bQ  @nQ  @mQ  ,    .    /    rsft
-;;   lctl lmet lalt           @SM            ralt rctl
-;; )
