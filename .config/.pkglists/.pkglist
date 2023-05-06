@@ -91,6 +91,7 @@ ghc
 gibo
 git
 github-cli
+gnu-netcat
 go
 go-musicfox
 gperf
@@ -181,6 +182,7 @@ paru
 paruz
 patch
 pdfgrep
+peass
 perl-cgi
 picom
 pipewire-pulse
@@ -201,6 +203,7 @@ ripgrep
 riscv64-linux-gnu-binutils
 riscv64-linux-gnu-gcc
 riscv64-linux-gnu-gdb
+rlwrap
 rofi
 rsync
 rtorrent
@@ -270,6 +273,7 @@ xclip
 xdo
 xf86-video-vesa
 xfsdump
+xmonad
 xorg-bdftopcf
 xorg-docs
 xorg-font-util

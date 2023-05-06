@@ -86,6 +86,7 @@ gettext
 ghc
 git
 github-cli
+gnu-netcat
 go
 gperf
 graphviz
@@ -190,6 +191,7 @@ ripgrep
 riscv64-linux-gnu-binutils
 riscv64-linux-gnu-gcc
 riscv64-linux-gnu-gdb
+rlwrap
 rofi
 rsync
 rtorrent
@@ -256,6 +258,7 @@ xclip
 xdo
 xf86-video-vesa
 xfsdump
+xmonad
 xorg-bdftopcf
 xorg-docs
 xorg-font-util
