@@ -18,7 +18,8 @@ alias vn='vi -u NONE'
 alias ni="nvim"
 alias sni="sudo -E ni"
 
-alias paru='paru --bottomup'
+alias paa='sudo pacman -S'
+alias pau='pacman -Syu'
 alias pao='pacman -Qo'
 alias pfo='pacman -F'
 alias pai='pacman -Qi'
@@ -27,6 +28,7 @@ alias pal='pacman -Ql'
 alias pfl='pacman -Fl'
 alias pas='pacman -Qs'
 alias pss='pacman -Ss'
+alias pass='paru -Ss --bottomup'
 alias pat='pactree -lu --color'
 alias pst='pactree -slu --color'
 
