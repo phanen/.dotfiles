@@ -26,6 +26,6 @@ if [[ $CUR_SHELL == 'bash' ]]; then
     [[  -r $BASHRC_DIR/keybindings.sh ]] && . $BASHRC_DIR/keybindings.sh
 fi
 
-[[ -z $MYVIMRC ]] && eval $FETCHER
+# [[ -z $MYVIMRC ]] && eval $FETCHER
 
 [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && _util_netcfg && cd ~ && startx # && sudo kbdrate -d 150 -r 65

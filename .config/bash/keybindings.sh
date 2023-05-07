@@ -16,3 +16,6 @@ bind '"\eg": "\C-e 2>&1 | nvim -"'
 bind '"\ej": "\C-e 2>&1 | rg "'
 bind -x '"\ek": "clear"'
 bind '"\el": "\C-e | bat"'
+
+# stty werase undef
+# bind '"\C-w": unix-filename-rubout'

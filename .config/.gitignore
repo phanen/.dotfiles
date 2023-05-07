@@ -10,6 +10,9 @@ libreoffice
 virt-viewer
 obsidian
 ttyper
+configstore
+Typora
+flameshot
 
 tmux/
 !tmux/tmux.conf
