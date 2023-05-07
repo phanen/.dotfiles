@@ -93,7 +93,7 @@ key_bindings:
   - { key: Home,                                        action: ScrollToTop    }
   - { key: End,                                         action: ScrollToBottom }
   - { key: V,              mods: Control, mode: ~Vi,        action: Paste            }
-  - { key: S,              mods: Control, mode: ~Vi,        action: Copy             }
+  - { key: Comma,              mods: Control, mode: ~Vi,        action: Copy             }
 
   # Vi Mode
   - { key: Space,  mods: Shift,          mode: ~Search,    action: ToggleViMode            }
