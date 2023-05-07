@@ -21,7 +21,7 @@
   SM   (tap-hold-next-release 500 spc (layer-toggle meta-l))
   TB   (tap-hold-next-release 500 tab (layer-toggle mod-l))
 
-  A    (tap-hold-next-release 500 C-spc (layer-toggle a-l))
+  A    (tap-hold-next-release 500 M-a   (layer-toggle a-l))
       ;; TODO: avoid C-x C-x + different prefix in a same layer
   S    (tap-hold-next-release 500 M-s (around (around lctl lalt) (layer-toggle qwerty-l)))
   D    (tap-hold-next-release 500 M-d (layer-toggle d-l))
@@ -65,13 +65,13 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @TB  q    w    f    p    g    j    l    u    y    ;    bspc bspc \
   @EC  a    r    s    t    d    h    n    e    i    o    @'  ret
-  @sls z    x    c    v    b    k    m    ,    @.   @/   @srs
+  lsft z    x    c    v    b    k    m    ,    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
 )
 
 (deflayer number-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
-  #    1    2    3    4    5    6    7    8    9    0    bspc bspc _
+  #    1    2    3    4    5    6    7    8    9    0    .    bspc _
   @EC  [    ]    \(   \)   @    %    \_   -    =    ^    @'   _
   grv  ^    &    $    +    *    {    }    !    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
@@ -125,7 +125,7 @@
 (deflayer w-l
   grv  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
   @TB  q    w    e    r    t    y    u    &    ^    p    bspc bspc  \
-  @EC  a    s    d    f    @spg @spg @aro @spa @spl @;   @'   ret
+  @EC  a    s    d    f    @spg @spg @aro @spa @spl ~    @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @rl            @SM            @num rctl
 )
