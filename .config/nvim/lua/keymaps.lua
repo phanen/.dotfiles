@@ -21,11 +21,17 @@ map({ 'n', 'v' }, '<space>', '<nop>')
 
 nnoremap('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
 nnoremap('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
+
 nnoremap('<c-u>', '<c-u>zz')
 nnoremap('<c-d>', '<c-d>zz')
+
 vnoremap('<', '<gv')
 vnoremap('>', '>gv')
+vnoremap(',', '<gv')
+vnoremap('.', '>gv')
+
 vnoremap('p', '"_dp')
+
 nnoremap('<a-j>', ':m .+1<cr>')
 nnoremap('<a-k>', ':m .-2<cr>')
 
