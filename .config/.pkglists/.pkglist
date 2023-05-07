@@ -124,6 +124,7 @@ lazygit
 lf
 lib32-gcc-libs
 libgnome-keyring
+libinput-gestures
 libreoffice-fresh
 libsixel
 libtool
@@ -145,6 +146,7 @@ m4
 make
 man-db
 man-pages
+meson
 miniflux
 mit-scheme
 most
@@ -178,6 +180,7 @@ os-prober
 p7zip
 pacman
 pacman-contrib
+pandoc-cli
 paru
 paruz
 patch
@@ -193,6 +196,7 @@ pwgen
 python
 python-markdown-it-py
 python-pip
+python-pipx
 python-pynvim
 python-qrcode
 qemu-emulators-full
@@ -252,6 +256,7 @@ ttf-hack-nerd
 ttf-jetbrains-mono-nerd
 ttf-sourcecodepro-nerd
 ttyper-git
+typora
 udiskie
 unzip
 upx
@@ -266,11 +271,15 @@ wdiff
 wezterm
 wget
 which
+wmctrl
 wpa_supplicant
 wps-office
+wqy-bitmapfont
+wqy-zenhei
 x11vnc
 xclip
 xdo
+xf86-input-synaptics
 xf86-video-vesa
 xfsdump
 xmonad

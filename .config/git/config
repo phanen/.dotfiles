@@ -9,8 +9,8 @@
 	a = add
 	c = commit
  	s = status
-    p = pull
-    P = push
+    P = pull
+    p = push
 	cl = clone
 	sl = clone --depth=1
 	co = checkout

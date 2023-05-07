@@ -17,7 +17,7 @@ EnumerateGroupBackwardKeys=
 TogglePreedit=
 
 [Hotkey/TriggerKeys]
-0=Control+space
+0=Super+A
 1=Zenkaku_Hankaku
 2=Hangul
 

@@ -137,6 +137,7 @@ m4
 make
 man-db
 man-pages
+meson
 miniflux
 most
 mpv
@@ -169,6 +170,7 @@ os-prober
 p7zip
 pacman
 pacman-contrib
+pandoc-cli
 patch
 pdfgrep
 perl-cgi
@@ -181,6 +183,7 @@ pwgen
 python
 python-markdown-it-py
 python-pip
+python-pipx
 python-pynvim
 python-qrcode
 qemu-emulators-full
@@ -252,10 +255,14 @@ wdiff
 wezterm
 wget
 which
+wmctrl
 wpa_supplicant
+wqy-bitmapfont
+wqy-zenhei
 x11vnc
 xclip
 xdo
+xf86-input-synaptics
 xf86-video-vesa
 xfsdump
 xmonad
