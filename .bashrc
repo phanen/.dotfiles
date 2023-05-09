@@ -1,7 +1,5 @@
-echo before local bashrc
 # non-interactively
 [[ $- != *i* ]] && return
-echo local bashrc
 
 export BASHRC_DIR=~/.config/bash # export simply for vim ....
 [[ -r $BASHRC_DIR/utils.sh ]] && . "$BASHRC_DIR"/utils.sh

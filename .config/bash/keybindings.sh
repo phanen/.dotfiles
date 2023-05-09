@@ -18,4 +18,5 @@ bind -x '"\ek": "clear"'
 bind '"\el": "\C-e | bat"'
 
 # stty werase undef
+# tty -a | grep werase
 # bind '"\C-w": unix-filename-rubout'

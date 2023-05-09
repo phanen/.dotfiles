@@ -51,6 +51,7 @@ dmenu
 docker
 docker-compose
 dosfstools
+doxygen
 dunst
 dust
 efibootmgr
@@ -68,7 +69,6 @@ fcitx5-configtool
 fcitx5-gtk
 fcitx5-mozc
 fcitx5-nord
-fcitx5-pinyin-moegirl
 fcitx5-pinyin-zhwiki
 fcitx5-qt
 fd
