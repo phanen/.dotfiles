@@ -8,6 +8,8 @@ _util_append_path "$HOME/bin" "$XDG_DATA_HOME/nvim/mason/bin" "$HOME/.local/bin"
 export JAVA_HOME="/opt/jdk-14"
 _util_prepend_path "$JAVA_HOME/bin"
 
+_util_append_path "$XDG_CONFIG_HOME/emacs/bin"
+
 [[ -r $BASHRC_DIR/env.sh ]] && . $BASHRC_DIR/env.sh
 [[ -r $BASHRC_DIR/alias.sh ]] && . $BASHRC_DIR/alias.sh
 [[ -r $BASHRC_DIR/functions.sh ]] && . $BASHRC_DIR/functions.sh
