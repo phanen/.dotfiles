@@ -44,6 +44,9 @@ super + {F3, F4}
 super + ctrl + s
 	flameshot gui
 
+super + s
+	picgo -p http://127.0.0.1:7890 u | tail -n1 | xsel && notify-send finish
+
 # bspwm navigate --------------------------------------------------
 
 super + {j, k}
