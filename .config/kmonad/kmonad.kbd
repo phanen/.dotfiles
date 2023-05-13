@@ -27,11 +27,11 @@
   D    (tap-hold-next-release 500 M-d (layer-toggle d-l))
   W    (tap-hold-next-release 500 M-w (layer-toggle w-l))
 
-  /    (tap-hold-next-release 500 /   lalt)
   .    (tap-hold-next-release 500 .   (around lctrl lsft))
 
   '    (tap-next-press '            (layer-toggle number-l))
   ;    (tap-next-press ;            (layer-toggle number-l))
+  /    (tap-hold-next-release 500 / (layer-toggle number-l))
 
   sls  (around lsft (layer-toggle shift-l))
   srs  \
