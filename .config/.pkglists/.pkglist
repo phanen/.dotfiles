@@ -5,6 +5,7 @@ alsa-utils
 apr
 apr-util
 archlinux-keyring
+aria2
 asciiquarium
 asp
 autoconf
@@ -218,6 +219,7 @@ screen
 screenfetch
 screenkey
 sed
+setconf
 shellcheck
 slock
 soft-serve
