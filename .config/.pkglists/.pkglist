@@ -76,6 +76,7 @@ fd
 feh
 figlet
 file
+filebrowser-bin
 findutils
 firefox
 fish
@@ -91,6 +92,7 @@ gettext
 ghc
 gibo
 git
+git-delta
 github-cli
 gnu-netcat
 go
@@ -195,11 +197,14 @@ pkgfile
 polybar
 pwgen
 python
+python-markdown
 python-markdown-it-py
 python-pip
 python-pipx
 python-pynvim
+python-pyquery
 python-qrcode
+python-qtconsole
 qemu-emulators-full
 qemu-full
 qutebrowser
