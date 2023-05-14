@@ -11,7 +11,7 @@ super + slash
 super + ctrl + slash
 	alacritty --working-directory ~ --command nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc
 
-super + alt + slash
+super + period
 	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
 
 super + n
@@ -45,7 +45,7 @@ super + ctrl + s
 	flameshot gui
 
 super + s
-	picgo -p http://127.0.0.1:7890 u | tail -n1 | xsel && notify-send finish
+	picgo -p http://127.0.0.1:7890 u | tail -n1 | tr -d "\n" | xsel -b && notify-send finish
 
 # bspwm navigate --------------------------------------------------
 
