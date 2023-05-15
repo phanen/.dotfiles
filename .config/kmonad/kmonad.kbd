@@ -125,7 +125,7 @@
 (deflayer w-l
   grv  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
   @TB  q    w    e    r    t    y    u    &    ^    p    bspc bspc  \
-  @EC  a    s    d    f    @spg @spg @aro @spa @spl ~    @'   ret
+  @EC  a    s    d    f    @spn @spg @aro @spa @spl ~    @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @rl            @SM            @num rctl
 )
