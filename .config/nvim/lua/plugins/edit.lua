@@ -69,4 +69,9 @@ return {
     'smjonas/inc-rename.nvim',
     config = true,
   },
+
+  {
+    'mg979/vim-visual-multi',
+    lazy = false,
+  },
 }
