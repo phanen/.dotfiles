@@ -9,6 +9,7 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-cmdline',
       'saadparwaiz1/cmp_luasnip',
+      { 'f3fora/cmp-spell', ft = { 'gitcommit', 'markdown', 'norg', 'org' } },
     },
 
     config = function ()
@@ -51,6 +52,16 @@ return {
           { name = 'nvim_lua' },
           { name = 'path' },
           { name = 'buffer' },
+          { name = 'spell',
+            option = {
+              -- if include vim.fn.spellsuggest("str")
+              keep_all_entries = false,
+              -- enable if certain area
+              -- `:help treesitter-highlight-spell`
+              enable_in_context = function()
+                return true
+              end,},
+          },
         },
 
         formatting = {
@@ -61,6 +72,7 @@ return {
               nvim_lsp = "[lsp]",
               path = "[path]",
               luasnip = "[snip]",
+              spell = "[spell]",
             }
             item.menu = menu_icon[entry.source.name]
             return item
