@@ -5,7 +5,7 @@ git clone git@github.com:phanen/dotfiles.git --depth=1
 cd dotfiles
 make
 ```
-> WIP: packages can be found in [.config/.pkglists/](.config/pkglists/)
+> WIP: packages can be found in [.config/.pkglists/](.config/.pkglists/)
 
 ## info
 |program|name|
