@@ -13,6 +13,7 @@ ttyper
 configstore
 Typora
 flameshot
+BaiduPCS-Go
 
 tmux/
 !tmux/tmux.conf
@@ -26,7 +27,7 @@ fcitx
 mozc
 dconf
 
-# for future maybe...
+# WIP...
 keepassxc
 lazygit
 gh
