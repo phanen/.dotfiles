@@ -18,7 +18,7 @@ return {
     dependencies = {
       { 'nvim-lua/plenary.nvim', },
       -- { 'molecule-man/telescope-menufacture' },
-      { 'natecraddock/telescope-zf-native.nvim' },
+      -- { 'natecraddock/telescope-zf-native.nvim' },
     },
 
     -- TODO: why
@@ -64,8 +64,8 @@ return {
     end,
   },
 
-  -- {
-  --   'crispgm/telescope-heading.nvim',
-  --   ft = { 'markdown', 'tex', },
-  -- }
+  {
+    'crispgm/telescope-heading.nvim',
+    ft = { 'markdown', 'tex', },
+  }
 }
