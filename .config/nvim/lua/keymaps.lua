@@ -94,7 +94,7 @@ inoremap('<c-s>', '<cmd>write<cr>')
 
 -- toggle windows
 nnoremap('<leader>wn', '<cmd>NvimTreeFindFileToggle<cr>')
-nnoremap('<leader>h', '<cmd>AerialToggle<cr>')
+nnoremap('<leader>h', '<cmd>NvimTreeFindFileToggle<cr>')
 nnoremap('<leader>wo', '<cmd>AerialToggle<cr>')
 nnoremap('<leader>l', '<cmd>AerialToggle<cr>')
 nnoremap('<leader>wm', '<cmd>MarkdownPreview<cr>')
