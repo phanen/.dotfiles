@@ -79,23 +79,24 @@ nnoremap('<leader>rn', ':IncRename ')
 -- subtitution
 -- TODO refactor in lua
 nnoremap('<leader>rp', require('utils').get_full2half_vimcmd())
-nnoremap('<leader>rs', '<cmd>%s/\\s*$//g<cr>', { desc = 'clean tail space'})
-nnoremap('<leader>rl', '<cmd>g/^$/d<cr>', { desc = 'clean the blank line'})
+nnoremap('<leader>rs', '<cmd>%s/\\s*$//g<cr>\'\'', { desc = 'clean tail space'})
+nnoremap('<leader>rl', '<cmd>g/^$/d<cr>\'\'', { desc = 'clean the blank line'})
 -- TODO (complete comment char)
-nnoremap('<leader>rc', '<cmd>g/^#/d<cr>', { desc = 'clean the comment line'})
+nnoremap('<leader>rc', '<cmd>g/^#/d<cr>\'\'', { desc = 'clean the comment line'})
 vnoremap('<leader>rk', [[<cmd>'<,'>s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
 vnoremap('<leader>r,', [[<cmd>'<,'>s/,\([^ ]\)/, \1/g<cr>]])
 
 -- how to quit in vim
 nnoremap('<leader>q', '<cmd>Bdelete!<cr>')
-nnoremap('<localleader>q', '<cmd>quit!<cr>')
 nnoremap('<localleader>w', '<cmd>write<cr>')
 inoremap('<c-q>', '<cmd>bdelete!<cr>')
 inoremap('<c-s>', '<cmd>write<cr>')
 
 -- toggle windows
 nnoremap('<leader>wn', '<cmd>NvimTreeFindFileToggle<cr>')
+nnoremap('<leader>h', '<cmd>AerialToggle<cr>')
 nnoremap('<leader>wo', '<cmd>AerialToggle<cr>')
+nnoremap('<leader>l', '<cmd>AerialToggle<cr>')
 nnoremap('<leader>wm', '<cmd>MarkdownPreview<cr>')
 nnoremap('<leader>wl', '<cmd>Lazy<cr>')
 
@@ -116,15 +117,11 @@ nnoremap('<leader>ob', require('utils.themes').toggle_bg, { desc = 'toggle backg
 nnoremap('<leader><tab>', require('utils').next_colorscheme, { desc = 'switch colorscheme'})
 nnoremap('<leader>ls', '<cmd>ls!<cr>')
 
-
--- toy term
+-- term
 nnoremap('<m-t>', ':split term://bash<cr>i')
 tnoremap('<c-q>', '<c-\\><c-n>')
 tnoremap('<m-t>', '<c-\\><c-n>:bdelete! %<cr>')
-
--- toggleterm
--- nnoremap('<c-;>', '<cmd>ls<cr>')
--- tnoremap('<c-;>', '<cmd>ToggleTerm<cr>')
+-- tnoremap('<c-;>', '<cmd>ToggleTerm<cr>') -- unusable in vim
 
 -- diagnostic
 nnoremap('[d', vim.diagnostic.goto_prev)
