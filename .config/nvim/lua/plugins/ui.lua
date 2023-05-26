@@ -331,6 +331,8 @@ return {
       keymaps = {
         ["<C-n>"] = "actions.down_and_scroll",
         ["<C-p>"] = "actions.up_and_scroll",
+        ["<C-j>"] = "",
+        ["<C-k>"] = "",
         ["g?"] = "actions.show_help",
       },
     }
@@ -346,7 +348,6 @@ return {
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function() require("trouble").setup {} end
   },
-
 
   {
     'famiu/bufdelete.nvim',
