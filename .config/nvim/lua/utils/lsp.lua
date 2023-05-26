@@ -5,7 +5,7 @@ local function get_keymap()
   -- encapsulation to prevent err on load telescope
   return {
     { '<leader>rn', lsp.buf.rename, 'rename' },
-    { '<leader>=', lsp.buf.format, 'full format' },
+    { '<leader>gg', lsp.buf.format, desc = 'format buffer' },
     { 'gD', lsp.buf.declaration, 'goto declaration' },
     { 'gd', lsp.buf.definition, 'goto definition'},
     { 'gI', lsp.buf.implementation, 'goto implementation' },
