@@ -7,12 +7,12 @@ return {
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 100
-      require('which-key').setup({
+      -- local presets = require("which-key.plugins.presets")
+      -- presets.operators["y"] = nil
+      require(('which-key')).setup({
         triggers_blacklist = {
-          -- list of mode / prefixes that should never be hooked by WhichKey
-          -- this is mostly relevant for keymaps that start with a native binding
           c = { "w" },
-          n = { "v", "y", "c", "d" },
+          -- n = { "v", "c", "d" },
         },
         disable = {
           buftypes = { 'help' },
