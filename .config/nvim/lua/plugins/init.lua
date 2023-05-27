@@ -5,23 +5,18 @@ return {
     'folke/which-key.nvim',
     event = 'VeryLazy',
     config = function()
-      local presets = require("which-key.plugins.presets")
-      presets.operators["v"] = nil
-      presets.operators["c"] = nil
-      presets.operators["y"] = nil
       vim.o.timeout = true
       vim.o.timeoutlen = 100
       require('which-key').setup({
         triggers_blacklist = {
           -- list of mode / prefixes that should never be hooked by WhichKey
           -- this is mostly relevant for keymaps that start with a native binding
-          i = { "j", "k" },
-          v = { "j", "k" },
-          c = { "w",},
+          c = { "w" },
+          n = { "v", "y", "c", "d" },
         },
         disable = {
-          buftypes = {'help'},
-          filetypes = {'man'},
+          buftypes = { 'help' },
+          filetypes = { 'man' },
         },
       })
     end,
