@@ -1,4 +1,5 @@
 local nnoremap = require('utils.keymaps').nnoremap
+local vnoremap = require('utils.keymaps').vnoremap
 
 -- local tel_ex = function(name) return require('telescope').extensions[name] end
 -- local live_grep = function(_) tel_ex('menufacture').live_grep(opts) end
@@ -61,6 +62,35 @@ return {
       -- nnoremap('<leader>fh', "<cmd>Telescope heading<cr>", { desc = 'find headings' })
       nnoremap('<leader>fp', tb.help_tags, { desc = 'find help' })
       nnoremap('<leader>fm', tb.builtin, { desc = 'fnd meta' })
+
+      function vim.getVisualSelection()
+	vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg('v')
+	vim.fn.setreg('v', {})
+
+	text = string.gsub(text, "\n", "")
+	if #text > 0 then
+	  return text
+	else
+	  return ''
+	end
+      end
+
+      -- TODO: cache your search content
+      -- TODO: fzf_lua really matters?
+
+      nnoremap('<space>e', ':Telescope current_buffer_fuzzy_find<cr>', opts)
+      vnoremap('<space>e', function()
+	local text = vim.getVisualSelection()
+	tb.current_buffer_fuzzy_find({ default_text = text })
+      end)
+
+      -- nnoremap('<space>fj', ':Telescope live_grep<cr>', opts)
+      vnoremap('<space>fj', function()
+	local text = vim.getVisualSelection()
+	tb.live_grep({ default_text = text })
+      end)
+
     end,
   },
 

@@ -129,3 +129,9 @@ nnoremap('[d', vim.diagnostic.goto_prev)
 nnoremap(']d', vim.diagnostic.goto_next)
 nnoremap('<leader>df', vim.diagnostic.open_float)
 nnoremap('<leader>ds', vim.diagnostic.setloclist)
+
+
+-- search
+-- https://vim.fandom.com/wiki/Search_for_visually_selected_text
+-- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
+vnoremap('//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
