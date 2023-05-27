@@ -322,22 +322,6 @@ return {
     }
   },
 
-  {
-    -- outline
-    'stevearc/aerial.nvim',
-    lazy = false,
-    config = true,
-    opts = {
-      keymaps = {
-        ["<C-n>"] = "actions.down_and_scroll",
-        ["<C-p>"] = "actions.up_and_scroll",
-        ["<C-j>"] = "",
-        ["<C-k>"] = "",
-        ["g?"] = "actions.show_help",
-      },
-    }
-  },
-
   -- scroll
   { 'karb94/neoscroll.nvim' },
 
