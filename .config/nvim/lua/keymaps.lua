@@ -47,8 +47,7 @@ nnoremap('D', '"_D')
 nnoremap('X', 'D')
 
 nnoremap('<leader>z', '<Plug>(comment_toggle_linewise_count)')
-
-nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
+-- nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
 
 -- navigation
 nnoremap('<c-f>', '<cmd>BufferLineCycleNext<cr>')
@@ -99,6 +98,7 @@ nnoremap('<leader>wo', '<cmd>AerialToggle<cr>')
 nnoremap('<leader>l', '<cmd>AerialToggle<cr>')
 nnoremap('<leader>wm', '<cmd>MarkdownPreview<cr>')
 nnoremap('<leader>wl', '<cmd>Lazy<cr>')
+nnoremap('<leader>wf', '<cmd>Navbuddy<cr>')
 
 -- toggle options
 nnoremap('<leader>of', '<cmd>set foldenable!<cr>')
