@@ -1,6 +1,6 @@
 local o, wo = vim.o, vim.wo
 
-o.clipboard = "unnamed"
+o.clipboard = "unnamedplus"
 o.mouse = 'a'
 o.undofile = true
 

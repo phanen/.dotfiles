@@ -38,15 +38,14 @@ nnoremap('<a-k>', ':m .-2<cr>')
 -- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
 cnoremap('w!!', 'w !sudo tee > /dev/null')
 
--- vim.keymap.set('n', 'd', '"_d');
--- vnoremap('d', '"_d')
--- vnoremap('c', '"_c')
--- nnoremap('c', '"_c')
--- nnoremap('d', '"_d')
--- nnoremap('C', '"_C')
--- nnoremap('D', '"_D')
--- nnoremap('X', 'D')
---
+vnoremap('d', '"_d')
+vnoremap('c', '"_c')
+nnoremap('c', '"_c')
+nnoremap('d', '"_d')
+nnoremap('C', '"_C')
+nnoremap('D', '"_D')
+nnoremap('X', 'D')
+
 nnoremap('<leader>z', '<Plug>(comment_toggle_linewise_count)')
 -- nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
 
