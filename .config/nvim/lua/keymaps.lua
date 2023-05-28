@@ -16,6 +16,7 @@ local lmap = kmp.lmap
 -- which-key will intercept
 -- map( { 'n', 'v', 'o' }, '<space>', '<nop>')
 
+
 nmap('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
 nmap('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
 
@@ -77,6 +78,12 @@ nmap('<leader>rl', '<cmd>g/^$/d<cr>\'\'', { desc = 'clean the blank line'})
 nmap('<leader>rc', '<cmd>g/^#/d<cr>\'\'', { desc = 'clean the comment line'})
 vmap('<leader>rk', [[<cmd>'<,'>s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
 vmap('<leader>r,', [[<cmd>'<,'>s/,\([^ ]\)/, \1/g<cr>]])
+
+-- hex to dec
+vmap('<leader>ro', [[<cmd>'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
+-- dec to hex
+vmap('<leader>rh', [[<cmd>'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
+
 
 -- how to quit in vim
 nmap('<leader>q', '<cmd>Bdelete!<cr>')
