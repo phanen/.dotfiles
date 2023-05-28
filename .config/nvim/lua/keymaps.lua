@@ -1,14 +1,14 @@
 local kmp = require('utils.keymaps')
 
 local map = kmp.map
-local nnoremap = kmp.nnoremap
-local inoremap = kmp.inoremap
-local cnoremap = kmp.cnoremap
-local vnoremap = kmp.vnoremap
-local xnoremap = kmp.xnoremap
-local onoremap = kmp.onoremap
-local tnoremap = kmp.tnoremap
-local lnoremap = kmp.lnoremap
+local nmap = kmp.nmap
+local imap = kmp.imap
+local cmap = kmp.cmap
+local vmap = kmp.vmap
+local xmap = kmp.xmap
+local omap = kmp.omap
+local tmap = kmp.tmap
+local lmap = kmp.lmap
 
 -- disable some default behaviors
 -- TODO: disbale p in select mode
@@ -19,91 +19,91 @@ map({ 'n', 'v', 'i' }, '<up>', '<nop>')
 map({ 'n', 'v', 'i' }, '<down>', '<nop>')
 map({ 'n', 'v' }, '<space>', '<nop>')
 
-nnoremap('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
-nnoremap('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
+nmap('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
+nmap('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
 
-nnoremap('<c-u>', '<c-u>zz')
-nnoremap('<c-d>', '<c-d>zz')
+nmap('<c-u>', '<c-u>zz')
+nmap('<c-d>', '<c-d>zz')
 
-vnoremap('<', '<gv')
-vnoremap('>', '>gv')
-vnoremap(',', '<gv')
-vnoremap('.', '>gv')
+vmap('<', '<gv')
+vmap('>', '>gv')
+vmap(',', '<gv')
+vmap('.', '>gv')
 
-vnoremap('p', '"_dp')
+vmap('p', '"_dp')
 
-nnoremap('<a-j>', ':m .+1<cr>')
-nnoremap('<a-k>', ':m .-2<cr>')
+nmap('<a-j>', ':m .+1<cr>')
+nmap('<a-k>', ':m .-2<cr>')
 
 -- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
-cnoremap('w!!', 'w !sudo tee > /dev/null')
+cmap('w!!', 'w !sudo tee > /dev/null')
 
-vnoremap('d', '"_d')
-vnoremap('c', '"_c')
-nnoremap('c', '"_c')
-nnoremap('d', '"_d')
-nnoremap('C', '"_C')
-nnoremap('D', '"_D')
-nnoremap('X', 'D')
+vmap('d', '"_d')
+vmap('c', '"_c')
+nmap('c', '"_c')
+nmap('d', '"_d')
+nmap('C', '"_C')
+nmap('D', '"_D')
+nmap('X', 'D')
 
-nnoremap('<leader>z', '<Plug>(comment_toggle_linewise_count)')
+nmap('<leader>z', '<Plug>(comment_toggle_linewise_count)')
 -- nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
 
 -- navigation
-nnoremap('<c-f>', '<cmd>BufferLineCycleNext<cr>')
-nnoremap('<c-b>', '<cmd>BufferLineCyclePrev<cr>')
+nmap('<c-f>', '<cmd>BufferLineCycleNext<cr>')
+nmap('<c-b>', '<cmd>BufferLineCyclePrev<cr>')
 
-nnoremap('<c-j>', '<cmd>wincmd w<cr>')
-nnoremap('<c-k>', '<cmd>wincmd W<cr>')
+nmap('<c-j>', '<cmd>wincmd w<cr>')
+nmap('<c-k>', '<cmd>wincmd W<cr>')
 
-nnoremap('<c-h>', 'g^')
-nnoremap('<c-l>', 'g$')
-vnoremap('<c-h>', 'g^')
-vnoremap('<c-l>', 'g$')
+nmap('<c-h>', 'g^')
+nmap('<c-l>', 'g$')
+vmap('<c-h>', 'g^')
+vmap('<c-l>', 'g$')
 
-nnoremap('<leader>tn', '<cmd>tabnew<cr>')
+nmap('<leader>tn', '<cmd>tabnew<cr>')
 
 -- layout
-nnoremap('<c-up>', '<cmd>resize -2<cr>')
-nnoremap('<c-down>', '<cmd>resize +2<cr>')
-nnoremap('<c-left>', '<cmd>vertical resize -2<cr>')
-nnoremap('<c-right>', '<cmd>vertical resize +2<cr>')
+nmap('<c-up>', '<cmd>resize -2<cr>')
+nmap('<c-down>', '<cmd>resize +2<cr>')
+nmap('<c-left>', '<cmd>vertical resize -2<cr>')
+nmap('<c-right>', '<cmd>vertical resize +2<cr>')
 
 -- get img
-nnoremap('<leader>gi', '<cmd>UploadClipboard<cr>')
+nmap('<leader>gi', '<cmd>UploadClipboard<cr>')
 
 -- symbol rename
-nnoremap('<leader>rn', ':IncRename ')
+nmap('<leader>rn', ':IncRename ')
 
 -- subtitution
 -- TODO refactor in lua
-nnoremap('<leader>rp', require('utils').get_full2half_vimcmd())
-nnoremap('<leader>rs', '<cmd>%s/\\s*$//g<cr>\'\'', { desc = 'clean tail space'})
-nnoremap('<leader>rl', '<cmd>g/^$/d<cr>\'\'', { desc = 'clean the blank line'})
+nmap('<leader>rp', require('utils').get_full2half_vimcmd())
+nmap('<leader>rs', '<cmd>%s/\\s*$//g<cr>\'\'', { desc = 'clean tail space'})
+nmap('<leader>rl', '<cmd>g/^$/d<cr>\'\'', { desc = 'clean the blank line'})
 -- TODO (complete comment char)
-nnoremap('<leader>rc', '<cmd>g/^#/d<cr>\'\'', { desc = 'clean the comment line'})
-vnoremap('<leader>rk', [[<cmd>'<,'>s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
-vnoremap('<leader>r,', [[<cmd>'<,'>s/,\([^ ]\)/, \1/g<cr>]])
+nmap('<leader>rc', '<cmd>g/^#/d<cr>\'\'', { desc = 'clean the comment line'})
+vmap('<leader>rk', [[<cmd>'<,'>s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
+vmap('<leader>r,', [[<cmd>'<,'>s/,\([^ ]\)/, \1/g<cr>]])
 
 -- how to quit in vim
-nnoremap('<leader>q', '<cmd>Bdelete!<cr>')
-nnoremap('<localleader>w', '<cmd>write<cr>')
-inoremap('<c-q>', '<cmd>bdelete!<cr>')
-inoremap('<c-s>', '<cmd>write<cr>')
+nmap('<leader>q', '<cmd>Bdelete!<cr>')
+nmap('<localleader>w', '<cmd>write<cr>')
+imap('<c-q>', '<cmd>bdelete!<cr>')
+imap('<c-s>', '<cmd>write<cr>')
 
 -- toggle windows
-nnoremap('<leader>wn', '<cmd>NvimTreeFindFileToggle<cr>')
-nnoremap('<leader>h', '<cmd>NvimTreeFindFileToggle<cr>')
-nnoremap('<leader>wo', '<cmd>AerialToggle<cr>')
-nnoremap('<leader>l', '<cmd>AerialToggle<cr>')
-nnoremap('<leader>wm', '<cmd>MarkdownPreview<cr>')
-nnoremap('<leader>wl', '<cmd>Lazy<cr>')
-nnoremap('<leader>wf', '<cmd>Navbuddy<cr>')
+nmap('<leader>wn', '<cmd>NvimTreeFindFileToggle<cr>')
+nmap('<leader>h', '<cmd>NvimTreeFindFileToggle<cr>')
+nmap('<leader>wo', '<cmd>AerialToggle<cr>')
+nmap('<leader>l', '<cmd>AerialToggle<cr>')
+nmap('<leader>wm', '<cmd>MarkdownPreview<cr>')
+nmap('<leader>wl', '<cmd>Lazy<cr>')
+nmap('<leader>wf', '<cmd>Navbuddy<cr>')
 
 -- toggle options
-nnoremap('<leader>of', '<cmd>set foldenable!<cr>')
-nnoremap('<leader>os', '<cmd>set spell!<cr>')
-nnoremap('<leader>on', function()
+nmap('<leader>of', '<cmd>set foldenable!<cr>')
+nmap('<leader>os', '<cmd>set spell!<cr>')
+nmap('<leader>on', function()
     if string.match(vim.o.nrformats, 'alpha') then
         vim.cmd [[set nrformats-=alpha]]
     else
@@ -111,26 +111,26 @@ nnoremap('<leader>on', function()
     end
 end, { desc = 'toggle nrformats'})
 
-nnoremap('<leader>oj', '<cmd>wincmd _<cr>')
-nnoremap('<leader>ok', '<cmd>wincmd =<cr>')
-nnoremap('<leader>ob', require('utils.themes').toggle_bg, { desc = 'toggle background'} )
-nnoremap('<leader><tab>', require('utils').next_colorscheme, { desc = 'switch colorscheme'})
-nnoremap('<leader>ls', '<cmd>ls!<cr>')
+nmap('<leader>oj', '<cmd>wincmd _<cr>')
+nmap('<leader>ok', '<cmd>wincmd =<cr>')
+nmap('<leader>ob', require('utils.themes').toggle_bg, { desc = 'toggle background'} )
+nmap('<leader><tab>', require('utils').next_colorscheme, { desc = 'switch colorscheme'})
+nmap('<leader>ls', '<cmd>ls!<cr>')
 
 -- term
-nnoremap('<m-t>', ':split term://bash<cr>i')
-tnoremap('<c-q>', '<c-\\><c-n>')
-tnoremap('<m-t>', '<c-\\><c-n>:bdelete! %<cr>')
+nmap('<m-t>', ':split term://bash<cr>i')
+tmap('<c-q>', '<c-\\><c-n>')
+tmap('<m-t>', '<c-\\><c-n>:bdelete! %<cr>')
 -- tnoremap('<c-;>', '<cmd>ToggleTerm<cr>') -- unusable in vim
 
 -- diagnostic
-nnoremap('[d', vim.diagnostic.goto_prev)
-nnoremap(']d', vim.diagnostic.goto_next)
-nnoremap('<leader>df', vim.diagnostic.open_float)
-nnoremap('<leader>ds', vim.diagnostic.setloclist)
+nmap('[d', vim.diagnostic.goto_prev)
+nmap(']d', vim.diagnostic.goto_next)
+nmap('<leader>df', vim.diagnostic.open_float)
+nmap('<leader>ds', vim.diagnostic.setloclist)
 
 
 -- search
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
-vnoremap('//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
+vmap('//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
