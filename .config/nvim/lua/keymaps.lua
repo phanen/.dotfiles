@@ -1,5 +1,5 @@
 local mp = require('utils.keymaps')
-local ac = require('actions')
+local ac = require('utils.actions')
 
 local map = mp.map
 local nmap = mp.nmap
