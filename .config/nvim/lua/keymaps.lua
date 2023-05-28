@@ -10,14 +10,11 @@ local omap = kmp.omap
 local tmap = kmp.tmap
 local lmap = kmp.lmap
 
--- disable some default behaviors
+-- hack the default behaviors
 -- TODO: disbale p in select mode
 -- TODO: disable clipboard in x or d
-map({ 'n', 'v', 'i' }, '<left>', '<nop>')
-map({ 'n', 'v', 'i' }, '<right>', '<nop>')
-map({ 'n', 'v', 'i' }, '<up>', '<nop>')
-map({ 'n', 'v', 'i' }, '<down>', '<nop>')
-map({ 'n', 'v' }, '<space>', '<nop>')
+-- which-key will intercept
+-- map( { 'n', 'v', 'o' }, '<space>', '<nop>')
 
 nmap('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
 nmap('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
@@ -32,8 +29,8 @@ vmap('.', '>gv')
 
 vmap('p', '"_dp')
 
-nmap('<a-j>', ':m .+1<cr>')
 nmap('<a-k>', ':m .-2<cr>')
+nmap('<a-j>', ':m .+1<cr>')
 
 -- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
 cmap('w!!', 'w !sudo tee > /dev/null')
@@ -56,12 +53,8 @@ nmap('<c-b>', '<cmd>BufferLineCyclePrev<cr>')
 nmap('<c-j>', '<cmd>wincmd w<cr>')
 nmap('<c-k>', '<cmd>wincmd W<cr>')
 
-nmap('<c-h>', 'g^')
-nmap('<c-l>', 'g$')
-vmap('<c-h>', 'g^')
-vmap('<c-l>', 'g$')
-
-nmap('<leader>tn', '<cmd>tabnew<cr>')
+map({'n', 'v', 'o'}, '<c-h>', 'g^')
+map({'n', 'v', 'o'}, '<c-l>', 'g$')
 
 -- layout
 nmap('<c-up>', '<cmd>resize -2<cr>')
