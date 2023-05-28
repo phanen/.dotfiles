@@ -12,9 +12,54 @@ return {
       { 'f3fora/cmp-spell', ft = { 'gitcommit', 'markdown', 'norg', 'org' } },
     },
 
+
+
     config = function ()
+
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      local lspkind = require 'lspkind'
+
+      local formatting = {}
+      formatting.format = lspkind.cmp_format({
+        mode = "symbol",
+        symbol_map = {
+          Copilot = " ",
+          Class = "󰆧 ",
+          Color = "󰏘 ",
+          Constant = "󰏿 ",
+          Constructor = " ",
+          Enum = " ",
+          EnumMember = " ",
+          Event = "",
+          Field = " ",
+          File = "󰈙 ",
+          Folder = "󰉋 ",
+          Function = "󰊕 ",
+          Interface = " ",
+          Keyword = "󰌋 ",
+          Method = "󰊕 ",
+          Module = " ",
+          Operator = "󰆕 ",
+          Property = " ",
+          Reference = "󰈇 ",
+          Snippet = " ",
+          Struct = "󰆼 ",
+          Text = "󰉿 ",
+          TypeParameter = "󰉿 ",
+          Unit = "󰑭",
+          Value = "󰎠 ",
+          Variable = "󰀫 ",
+        },
+        menu = {
+          buffer = "[buf]",
+          nvim_lsp = "[lsp]",
+          nvim_lua = "[api]",
+          path = "[path]",
+          luasnip = "[snip]",
+        },
+      })
+
       cmp.setup {
         enabled = function() return vim.api.nvim_buf_get_option(0, 'modifiable') and vim.bo.buftype ~= 'prompt' end,
         preselect = cmp.PreselectMode.None,
@@ -64,20 +109,22 @@ return {
           },
         },
 
-        formatting = {
-          fields = { 'menu', 'abbr', 'kind' },
-          format = function(entry, item)
-            local menu_icon = {
-              buffer = "[buf]",
-              nvim_lsp = "[lsp]",
-              path = "[path]",
-              luasnip = "[snip]",
-              spell = "[spell]",
-            }
-            item.menu = menu_icon[entry.source.name]
-            return item
-          end,
-        },
+
+        formatting = formatting,
+        -- {
+        --   fields = { 'menu', 'abbr', 'kind' },
+        --   format = function(entry, item)
+        --     local menu_icon = {
+        --       buffer = "[buf]",
+        --       nvim_lsp = "[lsp]",
+        --       path = "[path]",
+        --       luasnip = "[snip]",
+        --       spell = "[spell]"
+        --     }
+        --     item.menu = menu_icon[entry.source.name]
+        --     return item
+        --   end,
+        -- },
       }
 
     end
