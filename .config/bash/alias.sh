@@ -64,3 +64,7 @@ alias por='podman run'
 # fuck
 alias ok='echo $?'
 alias km='pkill kmonad; kmonad ~/.config/kmonad/kmonad.kbd -w 50 & disown'
+
+## nvim switcher
+alias ti="NVIM_APPNAME=test-nvim nvim"
+alias di="NVIM_APPNAME=debug-nvim nvim"
