@@ -126,3 +126,15 @@ pcfg() {
 
 cdev() { append_path "$HOME/demo/dev/depot_tools"; }
 
+function vis() {
+    local CONFIG="$(find ~/.config/nvim*/ -prune -exec basename {} \;)"
+    local SELECTED=$(printf "%s\n" "${CONFIG[@]}" | fzf --prompt="Neovim Config >>" --height=~50% --layout=reverse --border --exit-0)
+    echo $SELECTED
+    if [[ -z $SELECTED ]]; then
+        echo "Nothing selected"
+        return 0
+    elif [[ $SELECTED == "default" ]]; then
+        SELECTED=""
+    fi
+    NVIM_APPNAME=$SELECTED nvim $@
+}
