@@ -9,7 +9,6 @@ local recursive_map = function(mode, lhs, rhs, opts)
 end
 
 -- `:h map-table`
-
 M.nremap = function(...) recursive_map('n', ...) end
 M.iremap = function(...) recursive_map('i', ...) end
 M.nmap = function(...) M.map('n', ...) end
@@ -20,5 +19,9 @@ M.xmap = function(...) M.map('x', ...) end
 M.omap = function(...) M.map('o', ...) end
 M.tmap = function(...) M.map('t', ...) end
 M.lmap = function(...) M.map('l', ...) end
+
+
+function M.get_full2half_vimcmd()
+end
 
 return M
