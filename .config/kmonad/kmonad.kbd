@@ -17,7 +17,7 @@
   num            #((layer-switch number-l)    (cmd-button "~/.config/kmonad/keypress.sh num"))
 
     ;; multi key
-  EC   (tap-next esc                  (around lctrl (layer-toggle ctrl-l)))
+  EC   (tap-next esc                  (around lctrl (around (layer-toggle qwerty-l) (layer-toggle ctrl-l))))
   SM   (tap-hold-next-release 500 spc (layer-toggle meta-l))
   TB   (tap-hold-next-release 500 tab (layer-toggle mod-l))
 
@@ -32,7 +32,7 @@
   .    (tap-hold-next-release 500 .   (around lctrl lsft))
 
   '    (tap-hold-next-release 500 '   (layer-toggle number-l))
-  ;    (tap-hold-next-release 100 ;   (layer-toggle number-l))
+  ;    (tap-next-press ;   (layer-toggle number-l))
   /    (tap-hold-next-release 500 /   (layer-toggle number-l))
 
   sls  (around lsft (layer-toggle shift-l))
@@ -53,17 +53,26 @@
 
 (deflayer qwerty-l
   @mt  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
-  @TB  @ql  @wl  @el  @rl  @tl  @yl  @ul  @il  @ol  @pl  bspc bspc  \
-  @EC  @al  @sl  @dl  @fl  @gl  @hl  @jl  @kl  @ll  @;   @'   ret
-  @sls @Z   @xl  @cl  @vl  @bl  @nl  @ml  ,    @.   @/   @srs
-  lctl lmet @rl            @SM            @num rctl
+  @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc  \
+  @EC  a    s    d    f    g    h    @jl  @kl  l    @;   @'   ret
+  @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
+  lctl lmet @rll           @SM            @num rctl
 )
+
+(deflayer ctrl-l
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  _    _    _    _    _    _    _    _    _    _    bspc bspc \
+  @EC  _    _    _    _    _    _    _    _    _    \    @'   ret
+  @sls _    _    _    _    _    _    _    _    _    _    @srs
+  lctl lmet lalt           @SM            ralt rctl
+)
+
 
 (deflayer shift-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc \
-  @EC  a    s    d    f    g    h    j    k    l    ;    @'   ret
-  @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
+  @TB  _    _    _    _    _    _    _    _    _    _    bspc bspc \
+  @EC  _    _    _    _    _    _    _    _    _    ;    _    ret
+  @sls _    _    _    _    _    _    _    _    _    _    @srs
   lctl lmet lalt           @SM            ralt rctl
 )
 
@@ -135,7 +144,7 @@
   @TB  q    w    e    r    t    y    u    &    ^    p    bspc bspc  \
   @EC  a    s    d    f    @spn @spg @aro @spa @spl ~    @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
-  lctl lmet @rl            @SM            @num rctl
+  lctl lmet @rll           @SM            @num rctl
 )
 
 (deflayer d-l ;; reserved...
@@ -168,9 +177,10 @@
   @qwe q    @klw end  r    t    y    @kll i    o    up   bspc bspc \
   @rc  home s    d    @rgh g    bspc j    k    l    \    @'   ret
   @sls @Z   x    c    v    left down m    ,    @.   @/   @srs
-  lctl lmet @rl            @SM            ralt rctl
+  lctl lmet @rll           @SM            ralt rctl
 )
 
+;; useful macro '<,'>s/\v(^|\s)(\w)(\s|$)/\1@\2/g
 
 ;; chord
 (defalias
