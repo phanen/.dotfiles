@@ -1,4 +1,3 @@
-;; /usr/share/doc/kmonad-bin/keymap/tutorial.kbd
 (defcfg
   input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
   ;; output (uinput-sink "My KMonad output" "sleep .3 && xset r rate 150 75 && setxkbmap -option compose:ralt")
