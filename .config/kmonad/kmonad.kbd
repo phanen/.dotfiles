@@ -1,3 +1,4 @@
+;; useful macro '<,'>s/\v(^|\s)(\w)(\s|$)/\1@\2/g
 (defcfg
   input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
   ;; output (uinput-sink "My KMonad output" "sleep .3 && xset r rate 150 75 && setxkbmap -option compose:ralt")
@@ -31,7 +32,7 @@
   .    (tap-hold-next-release 500 .   (around lctrl lsft))
 
   '    (tap-hold-next-release 500 '   (layer-toggle number-l))
-  ;    (tap-hold-next-release 500 ;   (layer-toggle number-l))
+  ;    (tap-hold-next-release 100 ;   (layer-toggle number-l))
   /    (tap-hold-next-release 500 /   (layer-toggle number-l))
 
   sls  (around lsft (layer-toggle shift-l))
@@ -39,6 +40,7 @@
 )
 
 (defalias mt  (multi-tap 10 j 10 k esc))
+
 
 (defsrc
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -48,11 +50,12 @@
   lctl lmet lalt           spc            ralt rctl
 )
 
+
 (deflayer qwerty-l
   @mt  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
-  @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc  \
-  @EC  a    s    d    f    g    h    j    k    l    @;   @'   ret
-  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
+  @TB  @ql  @wl  @el  @rl  @tl  @yl  @ul  @il  @ol  @pl  bspc bspc  \
+  @EC  @al  @sl  @dl  @fl  @gl  @hl  @jl  @kl  @ll  @;   @'   ret
+  @sls @Z   @xl  @cl  @vl  @bl  @nl  @ml  ,    @.   @/   @srs
   lctl lmet @rl            @SM            @num rctl
 )
 
@@ -60,7 +63,7 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc \
   @EC  a    s    d    f    g    h    j    k    l    ;    @'   ret
-  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
+  @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet lalt           @SM            ralt rctl
 )
 
@@ -68,7 +71,7 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @TB  q    w    f    p    g    j    l    u    y    ;    bspc bspc \
   @EC  a    r    s    t    d    h    n    e    i    o    @'  ret
-  @sls @z   x    c    v    b    k    m    ,    @.   @/   @srs
+  @sls @Z   x    c    v    b    k    m    ,    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
 )
 
@@ -131,7 +134,7 @@
   grv  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
   @TB  q    w    e    r    t    y    u    &    ^    p    bspc bspc  \
   @EC  a    s    d    f    @spn @spg @aro @spa @spl ~    @'   ret
-  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
+  @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @rl            @SM            @num rctl
 )
 
@@ -145,15 +148,15 @@
 
 (deflayer ctrl-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @rl  q    w    e    r    t    y    u    i    o    p    bspc bspc \
+  @rll q    w    e    r    t    y    u    i    o    p    bspc bspc \
   @EC  a    s    d    f    g    h    j    k    l    \    @'   ret
-  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
+  @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet lalt           @SM            ralt rctl
 )
 
 ;; readline: mainly for chromium
 (defalias
-  rl (tap-hold 500 @rdl lalt)
+  rll (tap-hold 500 @rdl lalt)
   rc (tap-next esc (layer-toggle readline-ctrl-l))
   rgh right
   klw C-bspc
@@ -164,7 +167,7 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc \
   @rc  a    s    d    f    g    h    j    k    l    @;   @'   ret
-  @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
+  @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @qwe           @SM            @num rctl
 )
 
@@ -172,35 +175,264 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @qwe q    @klw end  r    t    y    @kll i    o    up   bspc bspc \
   @rc  home s    d    @rgh g    bspc j    k    l    \    @'   ret
-  @sls @z   x    c    v    left down m    ,    @.   @/   @srs
+  @sls @Z   x    c    v    left down m    ,    @.   @/   @srs
   lctl lmet @rl            @SM            ralt rctl
 )
 
+
+;; chord
 (defalias
-  a   (tap-hold-next-release 500 a lalt)
-  b   (tap-hold-next-release 500 b lalt)
-  c   (tap-hold-next-release 500 c lalt)
-  d   (tap-hold-next-release 500 d lalt)
-  e   (tap-hold-next-release 500 e lalt)
-  f   (tap-hold-next-release 500 f lalt)
-  g   (tap-hold-next-release 500 g lalt)
-  h   (tap-hold-next-release 500 h lalt)
-  i   (tap-hold-next-release 500 i lalt)
-  j   (tap-hold-next-release 500 j lalt)
-  k   (tap-hold-next-release 500 k lalt)
-  l   (tap-hold-next-release 500 l lalt)
-  m   (tap-hold-next-release 500 m lalt)
-  n   (tap-hold-next-release 500 n lalt)
-  o   (tap-hold-next-release 500 o lalt)
-  p   (tap-hold-next-release 500 p lalt)
-  q   (tap-hold-next-release 500 q lalt)
-  r   (tap-hold-next-release 500 r lalt)
-  s   (tap-hold-next-release 500 s lalt)
-  t   (tap-hold-next-release 500 t lalt)
-  u   (tap-hold-next-release 500 u lalt)
-  v   (tap-hold-next-release 500 v lalt)
-  w   (tap-hold-next-release 500 w lalt)
-  x   (tap-hold-next-release 500 x lalt)
-  y   (tap-hold-next-release 500 y lalt)
-  z   (tap-hold-next-release 500 z lalt)
+  ;; delay bug
+  ;;  df  (around-next-timeout 8 (layer-toggle chord-l) d)
+  ;;  fd  (around-next-timeout 8 (layer-toggle chord-l) f)
+  ;;  jk  (around-next-timeout 8 (layer-toggle chord-l) j)
+  ;;  kj  (around-next-timeout 8 (layer-toggle chord-l) k)
+
+  ;; undo bug
+  ;; #(c (layer-delay 50 c+))
+
+  ;; workaround
+  al  (tap-hold-next 8 a (layer-toggle a-chord-l) :timeout-button a)
+  bl  (tap-hold-next 8 b (layer-toggle b-chord-l) :timeout-button b)
+  cl  (tap-hold-next 8 c (layer-toggle c-chord-l) :timeout-button c)
+  dl  (tap-hold-next 8 d (layer-toggle d-chord-l) :timeout-button d)
+  el  (tap-hold-next 8 e (layer-toggle e-chord-l) :timeout-button e)
+  fl  (tap-hold-next 8 f (layer-toggle f-chord-l) :timeout-button f)
+  gl  (tap-hold-next 8 g (layer-toggle g-chord-l) :timeout-button g)
+  hl  (tap-hold-next 8 h (layer-toggle h-chord-l) :timeout-button h)
+  il  (tap-hold-next 8 i (layer-toggle i-chord-l) :timeout-button i)
+  jl  (tap-hold-next 8 j (layer-toggle j-chord-l) :timeout-button j)
+  kl  (tap-hold-next 8 k (layer-toggle k-chord-l) :timeout-button k)
+  ll  (tap-hold-next 8 l (layer-toggle l-chord-l) :timeout-button l)
+  ml  (tap-hold-next 8 m (layer-toggle m-chord-l) :timeout-button m)
+  nl  (tap-hold-next 8 n (layer-toggle n-chord-l) :timeout-button n)
+  ol  (tap-hold-next 8 o (layer-toggle o-chord-l) :timeout-button o)
+  pl  (tap-hold-next 8 p (layer-toggle p-chord-l) :timeout-button p)
+  ql  (tap-hold-next 8 q (layer-toggle q-chord-l) :timeout-button q)
+  rl  (tap-hold-next 8 r (layer-toggle r-chord-l) :timeout-button r)
+  sl  (tap-hold-next 8 s (layer-toggle s-chord-l) :timeout-button s)
+  tl  (tap-hold-next 8 t (layer-toggle t-chord-l) :timeout-button t)
+  ul  (tap-hold-next 8 u (layer-toggle u-chord-l) :timeout-button u)
+  vl  (tap-hold-next 8 v (layer-toggle v-chord-l) :timeout-button v)
+  wl  (tap-hold-next 8 w (layer-toggle w-chord-l) :timeout-button w)
+  xl  (tap-hold-next 8 x (layer-toggle x-chord-l) :timeout-button x)
+  yl  (tap-hold-next 8 y (layer-toggle y-chord-l) :timeout-button y)
+  zl  (tap-hold-next 8 z (layer-toggle z-chord-l) :timeout-button z)
+)
+
+
+(deflayer template-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer a-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer b-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer c-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer d-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer e-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    ^    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer f-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    ^    _    _    _    _    _    _    _    _    _    _
+  _    _    _    esc  _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer g-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer h-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer i-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer j-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    g    h    _    bspc _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer k-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    bspc _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer l-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer m-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer n-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer o-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer p-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer q-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer r-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer s-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer t-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer u-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer v-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer w-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer x-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer y-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer z-chord-l
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
 )
