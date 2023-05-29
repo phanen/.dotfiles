@@ -29,12 +29,13 @@ return {
     opts = { equivalence_classes = { ' \t\r\n', '([{', ')]}', '`"\'' } },
     dependencies = 'tpope/vim-repeat',
   },
-  {
-    'ggandor/flit.nvim',
-    keys = { 'f' },
-    dependencies = { 'ggandor/leap.nvim' },
-    opts = { labeled_modes = 'nvo', multiline = false },
-  },
+
+  -- {
+  --   'ggandor/flit.nvim',
+  --   keys = { 'f' },
+  --   dependencies = { 'ggandor/leap.nvim' },
+  --   opts = { labeled_modes = 'nvo', multiline = false },
+  -- },
 
   {
     "ggandor/leap-spooky.nvim",
