@@ -223,6 +223,9 @@
 )
 
 
+;; TODO: A bug, when try to map jk -> esc, it make jx -> x
+;; workaround -> #(j h)
+;; fucking complex
 (deflayer template-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
@@ -306,7 +309,7 @@
 (deflayer j-chord-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    bspc _    _    _    _    _
-  _    _    _    _    _    g    h    _    bspc _    _    _    _
+  _    _    _    _    _    g    #(j h) _    bspc _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _
 )
@@ -314,7 +317,7 @@
 (deflayer k-chord-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    bspc _    _    _    _    _
+  _    _    _    _    _    _    _    bspc _    bspc _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _
 )
@@ -322,7 +325,7 @@
 (deflayer l-chord-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    bspc _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _
 )
