@@ -2,7 +2,7 @@
 (defcfg
   input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
   ;; output (uinput-sink "My KMonad output" "sleep .3 && xset r rate 150 75 && setxkbmap -option compose:ralt")
-  output (uinput-sink "KMonad" "sleep .1 && xset r rate 150 75")
+  output (uinput-sink "KMonad" "sleep .3 && xset r rate 150 75")
   ;; cmp-seq ralt
   fallthrough true
   allow-cmd true
@@ -10,32 +10,36 @@
 
 (defalias
     ;; switch layer
-  qwe  #((layer-switch qwerty-l) (cmd-button "~/.config/kmonad/keypress.sh"))
-  cmk  (layer-switch colemak-l)
-  cps  (layer-switch capslock-l)
-  num  (layer-switch number-l)
+  qwe            #((layer-switch qwerty-l)    (cmd-button "~/.config/kmonad/keypress.sh qwe"))
+  rdl            #((layer-switch readline-l)  (cmd-button "~/.config/kmonad/keypress.sh rdl"))
+  cmk            #((layer-switch colemak-l)   (cmd-button "~/.config/kmonad/keypress.sh cmk"))
+  cps            #((layer-switch capslock-l)  (cmd-button "~/.config/kmonad/keypress.sh cps"))
+  num            #((layer-switch number-l)    (cmd-button "~/.config/kmonad/keypress.sh num"))
 
     ;; multi key
-  EC   (tap-next esc (around lctrl (layer-toggle ctrl-l)))
-  Ec   (tap-next esc lctl)
+  EC   (tap-next esc                  (around lctrl (layer-toggle ctrl-l)))
   SM   (tap-hold-next-release 500 spc (layer-toggle meta-l))
   TB   (tap-hold-next-release 500 tab (layer-toggle mod-l))
 
-  A    (tap-hold-next-release 500 M-a   (layer-toggle a-l))
+  A    (tap-hold-next-release 500 M-a (layer-toggle a-l))
       ;; TODO: avoid C-x C-x + different prefix in a same layer
   S    (tap-hold-next-release 500 M-s (around (around lctl lalt) (layer-toggle qwerty-l)))
   D    (tap-hold-next-release 500 M-d (layer-toggle d-l))
   W    (tap-hold-next-release 500 M-w (layer-toggle w-l))
 
+  Z    (tap-hold-next-release 500 z   lalt)
+
   .    (tap-hold-next-release 500 .   (around lctrl lsft))
 
-  '    (tap-next-press '            (layer-toggle number-l))
-  ;    (tap-next-press ;            (layer-toggle number-l))
-  /    (tap-hold-next-release 500 / (layer-toggle number-l))
+  '    (tap-hold-next-release 500 '   (layer-toggle number-l))
+  ;    (tap-hold-next-release 500 ;   (layer-toggle number-l))
+  /    (tap-hold-next-release 500 /   (layer-toggle number-l))
 
   sls  (around lsft (layer-toggle shift-l))
   srs  \
 )
+
+(defalias mt  (multi-tap 10 j 10 k esc))
 
 (defsrc
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -46,7 +50,7 @@
 )
 
 (deflayer qwerty-l
-  grv  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
+  @mt  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
   @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc  \
   @EC  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
@@ -58,7 +62,7 @@
   @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc \
   @EC  a    s    d    f    g    h    j    k    l    ;    @'   ret
   @sls @z   x    c    v    b    n    m    ,    @.   @/   @srs
-  lctl lmet @rl            @SM            @num rctl
+  lctl lmet lalt           @SM            ralt rctl
 )
 
 (deflayer colemak-l
@@ -72,7 +76,7 @@
 (deflayer number-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
   #    1    2    3    4    5    6    7    8    9    0    .    bspc _
-  @EC  [    ]    \(   \)   @    %    \_   -    =    ^    @'   _
+  @EC  [    ]    \(   \)   @    %    \_   -    =    ~    @'   _
   grv  ^    &    $    +    *    {    }    !    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
 )
@@ -93,11 +97,13 @@
   lctl lmet lalt           @SM            ralt rctl
 )
 
+
+(defalias   Ec   (tap-next esc    lctl))
 (deflayer meta-l
   M-grv  M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  M--  M-=  M-bspc
   M-tab  M-q  @W   M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
   @Ec    @A   @S   @D   M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
-  lsft M-z  M-x  M-c  M-v  M-b  M-n  M-m  M-,  M-.  M-/  rsft
+  lsft   M-z  M-x  M-c  M-v  M-b  M-n  M-m  M-,  M-.  M-/  rsft
   M-lctl M-lmet M-lalt           @SM            M-ralt M-rctl
 )
 
@@ -148,8 +154,7 @@
 
 ;; readline: mainly for chromium
 (defalias
-  enter-readline #((layer-switch readline-l) (cmd-button "~/.config/kmonad/keypress.sh"))
-  rl (tap-hold 500 @enter-readline lalt)
+  rl (tap-hold 500 @rdl lalt)
   rc (tap-next esc (layer-toggle readline-ctrl-l))
   rgh right
   klw C-bspc
