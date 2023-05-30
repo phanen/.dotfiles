@@ -54,7 +54,7 @@
 (deflayer qwerty-l
   @mt  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
   @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc  \
-  @EC  a    s    d    f    g    h    @jl  @kl  l    @;   @'   ret
+  @EC  a    s    d    f    g    @hl  @jl  @kl  @ll  @;   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @rll           @SM            @num rctl
 )
@@ -282,10 +282,11 @@
   _    _    _              _              _    _
 )
 
+;; wired
 (deflayer g-chord-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    #(g h)  _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _
 )
@@ -293,7 +294,7 @@
 (deflayer h-chord-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    #(h g)  h    left _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _
 )
@@ -309,7 +310,7 @@
 (deflayer j-chord-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    bspc _    _    _    _    _
-  _    _    _    _    _    g    #(j h) _    bspc _    _    _    _
+  _    _    _    _    _    g    left   _  bspc \_   _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _
 )
@@ -317,7 +318,7 @@
 (deflayer k-chord-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    bspc _    bspc _    _    _
+  _    _    _    _    _    _    _    bspc _    -    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _
 )
@@ -325,7 +326,7 @@
 (deflayer l-chord-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    bspc _    _    _    _
+  _    _    _    _    _    _    _    \_   -    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _
 )

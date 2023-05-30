@@ -15,8 +15,8 @@ super + period
 	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
 
 super + n
-	# kitty -c alacritty --working-directory ~ --embed
 	tabbed -c alacritty --working-directory ~ --embed
+	# kitty -c alacritty --working-directory ~ --embed
 
 super + semicolon
 	rofi -show run -matching fuzzy
