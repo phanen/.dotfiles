@@ -1,4 +1,4 @@
-vim.o.timeoutlen = 100
+vim.o.timeoutlen = 300
 
 return {
   'folke/lazy.nvim',
