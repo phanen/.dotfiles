@@ -11,6 +11,7 @@
 (defalias
     ;; switch layer
   qwe            #((layer-switch qwerty-l)    (cmd-button "~/.config/kmonad/keypress.sh qwe"))
+  dev            #((layer-switch develop-l)    (cmd-button "~/.config/kmonad/keypress.sh dev"))
   rdl            #((layer-switch readline-l)  (cmd-button "~/.config/kmonad/keypress.sh rdl"))
   cmk            #((layer-switch colemak-l)   (cmd-button "~/.config/kmonad/keypress.sh cmk"))
   cps            #((layer-switch capslock-l)  (cmd-button "~/.config/kmonad/keypress.sh cps"))
@@ -54,10 +55,19 @@
 (deflayer qwerty-l
   @mt  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
   @TB  q    w    e    r    t    y    u    @il  @ol  p    [    ]    \
+  @EC  a    s    d    f    g    h    @jl  @kl  @ll  @;   @'   ret
+  @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
+  lctl lmet @rll           @SM            @num rctl
+)
+
+(deflayer develop-l
+  @mt  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
+  @TB  q    w    e    r    t    y    u    @il  @ol  p    [    ]    \
   @EC  a    s    d    f    g    @hl  @jl  @kl  @ll  @;   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @rll           @SM            @num rctl
 )
+
 
 (deflayer ctrl-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -103,7 +113,7 @@
 (deflayer mod-l
   grv  M-f1 M-f2 M-f3 M-f4 M-f5 6    7    8    9    0    -    =    bspc
   @TB  @cps w    e    r    t    y    u    i    o    p    [    ]    \
-  @EC  a    s    d    f    g    h    @qwe @cmk l    ;    '    ret
+  @EC  a    s    d    f    g    @dev @qwe @cmk l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           @SM            ralt rctl
 )
@@ -127,7 +137,7 @@
 )
 
 (defalias
-  spa #(spc + spc)
+  spa #(+)
   sps #(spc - spc)
   spm #(spc * spc)
   spd #(spc \ spc)
@@ -136,13 +146,14 @@
   spl #(spc < = spc)
   spn #(spc ! = spc)
 
-  aro #(spc - > spc)
+  ;; FIXME: LONG PRESS will only type >
+  aro #(- >)
 )
 
 (deflayer w-l
   grv  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
   @TB  q    w    e    r    t    y    u    &    ^    p    bspc bspc  \
-  @EC  a    s    d    f    @spn @spg @aro @spa @spl ~    @'   ret
+  @EC  a    s    d    f    @spn @spg @aro +    @spl ~    @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @rll           @SM            @num rctl
 )
@@ -195,32 +206,32 @@
   ;; #(c (layer-delay 50 c+))
 
   ;; workaround
-  al  (tap-hold-next 25 a (layer-toggle a-chord-l) :timeout-button a)
-  bl  (tap-hold-next 25 b (layer-toggle b-chord-l) :timeout-button b)
-  cl  (tap-hold-next 25 c (layer-toggle c-chord-l) :timeout-button c)
-  dl  (tap-hold-next 25 d (layer-toggle d-chord-l) :timeout-button d)
-  el  (tap-hold-next 25 e (layer-toggle e-chord-l) :timeout-button e)
-  fl  (tap-hold-next 25 f (layer-toggle f-chord-l) :timeout-button f)
-  gl  (tap-hold-next 25 g (layer-toggle g-chord-l) :timeout-button g)
-  hl  (tap-hold-next 25 h (layer-toggle h-chord-l) :timeout-button h)
-  il  (tap-hold-next 25 i (layer-toggle i-chord-l) :timeout-button i)
-  jl  (tap-hold-next 25 j (layer-toggle j-chord-l) :timeout-button j)
-  kl  (tap-hold-next 25 k (layer-toggle k-chord-l) :timeout-button k)
-  ll  (tap-hold-next 25 l (layer-toggle l-chord-l) :timeout-button l)
-  ml  (tap-hold-next 25 m (layer-toggle m-chord-l) :timeout-button m)
-  nl  (tap-hold-next 25 n (layer-toggle n-chord-l) :timeout-button n)
-  ol  (tap-hold-next 25 o (layer-toggle o-chord-l) :timeout-button o)
-  pl  (tap-hold-next 25 p (layer-toggle p-chord-l) :timeout-button p)
-  ql  (tap-hold-next 25 q (layer-toggle q-chord-l) :timeout-button q)
-  rl  (tap-hold-next 25 r (layer-toggle r-chord-l) :timeout-button r)
-  sl  (tap-hold-next 25 s (layer-toggle s-chord-l) :timeout-button s)
-  tl  (tap-hold-next 25 t (layer-toggle t-chord-l) :timeout-button t)
-  ul  (tap-hold-next 25 u (layer-toggle u-chord-l) :timeout-button u)
-  vl  (tap-hold-next 25 v (layer-toggle v-chord-l) :timeout-button v)
-  wl  (tap-hold-next 25 w (layer-toggle w-chord-l) :timeout-button w)
-  xl  (tap-hold-next 25 x (layer-toggle x-chord-l) :timeout-button x)
-  yl  (tap-hold-next 25 y (layer-toggle y-chord-l) :timeout-button y)
-  zl  (tap-hold-next 25 z (layer-toggle z-chord-l) :timeout-button z)
+  al  (tap-hold-next 8 a (layer-toggle a-chord-l) :timeout-button a)
+  bl  (tap-hold-next 8 b (layer-toggle b-chord-l) :timeout-button b)
+  cl  (tap-hold-next 8 c (layer-toggle c-chord-l) :timeout-button c)
+  dl  (tap-hold-next 8 d (layer-toggle d-chord-l) :timeout-button d)
+  el  (tap-hold-next 8 e (layer-toggle e-chord-l) :timeout-button e)
+  fl  (tap-hold-next 8 f (layer-toggle f-chord-l) :timeout-button f)
+  gl  (tap-hold-next 8 g (layer-toggle g-chord-l) :timeout-button g)
+  hl  (tap-hold-next 8 h (layer-toggle h-chord-l) :timeout-button h)
+  il  (tap-hold-next 8 i (layer-toggle i-chord-l) :timeout-button i)
+  jl  (tap-hold-next 8 j (layer-toggle j-chord-l) :timeout-button j)
+  kl  (tap-hold-next 8 k (layer-toggle k-chord-l) :timeout-button k)
+  ll  (tap-hold-next 8 l (layer-toggle l-chord-l) :timeout-button l)
+  ml  (tap-hold-next 8 m (layer-toggle m-chord-l) :timeout-button m)
+  nl  (tap-hold-next 8 n (layer-toggle n-chord-l) :timeout-button n)
+  ol  (tap-hold-next 8 o (layer-toggle o-chord-l) :timeout-button o)
+  pl  (tap-hold-next 8 p (layer-toggle p-chord-l) :timeout-button p)
+  ql  (tap-hold-next 8 q (layer-toggle q-chord-l) :timeout-button q)
+  rl  (tap-hold-next 8 r (layer-toggle r-chord-l) :timeout-button r)
+  sl  (tap-hold-next 8 s (layer-toggle s-chord-l) :timeout-button s)
+  tl  (tap-hold-next 8 t (layer-toggle t-chord-l) :timeout-button t)
+  ul  (tap-hold-next 8 u (layer-toggle u-chord-l) :timeout-button u)
+  vl  (tap-hold-next 8 v (layer-toggle v-chord-l) :timeout-button v)
+  wl  (tap-hold-next 8 w (layer-toggle w-chord-l) :timeout-button w)
+  xl  (tap-hold-next 8 x (layer-toggle x-chord-l) :timeout-button x)
+  yl  (tap-hold-next 8 y (layer-toggle y-chord-l) :timeout-button y)
+  zl  (tap-hold-next 8 z (layer-toggle z-chord-l) :timeout-button z)
 )
 
 
