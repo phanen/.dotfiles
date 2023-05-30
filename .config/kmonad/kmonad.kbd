@@ -53,7 +53,7 @@
 
 (deflayer qwerty-l
   @mt  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
-  @TB  q    w    e    r    t    y    u    @il  @ol  p    bspc bspc  \
+  @TB  q    w    e    r    t    y    u    @il  @ol  p    [    ]    \
   @EC  a    s    d    f    g    @hl  @jl  @kl  @ll  @;   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @rll           @SM            @num rctl
@@ -61,7 +61,7 @@
 
 (deflayer ctrl-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  _    _    _    _    _    _    _    _    _    _    bspc bspc \
+  tab  _    _    _    _    _    _    _    _    _    _    [    ]    \
   @EC  _    _    _    _    _    _    _    _    _    \    @'   ret
   @sls _    _    _    _    _    _    _    _    _    _    @srs
   lctl lmet lalt           @SM            ralt rctl
@@ -70,7 +70,7 @@
 
 (deflayer shift-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  _    _    _    _    _    _    _    _    _    _    bspc bspc \
+  @TB  _    _    _    _    _    _    _    _    _    _    [    ]    \
   @EC  _    _    _    _    _    _    _    _    _    ;    _    ret
   @sls _    _    _    _    _    _    _    _    _    _    @srs
   lctl lmet lalt           @SM            ralt rctl
@@ -78,7 +78,7 @@
 
 (deflayer colemak-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  q    w    f    p    g    j    l    u    y    ;    bspc bspc \
+  @TB  q    w    f    p    g    j    l    u    y    ;    [    ]    \
   @EC  a    r    s    t    d    h    n    e    i    o    @'  ret
   @sls @Z   x    c    v    b    k    m    ,    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
@@ -86,7 +86,7 @@
 
 (deflayer number-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
-  #    1    2    3    4    5    6    7    8    9    0    .    bspc _
+  #    1    2    3    4    5    6    7    8    9    0    [    ]    \
   @EC  [    ]    \(   \)   @    %    \_   -    =    ~    @'   _
   grv  ^    &    $    +    *    {    }    !    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
@@ -94,7 +94,7 @@
 
 (deflayer capslock-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  Q    W    E    R    T    Y    U    I    O    P    bspc bspc \
+  tab  Q    W    E    R    T    Y    U    I    O    P    [    ]    \
   caps A    S    D    F    G    H    J    K    L    ;    '    ret
   lsft Z    X    C    V    B    N    M    ,    .    /    rsft
   lctl lmet lalt           @SM            @qwe rctl
@@ -102,7 +102,7 @@
 
 (deflayer mod-l
   grv  M-f1 M-f2 M-f3 M-f4 M-f5 6    7    8    9    0    -    =    bspc
-  @TB  @cps w    e    r    t    y    u    i    o    p    bspc bspc \
+  @TB  @cps w    e    r    t    y    u    i    o    p    [    ]    \
   @EC  a    s    d    f    g    h    @qwe @cmk l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           @SM            ralt rctl
@@ -166,7 +166,7 @@
 
 (deflayer readline-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  q    w    e    r    t    y    u    i    o    p    bspc bspc \
+  @TB  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @rc  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @qwe           @SM            @num rctl
@@ -174,13 +174,14 @@
 
 (deflayer readline-ctrl-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @qwe q    @klw end  r    t    y    @kll i    o    up   bspc bspc \
+  @qwe q    @klw end  r    t    y    @kll i    o    up   [    ]    \
   @rc  home s    d    @rgh g    bspc j    k    l    \    @'   ret
   @sls @Z   x    c    v    left down m    ,    @.   @/   @srs
   lctl lmet @rll           @SM            ralt rctl
 )
 
 ;; useful macro '<,'>s/\v(^|\s)(\w)(\s|$)/\1@\2/g
+
 
 ;; chord
 (defalias
@@ -223,9 +224,13 @@
 )
 
 
-;; TODO: A bug, when try to map jk -> esc, it make jx -> x
-;; workaround -> #(j h)
-;; fucking complex
+;; TODO: 
+;; 1. when try to map jk -> esc, it make jx -> x
+;;      workaround A: #(j h), complex and jh rh h-> jhjhjh
+;;      workaround B: different timeout for different chord?
+;; 2. ji jo  ji ri o -> good move
+;;    but ji rj? j -> jjjjjjjj
+;; 3. j io with ctrl
 (deflayer template-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
