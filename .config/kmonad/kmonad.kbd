@@ -137,24 +137,23 @@
 )
 
 (defalias
-  spa #(+)
-  sps #(spc - spc)
-  spm #(spc * spc)
-  spd #(spc \ spc)
-
-  spg #(spc > = spc)
-  spl #(spc < = spc)
-  spn #(spc ! = spc)
+  ;; spl #(+)
+  ;; ssb #(-)
+  ;; smu #(*)
+  ;; sdv #(\)
+  sge #(> =)
+  sle #(< =)
+  sne #(! =)
 
   ;; FIXME: LONG PRESS will only type >
-  aro #(- >)
+  sar #(- >)
 )
 
 (deflayer w-l
   grv  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
-  @TB  q    w    e    r    t    y    u    &    ^    p    bspc bspc  \
-  @EC  a    s    d    f    @spn @spg @aro +    @spl ~    @'   ret
-  @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
+  @TB  q    w    e    r    t    y    !    &    ^    p    bspc bspc  \
+  @EC  a    s    d    f    g    @sle @sar +    @sge ~    @'   ret
+  @sls @Z   x    c    v    b    [    ]    ,    @.   @/   @srs
   lctl lmet @rll           @SM            @num rctl
 )
 
