@@ -96,6 +96,9 @@ super + m
 super + {_, alt + } v
 	bspc node {-g hidden, $(bspc query -N -n .hidden | tail -n1) -g hidden=off}
 
+super + d
+	[[ -z $(bspc query -N -n .hidden | tail -n1) ]] && (bspc node -g hidden) || (bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off)
+
 super + alt + {m, l, s, p}
 	bspc node -g {marked, locked, sticky, private}
 
