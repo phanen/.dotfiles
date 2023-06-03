@@ -88,9 +88,9 @@ return {
       end)
 
       vmap("<leader>fk", function() tb.live_grep { default_text = vim.getVisualSelection() } end)
-
-      nmap("<leader><space>", tb.find_files, { desc = "fzf files" })
+      vmap("<leader>l", function() tb.live_grep { default_text = vim.getVisualSelection() } end)
       nmap("<leader>l", tb.live_grep, { desc = "fzf grep" })
+      nmap("<leader><space>", tb.find_files, { desc = "fzf files" })
     end,
   },
 
