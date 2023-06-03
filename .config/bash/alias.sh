@@ -1,11 +1,11 @@
 alias ls="exa --color=auto"
-alias ll="ls -lah --color=auto"
-alias la="ls -a --color=auto"
+alias ll="ls -lah"
+alias la="ls -a"
 alias l="ll"
 alias lt="ls --tree"
 alias lta="ls -a --tree"
+
 alias type="type -a"
-alias t="type -a"
 alias which="which -a"
 alias grep="grep --color"
 alias rm="rm -i"
@@ -13,12 +13,6 @@ alias df="df -h"
 alias mx='chmod +x'
 alias hx='hexdump'
 
-alias vi='nvim'
-alias vn='vi -u NONE'
-alias ni="nvim"
-alias sni="sudo -E ni"
-
-alias paa='sudo pacman -S'
 alias pau='pacman -Syu'
 alias pao='pacman -Qo'
 alias pfo='pacman -F'
@@ -32,9 +26,9 @@ alias pass='paru -Ss --bottomup'
 alias pat='pactree -lu --color'
 alias pst='pactree -slu --color'
 
-alias k='pkill'
-alias x='xsel'
-
+alias vi='nvim'
+alias vn='vi -u NONE'
+alias svi="sudo -E ni"
 alias du="dust"
 alias em="emacs -nw"
 # alias hx="helix"
@@ -54,7 +48,6 @@ alias ssu="sudo systemctl restart udevmon"
 
 # config
 alias sb="source $HOME/.bashrc"
-alias c="$EDITOR $HOME"
 
 # docker
 alias doc="sudo systemctl start docker"
@@ -64,3 +57,9 @@ alias por='podman run'
 # fuck
 alias ok='echo $?'
 alias km='pkill kmonad; kmonad ~/.config/kmonad/kmonad.kbd -w 50 & disown'
+
+alias v='nvim'
+alias k='pkill'
+alias x='xsel'
+alias t="type"
+alias p="sudo pacman"
