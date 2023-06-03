@@ -240,6 +240,7 @@ texlive-publishers
 texlive-science
 the_silver_searcher
 tmux
+tokei
 traceroute
 tree
 tree-sitter
