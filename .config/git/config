@@ -49,12 +49,12 @@
 ; 	#    git branch -m master main; git fetch origin; git branch -u origin/main main; git remote set-head origin -a
 ;
 ;
-; [core]
-; 	excludesfile = ~/.gitignore
-; 	attributesfile = ~/.gitattributes
-; 	precomposeUnicode = true
-; 	# https://github.com/dandavison/delta
-; 	pager = delta
+[core]
+	; excludesfile = ~/.gitignore
+	; attributesfile = ~/.gitattributes
+	; precomposeUnicode = true
+	# https://github.com/dandavison/delta
+	pager = delta
 ;
 ; [delta]
 ; 	max-line-length = 700
