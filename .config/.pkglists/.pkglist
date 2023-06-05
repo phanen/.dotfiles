@@ -25,12 +25,14 @@ binutils
 bison
 bluez
 bluez-utils
+bochs
 bochs-gdb-stub
 boost
 broot
 bsp-layout
 bspwm
 catimg
+cgasm
 chromium
 clang
 clash
@@ -64,6 +66,7 @@ evtest
 exa
 fakeroot
 farbfeld
+fasm
 fcitx5
 fcitx5-chinese-addons
 fcitx5-configtool
@@ -256,6 +259,7 @@ the_silver_searcher
 tmux
 tokei
 traceroute
+translate-shell
 tree
 tree-sitter
 ttf-fira-mono

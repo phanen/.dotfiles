@@ -53,7 +53,7 @@
 
 
 (deflayer qwerty-l
-  @mt  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
+  @mt  1    2    3    4    5    6    7    8    9    0    caps =    bspc
   @TB  q    w    e    r    t    y    u    @il  @ol  p    [    ]    \
   @EC  a    s    d    f    g    h    @jl  @kl  @ll  @;   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
@@ -61,7 +61,7 @@
 )
 
 (deflayer develop-l
-  @mt  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
+  @mt  1    2    3    4    5    6    7    8    9    0    caps =    bspc
   @TB  q    w    e    r    t    y    u    @il  @ol  p    [    ]    \
   @EC  a    s    d    f    g    @hl  @jl  @kl  @ll  @;   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
@@ -147,13 +147,15 @@
 
   ;; FIXME: LONG PRESS will only type >
   sar #(- >)
+
+  brk #(b spc * 0 x)
 )
 
 (deflayer w-l
   grv  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
   @TB  q    w    e    r    t    y    !    &    ^    p    bspc bspc  \
   @EC  a    s    d    f    g    @sle @sar +    @sge ~    @'   ret
-  @sls @Z   x    c    v    b    [    ]    ,    @.   @/   @srs
+  @sls @Z   x    c    v    @brk [    ]    ,    @.   @/   @srs
   lctl lmet @rll           @SM            @num rctl
 )
 

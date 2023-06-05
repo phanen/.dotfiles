@@ -70,8 +70,8 @@ au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
 --     end
 -- })
 
-
 vim.cmd[[
   au filetype man nnoremap <buffer> d <c-d>
   au filetype man nnoremap <buffer> u <c-u>
+  au filetype TelescopePrompt inoremap <buffer> <esc> <esc><esc>
 ]]
