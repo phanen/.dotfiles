@@ -139,6 +139,7 @@ libxinerama
 light
 linux
 linux-firmware
+linuxqq
 lldb
 lolcat
 lostfiles
@@ -163,6 +164,8 @@ nano
 nasm
 neofetch
 neovim
+netease-cloud-music-gtk4
+netease-music-tui-bin
 networkmanager
 newsboat
 ninja
@@ -208,6 +211,7 @@ python-pynvim
 python-pyquery
 python-qrcode
 python-qtconsole
+python2
 qemu-emulators-full
 qemu-full
 qutebrowser
