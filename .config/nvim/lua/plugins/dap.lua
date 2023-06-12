@@ -1,69 +1,152 @@
-return {}
--- local dap = require('dap')
---
--- dap.adapters.codelldb = {
---   type = 'server',
---   port = "${port}",
---   executable = {
---     command = 'codelldb',
---     args = {"--port", "${port}"},
---   }
--- }
---
--- dap.configurations.cpp = {
---   {
---     name = "Launch file",
---     type = "codelldb",
---     request = "launch",
---     program = function()
---       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
---     end,
---     cwd = '${workspaceFolder}',
---     stopOnEntry = false,
---   },
--- }
---
--- dap.configurations.c = dap.configurations.cpp
--- dap.configurations.rust = dap.configurations.cpp
+local fn = vim.fn
 
-----------------------------------------------------------------------
+return {
+  {
+    "mfussenegger/nvim-dap",
+    keys = {
+      {
+        "<localleader>dL",
+        function() require("dap").set_breakpoint(nil, nil, fn.input "Log point message: ") end,
+        desc = "dap: log breakpoint",
+      },
+      {
+        "<localleader>db",
+        function() require("dap").toggle_breakpoint() end,
+        desc = "dap: toggle breakpoint",
+      },
+      {
+        "<localleader>dB",
+        function() require("dap").set_breakpoint(fn.input "Breakpoint condition: ") end,
+        desc = "dap: set conditional breakpoint",
+      },
+      {
+        "<localleader>dc",
+        function() require("dap").continue() end,
+        desc = "dap: continue or start debugging",
+      },
+      {
+        "<localleader>duc",
+        function() require("dapui").close() end,
+        desc = "dap ui: close",
+      },
+      {
+        "<localleader>dut",
+        function() require("dapui").toggle() end,
+        desc = "dap ui: toggle",
+      },
+      { "<localleader>dt", function() require("dap").repl.toggle() end, desc = "dap: toggle repl" },
+      { "<localleader>de", function() require("dap").step_out() end, desc = "dap: step out" },
+      { "<localleader>di", function() require("dap").step_into() end, desc = "dap: step into" },
+      { "<localleader>do", function() require("dap").step_over() end, desc = "dap: step over" },
+      { "<localleader>dl", function() require("dap").run_last() end, desc = "dap REPL: run last" },
+    },
+    config = function()
+      local dap = require "dap" -- NOTE: must be loaded before the signs can be tweaked
+      local ui_ok, dapui = pcall(require, "dapui")
+
+      -- DON'T automatically stop at exceptions
+      -- dap.defaults.fallback.exception_breakpoints = {}
+      if not ui_ok then return end
+      dap.listeners.before.event_exited["dapui_config"] = function() dapui.close() end
+      dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
+      dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
+
+      dap.adapters.cppdbg = {
+        id = "cppdbg",
+        type = "executable",
+        command = "/home/phanium/.local/share/nvim/mason/bin/OpenDebugAD7",
+      }
+
+      -- lldb from aur has lldb-vscode
+      dap.adapters.lldb = {
+        type = "executable",
+        command = "/usr/bin/lldb-vscode",
+        name = "lldb",
+        args = { "--port", "${port}" },
+      }
+
+      -- codelldb from mason
+      -- dap.adapters.codelldb = {
+      --   type = "server",
+      --   port = "${port}",
+      --   executable = {
+      --     command = "/home/phanium/.local/share/nvim/mason/bin/codelldb",
+      --     args = { "--port", "${port}" },
+      --   },
+      --   detached = false,
+      -- }
+
+      dap.adapters.codelldb = {
+        type = "server",
+        host = "127.0.0.1",
+        port = 12313, -- 💀 Use the port printed out or specified with `--port`
+      }
+
+      dap.configurations.cpp = {
+        {
+          name = "Launch file",
+          type = "cppdbg",
+          request = "launch",
+          program = function() return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file") end,
+          cwd = "${workspaceFolder}",
+          stopAtEntry = true,
+        },
+
+        {
+          name = "Attach to gdbserver :1234",
+          type = "cppdbg",
+          request = "launch",
+          MIMode = "gdb",
+          miDebuggerServerAddress = "localhost:1234",
+          miDebuggerPath = "/usr/bin/gdb",
+          cwd = "${workspaceFolder}",
+          program = function() return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/a.out") end,
+        },
+
+        {
+          name = "codelldb Launch",
+          type = "codelldb",
+          request = "launch",
+          program = function() return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/a.out") end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+          -- args = {},
+          -- runInTerminal = true,
+        },
+      }
+
+      dap.configurations.c = dap.configurations.cpp
+      dap.configurations.rust = dap.configurations.cpp
+    end,
+
+    dependencies = {
+      {
+        {
+          "rcarriga/nvim-dap-ui",
+          opts = {
+            windows = { indent = 2 },
+            layouts = {
+              {
+                elements = {
+                  { id = "scopes", size = 0.25 },
+                  { id = "breakpoints", size = 0.25 },
+                  { id = "stacks", size = 0.25 },
+                  { id = "watches", size = 0.25 },
+                },
+                position = "left",
+                size = 20,
+              },
+              { elements = { { id = "repl", size = 0.9 } }, position = "bottom", size = 10 },
+            },
+          },
+        },
+        { "theHamsta/nvim-dap-virtual-text", opts = { all_frames = true } },
+      },
+    },
+  },
+}
+
 -- -- debug
--- local dap = require("dap")
--- local dapui = require("dapui")
---
--- -- lldb from aur has lldb-vscode
--- dap.adapters.lldb = {
---   type = "executable",
---   command = '/usr/bin/lldb-vscode',
---   name = "lldb",
---   args = { "--port", "${port}" },
--- }
---
--- -- codelldb from mason
--- dap.adapters.codelldb = {
---   type = 'server',
---   port = "${port}",
---   executable = {
---     command = '/home/phanium/.local/share/nvim/mason/bin/codelldb',
---     args = { "--port", "${port}" },
---   }
--- }
---
--- dap.configurations.cpp = {
---   {
---     name = 'Launch',
---     type = 'codelldb',
---     request = 'launch',
---     program = function()
---       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
---     end,
---     cwd = '${workspaceFolder}',
---     stopOnEntry = false,
---     args = {},
---   },
--- }
---
--- dap.configurations.c = dap.configurations.cpp
 --
 -- vim.keymap.set("n", "<F5>", dap.step_into)
 -- vim.keymap.set("n", "<F6>", dap.step_over)
