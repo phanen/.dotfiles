@@ -54,8 +54,8 @@
 
 (deflayer qwerty-l
   @mt  1    2    3    4    5    6    7    8    9    0    caps =    bspc
-  @TB  q    w    e    r    t    y    u    @il  @ol  p    [    ]    \
-  @EC  a    s    d    f    g    h    @jl  @kl  @ll  @;   @'   ret
+  @TB  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @EC  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @rll           @SM            @num rctl
 )
