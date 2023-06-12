@@ -39,6 +39,7 @@ cmake
 cmatrix
 cmus
 cocogitto
+code
 copyq
 cpio
 cronie
@@ -121,7 +122,6 @@ lazygit
 lf
 lib32-gcc-libs
 libgnome-keyring
-libreoffice-fresh
 libsixel
 libtool
 libxft

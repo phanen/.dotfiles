@@ -28,6 +28,7 @@ bluez-utils
 bochs
 bochs-gdb-stub
 boost
+brave-bin
 broot
 bsp-layout
 bspwm
@@ -36,12 +37,14 @@ cgasm
 chromium
 clang
 clash
+clion
 clipmenu
 clisp
 cmake
 cmatrix
 cmus
 cocogitto
+code
 copyq
 cpio
 cronie
@@ -131,7 +134,6 @@ lf
 lib32-gcc-libs
 libgnome-keyring
 libinput-gestures
-libreoffice-fresh
 libsixel
 libtool
 libxft
@@ -273,6 +275,7 @@ ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
 ttf-sourcecodepro-nerd
 ttyper-git
+typora
 udiskie
 unzip
 upx

@@ -5,7 +5,7 @@ export BASHRC_DIR=~/.config/bash # export simply for vim ....
 [[ -r $BASHRC_DIR/utils.sh ]] && . "$BASHRC_DIR"/utils.sh
 
 _util_append_path "$HOME/bin" "$XDG_DATA_HOME/nvim/mason/bin" "$HOME/.local/bin"
-export JAVA_HOME="/opt/jdk-14"
+# export JAVA_HOME="/opt/jdk-14"
 _util_prepend_path "$JAVA_HOME/bin"
 
 _util_append_path "$XDG_CONFIG_HOME/emacs/bin"

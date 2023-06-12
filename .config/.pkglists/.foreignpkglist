@@ -1,6 +1,8 @@
 bochs
 bochs-gdb-stub
+brave-bin
 bsp-layout
+clion
 farbfeld
 filebrowser-bin
 gibo
@@ -18,6 +20,7 @@ peass
 python2
 sysz
 ttyper-git
+typora
 wps-office
 xremap-x11-bin
 yay
