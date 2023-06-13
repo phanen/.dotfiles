@@ -9,5 +9,6 @@ return {
   -- },
 
   -- diff arbitrary blocks of text with each other
-  { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
+  { "AndrewRadev/linediff.vim", cmd = "Linediff" },
+  { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
 }
