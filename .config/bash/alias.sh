@@ -34,7 +34,7 @@ alias em="emacs -nw"
 # alias hx="helix"
 alias nf="uwufetch"
 alias lg="lazygit"
-alias chrome="chromium" ## --proxy-server=\"localhost:7890\""
+alias chrome="google-chrome-stable" ## --proxy-server=\"localhost:7890\""
 
 alias rigdb="riscv64-linux-gnu-gdb"
 

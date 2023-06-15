@@ -7,6 +7,7 @@ farbfeld
 filebrowser-bin
 gibo
 go-musicfox
+google-chrome
 icalingua++
 interception-space2meta
 libinput-gestures
@@ -19,9 +20,14 @@ paruz
 peass
 python2
 sysz
+ttf-ms-fonts
+ttf-wps-fonts
 ttyper-git
 typora
-wps-office
+virtualbox-ext-oracle
+wps-office-cn
+wps-office-mime-cn
+wps-office-mui-zh-cn
 xremap-x11-bin
 yay
 zotero-bin

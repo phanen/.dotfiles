@@ -97,12 +97,14 @@ gdb
 gettext
 ghc
 gibo
+gimp
 git
 git-delta
 github-cli
 gnu-netcat
 go
 go-musicfox
+google-chrome
 gperf
 graphviz
 grep
@@ -121,11 +123,13 @@ hugo
 hyperfine
 hyperv
 icalingua++
+imagemagick
 intel-ucode
 interception-caps2esc
 interception-space2meta
 interception-tools
 jdk8-openjdk
+jpegoptim
 jq
 keepassxc
 kitty
@@ -141,6 +145,7 @@ libxinerama
 light
 linux
 linux-firmware
+linux-headers
 linuxqq
 lldb
 lolcat
@@ -196,6 +201,7 @@ paru
 paruz
 patch
 pdfgrep
+pdftk
 peass
 perl-cgi
 picom
@@ -216,6 +222,7 @@ python-qtconsole
 python2
 qemu-emulators-full
 qemu-full
+qtcreator
 qutebrowser
 reflector
 ripgrep
@@ -272,8 +279,10 @@ ttf-fira-mono
 ttf-firacode-nerd
 ttf-hack-nerd
 ttf-jetbrains-mono-nerd
+ttf-ms-fonts
 ttf-nerd-fonts-symbols
 ttf-sourcecodepro-nerd
+ttf-wps-fonts
 ttyper-git
 typora
 udiskie
@@ -282,7 +291,12 @@ upx
 urxvt-perls
 usbutils
 uwufetch
+virt-manager
 virt-viewer
+virtualbox
+virtualbox-ext-oracle
+virtualbox-guest-iso
+virtualbox-guest-utils
 viu
 vlc
 vmpk
@@ -292,7 +306,9 @@ wget
 which
 wmctrl
 wpa_supplicant
-wps-office
+wps-office-cn
+wps-office-mime-cn
+wps-office-mui-zh-cn
 wqy-bitmapfont
 wqy-zenhei
 x11vnc

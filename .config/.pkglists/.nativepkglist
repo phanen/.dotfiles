@@ -89,6 +89,7 @@ gcc
 gdb
 gettext
 ghc
+gimp
 git
 git-delta
 github-cli
@@ -111,10 +112,12 @@ httping
 hugo
 hyperfine
 hyperv
+imagemagick
 intel-ucode
 interception-caps2esc
 interception-tools
 jdk8-openjdk
+jpegoptim
 jq
 keepassxc
 kitty
@@ -129,6 +132,7 @@ libxinerama
 light
 linux
 linux-firmware
+linux-headers
 lldb
 lolcat
 lostfiles
@@ -178,6 +182,7 @@ pacman-contrib
 pandoc-cli
 patch
 pdfgrep
+pdftk
 perl-cgi
 picom
 pipewire-pulse
@@ -196,6 +201,7 @@ python-qrcode
 python-qtconsole
 qemu-emulators-full
 qemu-full
+qtcreator
 qutebrowser
 reflector
 ripgrep
@@ -259,7 +265,11 @@ upx
 urxvt-perls
 usbutils
 uwufetch
+virt-manager
 virt-viewer
+virtualbox
+virtualbox-guest-iso
+virtualbox-guest-utils
 viu
 vlc
 vmpk
