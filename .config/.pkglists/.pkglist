@@ -43,6 +43,8 @@ cmake
 cmatrix
 cmus
 cocogitto
+code
+code-marketplace
 copyq
 cpio
 cronie
@@ -126,6 +128,7 @@ intel-ucode
 interception-caps2esc
 interception-space2meta
 interception-tools
+iverilog
 jdk8-openjdk
 jpegoptim
 jq
@@ -291,6 +294,7 @@ upx
 urxvt-perls
 usbutils
 uwufetch
+verilator
 virt-manager
 virt-viewer
 virtualbox
