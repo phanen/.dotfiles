@@ -2,5 +2,6 @@
 text/=nvim.desktop
 application/pdf=chromium.desktop
 application/html=chromium.desktop
-x-scheme-handler/https=chromium.desktop
-x-scheme-handler/http=chromium.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+text/html=google-chrome.desktop
