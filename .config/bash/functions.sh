@@ -138,3 +138,11 @@ function vis() {
     fi
     NVIM_APPNAME=$SELECTED nvim $@
 }
+
+function gitit() {
+    cat <<EOF | sh
+    git remote add origin git@github.com:phanen/phanen.git
+    git branch -M master
+    git push -u origin master
+    EOF
+}
