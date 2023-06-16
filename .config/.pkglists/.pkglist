@@ -208,6 +208,7 @@ picom
 pipewire-pulse
 pkgconf
 pkgfile
+plasma-meta
 polybar
 pwgen
 python
@@ -222,6 +223,7 @@ python-qtconsole
 python2
 qemu-emulators-full
 qemu-full
+qt6-doc
 qtcreator
 qutebrowser
 reflector

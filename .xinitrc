@@ -43,6 +43,7 @@ picom &
 
 # udiskie &
 
+# export DESKTOP_SESSION=plasma
 session=${1:-bspwm}
 case $session in
     bspwm             ) exec bspwm;;
