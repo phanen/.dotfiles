@@ -16,7 +16,6 @@ base
 base-devel
 bash-completion
 bat
-bat-extras
 bc
 bear
 beep
@@ -44,7 +43,6 @@ cmake
 cmatrix
 cmus
 cocogitto
-code
 copyq
 cpio
 cronie
