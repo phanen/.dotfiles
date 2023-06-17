@@ -32,6 +32,7 @@ cgasm
 chromium
 clang
 clash
+cliphist
 clipmenu
 clisp
 cmake
@@ -99,6 +100,7 @@ go
 gperf
 graphviz
 grep
+grim
 groff
 grub
 grub-customizer
@@ -230,6 +232,7 @@ setconf
 shellcheck
 shotgun
 slock
+slurp
 soft-serve
 soundfont-fluid
 speedtest-cli
@@ -288,6 +291,7 @@ wdiff
 wezterm
 wget
 which
+wl-clipboard
 wmctrl
 wpa_supplicant
 wqy-bitmapfont
