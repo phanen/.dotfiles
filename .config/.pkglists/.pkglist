@@ -240,7 +240,7 @@ riscv64-linux-gnu-binutils
 riscv64-linux-gnu-gcc
 riscv64-linux-gnu-gdb
 rlwrap
-rofi-lbonn-wayland-only-git
+rofi
 rsync
 rtorrent
 ruby
