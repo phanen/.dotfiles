@@ -22,6 +22,7 @@ return {
   -- status updates for lsp
   {
     "j-hui/fidget.nvim",
+    tag = "legacy",
     lazy = false,
     config = true,
   },
