@@ -119,3 +119,5 @@ abbrev-alias spx='--preserve-env=http_proxy,https_proxy,all_proxy'
 
 # auto rehash
 zstyle ':completion:*' rehash true
+
+eval "$(zoxide init zsh)"
