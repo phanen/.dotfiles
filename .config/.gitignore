@@ -21,3 +21,5 @@
 !systemd
 !tmux
 !lazygit
+!hypr
+!electron-flags.conf

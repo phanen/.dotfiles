@@ -45,6 +45,7 @@ cronie
 dash
 debugedit
 devtools
+dhclient
 dhcpcd
 difftastic
 dmenu
@@ -92,6 +93,7 @@ gimp
 git
 git-delta
 github-cli
+glfw-wayland
 gnu-netcat
 go
 gperf
@@ -103,6 +105,7 @@ grub-customizer
 gsmartcontrol
 gtk-vnc
 gtk2
+gtkwave
 gvim
 gzip
 helix
@@ -111,6 +114,7 @@ httping
 hugo
 hyperfine
 hyperv
+hyprland
 imagemagick
 intel-ucode
 interception-caps2esc
@@ -156,6 +160,7 @@ nano
 nasm
 neofetch
 neovim
+net-tools
 networkmanager
 newsboat
 ninja
@@ -188,7 +193,6 @@ picom
 pipewire-pulse
 pkgconf
 pkgfile
-plasma-meta
 polybar
 pwgen
 python
@@ -203,6 +207,7 @@ python-qtconsole
 qemu-emulators-full
 qemu-full
 qt6-doc
+qt6-wayland
 qtcreator
 qutebrowser
 reflector
@@ -211,7 +216,6 @@ riscv64-linux-gnu-binutils
 riscv64-linux-gnu-gcc
 riscv64-linux-gnu-gdb
 rlwrap
-rofi
 rsync
 rtorrent
 ruby
@@ -220,9 +224,11 @@ scrcpy
 screen
 screenfetch
 screenkey
+scrot
 sed
 setconf
 shellcheck
+shotgun
 slock
 soft-serve
 soundfont-fluid
@@ -232,6 +238,7 @@ stow
 strace
 sudo
 sway
+swaybg
 sxhkd
 sxiv
 terminus-font
@@ -276,6 +283,7 @@ virtualbox-guest-utils
 viu
 vlc
 vmpk
+waybar
 wdiff
 wezterm
 wget
