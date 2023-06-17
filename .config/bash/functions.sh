@@ -141,8 +141,8 @@ function vis() {
 
 function gitit() {
     cat <<EOF | sh
-    git remote add origin git@github.com:phanen/phanen.git
-    git branch -M master
-    git push -u origin master
-    EOF
+        git remote add origin git@github.com:phanen/phanen.git
+        git branch -M master
+        git push -u origin master
+EOF
 }
