@@ -18,8 +18,8 @@ super + period
 	# kitty --detach --working-directory ~/notes nvim ~/notes/todo.md 
 
 super + n
-	org.wezfurlong.wezterm
-	# tabbed -c alacritty --working-directory ~ --embed
+	tabbed -c alacritty --working-directory ~ --embed
+	# org.wezfurlong.wezterm
 	# kitty --detach
 
 super + semicolon
