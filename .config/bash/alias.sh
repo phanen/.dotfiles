@@ -63,3 +63,7 @@ alias k='pkill'
 alias x='xsel'
 alias t="type"
 alias p="sudo pacman"
+
+# flatpak
+alias wezterm='flatpak run org.wezfurlong.wezterm'
+alias foliate='flatpak run com.github.johnfactotum.Foliate'

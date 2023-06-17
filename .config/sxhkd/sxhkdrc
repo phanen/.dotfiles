@@ -7,16 +7,20 @@ super + r
 
 super + slash
 	alacritty --working-directory ~ --command nvim
+	# kitty --detach nvim
 
 super + ctrl + slash
 	alacritty --working-directory ~ --command nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc
+	# kitty --detach nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc
 
 super + period
 	alacritty --working-directory ~/notes --command nvim ~/notes/todo.md
+	# kitty --detach --working-directory ~/notes nvim ~/notes/todo.md 
 
 super + n
-	tabbed -c alacritty --working-directory ~ --embed
-	# kitty -c alacritty --working-directory ~ --embed
+	org.wezfurlong.wezterm
+	# tabbed -c alacritty --working-directory ~ --embed
+	# kitty --detach
 
 super + semicolon
 	rofi -show run -matching fuzzy
