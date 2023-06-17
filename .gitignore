@@ -12,6 +12,9 @@
 !.xinitrc
 !.zshrc
 
+# xrdb ~/.Xresource
+!.Xresources
+
 !.config/
 
 *.log
