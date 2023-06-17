@@ -27,8 +27,11 @@ export HISTCONTROL="erasedups:ignorespace:ignoreboth"
 
 # proxy
 export http_proxy="http://127.0.0.1:7890"
-export https_proxy="http://127.0.0.1:7890"
-export all_proxy="http://127.0.0.1:7890"
+export https_proxy=$http_proxy
+export ftp_proxy=$http_proxy
+export rsync_proxy=$http_proxy
+export all_proxy=$http_proxy
+export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 
 export EDK_TOOLS_PATH=$HOME/demo/hard/edk2/BaseTools
 

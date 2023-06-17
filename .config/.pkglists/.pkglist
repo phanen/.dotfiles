@@ -4,7 +4,9 @@ alacritty
 alsa-utils
 apr
 apr-util
+archinstall
 archlinux-keyring
+archlinuxcn-keyring
 aria2
 asciiquarium
 asp
@@ -27,6 +29,7 @@ bluez-utils
 bochs
 bochs-gdb-stub
 boost
+bottom
 brave-bin
 broot
 bsp-layout
@@ -49,6 +52,7 @@ code-marketplace
 copyq
 cpio
 cronie
+d-feet
 dash
 debugedit
 devtools
@@ -56,6 +60,7 @@ dhclient
 dhcpcd
 difftastic
 dmenu
+dnsmasq
 docker
 docker-compose
 dosfstools
@@ -134,10 +139,12 @@ intel-ucode
 interception-caps2esc
 interception-space2meta
 interception-tools
+iptables-nft
 iverilog
 jdk8-openjdk
 jpegoptim
 jq
+kde-gtk-config
 keepassxc
 kitty
 lazygit
@@ -187,7 +194,6 @@ ninja
 nitrogen
 nix
 nmap
-nodejs
 notion
 noto-fonts-cjk
 noto-fonts-emoji
@@ -212,10 +218,11 @@ pdfgrep
 pdftk
 peass
 perl-cgi
-picom
+picom-animations-git
 pipewire-pulse
 pkgconf
 pkgfile
+polkit-kde-agent
 polybar
 pwgen
 python
@@ -231,6 +238,7 @@ python2
 qemu-emulators-full
 qemu-full
 qt6-doc
+qt6-tools-desktop
 qt6-wayland
 qtcreator
 qutebrowser
@@ -250,6 +258,7 @@ screen
 screenfetch
 screenkey
 scrot
+sd
 sed
 setconf
 shellcheck
@@ -268,6 +277,8 @@ swaybg
 sxhkd
 sxiv
 sysz
+tealdeer
+terminator
 terminus-font
 texinfo
 texlive-bibtexextra
@@ -317,7 +328,6 @@ vlc
 vmpk
 waybar
 wdiff
-wezterm
 wget
 which
 wl-clipboard
@@ -333,6 +343,7 @@ xclip
 xdo
 xf86-input-synaptics
 xf86-video-vesa
+xfconf
 xfsdump
 xmonad
 xorg-bdftopcf
@@ -389,7 +400,6 @@ youtube-dl
 yq
 yt-dlp
 ytfzf
-z
 zathura
 zathura-pdf-mupdf
 zellij
