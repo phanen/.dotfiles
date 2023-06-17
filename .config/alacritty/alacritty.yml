@@ -1,6 +1,6 @@
 # /usr/share/doc/alacritty/example/alacritty.yml
 import:
-  - ~/.config/alacritty/alacritty-theme/themes/tokyo-night.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/xterm.yaml
 
 window:
   opacity: 0.85
