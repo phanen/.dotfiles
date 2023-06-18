@@ -49,26 +49,26 @@ note() {
 	fi
 }
 
-gg() {
-	if [[ ! -f $HOME/.todo ]]; then
-		touch "$HOME/.todo"
-	fi
-	if ! (($#)); then
-		cat "$HOME/.todo"
-	elif [[ "$1" == "-l" ]]; then
-		nl -b a "$HOME/.todo"
-	elif [[ "$1" == "-c" ]]; then
-		>$HOME/.todo
-	elif [[ "$1" == "-r" ]]; then
-		nl -b a "$HOME/.todo"
-		eval printf %.0s- '{1..'"${COLUMNS:-$(tput cols)}"\}
-		echo
-		read -p "键入要删除的数字: " number
-		sed -i ${number}d $HOME/.todo "$HOME/.todo"
-	else
-		printf "%s\n" "$*" >>"$HOME/.todo"
-	fi
-}
+# gg() {
+# 	if [[ ! -f $HOME/.todo ]]; then
+# 		touch "$HOME/.todo"
+# 	fi
+# 	if ! (($#)); then
+# 		cat "$HOME/.todo"
+# 	elif [[ "$1" == "-l" ]]; then
+# 		nl -b a "$HOME/.todo"
+# 	elif [[ "$1" == "-c" ]]; then
+# 		>$HOME/.todo
+# 	elif [[ "$1" == "-r" ]]; then
+# 		nl -b a "$HOME/.todo"
+# 		eval printf %.0s- '{1..'"${COLUMNS:-$(tput cols)}"\}
+# 		echo
+# 		read -p "键入要删除的数字: " number
+# 		sed -i ${number}d $HOME/.todo "$HOME/.todo"
+# 	else
+# 		printf "%s\n" "$*" >>"$HOME/.todo"
+# 	fi
+# }
 
 ipif() {
 	if grep -P "(([1-9]\d{0,2})\.){3}(?2)" <<<"$1"; then
