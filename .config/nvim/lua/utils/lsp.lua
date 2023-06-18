@@ -4,14 +4,14 @@ local M = {}
 local function get_keymap()
   -- encapsulation to prevent err on load telescope
   return {
-    { "<leader>rn", lsp.buf.rename, "rename" },
-    { "<leader>gg", lsp.buf.format, desc = "format buffer" },
-    { "K", lsp.buf.hover, "hover documentation" },
-    { "gD", lsp.buf.declaration, "goto declaration" },
-    { "gd", lsp.buf.definition, "goto definition" },
-    { "gI", lsp.buf.implementation, "goto implementation" },
-    { "gr", require("telescope.builtin").lsp_references, "goto references" },
-    { "<leader>D", lsp.buf.type_definition, "type definition" },
+    { "<leader>rn", lsp.buf.rename,                              "rename" },
+    { "<leader>gg", lsp.buf.format,                              desc = "format buffer" },
+    { "K",          lsp.buf.hover,                               "hover documentation" },
+    { "gD",         lsp.buf.declaration,                         "goto declaration" },
+    { "gd",         lsp.buf.definition,                          "goto definition" },
+    { "gI",         lsp.buf.implementation,                      "goto implementation" },
+    { "gr",         require("telescope.builtin").lsp_references, "goto references" },
+    { "<leader>D",  lsp.buf.type_definition,                     "type definition" },
   }
 end
 
@@ -40,6 +40,15 @@ M.lsp_servers = {
   gopls = {},
   pyright = {},
   tsserver = {},
+  jsonls = {
+    settings = {
+      json = {
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
+      },
+    },
+  },
+
 }
 
 return M

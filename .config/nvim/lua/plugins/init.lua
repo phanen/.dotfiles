@@ -165,4 +165,8 @@ return {
       vim.g.undotree_SetFocusWhenToggle = 1
     end,
   },
+
+  
+  'b0o/schemastore.nvim',
+
 }
