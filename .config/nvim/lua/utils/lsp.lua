@@ -6,12 +6,12 @@ local function get_keymap()
   return {
     { "<leader>rn", lsp.buf.rename, "rename" },
     { "<leader>gg", lsp.buf.format, desc = "format buffer" },
+    { "K", lsp.buf.hover, "hover documentation" },
     { "gD", lsp.buf.declaration, "goto declaration" },
     { "gd", lsp.buf.definition, "goto definition" },
     { "gI", lsp.buf.implementation, "goto implementation" },
     { "gr", require("telescope.builtin").lsp_references, "goto references" },
     { "<leader>D", lsp.buf.type_definition, "type definition" },
-    { "K", lsp.buf.hover, "hover documentation" },
   }
 end
 
