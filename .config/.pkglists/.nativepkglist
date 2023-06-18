@@ -50,6 +50,7 @@ cocogitto
 code
 copyq
 cpio
+crawl-ncurses
 cronie
 d-feet
 dash
@@ -102,6 +103,7 @@ gawk
 gcc
 gdb
 gettext
+gg
 ghc
 gimp
 git
@@ -181,6 +183,7 @@ mtools
 namcap
 nano
 nasm
+nawk
 neofetch
 neovim
 net-tools
@@ -191,6 +194,7 @@ ninja
 nitrogen
 nix
 nmap
+notcurses
 notion
 noto-fonts-cjk
 noto-fonts-emoji
