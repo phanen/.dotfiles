@@ -1,7 +1,8 @@
 return {
   -- file explorer
   {
-    'nvim-tree/nvim-tree.lua', tag = 'nightly',
+    'nvim-tree/nvim-tree.lua',
+    tag = 'nightly',
     lazy = false,
     dependencies = { 'nvim-tree/nvim-web-devicons', },
     opts = {
@@ -27,6 +28,7 @@ return {
         cursorline = true,
         debounce_delay = 15,
         width = 30,
+        -- width = function() return 0.1 * vim.fn.winwidth(0) end,
         hide_root_folder = false,
         side = "left",
         preserve_window_proportions = false,
@@ -245,6 +247,11 @@ return {
     },
   },
 
+
+  {
+    "vifm/vifm.vim",
+    lazy = false,
+  },
   -- tab
   {
     'akinsho/bufferline.nvim',
@@ -285,7 +292,7 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     lazy = false,
     opts = {
-      char = '│', -- ┆ ┊ 
+      char = '│',       -- ┆ ┊ 
       show_foldtext = false,
       context_char = '│', -- ▎
       char_priority = 12,

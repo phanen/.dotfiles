@@ -13,7 +13,7 @@ au('TextYankPost', {
 -- stash the IM when switching modes
 local input_method_group = ag('InputMethod', { clear = true })
 
-local cur_im ="keyboard-us"
+local cur_im = "keyboard-us"
 au({ "InsertLeave" }, {
   pattern = "*",
   callback = function() -- inactivate and record
@@ -41,11 +41,11 @@ au({ "VimEnter" }, { callback = open_nvim_tree })
 
 -- smart number from https://github.com/jeffkreeftmeijer/vim-numbertoggle {{{
 au({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
-    command = [[if &nu && mode() != 'i' | set rnu   | endif]],
+  command = [[if &nu && mode() != 'i' | set rnu   | endif]],
 })
 
 au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
-    command = [[if &nu | set nornu | endif]],
+  command = [[if &nu | set nornu | endif]],
 })
 
 -- au({ "InsertLeave" }, {
@@ -70,8 +70,24 @@ au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
 --     end
 -- })
 
-vim.cmd[[
+vim.cmd [[
   au filetype man nnoremap <buffer> d <c-d>
   au filetype man nnoremap <buffer> u <c-u>
   au filetype TelescopePrompt inoremap <buffer> <esc> <esc><esc>
 ]]
+
+function NvimTree_width_ratio(percentage)
+	local ratio = percentage / 100
+	local width = math.floor(vim.go.columns * ratio)
+	return width
+end
+
+
+-- resize nvimtree if window got resized
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+	group = vim.api.nvim_create_augroup("NvimTreeResize", { clear = true }),
+	callback = function()
+		local width = NvimTree_width_ratio(20)
+		vim.cmd("tabdo NvimTreeResize " .. width)
+	end,
+})
