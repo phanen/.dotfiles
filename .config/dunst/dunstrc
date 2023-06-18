@@ -1,6 +1,16 @@
 [global]
     ### Display ###
     monitor = 0
+    # dynamic width
+    width = (300, 600)
+    # The maximum height of a single notification, excluding the frame.
+    height = 300
+    # Position the notification in the top right corner
+    origin = top-right
+    # Offset from the origin
+    offset = 10x50
+    # Scale factor. It is auto-detected if value is 0.
+    scale = 0
 
     # Display notification on focused monitor.  Possible modes are:
     #   mouse: follow mouse pointer
@@ -16,23 +26,6 @@
     follow = none
 
     ### Geometry ###
-
-    # dynamic width from 0 to 300
-    # width = (0, 300)
-    # constant width of 300
-    width = 300
-
-    # The maximum height of a single notification, excluding the frame.
-    height = 300
-
-    # Position the notification in the top right corner
-    origin = top-right
-
-    # Offset from the origin
-    offset = 10x50
-
-    # Scale factor. It is auto-detected if value is 0.
-    scale = 0
 
     # Maximum number of notification (0 means no limit)
     notification_limit = 20
