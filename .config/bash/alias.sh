@@ -67,3 +67,4 @@ alias p="sudo pacman"
 # flatpak
 alias wezterm='flatpak run org.wezfurlong.wezterm'
 alias foliate='flatpak run com.github.johnfactotum.Foliate'
+alias vifm='vifmrun'

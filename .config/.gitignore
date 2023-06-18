@@ -1,19 +1,29 @@
 /*
 
 !.pkglists
+
 !alacritty
+!kitty
+!wezterm
+
+!fish
 !bash
+
 !bspwm
+!hypr
+
+!lf
+!vifm
+
+!nvim
+
 !dunst
 !fcitx5
-!fish
 !git
-!kitty
 !kmonad
-!lf
 !mpv
 !neofetch
-!nvim
+
 !polybar
 !rofi
 !sxhkd
@@ -21,9 +31,8 @@
 !systemd
 !tmux
 !lazygit
-!hypr
+
 !electron-flags.conf
-!wezterm
 
 # gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 # xfconf-query -c xsettings -p /Gtk/KeyThemeName -s Emacs
