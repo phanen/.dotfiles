@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 alias ls="exa --color=auto"
 alias ll="ls -lah"
 alias la="ls -a"
