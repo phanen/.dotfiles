@@ -3,7 +3,7 @@ import:
   - ~/.config/alacritty/alacritty-theme/themes/xterm.yaml
 
 window:
-  opacity: 0.85
+  opacity: 0.95
 
     # family: Fira Mono Medium
     # family: Source Code Pro

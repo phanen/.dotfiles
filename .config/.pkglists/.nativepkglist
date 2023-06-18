@@ -250,6 +250,7 @@ sd
 sed
 setconf
 shellcheck
+shfmt
 shotgun
 slock
 slurp

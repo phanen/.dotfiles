@@ -25,4 +25,5 @@ elseif cur_hour >= 18 or cur_hour <= 6 then
 else
   g.colorscheme = "kanagawa-lotus"
 end
-vim.cmd("colorscheme " .. "kanagawa-lotus")
+-- vim.cmd("colorscheme " .. "kanagawa-lotus")
+vim.cmd("colorscheme " .. "catppuccin")
