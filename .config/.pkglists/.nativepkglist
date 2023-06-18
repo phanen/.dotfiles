@@ -83,6 +83,7 @@ fcitx5-pinyin-zhwiki
 fcitx5-qt
 fd
 feh
+ffmpegthumbnailer
 figlet
 file
 filebrowser-bin
@@ -104,6 +105,7 @@ git
 git-delta
 github-cli
 glfw-wayland
+gnome-epub-thumbnailer
 gnu-netcat
 go
 go-musicfox
@@ -299,6 +301,7 @@ urxvt-perls
 usbutils
 uwufetch
 verilator
+vifm
 virt-manager
 virt-viewer
 virtualbox

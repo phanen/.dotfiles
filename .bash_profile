@@ -33,7 +33,7 @@ function start_hyprland
   export XDG_SESSION_DESKTOP=Hyprland
   export XDG_CURRENT_DESKTOP=Hyprland
   # 启动 Hyprland程序
-  exec Hyprland
+  Hyprland
 
 }
 

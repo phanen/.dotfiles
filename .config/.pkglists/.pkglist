@@ -87,6 +87,7 @@ fcitx5-pinyin-zhwiki
 fcitx5-qt
 fd
 feh
+ffmpegthumbnailer
 figlet
 file
 filebrowser-bin
@@ -97,6 +98,7 @@ flameshot
 flatpak
 flex
 foliate
+fontpreview
 fzf
 gawk
 gcc
@@ -109,6 +111,7 @@ git
 git-delta
 github-cli
 glfw-wayland
+gnome-epub-thumbnailer
 gnu-netcat
 go
 go-musicfox
@@ -142,6 +145,7 @@ interception-tools
 iptables-nft
 iverilog
 jdk8-openjdk
+joshuto
 jpegoptim
 jq
 kde-gtk-config
@@ -317,6 +321,8 @@ urxvt-perls
 usbutils
 uwufetch
 verilator
+vifm
+vifmimg-git
 virt-manager
 virt-viewer
 virtualbox
