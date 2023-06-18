@@ -50,6 +50,19 @@ return {
             settings = lsp_servers[server_name],
           }
         end,
+        ["rust_analyzer"] = function()
+          local rt = require "rust-tools"
+          rt.setup {
+            server = {
+              on_attach = function(_, bufnr)
+                -- Hover actions
+                vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+                -- Code action groups
+                vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+              end,
+            },
+          }
+        end,
         -- ['texlab'] = function () require('lspconfig').texlab.setup({ end })
       }
     end,
@@ -57,10 +70,14 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       local nls = require "null-ls"
       nls.setup {
-        on_attach = lsp_attach,
+        -- on_attach = lsp_attach,
+        -- on_init = function(new_client, _)
+        --   new_client.offset_encoding = "utf-16"
+        -- end,
         sources = {
           -- nls.builtins.diagnostics.cspell,
           -- nls.builtins.code_actions.cspell,
@@ -104,7 +121,7 @@ return {
           nls.builtins.diagnostics.eslint_d,
           nls.builtins.formatting.eslint_d,
           nls.builtins.diagnostics.markdownlint,
-          require "nu-ls",
+          -- require "nu-ls",
         },
       }
       -- TODO: on_attach of null-ls don't work

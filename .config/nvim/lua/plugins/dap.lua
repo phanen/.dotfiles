@@ -35,10 +35,10 @@ return {
         desc = "dap ui: toggle",
       },
       { "<localleader>dt", function() require("dap").repl.toggle() end, desc = "dap: toggle repl" },
-      { "<localleader>de", function() require("dap").step_out() end, desc = "dap: step out" },
-      { "<localleader>di", function() require("dap").step_into() end, desc = "dap: step into" },
-      { "<localleader>do", function() require("dap").step_over() end, desc = "dap: step over" },
-      { "<localleader>dl", function() require("dap").run_last() end, desc = "dap REPL: run last" },
+      { "<localleader>de", function() require("dap").step_out() end,    desc = "dap: step out" },
+      { "<localleader>di", function() require("dap").step_into() end,   desc = "dap: step into" },
+      { "<localleader>do", function() require("dap").step_over() end,   desc = "dap: step over" },
+      { "<localleader>dl", function() require("dap").run_last() end,    desc = "dap REPL: run last" },
     },
     config = function()
       local dap = require "dap" -- NOTE: must be loaded before the signs can be tweaked
@@ -65,35 +65,43 @@ return {
         args = { "--port", "${port}" },
       }
 
-      -- codelldb from mason
-      -- dap.adapters.codelldb = {
-      --   type = "server",
-      --   port = "${port}",
-      --   executable = {
-      --     command = "/home/phanium/.local/share/nvim/mason/bin/codelldb",
-      --     args = { "--port", "${port}" },
-      --   },
-      --   detached = false,
-      -- }
-
       dap.adapters.codelldb = {
         type = "server",
+        port = "${port}",
+        executable = {
+          command = "/home/phanium/.local/share/nvim/mason/bin/codelldb",
+          args = { "--port", "${port}" },
+
+          -- On windows you may have to uncomment this:
+          -- detached = false,
+        },
+      }
+
+      dap.adapters.codelldb_manually = {
+        type = "server",
         host = "127.0.0.1",
-        port = 12313, -- 💀 Use the port printed out or specified with `--port`
+        port = 13000, -- 💀 Use the port printed out or specified with `--port`
       }
 
       dap.configurations.cpp = {
         {
-          name = "Launch file",
+          name = "cppdbg launch",
           type = "cppdbg",
           request = "launch",
           program = function() return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file") end,
           cwd = "${workspaceFolder}",
           stopAtEntry = true,
+          setupCommands = {
+            {
+              text = "-enable-pretty-printing",
+              description = "enable pretty printing",
+              ignoreFailures = false,
+            },
+          },
         },
 
         {
-          name = "Attach to gdbserver :1234",
+          name = "attach to gdbserver :1234",
           type = "cppdbg",
           request = "launch",
           MIMode = "gdb",
@@ -104,7 +112,18 @@ return {
         },
 
         {
-          name = "codelldb Launch",
+          name = "codelldb launch",
+          type = "codelldb",
+          request = "launch",
+          program = function() return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/a.out") end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+          -- args = {},
+          -- runInTerminal = true,
+        },
+
+        {
+          name = "manual codelldb launch",
           type = "codelldb",
           request = "launch",
           program = function() return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/a.out") end,
@@ -128,10 +147,10 @@ return {
             layouts = {
               {
                 elements = {
-                  { id = "scopes", size = 0.25 },
+                  { id = "scopes",      size = 0.25 },
                   { id = "breakpoints", size = 0.25 },
-                  { id = "stacks", size = 0.25 },
-                  { id = "watches", size = 0.25 },
+                  { id = "stacks",      size = 0.25 },
+                  { id = "watches",     size = 0.25 },
                 },
                 position = "left",
                 size = 20,
@@ -144,15 +163,20 @@ return {
       },
     },
   },
+
+  { -- rust
+    "simrat39/rust-tools.nvim",
+    -- lazy = false,
+    -- config = function()
+    -- end,
+  },
 }
 
 -- -- debug
---
 -- vim.keymap.set("n", "<F5>", dap.step_into)
 -- vim.keymap.set("n", "<F6>", dap.step_over)
 -- vim.keymap.set("n", "<F7>", dap.step_out)
 -- vim.keymap.set("n", "<F8>", dap.continue)
---
 -- vim.keymap.set("n", "<leader>bb", dap.toggle_breakpoint)
 -- vim.keymap.set("n", "<leader>bc",
 --   function() dap.set_breakpoint(vim.fn.input("Breakpoint Condition: ")) end)

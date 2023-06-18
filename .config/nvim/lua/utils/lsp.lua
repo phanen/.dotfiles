@@ -17,6 +17,7 @@ end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+-- M.capabilities.offsetEncoding = 'utf-8'
 
 function M.lsp_attach(_, bufnr)
   local nmap = function(keys, func, desc)
@@ -36,7 +37,7 @@ M.lsp_servers = {
     },
   },
   clangd = {},
-  rust_analyzer = {},
+  -- rust_analyzer = {},
   gopls = {},
   pyright = {},
   tsserver = {},
@@ -47,6 +48,14 @@ M.lsp_servers = {
         validate = { enable = true },
       },
     },
+  },
+  yamlls = {
+    schemaStore = {
+      -- You must disable built-in schemaStore support if you want to use
+      -- this plugin and its advanced options like `ignore`.
+      enable = false,
+    },
+    schemas = require('schemastore').yaml.schemas(),
   },
 
 }

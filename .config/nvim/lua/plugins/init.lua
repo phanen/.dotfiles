@@ -130,9 +130,6 @@ return {
   { 'tpope/vim-sleuth', event = 'VeryLazy' },
   { 'tpope/vim-repeat', event = 'VeryLazy' },
 
-  -- rust
-  'simrat39/rust-tools.nvim',
-
   -- debug
   -- {
   --   "jayp0521/mason-nvim-dap.nvim",
@@ -143,15 +140,12 @@ return {
   --     })
   --   end,
   -- },
-  'mfussenegger/nvim-dap',
-  'rcarriga/nvim-dap-ui',
 
   {
     "SmiteshP/nvim-navic",
     dependencies = "neovim/nvim-lspconfig"
   },
 
-  'theHamsta/nvim-dap-virtual-text',
 
   -- game
   'alec-gibson/nvim-tetris',
