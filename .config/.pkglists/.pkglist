@@ -1,5 +1,7 @@
 acpi
 acpica
+adwaita-qt5
+adwaita-qt6
 alacritty
 alsa-utils
 apr
@@ -70,6 +72,7 @@ dust
 efibootmgr
 egl-wayland
 eglexternalplatform
+elvish
 emacs
 evince
 evtest
@@ -112,6 +115,7 @@ git-delta
 github-cli
 glfw-wayland
 gnome-epub-thumbnailer
+gnome-themes-extra
 gnu-netcat
 go
 go-musicfox
@@ -139,6 +143,7 @@ hyprland
 icalingua++
 imagemagick
 intel-ucode
+intellij-idea-community-edition
 interception-caps2esc
 interception-space2meta
 interception-tools
@@ -323,6 +328,7 @@ usbutils
 uwufetch
 verilator
 vifm
+vifm-colors-git
 vifmimg-git
 virt-manager
 virt-viewer
