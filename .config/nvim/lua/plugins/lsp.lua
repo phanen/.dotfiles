@@ -95,7 +95,7 @@ return {
           --         severity_sort = true,
           --       },
           --     }
-          nls.builtins.completion.spell,
+          -- nls.builtins.completion.spell,
 
           nls.builtins.formatting.shfmt,
           nls.builtins.formatting.prettier, -- markdown formatting
@@ -120,7 +120,7 @@ return {
           nls.builtins.code_actions.eslint_d,
           nls.builtins.diagnostics.eslint_d,
           nls.builtins.formatting.eslint_d,
-          -- nls.builtins.diagnostics.markdownlint,
+          nls.builtins.diagnostics.markdownlint,
           -- require "nu-ls",
         },
       }
