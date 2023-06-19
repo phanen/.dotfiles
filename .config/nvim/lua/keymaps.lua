@@ -138,3 +138,9 @@ vmap("//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 
 -- get something
 nmap("<leader>gi", "<cmd>UploadClipboard<cr>")
+
+
+nmap('<leader>,', ac.toggle_last_char(','), { desc = "add ',' to end of line" })
+nmap('<leader>;', ac.toggle_last_char(';'), { desc = "add ';' to end of line" })
+
+
