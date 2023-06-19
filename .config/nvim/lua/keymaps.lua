@@ -30,8 +30,13 @@ vmap(".", ">gv")
 
 vmap("p", '"_dp')
 
-nmap("<a-k>", ":m .-2<cr>")
-nmap("<a-j>", ":m .+1<cr>")
+-- nmap("<a-k>", ":m .-2<cr>")
+-- nmap("<a-j>", ":m .+1<cr>")
+nmap('<a-k>', '<cmd>move-2<CR>==')
+nmap('<a-j>', '<cmd>move+<CR>==')
+xmap('<a-k>', ":move-2<CR>='[gv", { silent = true })
+xmap('<a-j>', ":move'>+<CR>='[gv", { silent = true })
+
 
 -- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
 cmap("w!!", "w !sudo tee > /dev/null")
