@@ -7,25 +7,31 @@ make
 ```
 > WIP: packages can be found in [.config/.pkglists/](.config/.pkglists/)
 
-## info
+## basic info
 |program|name|
 | - | :--: |
 |**window manager**|bspwm|
 |**application launcher**|rofi|
-|**fonts**|FiraCode Nerd Font|
-|**terminal emulator**|alacritty+tabbed|
-|**shell**|zsh bash|
-|**key remapper**|kmonad sxhkbd|
-|**text editor**|neovim vim|
+|**fonts**|`FiraCode Nerd Font`|
+|**terminal emulator**|alacritty,kitty,st|
+|**terminal multiplexer**|tabbed,tmux|
+|**shell**|zsh,bash|
+|**key remapper**|kmonad,sxhkbd|
+|**text editor**|neovim,vim,emacs|
 |**bar**|polybar|
-|**display manager**|none(or `.xinitrc`)|
+|**display manager**|none(`.xinitrc`)|
 |**input method framework**|fcitx5|
-|**file manager**|lf|
+|**file manager**|vifm,lf|
 |**music player**|musicfox|
 |**media player**|mpv|
-|**image viewer**|sxiv feh|
+|**image viewer**|sxiv,feh|
+|**image editor**|gimp|
 |**lockscreen**|slock|
 |**notification daemon**|dunst|
 |**screenshot software**|flameshot|
 |**screen recording**|ffmpeg|
 |**clipboard**|xclip xsel|
+
+
+## nvim
+nvim basic info
