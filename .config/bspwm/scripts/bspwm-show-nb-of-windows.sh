@@ -1,3 +1,5 @@
+#!/bin/bash
+
 _trigger_polybar_windows_number(){
     desktop_layout=$(bspc query -T -d|jq -r .layout)
     [[ $desktop_layout == "monocle" ]] && {

@@ -57,6 +57,7 @@ cpio
 crawl-ncurses
 cronie
 d-feet
+darkman
 dash
 debugedit
 devtools
@@ -230,7 +231,9 @@ pandoc-cli
 paru
 paruz
 patch
+pdf-compress
 pdfgrep
+pdfslicer
 pdftk
 peass
 perl-cgi
@@ -280,6 +283,7 @@ setconf
 shellcheck
 shfmt
 shotgun
+sioyek
 slock
 slurp
 soft-serve
@@ -301,6 +305,7 @@ terminus-font
 texinfo
 texlive-basic
 texlive-bibtexextra
+texlive-bin
 texlive-fontsextra
 texlive-formatsextra
 texlive-games
