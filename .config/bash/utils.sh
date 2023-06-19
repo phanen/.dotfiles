@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 _util_append_path(){
     # [ "$(id -u)" -ge 1000 ] || return
     for p in "$@"; do

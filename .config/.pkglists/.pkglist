@@ -36,6 +36,7 @@ brave-bin
 broot
 bsp-layout
 bspwm
+byzanz
 catimg
 cgasm
 chromium
@@ -182,6 +183,7 @@ lsof
 ltrace
 lua
 luarocks
+ly
 m4
 make
 man-db
@@ -292,6 +294,7 @@ swaybg
 sxhkd
 sxiv
 sysz
+tcc
 tealdeer
 terminator
 terminus-font
