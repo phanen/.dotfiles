@@ -43,7 +43,7 @@
   "neovim-session-manager": { "branch": "master", "commit": "fd92e73506601a48adb843cdc0a15f2e63513754" },
   "nightfox.nvim": { "branch": "main", "commit": "77aa7458d2b725c2d9ff55a18befe1b891ac473e" },
   "nu-ls.nvim": { "branch": "main", "commit": "6a7205d96ad9f678b2c411a2c571d904f55d1f02" },
-  "nui.nvim": { "branch": "main", "commit": "e319f2554d14a521f4271576ebff2685105d7628" },
+  "nui.nvim": { "branch": "main", "commit": "d146966a423e60699b084eeb28489fe3b6427599" },
   "null-ls.nvim": { "branch": "main", "commit": "bbaf5a96913aa92281f154b08732be2f57021c45" },
   "nvim-autopairs": { "branch": "master", "commit": "e8f7dd7a72de3e7b6626c050a802000e69d53ff0" },
   "nvim-bqf": { "branch": "main", "commit": "5895e26e34d032f48d0b9a843da1eb24e25680ea" },

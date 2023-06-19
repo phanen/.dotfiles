@@ -41,8 +41,8 @@ export dev_dir="$HOME/demo/ndev"
 FETCHER=uwufetch
 
 # dark mode
-export GTK_THEME=Adwaita:dark
-export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
-export QT_STYLE_OVERRIDE=adwaita-dark
+export GTK_THEME=Adwaita
+export GTK2_RC_FILES=/usr/share/themes/Adwaita/gtk-2.0/gtkrc
+export QT_STYLE_OVERRIDE=adwaita
 # gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 

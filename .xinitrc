@@ -32,8 +32,6 @@ fi
 # setxkbmap -option caps:escape
 # setxkbmap -option altwin:swap_alt_win
 
-# exec chromium
-
 # _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
 kmonad ~/.config/kmonad/kmonad.kbd -w 10 & disown
 sxhkd -a Tab &
@@ -51,13 +49,17 @@ dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XA
 #  unset f
 # fi
 
+# exec chromium
+
 # export DESKTOP_SESSION=plasma
 session=${1:-bspwm}
 case $session in
     bspwm             ) exec bspwm;;
     dwm               ) exec dwm;;
-    awesome            ) exec awesome;;
+    awesome           ) exec awesome;;
     kde               ) exec startplasma-x11;;
     xfce|xfce4        ) exec startxfce4;;
+    leftwm            ) exec dbus-launch leftwm;;
+    chromium          ) exec chromium;;
     *                 ) exec $1;;
 esac
