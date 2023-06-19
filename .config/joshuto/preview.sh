@@ -94,7 +94,8 @@ handle_extension() {
 
 		## PDF
 		pdf)
-		Preview as text conversion
+		# Preview as text conversion
+		zathura "${FILE_PATH}"
 		pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - | \
 		   fmt -w "${PREVIEW_WIDTH}" && exit 5
 		mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | \
@@ -211,16 +212,15 @@ handle_mime() {
 				--style=plain \
 				--wrap=auto \
 				--terminal-width="${PREVIEW_WIDTH}" \
-				 "${FILE_PATH}" 2>&1
-			exit 5
+				"${FILE_PATH}" 2>&1 && exit 5
 			exit 1;;
 
 		# ## DjVu
-		# image/vnd.djvu)
-		# 	## Preview as text conversion (requires djvulibre)
-		# 	djvutxt "${FILE_PATH}" | fmt -w "${PREVIEW_WIDTH}" && exit 5
-		# 	exiftool "${FILE_PATH}" && exit 5
-		# 	exit 1;;
+		image/vnd.djvu)
+			## Preview as text conversion (requires djvulibre)
+			djvutxt "${FILE_PATH}" | fmt -w "${PREVIEW_WIDTH}" && exit 5
+			exiftool "${FILE_PATH}" && exit 5
+			exit 1;;
 
 		# ## Image
 		# image/*)

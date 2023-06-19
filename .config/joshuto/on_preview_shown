@@ -13,11 +13,41 @@ height="$5"     # Height of the preview pane (number of fitting characters)
 mimetype=$(file --mime-type -Lb "$path")
 extension=$(/bin/echo "${path##*.}" | awk '{print tolower($0)}')
 
-case "$mimetype" in
-    image/png | image/jpeg)
-        show_image "$path" $x $y $width $height
-        ;;
-    *)
-        remove_image
+plain_handler() {
+    case "$mimetype" in
+        image/png | image/jpeg)
+            show_image "$path" $x $y $width $height
+            # we will not exit here, since we want always hook remove
+            ;;
+        *)
+            remove_image
+    esac
+}
 
-esac
+icat_handler() {
+    case "$mimetype" in
+        image/*)
+			# kitty +kitten icat --clear
+			kitty +kitten icat \
+				--transfer-mode file \
+				--place "${width}x${height}@${x}x${y}" \
+				"${path}"
+            ;;
+        *)
+            kitty +kitten icat \
+                        --transfer-mode=file \
+                        --clear 2>/dev/null
+                    ;;
+    esac
+
+
+}
+
+# test of string and num differ.... https://wangdoc.com/bash/condition
+if [[ $TERM == "xterm-kitty" ]]; then
+    icat_handler
+else
+    plain_handler
+fi
+
+# [[ $TERM -eq "xterm-kitty" ]] && icat_handler || plain_handler
