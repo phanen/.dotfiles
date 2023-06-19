@@ -2,13 +2,24 @@
 
 configuration {
   modi: "window,run,ssh,drun,combi";
-// combi-hide-mode-prefix: true;
+  // combi-hide-mode-prefix: true;
   combi-modi: "run,drun";
   font: "FiraCode Nerd Font Mono 12";
   kb-remove-word-back: "Control+w,Control+BackSpace";
+
   kb-clear-line: "";
-  // kb-row-first: "Control+g";
+  kb-row-first: "Control+Shift+g";
   kb-cancel: "Escape,Control+g,Control+c,Control+bracketleft";
+
+  kb-accpet-entry:"Return,Control+j";
+  kb-accept-custom: "Control+Return";
+  kb-row-select: "Control+space";
+
+  kb-mode-complete: "Control+Shift+l";
+  kb-mode-next: "Control+i";
+  kb-mode-previous: "Control+o";
+
+
   show-icons: true;
 
   drun {
