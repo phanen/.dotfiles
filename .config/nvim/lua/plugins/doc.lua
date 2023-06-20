@@ -4,6 +4,7 @@ return {
     build = "cd app && npm install",
     config = function()
       vim.g.mkdp_filetypes = { "markdown" }
+      vim.g.mkdp_auto_close = 0
       -- vim.g.mkdp_markdown_css = '/home/phanium/Downloads/typora-onedark-theme-1.10/theme/onedark_linux.css'
     end,
     ft = { "markdown" },
