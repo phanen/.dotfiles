@@ -148,4 +148,27 @@ nmap("<leader>gi", "<cmd>UploadClipboard<cr>")
 nmap('<leader>,', ac.toggle_last_char(','), { desc = "add ',' to end of line" })
 nmap('<leader>;', ac.toggle_last_char(';'), { desc = "add ';' to end of line" })
 
+nmap('<leader>E', '<Cmd>Inspect<CR>', { desc = 'Inspect the cursor position' })
 
+-- FIXME: pos
+nmap('<leader>bo', [[<cmd>w <bar> %bd <bar> e#<cr>]], { desc = 'close all other buffers' })
+nmap('<localleader><tab>', [[:b <tab>]], { silent = false, desc = 'open buffer list' })
+
+nmap('<c-e>', [[<c-^>]], { desc = 'switch to last buffer' })
+
+nmap('<leader>U', 'gUiw`]', { desc = 'capitalize word' })
+nmap('<c-w>f', '<c-w>vgf', { desc = 'open file in vertical split' })
+
+-- TODO: text object?
+nmap('<leader>cw', [[:%s/\<<c-r>=expand("<cword>")<cr>/g<left><left>\>/]], {
+  silent = false,
+  desc = 'replace word under the cursor (file)',
+})
+nmap('<leader>clw', [[:s/\<<c-r>=expand("<cword>")/g<cr>/g<left><left>\>/]], {
+  silent = false,
+  desc = 'replace word under the cursor (line)',
+})
+vmap('<leader>cw', [["zy:%s/<c-r><c-o>"/g<left><left>]], {
+  silent = false,
+  desc = 'replace word under the cursor (visual)',
+})

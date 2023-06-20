@@ -8,6 +8,7 @@ g.maplocalleader = ","
 for _, source in ipairs {
   "keymaps",
   "settings",
+  "commands",
   "pacman",
 } do
   local ok, fault = pcall(require, source)
@@ -27,3 +28,4 @@ else
 end
 vim.cmd("colorscheme " .. "kanagawa-lotus")
 -- vim.cmd("colorscheme " .. "catppuccin")
+-- vim.cmd("colorscheme " .. "doom-one")
