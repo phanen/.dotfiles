@@ -34,7 +34,7 @@ return {
           MkdnGoBack = { "n", "<BS>" },
           MkdnGoForward = { "n", "<Del>" },
           MkdnCreateLink = false, -- see MkdnEnter
-          MkdnFollowLink = false, -- see MkdnEnter
+          MkdnFollowLink = { "n", "gl" }, -- see MkdnEnter
           MkdnDestroyLink = { "n", "<M-CR>" },
           MkdnTagSpan = { "v", "<M-CR>" },
           MkdnMoveSource = false,
@@ -54,8 +54,8 @@ return {
           MkdnTableNewRowAbove = { "n", "<leader>iR" },
           MkdnTableNewColAfter = { "n", "<leader>ic" },
           MkdnTableNewColBefore = { "n", "<leader>iC" },
-          MkdnFoldSection = { "n", "<leader>f" },
-          MkdnUnfoldSection = { "n", "<leader>F" },
+          MkdnFoldSection = false,
+          MkdnUnfoldSection = false,
         },
       }
     end,
@@ -73,6 +73,32 @@ return {
   {
     "lervag/vimtex",
     ft = "tex",
+    keys = { 
+      { "<localleader>vc", "<cmd>VimtexCompile<cr>" },
+      { "<localleader>vl", "<cmd>VimtexClean<cr>" },
+    },
+    config = function()
+      -- vim.cmd[[
+      --   filetype plugin indent on
+      --   syntax enable
+      -- ]]
+      -- vim.g.vimtex_view_method = 'zathura'
+      vim.g.vimtex_view_method = 'sioyek'
+      -- vim.g.vimtex_view_general_viewer = 'okular'
+      -- vim.g.vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+      -- vim.g.vimtex_compiler_method = 'latexrun'
+
+      vim.opt.concealcursor = 'nc'
+      vim.opt.conceallevel = 2
+      vim.g.tex_flavor = "latex"
+      vim.g.tex_conceal = "abdmgs"
+      vim.g.vimtex_quickfix_mode = 0
+      vim.g.vimtex_compiler_latexmk_engines = { ["_"] = "-lualatex" }
+      -- vim.g.vimtex_view_enabled = 0
+      -- vim.g.vimtex_view_automatic = 0
+      -- vim.g.vimtex_indent_on_ampersands = 0
+      vim.g.syntax_conceal_disable = 1
+    end,
   },
 
   -- math mode snippets
@@ -82,5 +108,29 @@ return {
     dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
     config = function() require("luasnip-latex-snippets").setup { use_treesitter = true } end,
     ft = { "tex", "markdown" },
+  },
+
+  -- org
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = "Neorg",
+    cond = false,
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      }
+    end,
   },
 }
