@@ -79,18 +79,24 @@ nmap(
     ]],
   { desc = "half to full" }
 )
-
 nmap("<leader>rs", "<cmd>%s/\\s*$//g<cr>''", { desc = "clean tail space" })
 nmap("<leader>rl", "<cmd>g/^$/d<cr>''", { desc = "clean the blank line" })
 -- TODO (complete comment char)
 nmap("<leader>rc", "<cmd>g/^#/d<cr>''", { desc = "clean the comment line" })
 vmap("<leader>rk", [[<cmd>'<,'>s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
 vmap("<leader>r,", [[<cmd>'<,'>s/,\([^ ]\)/, \1/g<cr>]])
+-- no.-> no.space
+vmap("<leader>rn", [[<cmd>'<,'>s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
+-- TODO: smart remove in-text whitespace
+-- :%s/\([^ ]\+ \) \+/\1/g
 
 -- hex to dec
 vmap("<leader>ro", [[<cmd>'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
 -- dec to hex
 vmap("<leader>rh", [[<cmd>'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
+
+
+
 
 -- how to quit in vim
 nmap("<leader>q", "<cmd>Bdelete!<cr>")
@@ -162,16 +168,16 @@ nmap('<leader>U', 'gUiw`]', { desc = 'capitalize word' })
 nmap('<c-w>f', '<c-w>vgf', { desc = 'open file in vertical split' })
 
 -- TODO: text object?
-nmap('<leader>cw', [[:%s/\<<c-r>=expand("<cword>")<cr>/g<left><left>\>/]], {
+-- FIXME: cross line ^M -> \n
+nmap('<leader>cw', [[:%s/\<<c-r>=expand("<cword>")<cr>//g<left><left>\>]], {
   silent = false,
   desc = 'replace word under the cursor (file)',
 })
-nmap('<leader>clw', [[:s/\<<c-r>=expand("<cword>")<cr>/g<left><left>\>/]], {
+nmap('<leader>clw', [[:s/\<<c-r>=expand("<cword>")<cr>//g<left><left>\>]], {
   silent = false,
   desc = 'replace word under the cursor (line)',
 })
-vmap('<leader>cw', [["zy:%s/<c-r><c-o>"/g<left><left>]], {
+vmap('<leader>cw', [["zy:%s/<c-r><c-o>"//g<left><left>]], {
   silent = false,
   desc = 'replace word under the cursor (visual)',
 })
-
