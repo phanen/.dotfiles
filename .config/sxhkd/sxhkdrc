@@ -132,6 +132,13 @@ super + shift + {h, j, k, l, semicolon}
 super + shift + {p, b, w, e}
 	bspc node -f @{parent, brother, first, second}
 
+super + shift + r
+    bspc node @/ -R 90
+
+# rotate the parent of current focused
+super + shift + e
+    bspc node @parent -R 90
+
 # bspwm bar -------------------------------------------
 
 super + ctrl + t
