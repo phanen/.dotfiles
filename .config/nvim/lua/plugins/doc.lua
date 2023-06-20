@@ -72,6 +72,8 @@ return {
 
   {
     "lervag/vimtex",
+    -- :h :VimtexInverseSearch
+    -- https://github.com/lervag/vimtex/pull/2560
     lazy = false,
     ft = "tex",
     keys = {
@@ -91,8 +93,8 @@ return {
       -- vim.g.vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
       -- vim.g.vimtex_compiler_method = 'latexrun'
 
-      vim.opt.concealcursor = "nc"
-      vim.opt.conceallevel = 2
+      -- vim.opt.concealcursor = "nc"
+      -- vim.opt.conceallevel = 2
       vim.g.tex_flavor = "latex"
       vim.g.tex_conceal = "abdmgs"
       vim.g.vimtex_quickfix_mode = 0
@@ -100,7 +102,7 @@ return {
       -- vim.g.vimtex_view_enabled = 0
       -- vim.g.vimtex_view_automatic = 0
       -- vim.g.vimtex_indent_on_ampersands = 0
-      vim.g.syntax_conceal_disable = 1
+      -- vim.g.syntax_conceal_disable = 1
     end,
   },
 
