@@ -123,6 +123,8 @@ nmap("<leader>oj", "<cmd>wincmd _<cr>")
 nmap("<leader>ok", "<cmd>wincmd =<cr>")
 nmap("<leader>ob", ac.toggle_bg, { desc = "toggle background" })
 nmap("<leader><tab>", ac.next_colorscheme, { desc = "switch colorscheme" })
+-- TODO: make it a real toggle
+nmap("<leader>oJ", function() vim.cmd[[noremap J gJ]] end, { desc = "toggle join mode"})
 
 -- term
 nmap("<m-t>", ":split term://bash<cr>i")
@@ -164,7 +166,7 @@ nmap('<leader>cw', [[:%s/\<<c-r>=expand("<cword>")<cr>/g<left><left>\>/]], {
   silent = false,
   desc = 'replace word under the cursor (file)',
 })
-nmap('<leader>clw', [[:s/\<<c-r>=expand("<cword>")/g<cr>/g<left><left>\>/]], {
+nmap('<leader>clw', [[:s/\<<c-r>=expand("<cword>")<cr>/g<left><left>\>/]], {
   silent = false,
   desc = 'replace word under the cursor (line)',
 })
@@ -172,3 +174,4 @@ vmap('<leader>cw', [["zy:%s/<c-r><c-o>"/g<left><left>]], {
   silent = false,
   desc = 'replace word under the cursor (visual)',
 })
+
