@@ -83,17 +83,21 @@ nmap("<leader>rs", "<cmd>%s/\\s*$//g<cr>''", { desc = "clean tail space" })
 nmap("<leader>rl", "<cmd>g/^$/d<cr>''", { desc = "clean the blank line" })
 -- TODO (complete comment char)
 nmap("<leader>rc", "<cmd>g/^#/d<cr>''", { desc = "clean the comment line" })
-vmap("<leader>rk", [[<cmd>'<,'>s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
-vmap("<leader>r,", [[<cmd>'<,'>s/,\([^ ]\)/, \1/g<cr>]])
+
+vmap("<leader>rk", [[:s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
+vmap("<leader>r,", [[:s/,\([^ ]\)/, \1/g<cr>]])
 -- no.-> no.space
-vmap("<leader>rn", [[<cmd>'<,'>s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
+vmap("<leader>rn", [[:s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
 -- TODO: smart remove in-text whitespace
 -- :%s/\([^ ]\+ \) \+/\1/g
 
 -- hex to dec
-vmap("<leader>ro", [[<cmd>'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
+vmap("<leader>ro", [[:'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
 -- dec to hex
-vmap("<leader>rh", [[<cmd>'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
+vmap("<leader>rh", [[:'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
+
+
+vmap("<leader>rm", [[:s/\s\{1,}//g<cr>]])
 
 
 
