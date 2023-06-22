@@ -17,7 +17,9 @@ LFCD="$XDG_CONFIG_HOME/lf/lfcd.sh"
 # awesome fzf
 FZF_DIR=". $HOME/Downloads $HOME/mnt $HOME/QQ_recv"
 fsl() { fzf -m --margin 5% --padding 5% --border --preview 'cat {}'; }
+fp() { fzf | tr -d "\n" | xsel -b; }
 frm() { fsl | rm; }
+
 # fpd() { du -a $FZF_DIR | awk '{print $2}' | fzf --query pdf$ | xargs -r $PDF;}
 fpd() { $PDF "$(fzf)" >/dev/null 2>&1; }
 fmp() { mpv "$(fzf)" >/dev/null 2>&1; }

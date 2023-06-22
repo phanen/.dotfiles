@@ -81,6 +81,7 @@ nmap(
 )
 nmap("<leader>rs", "<cmd>%s/\\s*$//g<cr>''", { desc = "clean tail space" })
 nmap("<leader>rl", "<cmd>g/^$/d<cr>''", { desc = "clean the blank line" })
+vmap("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
 -- TODO (complete comment char)
 nmap("<leader>rc", "<cmd>g/^#/d<cr>''", { desc = "clean the comment line" })
 
@@ -185,3 +186,7 @@ vmap('<leader>cw', [["zy:%s/<c-r><c-o>"//g<left><left>]], {
   silent = false,
   desc = 'replace word under the cursor (visual)',
 })
+
+-- TODO: mark current char?
+nmap('<c-p>', 'I- <esc>')
+vmap('<c-p>', 'I- <esc>')
