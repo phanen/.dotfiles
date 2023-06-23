@@ -46,10 +46,10 @@ super + {F1, F2}
 super + {F3, F4}
 	light-control {down, up}
 
-super + ctrl + s
+super + ctrl + bracketleft
 	flameshot gui
 
-super + s
+super + bracketleft
 	picgo -p http://127.0.0.1:7890 u | tail -n1 | tr -d "\n" | xsel -b && notify-send finish
 
 # bspwm navigate --------------------------------------------------
@@ -154,3 +154,9 @@ super + q
 
 super + ctrl + q
 	rm -f /tmp/fuckx.lock && bspc quit
+
+## screen rotation
+super + alt + {bracketleft, bracketright, semicolon}
+	xrandr -o {left, right, normal}
+super + z
+	scrcpy
