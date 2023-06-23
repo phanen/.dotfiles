@@ -22,6 +22,9 @@ super + n
 	# org.wezfurlong.wezterm
 	# kitty --detach
 
+super + t
+	dex --term alacritty /usr/share/applications/vifm.desktop
+
 super + semicolon
 	rofi -show run -matching fuzzy
 

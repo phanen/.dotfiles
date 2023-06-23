@@ -13,6 +13,7 @@ application/xhtml+xml=chromium.desktop
 application/x-extension-xhtml=chromium.desktop
 application/x-extension-xht=chromium.desktop
 x-scheme-handler/chrome=chromium.desktop
+inode/directory=vifm.desktop
 
 [Added Associations]
 x-scheme-handler/http=chromium.desktop;chromium.desktop;
