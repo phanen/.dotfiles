@@ -114,6 +114,7 @@ glfw-wayland
 gnome-epub-thumbnailer
 gnome-themes-extra
 gnu-netcat
+gnuplot
 go
 go-musicfox
 gperf
@@ -169,6 +170,7 @@ lolcat
 lostfiles
 love
 lsd
+lshw
 lsof
 ltrace
 lua
@@ -179,6 +181,7 @@ make
 man-db
 man-pages
 meson
+minicom
 miniflux
 most
 mpv
@@ -190,6 +193,7 @@ nawk
 neofetch
 neovim
 net-tools
+netease-cloud-music
 netease-cloud-music-gtk4
 networkmanager
 newsboat
@@ -204,6 +208,7 @@ noto-fonts-emoji
 npm
 ntfs-3g
 ntl
+ntp
 nushell
 nvidia
 nvidia-utils
@@ -244,11 +249,13 @@ qt6-doc
 qt6-wayland
 qtcreator
 qutebrowser
+r
 reflector
 ripgrep
 riscv64-linux-gnu-binutils
 riscv64-linux-gnu-gcc
 riscv64-linux-gnu-gdb
+river
 rlwrap
 rofi
 rsync
@@ -265,6 +272,7 @@ sed
 setconf
 shellcheck
 shfmt
+shotcut
 shotgun
 sioyek
 slock
@@ -299,6 +307,7 @@ texlive-langchinese
 texlive-latexextra
 texlive-luatex
 texlive-mathscience
+texlive-meta
 texlive-metapost
 texlive-music
 texlive-pictures

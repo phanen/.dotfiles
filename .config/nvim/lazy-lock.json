@@ -39,6 +39,7 @@
   "mkdnflow.nvim": { "branch": "main", "commit": "5a9768fe09c614600fd2881f29c5cedf931f3e36" },
   "neoconf.nvim": { "branch": "main", "commit": "9625a1710a9be427a662f9ba0a383164588a41a8" },
   "neodev.nvim": { "branch": "main", "commit": "78f1c370173e7689bd58d64229b4d92c5dfb2793" },
+  "neogit": { "branch": "master", "commit": "68a3e90e9d1ed9e362317817851d0f34b19e426b" },
   "neorg": { "branch": "main", "commit": "9a55117b6175e63d86346bb893392cdf0b6ad2cc" },
   "neoscroll.nvim": { "branch": "master", "commit": "d7601c26c8a183fa8994ed339e70c2d841253e93" },
   "neovim-session-manager": { "branch": "master", "commit": "fd92e73506601a48adb843cdc0a15f2e63513754" },
