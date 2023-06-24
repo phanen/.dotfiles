@@ -14,6 +14,7 @@ alias rm="rm -i"
 alias df="df -h"
 alias mx='chmod +x'
 alias hx='hexdump'
+alias tl='tldr'
 
 alias pau='pacman -Syu'
 alias pao='pacman -Qo'
