@@ -100,6 +100,9 @@ vmap("<leader>rh", [[:'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
 
 vmap("<leader>rm", [[:s/\s\{1,}//g<cr>]])
 
+nmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
+vmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
+
 
 
 
@@ -190,3 +193,9 @@ vmap('<leader>cw', [["zy:%s/<c-r><c-o>"//g<left><left>]], {
 -- TODO: mark current char?
 nmap('<c-p>', 'I- <esc>')
 vmap('<c-p>', 'I- <esc>')
+
+-- https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser
+vim.cmd[[
+  " nmap <silent> gx :!xdg-open <c-r><c-a>
+  nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>
+]]
