@@ -98,4 +98,8 @@ return {
     "crispgm/telescope-heading.nvim",
     ft = { "markdown", "tex" },
   },
+
+  {
+    "nvim-telescope/telescope-ui-select.nvim",
+  },
 }

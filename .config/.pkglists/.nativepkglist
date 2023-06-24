@@ -35,8 +35,12 @@ brave-bin
 broot
 bspwm
 byzanz
+cabextract
 catimg
+cdrtools
 cgasm
+chafa
+chntpw
 chromium
 clang
 clash
@@ -53,10 +57,10 @@ copyq
 cpio
 crawl-ncurses
 cronie
-d-feet
 dash
 debugedit
 devtools
+dex
 dhclient
 dhcpcd
 difftastic
@@ -68,6 +72,7 @@ dosfstools
 doxygen
 dunst
 dust
+edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
@@ -117,7 +122,9 @@ gnu-netcat
 gnuplot
 go
 go-musicfox
+gpaste
 gperf
+gpg-tui
 graphviz
 grep
 grim
@@ -130,6 +137,7 @@ gtk2
 gtkwave
 gvim
 gzip
+handlr
 helix
 htop
 httping
@@ -201,6 +209,7 @@ ninja
 nitrogen
 nix
 nmap
+nnn
 notcurses
 notion
 noto-fonts-cjk
@@ -250,6 +259,7 @@ qt6-wayland
 qtcreator
 qutebrowser
 r
+ranger
 reflector
 ripgrep
 riscv64-linux-gnu-binutils
@@ -290,6 +300,7 @@ sxhkd
 sxiv
 tcc
 tealdeer
+telegram-desktop
 terminator
 terminus-font
 texinfo
@@ -333,6 +344,7 @@ unzip
 upx
 urxvt-perls
 usbutils
+uutils-coreutils
 uwufetch
 verilator
 vifm
@@ -349,6 +361,7 @@ waybar
 wdiff
 wget
 which
+wimlib
 wl-clipboard
 wmctrl
 wpa_supplicant
@@ -356,6 +369,7 @@ wqy-bitmapfont
 wqy-zenhei
 x11vnc
 xclip
+xdg-desktop-portal-gtk
 xdo
 xf86-input-synaptics
 xf86-video-vesa
@@ -405,6 +419,7 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xpdf
+xplr
 xsel
 xterm
 xwallpaper

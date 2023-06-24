@@ -11,7 +11,6 @@ joshuto
 leftwm
 linuxqq
 mit-scheme
-mousai
 netease-music-tui-bin
 paruz
 pdf-compress
@@ -27,5 +26,6 @@ vifmimg-git
 wps-office-cn
 wps-office-mime-cn
 wps-office-mui-zh-cn
+xdg-desktop-portal-termfilechooser-git
 xremap-x11-bin
 zsh-fast-syntax-highlighting
