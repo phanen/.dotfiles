@@ -31,7 +31,7 @@ alias pst='pactree -slu --color'
 
 alias vi='nvim'
 alias vn='vi -u NONE'
-alias svi="sudo -E ni"
+alias svi="sudo -E vi"
 alias du="dust"
 alias em="emacs -nw"
 # alias hx="helix"
