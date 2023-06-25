@@ -112,6 +112,7 @@ gettext
 gg
 ghc
 gimp
+gist
 git
 git-delta
 github-cli
@@ -188,6 +189,7 @@ m4
 make
 man-db
 man-pages
+mesa-utils
 meson
 minicom
 miniflux
@@ -220,6 +222,7 @@ ntl
 ntp
 nushell
 nvidia
+nvidia-settings
 nvidia-utils
 nyancat
 obsidian

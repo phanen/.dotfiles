@@ -119,6 +119,7 @@ gg
 ghc
 gibo
 gimp
+gist
 git
 git-delta
 github-cli
@@ -200,10 +201,12 @@ m4
 make
 man-db
 man-pages
+mesa-utils
 meson
 minicom
 miniflux
 mit-scheme
+mkinitcpio-firmware
 most
 mpv
 mtools
@@ -234,6 +237,7 @@ ntl
 ntp
 nushell
 nvidia
+nvidia-settings
 nvidia-utils
 nyancat
 obsidian
