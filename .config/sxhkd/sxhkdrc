@@ -66,6 +66,9 @@ super + ctrl + {j, k}
 super + {_, ctrl + } e
 	bspc {desktop -f last, node -f last.local}
 
+super + h
+	bspc node -f last.local
+
 super + {o, i}
 	bspc wm -h off; \
 	bspc node -f {older, newer}; \
@@ -125,15 +128,21 @@ super + shift + alt + {h, j, k, l}
 				top 0 -20 || bspc node -z bottom 0 -20, \
 				right 20 0 || bspc node -z left 20 0}
 
-super + shift + {h, j, k, l, semicolon}
-	bspc node -p {west || bspc node -v -40 0, \
-				south || bspc node -v 0 40, \
-				north || bspc node -v 0 -40, \
-				east  || bspc node -v 40 0, \
-				cancel}
+super + shift + {h, j, k, l}
+	bspc node -z {left 20 0 || bspc node -z right 20 0, \
+				top 0 20 || bspc node -z bottom 0 20, \
+				bottom 0 -20 || bspc node -z top 0 -20, \
+				right -20 0 || bspc node -z left -20 0}
 
-super + shift + {p, b, w, e}
-	bspc node -f @{parent, brother, first, second}
+
+	# bspc node -p {west || bspc node -v -40 0, \
+	# 			south || bspc node -v 0 40, \
+	# 			north || bspc node -v 0 -40, \
+	# 			east  || bspc node -v 40 0, \
+	# 			cancel}
+
+# super + shift + {p, b, w, e}
+# 	bspc node -f @{parent, brother, first, second}
 
 super + shift + r
     bspc node @/ -R 90
