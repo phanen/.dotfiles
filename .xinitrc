@@ -33,7 +33,7 @@ fi
 # setxkbmap -option altwin:swap_alt_win
 
 # _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
-kmonad ~/.config/kmonad/kmonad.kbd -w 10 & disown
+# kmonad ~/.config/kmonad/kmonad.kbd -w 10 & disown
 sxhkd -a Tab &
 polybar -r &
 fcitx5 -d &
@@ -50,6 +50,8 @@ dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XA
 # fi
 
 # exec chromium
+
+xrandr --auto
 
 # export DESKTOP_SESSION=plasma
 session=${1:-bspwm}
