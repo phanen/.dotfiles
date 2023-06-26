@@ -164,6 +164,7 @@ kitty
 lazygit
 lf
 lib32-gcc-libs
+lib32-nvidia-utils
 libgnome-keyring
 libinput-gestures
 libsixel
@@ -172,6 +173,7 @@ libxft
 libxinerama
 light
 linux
+linux-docs
 linux-firmware
 linux-headers
 lldb
