@@ -36,6 +36,8 @@
 
 !zathura
 
+!looking-glass
+
 !electron-flags.conf
 
 # gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
