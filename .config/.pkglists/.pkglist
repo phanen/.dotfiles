@@ -68,6 +68,7 @@ dex
 dhclient
 dhcpcd
 difftastic
+dkms
 dmenu
 dnsmasq
 docker
@@ -192,6 +193,7 @@ linuxqq
 lldb
 lolcat
 looking-glass
+looking-glass-module-dkms
 lostfiles
 love
 lsd

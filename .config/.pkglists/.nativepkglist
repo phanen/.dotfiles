@@ -64,6 +64,7 @@ dex
 dhclient
 dhcpcd
 difftastic
+dkms
 dmenu
 dnsmasq
 docker
