@@ -51,7 +51,7 @@ dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XA
 
 # exec chromium
 
-xrandr --auto
+# xrandr --auto
 
 # export DESKTOP_SESSION=plasma
 session=${1:-bspwm}

@@ -149,6 +149,7 @@ hyprland
 icalingua++
 imagemagick
 inkscape
+inotify-tools
 intel-ucode
 intellij-idea-community-edition
 interception-caps2esc
@@ -237,9 +238,8 @@ pacman-contrib
 pandoc-cli
 paru
 patch
+pdfarranger
 pdfgrep
-pdfslicer
-pdftk
 perl-cgi
 pipewire-pulse
 pkgconf
@@ -295,6 +295,7 @@ slurp
 soft-serve
 soundfont-fluid
 speedtest-cli
+spice-vdagent
 starship
 stow
 strace

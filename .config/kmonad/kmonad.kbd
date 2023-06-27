@@ -57,7 +57,7 @@
   @TB  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @EC  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
-  lctl lmet @rll           @SM            @num rctl
+  lctl lmet lalt           @SM            @num rctl
 )
 
 (deflayer develop-l

@@ -157,6 +157,7 @@ hyprland
 icalingua++
 imagemagick
 inkscape
+inotify-tools
 intel-ucode
 intellij-idea-community-edition
 interception-caps2esc
@@ -190,6 +191,7 @@ linux-headers
 linuxqq
 lldb
 lolcat
+looking-glass
 lostfiles
 love
 lsd
@@ -254,9 +256,9 @@ paru
 paruz
 patch
 pdf-compress
+pdfarranger
+pdfcropmargins
 pdfgrep
-pdfslicer
-pdftk
 peass
 perl-cgi
 picom-animations-git
@@ -315,6 +317,7 @@ slurp
 soft-serve
 soundfont-fluid
 speedtest-cli
+spice-vdagent
 starship
 stow
 strace
