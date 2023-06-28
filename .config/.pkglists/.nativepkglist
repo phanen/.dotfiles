@@ -132,7 +132,6 @@ grep
 grim
 groff
 grub
-grub-customizer
 gsmartcontrol
 gtk-vnc
 gtk2
@@ -163,6 +162,7 @@ jq
 kde-gtk-config
 keepassxc
 kitty
+kmonad-git
 lazygit
 lf
 lib32-gcc-libs

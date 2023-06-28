@@ -1,5 +1,4 @@
-" vim: filetype=vim :
-" Sample configuration file for vifm (last updated: 3 April, 2023)
+" ft=vim
 
 " ------------------------------------------------------------------------------
 " Main settings
@@ -605,4 +604,5 @@ fileviewer <font/*>
     \ vifmimg font %px %py %pw %ph %c
     \ %pc
     \ vifmimg clear
+
 
