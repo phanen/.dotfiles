@@ -192,7 +192,7 @@ linux-headers
 linuxqq
 lldb
 lolcat
-looking-glass
+looking-glass-git
 looking-glass-module-dkms
 lostfiles
 love
@@ -247,6 +247,8 @@ nvidia-settings
 nvidia-utils
 nyancat
 obsidian
+ocrad
+ocrmypdf
 okular
 openssh
 os-prober
