@@ -13,11 +13,18 @@ height="$5"     # Height of the preview pane (number of fitting characters)
 mimetype=$(file --mime-type -Lb "$path")
 extension=$(/bin/echo "${path##*.}" | awk '{print tolower($0)}')
 
+PCACHE="$HOME/.cache/joshuto/$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$path")" | sha256sum)"
+
 plain_handler() {
     case "$mimetype" in
         image/png | image/jpeg)
             show_image "$path" $x $y $width $height
             # we will not exit here, since we want always hook remove
+            ;;
+        application/pdf)
+            [ ! -f "${PCACHE}.jpg" ] && \
+                    pdftoppm -jpeg -f 1 -singlefile "$path" "$PCACHE"
+            show_image "$PCACHE".jpg $x $y $width $height
             ;;
         *)
             remove_image
@@ -27,12 +34,15 @@ plain_handler() {
 icat_handler() {
     case "$mimetype" in
         image/*)
-			# kitty +kitten icat --clear
-			kitty +kitten icat \
-				--transfer-mode file \
-				--place "${width}x${height}@${x}x${y}" \
-				"${path}"
+            # kitty +kitten icat --clear
+            kitty +kitten icat \
+                    --transfer-mode file \
+                    --place "${width}x${height}@${x}x${y}" \
+                    "${path}"
             ;;
+        # application/pdf)
+        #
+        #     ;;
         *)
             kitty +kitten icat \
                         --transfer-mode=file \
