@@ -57,7 +57,7 @@
   @TB  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @EC  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
-  lctl lmet lalt           @SM            ralt rctl
+  lctl lmet @rll           @SM            ralt rctl
 )
 
 (deflayer develop-l
@@ -179,7 +179,7 @@
 (deflayer readline-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @TB  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  @rc  a    s    d    f    g    h    j    k    l    @;   @'   ret
+  @rc  a    s    d    f    g  left  down up right delete   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @qwe           @SM            @num rctl
 )
