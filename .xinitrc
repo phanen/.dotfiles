@@ -32,25 +32,32 @@ fi
 # setxkbmap -option caps:escape
 # setxkbmap -option altwin:swap_alt_win
 
+# session-wise daemon, but:
+#     fcitx5/browser seems not work in multiply xdisplay?
 # _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
-# kmonad ~/.config/kmonad/kmonad.kbd -w 10 & disown
-sxhkd -a Tab &
 polybar -r &
 fcitx5 -d &
+sleep 1
 picom &
 
+kmonad ~/.config/kmonad/kmonad.kbd -w 10 & disown
+sxhkd -a Tab &
 # udiskie &
+
+# fix idea
 export _JAVA_AWT_WM_NONREPARENTING=1
-dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
-# if [ -d /etc/X11/xinit/xinitrc.d ] ; then
-#  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-#   [ -x "$f" ] && . "$f"
-#  done
-#  unset f
-# fi
+
+# fix xdg portral
+# dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
+
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x "$f" ] && . "$f"
+ done
+ unset f
+fi
 
 # exec chromium
-
 # xrandr --auto
 
 # export DESKTOP_SESSION=plasma
