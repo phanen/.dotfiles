@@ -85,6 +85,18 @@ super + Return
 		bspc node -s biggest.window.local) || \
 	(bspc node -f last.window.local && bspc node -s biggest.window.local)
 
+super + apostrophe
+	(bspc node -f biggest.window.local && \
+		bspc node -f last.window.local && \
+		bspc node -s biggest.window.local) || \
+	(bspc node -f last.window.local && bspc node -s biggest.window.local)
+
+super + l
+	(bspc node -f biggest.window.local && \
+		bspc node -f last.window.local && \
+		bspc node -s biggest.window.local) || \
+	(bspc node -f last.window.local && bspc node -s biggest.window.local)
+
 super + {_, ctrl + } g
 	bspc node -s next, prev}.window.local
 
@@ -143,6 +155,9 @@ super + shift + {h, j, k, l}
 
 # super + shift + {p, b, w, e}
 # 	bspc node -f @{parent, brother, first, second}
+
+super + {_,shift + }{1-9,0}
+    bspc {desktop -f,node -d} 'pointed:^{1-9,10}'
 
 super + shift + r
     bspc node @/ -R 90
