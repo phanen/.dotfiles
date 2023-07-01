@@ -112,8 +112,8 @@
 
 (deflayer mod-l
   grv  M-f1 M-f2 M-f3 M-f4 M-f5 6    7    8    9    0    -    =    bspc
-  @TB  @cps w    e    r    t    y    u    i    o    p    [    ]    \
-  @EC  a    s    d    f    g    @dev @qwe @cmk l    ;    '    ret
+  @TB  @cps M-C-[ M-[ r    t    y    u    i    o    p    [    ]    \
+  @EC  a    s    M-S-[ f    g    @dev @qwe @cmk l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           @SM            ralt rctl
 )
@@ -178,8 +178,8 @@
 
 (deflayer readline-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @TB  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  @rc  a    s    d    f    g  left  down up right delete   @'   ret
+  @TB  q    w    e    r    t    C-c  C-z  del del  p    [    ]    \
+  @rc  a    s    d    f    g    left down up right del   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @qwe           @SM            @num rctl
 )
