@@ -70,11 +70,13 @@ au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
 --     end
 -- })
 
-vim.cmd [[
-  au filetype man nnoremap <buffer> d <c-d>
-  au filetype man nnoremap <buffer> u <c-u>
-  au filetype TelescopePrompt inoremap <buffer> <esc> <esc><esc>
-]]
+
+-- FIXME: delay, which-key
+-- vim.cmd [[
+--   au filetype man nnoremap <buffer> d <c-d>
+--   au filetype man nnoremap <buffer> u <c-u>
+--   au filetype TelescopePrompt inoremap <buffer> <esc> <esc><esc>
+-- ]]
 
 function NvimTree_width_ratio(percentage)
 	local ratio = percentage / 100
@@ -84,7 +86,7 @@ end
 
 
 -- resize nvimtree if window got resized
-vim.api.nvim_create_autocmd({ "VimResized" }, {
+au({ "VimResized" }, {
 	group = vim.api.nvim_create_augroup("NvimTreeResize", { clear = true }),
 	callback = function()
 		local width = NvimTree_width_ratio(20)
@@ -93,9 +95,19 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 })
 
 -- restore cursor position
-vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+au({ "BufReadPost" }, {
     pattern = { "*" },
     callback = function()
         vim.api.nvim_exec('silent! normal! g`"zv', false)
     end,
+})
+
+
+au({ "ColorScheme" }, {
+  pattern = "*",
+  callback = function() -- inactivate and record
+    local f = assert(io.open("/home/phanium/.config/nvim/theme", "w"))
+    f:write(vim.g.colors_name)
+    f:close()
+  end,
 })

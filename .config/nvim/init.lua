@@ -18,15 +18,9 @@ end
 -- filter down a quickfix list
 cmd.packadd "cfilter"
 
-local cur_hour = tonumber(fn.system "date +%H")
-if env.TERM == "linux" then
-  g.colorscheme = "default"
-elseif cur_hour >= 18 or cur_hour <= 6 then
-  g.colorscheme = "kanagawa-wave"
-else
-  g.colorscheme = "kanagawa-lotus"
-end
--- vim.cmd("colorscheme " .. "kanagawa-lotus")
--- vim.cmd("colorscheme " .. "catppuccin")
-vim.cmd("colorscheme " .. "default")
--- vim.cmd("colorscheme " .. "doom-one")
+-- theme
+local f = assert(io.open("/home/phanium/.config/nvim/theme", "r"))
+vim.cmd("colorscheme " .. f:read("*all"))
+vim.cmd("set bg=" .. vim.fn.system("darkman get"))
+f:close()
+
