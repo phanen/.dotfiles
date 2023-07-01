@@ -1,9 +1,69 @@
 # /usr/share/doc/alacritty/example/alacritty.yml
-import:
-  - ~/.config/alacritty/alacritty-theme/themes/xterm.yaml
+
+# import:
+#   - ~/.config/alacritty/color.yml
+
+# schemes:
+#   tokyo-night: &tokyo-night
+#     # Default colors
+#     primary:
+#       background: '#1a1b26'
+#       foreground: '#a9b1d6'
+#
+#     # normal colors
+#     normal:
+#       black:   '#32344a'
+#       red:     '#f7768e'
+#       green:   '#9ece6a'
+#       yellow:  '#e0af68'
+#       blue:    '#7aa2f7'
+#       magenta: '#ad8ee6'
+#       cyan:    '#449dab'
+#       white:   '#787c99'
+#
+#     # bright colors
+#     bright:
+#       black:   '#444b6a'
+#       red:     '#ff7a93'
+#       green:   '#b9f27c'
+#       yellow:  '#ff9e64'
+#       blue:    '#7da6ff'
+#       magenta: '#bb9af7'
+#       cyan:    '#0db9d7'
+#       white:   '#acb0d0'
+#
+#   tokyo-night-storm: &tokyo-night-storm
+#     # default colors
+#     primary:
+#       background: '#24283b'
+#       foreground: '#a9b1d6'
+#
+#     # normal colors
+#     normal:
+#       black:   '#32344a'
+#       red:     '#f7768e'
+#       green:   '#9ece6a'
+#       yellow:  '#e0af68'
+#       blue:    '#7aa2f7'
+#       magenta: '#ad8ee6'
+#       cyan:    '#449dab'
+#       white:   '#9699a8'
+#
+#     # bright colors
+#     bright:
+#       black:   '#444b6a'
+#       red:     '#ff7a93'
+#       green:   '#b9f27c'
+#       yellow:  '#ff9e64'
+#       blue:    '#7da6ff'
+#       magenta: '#bb9af7'
+#       cyan:    '#0db9d7'
+#       white:   '#acb0d0'
+#
+# colors: *tokyo-night-storm
 
 window:
-  opacity: 0.95
+  opacity: 0.9
 
     # family: Fira Mono Medium
     # family: Source Code Pro
@@ -16,62 +76,48 @@ font:
   size: 9.5
 
   builtin_box_drawing: false
-
-# If `true`, bold text is drawn using the bright color variants.
 # draw_bold_text_with_bright_colors: false
 
-
-# Bell
-#
 #bell:
-  # Visual Bell Animation
-  #
-  # Animation effect for flashing the screen when the visual bell is rung.
-  #
-  #animation: EaseOutExpo
-  #   - Ease - EaseOut - EaseOutSine - EaseOutQuad - EaseOutCubic - EaseOutQuart - EaseOutQuint - EaseOutExpo - EaseOutCirc - Linear
+# Visual Bell Animation
+#animation: EaseOutExpo
+# Duration of the visual bell flash in milliseconds. A `duration` of `0` will
+# disable the visual bell animation.
+#duration: 0
 
-  # Duration of the visual bell flash in milliseconds. A `duration` of `0` will
-  # disable the visual bell animation.
-  #duration: 0
+# Visual bell animation color.
+#color: '#ffffff'
 
-  # Visual bell animation color.
-  #color: '#ffffff'
-
-  # Bell Command
-  #
-  # This program is executed whenever the bell is rung.
-  #
-  # When set to `command: None`, no command will be executed.
-  #
-  # Example:
-  #   command:
-  #     program: notify-send
-  #     args: ["Hello, World!"]
-  #
-  #command: None
+# Bell Command
+#
+# This program is executed whenever the bell is rung.
+#
+# When set to `command: None`, no command will be executed.
+#
+# Example:
+#   command:
+#     program: notify-send
+#     args: ["Hello, World!"]
+#
+#command: None
 
 #selection:
-  # This string contains all characters that are used as separators for
-  # "semantic words" in Alacritty.
-  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-
-  # When set to `true`, selected text will be copied to the primary clipboard.
-  #save_to_clipboard: false
+#semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+# to the primary clipboard
+#save_to_clipboard: false
 
 cursor:
   style:
-    shape: Block # ▇ Block, _ Underline, | Beam
+    shape: Block
     blinking: Off
-  vi_mode_style: 
+  vi_mode_style:
     shape: Block
   # blink_interval: 100
   unfocused_hollow: true
 
 live_config_reload: true
 
-# Shell
-# `$SHELL` or the user's login shell, if `$SHELL` is unset
+## shell to launch if `$SHELL` is unset
 # shell:
 #  program: /bin/bash
 #  args:
@@ -81,25 +127,19 @@ live_config_reload: true
 #alt_send_esc: true
 
 # Offer IPC using `alacritty msg` (unix only)
-#ipc_socket: true
+# ipc_socket: true
 
 # Hints
 
 key_bindings:
-  #- { key: L,         mods: Control,                    action: ClearLogNotice }
-  #- { key: L,         mods: Control, mode: ~Vi|~Search, chars: "\x0c"          }
-  - { key: PageUp,                                      action: ScrollPageUp   }
-  - { key: PageDown,                                    action: ScrollPageDown }
-  - { key: Home,                                        action: ScrollToTop    }
-  - { key: End,                                         action: ScrollToBottom }
-  - { key: V,              mods: Control, mode: ~Vi,        action: Paste            }
-  - { key: Comma,              mods: Control, mode: ~Vi,        action: Copy             }
-
-  # Vi Mode
-  - { key: Space,  mods: Shift,          mode: ~Search,    action: ToggleViMode            }
-  # - { key: Return,   mods: Control|Shift, action: SpawnNewInstance }
-  - { key: U,                           mode: Vi|~Search, action: ScrollHalfPageUp        }
-  - { key: D,                           mode: Vi|~Search, action: ScrollHalfPageDown      }
+  # - { key: L, mods: Control, action: ClearLogNotice }
+  # - { key: L, mods: Control, mode: ~Vi|~Search, chars: "\x0c" }
+  - { key: V, mods: Control, action: Paste }
+  - { key: Comma, mods: Control, mode: ~Vi, action: Copy }
+  - { key: Space, mods: Shift, mode: ~Search, action: ToggleViMode }
+  # - { key: Return, mods: Control, action: SpawnNewInstance }
+  - { key: U, mode: Vi|~Search, action: ScrollHalfPageUp }
+  - { key: D, mode: Vi|~Search, action: ScrollHalfPageDown }
 
 debug:
   render_timer: false
