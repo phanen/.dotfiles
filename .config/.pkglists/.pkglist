@@ -156,6 +156,7 @@ hyperv
 hyprland
 icalingua++
 imagemagick
+imgur.sh
 inkscape
 inotify-tools
 intel-ucode
@@ -216,6 +217,7 @@ mkinitcpio-firmware
 most
 mpv
 mtools
+mupdf-tools
 namcap
 nano
 nasm
@@ -262,8 +264,8 @@ patch
 pdf-compress
 pdfarranger
 pdfgrep
-peass
 perl-cgi
+perl-image-exiftool
 picom-animations-git
 pipewire-pulse
 pkgconf
@@ -276,6 +278,7 @@ python-markdown
 python-markdown-it-py
 python-pip
 python-pipx
+python-poetry
 python-pynvim
 python-pyquery
 python-qrcode

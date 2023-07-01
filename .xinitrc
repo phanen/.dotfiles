@@ -37,7 +37,6 @@ fi
 # _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
 polybar -r &
 fcitx5 -d &
-sleep 1
 picom &
 
 kmonad ~/.config/kmonad/kmonad.kbd -w 10 & disown

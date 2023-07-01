@@ -55,6 +55,9 @@ super + ctrl + bracketleft
 super + bracketleft
 	picgo -p http://127.0.0.1:7890 u | tail -n1 | tr -d "\n" | xsel -b && notify-send finish
 
+super + shift + bracketleft
+	flameshot gui -r | imgur.sh
+
 # bspwm navigate --------------------------------------------------
 
 super + {j, k}
@@ -66,8 +69,6 @@ super + ctrl + {j, k}
 super + {_, ctrl + } e
 	bspc {desktop -f last, node -f last.local}
 
-super + h
-	bspc node -f last.local
 
 super + {o, i}
 	bspc wm -h off; \
@@ -90,6 +91,9 @@ super + apostrophe
 		bspc node -f last.window.local && \
 		bspc node -s biggest.window.local) || \
 	(bspc node -f last.window.local && bspc node -s biggest.window.local)
+
+super + h
+	bspc node -f last.local
 
 super + l
 	(bspc node -f biggest.window.local && \

@@ -30,6 +30,12 @@ bspc config gapless_monocle      true
 bspc rule -a Bochs state=tiled
 
 bspc rule --add idea state=floating rectangle=xH+X+Y
+# bspc config automatic_scheme spiral
+# bspc config initial_polarity first_child
+# bspc config removal_adjustment true
+#
+# # how much of the screen the "master" takes by default
+# bspc config split_ratio 0.7
 
 # bspc rule -a Gimp desktop='^8' state=floating follow=on
 # bspc rule -a Chromium desktop='^2'

@@ -200,6 +200,7 @@ miniflux
 most
 mpv
 mtools
+mupdf-tools
 namcap
 nano
 nasm
@@ -244,6 +245,7 @@ patch
 pdfarranger
 pdfgrep
 perl-cgi
+perl-image-exiftool
 pipewire-pulse
 pkgconf
 pkgfile
@@ -255,6 +257,7 @@ python-markdown
 python-markdown-it-py
 python-pip
 python-pipx
+python-poetry
 python-pynvim
 python-pyquery
 python-qrcode
