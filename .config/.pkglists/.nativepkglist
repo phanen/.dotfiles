@@ -2,6 +2,7 @@ acpi
 acpica
 adwaita-qt5
 adwaita-qt6
+afl-utils
 alacritty
 alsa-utils
 apr
@@ -68,6 +69,7 @@ dkms
 dmenu
 dnsmasq
 docker
+docker-buildx
 docker-compose
 dosfstools
 doxygen

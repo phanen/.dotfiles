@@ -58,6 +58,9 @@ super + bracketleft
 super + shift + bracketleft
 	flameshot gui -r | imgur.sh
 
+super + bracketright
+	slip --stop || slip --gif
+
 # bspwm navigate --------------------------------------------------
 
 super + {j, k}
