@@ -191,3 +191,9 @@ super + alt + {bracketleft, bracketright, semicolon}
 	xrandr -o {left, right, normal}
 super + z
 	scrcpy
+super + x
+	walrnd
+super + c
+	darkman toggle
+super + shift + c
+	bsp-layout set tall
