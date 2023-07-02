@@ -1,0 +1,6 @@
+#/bin/env /bin/sh
+hugo new site $1
+cd $1
+git init
+git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke themes/ananke
+echo "theme = 'ananke'" >> config.toml

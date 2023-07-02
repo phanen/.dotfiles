@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# original creator: 
+# https://forum.manjaro.org/t/configuring-touchpad-speed-with-libinput/4098 
+
+#You can use it like this (assuming it is in your home folder):
+
+# ~/setpointerspeed.sh <number between -1 and 1>
+#-1 is slowest, 1 is fastest. The setting will not persist across reboots.
+
+# for persistent: 
+# Add following to /etc/X11/xorg.conf.d/30-touchpad.conf
+
+#   Option "AccelSpeed" "<value>"
+
+touchpad_id=$(xinput --list | grep -i "TouchPad" | xargs -n 1 | grep "id=" | sed 's/id=//g')
+accel_speed_code=$(xinput --list-props $touchpad_id | awk '/Accel Speed \(/ {print $4}' | grep -o '[0-9]\+')
+
+xinput --set-prop $touchpad_id $accel_speed_code $@

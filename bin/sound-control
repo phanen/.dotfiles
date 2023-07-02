@@ -1,0 +1,12 @@
+#!/bin/bash
+
+case "$1" in
+	on) amixer sset Master on;;
+	toggle) amixer sset Master toggle ;;
+	mute) amixer sset Master mute;;
+	up) amixer sset Master 5%+;;
+	down) amixer sset Master 5%-;;
+	bigup) amixer sset Master 15%+;;
+	bigdown) amixer sset Master 15%-;;
+esac 
+#>/dev/null

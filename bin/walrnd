@@ -1,0 +1,2 @@
+#!/bin/env sh
+DISPLAY=:0 feh --bg-fill ~/pic/"$(ls  ~/pic | shuf | head -n 1 )"

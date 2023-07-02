@@ -1,0 +1,11 @@
+#!/bin/bash
+
+mkdir -p ./pdfs/
+for each in ./*.pptx; do
+  pptx2pdf $each
+done
+for each in ./*.ppt; do
+  pptx2pdf $each
+done
+
+mv *.pdf ./pdfs/
