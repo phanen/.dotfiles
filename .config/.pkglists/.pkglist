@@ -2,8 +2,8 @@ acpi
 acpica
 adwaita-qt5
 adwaita-qt6
+afl
 afl-utils
-aflplusplus
 alacritty
 alsa-utils
 apr
@@ -34,6 +34,7 @@ bochs
 bochs-gdb-stub
 boost
 bottom
+bpftrace
 brave-bin
 broot
 bsp-layout
@@ -159,7 +160,6 @@ hyperv
 hyprland
 icalingua++
 imagemagick
-imgur.sh
 inkscape
 inotify-tools
 intel-ucode
@@ -273,6 +273,7 @@ picom-animations-git
 pipewire-pulse
 pkgconf
 pkgfile
+podman
 polkit-kde-agent
 polybar
 pwgen
@@ -296,6 +297,7 @@ qtcreator
 qutebrowser
 r
 ranger
+read-edid
 reflector
 ripgrep
 riscv64-linux-gnu-binutils
@@ -303,6 +305,7 @@ riscv64-linux-gnu-gcc
 riscv64-linux-gnu-gdb
 river
 rlwrap
+rmlint
 rofi
 rsync
 rtorrent
@@ -321,16 +324,19 @@ shfmt
 shotcut
 shotgun
 sioyek
+slip
 slock
 slurp
 soft-serve
 soundfont-fluid
 speedtest-cli
 spice-vdagent
+squashfs-tools
 starship
 stow
 strace
 sudo
+surf
 sway
 swaybg
 sxhkd
@@ -402,6 +408,7 @@ vlc
 vmpk
 waybar
 wdiff
+wemeet-bin
 wget
 which
 wimlib
