@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 # Imgur script by Bart Nagel <bart@tremby.net>
@@ -109,7 +108,7 @@ elif type clip &>/dev/null; then
 	echo -n "$clip" | clip $IMGUR_CLIP_OPTIONS
 elif [ $DISPLAY ]; then
 	if type xsel &>/dev/null; then
-		echo -n "$clip" | xsel -i $IMGUR_XSEL_OPTIONS
+		echo -n "$clip" | xsel -ib $IMGUR_XSEL_OPTIONS
 	elif type xclip &>/dev/null; then
 		echo -n "$clip" | xclip $IMGUR_XCLIP_OPTIONS
 	else

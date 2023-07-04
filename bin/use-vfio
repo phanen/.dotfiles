@@ -14,17 +14,18 @@
 #
 # echo -n "0000:00:01.0" > /sys/bus/pci/drivers/pcieport/unbind
 # echo -n "0000:00:01.0" > /sys/bus/pci/drivers/vfio-pci/bind
+# # Unload all Nvidia drivers
+modprobe -r nvidia_drm
+modprobe -r nvidia_modeset
+modprobe -r nvidia_uvm
+modprobe -r nvidia
+
 virsh nodedev-detach --device pci_0000_01_00_0
 virsh nodedev-detach --device pci_0000_01_00_1
 virsh nodedev-detach --device pci_0000_01_00_2
 virsh nodedev-detach --device pci_0000_01_00_3
 virsh nodedev-detach --device pci_0000_00_01_0
 
-# # Unload all Nvidia drivers
-modprobe -r nvidia_drm
-modprobe -r nvidia_modeset
-modprobe -r nvidia_uvm
-modprobe -r nvidia
 
 # # Unbind VTconsoles
 # echo 0 > /sys/class/vtconsole/vtcon0/bind
