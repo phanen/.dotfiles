@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# https://askubuntu.com/questions/98782/how-to-run-an-alias-in-a-shell-script
+
+shopt -s expand_aliases
+
+. ~/.config/bash/alias.sh
+. ~/.config/bash/functions.sh
+
+km
+systemctl --user restart clipmenud.service
+fcl
