@@ -17,7 +17,7 @@ alias hx='hexdump'
 alias tl='tldr'
 
 alias pi='sudo pacman -S'
-alias pd='sudo pacman -Rs'
+alias pd='sudo pacman -Rns'
 alias pau='sudo pacman -Syu'
 alias pao='pacman -Qo'
 alias pfo='pacman -F'
@@ -27,13 +27,21 @@ alias pal='pacman -Ql'
 alias pfl='pacman -Fl'
 alias pas='pacman -Qs'
 alias pss='pacman -Ss'
-alias pass='paru -Ss --bottomup'
+
+alias ys='yay -Ss'
+alias yi='yay -S'
+
 alias pat='pactree -lu --color'
+alias par='pactree -lu --color'
 alias pst='pactree -slu --color'
+alias psr='pactree -slu --color'
+
+alias apt="asp export"
+alias mkp="makepkg -do --skippgpcheck"
 
 alias vi='nvim'
 alias vn='vi -u NONE'
-alias svi="sudo -E vi"
+alias si="sudo -E vi"
 alias du="dust"
 alias em="emacs -nw"
 # alias hx="helix"
@@ -52,7 +60,7 @@ alias cdswap="cd $XDG_STATE_HOME/nvim/swap/"
 alias ssu="sudo systemctl restart udevmon"
 
 # config
-alias sb="source $HOME/.bashrc"
+alias sb="source $HOME/.zshrc"
 
 # docker
 alias doc="sudo systemctl start docker"
@@ -72,4 +80,7 @@ alias p="sudo pacman"
 # flatpak
 alias wezterm='flatpak run org.wezfurlong.wezterm'
 alias foliate='flatpak run com.github.johnfactotum.Foliate'
+
 alias vifm='vifmrun'
+
+alias ap="asp export"
