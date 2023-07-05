@@ -70,7 +70,6 @@ difftastic
 dkms
 dmenu
 dnsmasq
-docker
 docker-buildx
 docker-compose
 dosfstools
@@ -191,7 +190,6 @@ lshw
 lsof
 ltrace
 lua
-luarocks
 ly
 m4
 make
@@ -250,6 +248,7 @@ pdfarranger
 pdfgrep
 perl-cgi
 perl-image-exiftool
+pigz
 pipewire-pulse
 pkgconf
 pkgfile
@@ -370,8 +369,6 @@ verilator
 vifm
 virt-manager
 virt-viewer
-virtualbox
-virtualbox-ext-oracle
 virtualbox-guest-iso
 virtualbox-guest-utils
 viu
@@ -446,10 +443,7 @@ xwallpaper
 yasm
 yay
 you-get
-youtube-dl
 yq
-yt-dlp
-ytfzf
 zathura
 zathura-pdf-mupdf
 zellij

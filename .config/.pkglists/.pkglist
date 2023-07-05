@@ -74,7 +74,6 @@ difftastic
 dkms
 dmenu
 dnsmasq
-docker
 docker-buildx
 docker-compose
 dosfstools
@@ -205,7 +204,6 @@ lshw
 lsof
 ltrace
 lua
-luarocks
 ly
 m4
 make
@@ -270,6 +268,7 @@ pdfgrep
 perl-cgi
 perl-image-exiftool
 picom-animations-git
+pigz
 pipewire-pulse
 pkgconf
 pkgfile
@@ -384,7 +383,6 @@ ttf-ms-fonts
 ttf-nerd-fonts-symbols
 ttf-sourcecodepro-nerd
 ttf-wps-fonts
-ttyper-git
 typora
 udiskie
 unzip
@@ -399,8 +397,6 @@ vifm-colors-git
 vifmimg-git
 virt-manager
 virt-viewer
-virtualbox
-virtualbox-ext-oracle
 virtualbox-guest-iso
 virtualbox-guest-utils
 viu
@@ -481,10 +477,7 @@ xwallpaper
 yasm
 yay
 you-get
-youtube-dl
 yq
-yt-dlp
-ytfzf
 zathura
 zathura-pdf-mupdf
 zellij
