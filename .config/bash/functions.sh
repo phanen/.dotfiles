@@ -197,3 +197,11 @@ nnn-preview ()
 
     rm -f "$NNN_FIFO"
 }
+
+zz() {
+	tar -c --use-compress-program=pigz -f "$1".tar.gz $1
+}
+
+ddd() {
+	dd bs=4M if="$1" of="$2" status=progress && sync
+}
