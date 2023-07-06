@@ -4,7 +4,6 @@
 ## sdu wifi
 # export sduwifi=101.76.193.1
 sdulan() { nmcli dev wifi connect sdu_net; }
-chtox() { chmod +x $1; }
 reorder() { ls * | sort -n -t _ -k 2; }
 
 dop() {
@@ -38,39 +37,6 @@ calc() {
 	echo "scale=3;$@" | bc -l
 }
 
-note() {
-	if [[ ! -f $HOME/.notes ]]; then
-		touch "$HOME/.notes"
-	fi
-	if ! (($#)); then
-		cat "$HOME/.notes"
-	elif [[ "$1" == "-c" ]]; then
-		printf "%s" >"$HOME/.notes"
-	else
-		printf "%s\n" "$*" >>"$HOME/.notes"
-	fi
-}
-
-# gg() {
-# 	if [[ ! -f $HOME/.todo ]]; then
-# 		touch "$HOME/.todo"
-# 	fi
-# 	if ! (($#)); then
-# 		cat "$HOME/.todo"
-# 	elif [[ "$1" == "-l" ]]; then
-# 		nl -b a "$HOME/.todo"
-# 	elif [[ "$1" == "-c" ]]; then
-# 		>$HOME/.todo
-# 	elif [[ "$1" == "-r" ]]; then
-# 		nl -b a "$HOME/.todo"
-# 		eval printf %.0s- '{1..'"${COLUMNS:-$(tput cols)}"\}
-# 		echo
-# 		read -p "键入要删除的数字: " number
-# 		sed -i ${number}d $HOME/.todo "$HOME/.todo"
-# 	else
-# 		printf "%s\n" "$*" >>"$HOME/.todo"
-# 	fi
-# }
 
 ipif() {
 	if grep -P "(([1-9]\d{0,2})\.){3}(?2)" <<<"$1"; then
@@ -100,7 +66,6 @@ sala() { # alacritty select theme
 bala() { # alacritty blink theme
 	while true; do alswitch && sleep 0.1; done >/dev/null
 }
-
 diskcheck() {
 	sudo smartctl -a /dev/nvme0n1
 	sudo smartctl -a /dev/nvme1n1
@@ -118,19 +83,9 @@ clip2img() {
 	xclip -selection clipboard -target image/png -o >$1.png
 }
 
-penv() {
-	. $HOME/demo/pydemo/tele/bin/activate
-}
-
-pcfg() {
-	session=${1:-ssh}
-	case $session in
-	ssh) cat ~/.ssh/id_rsa.pub ;;
-	*) exec $1 ;;
-	esac
-}
-
-cdev() { append_path "$HOME/demo/dev/depot_tools"; }
+# penv() {
+# 	. $HOME/demo/pydemo/tele/bin/activate
+# }
 
 function vis() {
 	local CONFIG="$(find ~/.config/nvim*/ -prune -exec basename {} \;)"
@@ -155,6 +110,14 @@ EOF
 
 function vw() {
 	vi "$(which $1 |head -1)"
+}
+
+function fw() {
+	file "$(which $1 |head -1)"
+}
+
+function lw() {
+	ls -la "$(which $1 |head -1)"
 }
 
 

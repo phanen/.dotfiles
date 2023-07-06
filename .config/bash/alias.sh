@@ -83,4 +83,5 @@ alias foliate='flatpak run com.github.johnfactotum.Foliate'
 
 alias vifm='vifmrun'
 
-alias ap="asp export"
+# alias ap="asp export"
+alias ap="yay -G"
