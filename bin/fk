@@ -7,6 +7,6 @@ shopt -s expand_aliases
 . ~/.config/bash/alias.sh
 . ~/.config/bash/functions.sh
 
-km
 systemctl --user restart clipmenud.service
+km
 fcl

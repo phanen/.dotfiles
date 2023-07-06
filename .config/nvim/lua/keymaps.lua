@@ -139,6 +139,7 @@ nmap("<leader>ob", ac.toggle_bg, { desc = "toggle background" })
 nmap("<leader><tab>", ac.next_colorscheme, { desc = "switch colorscheme" })
 -- TODO: make it a real toggle
 nmap("<leader>oJ", function() vim.cmd[[noremap J gJ]] end, { desc = "toggle join mode"})
+nmap("<leader>ow", function() vim.cmd[[set wrap!]] end)
 
 -- term
 nmap("<m-t>", ":split term://bash<cr>i")
@@ -155,7 +156,7 @@ nmap("<leader>ds", vim.diagnostic.setloclist)
 -- search
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
-vmap("//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
+vmap("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 
 -- get something
 nmap("<leader>gi", "<cmd>UploadClipboard<cr>")

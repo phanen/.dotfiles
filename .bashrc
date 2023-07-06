@@ -33,7 +33,13 @@ fi
 
 # [[ -z $MYVIMRC ]] && eval $FETCHER
 
+case  $(tty) in
+  *tty*) setfont ter-d28b;;
+  *) ;;
+esac
+
 [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && _util_netcfg && cd ~ && startx # && sudo kbdrate -d 150 -r 65
+
 
 export NPC_HOME=/home/phanium/ysyx/ysyx-workbench/npc
 export NEMU_HOME=/home/phanium/ysyx/ysyx-workbench/nemu

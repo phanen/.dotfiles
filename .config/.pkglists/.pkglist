@@ -11,6 +11,7 @@ apr-util
 archinstall
 archlinux-keyring
 archlinuxcn-keyring
+archlinuxcn-mirrorlist-git
 aria2
 asciiquarium
 asp
@@ -25,6 +26,7 @@ bat
 bc
 bear
 beep
+bin86
 bind
 binutils
 bison
@@ -150,6 +152,7 @@ gvim
 gzip
 handlr
 helix
+hexer
 htop
 httping
 hugo
@@ -158,7 +161,6 @@ hyperv
 hyprland
 icalingua++
 imagemagick
-inkscape
 inotify-tools
 intel-ucode
 intellij-idea-community-edition
@@ -187,6 +189,7 @@ libtool
 libxft
 libxinerama
 light
+lilac-git
 linux
 linux-docs
 linux-firmware
@@ -243,7 +246,7 @@ ntfs-3g
 ntl
 ntp
 nushell
-nvidia
+nvidia-open
 nvidia-settings
 nvidia-utils
 nyancat
