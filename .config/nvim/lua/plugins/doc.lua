@@ -19,8 +19,22 @@ return {
   {
     "jakewvincent/mkdnflow.nvim",
     ft = { "markdown" },
-    config = function()
+    config = function ()
+      -- FIXME: cannot use opt, collision with lazyload
       require("mkdnflow").setup {
+        modules = {
+          bib = true,
+          buffers = true,
+          conceal = false,
+          cursor = true,
+          folds = true,
+          links = true,
+          lists = true,
+          maps = true,
+          paths = true,
+          tables = true,
+          yaml = false,
+        },
         mappings = {
           MkdnNextHeading = { "n", "]]" },
           MkdnPrevHeading = { "n", "[[" },
@@ -62,6 +76,18 @@ return {
     end,
   },
 
+  -- kitty only
+  -- {
+  --   "edluffy/hologram.nvim",
+  --   ft = { "markdown" },
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require("hologram").setup {
+  --       auto_display = true, -- WIP automatic markdown image display, may be prone to breaking
+  --     }
+  --   end,
+  -- },
+
   -- latex
   {
     "f3fora/nvim-texlabconfig",
@@ -89,7 +115,7 @@ return {
       --   syntax enable
       -- ]]
       -- vim.g.vimtex_view_method = "zathura"
-      vim.g.vimtex_view_method = 'sioyek'
+      vim.g.vimtex_view_method = "sioyek"
       -- vim.g.vimtex_view_general_viewer = 'okular'
       -- vim.g.vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
       -- vim.g.vimtex_compiler_method = 'latexrun'

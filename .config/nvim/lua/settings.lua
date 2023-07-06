@@ -32,7 +32,9 @@ o.scrolloff = 16
 
 -- Decrease update time
 o.updatetime = 250
-vim.wo.signcolumn = 'yes'
+
+wo.signcolumn = 'yes'
+wo.conceallevel = 2
 
 o.termguicolors = true
 
