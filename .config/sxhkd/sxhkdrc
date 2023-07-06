@@ -200,3 +200,9 @@ super + c
 	darkman toggle
 super + shift + c
 	bsp-layout set tall
+
+## netease
+super + {minus, equal}
+	dbususend --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,Next}
+super + BackSpace
+	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
