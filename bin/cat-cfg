@@ -1,0 +1,11 @@
+#!/bin/bash
+
+print-config() {
+	session=${1:-ssh}
+	case $session in
+	ssh) cat ~/.ssh/id_rsa.pub ;;
+	*) exec $1 ;;
+	esac
+}
+
+print-config $@

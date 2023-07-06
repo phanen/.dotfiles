@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# https://stackoverflow.com/questions/9057387/process-all-arguments-except-the-first-one-in-a-bash-script
+
+
+# find . -maxdepth 1 -type d -exec {} \;
+
+for dir in $(find "${1}" -maxdepth 1 -type d | sed "1d"); do
+  (cd "$dir" && echo "$dir" && (bash -c "${@:2}" | sed 's/.*/\t\0/g'))
+done
