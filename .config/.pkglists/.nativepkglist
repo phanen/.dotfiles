@@ -100,7 +100,6 @@ feh
 ffmpegthumbnailer
 figlet
 file
-filebrowser-bin
 findutils
 firefox
 fish
@@ -216,7 +215,6 @@ networkmanager
 newsboat
 ninja
 nitrogen
-nix
 nmap
 nnn
 notcurses

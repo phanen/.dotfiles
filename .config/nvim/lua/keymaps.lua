@@ -177,11 +177,11 @@ nmap('<c-w>f', '<c-w>vgf', { desc = 'open file in vertical split' })
 
 -- TODO: text object?
 -- FIXME: cross line ^M -> \n
-nmap('<leader>cw', [[:%s/\<<c-r>=expand("<cword>")<cr>//g<left><left>\>]], {
+nmap('<leader>cw', [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
   silent = false,
   desc = 'replace word under the cursor (file)',
 })
-nmap('<leader>clw', [[:s/\<<c-r>=expand("<cword>")<cr>//g<left><left>\>]], {
+nmap('<leader>clw', [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
   silent = false,
   desc = 'replace word under the cursor (line)',
 })
