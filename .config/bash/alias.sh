@@ -32,7 +32,7 @@ alias ys='yay -Ss'
 alias yi='yay -S'
 
 alias pat='pactree -lu --color'
-alias par='pactree -lu --color'
+alias par='pactree -r -lu --color'
 alias pst='pactree -slu --color'
 alias psr='pactree -slu --color'
 

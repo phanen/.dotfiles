@@ -183,9 +183,9 @@ return {
       { "<leader>tlv",  mode = { "n" }, "<Plug>(toggle-lsp-diag-vtext)" },
       { "<leader>tlp",  mode = { "n" }, "<Plug>(toggle-lsp-diag-update_in_insert)" },
       { "<leader>tld",  mode = { "n" }, "<Plug>(toggle-lsp-diag)" },
-      { "<leader>tldd", mode = { "n" }, "<Plug>(toggle-lsp-diag-default)" },
-      { "<leader>tldo", mode = { "n" }, "<Plug>(toggle-lsp-diag-off)" },
-      { "<leader>tldf", mode = { "n" }, "<Plug>(toggle-lsp-diag-on)" },
+      -- { "<leader>tldd", mode = { "n" }, "<Plug>(toggle-lsp-diag-default)" },
+      { "<leader>to", mode = { "n" }, "<Plug>(toggle-lsp-diag-off)" },
+      { "<leader>tf", mode = { "n" }, "<Plug>(toggle-lsp-diag-on)" },
     },
   },
 }

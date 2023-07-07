@@ -9,4 +9,9 @@ shopt -s expand_aliases
 
 systemctl --user restart clipmenud.service
 km
+# nohup km >/dev/null 2>&1
+
 fcl
+
+# sudo kill -9 $(pgrep polybar)
+
