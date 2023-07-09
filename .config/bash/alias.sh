@@ -31,10 +31,11 @@ alias pss='pacman -Ss'
 alias ys='yay -Ss'
 alias yi='yay -S'
 
-alias pat='pactree -lu --color'
-alias par='pactree -r -lu --color'
-alias pst='pactree -slu --color'
-alias psr='pactree -slu --color'
+alias patt='pactree -lu'
+alias pat='pactree -d 1 -lu'
+alias par='pactree -r -lu'
+alias pst='pactree -slu'
+alias psr='pactree -slu'
 
 alias apt="asp export"
 alias mkp="makepkg -do --skippgpcheck"
