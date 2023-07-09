@@ -19,8 +19,7 @@ end
 cmd.packadd "cfilter"
 
 -- theme
-local f = assert(io.open("/home/phanium/.config/nvim/theme", "r"))
-vim.cmd("colorscheme " .. f:read("*all"))
-vim.cmd("set bg=" .. vim.fn.system("darkman get"))
+local f = assert(io.open(fn.expand("$XDG_CONFIG_HOME") .. "/nvim/theme", "r"))
+cmd("colorscheme " .. f:read("*all"))
+-- cmd("set bg=" .. fn.system("darkman get"))
 f:close()
-

@@ -87,7 +87,7 @@ end
 
 -- resize nvimtree if window got resized
 au({ "VimResized" }, {
-	group = vim.api.nvim_create_augroup("NvimTreeResize", { clear = true }),
+	group = api.nvim_create_augroup("NvimTreeResize", { clear = true }),
 	callback = function()
 		local width = NvimTree_width_ratio(20)
 		vim.cmd("tabdo NvimTreeResize " .. width)
@@ -98,7 +98,7 @@ au({ "VimResized" }, {
 au({ "BufReadPost" }, {
     pattern = { "*" },
     callback = function()
-        vim.api.nvim_exec('silent! normal! g`"zv', false)
+        api.nvim_exec('silent! normal! g`"zv', false)
     end,
 })
 
@@ -106,7 +106,8 @@ au({ "BufReadPost" }, {
 au({ "ColorScheme" }, {
   pattern = "*",
   callback = function() -- inactivate and record
-    local f = assert(io.open("/home/phanium/.config/nvim/theme", "w"))
+    -- vim.fs.dirname
+    local f = assert(io.open(fn.expand("$XDG_CONFIG_HOME") .. "/nvim/theme", "w"))
     f:write(vim.g.colors_name)
     f:close()
   end,
