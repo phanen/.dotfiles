@@ -168,3 +168,7 @@ zz() {
 ddd() {
 	dd bs=4M if="$1" of="$2" status=progress && sync
 }
+
+dev-monitor() {
+	udevadm monitor --environment --udev
+}
