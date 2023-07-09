@@ -29,7 +29,14 @@ return {
     -- then leader will be enable again...
 
     cmd = "Telescope",
-    keys = { "<leader><leader>" },
+    keys = {
+      {"<leader><leader>", function() require "telescope.builtin".find_files() end },
+      "<leader>fj",
+      "<leader>fk",
+      "<leader>fb",
+      "<leader>l",
+      "<c-f>"
+    },
     config = function()
       local tl = require "telescope"
       local tb = require "telescope.builtin"
@@ -37,7 +44,11 @@ return {
       tl.setup {
         defaults = {
           mappings = {
-            i = { ["<c-u>"] = false, ["<c-d>"] = false },
+            i = {
+              ["<c-u>"] = false,
+              ["<c-d>"] = false,
+              ["<esc>"] = require('telescope.actions').close,
+            },
           },
         },
       }
