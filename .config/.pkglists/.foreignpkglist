@@ -2,6 +2,7 @@ bochs-gdb-stub
 bsp-layout
 code-marketplace
 darkman
+debtap
 farbfeld
 fontpreview
 gibo
@@ -15,10 +16,13 @@ looking-glass-module-dkms
 mit-scheme
 mkinitcpio-firmware
 netease-music-tui-bin
+nodejs-neovim
+papis
 paruz
 pdf-compress
 picom-animations-git
 qt6-tools-desktop
+sealcrypto-git
 slip
 surf
 sysz
@@ -26,6 +30,7 @@ ttf-ms-fonts
 ttf-wps-fonts
 vifm-colors-git
 vifmimg-git
+vivado
 wemeet-bin
 wps-office-cn
 wps-office-mime-cn

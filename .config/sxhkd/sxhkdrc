@@ -135,6 +135,18 @@ super + alt + {m, l, s, p}
 super + f
 	bspc node -t \~floating
 
+super + y
+	bspc node -t \~pseudo_tiled
+
+super + shift + y
+	bspc node -t \~tiled
+
+# super + f
+# 	bspc node -t \~floating
+#
+# super + f
+# 	bspc node -t \~floating
+
 # misc -------------------------------
 
 super + ctrl + {h, l}

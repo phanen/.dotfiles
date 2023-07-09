@@ -67,6 +67,7 @@ crawl-ncurses
 cronie
 darkman
 dash
+debtap
 debugedit
 devtools
 dex
@@ -158,9 +159,9 @@ httping
 hugo
 hyperfine
 hyperv
-hyprland
 icalingua++
 imagemagick
+inetutils
 inotify-tools
 intel-ucode
 intellij-idea-community-edition
@@ -237,6 +238,7 @@ ninja
 nitrogen
 nmap
 nnn
+nodejs-neovim
 notcurses
 notion
 noto-fonts-cjk
@@ -253,13 +255,13 @@ nyancat
 obsidian
 ocrad
 ocrmypdf
-okular
 openssh
 os-prober
 p7zip
 pacman
 pacman-contrib
 pandoc-cli
+papis
 paru
 paruz
 patch
@@ -278,6 +280,7 @@ polkit-kde-agent
 polybar
 pwgen
 python
+python-certifi
 python-markdown
 python-markdown-it-py
 python-pip
@@ -317,6 +320,7 @@ screenfetch
 screenkey
 scrot
 sd
+sealcrypto-git
 sed
 setconf
 shellcheck
@@ -337,14 +341,12 @@ stow
 strace
 sudo
 surf
-sway
 swaybg
 sxhkd
 sxiv
 sysz
 tcc
 tealdeer
-telegram-desktop
 terminator
 terminus-font
 texinfo
@@ -401,9 +403,10 @@ virt-viewer
 virtualbox-guest-iso
 virtualbox-guest-utils
 viu
+vivado
 vlc
 vmpk
-waybar
+waydroid
 wdiff
 wemeet-bin
 wget

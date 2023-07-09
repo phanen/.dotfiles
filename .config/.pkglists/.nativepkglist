@@ -150,9 +150,9 @@ httping
 hugo
 hyperfine
 hyperv
-hyprland
 icalingua++
 imagemagick
+inetutils
 inotify-tools
 intel-ucode
 intellij-idea-community-edition
@@ -236,7 +236,6 @@ nyancat
 obsidian
 ocrad
 ocrmypdf
-okular
 openssh
 os-prober
 p7zip
@@ -258,6 +257,7 @@ polkit-kde-agent
 polybar
 pwgen
 python
+python-certifi
 python-markdown
 python-markdown-it-py
 python-pip
@@ -314,13 +314,11 @@ starship
 stow
 strace
 sudo
-sway
 swaybg
 sxhkd
 sxiv
 tcc
 tealdeer
-telegram-desktop
 terminator
 terminus-font
 texinfo
@@ -375,7 +373,7 @@ virtualbox-guest-utils
 viu
 vlc
 vmpk
-waybar
+waydroid
 wdiff
 wget
 which
