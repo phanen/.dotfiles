@@ -7,7 +7,7 @@ setopt autocd
 setopt interactive_comments
 setopt sharehistory
 
-# https://unix.stackexchange.com/questions/568907/why-do-i-lose-my-zsh-history
+# history, https://unix.stackexchange.com/questions/568907/why-do-i-lose-my-zsh-history
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=500000
 SAVEHIST=500000
@@ -39,6 +39,18 @@ bindkey -s '\eg' '\C-a\C-e 2>&1 | nvim -'
 bindkey -s '\ek' '\C-uclear\C-m'
 bindkey -s '\el' '\C-a\C-e | bat'
 
+# complete, https://thevaluable.dev/zsh-completion-guide-examples/
+autoload -U compinit
+zstyle ':completion:*' menu select
+zstyle ':completion:*' insert-tab false
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)		# include hidden files.
+# bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect '^P' vi-up-line-or-history
+bindkey -M menuselect '^N' vi-down-line-or-history
+# bindkey -M menuselect 'l' vi-forward-char
+
 bindkey "^N" history-search-forward
 bindkey "^P" history-search-backward
 
@@ -46,6 +58,7 @@ bindkey "^P" history-search-backward
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
+
 
 # fish-like smart c-w
 # https://unix.stackexchange.com/questions/258656/how-can-i-have-two-keystrokes-to-delete-to-either-a-slash-or-a-word-in-zsh
@@ -56,14 +69,6 @@ backward-kill-path-component () {
 }
 zle -N backward-kill-path-component
 bindkey '^W' backward-kill-path-component
-
-# zsh complete
-autoload -U compinit
-zstyle ':completion:*' menu select
-zstyle ':completion:*' insert-tab false
-zmodload zsh/complist
-compinit
-_comp_options+=(globdots)		# include hidden files.
 
 # fancy completion 
 # https://www.reddit.com/r/zsh/comments/msps0/color_partial_tab_completions_in_zsh/
@@ -120,4 +125,4 @@ abbrev-alias spx='--preserve-env=http_proxy,https_proxy,all_proxy'
 # auto rehash
 zstyle ':completion:*' rehash true
 
-eval "$(zoxide init zsh)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
