@@ -1,220 +1,136 @@
 # /usr/share/doc/bspwm/examples/sxhkdrc
-# key remap is not available, script/executable only
 
-# dont use Espace...
-super + r
-	pkill -USR1 -x sxhkd
+# don't use key remap like xdotool
 
-super + slash
-	alacritty --working-directory ~ --command nvim
-	# kitty --detach nvim
-
-super + ctrl + slash
-	alacritty --working-directory ~ --command nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc
-	# kitty --detach nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc
-
-super + period
-	alacritty --working-directory ~/notes --command nvim todo.md
-	# kitty --detach --working-directory ~/notes nvim ~/notes/todo.md 
-
-super + n
-	tabbed -c alacritty --working-directory ~ --embed
-	# org.wezfurlong.wezterm
-	# kitty --detach
-
-super + t
-	dex --term alacritty /usr/share/applications/vifm.desktop
-
-super + semicolon
-	rofi -show run -matching fuzzy
-
-# super + apostrophe
-# 	rofi -show ssh -matching fuzzy
-
-super + w
-	rofi -show window -matching fuzzy
-
-# super + y
-# 	xsel -po | xsel -bi
-#
-# @super + p
-# 	/home/phanium/bin/rclip.sh
-
-super + p
-	CM_LAUNCHER=rofi clipmenu
-
-super + {F1, F2}
-	sound-control {down, up}
-
-super + {F3, F4}
-	light-control {down, up}
-
-super + ctrl + bracketleft
-	flameshot gui
-
-super + bracketleft
-	picgo -p http://127.0.0.1:7890 u | tail -n1 | tr -d "\n" | xsel -b && notify-send finish
-
-super + shift + bracketleft
-	flameshot gui -r | imgur.sh
-
-super + bracketright
-	slip --stop || slip --gif
-
-# bspwm navigate --------------------------------------------------
-
+# control
+super {_, ctrl +} + r
+	{pkill -USR1 -x sxhkd, bspc wm -r}
+super {_, ctrl +} q
+	bspc {node -c, quit}
+	
+# navigate
 super + {j, k}
 	bspc node -f {next, prev}.local.!hidden.window
-
-super + ctrl + {j, k}
-	bspc desktop -f {next, prev}.local
-
-super + {_, ctrl + } e
-	bspc {desktop -f last, node -f last.local}
-
-
-super + {o, i}
-	bspc wm -h off; \
-	bspc node -f {older, newer}; \
-	bspc wm -h on
-
-super + {_, ctrl + }{1-9, 0}
-	bspc {desktop -f, node -d} '^{1-9, 10}'
-
-# bspwm move ---------------------------------------------
-
-super + Return
-	(bspc node -f biggest.window.local && \
-		bspc node -f last.window.local && \
-		bspc node -s biggest.window.local) || \
-	(bspc node -f last.window.local && bspc node -s biggest.window.local)
-
-super + apostrophe
-	(bspc node -f biggest.window.local && \
-		bspc node -f last.window.local && \
-		bspc node -s biggest.window.local) || \
-	(bspc node -f last.window.local && bspc node -s biggest.window.local)
-
-super + h
-	bspc node -f last.local
-
 super + l
 	(bspc node -f biggest.window.local && \
 		bspc node -f last.window.local && \
 		bspc node -s biggest.window.local) || \
 	(bspc node -f last.window.local && bspc node -s biggest.window.local)
 
-super + {_, ctrl + } g
-	bspc node -s next, prev}.window.local
+super + ctrl + {j, k}
+	bspc desktop -f {next, prev}.local
+super + {e, h}
+	bspc {desktop -f last, node -f last.local}
+super + {o, i}
+	bspc wm -h off; \
+	bspc node -f {older, newer}; \
+	bspc wm -h on
+super + {1-9, 0}
+	bspc desktop -f '^{1-9, 10}'
+super + {shift +, ctrl +} {1-9, 0}
+	bspc node -d '^{1-9, 10}' {_, --follow}
+    # bspc node -d 'pointed:^{1-9,10}'
 
-# super + {l, h}
-# 	bspc node -s {next, prev}.window.local
-
-super + alt + {j, k}
+super + shift + {j, k}
 	bspc node -d {next, prev} --follow
-
-super + alt + {l, h}
+# super + {_, ctrl +} g
+# 	bspc node -s {next, prev}.window.local
+super + ctrl + shift + {j, k}
 	bspc node -d {next, prev}
+# super + shift + {{j, k}, ctrl + {j, k}}
+# 	bspc node -d {{next, prev} --follow, {next, prev}}
 
-# bspwm status ----------------------------------------------
+super + alt + {p, b, w, e}
+	bspc node -f @{parent, brother, first, second}
 
+super + ctrl + {_, shift + } {i, o}
+	bspc {desktop -f, node -d} '^{1, 9}'
+
+# status switch
 super + m
 	bspc desktop -l next
 
-# 	# hide
+# hide
 # super + {_, alt + } v
 # 	bspc node {-g hidden, $(bspc query -N -n .hidden | tail -n1) -g hidden=off}
-
 super + d
 	sh $XDG_CONFIG_HOME/sxhkd/scripts/toggle-hidden.sh
 
 super + alt + {m, l, s, p}
 	bspc node -g {marked, locked, sticky, private}
 
-	# mode
 super + f
 	bspc node -t \~floating
-
 super + y
 	bspc node -t \~pseudo_tiled
-
 super + shift + y
 	bspc node -t \~tiled
 
-# super + f
-# 	bspc node -t \~floating
-#
-# super + f
-# 	bspc node -t \~floating
-
-# misc -------------------------------
-
+# resize
 super + ctrl + {h, l}
 	bspc node -z {left -20 0 || bspc node -z right -20 0, \
 				right 20 0 || bspc node -z left 20 0}
 
-super + shift + alt + {h, j, k, l}
-	bspc node -z {left -20 0 || bspc node -z right -20 0, \
-				bottom 0 20 || bspc node -z top 0 20, \
+super + shift + {m, comma, period, slash}
+		bspc node -z {left -20 0 || bspc node -z right -20 0, \
+					bottom 0 20 || bspc node -z top 0 20, \
 				top 0 -20 || bspc node -z bottom 0 -20, \
 				right 20 0 || bspc node -z left 20 0}
-
-super + shift + {h, j, k, l}
-	bspc node -z {left 20 0 || bspc node -z right 20 0, \
+super + shift + {u, i, o, p}
+	bspc node -z {right -20 0 || bspc node -z left -20 0, \
 				top 0 20 || bspc node -z bottom 0 20, \
 				bottom 0 -20 || bspc node -z top 0 -20, \
-				right -20 0 || bspc node -z left -20 0}
+				left 20 0 || bspc node -z right 20 0}
 
-
-	# bspc node -p {west || bspc node -v -40 0, \
-	# 			south || bspc node -v 0 40, \
-	# 			north || bspc node -v 0 -40, \
-	# 			east  || bspc node -v 40 0, \
-	# 			cancel}
-
-# super + shift + {p, b, w, e}
-# 	bspc node -f @{parent, brother, first, second}
-
-super + {_,shift + }{1-9,0}
-    bspc {desktop -f,node -d} 'pointed:^{1-9,10}'
-
+# misc
+# rotation
 super + shift + r
     bspc node @/ -R 90
-
-# rotate the parent of current focused
 super + shift + e
     bspc node @parent -R 90
-
-# bspwm bar -------------------------------------------
 
 super + ctrl + t
 	sh $XDG_CONFIG_HOME/sxhkd/scripts/toggle-polybar.sh
 
-# bspwm manage ------------------------------------------
-
-super + ctrl + r
-	bspc wm -r
-
-super + q
-	bspc node -c
-
-super + ctrl + q
-	rm -f /tmp/fuckx.lock && bspc quit
-
-## screen rotation
-super + alt + {bracketleft, bracketright, semicolon}
-	xrandr -o {left, right, normal}
-super + z
-	scrcpy
-super + x
-	walrnd
-super + c
-	darkman toggle
 super + shift + c
 	bsp-layout set tall
 
-## netease
+# launcher
+super + semicolon
+	rofi -show run -matching fuzzy
+super + w
+	rofi -show window -matching fuzzy
+super + {_, ctrl + } slash
+	alacritty --working-directory ~ --command nvim {_, $XDG_CONFIG_HOME/sxhkd/sxhkdrc}
+super + period
+	alacritty --working-directory ~/notes --command nvim todo.md
+	# kitty --detach --working-directory ~/notes nvim ~/notes/todo.md 
+
+# FIXME
+super + n
+	tabbed -c alacritty --working-directory ~ --embed
+super + t
+	dex --term alacritty /usr/share/applications/vifm.desktop
+super + {z, x, c}
+	{scrcpy, walrnd, darkman toggle}
+super + p
+	CM_LAUNCHER=rofi clipmenu
+
+super + alt + {bracketleft, bracketright, semicolon}
+	xrandr -o {left, right, normal}
 super + {minus, equal}
 	dbususend --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,Next}
 super + BackSpace
 	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+
+# proxy, via kmonad
+super + {F1, F2, F3, F4}
+	{sound-control, light-control} {down, up}
+super + ctrl + bracketleft
+	flameshot gui
+super + bracketleft
+	picgo -p http://127.0.0.1:7890 u | tail -n1 | tr -d "\n" | xsel -b && notify-send finish
+super + shift + bracketleft
+	flameshot gui -r | imgur.sh
+super + bracketright
+	slip --stop || slip --gif

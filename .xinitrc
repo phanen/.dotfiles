@@ -40,6 +40,7 @@ fcitx5 -d &
 picom &
 
 kmonad ~/.config/kmonad/kmonad.kbd -w 10 & disown
+# dont use Espace...
 sxhkd -a Tab &
 # udiskie &
 
