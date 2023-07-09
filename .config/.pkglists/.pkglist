@@ -89,6 +89,7 @@ egl-wayland
 eglexternalplatform
 elvish
 emacs
+etc-update
 evince
 evtest
 exa

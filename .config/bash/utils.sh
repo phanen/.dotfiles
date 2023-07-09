@@ -28,20 +28,3 @@ _util_netcfg() {
 }
 
 # xinput --set-prop 16 'libinput Accel Speed' 1
-_util_kmonad() {
-  pkill kmonad
-  kmonad .config/kmonad/kmonad.kbd &
-  disown
-}
-
-_util_udevmon() {
-    sudo systemctl restart udevmon &&
-    sleep .3 &&
-    xset r rate 150 65
-}
-
-_util_post_x() {
-  test ! -f /tmp/fuckx.lock &&
-    touch /tmp/fuckx.lock &&
-    _util_kmonad
-}

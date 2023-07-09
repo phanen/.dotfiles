@@ -32,7 +32,6 @@ bindkey -e # must set first
 bindkey -s '\eq' '\C-a\C-e >/dev/null 2>&1 &'
 bindkey -s '\ew' '\C-asudo \C-a\C-e'
 bindkey -s '\ee' '\C-anvim \C-a\C-e'
-bindkey -s '\et' '\C-u$(compgen -c | fzf)\C-m'
 bindkey -s '\eo' '\C-ulfcd\C-m'
 bindkey -s '\ej' '\C-a\C-e 2>&1 | rg '
 bindkey -s '\eg' '\C-a\C-e 2>&1 | nvim -'
