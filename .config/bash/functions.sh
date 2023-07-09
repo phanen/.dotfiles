@@ -66,9 +66,13 @@ sala() { # alacritty select theme
 bala() { # alacritty blink theme
 	while true; do alswitch && sleep 0.1; done >/dev/null
 }
+
 diskcheck() {
-	sudo smartctl -a /dev/nvme0n1
-	sudo smartctl -a /dev/nvme1n1
+# https://stackoverflow.com/questions/35005915/using-watch-to-run-a-function-repeatedly-in-bash
+	(
+		sudo smartctl -a /dev/nvme0n1
+		sudo smartctl -a /dev/nvme1n1
+	) | rg "Percentage Used" -C10
 }
 
 archman() { curl -sL "https://man.archlinux.org/man/$1.raw" | man -l -; }
@@ -181,4 +185,15 @@ ddd() {
 
 dev-monitor() {
 	udevadm monitor --environment --udev
+}
+
+n() {
+	cd ~/notes
+	mkdir -p "$1"
+	nvim "$1"/"$2".md
+}
+
+ni() {
+	cd ~/notes
+	nvim "$(fzf)"
 }

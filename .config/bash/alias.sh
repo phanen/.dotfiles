@@ -29,6 +29,7 @@ alias pas='pacman -Qs'
 alias pss='pacman -Ss'
 
 alias ys='yay -Ss'
+alias yii='yay -Si'
 alias yi='yay -S'
 
 alias patt='pactree -lu'
@@ -85,4 +86,4 @@ alias foliate='flatpak run com.github.johnfactotum.Foliate'
 alias vifm='vifmrun'
 
 # alias ap="asp export"
-alias ap="yay -G"
+alias ap="md /tmp/tmp; yay -G"
