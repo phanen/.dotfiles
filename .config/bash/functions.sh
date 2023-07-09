@@ -161,7 +161,17 @@ nnn-preview ()
     rm -f "$NNN_FIFO"
 }
 
+md() {
+	mkdir -p "$1" && cd "$1"
+	# not a script, don't need exec
+	# exec $SHELL
+}
+
 zz() {
+	mkdir -p /tmp/tmp && cd /tmp/tmp
+}
+
+zzz() {
 	tar -c --use-compress-program=pigz -f "$1".tar.gz $1
 }
 
