@@ -32,10 +32,10 @@ vmap("p", '"_dp')
 
 -- nmap("<a-k>", ":m .-2<cr>")
 -- nmap("<a-j>", ":m .+1<cr>")
-nmap('<a-k>', '<cmd>move-2<CR>==')
-nmap('<a-j>', '<cmd>move+<CR>==')
-xmap('<a-k>', ":move-2<CR>='[gv", { silent = true })
-xmap('<a-j>', ":move'>+<CR>='[gv", { silent = true })
+-- nmap('<a-k>', '<cmd>move-2<CR>==')
+-- nmap('<a-j>', '<cmd>move+<CR>==')
+-- xmap('<a-k>', ":move-2<CR>='[gv", { silent = true })
+-- xmap('<a-j>', ":move'>+<CR>='[gv", { silent = true })
 
 
 -- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
@@ -53,16 +53,24 @@ nmap("<leader>z", "<Plug>(comment_toggle_linewise_count)")
 -- nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
 
 -- navigation
-nmap("<c-f>", "<cmd>BufferLineCycleNext<cr>")
-nmap("<c-b>", "<cmd>BufferLineCyclePrev<cr>")
+-- map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
+-- map({ "n", "v", "o" }, "<c-l>", "<cmd>BufferLineCycleNext<cr>")
+-- map({ "n", "v", "o" }, "<c-b>", "<cmd>BufferLineCyclePrev<cr>")
+map({ "n", "v", "o" }, "<a-j>", "<cmd>BufferLineCycleNext<cr>")
+map({ "n", "v", "o" }, "<a-k>", "<cmd>BufferLineCyclePrev<cr>")
+
+-- text motion, actually useless
+-- nmap('<a-k>', '<cmd>move-2<CR>==')
+-- nmap('<a-j>', '<cmd>move+<CR>==')
+-- xmap('<a-k>', "<cmd>move-2<cr>='[gv", { silent = true })
+-- xmap('<a-j>', "<cmd>move'>+<cr>='[gv", { silent = true })
 
 nmap("<c-j>", "<cmd>wincmd w<cr>")
 nmap("<c-k>", "<cmd>wincmd W<cr>")
 
-map({ "n", "v", "o" }, "<c-h>", "g^")
-map({ "n", "v", "o" }, "<c-l>", "g$")
+map({ "n", "v", "o" }, "<s-h>", "g^")
+map({ "n", "v", "o" }, "<s-l>", "g$")
 
--- layout
 -- nmap("<c-k>", "<cmd>resize -2<cr>")
 -- nmap("<c-j>", "<cmd>resize +2<cr>")
 -- nmap("<c-h>", "<cmd>vertical resize -2<cr>")

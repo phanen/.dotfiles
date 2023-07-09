@@ -125,3 +125,8 @@ vim.opt.wildignore:append({".javac", "node_modules", "*.pyc"})
 vim.opt.wildignore:append({".aux", ".out", ".toc"}) -- LaTeX
 vim.opt.wildignore:append({".o", ".obj", ".dll", ".exe", ".so", ".a", ".lib", ".pyc", ".pyo", ".pyd", ".swp", ".swo", ".class", ".DS_Store", ".git", ".hg", ".orig"})
 
+
+-- avoid escape become alt
+o.nottimeoutlen = true
+-- o.ttimeoutlen = 10
+
