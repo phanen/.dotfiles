@@ -77,7 +77,6 @@
   lctl lmet lalt           @SM            ralt rctl
 )
 
-
 (deflayer shift-l
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @TB  _    _    _    _    _    _    _    _    _    _    [    ]    \
@@ -96,9 +95,9 @@
 
 (deflayer number-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
-  #    1    2    3    4    5    6    7    8    9    0    [    ]    \
-  @EC  [    ]    \(   \)   @    %    \_   -    =    ~    @'   _
-  grv  ^    &    $    +    *    {    }    !    @.   @/   @srs
+  ~    !    @    #    $    %    ^    !    *    \(   \)    [    ]    \
+  @EC  [    ]    \(   \)   @    %    \_   -    =    _    @'   _
+  grv  ^    &    $    +    *    {    }    _    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
 )
 
@@ -118,8 +117,8 @@
   lctl lmet lalt           @SM            ralt rctl
 )
 
-
 (defalias   Ec   (tap-next esc    lctl))
+
 (deflayer meta-l
   M-grv  M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  M--  M-=  M-bspc
   M-tab  M-q  @W   M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
