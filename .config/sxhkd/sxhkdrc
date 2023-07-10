@@ -44,8 +44,13 @@ super + ctrl + shift + {j, k}
 super + alt + {p, b, w, e}
 	bspc node -f @{parent, brother, first, second}
 
-super + ctrl + {_, shift + } {o, i}
-	bspc {desktop -f, node -d} '^{0, 1}'
+super + ctrl + {_, shift + } {o, p}
+	bspc {desktop -f, node -d} "^{1,7}"
+
+super + ctrl + {u,i}
+	NEX=$((((7 {+, -} 3 + $(bspc query -D -d focused --names)) % 7))); \
+	if [[ $NEX == 0 ]]; then NEX=7 fi; \
+	bspc desktop -f \^$NEX
 
 # status switch
 super + m
@@ -125,8 +130,10 @@ super + BackSpace
 	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
 # proxy, via kmonad
-super + {F1, F2, F3, F4}
-	{sound-control, light-control} {down, up}
+super + {F1, F2}
+	sound-control {down, up}
+super + {F3, F4}
+	light-control {down, up}
 super + ctrl + bracketleft
 	flameshot gui
 super + bracketleft
