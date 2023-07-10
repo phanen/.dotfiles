@@ -26,10 +26,11 @@ super + {o, i}
 	bspc node -f {older, newer}; \
 	bspc wm -h on
 super + {1-6, 0}
-	bspc desktop -f '^{1-6, 0}'
-super + {shift, ctrl} + {1-6, 0}
-	bspc node -d '^{1-6, 0}' {_, --follow}
-    # bspc node -d 'pointed:^{1-9,10}'
+	bspc desktop -f '^{1-7}'
+super + shift + {1-6, 0}
+	bspc node -d '^{1-7}' --follow
+super + ctrl + {1-6, 0}
+	bspc node -d '^{1-7}'
 
 super + shift + {j, k}
 	bspc node -d {next, prev} --follow
