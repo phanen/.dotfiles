@@ -4,7 +4,7 @@
 
 # control
 super {_, ctrl +} + r
-	{pkill -USR1 -x sxhkd, bspc wm -r}
+	{pkill -USR1 -x sxhkd, bspc wm -r; pkill polybar; polybar -r;}
 super {_, ctrl +} q
 	bspc {node -c, quit}
 	
