@@ -1,4 +1,5 @@
 local api, fn = vim.api, vim.fn
+local used_method = "flash"
 
 ---Determine if a value of any type is empty
 ---@param item any
@@ -22,7 +23,7 @@ end
 return {
   {
     "ggandor/leap.nvim",
-    cond = false,
+    cond = (used_method == "leap"),
     keys = { { "s", leap_keys, mode = "n" } },
     opts = { equivalence_classes = { " \t\r\n", "([{", ")]}", "`\"'" } },
     dependencies = "tpope/vim-repeat",
@@ -37,6 +38,7 @@ return {
 
   {
     "ggandor/leap-spooky.nvim",
+    cond = (used_method == "leap"),
     dependencies = { "ggandor/leap.nvim" },
     config = true,
     lazy = false,
@@ -44,6 +46,7 @@ return {
 
   {
     "folke/flash.nvim",
+    cond = (used_method == "flash"),
     event = "VeryLazy",
     ---@type Flash.Config
     -- cond = false,
@@ -63,17 +66,17 @@ return {
         desc = "Flash",
       },
       {
-        "f",
+        "S",
         mode = { "x" },
         function() require("flash").jump() end,
         desc = "Flash",
       },
-      -- {
-      --   "S",
-      --   mode = { "n", "o" },
-      --   function() require("flash").treesitter() end,
-      --   desc = "Flash Treesitter",
-      -- },
+      {
+        "S",
+        mode = { "n", "o" },
+        function() require("flash").treesitter() end,
+        desc = "Flash Treesitter",
+      },
       {
         "r",
         mode = "o",

@@ -69,6 +69,7 @@ return {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
+    cond = false,
     dependencies = { "nvim-lua/plenary.nvim" },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
@@ -118,7 +119,7 @@ return {
           },
           nls.builtins.formatting.black,
 
-          nls.builtins.code_actions.eslint_d,
+          -- nls.builtins.code_actions.eslint_d,
           nls.builtins.diagnostics.eslint_d,
           nls.builtins.formatting.eslint_d,
           -- nls.builtins.diagnostics.markdownlint,

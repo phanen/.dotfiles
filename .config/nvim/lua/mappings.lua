@@ -45,8 +45,8 @@ xmap("p", '"_dp')
 -- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
 cmap("w!!", "w !sudo tee > /dev/null")
 
-vmap("d", '"_d')
-vmap("c", '"_c')
+xmap("d", '"_d')
+xmap("c", '"_c')
 nmap("c", '"_c')
 nmap("d", '"_d')
 nmap("C", '"_C')

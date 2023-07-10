@@ -44,17 +44,17 @@ return {
 
     cmd = "Telescope",
     keys = {
-      { "<leader>ft", toggle_cache_mode, mode = { "n", "x" }, desc = "pick files" },
-      { "<c-l>", tb.find_files, mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>l", live_grep, mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>/", curbuf_fzf, mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fb", tb.buffers, mode = { "n", "x" }, desc = "pick files" },
-      { "<ctrl>b", tb.buffers, mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fo", tb.oldfiles, mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>;", tb.command_history, mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fd", tb.diagnostics, mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fh", tb.help_tags, mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fm", tb.builtin, mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>ft", toggle_cache_mode,  mode = { "n", "x" }, desc = "pick files" },
+      { "<c-l>",      tb.find_files,      mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>l",  live_grep,          mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>/",  curbuf_fzf,         mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>fb", tb.buffers,         mode = { "n", "x" }, desc = "pick files" },
+      { "<ctrl>b",    tb.buffers,         mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>fo", tb.oldfiles,        mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>;",  tb.command_history, mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>fd", tb.diagnostics,     mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>fh", tb.help_tags,       mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>fm", tb.builtin,         mode = { "n", "x" }, desc = "pick files" },
     },
     config = function()
       local tl = require "telescope"
@@ -63,15 +63,18 @@ return {
 
       tl.setup {
         defaults = {
+          file_ignore_patterns = {
+            -- "!.*",
+          },
           mappings = {
             i = {
               ["<c-u>"] = false,
               ["<c-d>"] = false,
               ["<esc>"] = ta.close,
               ["<a-/>"] = tag.which_key {
-                name_width = 20, -- typically leads to smaller floats
-                max_height = 0.5, -- increase potential maximum height
-                separator = " > ", -- change sep between mode, keybind, and name
+                name_width = 20,           -- typically leads to smaller floats
+                max_height = 0.5,          -- increase potential maximum height
+                separator = " > ",         -- change sep between mode, keybind, and name
                 close_with_action = false, -- do not close float on action
               },
             },

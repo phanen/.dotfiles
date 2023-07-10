@@ -118,3 +118,6 @@ au({ "ColorScheme" }, {
 -- for r in regs
 --   call setreg(r, [])
 -- endfor
+
+-- https://stackoverflow.com/questions/17365324/auto-save-in-vim-as-you-type
+

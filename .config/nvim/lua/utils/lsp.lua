@@ -13,7 +13,6 @@ function M.lsp_attach(_, bufnr)
 
   local tb = require "telescope.builtin"
 
-  -- stylua: ignore start
   nmap("<leader>rn", lsp.buf.rename, "rename")
   -- TODO: need multiply undo
   nmap("<leader>gg", lsp.buf.format, "format buffer")
@@ -23,7 +22,6 @@ function M.lsp_attach(_, bufnr)
   nmap("gI", lsp.buf.implementation, "goto implementation")
   nmap("gr", tb.lsp_references, "goto references")
   nmap("<leader>D", lsp.buf.type_definition, "type definition")
-  -- stylua: ignore end
 
   -- for _, v in pairs(get_keymap()) do
   --   nmap(unpack(vim.tbl_values(v)))
@@ -39,17 +37,17 @@ M.lsp_servers = {
   },
   clangd = {},
   -- rust_analyzer = {},
-  gopls = {},
-  pyright = {},
-  tsserver = {},
-  jsonls = {
-    settings = {
-      json = {
-        schemas = require("schemastore").json.schemas(),
-        validate = { enable = true },
-      },
-    },
-  },
+  -- gopls = {},
+  -- pyright = {},
+  -- tsserver = {},
+  -- jsonls = {
+  --   settings = {
+  --     json = {
+  --       schemas = require("schemastore").json.schemas(),
+  --       validate = { enable = true },
+  --     },
+  --   },
+  -- },
   yamlls = {
     schemaStore = {
       -- You must disable built-in schemaStore support if you want to use
@@ -58,6 +56,7 @@ M.lsp_servers = {
     },
     schemas = require("schemastore").yaml.schemas(),
   },
+  -- marksman = {},
 }
 
 return M
