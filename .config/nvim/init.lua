@@ -3,13 +3,12 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-_G.G = as or namespace
 _G.map = vim.keymap.set
 _G.P = vim.print
 
 for _, source in ipairs {
   "mappings",
-  "settings",
+  "options",
   "commands",
 } do
   local ok, fault = pcall(require, source)

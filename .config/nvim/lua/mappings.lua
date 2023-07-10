@@ -1,15 +1,24 @@
-local mp = require "utils.keymaps"
-local ac = require "utils.actions"
+-- local map = vim.keymap.set
 
-local map = mp.map
-local nmap = mp.nmap
-local imap = mp.imap
-local cmap = mp.cmap
-local vmap = mp.vmap
-local xmap = mp.xmap
-local omap = mp.omap
-local tmap = mp.tmap
-local lmap = mp.lmap
+local recursive_map = function(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.remap = true
+  map(mode, lhs, rhs, opts)
+end
+
+-- `:h map-table`
+local nremap = function(...) recursive_map("n", ...) end
+local iremap = function(...) recursive_map("i", ...) end
+local nmap = function(...) map("n", ...) end
+local imap = function(...) map("i", ...) end
+local cmap = function(...) map("c", ...) end
+local vmap = function(...) map("v", ...) end
+local xmap = function(...) map("x", ...) end
+local omap = function(...) map("o", ...) end
+local tmap = function(...) map("t", ...) end
+local lmap = function(...) map("l", ...) end
+
+local ac = require "utils.actions"
 
 -- TODO: disbale p in select mode
 -- TODO: disable clipboard in x or d
@@ -183,7 +192,7 @@ nmap("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
   silent = false,
   desc = "replace word under the cursor (file)",
 })
-nmap("<leader>clw", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
+nmap("<leader>cl", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
   silent = false,
   desc = "replace word under the cursor (line)",
 })

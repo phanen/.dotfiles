@@ -1,39 +1,36 @@
-local nmap = require("utils.keymaps").nmap
-local vmap = require("utils.keymaps").vmap
 local reqcall = require("utils").reqcall
--- local tel_ex = function(name) return require('telescope').extensions[name] end
--- local live_grep = function(_) tel_ex('menufacture').live_grep(opts) end
--- local find_files = function(opts) return tel_ex('menufacture').find_files(opts) end
+local mux = require("library").mux
 
--- local find_files = function(name)  return extensions('')/
--- local function dotfiles()
---   find_files({
---     prompt_title = 'dotfiles',
---     cwd = '',
---   })
--- end
-
-local tl = reqcall "telescope"
-local tb = reqcall "telescope.builtin"
-
-local pick_curbuf = function()
-  tb.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown { previewer = false })
-end
+local cache_flag = false
+local sel_cache = ""
 
 -- https://vi.stackexchange.com/questions/467/how-can-i-clear-a-register-multiple-registers-completely
 local function getVisualSelection()
-  local save = vim.fn.getreg "t"
-  vim.cmd [[noau normal! "ty]]
-  local text = vim.fn.getreg "t"
-  vim.fn.setreg("v", save)
+  -- NOTE: execute normal mode commands != enter into normal mode
+  local reg_bak = vim.fn.getreg "v"
 
-  text = string.gsub(text, "\n", "")
-  if #text > 0 then
-    return text
-  else
-    return ""
-  end
+  -- HACK: <esc> just abort the normal mode pending
+  vim.fn.setreg("v", {})
+  vim.cmd [[noau normal! "vy\<esc\>]]
+
+  local sel_text = vim.fn.getreg "v"
+  vim.fn.setreg("v", reg_bak)
+
+  -- normal mode
+  if #sel_text == 0 then return mux(cache_flag, sel_cache, "") end
+
+  -- visual mode
+  sel_cache = string.gsub(sel_text, "\n", "")
+  return sel_cache
 end
+
+local tb = reqcall "telescope.builtin"
+local toggle_cache_mode = function() cache_flag = not cache_flag end
+
+local curbuf_fzf = function()
+  return tb.current_buffer_fuzzy_find { previewer = false, default_text = getVisualSelection() }
+end
+local live_grep = function() return tb.live_grep { default_text = getVisualSelection() } end
 
 return {
   {
@@ -47,23 +44,22 @@ return {
 
     cmd = "Telescope",
     keys = {
-      { "<c-l>",      tb.find_files,      mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>l",  tb.live_grep,       mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>/",  pick_curbuf,        mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fb", tb.buffers,         mode = { "n", "x" }, desc = "pick files" },
-      { "<ctrl>b",    tb.buffers,         mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fo", tb.oldfiles,        mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>f;", tb.command_history, mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fw", tb.grep_string,     mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fd", tb.diagnostics,     mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fh", tb.help_tags,       mode = { "n", "x" }, desc = "pick files" },
-      { "<leader>fm", tb.builtin,         mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>ft", toggle_cache_mode, mode = { "n", "x" }, desc = "pick files" },
+      { "<c-l>", tb.find_files, mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>l", live_grep, mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>/", curbuf_fzf, mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>fb", tb.buffers, mode = { "n", "x" }, desc = "pick files" },
+      { "<ctrl>b", tb.buffers, mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>fo", tb.oldfiles, mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>;", tb.command_history, mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>fd", tb.diagnostics, mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>fh", tb.help_tags, mode = { "n", "x" }, desc = "pick files" },
+      { "<leader>fm", tb.builtin, mode = { "n", "x" }, desc = "pick files" },
     },
     config = function()
       local tl = require "telescope"
-      local tb = require "telescope.builtin"
       local ta = require "telescope.actions"
-      local ta = require "telescope.actions"
+      local tag = require "telescope.actions.generate"
 
       tl.setup {
         defaults = {
@@ -72,10 +68,10 @@ return {
               ["<c-u>"] = false,
               ["<c-d>"] = false,
               ["<esc>"] = ta.close,
-              ["<a-/>"] = require("telescope.actions.generate").which_key {
-                name_width = 20,           -- typically leads to smaller floats
-                max_height = 0.5,          -- increase potential maximum height
-                separator = " > ",         -- change sep between mode, keybind, and name
+              ["<a-/>"] = tag.which_key {
+                name_width = 20, -- typically leads to smaller floats
+                max_height = 0.5, -- increase potential maximum height
+                separator = " > ", -- change sep between mode, keybind, and name
                 close_with_action = false, -- do not close float on action
               },
             },
@@ -84,21 +80,6 @@ return {
       }
       -- enable fzf native
       pcall(tl.load_extension, "fzf")
-
-      -- TODO: cache your search content
-      -- TODO: fzf_lua really matters?
-
-      -- nmap("<leader>e", ":Telescope current_buffer_fuzzy_find<cr>", opts)
-      -- vmap("<leader>e", function()
-      --   local text = vim.getVisualSelection()
-      --   tb.current_buffer_fuzzy_find { default_text = text }
-      -- end)
-      --
-      vmap("<leader>fk", function() tb.live_grep { default_text = getVisualSelection() } end)
-      vmap("<leader>l", function() tb.live_grep { default_text = getVisualSelection() } end)
-      nmap("<leader>l", tb.live_grep, { desc = "fzf grep" })
-      --
-      -- nmap("<leader><space>", tb.find_files, { desc = "fzf files" })
     end,
   },
 
