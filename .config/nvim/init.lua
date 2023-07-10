@@ -1,4 +1,9 @@
--- vim.loop.os_uname().sysname
+--  _ __ | |__   __ _ _ __ (_)_   _ _ __ ___
+-- | '_ \| '_ \ / _` | '_ \| | | | | '_ ` _ \
+-- | |_) | | | | (_| | | | | | |_| | | | | | |
+-- | .__/|_| |_|\__,_|_| |_|_|\__,_|_| |_| |_|
+-- |_|
+assert(vim.loop.os_uname().sysname == 'Linux')
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
