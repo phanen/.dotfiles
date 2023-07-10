@@ -20,10 +20,6 @@ local lmap = function(...) map("l", ...) end
 
 local ac = require "utils.actions"
 
--- TODO: disbale p in select mode
--- TODO: disable clipboard in x or d
--- which-key will intercept
--- hack the default behaviors
 map({ "n", "v", "o" }, "<space>", "<nop>")
 
 nmap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
@@ -32,12 +28,12 @@ nmap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 nmap("<c-u>", "<c-u>zz")
 nmap("<c-d>", "<c-d>zz")
 
-vmap("<", "<gv")
-vmap(">", ">gv")
-vmap(",", "<gv")
-vmap(".", ">gv")
+xmap("<", "<gv")
+xmap(">", ">gv")
+xmap(",", "<gv")
+xmap(".", ">gv")
 
-vmap("p", '"_dp')
+xmap("p", '"_dp')
 
 -- nmap("<a-k>", ":m .-2<cr>")
 -- nmap("<a-j>", ":m .+1<cr>")
@@ -66,6 +62,7 @@ map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
 
 -- how to quit in vim
 nmap("<c-e>", "<cmd>Bdelete!<cr>")
+nmap("<leader>q", "<cmd>wincmd q<cr>")
 nmap("<localleader>w", "<cmd>write<cr>")
 imap("<c-q>", "<cmd>Bdelete!<cr>")
 imap("<c-s>", "<cmd>write<cr>")

@@ -1,6 +1,6 @@
 #!/bin/bash
-pacman -Qqe > $XDG_CONFIG_HOME/.pkglists/.pkglist # 全部
-pacman -Qqen > $XDG_CONFIG_HOME/.pkglists/.nativepkglist # 不包含 aur
-pacman -Qqem > $XDG_CONFIG_HOME/.pkglists/.foreignpkglist # 只包含 aur
+pacman -Qqe > $XDG_CONFIG_HOME/pkglists/pkglist # 全部
+pacman -Qqen > $XDG_CONFIG_HOME/pkglists/nativepkglist # 不包含 aur
+pacman -Qqem > $XDG_CONFIG_HOME/pkglists/foreignpkglist # 只包含 aur
 
-comm -13 <(pacman -Qqdt | sort) <(pacman -Qqdtt | sort) > $XDG_CONFIG_HOME/.pkglists/.optdeplist
+comm -13 <(pacman -Qqdt | sort) <(pacman -Qqdtt | sort) > $XDG_CONFIG_HOME/pkglists/optdeplist
