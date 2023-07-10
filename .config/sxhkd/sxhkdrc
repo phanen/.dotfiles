@@ -25,10 +25,10 @@ super + {o, i}
 	bspc wm -h off; \
 	bspc node -f {older, newer}; \
 	bspc wm -h on
-super + {1-9, 0}
-	bspc desktop -f '^{1-9, 10}'
-super + {shift +, ctrl +} {1-9, 0}
-	bspc node -d '^{1-9, 10}' {_, --follow}
+super + {1-6, 0}
+	bspc desktop -f '^{1-6, 0}'
+super + {shift, ctrl} + {1-6, 0}
+	bspc node -d '^{1-6, 0}' {_, --follow}
     # bspc node -d 'pointed:^{1-9,10}'
 
 super + shift + {j, k}
@@ -43,8 +43,8 @@ super + ctrl + shift + {j, k}
 super + alt + {p, b, w, e}
 	bspc node -f @{parent, brother, first, second}
 
-super + ctrl + {_, shift + } {i, o}
-	bspc {desktop -f, node -d} '^{1, 9}'
+super + ctrl + {_, shift + } {o, i}
+	bspc {desktop -f, node -d} '^{0, 1}'
 
 # status switch
 super + m

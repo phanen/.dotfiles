@@ -40,27 +40,39 @@ bindkey -s '\el' '\C-a\C-e | bat'
 
 # complete, https://thevaluable.dev/zsh-completion-guide-examples/
 autoload -U compinit
-zstyle ':completion:*' menu select
 zstyle ':completion:*' insert-tab false
+zstyle ':completion:*' rehash true # auto rehash
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# include hidden files.
+
+zstyle ':completion:*' menu select
 # bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect '^P' vi-up-line-or-history
 bindkey -M menuselect '^N' vi-down-line-or-history
 # bindkey -M menuselect 'l' vi-forward-char
-
 bindkey "^N" history-search-forward
 bindkey "^P" history-search-backward
+# partial color, https://www.reddit.com/r/zsh/comments/msps0/color_partial_tab_completions_in_zsh/
+zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==02=01}:${(s.:.)LS_COLORS}")'
+
+# load syntax highlighting; should be last
+# . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
+# . /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh
+. /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+
+# https://stackoverflow.com/questions/4405382/how-can-i-read-documentation-about-built-in-zsh-commands
+unalias run-help
+autoload run-help
+alias help='run-help'
 
 # edit in editor
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
-
-# fish-like smart c-w
-# https://unix.stackexchange.com/questions/258656/how-can-i-have-two-keystrokes-to-delete-to-either-a-slash-or-a-word-in-zsh
+# fish-like smart c-w, https://unix.stackexchange.com/questions/258656/how-can-i-have-two-keystrokes-to-delete-to-either-a-slash-or-a-word-in-zsh
 backward-kill-path-component () {
     local WORDCHARS=${WORDCHARS/\/}
     zle backward-kill-word
@@ -68,20 +80,6 @@ backward-kill-path-component () {
 }
 zle -N backward-kill-path-component
 bindkey '^W' backward-kill-path-component
-
-# fancy completion 
-# https://www.reddit.com/r/zsh/comments/msps0/color_partial_tab_completions_in_zsh/
-zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==02=01}:${(s.:.)LS_COLORS}")'
-
-# load syntax highlighting; should be last
-# . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
-. /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-
-# # https://stackoverflow.com/questions/4405382/how-can-i-read-documentation-about-built-in-zsh-commands
-unalias run-help
-autoload run-help
-alias help='run-help'
 
 # https://dev.to/frost/fish-style-abbreviations-in-zsh-40aa
 # declare a list of expandable aliases to fill up later
@@ -120,8 +118,5 @@ zle -N accept-line expand-alias-and-accept-line
 
 abbrev-alias px='http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890 all_proxy=http://127.0.0.1:7890'
 abbrev-alias spx='--preserve-env=http_proxy,https_proxy,all_proxy'
-
-# auto rehash
-zstyle ':completion:*' rehash true
 
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"

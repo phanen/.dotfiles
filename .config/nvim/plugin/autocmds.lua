@@ -112,3 +112,9 @@ au({ "ColorScheme" }, {
     f:close()
   end,
 })
+
+-- https://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively
+-- let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+-- for r in regs
+--   call setreg(r, [])
+-- endfor

@@ -18,6 +18,7 @@ asp
 autoconf
 automake
 awesome
+awesome-terminal-fonts
 baidupcs-go
 base
 base-devel
@@ -118,6 +119,7 @@ flex
 foliate
 fontpreview
 fzf
+fzf-tab-git
 gawk
 gcc
 gdb
@@ -133,6 +135,7 @@ github-cli
 glfw-wayland
 gnome-epub-thumbnailer
 gnome-themes-extra
+gnu-free-fonts
 gnu-netcat
 gnuplot
 go
