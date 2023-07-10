@@ -156,3 +156,18 @@ endfunction
 xnoremap <silent> il :<C-U>call SelectLine(v:count1)<CR>
 onoremap <silent> il :<C-U>execute "normal! ^v".v:count1."g_"<CR>
 ]]
+
+
+-- https://www.reddit.com/r/neovim/comments/wjzjwe/how_to_set_no_name_buffer_to_scratch_buffer/
+local kill_no_name_group = ag('KillNoName', { clear = true })
+
+api.nvim_create_autocmd({ "BufLeave" }, {
+	pattern = "{}",
+	callback = function()
+		if fn.line("$") == 1 and fn.getline(1) == "" then
+			vim.bo.buftype = "nofile"
+			vim.bo.bufhidden = "wipe"
+		end
+	end,
+	group = kill_no_name_group,
+})
