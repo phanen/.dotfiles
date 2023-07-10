@@ -5,9 +5,9 @@ local ag = api.nvim_create_augroup
 -- highlight on yank
 local highlight_group = ag('YankHighlight', { clear = true })
 au('TextYankPost', {
-  pattern = '*', -- TODO: why to wrap it
-  callback = function() vim.highlight.on_yank() end,
-  group = highlight_group,
+	pattern = '*', -- TODO: why to wrap it
+	callback = function() vim.highlight.on_yank() end,
+	group = highlight_group,
 })
 
 -- stash the IM when switching modes
@@ -15,37 +15,37 @@ local input_method_group = ag('InputMethod', { clear = true })
 
 local cur_im = "keyboard-us"
 au({ "InsertLeave" }, {
-  pattern = "*",
-  callback = function() -- inactivate and record
-    cur_im = tostring(fn.system("fcitx5-remote -n"))
-    fn.system("fcitx5-remote -c")
-  end,
-  group = input_method_group,
+	pattern = "*",
+	callback = function() -- inactivate and record
+		cur_im = tostring(fn.system("fcitx5-remote -n"))
+		fn.system("fcitx5-remote -c")
+	end,
+	group = input_method_group,
 })
 
 au({ "InsertEnter" }, {
-  pattern = "*",
-  callback = function()
-    fn.system("fcitx5-remote -s" .. cur_im)
-  end,
-  group = input_method_group,
+	pattern = "*",
+	callback = function()
+		fn.system("fcitx5-remote -s" .. cur_im)
+	end,
+	group = input_method_group,
 })
 
 local function open_nvim_tree(data)
-  if not (fn.isdirectory(data.file) == 1) then return end
-  vim.cmd.cd(data.file)
-  -- require("nvim-tree.api").tree.open()
+	if not (fn.isdirectory(data.file) == 1) then return end
+	vim.cmd.cd(data.file)
+	-- require("nvim-tree.api").tree.open()
 end
 
 au({ "VimEnter" }, { callback = open_nvim_tree })
 
 -- smart number from https://github.com/jeffkreeftmeijer/vim-numbertoggle {{{
 au({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
-  command = [[if &nu && mode() != 'i' | set rnu   | endif]],
+	command = [[if &nu && mode() != 'i' | set rnu   | endif]],
 })
 
 au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
-  command = [[if &nu | set nornu | endif]],
+	command = [[if &nu | set nornu | endif]],
 })
 
 -- au({ "InsertLeave" }, {
@@ -84,7 +84,6 @@ function NvimTree_width_ratio(percentage)
 	return width
 end
 
-
 -- resize nvimtree if window got resized
 au({ "VimResized" }, {
 	group = api.nvim_create_augroup("NvimTreeResize", { clear = true }),
@@ -96,21 +95,21 @@ au({ "VimResized" }, {
 
 -- restore cursor position
 au({ "BufReadPost" }, {
-    pattern = { "*" },
-    callback = function()
-        api.nvim_exec('silent! normal! g`"zv', false)
-    end,
+	pattern = { "*" },
+	callback = function()
+		api.nvim_exec('silent! normal! g`"zv', false)
+	end,
 })
 
 
 au({ "ColorScheme" }, {
-  pattern = "*",
-  callback = function() -- inactivate and record
-    -- vim.fs.dirname
-    local f = assert(io.open(fn.expand("$XDG_CONFIG_HOME") .. "/nvim/theme", "w"))
-    f:write(vim.g.colors_name)
-    f:close()
-  end,
+	pattern = "*",
+	callback = function() -- inactivate and record
+		-- vim.fs.dirname
+		local f = assert(io.open(fn.expand("$XDG_CONFIG_HOME") .. "/nvim/theme", "w"))
+		f:write(vim.g.colors_name)
+		f:close()
+	end,
 })
 
 -- https://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively
@@ -120,4 +119,40 @@ au({ "ColorScheme" }, {
 -- endfor
 
 -- https://stackoverflow.com/questions/17365324/auto-save-in-vim-as-you-type
+-- TODO
 
+-- https://vi.stackexchange.com/questions/24861/selector-for-line-of-text
+vim.cmd [[
+function! SelectLine(count) abort
+  normal! gv
+  if visualmode() !=# 'v'
+    normal! v
+  endif
+  let startpos = getpos("'<")
+  let endpos = getpos("'>")
+  if startpos == endpos
+    execute "normal! ^o".a:count."g_"
+    return
+  endif
+  let curpos = getpos('.')
+  if curpos == endpos
+    normal! g_
+    let curpos = getpos('.')
+    if curpos == endpos
+      execute "normal!" (a:count+1)."g_"
+    elseif a:count > 1
+      execute "normal!" a:count."g_"
+    endif
+  else
+    normal! ^
+    let curpos = getpos('.')
+    if curpos == startpos
+      execute "normal!" a:count."-"
+    elseif a:count > 1
+      execute "normal!" (a:count-1)."-"
+    endif
+  endif
+endfunction
+xnoremap <silent> il :<C-U>call SelectLine(v:count1)<CR>
+onoremap <silent> il :<C-U>execute "normal! ^v".v:count1."g_"<CR>
+]]
