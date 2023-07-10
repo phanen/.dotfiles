@@ -11,11 +11,11 @@ local omap = mp.omap
 local tmap = mp.tmap
 local lmap = mp.lmap
 
--- hack the default behaviors
 -- TODO: disbale p in select mode
 -- TODO: disable clipboard in x or d
 -- which-key will intercept
--- map( { 'n', 'v', 'o' }, '<space>', '<nop>')
+-- hack the default behaviors
+map({ "n", "v", "o" }, "<space>", "<nop>")
 
 nmap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
 nmap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
@@ -37,7 +37,6 @@ vmap("p", '"_dp')
 -- xmap('<a-k>', ":move-2<CR>='[gv", { silent = true })
 -- xmap('<a-j>', ":move'>+<CR>='[gv", { silent = true })
 
-
 -- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
 cmap("w!!", "w !sudo tee > /dev/null")
 
@@ -50,31 +49,38 @@ nmap("D", '"_D')
 nmap("X", "D")
 
 nmap("<leader>z", "<Plug>(comment_toggle_linewise_count)")
--- nnoremap('<leader>C', '<cmd>edit $XDG_CONFIG_HOME/nvim<cr>')
 
 -- navigation
--- map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
--- map({ "n", "v", "o" }, "<c-l>", "<cmd>BufferLineCycleNext<cr>")
+map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
+map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
 -- map({ "n", "v", "o" }, "<c-b>", "<cmd>BufferLineCyclePrev<cr>")
-map({ "n", "v", "o" }, "<a-j>", "<cmd>BufferLineCycleNext<cr>")
-map({ "n", "v", "o" }, "<a-k>", "<cmd>BufferLineCyclePrev<cr>")
 
--- text motion, actually useless
--- nmap('<a-k>', '<cmd>move-2<CR>==')
--- nmap('<a-j>', '<cmd>move+<CR>==')
--- xmap('<a-k>', "<cmd>move-2<cr>='[gv", { silent = true })
--- xmap('<a-j>', "<cmd>move'>+<cr>='[gv", { silent = true })
+-- how to quit in vim
+nmap("<c-e>", "<cmd>Bdelete!<cr>")
+nmap("<localleader>w", "<cmd>write<cr>")
+imap("<c-q>", "<cmd>Bdelete!<cr>")
+imap("<c-s>", "<cmd>write<cr>")
+
+-- map({ "n", "v", "o" }, "<a-j>", "<cmd>BufferLineCycleNext<cr>")
+-- map({ "n", "v", "o" }, "<a-k>", "<cmd>BufferLineCyclePrev<cr>")
+
+nmap("<a-k>", "<cmd>move-2<CR>==")
+nmap("<a-j>", "<cmd>move+<CR>==")
+xmap("<a-k>", "<cmd>move-2<cr>='[gv", { silent = true })
+xmap("<a-j>", "<cmd>move'>+<cr>='[gv", { silent = true })
 
 nmap("<c-j>", "<cmd>wincmd w<cr>")
 nmap("<c-k>", "<cmd>wincmd W<cr>")
 
-map({ "n", "v", "o" }, "<s-h>", "g^")
-map({ "n", "v", "o" }, "<s-l>", "g$")
+nmap("<c-s>", [[<c-^>]])
 
--- nmap("<c-k>", "<cmd>resize -2<cr>")
--- nmap("<c-j>", "<cmd>resize +2<cr>")
--- nmap("<c-h>", "<cmd>vertical resize -2<cr>")
--- nmap("<c-l>", "<cmd>vertical resize +2<cr>")
+map({ "n", "v", "o" }, "H", "g^")
+map({ "n", "v", "o" }, "L", "g$")
+
+nmap("<c-s-k>", "<cmd>resize -2<cr>")
+nmap("<c-s-j>", "<cmd>resize +2<cr>")
+nmap("<c-s-h>", "<cmd>vertical resize -2<cr>")
+nmap("<c-s-l>", "<cmd>vertical resize +2<cr>")
 
 -- symbol rename
 nmap("<leader>rn", ":IncRename ")
@@ -105,20 +111,10 @@ vmap("<leader>ro", [[:'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
 -- dec to hex
 vmap("<leader>rh", [[:'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
 
-
 vmap("<leader>rm", [[:s/\s\{1,}//g<cr>]])
 
 nmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 vmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
-
-
-
-
--- how to quit in vim
-nmap("<leader>q", "<cmd>Bdelete!<cr>")
-nmap("<localleader>w", "<cmd>write<cr>")
-imap("<c-q>", "<cmd>bdelete!<cr>")
-imap("<c-s>", "<cmd>write<cr>")
 
 -- toggle windows
 nmap("<leader>wn", "<cmd>NvimTreeFindFileToggle<cr>")
@@ -131,6 +127,7 @@ nmap("<leader>wu", "<cmd>NullLsInfo<cr>")
 nmap("<leader>wy", "<cmd>Mason<cr>")
 
 -- toggle options
+nmap("<leader>oc", "<cmd>set cursorline! cursorcolumn!<cr>")
 nmap("<leader>of", "<cmd>set foldenable!<cr>")
 nmap("<leader>os", "<cmd>set spell!<cr>")
 nmap("<leader>on", function()
@@ -140,19 +137,18 @@ nmap("<leader>on", function()
     vim.cmd [[set nrformats+=alpha]]
   end
 end, { desc = "toggle nrformats" })
-
 nmap("<leader>oj", "<cmd>wincmd _<cr>")
 nmap("<leader>ok", "<cmd>wincmd =<cr>")
 nmap("<leader>ob", ac.toggle_bg, { desc = "toggle background" })
 nmap("<leader><tab>", ac.next_colorscheme, { desc = "switch colorscheme" })
 -- TODO: make it a real toggle
-nmap("<leader>oJ", function() vim.cmd[[noremap J gJ]] end, { desc = "toggle join mode"})
-nmap("<leader>ow", function() vim.cmd[[set wrap!]] end)
+nmap("<leader>oJ", function() vim.cmd [[noremap J gJ]] end, { desc = "toggle join mode" })
+nmap("<leader>ow", function() vim.cmd [[set wrap!]] end)
 
 -- term
-nmap("<m-t>", ":split term://bash<cr>i")
+nmap("<a-t>", ":split term://zsh<cr>i")
 tmap("<c-q>", "<c-\\><c-n>")
-tmap("<m-t>", "<c-\\><c-n>:bdelete! %<cr>")
+tmap("<a-t>", "<c-\\><c-n>:bdelete! %<cr>")
 -- tnoremap('<c-;>', '<cmd>ToggleTerm<cr>') -- unusable in vim
 
 -- diagnostic
@@ -169,42 +165,39 @@ vmap("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 -- get something
 nmap("<leader>gi", "<cmd>UploadClipboard<cr>")
 
+nmap("<leader>t,", ac.toggle_last_char ",", { desc = "add ',' to end of line" })
+nmap("<leader>t;", ac.toggle_last_char ";", { desc = "add ';' to end of line" })
 
-nmap('<leader>,', ac.toggle_last_char(','), { desc = "add ',' to end of line" })
-nmap('<leader>;', ac.toggle_last_char(';'), { desc = "add ';' to end of line" })
-
-nmap('<leader>E', '<Cmd>Inspect<CR>', { desc = 'Inspect the cursor position' })
+nmap("<leader>E", "<Cmd>Inspect<CR>", { desc = "Inspect the cursor position" })
 
 -- FIXME: pos
-nmap('<leader>bo', [[<cmd>w <bar> %bd <bar> e#<cr>]], { desc = 'close all other buffers' })
-nmap('<localleader><tab>', [[:b <tab>]], { silent = false, desc = 'open buffer list' })
+nmap("<leader>bo", [[<cmd>w <bar> %bd <bar> e#<cr>]], { desc = "close all other buffers" })
+nmap("<localleader><tab>", [[:b <tab>]], { silent = false, desc = "open buffer list" })
 
-nmap('<c-e>', [[<c-^>]], { desc = 'switch to last buffer' })
-
-nmap('<leader>U', 'gUiw`]', { desc = 'capitalize word' })
-nmap('<c-w>f', '<c-w>vgf', { desc = 'open file in vertical split' })
+nmap("<leader>U", "gUiw`]", { desc = "capitalize word" })
+nmap("<c-w>f", "<c-w>vgf", { desc = "open file in vertical split" })
 
 -- TODO: text object?
 -- FIXME: cross line ^M -> \n
-nmap('<leader>cw', [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
+nmap("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
   silent = false,
-  desc = 'replace word under the cursor (file)',
+  desc = "replace word under the cursor (file)",
 })
-nmap('<leader>clw', [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
+nmap("<leader>clw", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
   silent = false,
-  desc = 'replace word under the cursor (line)',
+  desc = "replace word under the cursor (line)",
 })
-vmap('<leader>cw', [["zy:%s/<c-r><c-o>"//g<left><left>]], {
+vmap("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
   silent = false,
-  desc = 'replace word under the cursor (visual)',
+  desc = "replace word under the cursor (visual)",
 })
 
 -- TODO: mark current char?
-nmap('<c-p>', 'I- <esc>')
-vmap('<c-p>', 'I- <esc>')
+nmap("<c-p>", "I- <esc>")
+vmap("<c-p>", "I- <esc>")
 
 -- https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser
-vim.cmd[[
+vim.cmd [[
   " nmap <silent> gx :!xdg-open <c-r><c-a>
   nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>
 ]]

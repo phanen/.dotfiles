@@ -23,7 +23,7 @@ return {
   {
     "j-hui/fidget.nvim",
     tag = "legacy",
-    lazy = false,
+    event = "VeryLazy",
     config = true,
   },
 
@@ -82,8 +82,9 @@ return {
           -- nls.builtins.diagnostics.cspell,
           -- nls.builtins.code_actions.cspell,
 
-          nls.builtins.code_actions.shellcheck,
-          nls.builtins.diagnostics.shellcheck,
+          -- nls.builtins.code_actions.shellcheck,
+          -- nls.builtins.diagnostics.shellcheck,
+
           -- .with {
           --       diagnostics_format = "[#{c}] #{m} (#{s})",
           --       diagnostic_config = {
@@ -211,22 +212,5 @@ return {
   --     vim.keymap.set("n", "<leader>go", "<cmd>lua vim.lsp.buf.code_action()<CR>")
   --   end,
   -- },
-  {
-    "zioroboco/nu-ls.nvim",
-    ft = "nu",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "jose-elias-alvarez/null-ls.nvim",
-      "jay-babu/mason-null-ls.nvim",
-    },
-    config = function()
-      require("null-ls").setup {
-        sources = { require "nu-ls" },
-      }
-    end,
-  },
-  {
-    "LhKipp/nvim-nu",
-    lazy = false,
-  },
+
 }
