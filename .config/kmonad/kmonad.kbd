@@ -95,7 +95,7 @@
 
 (deflayer number-l
   _    _    _    _    _    _    _    _    _    _    _    _    _    bspc
-  ~    !    ^    $    +    _    _    &    #    *    |    _    _    \
+  ~    !    ^    #    $    _    _    &    *    +    |    _    _    \
   C-^  [    ]    \(   \)   @    %    \_   -    =    _    @'   _
   grv  ^    &    $    +    *    {    }    _    @.   @/   @srs
   lctl lmet lalt           @SM            @qwe rctl
@@ -152,8 +152,8 @@
 
 (deflayer w-l
   grv  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   caps =    bspc
-  @TB  q    w    e    r    t    y    !    &    ^    p    bspc bspc  \
-  @EC  a    s    d    f    g    @sle @sar +    @sge ~    @'   ret
+  @TB  q    w    e    r    t    y    _    _    _    p    bspc bspc  \
+  @EC  a    s    d    f    g    @sle @sar _    @sge _    @'   ret
   @sls @Z   x    c    v    @brk [    ]    ,    @.   @/   @srs
   lctl lmet @rll           @SM            @num rctl
 )
