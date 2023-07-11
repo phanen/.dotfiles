@@ -22,6 +22,6 @@ local function link_wrap(type)
   end
 end
 
-map({ "n", "x" }, "<leader>ir", link_wrap("raw"))
-map({ "n", "x" }, "<leader>il", link_wrap("link"))
+map({ "n", "x" }, "<leader>il", link_wrap("raw"))
+-- map({ "n", "x" }, "<leader>il", link_wrap("link"))
 map({ "n", "x" }, "<leader>ii", link_wrap("img"))
