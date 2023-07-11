@@ -250,6 +250,7 @@ return {
 
   {
     "vifm/vifm.vim",
+    cond = false,
     lazy = false,
   },
   -- tab
@@ -257,6 +258,10 @@ return {
     'akinsho/bufferline.nvim',
     event = 'UIEnter',
     dependencies = 'nvim-tree/nvim-web-devicons',
+    keys = {
+      { '[b', '<Cmd>BufferLineMovePrev<CR>', { desc = 'bufferline: move next' } },
+      { ']b', '<Cmd>BufferLineMoveNext<CR>', { desc = 'bufferline: move prev' } },
+    },
     opts = {
       options = {
         mode = "buffers",
@@ -267,7 +272,14 @@ return {
             text = "time wait for no man",
             highlight = "Directory",
             text_align = "left"
-          }
+          },
+          {
+            text = 'UNDOTREE',
+            filetype = 'undotree',
+            highlight = 'PanelHeading',
+            separator = true,
+          },
+
         }
       }
     }

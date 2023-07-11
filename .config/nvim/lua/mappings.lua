@@ -35,6 +35,7 @@ xmap(".", ">gv")
 
 xmap("p", '"_dp')
 
+nmap("<s-tab>", "vil")
 -- nmap("<a-k>", ":m .-2<cr>")
 -- nmap("<a-j>", ":m .+1<cr>")
 -- nmap('<a-k>', '<cmd>move-2<CR>==')
@@ -124,6 +125,7 @@ vmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 
 -- toggle windows
 nmap("<leader>wn", "<cmd>NvimTreeFindFileToggle<cr>")
+nmap("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
 nmap("<leader>wo", "<cmd>AerialToggle<cr>")
 nmap("<leader>wm", "<cmd>MarkdownPreview<cr>")
 nmap("<leader>wl", "<cmd>Lazy<cr>")
