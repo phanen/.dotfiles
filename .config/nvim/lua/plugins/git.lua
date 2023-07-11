@@ -22,6 +22,7 @@ return {
 
   {
     "TimUntersberger/neogit",
+    cond = false,
     cmd = "Neogit",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {

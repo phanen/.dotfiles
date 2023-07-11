@@ -1,5 +1,10 @@
 return {
   {
+    'famiu/bufdelete.nvim',
+    lazy = false,
+  },
+
+  {
     "voldikss/vim-browser-search",
     event = "VeryLazy",
     config = function()

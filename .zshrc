@@ -61,7 +61,7 @@ _comp_options+=(globdots)		# include hidden files.
 zstyle ':completion:*:descriptions' format '[w]'
 zstyle ':fzf-tab:*' switch-group 'ctrl-p' 'ctrl-n'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':fzf-tab:*' fzf-bindings 'space:accept' 'ctrl-a:toggle-all'
+zstyle ':fzf-tab:*' fzf-bindings 'space:accept' ';:abort' # 'ctrl-a:toggle-all'
 bindkey '\ee' toggle-fzf-tab
 
 bindkey "^N" history-search-forward

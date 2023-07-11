@@ -52,13 +52,16 @@ super + ctrl + {u,i}
 	if [[ $NEX == 0 ]]; then NEX=7 fi; \
 	bspc desktop -f \^$NEX
 
+super + alt + {j, k}
+	bspc desktop -s {next, prev} -f; bspc monitor -d 1 2 3 4 5 6 0
+
 # status switch
 super + m
 	bspc desktop -l next
 
 # hide
 # super + {_, alt + } v
-# 	bspc node {-g hidden, $(bspc query -N -n .hidden | tail -n1) -g hidden=off}
+# 	bspc node {-g hidden, ${bspc query -N -n .hidden | tail -n1} -g hidden=off}
 super + d
 	sh $XDG_CONFIG_HOME/sxhkd/scripts/toggle-hidden.sh
 

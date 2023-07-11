@@ -56,16 +56,22 @@ return {
       { "<leader>;",  tb.command_history,      mode = { "n", "x" }, },
       { "<leader>fo", tb.oldfiles,             mode = { "n", "x" }, },
       { "<leader>fd", tb.diagnostics,          mode = { "n", "x" }, },
-      { "<leader>fh", tb.help_tags,            mode = { "n", "x" }, },
       { "<leader>fg", tb.grep_string,          mode = { "n", "x" }, },
+      { "<leader>fh", tb.help_tags,            mode = { "n", "x" }, },
+      { "<leader>fu", tb.resume,               mode = { "n", "x" }, },
+      { "<leader>fm", tb.man_pages,            mode = { "n", "x" }, },
       { "<leader>fs", tb.lsp_document_symbols, mode = { "n", "x" }, },
+      { "<leader>fS", tb.git_status,           mode = { "n", "x" }, },
+      { "<leader>fC", tb.git_commits,          mode = { "n", "x" }, },
+      { "<leader>fB", tb.git_bcommits,         mode = { "n", "x" }, },
+      { "z=",         tb.spell_suggest,        mode = { "n", "x" }, },
+      mode = { "n", "x" },
     },
     config = function()
       local tl = require "telescope"
       local ta = require "telescope.actions"
       local tag = require "telescope.actions.generate"
       local tas = require "telescope.actions.state"
-
 
       tl.setup {
         defaults = {
@@ -81,7 +87,7 @@ return {
               ["<c-j>"] = ta.move_selection_next,
               ["<c-k>"] = ta.move_selection_previous,
               ["<c-g>"] = ta.move_to_bottom,
-              ["<c-l>"] = function(prompt_bufnr)
+              ["<c-y>"] = function(prompt_bufnr)
                 local entry = tas.get_selected_entry()
                 local prompt_text = entry.text or entry[1]
                 vim.fn.system("echo -n " .. prompt_text .. "| xsel -ib")
@@ -90,7 +96,14 @@ return {
                 ta.close(prompt_bufnr)
                 return true -- otherwise, cannot close?
               end,
-
+              ["<c-l>"] = function(prompt_bufnr)
+                local entry = tas.get_selected_entry()
+                local prompt_text = entry.text or entry[1]
+                vim.fn.system("echo -n " .. prompt_text .. "| xsel -ib")
+                vim.api.nvim_paste(prompt_text, true, 1)
+                --   vim.api.nvim_get_current_buf()
+                return true
+              end,
               -- require('telescope.actions.state').get_current_picker(vim.api.nvim_buf_get_number(0))
               -- https://stackoverflow.com/questions/74091577/how-to-get-prompt-value-in-telescope-vim
               -- https://www.reddit.com/r/neovim/comments/11puvr6/getting_custom_telescope_live_grep_to_selectjump/

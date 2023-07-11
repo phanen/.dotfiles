@@ -17,7 +17,6 @@ asciiquarium
 asp
 autoconf
 automake
-awesome
 awesome-terminal-fonts
 baidupcs-go
 base
@@ -95,7 +94,6 @@ evtest
 exa
 fakeroot
 farbfeld
-fasm
 fcitx5
 fcitx5-chinese-addons
 fcitx5-configtool
@@ -115,7 +113,6 @@ fish
 flameshot
 flatpak
 flex
-foliate
 fontpreview
 fzf
 fzf-tab-git
@@ -192,7 +189,6 @@ libtool
 libxft
 libxinerama
 light
-lilac-git
 linux
 linux-docs
 linux-firmware
@@ -204,7 +200,6 @@ looking-glass-git
 looking-glass-module-dkms
 lostfiles
 love
-lsd
 lshw
 lsof
 ltrace
@@ -247,7 +242,6 @@ noto-fonts-cjk
 noto-fonts-emoji
 npm
 ntfs-3g
-ntl
 ntp
 nushell
 nvidia-open
@@ -259,7 +253,6 @@ ocrad
 ocrmypdf
 openssh
 os-prober
-p7zip
 pacman
 pacman-contrib
 pandoc-cli
@@ -272,7 +265,7 @@ pdfarranger
 pdfgrep
 perl-cgi
 perl-image-exiftool
-picom-animations-git
+picom-simpleanims-next-git
 pigz
 pipewire-pulse
 pkgconf
@@ -327,6 +320,7 @@ setconf
 shfmt
 shotcut
 shotgun
+silicon
 sioyek
 slip
 slock

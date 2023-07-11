@@ -26,11 +26,11 @@ fmp() { mpv "$(fzf)" >/dev/null 2>&1; }
 fhs() { stty -echo && history | grep ""$@ | awk '{$1=$2=$3=""; print $0}' | fzf | xargs -I {} xdotool type {} && stty echo; }
 
 fcl() {
-	(
-		cd "${XDG_CONFIG_HOME}"/clash/ || exit
-		ln -sf $(ls *.yaml | fzf) config.yaml
-		clash
-	)
+	# cd "${XDG_CONFIG_HOME}"/clash/ || exit
+	# ln -sf $(ls *.yaml | fzf) config.yaml
+	# clash
+	CLASH_CONFIG=$(find .config/clash -type f -name "*.yaml" | fzf)
+	[[ -n $CLASH_CONFIG ]] && clash -f $CLASH_CONFIG || exit
 }
 
 calc() {
@@ -196,4 +196,8 @@ n() {
 ni() {
 	cd ~/notes
 	nvim "$(fzf)"
+}
+
+resource() {
+	exec $SHELL
 }

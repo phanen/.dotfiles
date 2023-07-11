@@ -33,7 +33,7 @@
   .    (tap-hold-next-release 500 .   (around lctrl lsft))
 
   '    (tap-hold-next-release 500 '   (layer-toggle number-l))
-  ;    (tap-next-press ;   (layer-toggle number-l))
+  ;    (tap-next-press ;              (layer-toggle number-l))
   /    (tap-hold-next-release 500 /   (layer-toggle number-l))
 
   sls  (around lsft (layer-toggle shift-l))
@@ -53,8 +53,8 @@
 
 
 (deflayer qwerty-l
-  @mt  1    2    3    4    5    6    7    8    9    0    caps =    bspc
-  @TB  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @mt  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @TB  q    w    e    r    t    y    u    i    o    p    bspc caps \
   @EC  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sls @Z   x    c    v    b    n    m    ,    @.   @/   @srs
   lctl lmet @rll           @SM            ralt rctl
