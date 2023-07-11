@@ -4,20 +4,20 @@ return {
   {
     "linty-org/readline.nvim",
     keys = {
-      { "<c-f>", "<right>", mode = "!" },
-      { "<c-b>", "<left>", mode = "!" },
-      { "<c-p>", "<up>", mode = "!" },
-      { "<c-n>", "<down>", mode = "!" },
-      { "<m-f>", function() require("readline").forward_word() end, mode = "!" },
-      { "<m-b>", function() require("readline").backward_word() end, mode = "!" },
-      { "<c-a>", function() require("readline").beginning_of_line() end, mode = "!" },
-      { "<c-e>", function() require("readline").end_of_line() end, mode = "!" },
+      { "<c-f>",  "<right>",                                               mode = "!" },
+      { "<c-b>",  "<left>",                                                mode = "!" },
+      { "<c-p>",  "<up>",                                                  mode = "!" },
+      { "<c-n>",  "<down>",                                                mode = "!" },
+      { "<m-f>",  function() require("readline").forward_word() end,       mode = "!" },
+      { "<m-b>",  function() require("readline").backward_word() end,      mode = "!" },
+      { "<c-a>",  function() require("readline").beginning_of_line() end,  mode = "!" },
+      { "<c-e>",  function() require("readline").end_of_line() end,        mode = "!" },
       -- { '<c-w>', function() require('readline').unix_word_rubout() end, mode = '!' },
       { "<m-bs>", function() require("readline").backward_kill_word() end, mode = "!" },
-      { "<m-d>", function() require("readline").kill_word() end, mode = "!" },
-      { "<c-l>", function() require("readline").kill_word() end, mode = "!" },
-      { "<c-k>", function() require("readline").kill_line() end, mode = "!" },
-      { "<c-u>", function() require("readline").backward_kill_line() end, mode = "!" },
+      { "<m-d>",  function() require("readline").kill_word() end,          mode = "!" },
+      { "<c-l>",  function() require("readline").kill_word() end,          mode = "!" },
+      { "<c-k>",  function() require("readline").kill_line() end,          mode = "!" },
+      { "<c-u>",  function() require("readline").backward_kill_line() end, mode = "!" },
     },
   },
 
@@ -29,14 +29,6 @@ return {
       move_cursor = true,
       keymaps = { visual = "s" },
       surrounds = {
-        ["*"] = {
-          add = { " **", "** " },
-          find = "%*%*.-%*%*",
-          delete = "^(%*%*?)().-(%*%*?)()$",
-          change = {
-            target = "^(%*%*?)().-(%*%*?)()$",
-          },
-        },
         ["j"] = {
           add = { "**", "**" },
           find = "%*%*.-%*%*",
@@ -47,12 +39,21 @@ return {
         },
         ["k"] = {
           add = { "```", "```" },
-          -- find = "%*%*.-%*%*",
-          -- delete = "^(%*%*?)().-(%*%*?)()$",
-          -- change = {
-          --   target = "^(%*%*?)().-(%*%*?)()$",
-          -- },
+          find = "%```.-```",
+          delete = "^(```?)().-(```?)()$",
+          change = {
+            target = "^(```?)().-(```?)()$",
+          },
         },
+        ["n"] = {
+          add = { "{", "}" },
+          find = "%{.-%}",
+          delete = "^({?)().-(}?)()$",
+          change = {
+            target = "^({?)().-(}?)()$",
+          },
+
+        }
 
       },
     },
