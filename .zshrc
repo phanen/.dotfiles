@@ -31,12 +31,12 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 bindkey -e # must set first
 bindkey -s '\eq' '\C-a\C-e >/dev/null 2>&1 &'
 bindkey -s '\ew' '\C-asudo \C-a\C-e'
-bindkey -s '\ee' '\C-anvim \C-a\C-e'
-bindkey -s '\eo' '\C-ulfcd\C-m'
+# bindkey -s '\eo' '\C-ulfcd\C-m'
 bindkey -s '\ej' '\C-a\C-e 2>&1 | rg '
 bindkey -s '\eg' '\C-a\C-e 2>&1 | nvim -'
 bindkey -s '\ek' '\C-uclear\C-m'
 bindkey -s '\el' '\C-a\C-e | bat'
+bindkey -s '\es' '\C-uresource\C-m'
 
 # complete, https://thevaluable.dev/zsh-completion-guide-examples/
 autoload -U compinit
@@ -46,21 +46,26 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# include hidden files.
 
-zstyle ':completion:*' menu select
-# bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect '^P' vi-up-line-or-history
-bindkey -M menuselect '^N' vi-down-line-or-history
-# bindkey -M menuselect 'l' vi-forward-char
-bindkey "^N" history-search-forward
-bindkey "^P" history-search-backward
+# zstyle ':completion:*' menu select
+# bindkey -M menuselect '^P' vi-up-line-or-history
+# bindkey -M menuselect '^N' vi-down-line-or-history
+
 # partial color, https://www.reddit.com/r/zsh/comments/msps0/color_partial_tab_completions_in_zsh/
-zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==02=01}:${(s.:.)LS_COLORS}")'
+# zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==02=01}:${(s.:.)LS_COLORS}")'
 
 # load syntax highlighting; should be last
 # . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
-# . /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh
-. /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+# https://github.com/Aloxaf/fzf-tab/wiki/Configuration
+. /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh
+# zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':completion:*:descriptions' format '[w]'
+zstyle ':fzf-tab:*' switch-group 'ctrl-p' 'ctrl-n'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':fzf-tab:*' fzf-bindings 'space:accept' 'ctrl-a:toggle-all'
+bindkey '\ee' toggle-fzf-tab
+
+bindkey "^N" history-search-forward
+bindkey "^P" history-search-backward
 
 # https://stackoverflow.com/questions/4405382/how-can-i-read-documentation-about-built-in-zsh-commands
 unalias run-help
@@ -119,4 +124,6 @@ zle -N accept-line expand-alias-and-accept-line
 abbrev-alias px='http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890 all_proxy=http://127.0.0.1:7890'
 abbrev-alias spx='--preserve-env=http_proxy,https_proxy,all_proxy'
 
+. /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
