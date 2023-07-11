@@ -33,7 +33,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.o.completeopt = "menuone,noselect,noinsert"
+-- vim.o.completeopt = "menuone,noselect,noinsert"
 
 -- WIP: navie config parser
 local f = assert(io.open(vim.fn.expand "$XDG_CONFIG_HOME" .. "/nvim/theme", "r"))

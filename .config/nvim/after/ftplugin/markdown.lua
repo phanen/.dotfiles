@@ -17,6 +17,9 @@ local function link_wrap(type)
       text = "[]<" .. text .. ">"
     elseif type == "img" then
       text = "![]<" .. text .. ">"
+    elseif type == "git" then
+      text = string.gsub(text, "(https)://github.com/", "")
+      -- text = string.gsub(text, "(https%|http)://github.com/", "")
     end
     vim.api.nvim_paste(text, true, 1)
   end
@@ -25,3 +28,4 @@ end
 map({ "n", "x" }, "<leader>il", link_wrap("raw"))
 -- map({ "n", "x" }, "<leader>il", link_wrap("link"))
 map({ "n", "x" }, "<leader>ii", link_wrap("img"))
+map({ "n", "x" }, "<leader>ig", link_wrap("git"))
