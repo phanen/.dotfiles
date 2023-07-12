@@ -178,14 +178,14 @@ return {
       -- require('toggle_lsp_diagnostics').init(vim.diagnostic.config())
     end,
     keys = {
-      { "<leader>tlu",  mode = { "n" }, "<Plug>(toggle-lsp-diag-underline)" },
-      { "<leader>tls",  mode = { "n" }, "<Plug>(toggle-lsp-diag-signs)" },
-      { "<leader>tlv",  mode = { "n" }, "<Plug>(toggle-lsp-diag-vtext)" },
-      { "<leader>tlp",  mode = { "n" }, "<Plug>(toggle-lsp-diag-update_in_insert)" },
-      { "<leader>tld",  mode = { "n" }, "<Plug>(toggle-lsp-diag)" },
+      { "<leader>tlu", mode = { "n" }, "<Plug>(toggle-lsp-diag-underline)" },
+      { "<leader>tls", mode = { "n" }, "<Plug>(toggle-lsp-diag-signs)" },
+      { "<leader>tlv", mode = { "n" }, "<Plug>(toggle-lsp-diag-vtext)" },
+      { "<leader>tlp", mode = { "n" }, "<Plug>(toggle-lsp-diag-update_in_insert)" },
+      { "<leader>tld", mode = { "n" }, "<Plug>(toggle-lsp-diag)" },
       -- { "<leader>tldd", mode = { "n" }, "<Plug>(toggle-lsp-diag-default)" },
-      { "<leader>to", mode = { "n" }, "<Plug>(toggle-lsp-diag-off)" },
-      { "<leader>tf", mode = { "n" }, "<Plug>(toggle-lsp-diag-on)" },
+      { "<leader>to",  mode = { "n" }, "<Plug>(toggle-lsp-diag-off)" },
+      { "<leader>tf",  mode = { "n" }, "<Plug>(toggle-lsp-diag-on)" },
     },
   },
 }
