@@ -64,12 +64,6 @@ map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
 -- how to quit in vim
 nmap("<c-e>", "<cmd>Bdelete!<cr>")
 nmap("<leader>q", "<cmd>wincmd q<cr>")
-nmap("<localleader>w", "<cmd>write<cr>")
-imap("<c-q>", "<cmd>Bdelete!<cr>")
-imap("<c-s>", "<cmd>write<cr>")
-
--- map({ "n", "v", "o" }, "<a-j>", "<cmd>BufferLineCycleNext<cr>")
--- map({ "n", "v", "o" }, "<a-k>", "<cmd>BufferLineCyclePrev<cr>")
 
 nmap("<a-k>", "<cmd>move-2<CR>==")
 nmap("<a-j>", "<cmd>move+<CR>==")
@@ -102,26 +96,26 @@ nmap(
 )
 nmap("<leader>rs", "<cmd>%s/\\s*$//g<cr>''", { desc = "clean tail space" })
 nmap("<leader>rl", "<cmd>g/^$/d<cr>''", { desc = "clean the blank line" })
-vmap("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
+xmap("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
 -- TODO (complete comment char)
 nmap("<leader>rc", "<cmd>g/^#/d<cr>''", { desc = "clean the comment line" })
 
-vmap("<leader>rk", [[:s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
-vmap("<leader>r,", [[:s/,\([^ ]\)/, \1/g<cr>]])
+xmap("<leader>rk", [[:s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
+xmap("<leader>r,", [[:s/,\([^ ]\)/, \1/g<cr>]])
 -- no.-> no.space
-vmap("<leader>rn", [[:s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
+xmap("<leader>rn", [[:s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
 -- TODO: smart remove in-text whitespace
 -- :%s/\([^ ]\+ \) \+/\1/g
 
 -- hex to dec
-vmap("<leader>ro", [[:'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
+xmap("<leader>ro", [[:'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
 -- dec to hex
-vmap("<leader>rh", [[:'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
+xmap("<leader>rh", [[:'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
 
-vmap("<leader>rm", [[:s/\s\{1,}//g<cr>]])
+xmap("<leader>rm", [[:s/\s\{1,}//g<cr>]])
 
 nmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
-vmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
+xmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 
 -- toggle windows
 nmap("<leader>wn", "<cmd>NvimTreeFindFileToggle<cr>")
@@ -168,7 +162,7 @@ nmap("<leader>ds", vim.diagnostic.setloclist)
 -- search
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
-vmap("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
+xmap("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 
 -- get something
 nmap("<leader>gi", "<cmd>UploadClipboard<cr>")
@@ -195,17 +189,19 @@ nmap("<leader>cl", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
   silent = false,
   desc = "replace word under the cursor (line)",
 })
-vmap("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
+xmap("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
   silent = false,
   desc = "replace word under the cursor (visual)",
 })
 
 -- TODO: mark current char?
 nmap("<c-p>", "I- <esc>")
-vmap("<c-p>", "I- <esc>")
+xmap("<c-p>", "I- <esc>")
 
 -- https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser
 vim.cmd [[
   " nmap <silent> gx :!xdg-open <c-r><c-a>
   nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>
 ]]
+
+
