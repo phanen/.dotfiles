@@ -3,6 +3,7 @@ export VISUAL=nvim
 export TERMINAL=alacritty
 [ -n "$DISPLAY" ] && export BROWSER=chromium || export BROWSER=links
 export PDF="chromium"
+export FETCHER=uwufetch
 # export MANPAGER="/bin/sh -c \"col -b | nvim -u NORC -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 # export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 export MANPAGER='nvim +Man!'
@@ -22,10 +23,8 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export XDG_CONFIG_DIRS="/etc/xdg"
-
 export HISTCONTROL="erasedups:ignorespace:ignoreboth"
 
-# proxy
 export http_proxy="http://127.0.0.1:7890"
 export https_proxy=$http_proxy
 export ftp_proxy=$http_proxy
@@ -33,16 +32,12 @@ export rsync_proxy=$http_proxy
 export all_proxy=$http_proxy
 export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 
-export EDK_TOOLS_PATH=$HOME/demo/hard/edk2/BaseTools
-
-export CHROOT=$HOME/chroot
-export dev_dir="$HOME/demo/ndev"
-
-FETCHER=uwufetch
-
 # dark mode
 export GTK_THEME=Adwaita
 export GTK2_RC_FILES=/usr/share/themes/Adwaita/gtk-2.0/gtkrc
 export QT_STYLE_OVERRIDE=adwaita
-# gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
+export EDK_TOOLS_PATH=$HOME/demo/os/edk2/BaseTools
+export CHROOT=$HOME/chroot
+
+# gsettings set org.gnome.desktop.interface color-scheme prefer-dark

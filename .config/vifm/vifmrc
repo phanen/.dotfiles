@@ -31,9 +31,8 @@ set syscalls
 " This probably shouldn't be an option.
 set trash
 
-" What should be saved automatically on restarting vifm.  Drop "savedirs"
-" value if you don't want vifm to remember last visited directories for you.
-set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
+" savedirs
+set vifminfo=dhistory,chistory,state,tui,shistory,
             \phistory,fhistory,dirstack,registers,bookmarks,bmarks
 
 " This is how many directories to store in the directory history.
@@ -604,5 +603,3 @@ fileviewer <font/*>
     \ vifmimg font %px %py %pw %ph %c
     \ %pc
     \ vifmimg clear
-
-

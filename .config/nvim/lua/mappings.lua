@@ -118,7 +118,7 @@ nmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 xmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 
 -- toggle windows
-nmap("<leader>wn", "<cmd>NvimTreeFindFileToggle<cr>")
+-- nmap("<leader>wn", "<cmd>NvimTreeFindFileToggle<cr>")
 nmap("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
 nmap("<leader>wo", "<cmd>AerialToggle<cr>")
 nmap("<leader>wm", "<cmd>MarkdownPreview<cr>")

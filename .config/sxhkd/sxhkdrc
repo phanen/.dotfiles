@@ -19,8 +19,11 @@ super + l
 
 super + ctrl + {j, k}
 	bspc desktop -f {next, prev}.local
-super + {e, h}
-	bspc {desktop -f last, node -f last.local}
+# reserve for tabbed
+# super + {e, h}
+# 	bspc {desktop -f last, node -f last.local}
+super + e
+	bspc desktop -f last
 super + {o, i}
 	bspc wm -h off; \
 	bspc node -f {older, newer}; \
@@ -68,8 +71,9 @@ super + d
 super + alt + {m, l, s, p}
 	bspc node -g {marked, locked, sticky, private}
 
-super + f
-	bspc node -t \~floating
+# reserve for tabbed
+# super + f
+# 	bspc node -t \~floating
 super + y
 	bspc node -t \~pseudo_tiled
 super + shift + y
@@ -109,6 +113,8 @@ super + semicolon
 	rofi -show run -matching fuzzy
 super + w
 	rofi -show window -matching fuzzy
+super + backslash
+	rofi -show keys -matching fuzzy
 super + {_, ctrl + } slash
 	alacritty --working-directory ~ --command nvim {_, $XDG_CONFIG_HOME/sxhkd/sxhkdrc}
 super + period

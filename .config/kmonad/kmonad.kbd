@@ -2,7 +2,8 @@
 
 (defcfg
   ;; input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
-  input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
+  input  (device-file "/dev/input/by-id/usb-HS-HW098A__D-US-01-00-_USB_Keyboard-event-kbd")
+
   output (uinput-sink "KMonad" "sleep .3 && xset r rate 145 85")
   ;; cmp-seq ralt
   fallthrough true
@@ -89,10 +90,10 @@
 
 (deflayer symbol
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  ~    !    ^    #    $    _    _    &    *    +    |    _    _    \
+  ~    !    ^    #    $    _    _    &    *    +    |    _    _    _
   C-^  [    ]    \(   \)   @    %    \_   -    =    _    @'   _
-  grv  ^    &    $    +    *    {    }    _    .    /    \
-  lctl lmet lalt           @sm            @qwe rctl
+  grv  .    ?    <    >    _    {    }    _    .    /    \
+  _    _    _              _              _    _
 )
 
 (deflayer modular
@@ -132,7 +133,7 @@
 (deflayer vim-normal
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @tb  _ C-right _  C-S-z  t    C-c C-z  @qwe  o    C-V  [    ]    \
-  @vc  _    _    bspc f    g    left down up right del   _    _  
+  @vc  _    _    bspc f    g    left down up right del   _    _
   @sft _  _   _  @vis   C-left  _    _    _    _    _    _
   lctl lmet @qwe          @sm            ralt rctl
 )
@@ -146,11 +147,11 @@
 )
 
 ;; (deflayer vim-visual
-;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_ S-_ 
-;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_ S-_ 
-;;   @rem   S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_ 
-;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_ 
-;;   S-_    S-_    S-_              _              _    _ 
+;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_ S-_
+;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_ S-_
+;;   @rem   S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_
+;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_
+;;   S-_    S-_    S-_              _              _    _
 ;; )
 
 (deflayer emacs-young
