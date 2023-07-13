@@ -154,6 +154,12 @@ super + BackSpace
 super + Tab
 	dunstctl close-all
 
+super + plus
+	bspc node @/ --equalize
+super + underscore
+	bspc node @/ --balance
+
+
 # proxy, via kmonad
 super + {F1, F2}
 	sound-control {down, up}
