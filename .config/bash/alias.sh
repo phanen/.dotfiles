@@ -13,7 +13,7 @@ alias l="ll"
 alias lt="ls --tree"
 alias lta="ls -a --tree"
 alias grep="grep --color"
-alias rm="rm -i"
+# alias rm="rm -i"
 alias df="df -h"
 alias which="which -a"
 alias type="type -a"
@@ -34,7 +34,7 @@ alias lg="lazygit"
 alias ua="sudo umount -R /mnt"
 alias hm="l | wc -l"
 alias cs="cd $XDG_STATE_HOME/nvim/swap/"
-alias ok='echo $?'
+alias ok='echo $status'
 alias km='pkill kmonad; kmonad ~/.config/kmonad/kmonad.kbd -w 50 & disown'
 
 # pacman
