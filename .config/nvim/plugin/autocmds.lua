@@ -106,7 +106,7 @@ au({ "ColorScheme" }, {
 	pattern = "*",
 	callback = function() -- inactivate and record
 		-- vim.fs.dirname
-		local f = assert(io.open(fn.expand("$XDG_CONFIG_HOME") .. "/nvim/theme", "w"))
+		local f = assert(io.open(fn.stdpath('config') .. "/theme", "w"))
 		f:write(vim.g.colors_name)
 		f:close()
 	end,

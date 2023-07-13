@@ -70,13 +70,15 @@ env:
 window:
   opacity: 0.9
 
+font:
+  normal:
+    family: CaskaydiaCove Nerd Font
     # family: Fira Mono Medium
+    # family: FiraCode Nerd Font Mono
     # family: Source Code Pro
     # family: JetBrainsMono Nerd Font Mono
     # family: Hack Nerd Font
-font:
-  normal:
-    family: FiraCode Nerd Font Mono
+    # family: VictorMono Nerd Font
     style: Regular
   size: 10
 
