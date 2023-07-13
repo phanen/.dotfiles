@@ -35,11 +35,12 @@ fi
 # session-wise daemon, but:
 #     fcitx5/browser seems not work in multiply xdisplay?
 # _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
+fcitx5 -d
+sleep .5
+kmonad ~/.config/kmonad/kmonad.kbd -w 10 &
 polybar -r &
-fcitx5 -d &
 picom &
 
-kmonad ~/.config/kmonad/kmonad.kbd -w 10 & disown
 # dont use Espace...
 sxhkd -a Tab &
 # udiskie &

@@ -9,10 +9,12 @@
 systemctl --user restart clipmenud.service
 
 # https://unix.stackexchange.com/a/693009
-(set -m; pkill kmonad; kmonad ~/.config/kmonad/kmonad.kbd -w 50 2>&1 >/dev/null &)
+# (set -m; pkill kmonad; kmonad ~/.config/kmonad/kmonad.kbd -w 50 2>&1 >/dev/null &)
+# sleep .5
 # nohup km >/dev/null 2>&1
 
-sleep 0.5
+while true; do tabc autod Alacritty; done &
+
 CLASH_CONFIG=$(find .config/clash -type f -name "*.yaml" | fzf)
 [[ -n $CLASH_CONFIG ]] && clash -f $CLASH_CONFIG || exit
 
