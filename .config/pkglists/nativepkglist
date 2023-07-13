@@ -104,6 +104,7 @@ file
 findutils
 firefox
 fish
+fisher
 flameshot
 flatpak
 flex
@@ -145,6 +146,7 @@ gzip
 handlr
 helix
 hexer
+hexyl
 htop
 httping
 hugo
@@ -250,6 +252,7 @@ pkgconf
 pkgfile
 podman
 polybar
+procs
 pwgen
 python
 python-certifi

@@ -1,3 +1,4 @@
+babelfish-fish
 bochs-gdb-stub
 bsp-layout
 bsptab-git
@@ -5,6 +6,8 @@ code-marketplace
 darkman
 debtap
 farbfeld
+fifc
+fish-fzf
 fontpreview
 gibo
 google-chrome
