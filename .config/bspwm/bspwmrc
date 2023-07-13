@@ -39,15 +39,15 @@ bspc rule --add wemeetapp::EmojiFloatWnd state=floating rectangle=1x1+1+1
 
 echo "1 2 3 4 5 6 0" | tr ' ' '\n' | xargs -I@ bsp-layout set tall @
 
-_loop_run() {
-  while true; do
-    local ret="$(eval "$@" 2>&1)"
-    [[ "$ret" =~ "socket" ]] && exit
-    # [[ "$(tty)" =~ "/dev/tty" ]] && exit
-  done &
-}
+# _loop_run() {
+#   while true; do
+#     local ret="$(eval "$@" 2>&1)"
+#     [[ "$ret" =~ "socket" ]] && exit
+#     # [[ "$(tty)" =~ "/dev/tty" ]] && exit
+#   done &
+# }
 
-_loop_run "tabc autod Alacritty"
+# _loop_run "tabc autod Alacritty"
 
 # ~/bin/loop.sh
 # _run() { while true; do eval "$@" 2>&1 >/dev/null; done; }

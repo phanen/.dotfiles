@@ -7,7 +7,7 @@ super {_, ctrl +} + r
 	{pkill -USR1 -x sxhkd, bspc wm -r; pkill polybar; polybar -r;}
 super {_, ctrl +} q
 	bspc {node -c, quit}
-	
+
 # navigate
 super + {j, k}
 	bspc node -f {next, prev}.local.!hidden.window
@@ -109,25 +109,23 @@ super + shift + c
 	bsp-layout set tall
 
 # launcher
-super + ctrl + n
-	~/bin/tabexec.sh alacritty msg create-window
-	# id=$(bspc query -N -n focused); tabc autoattach $id; alacritty msg create-window; tabc autoattach $id;
 super + b
 	~/bin/tabexec.sh alacritty msg create-window
 super + n
 	alacritty --working-directory ~
-	# tabbed -c alacritty --working-directory ~ --embed
 super + t
-	tabc autoattach $(bspc query -N -n focused)
+	tabc create $(bspc query -N -n focused)
+# 	id=$(bspc query -N -n); \
+# 	[[ "$(tabc printclass $id)" == "tabbed" ]] \
+# 	&& tabc detach $id \
+# 	|| tabc create $id
+	## tabc autoattach $(bspc query -N -n focused)
 super + semicolon
 	rofi -show run -matching fuzzy
 super + apostrophe
 	~/bin/tabexec.sh eval "$(dmenu_path | rofi -dmenu)"
 	# ~/bin/tabexec.sh rofi -show run -matching fuzzy
 	# id=$(bspc query -N -n focused); tabc autoattach $id; rofi -show run -matching fuzzy; sleep 0.3; tabc autoattach $id;
-super + n
-	alacritty --working-directory ~
-	# tabbed -c alacritty --working-directory ~ --embed
 super + w
 	rofi -show window -matching fuzzy
 super + backslash
@@ -136,7 +134,7 @@ super + {_, ctrl + } slash
 	alacritty --working-directory ~ --command nvim {_, $XDG_CONFIG_HOME/sxhkd/sxhkdrc}
 super + period
 	alacritty --working-directory ~/notes --command nvim todo.md
-	# FIXME kitty --detach --working-directory ~/notes nvim ~/notes/todo.md 
+	# FIXME kitty --detach --working-directory ~/notes nvim ~/notes/todo.md
 # super + t
 # 	dex --term alacritty /usr/share/applications/vifm.desktop
 super + {z, x, c}
