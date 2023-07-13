@@ -36,6 +36,7 @@ bspc rule --add wemeetapp:EmojiFloatWnd state=floating rectangle=1x1+1+1
 bspc rule --add wemeetapp::EmojiFloatWnd state=floating rectangle=1x1+1+1
 
 echo "1 2 3 4 5 6 0" | tr ' ' '\n' | xargs -I@ bsp-layout set tall @
+_bootstrap tabc autod Alacritty &
 # bspc config automatic_scheme spiral
 # bspc config initial_polarity first_child
 # bspc config removal_adjustment true

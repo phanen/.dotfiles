@@ -40,6 +40,7 @@ bpftrace
 brave-bin
 broot
 bsp-layout
+bsptab-git
 bspwm
 byzanz
 cabextract
@@ -237,7 +238,6 @@ nmap
 nnn
 nodejs-neovim
 notcurses
-notion
 noto-fonts-cjk
 noto-fonts-emoji
 npm
