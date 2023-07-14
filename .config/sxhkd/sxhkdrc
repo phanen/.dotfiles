@@ -1,6 +1,8 @@
 # /usr/share/doc/bspwm/examples/sxhkdrc
 
-# don't use key remap like xdotool
+# don't use xdotool, maybe collide with kmonad
+
+# export SXHKD_SHELL='/usr/bin/sh'
 
 # control
 super {_, ctrl +} + r
