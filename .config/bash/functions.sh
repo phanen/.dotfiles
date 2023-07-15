@@ -36,35 +36,8 @@ calc() {
 	echo "scale=3;$@" | bc -l
 }
 
-
-# ipif() {
-# 	if grep -P "(([1-9]\d{0,2})\.){3}(?2)" <<<"$1"; then
-# 		curl ipinfo.io/"$1"
-# 	else
-# 		ipawk=($(host "$1" | awk '/address/ { print $NF }'))
-# 		curl ipinfo.io/${ipawk[1]}
-# 	fi
-# 	echo
-# }
-
 ATHEME="$XDG_CONFIG_HOME"/alacritty/alacritty-theme/themes/
 ACONFIG="$XDG_CONFIG_HOME"/alacritty/alacritty.yml
-alswitch() { # alacritty switch theme
-	theme=$(ls -1 "$ATHEME" | shuf -n1)
-	sed -i '3s/themes\/.*\.ya\?ml$/themes\/'$theme'/' $ACONFIG
-	echo "$theme"
-	# xsetroot -name "$random_theme  $(date)"
-}
-
-sala() { # alacritty select theme
-	theme=$(ls -1 "$ATHEME" | fzf)
-	sed -i '3s/themes\/.*\.ya\?ml$/themes\/'$theme'/' $ACONFIG
-	echo "$theme"
-}
-
-bala() { # alacritty blink theme
-	while true; do alswitch && sleep 0.1; done >/dev/null
-}
 
 diskcheck() {
 # https://stackoverflow.com/questions/35005915/using-watch-to-run-a-function-repeatedly-in-bash

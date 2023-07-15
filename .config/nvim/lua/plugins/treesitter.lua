@@ -37,16 +37,17 @@ return {
               ['if'] = '@function.inner',
               ['ac'] = '@class.outer',
               ['ic'] = '@class.inner',
+              ['aC'] = '@conditional.outer',
+              ['iC'] = '@conditional.inner',
+              ['aL'] = '@assignment.lhs',
+              ['aR'] = '@assignment.rhs',
+
             },
           },
           swap = {
             enable = true,
-            swap_next = {
-              ['<leader>a'] = '@parameter.inner',
-            },
-            swap_previous = {
-              ['<leader>A'] = '@parameter.inner',
-            },
+            swap_next = { ['<leader>an'] = '@parameter.inner', },
+            swap_previous = { ['<leader>ap'] = '@parameter.inner', },
           },
           move = {
             enable = true,
@@ -73,16 +74,17 @@ return {
     end
   },
 
-  -- {
-  --   'nvim-treesitter/nvim-treesitter-context',
-  --   event = 'VeryLazy',
-  --   opts = {
-  --     max_lines = 4,
-  --     multiline_threshold = 4,
-  --     separator = { '─', 'ContextBorder' }, -- alternatives: ▁ ─ ▄
-  --     mode = 'cursor',
-  --   },
-  -- },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    cond = false,
+    event = 'VeryLazy',
+    opts = {
+      max_lines = 4,
+      multiline_threshold = 4,
+      separator = { '─', 'ContextBorder' }, -- alternatives: ▁ ─ ▄
+      mode = 'cursor',
+    },
+  },
 
   {
     'nvim-treesitter/playground',

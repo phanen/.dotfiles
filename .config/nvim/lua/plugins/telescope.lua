@@ -117,6 +117,7 @@ return {
       }
       -- enable fzf native
       pcall(tl.load_extension, "fzf")
+      -- pcall(tl.load_extension, "luasnip")
     end,
   },
 
@@ -124,6 +125,13 @@ return {
     "crispgm/telescope-heading.nvim",
     ft = { "markdown", "tex" },
     -- keys = { "<leader>fh", "<cmd>Telescope heading<cr>", desc = "find headings" },
+  },
+
+  {
+    'benfowler/telescope-luasnip.nvim',
+    cond = false,
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    config = function() require('telescope').load_extension('luasnip') end,
   },
 
   {
