@@ -1,5 +1,3 @@
--- local map = vim.keymap.set
-
 local recursive_map = function(mode, lhs, rhs, opts)
   opts = opts or {}
   opts.remap = true
@@ -20,8 +18,10 @@ local lmap = function(...) map("l", ...) end
 
 local ac = require "utils.actions"
 
-map({ "n", "v", "o" }, "<space>", "<nop>")
+map({ "n", "x", "o" }, "<space>", "<nop>")
 
+map({ "n", "x" }, ";", ":")
+map({ "n", "x" }, ":", ";")
 nmap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
 nmap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 
@@ -118,7 +118,6 @@ nmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 xmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 
 -- toggle windows
--- nmap("<leader>wn", "<cmd>NvimTreeFindFileToggle<cr>")
 nmap("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
 nmap("<leader>wo", "<cmd>AerialToggle<cr>")
 nmap("<leader>wm", "<cmd>MarkdownPreview<cr>")
@@ -203,5 +202,3 @@ vim.cmd [[
   " nmap <silent> gx :!xdg-open <c-r><c-a>
   nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>
 ]]
-
-
