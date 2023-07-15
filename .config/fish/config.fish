@@ -6,6 +6,13 @@ if status is-interactive
     # WIP
     # cat ~/.config/bash/keybindings.sh | sed "/\$-/d;" | babelfish | source
 
+    # fcitx5 env, should export here, anyway...
+    export GTK_IM_MODULE=fcitx
+    export QT_IM_MODULE=fcitx
+    export XMODIFIERS=@im=fcitx
+    export SDL_IM_MODULE=fcitx
+    export GLFW_IM_MODULE=ibus
+
     fish_default_key_bindings
 
     bind --preset H beginning-of-line

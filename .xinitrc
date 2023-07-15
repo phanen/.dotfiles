@@ -41,8 +41,9 @@ kmonad ~/.config/kmonad/kmonad.kbd -w 10 &
 polybar -r &
 picom &
 
-# dont use Espace...
-sxhkd -a Tab &
+# avoid fish handle sxhkd
+export SXHKD_SHELL='/usr/bin/sh'
+sxhkd -a Tab & # dont use Espace...
 # udiskie &
 
 # fix idea

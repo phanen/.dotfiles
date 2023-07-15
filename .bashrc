@@ -5,13 +5,16 @@
 # non-interactively
 [[ $- != *i* ]] && return
 
-export BASHRC_DIR=$HOME/.config/bash # export simply for `gf`....
+export BASHRC_DIR=$HOME/.config/bash # simply for `gf`...
 [[ -r $BASHRC_DIR/utils.sh ]] && . $BASHRC_DIR/utils.sh
-_util_append_path "$HOME/bin" "$XDG_DATA_HOME/nvim/mason/bin" "$HOME/.local/bin"
+[[ -r $BASHRC_DIR/env.sh ]] && . $BASHRC_DIR/env.sh
+
+# workaround: in fish, the $PATH is split by space, so we add one by one
+_util_append_path "$HOME/bin"
+_util_append_path "$XDG_DATA_HOME/nvim/mason/bin"
+_util_append_path "$HOME/.local/bin"
 _util_append_path "$XDG_CONFIG_HOME/emacs/bin"
 
-
-[[ -r $BASHRC_DIR/env.sh ]] && . $BASHRC_DIR/env.sh
 [[ -r $BASHRC_DIR/alias.sh ]] && . $BASHRC_DIR/alias.sh
 [[ -r $BASHRC_DIR/functions.sh ]] && . $BASHRC_DIR/functions.sh
 [[ -r $BASHRC_DIR/plugins.sh ]] && . $BASHRC_DIR/plugins.sh
@@ -36,7 +39,6 @@ case  $(tty) in
 esac
 
 [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && _util_netcfg && cd ~ && startx # && sudo kbdrate -d 150 -r 65
-
 
 export NPC_HOME=/home/phanium/ysyx/ysyx-workbench/npc
 export NEMU_HOME=/home/phanium/ysyx/ysyx-workbench/nemu
