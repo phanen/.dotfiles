@@ -1,8 +1,8 @@
 ;; /usr/share/doc/kmonad-git/quick-reference.md
 
 (defcfg
-  ;; input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
-  input  (device-file "/dev/input/by-id/usb-HS-HW098A__D-US-01-00-_USB_Keyboard-event-kbd")
+  input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
+  ;; input  (device-file "/dev/input/by-id/usb-HS-HW098A__D-US-01-00-_USB_Keyboard-event-kbd")
 
   output (uinput-sink "KMonad" "sleep .3 && xset r rate 145 85")
   ;; cmp-seq ralt
@@ -19,8 +19,8 @@
   ;; rem            #((layer-rem vim-visual)  (cmd-button "~/.config/kmonad/keypress.sh nor"))
   vis            #((layer-switch vim-visual)  (cmd-button "~/.config/kmonad/keypress.sh vis"))
 
-  cmk            #((layer-switch colemak)     (cmd-button "~/.config/kmonad/keypress.sh cmk"))
   sym            #((layer-switch symbol)      (cmd-button "~/.config/kmonad/keypress.sh sym"))
+  cmk            #((layer-switch colemak)     (cmd-button "~/.config/kmonad/keypress.sh cmk"))
 
       ;; TODO: avoid C-x C-x + different prefix in a same layer
   s    (tap-hold-next-release 500 M-s (around (around lctl lalt) (layer-toggle qwerty)))
@@ -90,9 +90,9 @@
 
 (deflayer symbol
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  ~    !    ^    #    $    _    _    &    *    +    |    _    _    _
-  C-^  [    ]    \(   \)   @    %    \_   -    =    _    @'   _
-  grv  .    ?    <    >    _    {    }    _    .    /    \
+  ~    !    ^    #    $    ~    ~    &    *    +    |    _    _    _
+  C-^  [    ]    \(   \)   @    %    \_   -    =    _    _    _
+  grv  <    >    {    }    _    {    }    _    .    /    \
   _    _    _              _              _    _
 )
 

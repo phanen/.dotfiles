@@ -109,6 +109,7 @@ feh
 ffmpegthumbnailer
 fifc
 figlet
+figlet-fonts
 file
 findutils
 firefox
@@ -375,6 +376,7 @@ texlive-publishers
 texlive-xetex
 the_silver_searcher
 tmux
+todoman
 tokei
 traceroute
 translate-shell
