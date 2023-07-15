@@ -48,11 +48,6 @@ au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
 	command = [[if &nu | set nornu | endif]],
 })
 
--- au({ "InsertLeave" }, {
---   pattern = '*.md',
---   command = 'w',
--- })
-
 -- -- format on save
 -- local format_group = ag("Format", { clear = true })
 -- au({"BufWritePost"}, {
@@ -118,50 +113,16 @@ au({ "ColorScheme" }, {
 --   call setreg(r, [])
 -- endfor
 
--- https://stackoverflow.com/questions/17365324/auto-save-in-vim-as-you-type
--- TODO
-
--- https://vi.stackexchange.com/questions/24861/selector-for-line-of-text
-vim.cmd [[
-function! SelectLine(count) abort
-  normal! gv
-  if visualmode() !=# 'v'
-    normal! v
-  endif
-  let startpos = getpos("'<")
-  let endpos = getpos("'>")
-  if startpos == endpos
-    execute "normal! ^o".a:count."g_"
-    return
-  endif
-  let curpos = getpos('.')
-  if curpos == endpos
-    normal! g_
-    let curpos = getpos('.')
-    if curpos == endpos
-      execute "normal!" (a:count+1)."g_"
-    elseif a:count > 1
-      execute "normal!" a:count."g_"
-    endif
-  else
-    normal! ^
-    let curpos = getpos('.')
-    if curpos == startpos
-      execute "normal!" a:count."-"
-    elseif a:count > 1
-      execute "normal!" (a:count-1)."-"
-    endif
-  endif
-endfunction
-xnoremap <silent> il :<C-U>call SelectLine(v:count1)<CR>
-onoremap <silent> il :<C-U>execute "normal! ^v".v:count1."g_"<CR>
-]]
-
+-- TODO: https://stackoverflow.com/questions/17365324/auto-save-in-vim-as-you-type
+-- au({ "InsertLeave" }, {
+--   pattern = '*.md',
+--   command = 'w',
+-- })
 
 -- https://www.reddit.com/r/neovim/comments/wjzjwe/how_to_set_no_name_buffer_to_scratch_buffer/
 local kill_no_name_group = ag('KillNoName', { clear = true })
 
-api.nvim_create_autocmd({ "BufLeave" }, {
+au({ "BufLeave" }, {
 	pattern = "{}",
 	callback = function()
 		if fn.line("$") == 1 and fn.getline(1) == "" then
