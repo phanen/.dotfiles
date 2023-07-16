@@ -95,8 +95,27 @@ return {
     keys = {
       { "gcc" },
       { "gc", mode = { "n", "v" } },
+      -- https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
+      -- {
+      --   "<c-_>",
+      --   function() return vim.v.count == 0 and '<Plug>(comment_toggle_linewise_current)' or
+      --     '<Plug>(comment_toggle_linewise_count)' end, { expr = true },
+      -- },
+      { "<leader>O" },
+      { "<leader>A" },
+      { "<leader>oo" },
     },
-    config = true,
+    opts = {
+      padding = true,
+      sticky = true,
+      ignore = nil,
+      toggler = { line = 'gcc', block = 'gbc' },
+      opleader = { line = 'gc', block = 'gb' },
+      extra = { above = '<leader>O', below = '<leader>oo', eol = '<leader>A' },
+      mappings = { basic = true, extra = true },
+      pre_hook = nil,
+      post_hook = nil,
+    }
   },
 
   {

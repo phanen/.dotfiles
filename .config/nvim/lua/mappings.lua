@@ -16,12 +16,13 @@ local omap = function(...) map("o", ...) end
 local tmap = function(...) map("t", ...) end
 local lmap = function(...) map("l", ...) end
 
-local ac = require "utils.actions"
+local f = require "utils.keymap"
 
 map({ "n", "x", "o" }, "<space>", "<nop>")
 
-map({ "n", "x" }, ";", ":")
-map({ "n", "x" }, ":", ";")
+-- map({ "n", "x" }, ";", ":")
+-- map({ "n", "x" }, ":", ";")
+
 nmap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
 nmap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 
@@ -54,7 +55,15 @@ nmap("C", '"_C')
 nmap("D", '"_D')
 nmap("X", "D")
 
-nmap("<leader>z", "<Plug>(comment_toggle_linewise_count)")
+-- https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
+nmap('<c-_>', function()
+  return vim.v.count == 0
+      and '<Plug>(comment_toggle_linewise_current)'
+      or '<Plug>(comment_toggle_linewise_count)'
+end, { expr = true })
+xmap('<c-_>', '<Plug>(comment_toggle_linewise_visual)')
+-- nmap("<c-_>", "<Plug>(comment_toggle_linewise_current)")
+-- imap('<c-_>', '<Plug>(comment_toggle_linewise_current)')
 
 -- navigation
 map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
@@ -72,8 +81,6 @@ xmap("<a-j>", "<cmd>move'>+<cr>='[gv", { silent = true })
 
 nmap("<c-j>", "<cmd>wincmd w<cr>")
 nmap("<c-k>", "<cmd>wincmd W<cr>")
-
-nmap("<c-s>", [[<c-^>]])
 
 map({ "n", "v", "o" }, "H", "g^")
 map({ "n", "v", "o" }, "L", "g$")
@@ -140,8 +147,8 @@ nmap("<leader>on", function()
 end, { desc = "toggle nrformats" })
 nmap("<leader>oj", "<cmd>wincmd _<cr>")
 nmap("<leader>ok", "<cmd>wincmd =<cr>")
-nmap("<leader>ob", ac.toggle_bg, { desc = "toggle background" })
-nmap("<leader><tab>", ac.next_colorscheme, { desc = "switch colorscheme" })
+nmap("<leader>ob", f.toggle_bg, { desc = "toggle background" })
+nmap("<leader><tab>", f.next_colorscheme, { desc = "switch colorscheme" })
 -- TODO: make it a real toggle
 nmap("<leader>oJ", function() vim.cmd [[noremap J gJ]] end, { desc = "toggle join mode" })
 nmap("<leader>ow", function() vim.cmd [[set wrap!]] end)
@@ -166,8 +173,10 @@ xmap("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 -- get something
 nmap("<leader>gi", "<cmd>UploadClipboard<cr>")
 
-nmap("<leader>t,", ac.toggle_last_char ",", { desc = "add ',' to end of line" })
-nmap("<leader>t;", ac.toggle_last_char ";", { desc = "add ';' to end of line" })
+nmap("<leader>t,", f.toggle_last_char ",", { desc = "add ',' to end of line" })
+nmap("<leader>t;", f.toggle_last_char ";", { desc = "add ';' to end of line" })
+
+-- nmap("<c-p>", f.toggle_list_sym, { desc = "toggle list symbol" })
 
 nmap("<leader>E", "<Cmd>Inspect<CR>", { desc = "Inspect the cursor position" })
 

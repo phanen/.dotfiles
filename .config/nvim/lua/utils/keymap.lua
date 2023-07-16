@@ -33,4 +33,22 @@ function M.toggle_last_char(c)
   end
 end
 
+-- TODO: toggle last char (type or existance)
+---@return function
+function M.toggle_list_sym()
+  return function()
+    local list_sym = "- "
+    -- trim current line
+    local line = api.nvim_get_current_line()
+    line = line:gsub("^[%s\t]+", "")
+
+    local begin_char = line:sub(1, 2)
+    if begin_char == list_sym then
+      api.nvim_set_current_line(line:sub(3, #line - 3))
+    else
+      api.nvim_set_current_line("- " .. line)
+    end
+  end
+end
+
 return M
