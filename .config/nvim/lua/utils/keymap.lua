@@ -14,7 +14,7 @@ M.next_colorscheme = (function()
 end)()
 
 
--- toggle last char (type or existance)
+--- toggle last char
 ---@param c string
 ---@return function
 function M.toggle_last_char(c)
@@ -33,7 +33,7 @@ function M.toggle_last_char(c)
   end
 end
 
--- TODO: toggle last char (type or existance)
+-- TODO: toggle last sym (type or existance)
 ---@return function
 function M.toggle_list_sym()
   return function()

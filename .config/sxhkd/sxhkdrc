@@ -76,8 +76,8 @@ super + alt + {m, l, s, p}
 	bspc node -g {marked, locked, sticky, private}
 
 # reserve for tabbed
-# super + f
-# 	bspc node -t \~floating
+super + shift + F
+	bspc node -t \~floating
 super + y
 	bspc node -t \~pseudo_tiled
 super + shift + y

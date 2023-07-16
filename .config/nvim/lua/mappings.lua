@@ -154,10 +154,9 @@ nmap("<leader>oJ", function() vim.cmd [[noremap J gJ]] end, { desc = "toggle joi
 nmap("<leader>ow", function() vim.cmd [[set wrap!]] end)
 
 -- term
-nmap("<a-t>", ":split term://zsh<cr>i")
-tmap("<c-q>", "<c-\\><c-n>")
+-- nmap("<a-t>", ":split term://zsh<cr>i")
+tmap("<c-s>", "<c-\\><c-n>")
 tmap("<a-t>", "<c-\\><c-n>:bdelete! %<cr>")
--- tnoremap('<c-;>', '<cmd>ToggleTerm<cr>') -- unusable in vim
 
 -- diagnostic
 nmap("[d", vim.diagnostic.goto_prev)

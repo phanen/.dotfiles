@@ -41,4 +41,6 @@ export QT_STYLE_OVERRIDE=adwaita
 export EDK_TOOLS_PATH=$HOME/demo/os/edk2/BaseTools
 export CHROOT=$HOME/chroot
 
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 # gsettings set org.gnome.desktop.interface color-scheme prefer-dark

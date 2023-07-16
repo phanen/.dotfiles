@@ -15,6 +15,7 @@ archlinuxcn-mirrorlist-git
 aria2
 asciiquarium
 asp
+aurphan
 autoconf
 automake
 awesome-terminal-fonts
@@ -68,6 +69,7 @@ crawl-ncurses
 cronie
 darkman
 dash
+debootstrap
 debtap
 debugedit
 devtools
@@ -84,6 +86,7 @@ dosfstools
 doxygen
 dunst
 dust
+eclipse-platform
 edk2-shell
 efibootmgr
 egl-wayland
@@ -171,12 +174,12 @@ imagemagick
 inetutils
 inotify-tools
 intel-ucode
-intellij-idea-community-edition
 interception-caps2esc
 interception-space2meta
 interception-tools
 iptables-nft
 iverilog
+jdk11-openjdk
 jdk8-openjdk
 joshuto
 jpegoptim
@@ -184,6 +187,7 @@ jq
 keepassxc
 kitty
 kmonad-git
+kubo
 lazygit
 leftwm
 lf
@@ -391,12 +395,14 @@ ttf-nerd-fonts-symbols
 ttf-sourcecodepro-nerd
 ttf-wps-fonts
 typora
+ubuntu-keyring
 unzip
 upx
 urxvt-perls
 usbutils
 uutils-coreutils
 uwufetch
+ventoy-bin
 verilator
 vifm
 vifm-colors-git
@@ -406,9 +412,9 @@ virt-viewer
 virtualbox-guest-iso
 virtualbox-guest-utils
 viu
-vivado
 vlc
 vmpk
+vtebench-git
 waydroid
 wdiff
 wemeet-bin
