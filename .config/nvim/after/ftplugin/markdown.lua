@@ -14,12 +14,14 @@ local function link_wrap(type)
     if type == "raw" then
       text = "<" .. text .. ">"
     elseif type == "link" then
-      text = "[]<" .. text .. ">"
+      text = "[](" .. text .. ")"
     elseif type == "img" then
-      text = "![]<" .. text .. ">"
+      text = "![](" .. text .. ")"
     elseif type == "git" then
-      text = string.gsub(text, "(https)://github.com/", "")
-      -- text = string.gsub(text, "(https%|http)://github.com/", "")
+      text = string.gsub(text, "https://github.com/", "")
+      text = string.gsub(text, "http://github.com/", "")
+      text = string.gsub(text, "git@github.com:", "")
+      text = string.gsub(text, "github.com/", "")
     end
     vim.api.nvim_paste(text, true, 1)
   end
