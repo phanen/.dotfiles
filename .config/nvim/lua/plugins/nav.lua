@@ -9,8 +9,12 @@ return {
       "Lzi",
       "Tzi",
     },
-    config = function ()
-      require("zoxide").setup{}
+    config = function()
+      require("zoxide").setup {}
     end
+  },
+  {
+    "rgroli/other.nvim",
+    cond = false,
   }
 }

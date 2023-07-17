@@ -93,9 +93,6 @@ return {
     }
   },
 
-  -- scroll
-  { 'karb94/neoscroll.nvim', cond = false, },
-
   -- disgnose
   {
     "folke/trouble.nvim",

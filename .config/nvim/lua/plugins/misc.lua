@@ -38,4 +38,25 @@ return {
   --   },
   -- },
 
+  {
+    "danymat/neogen",
+    cmd = "Neogen",
+    keys = { { "<leader>.", "<cmd>Neogen<CR>", desc = "Generate annotation" } },
+    opts = { snippet_engine = "luasnip" },
+  },
+
+  {
+    "karb94/neoscroll.nvim",
+    cond = false,
+    keys = {
+      { "<c-u>", mode = { "n", "x" } },
+      { "<c-d>", mode = { "n", "x" } },
+      { "zt",    mode = { "n", "x" } },
+      { "zz",    mode = { "n", "x" } },
+      { "zb",    mode = { "n", "x" } },
+    },
+    config = true,
+  },
+
+
 }
