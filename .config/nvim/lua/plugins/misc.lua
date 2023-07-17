@@ -58,5 +58,10 @@ return {
     config = true,
   },
 
+  {
+    "voldikss/vim-translator",
+    -- cmd = { "Translate", "TranslateW" },
+    keys = { { "<leader>K", "<cmd>Translate<cr>", mode = { "n", "x" } } },
+  },
 
 }
