@@ -68,6 +68,7 @@ return {
       { "<leader>fC",       tb.git_commits,          mode = { "n", "x" }, },
       { "<leader>fB",       tb.git_bcommits,         mode = { "n", "x" }, },
       { "<leader>f<tab>",   tb.colorscheme,          mode = { "n", "x" }, },
+      { "<leader>fq",       tb.quickfix,             mode = { "n", "x" }, },
       { "z=",               tb.spell_suggest,        mode = { "n", "x" }, },
       mode = { "n", "x" },
     },
@@ -111,6 +112,14 @@ return {
               -- require('telescope.actions.state').get_current_picker(vim.api.nvim_buf_get_number(0))
               -- https://stackoverflow.com/questions/74091577/how-to-get-prompt-value-in-telescope-vim
               -- https://www.reddit.com/r/neovim/comments/11puvr6/getting_custom_telescope_live_grep_to_selectjump/
+
+              -- https://github.com/nvim-telescope/telescope.nvim/issues/814
+              ["<C-o>"] = function(prompt_bufnr)
+                require("telescope.actions").select_default(prompt_bufnr)
+                require("telescope.builtin").resume()
+              end,
+              ["<C-q>"] = ta.add_selected_to_qflist,
+
             },
           },
         },
