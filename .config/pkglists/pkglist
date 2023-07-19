@@ -34,13 +34,10 @@ binutils
 bison
 bluez
 bluez-utils
-bochs
-bochs-gdb-stub
 boost
 bottom
 bpftrace
 brave-bin
-broot
 bsp-layout
 bsptab-git
 bspwm
@@ -54,7 +51,6 @@ chntpw
 chromium
 clang
 clash
-clion
 cliphist
 clipmenu
 clisp
@@ -110,13 +106,13 @@ fcitx5-qt
 fd
 feh
 ffmpegthumbnailer
-fifc
 figlet
 figlet-fonts
 file
 findutils
 firefox
 fish
+fish-fifc
 fish-fzf
 fisher
 flameshot
@@ -132,7 +128,6 @@ gettext
 gg
 ghc
 gibo
-gimp
 gist
 git
 git-delta
@@ -146,6 +141,7 @@ gnuplot
 go
 go-musicfox
 google-chrome
+gparted
 gpaste
 gperf
 gpg-tui
@@ -156,7 +152,6 @@ groff
 grub
 gsmartcontrol
 gtk-vnc
-gtk2
 gtkwave
 gvim
 gzip
@@ -184,6 +179,7 @@ jdk8-openjdk
 joshuto
 jpegoptim
 jq
+kdeconnect
 keepassxc
 kitty
 kmonad-git
@@ -211,6 +207,7 @@ looking-glass-git
 looking-glass-module-dkms
 lostfiles
 love
+lsb-release
 lshw
 lsof
 ltrace
@@ -239,13 +236,11 @@ neovim
 nerd-fonts-cascadia-code
 nerd-fonts-victor-mono
 net-tools
-netease-cloud-music
 netease-cloud-music-gtk4
 netease-music-tui-bin
 networkmanager
 newsboat
 ninja
-nitrogen
 nmap
 nnn
 nodejs-neovim
@@ -267,7 +262,8 @@ openssh
 os-prober
 pacman
 pacman-contrib
-pandoc-cli
+pacutils
+page-git
 papis
 paru
 paruz
@@ -343,6 +339,7 @@ soundfont-fluid
 speedtest-cli
 spice-vdagent
 squashfs-tools
+sshfs
 starship
 stow
 strace
@@ -354,6 +351,7 @@ sxiv
 sysz
 tcc
 tealdeer
+telegram-desktop-megumifox
 terminator
 terminus-font
 texinfo
@@ -412,6 +410,7 @@ virt-viewer
 virtualbox-guest-iso
 virtualbox-guest-utils
 viu
+vivado
 vlc
 vmpk
 vtebench-git

@@ -1,12 +1,11 @@
 babelfish-fish
-bochs-gdb-stub
 bsp-layout
 bsptab-git
 code-marketplace
 darkman
 debtap
 farbfeld
-fifc
+fish-fifc
 fish-fzf
 fontpreview
 gibo
@@ -21,6 +20,7 @@ mit-scheme
 mkinitcpio-firmware
 netease-music-tui-bin
 nodejs-neovim
+page-git
 papis
 paruz
 pdf-compress
@@ -34,6 +34,7 @@ ttf-ms-fonts
 ttf-wps-fonts
 vifm-colors-git
 vifmimg-git
+vivado
 vtebench-git
 wemeet-bin
 wps-office-cn

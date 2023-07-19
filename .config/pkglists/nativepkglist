@@ -33,12 +33,10 @@ binutils
 bison
 bluez
 bluez-utils
-bochs
 boost
 bottom
 bpftrace
 brave-bin
-broot
 bspwm
 byzanz
 cabextract
@@ -50,7 +48,6 @@ chntpw
 chromium
 clang
 clash
-clion
 cliphist
 clipmenu
 clisp
@@ -120,7 +117,6 @@ gdb
 gettext
 gg
 ghc
-gimp
 gist
 git
 git-delta
@@ -133,6 +129,7 @@ gnu-netcat
 gnuplot
 go
 go-musicfox
+gparted
 gpaste
 gperf
 gpg-tui
@@ -143,7 +140,6 @@ groff
 grub
 gsmartcontrol
 gtk-vnc
-gtk2
 gtkwave
 gvim
 gzip
@@ -169,6 +165,7 @@ jdk11-openjdk
 jdk8-openjdk
 jpegoptim
 jq
+kdeconnect
 keepassxc
 kitty
 kmonad-git
@@ -192,6 +189,7 @@ lldb
 lolcat
 lostfiles
 love
+lsb-release
 lshw
 lsof
 ltrace
@@ -218,12 +216,10 @@ neovim
 nerd-fonts-cascadia-code
 nerd-fonts-victor-mono
 net-tools
-netease-cloud-music
 netease-cloud-music-gtk4
 networkmanager
 newsboat
 ninja
-nitrogen
 nmap
 nnn
 notcurses
@@ -244,7 +240,7 @@ openssh
 os-prober
 pacman
 pacman-contrib
-pandoc-cli
+pacutils
 paru
 patch
 pdfarranger
@@ -313,6 +309,7 @@ soundfont-fluid
 speedtest-cli
 spice-vdagent
 squashfs-tools
+sshfs
 starship
 stow
 strace
@@ -322,6 +319,7 @@ sxhkd
 sxiv
 tcc
 tealdeer
+telegram-desktop-megumifox
 terminator
 terminus-font
 texinfo
