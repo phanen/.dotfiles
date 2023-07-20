@@ -55,16 +55,6 @@ nmap("C", '"_C')
 nmap("D", '"_D')
 nmap("X", "D")
 
--- https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
-nmap('<c-_>', function()
-  return vim.v.count == 0
-      and '<Plug>(comment_toggle_linewise_current)'
-      or '<Plug>(comment_toggle_linewise_count)'
-end, { expr = true })
-xmap('<c-_>', '<Plug>(comment_toggle_linewise_visual)')
--- nmap("<c-_>", "<Plug>(comment_toggle_linewise_current)")
--- imap('<c-_>', '<Plug>(comment_toggle_linewise_current)')
-
 -- navigation
 map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
 map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
