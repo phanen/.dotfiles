@@ -1,6 +1,13 @@
 #!/bin/bash
-pacman -Qqe > $XDG_CONFIG_HOME/pkglists/pkglist # 全部
-pacman -Qqen > $XDG_CONFIG_HOME/pkglists/nativepkglist # 不包含 aur
-pacman -Qqem > $XDG_CONFIG_HOME/pkglists/foreignpkglist # 只包含 aur
 
+# all pkg
+pacman -Qqe > $XDG_CONFIG_HOME/pkglists/pkglist
+
+# pkg in sync db
+pacman -Qqen > $XDG_CONFIG_HOME/pkglists/nativepkglist
+
+# pkg in aur or manually build
+pacman -Qqem > $XDG_CONFIG_HOME/pkglists/foreignpkglist
+
+# optional dependencies
 comm -13 <(pacman -Qqdt | sort) <(pacman -Qqdtt | sort) > $XDG_CONFIG_HOME/pkglists/optdeplist
