@@ -34,7 +34,7 @@ virsh nodedev-detach --device pci_0000_01_00_3
 # # Avoid a Race condition by waiting 2 seconds. This can be calibrated to be shorter or longer if required for your system
 # # sleep 2
 
-# ## Load vfio
-# modprobe vfio
-# modprobe vfio_iommu_type1
-# modprobe vfio_pci
+## Load vfio
+modprobe vfio
+modprobe vfio_iommu_type1
+modprobe vfio_pci
