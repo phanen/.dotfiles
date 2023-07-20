@@ -79,6 +79,15 @@ nmap("<a-j>", "<cmd>move+<CR>==")
 xmap("<a-k>", "<cmd>move-2<cr>='[gv", { silent = true })
 xmap("<a-j>", "<cmd>move'>+<cr>='[gv", { silent = true })
 
+nmap("<a-h>", "5<<")
+nmap("<a-l>", "5>>")
+xmap("<a-h>", "5<<")
+xmap("<a-l>", "5>>")
+nmap("_", "5j")
+xmap("_", "5j")
+nmap("-", "5k")
+xmap("-", "5k")
+
 nmap("<c-j>", "<cmd>wincmd w<cr>")
 nmap("<c-k>", "<cmd>wincmd W<cr>")
 
