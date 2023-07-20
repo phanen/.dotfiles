@@ -18,13 +18,13 @@ make
 | fonts                  | FiraCode Nerd Font        |
 | terminal emulator      | alacritty,kitty,st        |
 | terminal multiplexer   | tabbed, tmux              |
-| shell                  | zsh, bash                 |
+| shell                  | fish, zsh, bash           |
 | key remapper           | kmonad, sxhkbd            |
-| text editor            | neovim, vim, emacs        |
+| text editor            | neovim                    |
 | bar                    | polybar                   |
 | display manager        | none(`.xinitrc`)          |
 | input method framework | fcitx5                    |
-| file manager           | vifm, lf                  |
+| file manager           | vifm, joshuto             |
 | music player           | musicfox                  |
 | media player           | mpv                       |
 | image viewer           | sxiv, feh                 |
@@ -36,8 +36,69 @@ make
 | clipboard              | xclip xsel                |
 | pdf reader             | chromium, zathura, sioyek |
 | pdf editor             | pdfarranger, pdf-crop     |
-|                        | tealdeer                  |
+| manual                 | tealdeer                  |
+| task runner            | cronie                    |
 
 ## nvim
 
-nvim basic info
+```
+.config/nvim
+├── after
+│   └── ftplugin
+│       ├── help.lua
+│       └── markdown.lua
+├── filetype.lua
+├── init.lua
+├── lazy-lock.json
+├── lua
+│   ├── library
+│   │   └── init.lua
+│   ├── mappings.lua
+│   ├── options.lua
+│   ├── plugins
+│   │   ├── autosave.lua
+│   │   ├── cmp.lua
+│   │   ├── dap.lua
+│   │   ├── doc.lua
+│   │   ├── draw.lua
+│   │   ├── edit.lua
+│   │   ├── explore.lua
+│   │   ├── git.lua
+│   │   ├── hydra.lua
+│   │   ├── init.lua
+│   │   ├── lsp.lua
+│   │   ├── misc.lua
+│   │   ├── move.lua
+│   │   ├── nav.lua
+│   │   ├── outline.lua
+│   │   ├── qf.lua
+│   │   ├── session.lua
+│   │   ├── snip.lua
+│   │   ├── syntax.lua
+│   │   ├── telescope.lua
+│   │   ├── term.lua
+│   │   ├── theme.lua
+│   │   ├── treesitter.lua
+│   │   ├── ui.lua
+│   │   └── util.lua
+│   └── utils
+│       ├── init.lua
+│       ├── keymap.lua
+│       └── lsp.lua
+├── luasnippets
+│   ├── all.lua
+│   ├── gitcommit.lua
+│   ├── markdown.lua
+│   └── rust.lua
+├── plugin
+│   ├── autocommands.lua
+│   ├── commands.lua
+│   ├── quickfix.lua
+│   └── textobjects.lua
+├── snippets
+│   ├── json.json
+│   └── package.json
+├── spell
+│   └── en.utf-8.add
+└── theme
+```
