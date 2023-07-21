@@ -143,17 +143,17 @@ md() {
 	# exec $SHELL
 }
 
-zz() {
-	mkdir -p /tmp/tmp && cd /tmp/tmp
-}
+zz() { md /tmp/tmp; }
 
-zzz() {
-	tar -c --use-compress-program=pigz -f "$1".tar.gz $1
-}
+zd() { md /tmp/tmp/demo; }
 
-ddd() {
-	dd bs=4M if="$1" of="$2" status=progress && sync
-}
+# zzz() {
+# 	tar -c --use-compress-program=pigz -f "$1".tar.gz $1
+# }
+#
+# ddd() {
+# 	dd bs=4M if="$1" of="$2" status=progress && sync
+# }
 
 dev-monitor() {
 	udevadm monitor --environment --udev

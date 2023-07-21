@@ -60,6 +60,8 @@ map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
 map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
 -- map({ "n", "v", "o" }, "<c-b>", "<cmd>BufferLineCyclePrev<cr>")
 
+nmap("<c-s>", "<c-u>")
+
 -- how to quit in vim
 nmap("<c-e>", "<cmd>Bdelete!<cr>")
 nmap("<leader>q", "<cmd>wincmd q<cr>")

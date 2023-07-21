@@ -5,6 +5,7 @@ alias x='xsel'
 alias t="type"
 alias p="sudo pacman"
 alias y="yay"
+alias s="sysz"
 
 alias ls="exa --color=auto"
 alias ll="ls -lah"
@@ -57,10 +58,11 @@ alias ysi='yay -Si'
 alias yi='yay -S'
 
 alias patt='pactree -lu'
+alias pato='pactree -d 1 -o -lu'
 alias pat='pactree -d 1 -lu'
 alias par='pactree -r -lu'
 alias pst='pactree -slu'
-alias psr='pactree -slu'
+alias psr='pactree -r -slu'
 
 alias ap="md /tmp/tmp; yay -G"
 alias apt="asp export"

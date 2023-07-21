@@ -259,6 +259,7 @@ pigz
 pipewire-pulse
 pkgconf
 pkgfile
+pkgstats
 podman
 polybar
 procs
@@ -327,6 +328,7 @@ sxiv
 sysz
 tcc
 tealdeer
+terminus-font
 texinfo
 texlive-basic
 texlive-bibtexextra
