@@ -1,27 +1,12 @@
 # shellcheck source=/dev/null
 
-## sdu wifi
-# export sduwifi=101.76.193.1
-sdulan() { nmcli dev wifi connect sdu_net; }
-reorder() { ls * | sort -n -t _ -k 2; }
-
-dop() {
-	docker start "$1" && docker attach "$1"
-}
-
 LFCD="$XDG_CONFIG_HOME/lf/lfcd.sh"
 [ -f "$LFCD" ] && . "$LFCD"
 
 # awesome fzf
-FZF_DIR=". $HOME/Downloads $HOME/mnt $HOME/QQ_recv"
 fsl() { fzf -m --margin 5% --padding 5% --border --preview 'cat {}'; }
 fp() { fzf | tr -d "\n" | xsel -b; }
-frm() { fsl | rm; }
-
-# fpd() { du -a $FZF_DIR | awk '{print $2}' | fzf --query pdf$ | xargs -r $PDF;}
 fpd() { $PDF "$(fzf)" >/dev/null 2>&1; }
-fmp() { mpv "$(fzf)" >/dev/null 2>&1; }
-
 fhs() { stty -echo && history | grep ""$@ | awk '{$1=$2=$3=""; print $0}' | fzf | xargs -I {} xdotool type {} && stty echo; }
 
 fcl() {
@@ -31,13 +16,6 @@ fcl() {
 	CLASH_CONFIG=$(find .config/clash -type f -name "*.yaml" | fzf)
 	[[ -n $CLASH_CONFIG ]] && clash -f $CLASH_CONFIG || exit
 }
-
-calc() {
-	echo "scale=3;$@" | bc -l
-}
-
-ATHEME="$XDG_CONFIG_HOME"/alacritty/alacritty-theme/themes/
-ACONFIG="$XDG_CONFIG_HOME"/alacritty/alacritty.yml
 
 diskcheck() {
 # https://stackoverflow.com/questions/35005915/using-watch-to-run-a-function-repeatedly-in-bash
@@ -49,21 +27,11 @@ diskcheck() {
 
 archman() { curl -sL "https://man.archlinux.org/man/$1.raw" | man -l -; }
 
-toggle_proxy() {
-	unset http_proxy
-	unset https_proxy
-	unset all_proxy
-}
+toggle_proxy() { unset http_proxy https_proxy all_proxy; }
 
-clip2img() {
-	xclip -selection clipboard -target image/png -o >$1.png
-}
+clip2img() { xclip -selection clipboard -target image/png -o >$1.png; }
 
-# penv() {
-# 	. $HOME/demo/pydemo/tele/bin/activate
-# }
-
-function vis() {
+vis() {
 	local CONFIG="$(find ~/.config/nvim*/ -prune -exec basename {} \;)"
 	local SELECTED=$(printf "%s\n" "${CONFIG[@]}" | fzf --prompt="Neovim Config >>" --height=~50% --layout=reverse --border --exit-0)
 	echo $SELECTED
@@ -76,100 +44,25 @@ function vis() {
 	NVIM_APPNAME=$SELECTED nvim $@
 }
 
-function gitit() {
-	cat <<EOF | sh
-        git remote add origin git@github.com:phanen/phanen.git
-        git branch -M master
-        git push -u origin master
-EOF
+gitit() {
+	git remote add origin git@github.com:phanen/phanen.git
+    git branch -M master
+    git push -u origin master
 }
 
-function vw() {
-	vi "$(which $1 |head -1)"
-}
+vw() { vi "$(which $1 |head -1)"; }
+fw() { file "$(which $1 |head -1)"; }
+lw() { ls -la "$(which $1 |head -1)"; }
 
-function fw() {
-	file "$(which $1 |head -1)"
-}
-
-function lw() {
-	ls -la "$(which $1 |head -1)"
-}
-
-
-# nnn-preview ()
-# {
-#     # Block nesting of nnn in subshells
-#     if [ -n "$NNNLVL" ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-#         echo "nnn is already running"
-#         return
-#     fi
-#
-#     # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
-#     # If NNN_TMPFILE is set to a custom path, it must be exported for nnn to see.
-#     # To cd on quit only on ^G, remove the "export" and set NNN_TMPFILE *exactly* as this:
-#     #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-#     export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-#
-#     # This will create a fifo where all nnn selections will be written to
-#     NNN_FIFO="$(mktemp --suffix=-nnn -u)"
-#     export NNN_FIFO
-#     (umask 077; mkfifo "$NNN_FIFO")
-#
-#     # Preview command
-#     preview_cmd="/home/phanium/.config/nnn/preview_cmd.sh"
-#
-#     # Use `tmux` split as preview
-#     if [ -e "${TMUX%%,*}" ]; then
-#         tmux split-window -e "NNN_FIFO=$NNN_FIFO" -dh "$preview_cmd"
-#
-#     # Use `xterm` as a preview window
-#     elif (which xterm &> /dev/null); then
-#         alacritty -e "$preview_cmd" &
-#         # xterm -e "$preview_cmd" &
-#     # Unable to find a program to use as a preview window
-#     else
-#         echo "unable to open preview, please install tmux or xterm"
-#     fi
-#
-#     nnn "$@"
-#
-#     rm -f "$NNN_FIFO"
-# }
-
-md() {
-	mkdir -p "$1" && cd "$1"
-	# not a script, don't need exec
-	# exec $SHELL
-}
-
-zz() { md /tmp/tmp; }
-
+md() { mkdir -p "$1" && cd "$1"; }
+zz() { md /tmp/tmp; yay -G $1; }
 zd() { md /tmp/tmp/demo; }
 
-# zzz() {
-# 	tar -c --use-compress-program=pigz -f "$1".tar.gz $1
-# }
-#
-# ddd() {
-# 	dd bs=4M if="$1" of="$2" status=progress && sync
-# }
+pzip() { tar -c --use-compress-program=pigz -f "$1".tar.gz $1; }
+da2b() { dd bs=4M if="$1" of="$2" status=progress && sync; }
 
-dev-monitor() {
-	udevadm monitor --environment --udev
-}
+dev-monitor() { udevadm monitor --environment --udev; }
 
-n() {
-	cd ~/notes
-	mkdir -p "$1"
-	nvim "$1"/"$2".md
-}
+ni() { cd ~/notes && nvim "$(fzf)"; }
 
-ni() {
-	cd ~/notes
-	nvim "$(fzf)"
-}
-
-resource() {
-	exec $SHELL
-}
+rs() { exec $SHELL; }

@@ -64,7 +64,6 @@ alias par='pactree -r -lu'
 alias pst='pactree -slu'
 alias psr='pactree -r -slu'
 
-alias ap="md /tmp/tmp; yay -G"
 alias apt="asp export"
 alias mkp="makepkg -do --skippgpcheck"
 
