@@ -1,8 +1,8 @@
 ;; /usr/share/doc/kmonad-git/quick-reference.md
 
 (defcfg
-  input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
-  ;; input  (device-file "/dev/input/by-id/usb-HS-HW098A__D-US-01-00-_USB_Keyboard-event-kbd")
+  ;; input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
+  input  (device-file "/dev/input/by-id/usb-HS-HW098A__D-US-01-00-_USB_Keyboard-event-kbd")
 
   output (uinput-sink "KMonad" "sleep .3 && xset r rate 145 85")
   ;; cmp-seq ralt
@@ -97,9 +97,9 @@
 )
 
 (deflayer modular
-  grv M-f1 M-f2 M-f3 M-f4 M-f5  6    7    8    9    0    -    =    bspc
-  @tb q M-C-[ M-[ M-] t    y    u    i    o    p    [    ]    \
-  @qc  a    s   M-S-[ f    g    h    @qwe @cmk l    ;    '    ret
+  grv M-f1 M-f2 M-f3 M-f4 M-f5  6    7    8    9    @cmk -    =    bspc
+  @tb q M-C-[ M-[ M-] t    y    u    M-f3 M-f4 p    [    ]    \
+  @qc  a    s   M-S-[ f    g    h    M-f1 M-f2 l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           @sm            ralt rctl
 )
