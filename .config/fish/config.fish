@@ -103,6 +103,5 @@ if status is-interactive
 
     set -Ux fifc_editor nvim
     set -U fifc_keybinding \t
-    fzf_configure_bindings
     zoxide init fish | source
 end
