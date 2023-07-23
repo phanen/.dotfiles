@@ -7,40 +7,50 @@ cd dotfiles
 make
 ```
 
-> packages can be found in [.config/.pkglists/](.config/.pkglists/)
+> all packages can be found in [.config/pkglists/](.config/pkglists/)
 
-## basic info
+## basic softwares
+> a WIP best practice for a nerd like me
 
-| program                | name                      |
-| ---------------------- | ------------------------- |
-| window manager         | bspwm, dwm                |
-| application launcher   | rofi                      |
-| fonts                  | FiraCode Nerd Font        |
-| terminal emulator      | alacritty,kitty,st        |
-| terminal multiplexer   | tabbed, tmux              |
-| shell                  | fish, zsh, bash           |
-| key remapper           | kmonad, sxhkbd            |
-| text editor            | neovim                    |
-| bar                    | polybar                   |
-| display manager        | none(`.xinitrc`)          |
-| input method framework | fcitx5                    |
-| file manager           | vifm, joshuto             |
-| music player           | musicfox                  |
-| media player           | mpv                       |
-| image viewer           | sxiv, feh                 |
-| image editor           | gimp                      |
-| lockscreen             | slock                     |
-| notification daemon    | dunst                     |
-| screenshot software    | flameshot                 |
-| screen recording       | ffmpeg                    |
-| clipboard              | xclip xsel                |
-| pdf reader             | chromium, zathura, sioyek |
-| pdf editor             | pdfarranger, pdf-crop     |
-| manual                 | tealdeer                  |
-| task runner            | cronie                    |
+the softwares I am using (maybe helpful for xorg boomers...)
+- window manage: bspwm, bsp-layout, tabbed, bsptab
+    - to use bspwm is just a coincidence for me, it's no double more useful than dwm for me (c/s model, hot update)
+    - weakness: too minimal, need to patch a lot (for features like stack-based layout and "tabbed")
+- display manage: .xinitrc is all I need
+- launch/keymap: polybar, rofi, kmonad, sxhkbd
+    - rofi and polybar are both a compromise
+    - TODO
+- terminal/shell: alacritty, fish, zsh
+    - it turns out that vi-mode is the only reason I use alacritty, since I don't care about 0.001s faster than kitty
+    - fish has a stronger default, zsh is like a boomer (ok, just a joke)
+    - but that's still no much ones write fish scripts
+- browse/pdf: chromium (vimium-c, pdf.js)
+    - the weakness pdf.js causes a little blur and slow
+    - but zathura/sioyak isn't more useful than browser for me
+- editor: neovim (a.k.a. god of editor)
+- file manage: neovim, fish-fifc
+    - picker + previewer, that's enough for file manage
+    - "professonal" manager like vifm, joshuto is not actually most used
+- font: CaskaydiaCove Nerd Font, FiraCode Nerd Font
+- dotfiles manage: git repo for roll back
+    - for quick modificatoin of config? that's job of neovim...
 
-## nvim
+## tips and tricks
 
+I basically some guides on living in terminal or get ride of mouse
+- neovim is useful as manpager, but not common pager
+    - less is still the best pager for most cases
+    - you means bat? I think that's a previewer...
+- fzf anywhere, e.g. fish-fifc, sysz, fontpreview-ueberzug, telesope
+- blazing fast manual look up: tealdeer
+- chores app: xclip, slock, dunst, flameshot, ffmpeg, cronie, sxiv, gimp, mpv
+    - if possible, bind most used apps in keys though kmonad/sxhkd 
+
+> by the way, any advice on how to stop the world to use format like `.docx`, `.docx` `.ppt` `.pptx` ...
+
+## neovim
+
+- telescope, bufferline, bufdetele
 ```
 .config/nvim
 ├── after
@@ -51,12 +61,10 @@ make
 ├── init.lua
 ├── lazy-lock.json
 ├── lua
-│   ├── library
-│   │   └── init.lua
 │   ├── mappings.lua
 │   ├── options.lua
 │   ├── plugins
-│   │   ├── autosave.lua
+│   │   ├── buffer.lua
 │   │   ├── cmp.lua
 │   │   ├── dap.lua
 │   │   ├── doc.lua
@@ -69,15 +77,15 @@ make
 │   │   ├── lsp.lua
 │   │   ├── misc.lua
 │   │   ├── move.lua
-│   │   ├── nav.lua
 │   │   ├── outline.lua
 │   │   ├── qf.lua
 │   │   ├── session.lua
 │   │   ├── snip.lua
 │   │   ├── syntax.lua
 │   │   ├── telescope.lua
-│   │   ├── term.lua
+│   │   ├── terminal.lua
 │   │   ├── theme.lua
+│   │   ├── tpope.lua
 │   │   ├── treesitter.lua
 │   │   ├── ui.lua
 │   │   └── util.lua
@@ -93,6 +101,8 @@ make
 ├── plugin
 │   ├── autocommands.lua
 │   ├── commands.lua
+│   ├── commands.vim
+│   ├── jumplist.vim
 │   ├── quickfix.lua
 │   └── textobjects.lua
 ├── snippets
