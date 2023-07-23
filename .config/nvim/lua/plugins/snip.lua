@@ -49,4 +49,11 @@ return {
       ls.filetype_extend("all", { "_" })
     end,
   },
+
+  {
+    "danymat/neogen",
+    cmd = "Neogen",
+    keys = { { "<leader>.", "<cmd>Neogen<CR>", desc = "Generate annotation" } },
+    opts = { snippet_engine = "luasnip" },
+  },
 }

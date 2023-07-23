@@ -166,9 +166,15 @@ return {
 
   { -- rust
     "simrat39/rust-tools.nvim",
-    -- lazy = false,
-    -- config = function()
-    -- end,
+  },
+
+  {
+    "jayp0521/mason-nvim-dap.nvim",
+    cond = false,
+    opts = {
+      automatic_installation = true,
+      ensure_installed = { "codelldb" },
+    },
   },
 
   {
@@ -184,8 +190,8 @@ return {
       -- { "<leader>tlp", mode = { "n" }, "<Plug>(toggle-lsp-diag-update_in_insert)" },
       -- { "<leader>tld", mode = { "n" }, "<Plug>(toggle-lsp-diag)" },
       -- { "<leader>tldd", mode = { "n" }, "<Plug>(toggle-lsp-diag-default)" },
-      { "<leader>tf",  mode = { "n" }, "<Plug>(toggle-lsp-diag-off)" },
-      { "<leader>to",  mode = { "n" }, "<Plug>(toggle-lsp-diag-on)" },
+      { "<leader>tf", mode = { "n" }, "<Plug>(toggle-lsp-diag-off)" },
+      { "<leader>to", mode = { "n" }, "<Plug>(toggle-lsp-diag-on)" },
     },
   },
 }

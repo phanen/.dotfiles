@@ -10,8 +10,9 @@ return {
     ft = { "markdown" },
   },
 
-  { -- TODO lazy
+  {
     "askfiy/nvim-picgo",
+    cond = false,
     ft = { "markdown" },
     config = function() require("nvim-picgo").setup() end,
   },
@@ -19,7 +20,7 @@ return {
   {
     "jakewvincent/mkdnflow.nvim",
     ft = { "markdown" },
-    config = function ()
+    config = function()
       -- FIXME: cannot use opt, collision with lazyload
       require("mkdnflow").setup {
         modules = {
@@ -77,16 +78,17 @@ return {
   },
 
   -- kitty only
-  -- {
-  --   "edluffy/hologram.nvim",
-  --   ft = { "markdown" },
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("hologram").setup {
-  --       auto_display = true, -- WIP automatic markdown image display, may be prone to breaking
-  --     }
-  --   end,
-  -- },
+  {
+    "edluffy/hologram.nvim",
+    cond = false,
+    ft = { "markdown" },
+    event = "VeryLazy",
+    config = function()
+      require("hologram").setup {
+        auto_display = true, -- WIP automatic markdown image display, may be prone to breaking
+      }
+    end,
+  },
 
   -- latex
   {
@@ -145,10 +147,10 @@ return {
   -- org
   {
     "nvim-neorg/neorg",
+    cond = false,
     build = ":Neorg sync-parsers",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = "Neorg",
-    cond = false,
     config = function()
       require("neorg").setup {
         load = {

@@ -1,10 +1,4 @@
 return {
-  {
-    "vifm/vifm.vim",
-    cond = false,
-    lazy = "VeryLazy",
-  },
-
   -- tab
   {
     'akinsho/bufferline.nvim',
@@ -146,5 +140,19 @@ return {
       --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     }
+  },
+
+  -- breadcrumbs
+  {
+    "SmiteshP/nvim-navic",
+    conf = false,
+    event = "VeryLazy",
+    dependencies = "neovim/nvim-lspconfig"
+  },
+  {
+    'Bekaboo/dropbar.nvim',
+    event = 'VeryLazy',
+    keys = { { '<leader>wp', function() require('dropbar.api').pick() end, desc = 'winbar: pick' } },
   }
+
 }

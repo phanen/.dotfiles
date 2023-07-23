@@ -1,7 +1,9 @@
 vim.o.timeoutlen = 300
 
 return {
-  'folke/lazy.nvim',
+  {
+    'folke/lazy.nvim',
+  },
 
   {
     'folke/which-key.nvim',
@@ -104,7 +106,6 @@ return {
         prefix = "j",
       })
 
-
       -- require('which-key').register({
       --   ["<C-l>"] = 'Whole lines',
       --   ["<C-n>"] = 'keywords in the current file',
@@ -126,30 +127,6 @@ return {
     end
   },
 
-  { 'tpope/vim-eunuch', cmd = { 'Move', 'Rename', 'Remove', 'Delete', 'Mkdir' } },
-  { 'tpope/vim-sleuth', event = 'VeryLazy' },
-  { 'tpope/vim-repeat', event = 'VeryLazy' },
-
-  -- debug
-  -- {
-  --   "jayp0521/mason-nvim-dap.nvim",
-  --   config = function()
-  --     require("mason-nvim-dap").setup({
-  --       automatic_installation = true,
-  --       ensure_installed = { "codelldb" },
-  --     })
-  --   end,
-  -- },
-
-  {
-    "SmiteshP/nvim-navic",
-    dependencies = "neovim/nvim-lspconfig"
-  },
-
-
-  -- game
-  'alec-gibson/nvim-tetris',
-
   {
     'mbbill/undotree',
     cmd = 'UndotreeToggle',
@@ -160,7 +137,5 @@ return {
     end,
   },
 
-  
   'b0o/schemastore.nvim',
-
 }

@@ -1,5 +1,6 @@
-local fmt = string.fmt
 local M = {}
+
+function M.mux(cond, lhs, rhs) return (cond and { lhs } or { rhs })[1] end
 
 function M.get_nvim_version()
   local version = vim.version()
