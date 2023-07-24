@@ -1,6 +1,3 @@
--- vim.keymap.set("x", "a", "<Plug>(nvim-surround-visual)j")
--- vim.keymap.set("x", "i", "<Plug>(nvim-surround-visual)*")
-
 local function getClipContent()
   return vim.fn.system { "xsel", "-ob" }
 end
@@ -11,19 +8,26 @@ local function link_wrap(type)
     local text = getClipContent()
     text = string.gsub(text, "\n", "")
 
+    local line_no, col_no = unpack(vim.api.nvim_win_get_cursor(0))
     if type == "raw" then
       text = "<" .. text .. ">"
     elseif type == "link" then
-      text = "[](" .. text .. ")"
+      text = "[link:](" .. text .. ")"
     elseif type == "img" then
-      text = "![](" .. text .. ")"
+      text = "![img:](" .. text .. ")"
     elseif type == "git" then
       text = string.gsub(text, "https://github.com/", "")
       text = string.gsub(text, "http://github.com/", "")
       text = string.gsub(text, "git@github.com:", "")
       text = string.gsub(text, "github.com/", "")
     end
+
     vim.api.nvim_paste(text, true, 1)
+
+    if type == "link" or type == "img" then
+      vim.api.nvim_win_set_cursor(0, { line_no, col_no + 6 })
+      vim.api.nvim_feedkeys("i", "n", false)
+    end
   end
 end
 
