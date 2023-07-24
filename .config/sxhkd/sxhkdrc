@@ -114,7 +114,7 @@ super + s
 super + ctrl + s
 	chromium
 super + semicolon
-	rofi -show run -matching fuzzy
+	rofi -show drun -matching fuzzy
 super + apostrophe
 	~/bin/tabexec.sh eval "$(dmenu_path | rofi -dmenu)"
 	# ~/bin/tabexec.sh rofi -show run -matching fuzzy

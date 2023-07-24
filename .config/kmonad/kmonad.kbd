@@ -31,7 +31,7 @@
   ;    (tap-next-press ;              (layer-toggle symbol))
   /    (tap-hold-next-release 500 /   (layer-toggle symbol))
 
-  sft  (around lsft (layer-toggle shift))
+  sft  (tap-next grv (around lsft (layer-toggle shift)))
 
   mt   (multi-tap 10 j 10 k esc)
 

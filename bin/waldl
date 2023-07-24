@@ -1,8 +1,7 @@
-#!/bin/sh
-
-#############################################################
+#!/usr/bin/env bash
 
 # thumbnails -> open with sxiv -> select -> quit -> download
+
 walldir="$HOME/pic"
 cachedir="$HOME/.cache/pic" # dir to cache thumbnails
 sxiv_opts=" -tfpo -z 200" # o is needed for selection
@@ -12,8 +11,6 @@ quality=large # large/original/small
 atleast=1920x1080 # least/res
 
 # [ -e "$HOME/.config/waldlrc" ] && . "$HOME/.config/waldlrc"
-
-################################################################
 
 # use dmenu when without args
 sh_menu () {

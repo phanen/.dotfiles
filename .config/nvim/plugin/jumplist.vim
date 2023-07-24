@@ -1,3 +1,4 @@
+" https://superuser.com/questions/575910/how-do-i-use-the-jumplist-to-jump-once-per-file
 function! JumpToNextBufferInJumplist(dir) " 1=forward, -1=backward
     let jl = getjumplist() | let jumplist = jl[0] | let curjump = jl[1]
     let jumpcmdstr = a:dir > 0 ? '<C-O>' : '<C-I>'
