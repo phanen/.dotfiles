@@ -2,7 +2,8 @@
 
 (defcfg
   ;; input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
-  input  (device-file "/dev/input/by-id/usb-HS-HW098A__D-US-01-00-_USB_Keyboard-event-kbd")
+  ;; input  (device-file "/dev/input/by-id/usb-HS-HW098A__D-US-01-00-_USB_Keyboard-event-kbd")
+  input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
 
   output (uinput-sink "KMonad" "sleep .3 && xset r rate 145 85")
   ;; cmp-seq ralt
@@ -37,6 +38,7 @@
 
   qc   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
   sm   (tap-hold-next-release 500 spc (layer-toggle meta))
+  lm   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
   tb   (tap-hold-next-release 500 tab (layer-toggle modular))
 
   mc   (tap-next esc lctl)
@@ -61,7 +63,7 @@
   @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
   @qc  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sft @z   x    c    v    b    n    m    ,    .    /    \
-  lctl lmet @vi           @sm            ralt rctl
+  lctl @lm @vi           @sm            ralt rctl
 )
 
 (deflayer colemak
@@ -69,7 +71,7 @@
   @tb  q    w    f    p    g    j    l    u    o    y    bspc ]    \
   @qc  a    r    s    t    d    h    n    e    i    @;   @'  ret
   @sft @z   x    c    v    b    k    m    ,    .    /    \
-  lctl lmet lalt           @sm            ralt rctl
+  lctl @lm lalt           @sm            ralt rctl
 )
 
 (deflayer control
@@ -101,7 +103,7 @@
   @tb q M-C-[ M-[ M-] t    y    u    M-f3 M-f4 p    [    ]    \
   @qc  a    s   M-S-[ f    g    h    M-f1 M-f2 l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           @sm            ralt rctl
+  lctl @lm lalt           @sm            ralt rctl
 )
 
 (deflayer meta
@@ -109,7 +111,7 @@
   M-tab  M-q  @w   M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
   @mc    M-a  @s   M-d  M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
   lsft   M-z  M-x  M-c  M-v  M-b  M-n  M-m  M-,  M-.  M-/  rsft
-  M-lctl M-lmet M-lalt           @sm            M-ralt M-rctl
+  M-lctl M-@lm M-lalt           @sm            M-ralt M-rctl
 )
 
 (defalias
@@ -135,7 +137,7 @@
   @tb  _ C-right _  C-S-z  t    C-c C-z  @qwe  o    C-V  [    ]    \
   @vc  _    _    bspc f    g    left down up right del   _    _
   @sft _  _   _  @vis   C-left  _    _    _    _    _    _
-  lctl lmet @qwe          @sm            ralt rctl
+  lctl @lm @qwe          @sm            ralt rctl
 )
 
 (deflayer vim-visual
@@ -143,7 +145,7 @@
   @tb  _ C-S-right _  C-z  t    C-c C-z  @qwe o   C-V    [    ]    \
   @vc  _    _    bspc f    g    S-left S-down S-up S-right del  _ _
   @sft _  _   _  _    C-S-left  _    _    _    _    _    _
-  lctl lmet @qwe          @sm            ralt rctl
+  lctl @lm @qwe          @sm            ralt rctl
 )
 
 ;; (deflayer vim-visual
