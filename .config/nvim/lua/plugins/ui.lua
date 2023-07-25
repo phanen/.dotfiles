@@ -145,12 +145,12 @@ return {
   -- breadcrumbs
   {
     "SmiteshP/nvim-navic",
-    conf = false,
     event = "VeryLazy",
     dependencies = "neovim/nvim-lspconfig"
   },
   {
     'Bekaboo/dropbar.nvim',
+    cond = false,
     event = 'VeryLazy',
     keys = { { '<leader>wp', function() require('dropbar.api').pick() end, desc = 'winbar: pick' } },
   }

@@ -58,6 +58,7 @@ nmap("X", "D")
 -- navigation
 map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
 map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
+-- map({ "n", "v", "o" }, "<bs>", "<cmd>BufferLineCyclePrev<cr>")
 -- map({ "n", "v", "o" }, "<c-b>", "<cmd>BufferLineCyclePrev<cr>")
 
 nmap("<c-s>", "<c-u>")

@@ -144,7 +144,7 @@ iptables-nft
 iverilog
 jdk11-openjdk
 jdk8-openjdk
-joshuto
+joshuto-bin
 jpegoptim
 jq
 kdeconnect
@@ -180,6 +180,7 @@ man-db
 man-pages
 mesa-utils
 meson
+microsoft-edge-stable-bin
 minicom
 mkinitcpio-firmware
 mpv
@@ -246,7 +247,6 @@ qemu-full
 qt6-doc
 qt6-tools-desktop
 qtcreator
-qutebrowser
 reflector
 ripgrep
 rlwrap
@@ -273,6 +273,7 @@ sshfs
 stow
 strace
 sudo
+swhkd-bin
 sxhkd
 sxiv
 sysz
@@ -315,6 +316,7 @@ ttf-wps-fonts
 typora
 ubuntu-keyring
 unzip
+updaurpkg-git
 urxvt-perls
 usbutils
 uwufetch

@@ -4,9 +4,9 @@
 # don't use xdotool, maybe collide with kmonad
 
 # control
-super {_, ctrl +} + r
+super + {_, ctrl +} r
 	{pkill -USR1 -x sxhkd, bspc wm -r; pkill polybar; polybar -r;}
-super {_, ctrl +} q
+super + {_, ctrl +} q
 	bspc {node -c, quit}
 
 # navigate

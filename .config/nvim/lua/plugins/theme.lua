@@ -10,6 +10,8 @@ return {
 
   { "navarasu/onedark.nvim",  lazy = false },
 
+  { "AlexvZyl/nordic.nvim",   lazy = false },
+
   { "rose-pine/neovim",       name = "rose-pine", lazy = false },
 
   {

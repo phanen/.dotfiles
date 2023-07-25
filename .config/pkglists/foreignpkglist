@@ -10,10 +10,11 @@ fish-fzf
 fontpreview-ueberzug-git
 gibo
 google-chrome
-joshuto
+joshuto-bin
 linuxqq
 looking-glass-git
 looking-glass-module-dkms
+microsoft-edge-stable-bin
 mkinitcpio-firmware
 nodejs-neovim
 papis
@@ -22,9 +23,11 @@ picom-simpleanims-next-git
 qt6-tools-desktop
 sealcrypto-git
 slip
+swhkd-bin
 sysz
 ttf-ms-fonts
 ttf-wps-fonts
+updaurpkg-git
 vifm-colors-git
 vifmimg-git
 vivado

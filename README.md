@@ -7,7 +7,8 @@ cd dotfiles
 make
 ```
 
-> all packages can be found in [.config/pkglists/](.config/pkglists/)
+> - all installed packages can be found in [.config/pkglists/](.config/pkglists/)
+> - here are aur packages I maintain: <https://aur.archlinux.org/packages?SeB=M&K=phanium>
 
 ## basic softwares
 > a WIP best practice for a nerd like me

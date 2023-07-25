@@ -44,6 +44,11 @@ picom &
 # avoid fish handle sxhkd
 export SXHKD_SHELL='/usr/bin/sh'
 sxhkd -a Tab & # dont use Espace...
+
+# TODO
+# swhkds &
+# pkexec swhkd
+
 # udiskie &
 
 # fix idea
