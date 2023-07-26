@@ -135,8 +135,6 @@ super + {z, x, c}
 super + p
 	CM_LAUNCHER=rofi clipmenu
 
-super + alt + {bracketleft, bracketright, semicolon}
-	xrandr -o {left, right, normal}
 super + {minus, equal}
 	dbususend --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,Next}
 super + BackSpace
@@ -163,11 +161,15 @@ super + {F1, F2}
 	sound-control {down, up}
 super + {F3, F4}
 	light-control {down, up}
-super + ctrl + bracketleft
+super + {F5, F6, F7, F8}
+	xrandr -o {left, right, normal, inverted}
+super + F9
 	flameshot gui
-super + bracketleft
+super + F10
 	picgo -p http://127.0.0.1:7890 u | tail -n1 | tr -d "\n" | xsel -b && notify-send finish
 super + shift + bracketleft
 	flameshot gui -r | imgur.sh
 super + bracketright
 	slip --stop || slip --gif
+super + F11
+	~/bin/toggle-touchpad.sh

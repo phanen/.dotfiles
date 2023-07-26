@@ -101,8 +101,8 @@
 (deflayer modular
   grv M-f1 M-f2 M-f3 M-f4 M-f5  6    7    8    9    @cmk -    =    bspc
   @tb q M-C-[ M-[ M-] t    y    u    M-f3 M-f4 p    [    ]    \
-  @qc  a    s   M-S-[ f    g    h    M-f1 M-f2 l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  @qc  a    s   M-S-[ f    g    M-f9 M-f1 M-f2 l    ;    '    ret
+  lsft z    x    c    v    b    M-f10  M-f5 M-f6 M-F7 M-F8 rsft
   lctl @lm lalt           @sm            ralt rctl
 )
 
