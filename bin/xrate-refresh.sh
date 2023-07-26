@@ -5,7 +5,8 @@
     sleep 1
 
     DISPLAY=":0.0"
-    XAUTHORITY="/home/phanium/.Xauthority"
+    # hack
+    XAUTHORITY="/home/$(ls /home/ | head -n1)/.Xauthority"
     export DISPLAY XAUTHORITY
 
     xset r rate 150 75
