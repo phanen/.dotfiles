@@ -39,4 +39,4 @@ case  $(tty) in
 esac
 
 # _util_netcfg
-[ -z "${SSH_TTY}" ] && [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && cd ~ && startx # && sudo kbdrate -d 150 -r 65
+# [ -z "${SSH_TTY}" ] && [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && cd ~ && startx # && sudo kbdrate -d 150 -r 65

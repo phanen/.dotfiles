@@ -1,12 +1,17 @@
 #!/bin/bash
 
+SCONTROL=Master
+if [[ "$(hostname)" = "cb" ]]; then
+SCONTROL=DAC1
+fi
+
 case "$1" in
-	on) amixer sset Master on;;
-	toggle) amixer sset Master toggle ;;
-	mute) amixer sset Master mute;;
-	up) amixer sset Master 5%+;;
-	down) amixer sset Master 5%-;;
-	bigup) amixer sset Master 15%+;;
-	bigdown) amixer sset Master 15%-;;
+    on) amixer sset "${SCONTROL}" on;;
+    toggle) amixer sset "${SCONTROL}" toggle ;;
+    mute) amixer sset "${SCONTROL}" mute;;
+    up) amixer sset "${SCONTROL}" 5%+;;
+    down) amixer sset "${SCONTROL}" 5%-;;
+    bigup) amixer sset "${SCONTROL}" 15%+;;
+    bigdown) amixer sset "${SCONTROL}" 15%-;;
 esac 
 #>/dev/null
