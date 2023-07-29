@@ -1,6 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
+    event = 'InsertEnter',
     dependencies = {
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-nvim-lsp",
@@ -134,5 +135,30 @@ return {
         -- },
       }
     end,
+  },
+  {
+    'zbirenbaum/copilot.lua',
+    event = 'InsertEnter',
+    cond = false,
+    dependencies = { 'nvim-cmp' },
+    opts = {
+      panel = {
+        enabled = true,
+        auto_refresh = true,
+        keymap = { open = '<a-cr>' },
+        layout = { position = 'right', ratio = 0.4 },
+      },
+      suggestion = {
+        auto_trigger = true,
+        keymap = { accept = false, accept_word = '<a-w>', accept_line = '<a-l>' },
+      },
+      filetypes = {
+        gitcommit = false,
+        NeogitCommitMessage = false,
+        DressingInput = false,
+        TelescopePrompt = false,
+        ['dap-repl'] = false,
+      },
+    },
   },
 }

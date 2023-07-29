@@ -47,6 +47,7 @@ clang
 clash
 clipmenu
 cmake
+cobalt
 code
 code-marketplace
 cpio
@@ -139,6 +140,7 @@ icalingua++
 imagemagick
 inetutils
 inotify-tools
+intel-media-driver
 intel-ucode
 iptables-nft
 iverilog
@@ -157,6 +159,7 @@ lib32-gcc-libs
 lib32-nvidia-utils
 libsixel
 libtool
+libva-intel-driver
 libxft
 libxinerama
 light
@@ -189,11 +192,12 @@ mupdf-tools
 namcap
 nano
 nasm
-neovim-git
+neovim
 nerd-fonts-cascadia-code
 net-tools
 netease-cloud-music-gtk4
 networkmanager
+nikola
 ninja
 nmap
 nodejs
@@ -231,6 +235,7 @@ polybar
 procs
 pwgen
 python
+python-bilibili-api-python
 python-certifi
 python-markdown
 python-markdown-it-py
@@ -240,6 +245,7 @@ python-poetry
 python-pynvim
 python-pyquery
 python-qrcode
+python-qrcode_terminal
 python-qtconsole
 python2
 qemu-emulators-full
@@ -329,6 +335,7 @@ virt-viewer
 vivado
 vlc
 vmpk
+vulkan-intel
 wemeet-bin
 wget
 which
@@ -394,6 +401,7 @@ yq
 zathura
 zathura-pdf-mupdf
 zip
+zola
 zotero-bin
 zoxide
 zsh

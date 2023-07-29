@@ -43,6 +43,7 @@ clang
 clash
 clipmenu
 cmake
+cobalt
 code
 cpio
 cronie
@@ -127,6 +128,7 @@ icalingua++
 imagemagick
 inetutils
 inotify-tools
+intel-media-driver
 intel-ucode
 iptables-nft
 iverilog
@@ -144,6 +146,7 @@ lib32-gcc-libs
 lib32-nvidia-utils
 libsixel
 libtool
+libva-intel-driver
 libxft
 libxinerama
 light
@@ -171,11 +174,12 @@ mupdf-tools
 namcap
 nano
 nasm
-neovim-git
+neovim
 nerd-fonts-cascadia-code
 net-tools
 netease-cloud-music-gtk4
 networkmanager
+nikola
 ninja
 nmap
 nodejs
@@ -296,6 +300,7 @@ virt-manager
 virt-viewer
 vlc
 vmpk
+vulkan-intel
 wget
 which
 wpa_supplicant
@@ -356,6 +361,7 @@ yq
 zathura
 zathura-pdf-mupdf
 zip
+zola
 zotero-bin
 zoxide
 zsh
