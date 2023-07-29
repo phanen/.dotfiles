@@ -154,11 +154,28 @@ return {
 
   {
     "smjonas/inc-rename.nvim",
-    config = true,
+    keys = {
+      {
+        '<leader>rn',
+        function() return vim.fmt(':IncRename %s', vim.fn.expand('<cword>')) end,
+        expr = true,
+        silent = false,
+        desc = 'lsp: incremental rename',
+      },
+    },
   },
 
   {
     "mg979/vim-visual-multi",
     lazy = false,
+  },
+
+  { 'tpope/vim-eunuch', cmd = { 'Move', 'Rename', 'Remove', 'Delete', 'Mkdir' } },
+  { 'tpope/vim-sleuth', event = 'VeryLazy' },
+  { 'tpope/vim-repeat', event = 'VeryLazy' },
+
+  {
+    'vim-scripts/DrawIt',
+    cond = false,
   },
 }

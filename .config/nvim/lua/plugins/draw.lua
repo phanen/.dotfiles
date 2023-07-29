@@ -1,6 +1,0 @@
-return {
-
-  {
-    'vim-scripts/DrawIt',
-  },
-}
