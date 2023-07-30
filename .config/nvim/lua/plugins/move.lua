@@ -47,10 +47,6 @@ return {
   {
     "folke/flash.nvim",
     cond = (used_method == "flash"),
-    event = "VeryLazy",
-    ---@type Flash.Config
-    -- cond = false,
-    -- disable f F t T
     opts = {
       modes = {
         char = {

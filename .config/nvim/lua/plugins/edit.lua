@@ -4,26 +4,26 @@ return {
   {
     "linty-org/readline.nvim",
     keys = {
-      { "<c-f>",  "<right>",                                               mode = "!" },
-      { "<c-b>",  "<left>",                                                mode = "!" },
-      { "<c-p>",  "<up>",                                                  mode = "!" },
-      { "<c-n>",  "<down>",                                                mode = "!" },
-      { "<m-f>",  function() require("readline").forward_word() end,       mode = "!" },
-      { "<m-b>",  function() require("readline").backward_word() end,      mode = "!" },
-      { "<c-a>",  function() require("readline").beginning_of_line() end,  mode = "!" },
-      { "<c-e>",  function() require("readline").end_of_line() end,        mode = "!" },
+      { "<c-f>", "<right>", mode = "!" },
+      { "<c-b>", "<left>", mode = "!" },
+      { "<c-p>", "<up>", mode = "!" },
+      { "<c-n>", "<down>", mode = "!" },
+      { "<m-f>", function() require("readline").forward_word() end, mode = "!" },
+      { "<m-b>", function() require("readline").backward_word() end, mode = "!" },
+      { "<c-a>", function() require("readline").beginning_of_line() end, mode = "!" },
+      { "<c-e>", function() require("readline").end_of_line() end, mode = "!" },
       -- { '<c-w>', function() require('readline').unix_word_rubout() end, mode = '!' },
       { "<m-bs>", function() require("readline").backward_kill_word() end, mode = "!" },
-      { "<m-d>",  function() require("readline").kill_word() end,          mode = "!" },
-      { "<c-l>",  function() require("readline").kill_word() end,          mode = "!" },
-      { "<c-k>",  function() require("readline").kill_line() end,          mode = "!" },
-      { "<c-u>",  function() require("readline").backward_kill_line() end, mode = "!" },
+      { "<m-d>", function() require("readline").kill_word() end, mode = "!" },
+      { "<c-l>", function() require("readline").kill_word() end, mode = "!" },
+      { "<c-k>", function() require("readline").kill_line() end, mode = "!" },
+      { "<c-u>", function() require("readline").backward_kill_line() end, mode = "!" },
     },
   },
 
   {
     "kylechui/nvim-surround",
-    lazy = false,
+    -- lazy = false,
     keys = { { "s", mode = "v" }, "<C-g>s", "<C-g>S", "ys", "yss", "yS", "cs", "ds" },
     opts = {
       move_cursor = true,
@@ -57,8 +57,7 @@ return {
           add = { "{", "}" },
           find = "{.-}",
           delete = "^({?)().-(}?)()$",
-          change = {
-          },
+          change = {},
           target = "^({?)().-(}?)()$",
         },
         ["m"] = {
@@ -85,7 +84,6 @@ return {
             target = "^([[ ?)().-( ]]?)()$",
           },
         },
-
       },
     },
   },
@@ -94,35 +92,35 @@ return {
     "numToStr/Comment.nvim",
     keys = {
       { "gcc" },
-      { "gc",        mode = { "n", "v" } },
+      { "gc", mode = { "n", "v" } },
       { "<leader>O" },
       { "<leader>A" },
       { "<leader>oo" },
       -- https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
       {
-        '<c-_>',
+        "<c-_>",
         function()
-          return vim.v.count == 0 and '<Plug>(comment_toggle_linewise_current)'
-              or '<Plug>(comment_toggle_linewise_count)'
+          return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)"
+            or "<Plug>(comment_toggle_linewise_count)"
         end,
         expr = true,
-        mode = { "n" }
+        mode = { "n" },
       },
       -- FIXME: position of cursor should not move
-      { '<c-_>', '<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>', mode = { "i" } },
-      { '<c-_>', '<Plug>(comment_toggle_linewise_visual)',                mode = { "v" } },
+      { "<c-_>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
+      { "<c-_>", "<Plug>(comment_toggle_linewise_visual)", mode = { "v" } },
     },
     opts = {
       padding = true,
       sticky = true,
       ignore = nil,
-      toggler = { line = 'gcc', block = 'gbc' },
-      opleader = { line = 'gc', block = 'gb' },
-      extra = { above = '<leader>O', below = '<leader>oo', eol = '<leader>A' },
+      toggler = { line = "gcc", block = "gbc" },
+      opleader = { line = "gc", block = "gb" },
+      extra = { above = "<leader>O", below = "<leader>oo", eol = "<leader>A" },
       mappings = { basic = true, extra = true },
       pre_hook = nil,
       post_hook = nil,
-    }
+    },
   },
 
   {
@@ -156,26 +154,26 @@ return {
     "smjonas/inc-rename.nvim",
     keys = {
       {
-        '<leader>rn',
-        function() return vim.fmt(':IncRename %s', vim.fn.expand('<cword>')) end,
+        "<leader>rn",
+        function() return vim.fmt(":IncRename %s", vim.fn.expand "<cword>") end,
         expr = true,
         silent = false,
-        desc = 'lsp: incremental rename',
+        desc = "lsp: incremental rename",
       },
     },
   },
 
   {
     "mg979/vim-visual-multi",
-    lazy = false,
+    keys = "<c-n>",
   },
 
-  { 'tpope/vim-eunuch', cmd = { 'Move', 'Rename', 'Remove', 'Delete', 'Mkdir' } },
-  { 'tpope/vim-sleuth', event = 'VeryLazy' },
-  { 'tpope/vim-repeat', event = 'VeryLazy' },
+  { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
+  { "tpope/vim-sleuth", event = "VeryLazy" },
+  { "tpope/vim-repeat", event = "VeryLazy" },
 
   {
-    'vim-scripts/DrawIt',
+    "vim-scripts/DrawIt",
     cond = false,
   },
 }

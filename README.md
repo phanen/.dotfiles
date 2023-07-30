@@ -53,7 +53,7 @@ I basically some guides on living in terminal or get ride of mouse
 
 - telescope, bufferline, bufdetele
 ```
-.config/nvim
+.
 ├── after
 │   └── ftplugin
 │       ├── help.lua
@@ -69,7 +69,6 @@ I basically some guides on living in terminal or get ride of mouse
 │   │   ├── cmp.lua
 │   │   ├── dap.lua
 │   │   ├── doc.lua
-│   │   ├── draw.lua
 │   │   ├── edit.lua
 │   │   ├── explore.lua
 │   │   ├── git.lua
@@ -78,7 +77,6 @@ I basically some guides on living in terminal or get ride of mouse
 │   │   ├── lsp.lua
 │   │   ├── misc.lua
 │   │   ├── move.lua
-│   │   ├── outline.lua
 │   │   ├── qf.lua
 │   │   ├── session.lua
 │   │   ├── snip.lua
@@ -86,7 +84,6 @@ I basically some guides on living in terminal or get ride of mouse
 │   │   ├── telescope.lua
 │   │   ├── terminal.lua
 │   │   ├── theme.lua
-│   │   ├── tpope.lua
 │   │   ├── treesitter.lua
 │   │   ├── ui.lua
 │   │   └── util.lua

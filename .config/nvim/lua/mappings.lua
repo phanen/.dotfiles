@@ -136,6 +136,7 @@ nmap("<leader>wi", "<cmd>LspInfo<cr>")
 nmap("<leader>wu", "<cmd>NullLsInfo<cr>")
 nmap("<leader>wy", "<cmd>Mason<cr>")
 
+
 -- toggle options
 nmap("<leader>oc", "<cmd>set cursorline! cursorcolumn!<cr>")
 nmap("<leader>of", "<cmd>set foldenable!<cr>")

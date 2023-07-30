@@ -1,7 +1,7 @@
 return {
   {
     'akinsho/toggleterm.nvim',
-    event = 'VeryLazy',
+    keys = { [[<c-\>]], },
     opts = {
       open_mapping = [[<c-\>]],
       start_in_insert = true,

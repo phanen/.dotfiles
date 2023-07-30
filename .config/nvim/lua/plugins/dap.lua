@@ -35,10 +35,10 @@ return {
         desc = "dap ui: toggle",
       },
       { "<localleader>dt", function() require("dap").repl.toggle() end, desc = "dap: toggle repl" },
-      { "<localleader>de", function() require("dap").step_out() end,    desc = "dap: step out" },
-      { "<localleader>di", function() require("dap").step_into() end,   desc = "dap: step into" },
-      { "<localleader>do", function() require("dap").step_over() end,   desc = "dap: step over" },
-      { "<localleader>dl", function() require("dap").run_last() end,    desc = "dap REPL: run last" },
+      { "<localleader>de", function() require("dap").step_out() end, desc = "dap: step out" },
+      { "<localleader>di", function() require("dap").step_into() end, desc = "dap: step into" },
+      { "<localleader>do", function() require("dap").step_over() end, desc = "dap: step over" },
+      { "<localleader>dl", function() require("dap").run_last() end, desc = "dap REPL: run last" },
     },
     config = function()
       local dap = require "dap" -- NOTE: must be loaded before the signs can be tweaked
@@ -147,10 +147,10 @@ return {
             layouts = {
               {
                 elements = {
-                  { id = "scopes",      size = 0.25 },
+                  { id = "scopes", size = 0.25 },
                   { id = "breakpoints", size = 0.25 },
-                  { id = "stacks",      size = 0.25 },
-                  { id = "watches",     size = 0.25 },
+                  { id = "stacks", size = 0.25 },
+                  { id = "watches", size = 0.25 },
                 },
                 position = "left",
                 size = 20,
@@ -164,8 +164,9 @@ return {
     },
   },
 
-  { -- rust
+  {
     "simrat39/rust-tools.nvim",
+    ft = "rust",
   },
 
   {
@@ -180,7 +181,7 @@ return {
   {
     "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
     config = function()
-      require('toggle_lsp_diagnostics').init()
+      require("toggle_lsp_diagnostics").init()
       -- require('toggle_lsp_diagnostics').init(vim.diagnostic.config())
     end,
     keys = {

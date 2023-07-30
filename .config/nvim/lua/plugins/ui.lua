@@ -75,18 +75,6 @@ return {
     config = function(_, opts) require('lspkind').init(opts) end,
   },
 
-  -- outline
-  {
-    "glepnir/lspsaga.nvim",
-    event = "LspAttach",
-    config = true,
-    dependencies = {
-      { "nvim-tree/nvim-web-devicons" },
-      -- Please make sure you install markdown and markdown_inline parser
-      { "nvim-treesitter/nvim-treesitter" }
-    }
-  },
-
   -- disgnose
   {
     "folke/trouble.nvim",
@@ -144,8 +132,18 @@ return {
 
   -- breadcrumbs
   {
+    "glepnir/lspsaga.nvim",
+    event = "LspAttach",
+    config = true,
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons" },
+      -- ensure markdown and markdown_inline parser
+      { "nvim-treesitter/nvim-treesitter" }
+    }
+  },
+  {
     "SmiteshP/nvim-navic",
-    event = "VeryLazy",
+    cond = false,
     dependencies = "neovim/nvim-lspconfig"
   },
   {
@@ -153,6 +151,69 @@ return {
     cond = false,
     event = 'VeryLazy',
     keys = { { '<leader>wp', function() require('dropbar.api').pick() end, desc = 'winbar: pick' } },
-  }
+  },
+
+  -- outline
+  {
+    "SmiteshP/nvim-navbuddy",
+    lazy = false,
+    cond = false,
+    event = "VeryLazy",
+    -- keys = { "<leader>wj" },
+    -- cmd = { "Navbuddy" },
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {
+      lsp = { auto_attach = true },
+      -- icons = require('lspkind').symbol_map,
+      icons = {
+        Text = "󰉿",
+        Method = "󰆧",
+        Function = "󰊕",
+        Constructor = "",
+        Field = "󰜢",
+        Variable = "󰀫",
+        Class = "󰠱",
+        Interface = "",
+        Module = "",
+        Property = "󰜢",
+        Unit = "󰑭",
+        Value = "󰎠",
+        Enum = "",
+        Keyword = "󰌋",
+        Snippet = "",
+        Color = "󰏘",
+        File = "󰈙",
+        Reference = "󰈇",
+        Folder = "󰉋",
+        EnumMember = "",
+        Constant = "󰏿",
+        Struct = "󰙅",
+        Event = "",
+        Operator = "󰆕",
+        TypeParameter = "",
+      },
+    },
+  },
+
+  {
+    -- outline
+    'stevearc/aerial.nvim',
+    config = true,
+    key = { "<leader>wo", },
+    cmd = { "AerialToggle" },
+    -- event = "VeryLazy",
+    opts = {
+      keymaps = {
+        ["<C-n>"] = "actions.down_and_scroll",
+        ["<C-p>"] = "actions.up_and_scroll",
+        ["<C-j>"] = "",
+        ["<C-k>"] = "",
+        ["g?"] = "actions.show_help",
+      },
+    }
+  },
 
 }
