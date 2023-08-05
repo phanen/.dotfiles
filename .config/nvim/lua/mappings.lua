@@ -37,12 +37,6 @@ xmap(".", ">gv")
 xmap("p", '"_dp')
 
 nmap("<s-tab>", "vil")
--- nmap("<a-k>", ":m .-2<cr>")
--- nmap("<a-j>", ":m .+1<cr>")
--- nmap('<a-k>', '<cmd>move-2<CR>==')
--- nmap('<a-j>', '<cmd>move+<CR>==')
--- xmap('<a-k>', ":move-2<CR>='[gv", { silent = true })
--- xmap('<a-j>', ":move'>+<CR>='[gv", { silent = true })
 
 -- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
 cmap("w!!", "w !sudo tee > /dev/null")
@@ -67,15 +61,21 @@ nmap("<c-s>", "<c-u>")
 nmap("<c-e>", "<cmd>Bdelete!<cr>")
 nmap("<leader>q", "<cmd>wincmd q<cr>")
 
-nmap("<a-k>", "<cmd>move-2<CR>==")
-nmap("<a-j>", "<cmd>move+<CR>==")
-xmap("<a-k>", "<cmd>move-2<cr>='[gv", { silent = true })
+nmap("<a-j>", "<cmd>move+<cr>")
+nmap("<a-k>", "<cmd>move-2<cr>")
 xmap("<a-j>", "<cmd>move'>+<cr>='[gv", { silent = true })
+xmap("<a-k>", "<cmd>move-2<cr>='[gv", { silent = true })
+-- nmap("<a-k>", ":m .-2<cr>")
+-- nmap("<a-j>", ":m .+1<cr>")
+-- nmap('<a-k>', '<cmd>move-2<CR>==')
+-- nmap('<a-j>', '<cmd>move+<CR>==')
+-- xmap('<a-k>', ":move-2<CR>='[gv", { silent = true })
+-- xmap('<a-j>', ":move'>+<CR>='[gv", { silent = true })
 
-nmap("<a-h>", "5<<")
-nmap("<a-l>", "5>>")
-xmap("<a-h>", "5<<")
-xmap("<a-l>", "5>>")
+nmap("<a-h>", "<<")
+nmap("<a-l>", ">>")
+xmap("<a-h>", "<")
+xmap("<a-l>", ">")
 nmap("_", "5j")
 xmap("_", "5j")
 nmap("-", "5k")
@@ -209,7 +209,7 @@ nmap("<c-p>", "I- <esc>")
 xmap("<c-p>", "I- <esc>")
 
 -- https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser
+-- nmap <silent> gx :!xdg-open <c-r><c-a>
 vim.cmd [[
-  " nmap <silent> gx :!xdg-open <c-r><c-a>
   nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>
 ]]

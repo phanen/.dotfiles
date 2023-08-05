@@ -65,10 +65,22 @@ return {
           rt.setup {
             server = {
               on_attach = function(_, bufnr)
-                -- Hover actions
-                vim.keymap.set("n", "<c-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-                -- Code action groups
-                vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+                lsp_attach(_, bufnr)
+                local function nmap(lhs, rhs) map("n", lhs, rhs, { buffer = bufnr }) end
+                nmap("K", rt.hover_actions.hover_actions)
+                nmap("gA", rt.code_action_group.code_action_group)
+                nmap("gR", rt.runnables.runnables)
+                nmap("gM", rt.expand_macro.expand_macro)
+                nmap("gC", rt.open_cargo_toml.open_cargo_toml)
+                nmap("gP", rt.parent_module.parent_module)
+                -- nmap("<a-k>", rt.move_item.move_item(true))
+                -- nmap("<a-j>", rt.move_item.move_item(false))
+                -- nmap("", rt.hover_range.hover_range)
+                nmap("J", rt.join_lines.join_lines)
+                nmap("gS", rt.ssr.ssr)
+                nmap("gV", rt.crate_graph.view_crate_graph)
+                -- rt.ssr.ssr(query)
+                -- rt.crate_graph.view_crate_graph(backend, output)
               end,
             },
           }
