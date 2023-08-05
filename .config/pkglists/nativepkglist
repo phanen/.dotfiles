@@ -113,6 +113,7 @@ groff
 grub
 gsmartcontrol
 gtk-vnc
+gtk2
 gtkwave
 gvim
 gzip
@@ -228,6 +229,7 @@ qemu-emulators-full
 qemu-full
 qt6-doc
 qtcreator
+rar
 reflector
 ripgrep
 rlwrap
@@ -235,11 +237,9 @@ rmlint
 rofi
 rsync
 rtorrent
-ruby
 rustup
 scrcpy
 screenkey
-scrot
 sd
 sed
 setconf
@@ -283,7 +283,6 @@ the_silver_searcher
 tmux
 tokei
 traceroute
-translate-shell
 tree
 tree-sitter
 ttf-firacode-nerd
@@ -300,7 +299,6 @@ virt-manager
 virt-viewer
 vlc
 vmpk
-vulkan-intel
 wget
 which
 wpa_supplicant

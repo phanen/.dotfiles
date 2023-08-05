@@ -38,21 +38,20 @@ the softwares I am using (maybe helpful for xorg boomers...)
 
 ## tips and tricks
 
-I basically some guides on living in terminal or get ride of mouse
+basically some guides on living in terminal or get ride of mouse
 - neovim is useful as manpager, but not common pager
     - less is still the best pager for most cases
     - you means bat? I think that's a previewer...
-- fzf anywhere, e.g. fish-fifc, sysz, fontpreview-ueberzug, telesope
-- blazing fast manual look up: tealdeer
+- fzf anywhere, e.g. fish-fifc, sysz, fontpreview-ueberzug, telescope
+- blazing fast manual look-up: tealdeer
 - chores app: xclip, slock, dunst, flameshot, ffmpeg, cronie, sxiv, gimp, mpv
-    - if possible, bind most used apps in keys though kmonad/sxhkd 
+    - if possible, keybind most used operations/apps though kmonad/sxhkd
 
 > by the way, any advice on how to stop the world to use format like `.docx`, `.docx` `.ppt` `.pptx` ...
 
 ## neovim
 
-- telescope, bufferline, bufdetele
-```
+```tree
 .
 ├── after
 │   └── ftplugin

@@ -125,6 +125,7 @@ groff
 grub
 gsmartcontrol
 gtk-vnc
+gtk2
 gtkwave
 gvim
 gzip
@@ -253,6 +254,7 @@ qemu-full
 qt6-doc
 qt6-tools-desktop
 qtcreator
+rar
 reflector
 ripgrep
 rlwrap
@@ -260,11 +262,9 @@ rmlint
 rofi
 rsync
 rtorrent
-ruby
 rustup
 scrcpy
 screenkey
-scrot
 sd
 sealcrypto-git
 sed
@@ -312,7 +312,6 @@ the_silver_searcher
 tmux
 tokei
 traceroute
-translate-shell
 tree
 tree-sitter
 ttf-firacode-nerd
@@ -335,7 +334,6 @@ virt-viewer
 vivado
 vlc
 vmpk
-vulkan-intel
 wemeet-bin
 wget
 which

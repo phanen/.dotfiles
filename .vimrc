@@ -1,3 +1,4 @@
+" !emacs -nw
 " basic
 set number
 set relativenumber
