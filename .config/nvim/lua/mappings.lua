@@ -31,31 +31,26 @@ nmap("<c-d>", "<c-d>zz")
 
 xmap("<", "<gv")
 xmap(">", ">gv")
-xmap(",", "<gv")
-xmap(".", ">gv")
-
-xmap("p", '"_dp')
-
-nmap("<s-tab>", "vil")
 
 -- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
 cmap("w!!", "w !sudo tee > /dev/null")
 
-xmap("d", '"_d')
-xmap("c", '"_c')
-nmap("c", '"_c')
+xmap("p", '"_dp')
 nmap("d", '"_d')
-nmap("C", '"_C')
+xmap("d", '"_d')
 nmap("D", '"_D')
+nmap("c", '"_c')
+xmap("c", '"_c')
+nmap("C", '"_C')
 nmap("X", "D")
 
--- navigation
+-- buffer switch
 map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
 map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
--- map({ "n", "v", "o" }, "<bs>", "<cmd>BufferLineCyclePrev<cr>")
--- map({ "n", "v", "o" }, "<c-b>", "<cmd>BufferLineCyclePrev<cr>")
 
 nmap("<c-s>", "<c-u>")
+
+nmap("<leader>j", "yyp")
 
 -- how to quit in vim
 nmap("<c-e>", "<cmd>Bdelete!<cr>")
@@ -65,17 +60,11 @@ nmap("<a-j>", "<cmd>move+<cr>")
 nmap("<a-k>", "<cmd>move-2<cr>")
 xmap("<a-j>", "<cmd>move'>+<cr>='[gv", { silent = true })
 xmap("<a-k>", "<cmd>move-2<cr>='[gv", { silent = true })
--- nmap("<a-k>", ":m .-2<cr>")
--- nmap("<a-j>", ":m .+1<cr>")
--- nmap('<a-k>', '<cmd>move-2<CR>==')
--- nmap('<a-j>', '<cmd>move+<CR>==')
--- xmap('<a-k>', ":move-2<CR>='[gv", { silent = true })
--- xmap('<a-j>', ":move'>+<CR>='[gv", { silent = true })
 
 nmap("<a-h>", "<<")
 nmap("<a-l>", ">>")
-xmap("<a-h>", "<")
-xmap("<a-l>", ">")
+xmap("<a-h>", "<gv")
+xmap("<a-l>", ">gv")
 nmap("_", "5j")
 xmap("_", "5j")
 nmap("-", "5k")
@@ -91,9 +80,6 @@ nmap("<c-s-k>", "<cmd>resize -2<cr>")
 nmap("<c-s-j>", "<cmd>resize +2<cr>")
 nmap("<c-s-h>", "<cmd>vertical resize -2<cr>")
 nmap("<c-s-l>", "<cmd>vertical resize +2<cr>")
-
--- symbol rename
-nmap("<leader>rn", ":IncRename ")
 
 -- subtitution
 nmap(
@@ -135,7 +121,6 @@ nmap("<leader>wj", "<cmd>Navbuddy<cr>")
 nmap("<leader>wi", "<cmd>LspInfo<cr>")
 nmap("<leader>wu", "<cmd>NullLsInfo<cr>")
 nmap("<leader>wy", "<cmd>Mason<cr>")
-
 
 -- toggle options
 nmap("<leader>oc", "<cmd>set cursorline! cursorcolumn!<cr>")

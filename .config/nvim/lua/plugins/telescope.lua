@@ -51,7 +51,7 @@ return {
       { "<c-b>",            tb.buffers,              mode = { "n", "x" }, },
       { "<leader><tab>",    tb.colorscheme,          mode = { "n", "x" }, },
       { "<leader><leader>", tb.resume,               mode = { "n", "x" }, },
-      { "<leader>j",        tb.oldfiles,             mode = { "n", "x" }, },
+      -- { "<leader>j",        tb.oldfiles,             mode = { "n", "x" }, },
       { "<leader>h",        help_tags,               mode = { "n", "x" }, },
       { "<leader>l",        live_grep,               mode = { "n", "x" }, },
       { "<leader>/",        curbuf_fzf,              mode = { "n", "x" }, },

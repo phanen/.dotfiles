@@ -3,7 +3,7 @@ return {
   { "f3fora/cmp-spell", event = "InsertEnter", ft = { "gitcommit", "markdown", "norg", "org" } },
   {
     "hrsh7th/nvim-cmp",
-    event = 'InsertEnter',
+    event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-nvim-lsp",
@@ -13,7 +13,7 @@ return {
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
     },
---
+    --
     config = function()
       local cmp = require "cmp"
       local luasnip = require "luasnip"
@@ -138,27 +138,27 @@ return {
     end,
   },
   {
-    'zbirenbaum/copilot.lua',
-    event = 'InsertEnter',
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
     cond = false,
-    dependencies = { 'nvim-cmp' },
+    dependencies = { "nvim-cmp" },
     opts = {
       panel = {
         enabled = true,
         auto_refresh = true,
-        keymap = { open = '<a-cr>' },
-        layout = { position = 'right', ratio = 0.4 },
+        keymap = { open = "<a-cr>" },
+        layout = { position = "right", ratio = 0.4 },
       },
       suggestion = {
         auto_trigger = true,
-        keymap = { accept = false, accept_word = '<a-w>', accept_line = '<a-l>' },
+        keymap = { accept = false, accept_word = "<a-w>", accept_line = "<a-l>" },
       },
       filetypes = {
         gitcommit = false,
         NeogitCommitMessage = false,
         DressingInput = false,
         TelescopePrompt = false,
-        ['dap-repl'] = false,
+        ["dap-repl"] = false,
       },
     },
   },
