@@ -66,6 +66,7 @@ edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
+emacs
 evtest
 exa
 fakeroot
@@ -125,7 +126,6 @@ httping
 hugo
 hyperfine
 hyperv
-icalingua++
 imagemagick
 inetutils
 inotify-tools
@@ -297,7 +297,6 @@ verilator
 vifm
 virt-manager
 virt-viewer
-vlc
 vmpk
 wget
 which

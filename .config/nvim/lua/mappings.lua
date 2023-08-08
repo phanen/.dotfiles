@@ -53,6 +53,7 @@ nmap("<c-s>", "<c-u>")
 nmap("<leader>V", "ggVG")
 nmap("<leader>P", "ggVG\"_dp")
 nmap("<leader>Y", "ggVGy")
+nmap("<leader>T", ":Translate ")
 
 nmap("<leader>j", "yyp")
 

@@ -59,7 +59,7 @@
 )
 
 (deflayer qwerty
-  grv  _    _    3    4    5    6    7    8    9    0    -    =    bspc
+  grv  _    _    3    4    5    6    7    8    9    0    .    =    bspc
   @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
   @qc  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sft @z   x    c    v    b    n    m    ,    .    /    \
@@ -67,7 +67,7 @@
 )
 
 (deflayer colemak
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
   @tb  q    w    f    p    g    j    l    u    o    y    bspc ]    \
   @qc  a    r    s    t    d    h    n    e    i    @;   @'  ret
   @sft @z   x    c    v    b    k    m    ,    .    /    \
@@ -94,14 +94,14 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   ~    !    ^    #    $    ~    ~    &    *    +    |    _    _    _
   C-^  [    ]    \(   \)   @    %    \_   -    =    _    _    _
-  grv  <    >    {    }    _    {    }    _    .    /    \
+  grv  <    >    {    }  #(- >) {    }    _    .    /    \
   _    _    _              _              _    _
 )
 
 (deflayer modular
-  grv M-f1 M-f2 M-f3 M-f4 M-f5  6    7    8    9    @cmk -    =    bspc
+  grv M-f1 M-f2 M-f3 M-f4 M-f5  6    7    8    9    @cmk _    =    bspc
   @tb q M-C-[ M-[ M-] t    y    u    M-f3 M-f4 p    [    ]    \
-  @qc  a    s   M-S-[ f    g    M-f9 M-f1 M-f2 l    ;    '    ret
+  @qc  a M-f9  M-S-[  C-=   g   C--  M-f1 M-f2 l    ;    '    ret
   lsft z    x    c    v    M-f11 M-f10  M-f5 M-f6 M-F7 M-F8 rsft
   lctl @lm lalt           @sm            ralt rctl
 )
@@ -133,7 +133,7 @@
 )
 
 (deflayer vim-normal
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
   @tb  _ C-right _  C-S-z  t    C-c C-z  @qwe  o    C-V  [    ]    \
   @vc  _    _    bspc f    g    left down up right del   _    _
   @sft _  _   _  @vis   C-left  _    _    _    _    _    _
@@ -141,7 +141,7 @@
 )
 
 (deflayer vim-visual
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
   @tb  _ C-S-right _  C-z  t    C-c C-z  @qwe o   C-V    [    ]    \
   @vc  _    _    bspc f    g    S-left S-down S-up S-right del  _ _
   @sft _  _   _  _    C-S-left  _    _    _    _    _    _
@@ -157,7 +157,7 @@
 ;; )
 
 (deflayer emacs-young
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
   @qwe q    @kw end   r    t    y    @kl i    o    up   [    ]    \
   _    home s    d  right  g    bspc j    k    l    \    @'   ret
   @sft @z   x    c    v    left down m    ,    .    /    \

@@ -1,4 +1,10 @@
 if status is-interactive
+    abbr -a c cargo
+    abbr -a e nvim
+    abbr -a m make
+    abbr -a o xdg-open
+    abbr -a g git
+
     set -U fish_greeting
     # set fish_greeting ""
 
