@@ -50,6 +50,10 @@ map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
 
 nmap("<c-s>", "<c-u>")
 
+nmap("<leader>V", "ggVG")
+nmap("<leader>P", "ggVG\"_dp")
+nmap("<leader>Y", "ggVGy")
+
 nmap("<leader>j", "yyp")
 
 -- how to quit in vim
