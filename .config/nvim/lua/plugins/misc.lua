@@ -70,7 +70,7 @@ return {
 
   {
     "voldikss/vim-translator",
-    -- cmd = { "Translate", "TranslateW" },
+    cmd = { "Translate", "TranslateW" },
     keys = { { "<leader>K", "<cmd>Translate<cr>", mode = { "n", "x" } } },
   },
 
@@ -97,5 +97,23 @@ return {
     -- keys = { "<leader>ga", "<cmd>Other<cr>" },
     cmd = { "Other", "OtherSplit", "OtherVsplit" },
     opts = {},
+  },
+
+  {
+    "folke/todo-comments.nvim",
+    event = "VeryLazy",
+    dependencies = { "telescope.nvim", "nvim-lua/plenary.nvim" },
+    keys = {
+      {
+        "<leader>L",
+        ":TodoTelescope cwd=" .. require("utils").get_root() .. "<CR>",
+        silent = true,
+      },
+    },
+    opts = {
+      highlight = {
+        keyword = "bg",
+      },
+    },
   },
 }
