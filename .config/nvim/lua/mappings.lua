@@ -1,23 +1,12 @@
-local recursive_map = function(mode, lhs, rhs, opts)
-  opts = opts or {}
-  opts.remap = true
-  map(mode, lhs, rhs, opts)
-end
-
 -- `:h map-table`
-local nremap = function(...) recursive_map("n", ...) end
-local iremap = function(...) recursive_map("i", ...) end
 local nmap = function(...) map("n", ...) end
-local imap = function(...) map("i", ...) end
 local cmap = function(...) map("c", ...) end
-local vmap = function(...) map("v", ...) end
 local xmap = function(...) map("x", ...) end
-local omap = function(...) map("o", ...) end
 local tmap = function(...) map("t", ...) end
-local lmap = function(...) map("l", ...) end
 
 local f = require "utils.keymap"
 
+-- basics {{{
 map({ "n", "x", "o" }, "<space>", "<nop>")
 
 -- map({ "n", "x" }, ";", ":")
@@ -86,7 +75,11 @@ nmap("<c-s-j>", "<cmd>resize +2<cr>")
 nmap("<c-s-h>", "<cmd>vertical resize -2<cr>")
 nmap("<c-s-l>", "<cmd>vertical resize +2<cr>")
 
--- subtitution
+-- https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser
+vim.cmd [[ nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr> ]]
+-- }}}
+
+-- subtitution {{{
 nmap(
   "<leader>rp",
   [[
@@ -116,8 +109,9 @@ xmap("<leader>rm", [[:s/\s\{1,}//g<cr>]])
 
 nmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 xmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
+-- }}}
 
--- toggle windows
+-- toggle windows {{{
 nmap("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
 nmap("<leader>wo", "<cmd>AerialToggle<cr>")
 nmap("<leader>wm", "<cmd>MarkdownPreview<cr>")
@@ -126,8 +120,9 @@ nmap("<leader>wj", "<cmd>Navbuddy<cr>")
 nmap("<leader>wi", "<cmd>LspInfo<cr>")
 nmap("<leader>wu", "<cmd>NullLsInfo<cr>")
 nmap("<leader>wy", "<cmd>Mason<cr>")
+-- }}}
 
--- toggle options
+-- toggle options {{{
 nmap("<leader>oc", "<cmd>set cursorline! cursorcolumn!<cr>")
 nmap("<leader>of", "<cmd>set foldenable!<cr>")
 nmap("<leader>os", "<cmd>set spell!<cr>")
@@ -145,30 +140,28 @@ nmap("<leader><tab>", f.next_colorscheme, { desc = "switch colorscheme" })
 -- TODO: make it a real toggle
 nmap("<leader>oJ", function() vim.cmd [[noremap J gJ]] end, { desc = "toggle join mode" })
 nmap("<leader>ow", function() vim.cmd [[set wrap!]] end)
+-- }}}
 
--- term
+-- term {{{
 -- nmap("<a-t>", ":split term://zsh<cr>i")
 tmap("<c-s>", "<c-\\><c-n>")
 tmap("<a-t>", "<c-\\><c-n>:bdelete! %<cr>")
+-- }}}
 
--- diagnostic
+-- diagnostic {{{
 nmap("[d", vim.diagnostic.goto_prev)
 nmap("]d", vim.diagnostic.goto_next)
 nmap("<leader>df", vim.diagnostic.open_float)
 nmap("<leader>ds", vim.diagnostic.setloclist)
+-- }}}
 
--- search
+-- miscs {{{
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
 xmap("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 
--- get something
-nmap("<leader>gi", "<cmd>UploadClipboard<cr>")
-
 nmap("<leader>t,", f.toggle_last_char ",", { desc = "add ',' to end of line" })
 nmap("<leader>t;", f.toggle_last_char ";", { desc = "add ';' to end of line" })
-
--- nmap("<c-p>", f.toggle_list_sym, { desc = "toggle list symbol" })
 
 nmap("<leader>E", "<Cmd>Inspect<CR>", { desc = "Inspect the cursor position" })
 
@@ -176,10 +169,9 @@ nmap("<leader>E", "<Cmd>Inspect<CR>", { desc = "Inspect the cursor position" })
 nmap("<leader>bo", [[<cmd>w <bar> %bd <bar> e#<cr>]], { desc = "close all other buffers" })
 nmap("<localleader><tab>", [[:b <tab>]], { silent = false, desc = "open buffer list" })
 
-nmap("<leader>U", "gUiw`]", { desc = "capitalize word" })
+nmap("<leader>U", "gUiw", { desc = "capitalize word" })
 nmap("<c-w>f", "<c-w>vgf", { desc = "open file in vertical split" })
 
--- TODO: text object?
 -- FIXME: cross line ^M -> \n
 nmap("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
   silent = false,
@@ -194,12 +186,8 @@ xmap("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
   desc = "replace word under the cursor (visual)",
 })
 
--- TODO: mark current char?
 nmap("<c-p>", "I- <esc>")
 xmap("<c-p>", "I- <esc>")
+-- }}}
 
--- https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser
--- nmap <silent> gx :!xdg-open <c-r><c-a>
-vim.cmd [[
-  nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>
-]]
+-- vim:foldmethod=marker

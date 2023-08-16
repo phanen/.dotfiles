@@ -1,24 +1,21 @@
-local o, wo = vim.o, vim.wo
+local o, wo, opt = vim.o, vim.wo, vim.opt
 
+-- basics {{{
 o.clipboard = "unnamedplus"
 o.mouse = 'a'
 o.undofile = true
+o.number = true
+o.relativenumber = true
+o.termguicolors = true
+o.guifont = 'CaskaydiaCove Nerd Font:h10'
 
 -- https://www.zhihu.com/question/22363620
 o.fileencodings="ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
 
-o.number = true
-o.relativenumber = true
-
 -- https://stackoverflow.com/questions/2574027/automatically-go-to-next-line-in-vim--TODO
--- vim.cmd [[set whichwrap+=h,l]]
-o.whichwrap = o.whichwrap .. ",h,l"
+o.whichwrap = "b,s,h,l"
 
--- o.list = true
--- o.listchars = (o.listchars .. 'eol:↳')
-
--- case insensitive
--- UNLESS /C or capital in search
+-- unless /C or capital in search
 o.ignorecase = true
 o.smartcase = true
 o.hlsearch = false
@@ -27,44 +24,43 @@ o.hlsearch = false
 o.tabstop = 4
 o.softtabstop = 2
 o.shiftwidth = 2
-
 o.expandtab = true
 o.autoindent = true
 o.breakindent = true
+o.shiftround = true
 
 o.scrolloff = 16
 
 wo.signcolumn = 'yes'
 wo.conceallevel = 2
 
-o.termguicolors = true
+opt.completeopt = { 'menuone', 'noselect', 'noinsert' }
 
---Set completeopt to have a better completion experience
--- :help completeopt
--- menuone: popup even when there's only one match
--- noinsert: Do not insert text until a selection is made
--- noselect: Do not select, force to select one from the menu
--- shortness: avoid showing extra messages when using completion
--- updatetime: set updatetime for CursorHold
-vim.opt.completeopt = { 'menuone', 'noselect', 'noinsert' }
-vim.opt.shortmess = vim.opt.shortmess + { c = true }
-vim.api.nvim_set_option('updatetime', 300)
+o.splitright = true
 
--- Fixed column for diagnostics to appear
--- Show autodiagnostic popup on cursor hover_range
--- Goto previous / next diagnostic warning / error
--- Show inlay_hints more frequently
+-- o.wrapmargin = 2
+o.showbreak = "↪ "
+o.list = true -- invisible chars
+opt.listchars = {
+  eol = nil,
+  tab = '  ', -- Alternatives: '▷▷',
+  extends = '…', -- Alternatives: … » ›
+  precedes = '░', -- Alternatives: … « ‹
+  trail = '•', -- BULLET (U+2022, UTF-8: E2 80 A2)
+}
+-- }}}
 
-vim.cmd [[
-  set signcolumn=yes
-  autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
-]]
 
-vim.opt.wildignore:append({ ".javac", "node_modules", "*.pyc" })
-vim.opt.wildignore:append({ ".aux", ".out", ".toc" }) -- LaTeX
-vim.opt.wildignore:append({ ".o", ".obj", ".dll", ".exe", ".so", ".a", ".lib", ".pyc", ".pyo", ".pyd", ".swp", ".swo",
-	".class", ".DS_Store", ".git", ".hg", ".orig" })
+-- message
+opt.shortmess = opt.shortmess + { c = true }
+
+-- timings {{{
+-- for CursorHold
+o.updatetime = 300
 
 -- avoid sticky escape as alt
 o.ttimeout = false
 o.ttimeoutlen = 10
+-- }}}
+
+-- vim:foldmethod=marker
