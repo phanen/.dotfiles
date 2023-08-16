@@ -65,14 +65,6 @@ au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
 --     end
 -- })
 
-
--- FIXME: delay, which-key
--- vim.cmd [[
---   au filetype man nnoremap <buffer> d <c-d>
---   au filetype man nnoremap <buffer> u <c-u>
---   au filetype TelescopePrompt inoremap <buffer> <esc> <esc><esc>
--- ]]
-
 function NvimTree_width_ratio(percentage)
 	local ratio = percentage / 100
 	local width = math.floor(vim.go.columns * ratio)
@@ -96,7 +88,6 @@ au({ "BufReadPost" }, {
 	end,
 })
 
-
 au({ "ColorScheme" }, {
 	pattern = "*",
 	callback = function() -- inactivate and record
@@ -112,12 +103,6 @@ au({ "ColorScheme" }, {
 -- for r in regs
 --   call setreg(r, [])
 -- endfor
-
--- TODO: https://stackoverflow.com/questions/17365324/auto-save-in-vim-as-you-type
--- au({ "InsertLeave" }, {
---   pattern = '*.md',
---   command = 'w',
--- })
 
 -- https://www.reddit.com/r/neovim/comments/wjzjwe/how_to_set_no_name_buffer_to_scratch_buffer/
 local kill_no_name_group = ag('KillNoName', { clear = true })

@@ -136,10 +136,9 @@ super + p
 	CM_LAUNCHER=rofi clipmenu
 
 super + {minus, equal}
-	dbususend --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,Next}
+	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.com.gitee.gmg137.NeteaseCloudMusicGtk4 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,Next}
 super + BackSpace
-	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-
+	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.com.gitee.gmg137.NeteaseCloudMusicGtk4 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 # super + t
 # 	tabc create $(bspc query -N -n focused)
 # 	id=$(bspc query -N -n); \

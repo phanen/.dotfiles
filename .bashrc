@@ -13,6 +13,7 @@ export BASHRC_DIR=$HOME/.config/bash # simply for `gf`...
 _util_append_path "$HOME/bin"
 _util_append_path "$XDG_DATA_HOME/nvim/mason/bin"
 _util_append_path "$HOME/.local/bin"
+_util_append_path "$HOME/.cargo/bin"
 _util_append_path "$XDG_CONFIG_HOME/emacs/bin"
 
 [[ -r $BASHRC_DIR/alias.sh ]] && . $BASHRC_DIR/alias.sh

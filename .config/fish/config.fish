@@ -110,4 +110,6 @@ if status is-interactive
     set -Ux fifc_editor nvim
     set -U fifc_keybinding \t
     zoxide init fish | source
+    # source (/usr/bin/starship init fish --print-full-init | psub)
+    # /usr/bin/starship init fish --print-full-init | source
 end
