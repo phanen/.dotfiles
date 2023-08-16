@@ -11,13 +11,6 @@ return {
   },
 
   {
-    "askfiy/nvim-picgo",
-    cond = false,
-    ft = { "markdown" },
-    config = function() require("nvim-picgo").setup() end,
-  },
-
-  {
     "jakewvincent/mkdnflow.nvim",
     ft = { "markdown" },
     config = function()

@@ -32,8 +32,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- vim.o.completeopt = "menuone,noselect,noinsert"
-
 -- WIP: navie config parser
 local f = assert(io.open(vim.fn.stdpath("config") .. "/theme", "r"))
 local color_name = f:read "*all"
@@ -67,4 +65,4 @@ require("lazy").setup("plugins", {
 -- vim.cmd.packadd "cfilter"
 
 vim.cmd("colorscheme " .. color_name)
-vim.cmd("set bg=" .. vim.fn.system("darkman get"))
+-- vim.cmd("set bg=" .. vim.fn.system("darkman get"))

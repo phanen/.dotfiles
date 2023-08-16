@@ -1,10 +1,9 @@
 return {
   {
     "voldikss/vim-browser-search",
-    cond = false,
     event = "VeryLazy",
-    keys = { "<leader>s", mode = { "x" } },
-    config = function() map({ "x" }, "<leader>s", "<Plug>SearchVisual") end,
+    keys = { "gx", mode = { "x" } },
+    config = function() map({ "x" }, "gx", "<Plug>SearchVisual") end,
   },
 
   {
@@ -81,16 +80,10 @@ return {
   },
   {
     "nanotee/zoxide.vim",
-    cmd = {
-      "Z",
-      "Lz",
-      "Tz",
-      "Zi",
-      "Lzi",
-      "Tzi",
-    },
+    cmd = { "Z", "Lz", "Tz", "Zi", "Lzi", "Tzi", },
     config = function() require("zoxide").setup {} end,
   },
+
   {
     "rgroli/other.nvim",
     cond = false,
@@ -110,10 +103,6 @@ return {
         silent = true,
       },
     },
-    opts = {
-      highlight = {
-        keyword = "bg",
-      },
-    },
+    opts = { highlight = { keyword = "bg", }, },
   },
 }

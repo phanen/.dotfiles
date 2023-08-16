@@ -2,6 +2,12 @@ return {
   {
     "kevinhwang91/nvim-bqf",
     ft = "qf",
-    config = true,
+    opts = {},
   },
+  {
+    url = 'https://gitlab.com/yorickpeterse/nvim-pqf',
+    event = 'VeryLazy',
+    opts = {},
+  },
+
 }

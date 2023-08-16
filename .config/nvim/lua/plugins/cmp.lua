@@ -64,11 +64,12 @@ return {
       cmp.setup {
         enabled = function() return vim.api.nvim_buf_get_option(0, "modifiable") and vim.bo.buftype ~= "prompt" end,
         mapping = {
-          ["<c-l>"] = cmp.mapping.abort(),
+          ["<c-l>"] = cmp.mapping(cmp.mapping.abort(), { "i", "c" }),
           ["<c-i>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
           ["<c-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+          ["<c-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", }),
           ["<c-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-          ["<c-space>"] = cmp.mapping.complete {},
+          ["<c-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", }),
           ["<cr>"] = cmp.mapping(cmp.mapping.confirm { select = false }, { "i", "c" }),
         },
         snippet = { expand = function(args) luasnip.lsp_expand(args.body) end, },
