@@ -190,4 +190,15 @@ nmap("<c-p>", "I- <esc>")
 xmap("<c-p>", "I- <esc>")
 -- }}}
 
+-- resize gui font
+-- FIXME: don't work for firenvim
+local fsize = require('options').gui_font_size
+nmap("<c-->", function()
+  fsize = fsize - 1
+  vim.o.guifont = 'CaskaydiaCove Nerd Font:h' .. tostring(fsize)
+end)
+nmap("<c-=>", function()
+  fsize = fsize + 1
+  vim.o.guifont = 'CaskaydiaCove Nerd Font:h' .. tostring(fsize)
+end)
 -- vim:foldmethod=marker

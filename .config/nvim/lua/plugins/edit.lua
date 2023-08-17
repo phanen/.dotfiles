@@ -135,7 +135,7 @@ return {
       autopairs.setup {
         close_triple_quotes = true,
         check_ts = true,
-        fast_wrap = { map = '<c-s>' },
+        fast_wrap = { map = "<c-s>" },
         ts_config = {
           lua = { "string" },
           dart = { "string" },
@@ -175,5 +175,17 @@ return {
   {
     "vim-scripts/DrawIt",
     cond = false,
+  },
+
+  {
+    "gbprod/substitute.nvim",
+    config = true,
+    keys = {
+      { "<leader>S",  function() require("substitute").visual() end,            mode = "x" },
+      { "<leader>S",  function() require("substitute").operator() end,          mode = "n" },
+      { "<leader>X",  function() require("substitute.exchange").operator() end, mode = "n" },
+      { "<leader>X",  function() require("substitute.exchange").visual() end,   mode = "x" },
+      { "<leader>Xc", function() require("substitute.exchange").cancel() end,   mode = { "n", "x" } },
+    },
   },
 }

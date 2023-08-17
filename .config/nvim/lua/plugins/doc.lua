@@ -10,8 +10,9 @@ return {
     ft = { "markdown" },
   },
 
-  {
-    'lukas-reineke/headlines.nvim',
+  { -- TODO: since treesitter has been a performance killer...
+    "lukas-reineke/headlines.nvim",
+    cond = false,
     ft = "markdown",
     dependencies = "nvim-treesitter/nvim-treesitter",
     -- cond = false,
@@ -47,7 +48,7 @@ return {
         },
         to_do = {
           -- FIXME: cannot toggle back for two
-          symbols = { ' ', 'X' },
+          symbols = { " ", "X" },
           update_parents = false,
         },
         mappings = {

@@ -8,8 +8,9 @@ return {
       direction = "float",
 
       highlights = {
-        FloatBorder = { link = "FloatBorder" },
-        NormalFloat = { link = "NormalFloat" },
+        -- NormalFloat = { link = "", cterm = "bold" },
+        -- NormalFloat = { guibg = "#1a1b26", guifg = "#a9b1d6" },
+        -- NormalFloat = { guibg = "#192330", guifg = "#81b29a" },
       },
     },
   },

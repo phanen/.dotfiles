@@ -1,7 +1,7 @@
 # /usr/share/doc/alacritty/example/alacritty.yml
 
 # import:
-#   - ~/.config/alacritty/color.yml
+#   - ~/.config/alacritty/nightfox.yml
 
 # schemes:
 #   tokyo-night: &tokyo-night

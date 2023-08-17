@@ -33,6 +33,7 @@
 !systemd
 !tmux
 !lazygit
+!gh-dash
 
 !zathura
 

@@ -36,6 +36,7 @@ broot
 bsp-layout
 bsptab-git
 bspwm
+btop
 cabextract
 catimg
 cdrtools
@@ -194,7 +195,8 @@ mupdf-tools
 namcap
 nano
 nasm
-neovim
+neovide
+neovim-git
 nerd-fonts-cascadia-code
 net-tools
 netease-cloud-music-gtk4
