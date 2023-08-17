@@ -3,7 +3,7 @@
 -- | |_) | | | | (_| | | | | | |_| | | | | | |
 -- | .__/|_| |_|\__,_|_| |_|_|\__,_|_| |_| |_|
 -- |_|
-assert(vim.loop.os_uname().sysname == 'Linux')
+assert(vim.loop.os_uname().sysname == "Linux")
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
@@ -33,7 +33,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- WIP: navie config parser
-local f = assert(io.open(vim.fn.stdpath("config") .. "/theme", "r"))
+local f = assert(io.open(vim.fn.stdpath "config" .. "/theme", "r"))
 local color_name = f:read "*all"
 f:close()
 
@@ -64,5 +64,10 @@ require("lazy").setup("plugins", {
 -- filter down a quickfix list
 -- vim.cmd.packadd "cfilter"
 
-vim.cmd("colorscheme " .. color_name)
+vim.cmd("colorscheme " .. (vim.g.started_by_firenvim and "dayfox" or color_name))
+
+if vim.g.started_by_firenvim then
+  vim.opt.laststatus = 0
+  vim.cmd "au BufEnter leetcode*.txt set filetype=cpp"
+end
 -- vim.cmd("set bg=" .. vim.fn.system("darkman get"))
