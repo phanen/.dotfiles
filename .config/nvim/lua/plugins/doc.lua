@@ -11,6 +11,22 @@ return {
   },
 
   {
+    'lukas-reineke/headlines.nvim',
+    ft = "markdown",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    -- cond = false,
+    opts = {
+      markdown = {
+        headline_highlights = { "Headline" },
+        codeblock_highlight = false,
+        dash_highlight = false,
+        quote_highlight = false,
+        fat_headlines = false,
+      },
+    },
+  },
+
+  {
     "jakewvincent/mkdnflow.nvim",
     ft = { "markdown" },
     config = function()
@@ -28,6 +44,11 @@ return {
           paths = true,
           tables = true,
           yaml = false,
+        },
+        to_do = {
+          -- FIXME: cannot toggle back for two
+          symbols = { ' ', 'X' },
+          update_parents = false,
         },
         mappings = {
           MkdnNextHeading = { "n", "]]" },
@@ -135,29 +156,5 @@ return {
     dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
     config = function() require("luasnip-latex-snippets").setup { use_treesitter = true } end,
     ft = { "tex", "markdown" },
-  },
-
-  -- org
-  {
-    "nvim-neorg/neorg",
-    cond = false,
-    build = ":Neorg sync-parsers",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    cmd = "Neorg",
-    config = function()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {},  -- Loads default behaviour
-          ["core.concealer"] = {}, -- Adds pretty icons to your documents
-          ["core.dirman"] = {      -- Manages Neorg workspaces
-            config = {
-              workspaces = {
-                notes = "~/notes",
-              },
-            },
-          },
-        },
-      }
-    end,
   },
 }
