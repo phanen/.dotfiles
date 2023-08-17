@@ -65,6 +65,7 @@ dmenu
 dnsmasq
 dosfstools
 doxygen
+dpkg
 dunst
 dust
 eclipse-platform
@@ -193,7 +194,7 @@ mupdf-tools
 namcap
 nano
 nasm
-neovim-git
+neovim
 nerd-fonts-cascadia-code
 net-tools
 netease-cloud-music-gtk4

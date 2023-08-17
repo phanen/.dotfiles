@@ -40,7 +40,7 @@ map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
 nmap("<c-s>", "<c-u>")
 
 nmap("<leader>V", "ggVG")
-nmap("<leader>P", "ggVG\"_dp")
+nmap("<leader>P", 'ggVG"_dp')
 nmap("<leader>Y", "ggVGy")
 nmap("<leader>T", ":Translate ")
 
@@ -151,8 +151,8 @@ tmap("<a-t>", "<c-\\><c-n>:bdelete! %<cr>")
 -- diagnostic {{{
 nmap("[d", vim.diagnostic.goto_prev)
 nmap("]d", vim.diagnostic.goto_next)
-nmap("<leader>df", vim.diagnostic.open_float)
-nmap("<leader>ds", vim.diagnostic.setloclist)
+nmap("<leader>df", vim.diagnostic.open_float, { desc = "diagnostic: open floating window" })
+nmap("<leader>ds", vim.diagnostic.setloclist, { desc = "diagnostic: open quickfix list" })
 -- }}}
 
 -- miscs {{{

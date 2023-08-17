@@ -1,3 +1,5 @@
+local highlight = require "utils.hightlights"
+
 return {
   {
     "voldikss/vim-browser-search",
@@ -80,7 +82,7 @@ return {
   },
   {
     "nanotee/zoxide.vim",
-    cmd = { "Z", "Lz", "Tz", "Zi", "Lzi", "Tzi", },
+    cmd = { "Z", "Lz", "Tz", "Zi", "Lzi", "Tzi" },
     config = function() require("zoxide").setup {} end,
   },
 
@@ -103,6 +105,37 @@ return {
         silent = true,
       },
     },
-    opts = { highlight = { keyword = "bg", }, },
+    opts = { highlight = { keyword = "bg" } },
+  },
+
+  {
+    "glts/vim-textobj-comment",
+    dependencies = { { "kana/vim-textobj-user", dependencies = { "kana/vim-operator-user" } } },
+    init = function() vim.g.textobj_comment_no_default_key_mappings = 1 end,
+    keys = {
+      { "ax", "<Plug>(textobj-comment-a)", mode = { "x", "o" } },
+      { "ix", "<Plug>(textobj-comment-i)", mode = { "x", "o" } },
+    },
+  },
+
+  {
+    "chaoren/vim-wordmotion",
+    cond = false,
+    lazy = false,
+    init = function() vim.g.wordmotion_spaces = { "-", "_", "\\/", "\\." } end,
+  },
+
+  {
+    "itchyny/vim-highlighturl",
+    event = "ColorScheme",
+    -- HACK: fix ?
+    config = function() vim.g.highlighturl_guifg = highlight.get("@keyword", "fg") end,
+  },
+
+  -- peek line
+  {
+    "nacro90/numb.nvim",
+    event = "CmdlineEnter",
+    opts = {}
   },
 }

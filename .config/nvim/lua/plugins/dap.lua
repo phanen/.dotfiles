@@ -195,4 +195,24 @@ return {
       { "<leader>to", mode = { "n" }, "<Plug>(toggle-lsp-diag-on)" },
     },
   },
+
+  {
+    "andrewferrier/debugprint.nvim",
+    opts = { create_keymaps = false },
+    keys = {
+      {
+        "<leader>dp",
+        function() return require("debugprint").debugprint { variable = true } end,
+        desc = "debugprint: cursor",
+        expr = true,
+      },
+      {
+        "<leader>do",
+        function() return require("debugprint").debugprint { motion = true } end,
+        desc = "debugprint: operator",
+        expr = true,
+      },
+      { "<leader>dc", "<Cmd>DeleteDebugPrints<CR>", desc = "debugprint: clear all" },
+    },
+  },
 }

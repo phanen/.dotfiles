@@ -4,20 +4,20 @@ return {
   {
     "linty-org/readline.nvim",
     keys = {
-      { "<c-f>", "<right>", mode = "!" },
-      { "<c-b>", "<left>", mode = "!" },
-      { "<c-p>", "<up>", mode = "!" },
-      { "<c-n>", "<down>", mode = "!" },
-      { "<m-f>", function() require("readline").forward_word() end, mode = "!" },
-      { "<m-b>", function() require("readline").backward_word() end, mode = "!" },
-      { "<c-a>", function() require("readline").beginning_of_line() end, mode = "!" },
-      { "<c-e>", function() require("readline").end_of_line() end, mode = "!" },
+      { "<c-f>",  "<right>",                                               mode = "!" },
+      { "<c-b>",  "<left>",                                                mode = "!" },
+      { "<c-p>",  "<up>",                                                  mode = "!" },
+      { "<c-n>",  "<down>",                                                mode = "!" },
+      { "<m-f>",  function() require("readline").forward_word() end,       mode = "!" },
+      { "<m-b>",  function() require("readline").backward_word() end,      mode = "!" },
+      { "<c-a>",  function() require("readline").beginning_of_line() end,  mode = "!" },
+      { "<c-e>",  function() require("readline").end_of_line() end,        mode = "!" },
       -- { '<c-w>', function() require('readline').unix_word_rubout() end, mode = '!' },
       { "<m-bs>", function() require("readline").backward_kill_word() end, mode = "!" },
-      { "<m-d>", function() require("readline").kill_word() end, mode = "!" },
-      { "<c-l>", function() require("readline").kill_word() end, mode = "!" },
-      { "<c-k>", function() require("readline").kill_line() end, mode = "!" },
-      { "<c-u>", function() require("readline").backward_kill_line() end, mode = "!" },
+      { "<m-d>",  function() require("readline").kill_word() end,          mode = "!" },
+      { "<c-l>",  function() require("readline").kill_word() end,          mode = "!" },
+      { "<c-k>",  function() require("readline").kill_line() end,          mode = "!" },
+      { "<c-u>",  function() require("readline").backward_kill_line() end, mode = "!" },
     },
   },
 
@@ -92,7 +92,7 @@ return {
     "numToStr/Comment.nvim",
     keys = {
       { "gcc" },
-      { "gc", mode = { "n", "v" } },
+      { "gc",        mode = { "n", "v" } },
       { "<leader>O" },
       { "<leader>A" },
       { "<leader>oo" },
@@ -101,14 +101,14 @@ return {
         "<c-_>",
         function()
           return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)"
-            or "<Plug>(comment_toggle_linewise_count)"
+              or "<Plug>(comment_toggle_linewise_count)"
         end,
         expr = true,
         mode = { "n" },
       },
       -- FIXME: position of cursor should not move
       { "<c-_>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
-      { "<c-_>", "<Plug>(comment_toggle_linewise_visual)", mode = { "v" } },
+      { "<c-_>", "<Plug>(comment_toggle_linewise_visual)",                mode = { "v" } },
     },
     opts = {
       padding = true,
@@ -135,7 +135,7 @@ return {
       autopairs.setup {
         close_triple_quotes = true,
         check_ts = true,
-        -- fast_wrap = { map = '<c-e>' },
+        fast_wrap = { map = '<c-s>' },
         ts_config = {
           lua = { "string" },
           dart = { "string" },

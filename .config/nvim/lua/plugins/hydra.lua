@@ -1,28 +1,30 @@
-local reqcall = require('utils').reqcall
+local reqcall = require("utils").reqcall
 
 return {
-  'anuvyklack/hydra.nvim',
-  keys = { '<leader>bb', '<leader>dh', '<c-w><c-r>' },
+  "anuvyklack/hydra.nvim",
+  keys = {
+    { "<leader>bb", desc = "hydra: buffer" },
+    { "<leader>dh", desc = "hydra: debug" },
+    { "<c-w><c-r>", desc = "hydra: window" },
+  },
   -- event = 'CursorHold',
   -- 'chentoast/marks.nvim'
   config = function()
-    local Hydra = require('hydra')
-    local cmd = require('hydra.keymap-util').cmd
-    local pcmd = require('hydra.keymap-util').pcmd
-    local hint_opts = { position = 'bottom', type = 'window' }
+    local Hydra = require "hydra"
+    local cmd = require("hydra.keymap-util").cmd
+    local pcmd = require("hydra.keymap-util").pcmd
+    local hint_opts = { position = "bottom", type = "window" }
 
-    local splits = reqcall('smart-splits')
+    local splits = reqcall "smart-splits"
     -- local fold_cycle = reqcall('fold-cycle')
-    local dap = reqcall('dap')
-
+    local dap = reqcall "dap"
 
     local base_config = function(opts)
-
-      return vim.tbl_extend('force', {
+      return vim.tbl_extend("force", {
         invoke_on_body = true,
         hint = hint_opts,
-        on_enter = function() vim.cmd('silent! BeaconOff') end,
-        on_exit = function() vim.cmd('silent! BeaconOn') end,
+        on_enter = function() vim.cmd "silent! BeaconOff" end,
+        on_exit = function() vim.cmd "silent! BeaconOn" end,
       }, opts or {})
     end
 
@@ -39,9 +41,9 @@ return {
                  _<Enter>_: Telescope           _<Esc>_
 ]]
 
-    Hydra({
-      name = 'Telescope',
-      mode = 'n',
+    Hydra {
+      name = "Telescope",
+      mode = "n",
       -- color = 'teal',
       hint = telescope_hint,
       config = base_config(),
@@ -53,26 +55,26 @@ return {
       --     border = 'rounded',
       --   },
       -- },
-      body = '<Leader>F',
+      body = "<Leader>F",
       heads = {
-        { 'f',       cmd 'Telescope find_files' },
-        { 'g',       cmd 'Telescope live_grep' },
-        { 'o',       cmd 'Telescope oldfiles',                  { desc = 'recently opened files' } },
-        { 'h',       cmd 'Telescope help_tags',                 { desc = 'vim help' } },
-        { 'm',       cmd 'MarksListBuf',                        { desc = 'marks' } },
-        { 'k',       cmd 'Telescope keymaps' },
-        { 'O',       cmd 'Telescope vim_options' },
-        { 'r',       cmd 'Telescope resume' },
-        { 'p',       cmd 'Telescope projects',                  { desc = 'projects' } },
-        { '/',       cmd 'Telescope current_buffer_fuzzy_find', { desc = 'search in file' } },
-        { '?',       cmd 'Telescope search_history',            { desc = 'search history' } },
-        { ';',       cmd 'Telescope command_history',           { desc = 'command-line history' } },
-        { 'c',       cmd 'Telescope commands',                  { desc = 'execute command' } },
-        { 'u',       cmd 'silent! %foldopen! | UndotreeToggle', { desc = 'undotree' } },
-        { '<Enter>', cmd 'Telescope',                           { exit = true, desc = 'list all pickers' } },
-        { '<Esc>',   nil,                                       { exit = true, nowait = true } },
-      }
-    })
+        { "f",       cmd "Telescope find_files" },
+        { "g",       cmd "Telescope live_grep" },
+        { "o",       cmd "Telescope oldfiles",                  { desc = "recently opened files" } },
+        { "h",       cmd "Telescope help_tags",                 { desc = "vim help" } },
+        { "m",       cmd "MarksListBuf",                        { desc = "marks" } },
+        { "k",       cmd "Telescope keymaps" },
+        { "O",       cmd "Telescope vim_options" },
+        { "r",       cmd "Telescope resume" },
+        { "p",       cmd "Telescope projects",                  { desc = "projects" } },
+        { "/",       cmd "Telescope current_buffer_fuzzy_find", { desc = "search in file" } },
+        { "?",       cmd "Telescope search_history",            { desc = "search history" } },
+        { ";",       cmd "Telescope command_history",           { desc = "command-line history" } },
+        { "c",       cmd "Telescope commands",                  { desc = "execute command" } },
+        { "u",       cmd "silent! %foldopen! | UndotreeToggle", { desc = "undotree" } },
+        { "<Enter>", cmd "Telescope",                           { exit = true, desc = "list all pickers" } },
+        { "<Esc>",   nil,                                       { exit = true, nowait = true } },
+      },
+    }
 
     -- Hydra({
     --   name = 'Folds',
@@ -92,24 +94,24 @@ return {
     -- local splits = reqcall('smart-splits')
     -- local fold_cycle = reqcall('fold-cycle')
 
-    Hydra({
-      name = 'Buffer management',
-      mode = 'n',
-      body = '<leader>bb',
-      color = 'teal',
+    Hydra {
+      name = "Buffer management",
+      mode = "n",
+      body = "<leader>bb",
+      color = "teal",
       config = base_config(),
       heads = {
-        { 'f',     '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer' } },
-        { 'j',     '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer' } },
-        { 'h',     '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Prev buffer' } },
-        { 'k',     '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Prev buffer' } },
-        { 'p',     '<Cmd>BufferLineTogglePin<CR>', { desc = 'Pin buffer' } },
-        { 'c',     '<Cmd>BufferLinePick<CR>',      { desc = 'Pick buffer' } },
-        { 'd',     '<Cmd>Bdelete!<CR>',            { desc = 'delete buffer' } },
-        { 'D',     '<Cmd>BufferLinePickClose<CR>', { desc = 'Pick close', exit = true } },
-        { '<Esc>', nil,                            { exit = true, desc = 'Quit' } },
+        { "f",     "<Cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" } },
+        { "j",     "<Cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" } },
+        { "h",     "<Cmd>BufferLineCyclePrev<CR>", { desc = "Prev buffer" } },
+        { "k",     "<Cmd>BufferLineCyclePrev<CR>", { desc = "Prev buffer" } },
+        { "p",     "<Cmd>BufferLineTogglePin<CR>", { desc = "Pin buffer" } },
+        { "c",     "<Cmd>BufferLinePick<CR>",      { desc = "Pick buffer" } },
+        { "d",     "<Cmd>Bdelete!<CR>",            { desc = "delete buffer" } },
+        { "D",     "<Cmd>BufferLinePickClose<CR>", { desc = "Pick close", exit = true } },
+        { "<Esc>", nil,                            { exit = true, desc = "Quit" } },
       },
-    })
+    }
 
     -- Hydra({
     --   name = 'Side scroll',
@@ -133,82 +135,82 @@ return {
  ^ ^              _q_: exit
 ]]
 
-    Hydra({
+    Hydra {
       hint = dap_hint,
       config = {
-        color = 'pink',
+        color = "pink",
         invoke_on_body = true,
         hint = hint_opts,
       },
-      name = 'dap',
-      mode = { 'n', 'x' },
-      body = '<leader>dh',
+      name = "dap",
+      mode = { "n", "x" },
+      body = "<leader>dh",
       heads = {
-        { 'n', dap.step_over,                                                { silent = true } },
-        { 'i', dap.step_into,                                                { silent = true } },
-        { 'o', dap.step_out,                                                 { silent = true } },
-        { 'c', dap.run_to_cursor,                                            { silent = true } },
-        { 's', dap.continue,                                                 { silent = true } },
-        { 'x', function() dap.disconnect({ terminateDebuggee = false }) end, { exit = true, silent = true } },
-        { 'X', dap.close,                                                    { silent = true } },
+        { "n", dap.step_over,                                               { silent = true } },
+        { "i", dap.step_into,                                               { silent = true } },
+        { "o", dap.step_out,                                                { silent = true } },
+        { "c", dap.run_to_cursor,                                           { silent = true } },
+        { "s", dap.continue,                                                { silent = true } },
+        { "x", function() dap.disconnect { terminateDebuggee = false } end, { exit = true, silent = true } },
+        { "X", dap.close,                                                   { silent = true } },
         {
-          'C',
+          "C",
           ":lua require('dapui').close()<cr>:DapVirtualTextForceRefresh<CR>",
           { silent = true },
         },
-        { 'b', dap.toggle_breakpoint,                        { silent = true } },
-        { 'K', ":lua require('dap.ui.widgets').hover()<CR>", { silent = true } },
-        { 'q', nil,                                          { exit = true, nowait = true } },
+        { "b", dap.toggle_breakpoint,                        { silent = true } },
+        { "K", ":lua require('dap.ui.widgets').hover()<CR>", { silent = true } },
+        { "q", nil,                                          { exit = true, nowait = true } },
       },
-    })
+    }
 
-  --   local window_hint = [[
-  --  ^^^^^^^^^^^^     Move      ^^    Size   ^^   ^^     Split
-  --  ^^^^^^^^^^^^-------------  ^^-----------^^   ^^---------------
-  --  ^ ^ _k_ ^ ^  ^ ^ _K_ ^ ^   ^   _<C-k>_   ^   _s_: horizontally
-  --  _h_ ^ ^ _l_  _H_ ^ ^ _L_   _<C-h>_ _<C-l>_   _v_: vertically
-  --  ^ ^ _j_ ^ ^  ^ ^ _J_ ^ ^   ^   _<C-j>_   ^   _q_, _c_: close
-  --  focus^^^^^^  window^^^^^^  ^_=_: equalize^   _o_: remain only
-  --  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^^ ^          ^
-  -- ]]
-  --
-  --   Hydra({
-  --     name = 'Windows',
-  --     hint = window_hint,
-  --     config = base_config({ invoke_on_body = false }),
-  --     mode = 'n',
-  --     body = '<c-w>',
-  --     heads = {
-  --       --- Move
-  --       { 'h',     '<c-w>h' },
-  --       { 'j',     '<c-w>j' },
-  --       { 'k',     pcmd('wincmd k', 'E11', 'close') },
-  --       { 'l',     '<c-w>l' },
-  --
-  --       { 'o',     '<c-w>o',                              { exit = true, desc = 'remain only' } },
-  --       { '<C-o>', '<c-w>o',                              { exit = true, desc = false } },
-  --       -- Resize
-  --       { '<C-h>', function() splits.resize_left(2) end },
-  --       { '<C-j>', function() splits.resize_down(2) end },
-  --       { '<C-k>', function() splits.resize_up(2) end },
-  --       { '<C-l>', function() splits.resize_right(2) end },
-  --       { '=',     '<c-w>=',                              { desc = 'equalize' } },
-  --       -- Split
-  --       { 's',     pcmd('split', 'E36') },
-  --       { '<C-s>', pcmd('split', 'E36'),                  { desc = false } },
-  --       { 'v',     pcmd('vsplit', 'E36') },
-  --       { '<C-v>', pcmd('vsplit', 'E36'),                 { desc = false } },
-  --       -- Size
-  --       { 'H',     function() splits.swap_buf_left() end },
-  --       { 'J',     function() splits.swap_buf_down() end },
-  --       { 'K',     function() splits.swap_buf_up() end },
-  --       { 'L',     function() splits.swap_buf_right() end },
-  --       { 'c',     pcmd('close', 'E444'),                 { exit = true, desc = 'exit' } },
-  --       { 'q',     pcmd('close', 'E444'),                 { desc = 'close window' } },
-  --       { '<C-c>', pcmd('close', 'E444'),                 { desc = false } },
-  --       { '<C-q>', pcmd('close', 'E444'),                 { desc = false } },
-  --       { '<Esc>', nil,                                   { exit = true } },
-  --     },
-  --   })
+    --   local window_hint = [[
+    --  ^^^^^^^^^^^^     Move      ^^    Size   ^^   ^^     Split
+    --  ^^^^^^^^^^^^-------------  ^^-----------^^   ^^---------------
+    --  ^ ^ _k_ ^ ^  ^ ^ _K_ ^ ^   ^   _<C-k>_   ^   _s_: horizontally
+    --  _h_ ^ ^ _l_  _H_ ^ ^ _L_   _<C-h>_ _<C-l>_   _v_: vertically
+    --  ^ ^ _j_ ^ ^  ^ ^ _J_ ^ ^   ^   _<C-j>_   ^   _q_, _c_: close
+    --  focus^^^^^^  window^^^^^^  ^_=_: equalize^   _o_: remain only
+    --  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^^ ^          ^
+    -- ]]
+    --
+    --   Hydra({
+    --     name = 'Windows',
+    --     hint = window_hint,
+    --     config = base_config({ invoke_on_body = false }),
+    --     mode = 'n',
+    --     body = '<c-w>',
+    --     heads = {
+    --       --- Move
+    --       { 'h',     '<c-w>h' },
+    --       { 'j',     '<c-w>j' },
+    --       { 'k',     pcmd('wincmd k', 'E11', 'close') },
+    --       { 'l',     '<c-w>l' },
+    --
+    --       { 'o',     '<c-w>o',                              { exit = true, desc = 'remain only' } },
+    --       { '<C-o>', '<c-w>o',                              { exit = true, desc = false } },
+    --       -- Resize
+    --       { '<C-h>', function() splits.resize_left(2) end },
+    --       { '<C-j>', function() splits.resize_down(2) end },
+    --       { '<C-k>', function() splits.resize_up(2) end },
+    --       { '<C-l>', function() splits.resize_right(2) end },
+    --       { '=',     '<c-w>=',                              { desc = 'equalize' } },
+    --       -- Split
+    --       { 's',     pcmd('split', 'E36') },
+    --       { '<C-s>', pcmd('split', 'E36'),                  { desc = false } },
+    --       { 'v',     pcmd('vsplit', 'E36') },
+    --       { '<C-v>', pcmd('vsplit', 'E36'),                 { desc = false } },
+    --       -- Size
+    --       { 'H',     function() splits.swap_buf_left() end },
+    --       { 'J',     function() splits.swap_buf_down() end },
+    --       { 'K',     function() splits.swap_buf_up() end },
+    --       { 'L',     function() splits.swap_buf_right() end },
+    --       { 'c',     pcmd('close', 'E444'),                 { exit = true, desc = 'exit' } },
+    --       { 'q',     pcmd('close', 'E444'),                 { desc = 'close window' } },
+    --       { '<C-c>', pcmd('close', 'E444'),                 { desc = false } },
+    --       { '<C-q>', pcmd('close', 'E444'),                 { desc = false } },
+    --       { '<Esc>', nil,                                   { exit = true } },
+    --     },
+    --   })
   end,
 }

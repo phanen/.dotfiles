@@ -1,12 +1,12 @@
 return {
   -- tab
   {
-    'akinsho/bufferline.nvim',
-    event = 'UIEnter',
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    "akinsho/bufferline.nvim",
+    event = "UIEnter",
+    dependencies = "nvim-tree/nvim-web-devicons",
     keys = {
-      { '[b', '<Cmd>BufferLineMovePrev<CR>', { desc = 'bufferline: move next' } },
-      { ']b', '<Cmd>BufferLineMoveNext<CR>', { desc = 'bufferline: move prev' } },
+      { "[b", "<Cmd>BufferLineMovePrev<CR>", { desc = "bufferline: move next" } },
+      { "]b", "<Cmd>BufferLineMoveNext<CR>", { desc = "bufferline: move prev" } },
     },
     opts = {
       options = {
@@ -17,42 +17,41 @@ return {
             filetype = "NvimTree",
             text = "time wait for no man",
             highlight = "Directory",
-            text_align = "left"
+            text_align = "left",
           },
           {
-            text = 'UNDOTREE',
-            filetype = 'undotree',
-            highlight = 'PanelHeading',
+            text = "UNDOTREE",
+            filetype = "undotree",
+            highlight = "PanelHeading",
             separator = true,
           },
-
-        }
-      }
-    }
+        },
+      },
+    },
   },
 
   -- statusline
   {
-    'nvim-lualine/lualine.nvim',
+    "nvim-lualine/lualine.nvim",
     lazy = false,
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'auto',
-        component_separators = '|',
-        section_separators = '',
-      }
+        theme = "auto",
+        component_separators = "|",
+        section_separators = "",
+      },
     },
   },
 
   -- hint on indent
   {
-    'lukas-reineke/indent-blankline.nvim',
+    "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPre",
     opts = {
-      char = '│',       -- ┆ ┊ 
+      char = "│", -- ┆ ┊ 
       show_foldtext = false,
-      context_char = '│', -- ▎
+      context_char = "│", -- ▎
       char_priority = 12,
       show_current_context = true,
       show_current_context_start = true,
@@ -68,11 +67,28 @@ return {
     },
   },
 
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    event = "VeryLazy",
+    config = function()
+      local rainbow_delimiters = require "rainbow-delimiters"
+
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [""] = rainbow_delimiters.strategy["global"],
+        },
+        query = {
+          [""] = "rainbow-delimiters",
+        },
+      }
+    end,
+  },
+
   -- icon
   {
-    'onsails/lspkind.nvim',
-    opts = { preset = 'codicons', mode = 'symbol_text' },
-    config = function(_, opts) require('lspkind').init(opts) end,
+    "onsails/lspkind.nvim",
+    opts = { preset = "codicons", mode = "symbol_text" },
+    config = function(_, opts) require("lspkind").init(opts) end,
   },
 
   -- disgnose
@@ -90,24 +106,24 @@ return {
     cond = false,
     opts = {
       cmdline = {
-        enable = false,
-        -- format = {
-        --   IncRename = { title = ' Rename ' },
-        --   substitute = { pattern = '^:%%?s/', icon = ' ', ft = 'regex', title = '' },
-        --   input = { icon = ' ', lang = 'text', view = 'cmdline_popup', title = '' },
-        -- },
+        -- enable = false,
+        format = {
+          IncRename = { title = ' Rename ' },
+          -- substitute = { pattern = '^:%%?s/', icon = ' ', ft = 'regex', title = '' },
+          input = { icon = ' ', lang = 'text', view = 'cmdline_popup', title = '' },
+        },
       },
       presets = {
-        bottom_search = true,         -- use a classic bottom cmdline for search
+        bottom_search = false,         -- use a classic bottom cmdline for search
         command_palette = true,       -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false,       -- add a border to hover docs and signature help
+        inc_rename = true,            -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = true,        -- add a border to hover docs and signature help
       },
       messages = {
         -- NOTE: If you enable messages, then the cmdline is enabled automatically.
         -- This is a current Neovim limitation.
-        enabled = false,             -- enables the Noice messages UI
+        enabled = true,              -- enables the Noice messages UI
         view = "notify",             -- default view for messages
         view_error = "notify",       -- view for errors
         view_warn = "notify",        -- view for warnings
@@ -117,7 +133,7 @@ return {
 
       popupmenu = {
         enable = false,
-        backend = 'nui',
+        backend = "nui",
       },
     },
     dependencies = {
@@ -127,7 +143,7 @@ return {
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
-    }
+    },
   },
 
   -- breadcrumbs
@@ -138,19 +154,19 @@ return {
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
       -- ensure markdown and markdown_inline parser
-      { "nvim-treesitter/nvim-treesitter" }
-    }
+      { "nvim-treesitter/nvim-treesitter" },
+    },
   },
   {
     "SmiteshP/nvim-navic",
     cond = false,
-    dependencies = "neovim/nvim-lspconfig"
+    dependencies = "neovim/nvim-lspconfig",
   },
   {
-    'Bekaboo/dropbar.nvim',
+    "Bekaboo/dropbar.nvim",
     cond = false,
-    event = 'VeryLazy',
-    keys = { { '<leader>wp', function() require('dropbar.api').pick() end, desc = 'winbar: pick' } },
+    event = "VeryLazy",
+    keys = { { "<leader>wp", function() require("dropbar.api").pick() end, desc = "winbar: pick" } },
   },
 
   -- outline
@@ -199,10 +215,9 @@ return {
   },
 
   {
-    -- outline
-    'stevearc/aerial.nvim',
+    "stevearc/aerial.nvim",
     config = true,
-    key = { "<leader>wo", },
+    key = { "<leader>wo" },
     cmd = { "AerialToggle" },
     -- event = "VeryLazy",
     opts = {
@@ -213,7 +228,6 @@ return {
         ["<C-k>"] = "",
         ["g?"] = "actions.show_help",
       },
-    }
+    },
   },
-
 }
