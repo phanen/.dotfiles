@@ -64,10 +64,30 @@ require("lazy").setup("plugins", {
 -- filter down a quickfix list
 -- vim.cmd.packadd "cfilter"
 
-vim.cmd("colorscheme " .. (vim.g.started_by_firenvim and "dayfox" or color_name))
+vim.cmd("colorscheme " .. color_name)
 
 if vim.g.started_by_firenvim then
-  vim.opt.laststatus = 0
-  vim.cmd "au BufEnter leetcode*.txt set filetype=cpp"
+  vim.o.laststatus = 0
+
+  vim.g.firenvim_config = {
+    localSettings = {
+      [".*"] = { cmdline = "none" },
+      ["https?://www.google.com"] = { takeover = "never", priority = 1 },
+    },
+  }
+
+  vim.cmd [[
+    au BufEnter leetcode*.txt set filetype=rust
+    au BufEnter *ipynb*.txt set filetype=python
+    au BufEnter github.com_*.txt set filetype=markdown
+    " auto insert
+    au FocusGained * startinsert
+  ]]
+
+  vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+    nested = true,
+    command = "write",
+  })
 end
+
 -- vim.cmd("set bg=" .. vim.fn.system("darkman get"))

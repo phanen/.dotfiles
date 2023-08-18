@@ -8,7 +8,7 @@ o.number = true
 o.relativenumber = true
 o.termguicolors = true
 
-local gui_font_size = 15
+local gui_font_size = 13
 o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(gui_font_size)
 
 -- https://www.zhihu.com/question/22363620

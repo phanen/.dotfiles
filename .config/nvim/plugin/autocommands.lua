@@ -3,31 +3,29 @@ local au = api.nvim_create_autocmd
 local ag = api.nvim_create_augroup
 
 -- highlight on yank
-local highlight_group = ag('YankHighlight', { clear = true })
-au('TextYankPost', {
-	pattern = '*', -- TODO: why to wrap it
+local highlight_group = ag("YankHighlight", { clear = true })
+au("TextYankPost", {
+	pattern = "*", -- TODO: why to wrap it
 	callback = function() vim.highlight.on_yank() end,
 	group = highlight_group,
 })
 
 -- stash the IM when switching modes
-local input_method_group = ag('InputMethod', { clear = true })
+local input_method_group = ag("InputMethod", { clear = true })
 
 local cur_im = "keyboard-us"
 au({ "InsertLeave" }, {
 	pattern = "*",
 	callback = function() -- inactivate and record
-		cur_im = tostring(fn.system("fcitx5-remote -n"))
-		fn.system("fcitx5-remote -c")
+		cur_im = tostring(fn.system "fcitx5-remote -n")
+		fn.system "fcitx5-remote -c"
 	end,
 	group = input_method_group,
 })
 
 au({ "InsertEnter" }, {
 	pattern = "*",
-	callback = function()
-		fn.system("fcitx5-remote -s" .. cur_im)
-	end,
+	callback = function() fn.system("fcitx5-remote -s" .. cur_im) end,
 	group = input_method_group,
 })
 
@@ -83,16 +81,14 @@ au({ "VimResized" }, {
 -- restore cursor position
 au({ "BufReadPost" }, {
 	pattern = { "*" },
-	callback = function()
-		api.nvim_exec('silent! normal! g`"zv', false)
-	end,
+	callback = function() api.nvim_exec('silent! normal! g`"zv', false) end,
 })
 
 au({ "ColorScheme" }, {
 	pattern = "*",
 	callback = function() -- inactivate and record
 		-- vim.fs.dirname
-		local f = assert(io.open(fn.stdpath('config') .. "/theme", "w"))
+		local f = assert(io.open(fn.stdpath "config" .. "/theme", "w"))
 		f:write(vim.g.colors_name)
 		f:close()
 	end,
@@ -105,12 +101,12 @@ au({ "ColorScheme" }, {
 -- endfor
 
 -- https://www.reddit.com/r/neovim/comments/wjzjwe/how_to_set_no_name_buffer_to_scratch_buffer/
-local kill_no_name_group = ag('KillNoName', { clear = true })
+local kill_no_name_group = ag("KillNoName", { clear = true })
 
 au({ "BufLeave" }, {
 	pattern = "{}",
 	callback = function()
-		if fn.line("$") == 1 and fn.getline(1) == "" then
+		if fn.line "$" == 1 and fn.getline(1) == "" then
 			vim.bo.buftype = "nofile"
 			vim.bo.bufhidden = "wipe"
 		end

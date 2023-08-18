@@ -4,8 +4,14 @@ return {
   {
     "voldikss/vim-browser-search",
     event = "VeryLazy",
-    keys = { "gx", mode = { "x" } },
-    config = function() map({ "x" }, "gx", "<Plug>SearchVisual") end,
+    keys = {
+      { "gl", mode = { "x", "n" } },
+    },
+    config = function()
+      map({ "x" }, "gl", "<Plug>SearchVisual")
+      -- https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser
+      map({ "n" }, "gl", "<cmd>execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>")
+    end,
   },
 
   {
@@ -13,6 +19,7 @@ return {
     -- FIXME: immediate_save actually not work
     "okuuva/auto-save.nvim",
     event = { "InsertLeave", "TextChanged" },
+    cond = vim.g.started_by_firenvim == nil,
     opts = {
       execution_message = {
         enabled = false,
@@ -41,18 +48,18 @@ return {
     config = true,
     build = "./kitty/install-kittens.bash",
     keys = {
-      { "<a-h>", function() require("smart-splits").resize_left() end },
-      { "<a-l>", function() require("smart-splits").resize_right() end },
+      { "<a-h>",             function() require("smart-splits").resize_left() end },
+      { "<a-l>",             function() require("smart-splits").resize_right() end },
       -- moving between splits
-      { "<c-h>", function() require("smart-splits").move_cursor_left() end },
-      { "<c-j>", function() require("smart-splits").move_cursor_down() end },
-      { "<c-k>", function() require("smart-splits").move_cursor_up() end },
-      { "<c-l>", function() require("smart-splits").move_cursor_right() end },
+      { "<c-h>",             function() require("smart-splits").move_cursor_left() end },
+      { "<c-j>",             function() require("smart-splits").move_cursor_down() end },
+      { "<c-k>",             function() require("smart-splits").move_cursor_up() end },
+      { "<c-l>",             function() require("smart-splits").move_cursor_right() end },
       -- swapping buffers between windows
-      { "<leader><leader>h", function() require("smart-splits").swap_buf_left() end, desc = { "swap left" } },
-      { "<leader><leader>j", function() require("smart-splits").swap_buf_down() end, { desc = "swap down" } },
-      { "<leader><leader>k", function() require("smart-splits").swap_buf_up() end, { desc = "swap up" } },
-      { "<leader><leader>l", function() require("smart-splits").swap_buf_right() end, { desc = "swap right" } },
+      { "<leader><leader>h", function() require("smart-splits").swap_buf_left() end,    desc = { "swap left" } },
+      { "<leader><leader>j", function() require("smart-splits").swap_buf_down() end,    { desc = "swap down" } },
+      { "<leader><leader>k", function() require("smart-splits").swap_buf_up() end,      { desc = "swap up" } },
+      { "<leader><leader>l", function() require("smart-splits").swap_buf_right() end,   { desc = "swap right" } },
     },
   },
 
@@ -62,9 +69,9 @@ return {
     keys = {
       { "<c-u>", mode = { "n", "x" } },
       { "<c-d>", mode = { "n", "x" } },
-      { "zt", mode = { "n", "x" } },
-      { "zz", mode = { "n", "x" } },
-      { "zb", mode = { "n", "x" } },
+      { "zt",    mode = { "n", "x" } },
+      { "zz",    mode = { "n", "x" } },
+      { "zb",    mode = { "n", "x" } },
     },
     config = true,
   },
@@ -113,8 +120,8 @@ return {
     dependencies = { { "kana/vim-textobj-user", dependencies = { "kana/vim-operator-user" } } },
     init = function() vim.g.textobj_comment_no_default_key_mappings = 1 end,
     keys = {
-      { "ax", "<Plug>(textobj-comment-a)", mode = { "x", "o" } },
-      { "ix", "<Plug>(textobj-comment-i)", mode = { "x", "o" } },
+      { "ac", "<Plug>(textobj-comment-a)", mode = { "x", "o" } },
+      { "ic", "<Plug>(textobj-comment-i)", mode = { "x", "o" } },
     },
   },
 

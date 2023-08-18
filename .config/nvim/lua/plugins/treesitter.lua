@@ -19,7 +19,16 @@ return {
           "vimdoc",
         },
 
-        highlight = { enable = true },
+        highlight = {
+          additional_vim_regex_highlighting = false,
+          enable = function(_, bufnr)
+            -- if vim.bo.filetype == "markdown" then return false end
+
+            local buf_name = vim.api.nvim_buf_get_name(bufnr)
+            local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
+            return file_size < 128 * 1024
+          end,
+        },
         indent = { enable = true, disable = { "python" } },
         incremental_selection = {
           enable = true,
@@ -104,9 +113,7 @@ return {
     opts = {
       use_default_keymaps = true,
       highlight_node_at_cursor = true,
-      keymaps = {
-
-      },
+      keymaps = {},
     },
   },
 }

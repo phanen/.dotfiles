@@ -42,6 +42,7 @@ nmap("<c-s>", "<c-u>")
 nmap("<leader>V", "ggVG")
 nmap("<leader>P", 'ggVG"_dp')
 nmap("<leader>Y", "ggVGy")
+nmap("<leader>D", "ggVDy")
 nmap("<leader>T", ":Translate ")
 
 nmap("<leader>j", "yyp")
@@ -74,9 +75,6 @@ nmap("<c-s-k>", "<cmd>resize -2<cr>")
 nmap("<c-s-j>", "<cmd>resize +2<cr>")
 nmap("<c-s-h>", "<cmd>vertical resize -2<cr>")
 nmap("<c-s-l>", "<cmd>vertical resize +2<cr>")
-
--- https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser
-vim.cmd [[ nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr> ]]
 -- }}}
 
 -- subtitution {{{
@@ -188,17 +186,21 @@ xmap("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
 
 nmap("<c-p>", "I- <esc>")
 xmap("<c-p>", "I- <esc>")
+
 -- }}}
 
 -- resize gui font
--- FIXME: don't work for firenvim
-local fsize = require('options').gui_font_size
+-- BUG: firenvim window size auto change
+-- https://github.com/glacambre/firenvim/issues/800
+-- https://github.com/glacambre/firenvim/issues/1006
+local fsize = require("options").gui_font_size
 nmap("<c-->", function()
   fsize = fsize - 1
-  vim.o.guifont = 'CaskaydiaCove Nerd Font:h' .. tostring(fsize)
+  vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(fsize)
 end)
 nmap("<c-=>", function()
   fsize = fsize + 1
-  vim.o.guifont = 'CaskaydiaCove Nerd Font:h' .. tostring(fsize)
+  vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(fsize)
 end)
+
 -- vim:foldmethod=marker

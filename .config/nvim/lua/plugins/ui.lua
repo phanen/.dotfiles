@@ -3,6 +3,7 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "UIEnter",
+    cond = vim.g.started_by_firenvim == nil,
     dependencies = "nvim-tree/nvim-web-devicons",
     keys = {
       { "[b", "<Cmd>BufferLineMovePrev<CR>", { desc = "bufferline: move next" } },
@@ -15,6 +16,7 @@ return {
         offsets = { -- left for file explorer
           {
             filetype = "NvimTree",
+            -- TODO: quoter
             text = "time wait for no man",
             highlight = "Directory",
             text_align = "left",
@@ -149,6 +151,7 @@ return {
   -- breadcrumbs
   {
     "glepnir/lspsaga.nvim",
+    cond = vim.g.started_by_firenvim == nil,
     event = "LspAttach",
     config = true,
     dependencies = {

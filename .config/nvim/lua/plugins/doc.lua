@@ -12,10 +12,9 @@ return {
 
   { -- TODO: since treesitter has been a performance killer...
     "lukas-reineke/headlines.nvim",
-    cond = false,
+    -- cond = false,
     ft = "markdown",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    -- cond = false,
     opts = {
       markdown = {
         headline_highlights = { "Headline" },
@@ -34,8 +33,8 @@ return {
       -- FIXME: cannot use opt, collision with lazyload
       require("mkdnflow").setup {
         modules = {
-          bib = true,
-          buffers = true,
+          bib = false,
+          buffers = false,
           conceal = false,
           cursor = true,
           folds = true,
@@ -45,11 +44,6 @@ return {
           paths = true,
           tables = true,
           yaml = false,
-        },
-        to_do = {
-          -- FIXME: cannot toggle back for two
-          symbols = { " ", "X" },
-          update_parents = false,
         },
         mappings = {
           MkdnNextHeading = { "n", "]]" },
@@ -64,7 +58,7 @@ return {
           MkdnPrevLink = false,
           MkdnGoBack = { "n", "<BS>" },
           MkdnGoForward = { "n", "<Del>" },
-          MkdnCreateLink = false,         -- see MkdnEnter
+          MkdnCreateLink = false, -- see MkdnEnter
           MkdnFollowLink = { "n", "gl" }, -- see MkdnEnter
           MkdnDestroyLink = { "n", "<M-CR>" },
           MkdnTagSpan = { "v", "<M-CR>" },
@@ -73,7 +67,7 @@ return {
           MkdnYankFileAnchorLink = { "n", "yfa" },
           MkdnIncreaseHeading = { "n", "+" },
           MkdnDecreaseHeading = { "n", "-" },
-          MkdnToggleToDo = { { "n", "v" }, "<C-Space>" },
+          MkdnToggleToDo = false,
           MkdnNewListItem = false,
           MkdnExtendList = false,
           MkdnUpdateNumbering = { "n", "<leader>nn" },
@@ -90,6 +84,12 @@ return {
         },
       }
     end,
+  },
+
+  {
+    "opdavies/toggle-checkbox.nvim",
+    ft = "markdown",
+    keys = { { "<c-space>", "<cmd>lua require('toggle-checkbox').toggle()<cr>" } },
   },
 
   -- kitty only
