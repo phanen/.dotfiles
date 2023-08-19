@@ -31,8 +31,6 @@ local function link_wrap(type)
   end
 end
 
-map({ "x" }, "`", "<Plug>(nvim-surround-visual)`")
-
 map({ "n", "x" }, "<leader>il", link_wrap("raw"))
 -- map({ "n", "x" }, "<leader>il", link_wrap("link"))
 map({ "n", "x" }, "<leader>ii", link_wrap("img"))

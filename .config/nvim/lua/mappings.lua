@@ -203,4 +203,7 @@ nmap("<c-=>", function()
   vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(fsize)
 end)
 
+-- TODO: wordaround for batch comment toggle
+nmap("<leader><c-_>", "<cmd> norm gcic<cr>")
+
 -- vim:foldmethod=marker

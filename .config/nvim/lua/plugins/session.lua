@@ -15,7 +15,7 @@ return {
       {
         "<leader>sd",
         "<cmd>SessionManager delete_session<cr>",
-        desc = "delete session"
+        desc = "delete session",
       },
     },
     opts = function()

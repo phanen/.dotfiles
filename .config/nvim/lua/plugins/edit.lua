@@ -4,27 +4,37 @@ return {
   {
     "linty-org/readline.nvim",
     keys = {
-      { "<c-f>",  "<right>",                                               mode = "!" },
-      { "<c-b>",  "<left>",                                                mode = "!" },
-      { "<c-p>",  "<up>",                                                  mode = "!" },
-      { "<c-n>",  "<down>",                                                mode = "!" },
-      { "<m-f>",  function() require("readline").forward_word() end,       mode = "!" },
-      { "<m-b>",  function() require("readline").backward_word() end,      mode = "!" },
-      { "<c-a>",  function() require("readline").beginning_of_line() end,  mode = "!" },
-      { "<c-e>",  function() require("readline").end_of_line() end,        mode = "!" },
+      { "<c-f>", "<right>", mode = "!" },
+      { "<c-b>", "<left>", mode = "!" },
+      { "<c-p>", "<up>", mode = "!" },
+      { "<c-n>", "<down>", mode = "!" },
+      { "<m-f>", function() require("readline").forward_word() end, mode = "!" },
+      { "<m-b>", function() require("readline").backward_word() end, mode = "!" },
+      { "<c-a>", function() require("readline").beginning_of_line() end, mode = "!" },
+      { "<c-e>", function() require("readline").end_of_line() end, mode = "!" },
       -- { '<c-w>', function() require('readline').unix_word_rubout() end, mode = '!' },
       { "<m-bs>", function() require("readline").backward_kill_word() end, mode = "!" },
-      { "<m-d>",  function() require("readline").kill_word() end,          mode = "!" },
-      { "<c-l>",  function() require("readline").kill_word() end,          mode = "!" },
-      { "<c-k>",  function() require("readline").kill_line() end,          mode = "!" },
-      { "<c-u>",  function() require("readline").backward_kill_line() end, mode = "!" },
+      { "<m-d>", function() require("readline").kill_word() end, mode = "!" },
+      { "<c-l>", function() require("readline").kill_word() end, mode = "!" },
+      { "<c-k>", function() require("readline").kill_line() end, mode = "!" },
+      { "<c-u>", function() require("readline").backward_kill_line() end, mode = "!" },
     },
   },
 
   {
     "kylechui/nvim-surround",
     -- lazy = false,
-    keys = { { "s", mode = "v" }, "<C-g>s", "<C-g>S", "ys", "yss", "yS", "cs", "ds" },
+    keys = {
+      { "s", mode = "x" },
+      "<C-g>s",
+      "<C-g>S",
+      "ys",
+      "yss",
+      "yS",
+      "cs",
+      "ds",
+      { mode = { "x" }, "`", "<Plug>(nvim-surround-visual)`" },
+    },
     opts = {
       move_cursor = true,
       keymaps = { visual = "s" },
@@ -92,7 +102,7 @@ return {
     "numToStr/Comment.nvim",
     keys = {
       { "gcc" },
-      { "gc",        mode = { "n", "v" } },
+      { "gc", mode = { "n", "v" } },
       { "<leader>O" },
       { "<leader>A" },
       { "<leader>oo" },
@@ -101,14 +111,14 @@ return {
         "<c-_>",
         function()
           return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)"
-              or "<Plug>(comment_toggle_linewise_count)"
+            or "<Plug>(comment_toggle_linewise_count)"
         end,
         expr = true,
         mode = { "n" },
       },
       -- FIXME: position of cursor should not move
       { "<c-_>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
-      { "<c-_>", "<Plug>(comment_toggle_linewise_visual)",                mode = { "v" } },
+      { "<c-_>", "<Plug>(comment_toggle_linewise_visual)", mode = { "v" } },
     },
     opts = {
       padding = true,
@@ -181,11 +191,11 @@ return {
     "gbprod/substitute.nvim",
     config = true,
     keys = {
-      { "<leader>S",  function() require("substitute").visual() end,            mode = "x" },
-      { "<leader>S",  function() require("substitute").operator() end,          mode = "n" },
-      { "<leader>X",  function() require("substitute.exchange").operator() end, mode = "n" },
-      { "<leader>X",  function() require("substitute.exchange").visual() end,   mode = "x" },
-      { "<leader>Xc", function() require("substitute.exchange").cancel() end,   mode = { "n", "x" } },
+      -- { "<leader>S",  function() require("substitute").visual() end,            mode = "x" },
+      -- { "<leader>S",  function() require("substitute").operator() end,          mode = "n" },
+      { "<leader>X", function() require("substitute.exchange").operator() end, mode = "n" },
+      { "<leader>X", function() require("substitute.exchange").visual() end, mode = "x" },
+      { "<leader>Xc", function() require("substitute.exchange").cancel() end, mode = { "n", "x" } },
     },
   },
 }
