@@ -22,52 +22,71 @@ return {
         fields = { "kind", "abbr", "menu" },
         format = lspkind.cmp_format {
           mode = "symbol",
-          symbol_map = {
-            Copilot = " ",
-            Class = "󰆧 ",
-            Color = "󰏘 ",
-            Constant = "󰏿 ",
-            Constructor = " ",
-            Enum = " ",
-            EnumMember = " ",
-            Event = "",
-            Field = " ",
-            File = "󰈙 ",
-            Folder = "󰉋 ",
-            Function = "󰊕 ",
-            Interface = " ",
-            Keyword = "󰌋 ",
-            Method = "󰊕 ",
-            Module = " ",
-            Operator = "󰆕 ",
-            Property = " ",
-            Reference = "󰈇 ",
-            Snippet = " ",
-            Struct = "󰆼 ",
-            Text = "󰉿 ",
-            TypeParameter = "󰉿 ",
-            Unit = "󰑭",
-            Value = "󰎠 ",
-            Variable = "󰀫 ",
-          },
+          maxwidth = math.min(50, math.floor(vim.o.columns * 0.5)),
+          ellipsis_char = "…",
+          before = function(_, vim_item)
+            local MIN_MENU_WIDTH = 25
+            local label, length = vim_item.abbr, vim.api.nvim_strwidth(vim_item.abbr)
+            if length < MIN_MENU_WIDTH then vim_item.abbr = label .. string.rep(" ", MIN_MENU_WIDTH - length) end
+            return vim_item
+          end,
+          symbol_map = { Copilot = " " },
           menu = {
             buffer = "[buf]",
             nvim_lsp = "[lsp]",
             path = "[path]",
             luasnip = "[snip]",
             emoji = "[emoji]",
-            nvim_lua = "[lua]",
           },
         },
       }
 
       cmp.setup {
-        enabled = function() return vim.api.nvim_buf_get_option(0, "modifiable") and vim.bo.buftype ~= "prompt" end,
+        experimental = {
+          ghost_text = true,
+        },
+        -- TODO: menu width and height
+        window = {
+          completion = cmp.config.window.bordered {},
+          documentation = cmp.config.window.bordered {},
+        },
+        sorting = {
+          comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.recently_used,
+            -- require "clangd_extensions.cmp_scores",
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        },
+        -- disable in TelescopePrompt
+        -- enabled = function() return vim.api.nvim_buf_get_option(0, "modifiable") and vim.bo.buftype ~= "prompt" end,
         mapping = {
-          ["<c-l>"] = cmp.mapping(cmp.mapping.abort(), { "i", "c" }),
-          ["<c-i>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+          ["<c-g>"] = cmp.mapping(function()
+            if cmp.visible() then return cmp.abort() end
+            return cmp.complete()
+          end, { "i", "c" }),
+          ["<c-i>"] = cmp.mapping {
+            i = function(fallback)
+              if cmp.visible() then return cmp.confirm() end
+              if luasnip.jumpable() then return luasnip.jump() end
+              if luasnip.expandable() then return luasnip.expand() end
+              return fallback()
+            end,
+            c = cmp.mapping.select_next_item(),
+            s = function(fallback)
+              if luasnip.jumpable() then return luasnip.jump(1) end
+              return fallback()
+            end,
+          },
+          ["<s-tab>"] = cmp.mapping(function() return luasnip.jump(-1) end, { "i", "c", "s" }),
           ["<c-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
           ["<c-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+          ["<c-p>"] = cmp.mapping(function(fallback) return fallback() end, { "c" }),
+          ["<c-n>"] = cmp.mapping(function(fallback) return fallback() end, { "c" }),
           ["<cr>"] = cmp.mapping(cmp.mapping.confirm { select = false }, { "i", "c" }),
         },
         snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
@@ -75,7 +94,6 @@ return {
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
           { name = "luasnip" },
-          -- { name = "nvim_lua" },
           { name = "path" },
           {
             name = "buffer",
@@ -83,13 +101,11 @@ return {
           },
           { name = "emoji" },
         },
-
         formatting = formatting,
-        performance = { max_view_entries = 8 },
+        -- performance = { max_view_entries = 8 },
       }
 
       cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = "buffer" },
           { name = "path" },
@@ -97,14 +113,22 @@ return {
         formatting = formatting,
       })
 
-      cmp.setup.cmdline(":", {
+      cmp.setup.cmdline("?", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
+          { name = "buffer" },
           { name = "path" },
+        },
+      })
+
+      cmp.setup.cmdline(":", {
+        sources = {
           {
             name = "cmdline",
             option = { ignore_cmds = { "Man", "!" } },
           },
+          { name = "path" },
+          -- { name = "buffer" },
         },
         formatting = formatting,
       })
