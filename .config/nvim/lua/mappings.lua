@@ -53,8 +53,8 @@ nmap("<leader>q", "<cmd>wincmd q<cr>")
 
 nmap("<a-j>", "<cmd>move+<cr>")
 nmap("<a-k>", "<cmd>move-2<cr>")
-xmap("<a-j>", "<cmd>move'>+<cr>='[gv", { silent = true })
-xmap("<a-k>", "<cmd>move-2<cr>='[gv", { silent = true })
+xmap("<a-j>", ":move '>+1<cr>gv=gv")
+xmap("<a-k>", ":move '<-2<cr>gv=gv")
 
 nmap("<a-h>", "<<")
 nmap("<a-l>", ">>")
