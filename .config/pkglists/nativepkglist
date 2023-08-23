@@ -101,6 +101,7 @@ ghc
 gist
 git
 git-delta
+git-lfs
 github-cli
 gitstats-git
 gnome-epub-thumbnailer
@@ -206,6 +207,7 @@ pacutils
 patch
 pdfarranger
 pdfgrep
+peek
 perl-cgi
 perl-image-exiftool
 pigz

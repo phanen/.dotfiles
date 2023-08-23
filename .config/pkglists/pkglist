@@ -112,6 +112,7 @@ gibo
 gist
 git
 git-delta
+git-lfs
 github-cli
 gitstats-git
 gnome-epub-thumbnailer
@@ -227,6 +228,7 @@ patch
 pdf-compress
 pdfarranger
 pdfgrep
+peek
 perl-cgi
 perl-image-exiftool
 picom-simpleanims-next-git
