@@ -1,4 +1,4 @@
-vim.cmd([[
+vim.cmd [[
 function!   QuickFixOpenAll()
     if empty(getqflist())
         return
@@ -12,6 +12,6 @@ function!   QuickFixOpenAll()
         let s:prev_val = s:curr_val
     endfor
 endfunction
-]])
+]]
 
-vim.api.nvim_set_keymap('n', '<leader>bq' , ':call QuickFixOpenAll()<CR>', { noremap=true, silent=false })
+vim.api.nvim_set_keymap("n", "<leader>bq", ":call QuickFixOpenAll()<CR>", { noremap = true, silent = false })

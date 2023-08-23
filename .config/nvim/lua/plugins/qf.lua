@@ -5,9 +5,8 @@ return {
     opts = {},
   },
   {
-    url = 'https://gitlab.com/yorickpeterse/nvim-pqf',
-    event = 'VeryLazy',
+    url = "https://gitlab.com/yorickpeterse/nvim-pqf",
+    event = "VeryLazy",
     opts = {},
   },
-
 }

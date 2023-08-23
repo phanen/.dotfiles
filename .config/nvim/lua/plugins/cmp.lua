@@ -1,5 +1,5 @@
 return {
-  { "f3fora/cmp-spell", event = "InsertEnter", ft = { "gitcommit", "markdown", } },
+  { "f3fora/cmp-spell", event = "InsertEnter", ft = { "gitcommit", "markdown" } },
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -19,9 +19,9 @@ return {
       local lspkind = require "lspkind"
 
       local formatting = {
-        fields = { 'kind', 'abbr', 'menu' },
+        fields = { "kind", "abbr", "menu" },
         format = lspkind.cmp_format {
-          mode = 'symbol',
+          mode = "symbol",
           symbol_map = {
             Copilot = " ",
             Class = "󰆧 ",
@@ -56,7 +56,7 @@ return {
             path = "[path]",
             luasnip = "[snip]",
             emoji = "[emoji]",
-            nvim_lua = '[lua]',
+            nvim_lua = "[lua]",
           },
         },
       }
@@ -70,41 +70,41 @@ return {
           ["<c-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
           ["<cr>"] = cmp.mapping(cmp.mapping.confirm { select = false }, { "i", "c" }),
         },
-        snippet = { expand = function(args) luasnip.lsp_expand(args.body) end, },
+        snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
         sources = {
-          { name = "nvim_lsp", },
-          { name = "nvim_lsp_signature_help", },
-          { name = "luasnip", },
+          { name = "nvim_lsp" },
+          { name = "nvim_lsp_signature_help" },
+          { name = "luasnip" },
           -- { name = "nvim_lua" },
-          { name = "path", },
+          { name = "path" },
           {
-            name = 'buffer',
+            name = "buffer",
             options = { get_bufnrs = function() return vim.api.nvim_list_bufs() end },
           },
-          { name = "emoji", },
+          { name = "emoji" },
         },
 
         formatting = formatting,
-        performance = { max_view_entries = 8, },
+        performance = { max_view_entries = 8 },
       }
 
-      cmp.setup.cmdline('/', {
+      cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = 'buffer' },
-          { name = 'path' },
+          { name = "buffer" },
+          { name = "path" },
         },
         formatting = formatting,
       })
 
-      cmp.setup.cmdline(':', {
+      cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = 'path' },
+          { name = "path" },
           {
-            name = 'cmdline',
-            option = { ignore_cmds = { 'Man', '!' } },
-          }
+            name = "cmdline",
+            option = { ignore_cmds = { "Man", "!" } },
+          },
         },
         formatting = formatting,
       })

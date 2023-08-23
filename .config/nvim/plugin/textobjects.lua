@@ -34,7 +34,7 @@ vim.cmd [[
 	onoremap <silent> il :<C-U>execute "normal! ^v".v:count1."g_"<CR>
 ]]
 
-vim.cmd[[
+vim.cmd [[
 	function! Textobj_url() abort
 	  if match(&runtimepath, 'vim-highlighturl') != -1
 		" Note that we use https://github.com/itchyny/vim-highlighturl to get the URL pattern.

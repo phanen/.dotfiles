@@ -6,7 +6,7 @@ return {
     tag = "nightly",
     lazy = false,
     cond = used_method == "nvim-tree",
-    dependencies = { "nvim-tree/nvim-web-devicons", },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       auto_reload_on_write = true,
       disable_netrw = false,
@@ -257,33 +257,27 @@ return {
       {
         "<leader>ne",
         function()
-          require("neo-tree.command").execute({
+          require("neo-tree.command").execute {
             toggle = true,
             dir = require("utils").get_root(),
-          })
+          }
         end,
         desc = "Explorer NeoTree (root dir)",
       },
       {
         "<leader>nE",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-        end,
+        function() require("neo-tree.command").execute { toggle = true, dir = vim.loop.cwd() } end,
         desc = "Explorer NeoTree (cwd)",
       },
       { "<leader>e", "<leader>ne", desc = "Explorer NeoTree (root dir)", remap = true },
-      { "<leader>E", "<leader>nE", desc = "Explorer NeoTree (cwd)",      remap = true },
+      { "<leader>E", "<leader>nE", desc = "Explorer NeoTree (cwd)", remap = true },
     },
-    deactivate = function()
-      vim.cmd([[Neotree close]])
-    end,
+    deactivate = function() vim.cmd [[Neotree close]] end,
     init = function()
       vim.g.neo_tree_remove_legacy_commands = 1
       if vim.fn.argc() == 1 then
         local stat = vim.loop.fs_stat(vim.fn.argv(0))
-        if stat and stat.type == "directory" then
-          require("neo-tree")
-        end
+        if stat and stat.type == "directory" then require "neo-tree" end
       end
     end,
     opts = {
@@ -302,7 +296,7 @@ return {
               state.commands["toggle_node"](state)
             else
               state.commands["open"](state)
-              vim.cmd("Neotree reveal")
+              vim.cmd "Neotree reveal"
             end
           end,
           h = function(state)
@@ -319,10 +313,7 @@ return {
               if not node:is_expanded() then
                 require("neo-tree.sources.filesystem").toggle_directory(state, node)
               elseif node:has_children() then
-                require("neo-tree.ui.renderer").focus_node(
-                  state,
-                  node:get_child_ids()[1]
-                )
+                require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
               end
             end
           end,

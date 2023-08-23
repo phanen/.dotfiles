@@ -4,30 +4,30 @@ local command = function(name, rhs, opts)
   api.nvim_create_user_command(name, rhs, opts)
 end
 
-command('ToggleBackground', function() vim.o.background = vim.o.background == 'dark' and 'light' or 'dark' end)
+command("ToggleBackground", function() vim.o.background = vim.o.background == "dark" and "light" or "dark" end)
 ------------------------------------------------------------------------------
-command('Todo', [[noautocmd silent! grep! 'TODO\|FIXME\|BUG\|HACK' | copen]])
+command("Todo", [[noautocmd silent! grep! 'TODO\|FIXME\|BUG\|HACK' | copen]])
 -- command('ReloadModule', function(tbl) require('plenary.reload').reload_module(tbl.args) end, {
 --   nargs = 1,
 -- })
 -- source https://superuser.com/a/540519
 -- write the visual selection to the filename passed in as a command argument then delete the
 -- selection placing into the black hole register
-command('MoveWrite', [[<line1>,<line2>write<bang> <args> | <line1>,<line2>delete _]], {
+command("MoveWrite", [[<line1>,<line2>write<bang> <args> | <line1>,<line2>delete _]], {
   nargs = 1,
   bang = true,
   range = true,
-  complete = 'file',
+  complete = "file",
 })
-command('MoveAppend', [[<line1>,<line2>write<bang> >> <args> | <line1>,<line2>delete _]], {
+command("MoveAppend", [[<line1>,<line2>write<bang> >> <args> | <line1>,<line2>delete _]], {
   nargs = 1,
   bang = true,
   range = true,
-  complete = 'file',
+  complete = "file",
 })
 
-command('Reverse', '<line1>,<line2>g/^/m<line1>-1', {
-  range = '%',
+command("Reverse", "<line1>,<line2>g/^/m<line1>-1", {
+  range = "%",
   bar = true,
 })
 

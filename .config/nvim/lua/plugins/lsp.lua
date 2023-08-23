@@ -96,7 +96,7 @@ return {
     config = function()
       local nls = require "null-ls"
       nls.setup {
-        -- on_attach = lsp_attach,
+        on_attach = lsp_attach,
         -- on_init = function(new_client, _)
         --   new_client.offset_encoding = "utf-16"
         -- end,

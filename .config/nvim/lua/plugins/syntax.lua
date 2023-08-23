@@ -2,9 +2,9 @@ return {
   -- syntax highlight
   { "kovetskiy/sxhkd-vim", ft = "sxhkd" },
 
-  { "Fymyte/rasi.vim",     ft = "rasi" },
+  { "Fymyte/rasi.vim", ft = "rasi" },
 
-  { "kmonad/kmonad-vim",   ft = "kbd" },
+  { "kmonad/kmonad-vim", ft = "kbd" },
 
   -- nushell
   {

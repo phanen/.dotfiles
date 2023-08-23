@@ -1,7 +1,4 @@
-local function getClipContent()
-  return vim.fn.system { "xsel", "-ob" }
-end
-
+local function getClipContent() return vim.fn.system { "xsel", "-ob" } end
 
 local function link_wrap(type)
   return function()
@@ -31,7 +28,7 @@ local function link_wrap(type)
   end
 end
 
-map({ "n", "x" }, "<leader>il", link_wrap("raw"))
+map({ "n", "x" }, "<leader>il", link_wrap "raw")
 -- map({ "n", "x" }, "<leader>il", link_wrap("link"))
-map({ "n", "x" }, "<leader>ii", link_wrap("img"))
-map({ "n", "x" }, "<leader>ig", link_wrap("git"))
+map({ "n", "x" }, "<leader>ii", link_wrap "img")
+map({ "n", "x" }, "<leader>ig", link_wrap "git")
