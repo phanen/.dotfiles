@@ -72,8 +72,8 @@ local function get_hl_as_hex(opts, ns)
 end
 
 local err_warn = vim.schedule_wrap(function(group, attribute)
-  vim.notify(vim.fmt("failed to get highlight %s for attribute %s\n%s", group, attribute, debug.traceback()), "ERROR", {
-    title = vim.fmt("Highlight - get(%s)", group),
+  vim.notify(string.fmt("failed to get highlight %s for attribute %s\n%s", group, attribute, debug.traceback()), "ERROR", {
+    title = string.fmt("Highlight - get(%s)", group),
   }) -- stylua: ignore
 end)
 

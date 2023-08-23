@@ -149,8 +149,65 @@ return {
   {
     "glacambre/firenvim",
     -- Lazy load firenvim
+    cond = false,
     -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
     lazy = not vim.g.started_by_firenvim,
     build = function() vim.fn["firenvim#install"](0) end,
+  },
+
+  -- diff arbitrary blocks of text with each other
+  { "AndrewRadev/linediff.vim", cmd = "Linediff" },
+  { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
+
+  {
+    "phanen/browse.nvim",
+    branch = "visual-mode",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    keys = {
+      {
+        mode = { "n", "x" },
+        "<leader>S",
+        function() require("browse").open_bookmarks() end,
+      },
+      {
+        mode = { "n", "x" },
+        "<leader>B",
+        function() require("browse").browse() end,
+      },
+      {
+        mode = { "n", "x" },
+        "<leader>I",
+        function() require("browse").input_search() end,
+      },
+    },
+
+    opts = {
+      bookmarks = {
+        -- ["github_code"] = "https://github.com/search?q=%s&type=code",
+        ["github_repo"] = "https://github.com/search?q=%s&type=repositories",
+      },
+    },
+  },
+
+  {
+    "pwntester/octo.nvim",
+    cmd = "Octo",
+    config = function()
+      require("octo").setup {}
+      -- BUG: take no effect...
+      -- vim.api.nvim_set_hl(0, "OctoEditable", { bg = highlight.get("NormalFloat", "bg") })
+      vim.api.nvim_set_hl(0, "OctoEditable", { bg = "#e4dcd4" })
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-tree/nvim-web-devicons",
+    },
+  },
+  {
+    "psliwka/vim-dirtytalk",
+    lazy = false,
+    build = ":DirtytalkUpdate",
+    config = function() vim.opt.spelllang:append "programming" end,
   },
 }

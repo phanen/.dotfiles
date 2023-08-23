@@ -84,6 +84,7 @@ return {
           },
         },
       }
+      vim.treesitter.language.register("markdown", "octo")
     end,
   },
 

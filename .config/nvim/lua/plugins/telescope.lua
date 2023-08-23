@@ -41,7 +41,18 @@ return {
       { "nvim-lua/plenary.nvim" },
       -- { 'molecule-man/telescope-menufacture' },
       -- { 'natecraddock/telescope-zf-native.nvim' },
-      { "nvim-telescope/telescope-ui-select.nvim" },
+      -- { "nvim-telescope/telescope-ui-select.nvim" },
+      {
+        "stevearc/dressing.nvim",
+        init = function()
+          ---@diagnostic disable-next-line: duplicate-set-field
+          vim.ui.select = function(...)
+            require("lazy").load { plugins = { "dressing.nvim" } }
+            return vim.ui.select(...)
+          end
+        end,
+        opts = {},
+      },
     },
 
     cmd = "Telescope",
@@ -127,7 +138,7 @@ return {
       }
       -- enable fzf native
       pcall(tl.load_extension, "fzf")
-      pcall(tl.load_extension, "ui-select")
+      -- pcall(tl.load_extension, "ui-select")
       -- pcall(tl.load_extension, "luasnip")
     end,
   },

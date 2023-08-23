@@ -204,6 +204,12 @@ nmap("<c-=>", function()
 end)
 
 -- TODO: wordaround for batch comment toggle
-nmap("<leader><c-_>", "<cmd> norm gcic<cr>")
+nmap("<leader><c-_>", function()
+  -- if in_commet
+  vim.cmd "norm vic"
+end)
+
+vim.keymap.set("i", "@", "@<C-x><C-o>", { silent = true, buffer = true })
+vim.keymap.set("i", "#", "#<C-x><C-o>", { silent = true, buffer = true })
 
 -- vim:foldmethod=marker
