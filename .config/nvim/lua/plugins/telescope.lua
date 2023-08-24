@@ -82,7 +82,7 @@ return {
       { "<leader>f<tab>", tb.colorscheme, mode = { "n", "x" } },
       { "<leader>fq", tb.quickfix, mode = { "n", "x" } },
       { "z=", tb.spell_suggest, mode = { "n", "x" } },
-      { "<leader>z", tb.spell_suggest, mode = { "n", "x" } },
+      -- { "<leader>z", tb.spell_suggest, mode = { "n", "x" } },
       mode = { "n", "x" },
     },
     config = function()

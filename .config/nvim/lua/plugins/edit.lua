@@ -3,21 +3,22 @@ return {
   "tpope/vim-fugitive",
   {
     "linty-org/readline.nvim",
+    -- stylua: ignore
     keys = {
-      { "<c-f>", "<right>", mode = "!" },
-      { "<c-b>", "<left>", mode = "!" },
-      { "<c-p>", "<up>", mode = "!" },
-      { "<c-n>", "<down>", mode = "!" },
-      { "<m-f>", function() require("readline").forward_word() end, mode = "!" },
-      { "<m-b>", function() require("readline").backward_word() end, mode = "!" },
-      { "<c-a>", function() require("readline").beginning_of_line() end, mode = "!" },
-      { "<c-e>", function() require("readline").end_of_line() end, mode = "!" },
+      { "<c-f>",  "<right>",                                               mode = "!" },
+      { "<c-b>",  "<left>",                                                mode = "!" },
+      { "<c-p>",  "<up>",                                                  mode = "!" },
+      { "<c-n>",  "<down>",                                                mode = "!" },
+      { "<m-f>",  function() require("readline").forward_word() end,       mode = "!" },
+      { "<m-b>",  function() require("readline").backward_word() end,      mode = "!" },
+      { "<c-a>",  function() require("readline").beginning_of_line() end,  mode = "!" },
+      { "<c-e>",  function() require("readline").end_of_line() end,        mode = "!" },
       -- { '<c-w>', function() require('readline').unix_word_rubout() end, mode = '!' },
       { "<m-bs>", function() require("readline").backward_kill_word() end, mode = "!" },
-      { "<m-d>", function() require("readline").kill_word() end, mode = "!" },
-      { "<c-l>", function() require("readline").kill_word() end, mode = "!" },
-      { "<c-k>", function() require("readline").kill_line() end, mode = "!" },
-      { "<c-u>", function() require("readline").backward_kill_line() end, mode = "!" },
+      { "<m-d>",  function() require("readline").kill_word() end,          mode = "!" },
+      { "<c-l>",  function() require("readline").kill_word() end,          mode = "!" },
+      { "<c-k>",  function() require("readline").kill_line() end,          mode = "!" },
+      { "<c-u>",  function() require("readline").backward_kill_line() end, mode = "!" },
     },
   },
 
@@ -196,6 +197,51 @@ return {
       { "<leader>X", function() require("substitute.exchange").operator() end, mode = "n" },
       { "<leader>X", function() require("substitute.exchange").visual() end, mode = "x" },
       { "<leader>Xc", function() require("substitute.exchange").cancel() end, mode = { "n", "x" } },
+    },
+  },
+  {
+    "andymass/vim-matchup",
+    event = "BufReadPost",
+    init = function() vim.o.matchpairs = "(:),{:},[:],<:>" end,
+    config = function()
+      vim.g.matchup_matchparen_deferred = 1
+      vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+    end,
+  },
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    opts = {
+      plugins = {
+        gitsigns = true,
+        tmux = true,
+        kitty = { enabled = false, font = "+2" },
+      },
+    },
+    keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+    event = "BufReadPost",
+    enabled = false,
+    opts = {},
+
+    init = function()
+      -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+      vim.keymap.set("n", "zR", function() require("ufo").openAllFolds() end)
+      vim.keymap.set("n", "zM", function() require("ufo").closeAllFolds() end)
+    end,
+  },
+  {
+    "cshuaimin/ssr.nvim",
+    keys = {
+      {
+        "<leader>rr",
+        function() require("ssr").open() end,
+        mode = { "n", "x" },
+        desc = "Structural Replace",
+      },
     },
   },
 }

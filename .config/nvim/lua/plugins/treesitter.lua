@@ -117,4 +117,13 @@ return {
       keymaps = {},
     },
   },
+  {
+    "Wansmer/treesj",
+    dependencies = { "nvim-treesitter" },
+    opts = { use_default_keymaps = false },
+    keys = {
+      { "gS", "<Cmd>TSJSplit<CR>", desc = "split expression to multiple lines" },
+      { "gJ", "<Cmd>TSJJoin<CR>", desc = "join expression to single line" },
+    },
+  },
 }
