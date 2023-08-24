@@ -1,6 +1,8 @@
 return {
   {
     "iamcco/markdown-preview.nvim",
+    keys = { { "<leader>wm", "<cmd>MarkdownPreview<cr>" } },
+    cmd = "MarkdownPreview",
     build = "cd app && npm install",
     config = function()
       vim.g.mkdp_filetypes = { "markdown" }
@@ -8,6 +10,27 @@ return {
       -- vim.g.mkdp_markdown_css = '/home/phanium/Downloads/typora-onedark-theme-1.10/theme/onedark_linux.css'
     end,
     ft = { "markdown" },
+  },
+
+  {
+    "toppair/peek.nvim",
+    cond = false,
+    build = "deno task --quiet build:fast",
+    keys = {
+      {
+        "<leader>wm",
+        function()
+          local peek = require "peek"
+          if peek.is_open() then
+            peek.close()
+          else
+            peek.open()
+          end
+        end,
+        desc = "Peek (Markdown Preview)",
+      },
+    },
+    opts = {},
   },
 
   { -- TODO: since treesitter has been a performance killer...

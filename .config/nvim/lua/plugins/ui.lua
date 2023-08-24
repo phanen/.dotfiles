@@ -35,7 +35,7 @@ return {
   -- statusline
   {
     "nvim-lualine/lualine.nvim",
-    lazy = false,
+    event = "VeryLazy",
     opts = {
       options = {
         icons_enabled = true,
@@ -44,6 +44,12 @@ return {
         section_separators = "",
       },
     },
+  },
+  {
+    "nvimdev/whiskyline.nvim",
+    lazy = false,
+    cond = false,
+    opts = {},
   },
 
   -- hint on indent

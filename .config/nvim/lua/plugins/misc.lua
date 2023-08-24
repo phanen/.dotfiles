@@ -3,6 +3,7 @@ local highlight = require "utils.hightlights"
 return {
   {
     "voldikss/vim-browser-search",
+    cond = false,
     event = "VeryLazy",
     keys = {
       { "gl", mode = { "x", "n" } },
@@ -48,18 +49,18 @@ return {
     config = true,
     build = "./kitty/install-kittens.bash",
     keys = {
-      { "<a-h>", function() require("smart-splits").resize_left() end },
-      { "<a-l>", function() require("smart-splits").resize_right() end },
+      { "<a-h>",             function() require("smart-splits").resize_left() end },
+      { "<a-l>",             function() require("smart-splits").resize_right() end },
       -- moving between splits
-      { "<c-h>", function() require("smart-splits").move_cursor_left() end },
-      { "<c-j>", function() require("smart-splits").move_cursor_down() end },
-      { "<c-k>", function() require("smart-splits").move_cursor_up() end },
-      { "<c-l>", function() require("smart-splits").move_cursor_right() end },
+      { "<c-h>",             function() require("smart-splits").move_cursor_left() end },
+      { "<c-j>",             function() require("smart-splits").move_cursor_down() end },
+      { "<c-k>",             function() require("smart-splits").move_cursor_up() end },
+      { "<c-l>",             function() require("smart-splits").move_cursor_right() end },
       -- swapping buffers between windows
-      { "<leader><leader>h", function() require("smart-splits").swap_buf_left() end, desc = { "swap left" } },
-      { "<leader><leader>j", function() require("smart-splits").swap_buf_down() end, { desc = "swap down" } },
-      { "<leader><leader>k", function() require("smart-splits").swap_buf_up() end, { desc = "swap up" } },
-      { "<leader><leader>l", function() require("smart-splits").swap_buf_right() end, { desc = "swap right" } },
+      { "<leader><leader>h", function() require("smart-splits").swap_buf_left() end,    desc = { "swap left" } },
+      { "<leader><leader>j", function() require("smart-splits").swap_buf_down() end,    { desc = "swap down" } },
+      { "<leader><leader>k", function() require("smart-splits").swap_buf_up() end,      { desc = "swap up" } },
+      { "<leader><leader>l", function() require("smart-splits").swap_buf_right() end,   { desc = "swap right" } },
     },
   },
 
@@ -69,9 +70,9 @@ return {
     keys = {
       { "<c-u>", mode = { "n", "x" } },
       { "<c-d>", mode = { "n", "x" } },
-      { "zt", mode = { "n", "x" } },
-      { "zz", mode = { "n", "x" } },
-      { "zb", mode = { "n", "x" } },
+      { "zt",    mode = { "n", "x" } },
+      { "zz",    mode = { "n", "x" } },
+      { "zb",    mode = { "n", "x" } },
     },
     config = true,
   },
@@ -103,7 +104,6 @@ return {
 
   {
     "folke/todo-comments.nvim",
-    event = "VeryLazy",
     dependencies = { "telescope.nvim", "nvim-lua/plenary.nvim" },
     keys = {
       {
@@ -157,7 +157,7 @@ return {
 
   -- diff arbitrary blocks of text with each other
   { "AndrewRadev/linediff.vim", cmd = "Linediff" },
-  { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
+  { "jspringyc/vim-word",       cmd = { "WordCount", "WordCountLine" } },
 
   {
     "phanen/browse.nvim",

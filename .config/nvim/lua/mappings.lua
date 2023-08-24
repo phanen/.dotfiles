@@ -1,5 +1,6 @@
 -- `:h map-table`
 local nmap = function(...) map("n", ...) end
+local imap = function(...) map("i", ...) end
 local cmap = function(...) map("c", ...) end
 local xmap = function(...) map("x", ...) end
 local tmap = function(...) map("t", ...) end
@@ -112,7 +113,7 @@ xmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 -- toggle windows {{{
 nmap("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
 nmap("<leader>wo", "<cmd>AerialToggle<cr>")
-nmap("<leader>wm", "<cmd>MarkdownPreview<cr>")
+-- nmap("<leader>wm", "<cmd>MarkdownPreview<cr>")
 nmap("<leader>wl", "<cmd>Lazy<cr>")
 nmap("<leader>wj", "<cmd>Navbuddy<cr>")
 nmap("<leader>wi", "<cmd>LspInfo<cr>")
@@ -209,7 +210,7 @@ nmap("<leader><c-_>", function()
   vim.cmd "norm vic"
 end)
 
-vim.keymap.set("i", "@", "@<C-x><C-o>", { silent = true, buffer = true })
-vim.keymap.set("i", "#", "#<C-x><C-o>", { silent = true, buffer = true })
+imap("@", "@<C-x><C-o>", { silent = true, buffer = true })
+imap("#", "#<C-x><C-o>", { silent = true, buffer = true })
 
 -- vim:foldmethod=marker

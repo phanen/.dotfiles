@@ -123,7 +123,32 @@ return {
     opts = { use_default_keymaps = false },
     keys = {
       { "gS", "<Cmd>TSJSplit<CR>", desc = "split expression to multiple lines" },
-      { "gJ", "<Cmd>TSJJoin<CR>", desc = "join expression to single line" },
+      { "gJ", "<Cmd>TSJJoin<CR>",  desc = "join expression to single line" },
     },
+  },
+  {
+    "haringsrob/nvim_context_vt",
+    cond = false,
+    opts = {
+      disable_ft = { "json", "yaml" },
+      disable_virtual_lines = true,
+      ---@param node TSNode
+      ---@param ft string
+      ---@param _ table
+      custom_parser = function(node, ft, _)
+        local utils = require "nvim_context_vt.utils"
+
+        -- useless if the node is less than 10 lines
+        if node:end_() - node:start() < 10 then return nil end
+
+        if ft == "lua" and node:type() == "if_statement" then return nil end
+
+        -- only match if alphabetical characters are present
+        if not utils.get_node_text(node)[1]:match "%w" then return nil end
+
+        return "▶ " .. utils.get_node_text(node)[1]:gsub("{", "")
+      end,
+    },
+    event = "BufReadPre",
   },
 }
