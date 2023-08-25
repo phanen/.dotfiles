@@ -1,6 +1,5 @@
 -- `:h map-table`
 local nmap = function(...) map("n", ...) end
-local imap = function(...) map("i", ...) end
 local cmap = function(...) map("c", ...) end
 local xmap = function(...) map("x", ...) end
 local tmap = function(...) map("t", ...) end
@@ -9,6 +8,7 @@ local f = require "utils.keymap"
 
 -- basics {{{
 map({ "n", "x", "o" }, "<space>", "<nop>")
+map({ "n", "x", "o" }, "`", "<nop>")
 
 -- map({ "n", "x" }, ";", ":")
 -- map({ "n", "x" }, ":", ";")
@@ -69,13 +69,17 @@ xmap("-", "5k")
 nmap("<c-j>", "<cmd>wincmd w<cr>")
 nmap("<c-k>", "<cmd>wincmd W<cr>")
 
-map({ "n", "v", "o" }, "H", "g^")
-map({ "n", "v", "o" }, "L", "g$")
+map({ "n", "v", "o" }, "^", "g^")
+map({ "n", "v", "o" }, "$", "g$")
+-- map({ "n", "v", "o" }, "H", "g^")
+-- map({ "n", "v", "o" }, "L", "g$")
 
 nmap("<c-s-k>", "<cmd>resize -2<cr>")
 nmap("<c-s-j>", "<cmd>resize +2<cr>")
 nmap("<c-s-h>", "<cmd>vertical resize -2<cr>")
 nmap("<c-s-l>", "<cmd>vertical resize +2<cr>")
+
+nmap("vv", "viw")
 -- }}}
 
 -- subtitution {{{
@@ -185,6 +189,7 @@ xmap("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
   desc = "replace word under the cursor (visual)",
 })
 
+-- FIXME: wired delay?
 nmap("<c-p>", "I- <esc>")
 xmap("<c-p>", "I- <esc>")
 
@@ -209,8 +214,5 @@ nmap("<leader><c-_>", function()
   -- if in_commet
   vim.cmd "norm vic"
 end)
-
-imap("@", "@<C-x><C-o>", { silent = true, buffer = true })
-imap("#", "#<C-x><C-o>", { silent = true, buffer = true })
 
 -- vim:foldmethod=marker

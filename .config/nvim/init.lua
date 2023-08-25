@@ -6,14 +6,15 @@
 assert(vim.loop.os_uname().sysname == "Linux")
 
 vim.g.mapleader = " "
+-- vim.g.maplocalleader = "`"
 vim.g.maplocalleader = ","
 
 _G.map = vim.keymap.set
 _G.P = vim.print
 
 for _, source in ipairs {
-  "mappings",
   "options",
+  "mappings",
 } do
   local ok, fault = pcall(require, source)
   if not ok then vim.api.nvim_err_writeln("Failed to load " .. source .. "\n\n" .. fault) end
