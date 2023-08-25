@@ -69,10 +69,12 @@ return {
             if cmp.visible() then return cmp.abort() end
             return cmp.complete()
           end, { "i", "c" }),
-          ["<c-i>"] = cmp.mapping {
+          -- NOTE: use <c-i> may cause bug
+          ["<tab>"] = cmp.mapping {
             i = function(fallback)
-              if cmp.visible() then return cmp.confirm() end
-              if luasnip.jumpable() then return luasnip.jump() end
+              -- visible and have selected
+              if cmp.visible() and cmp.get_selected_entry() then return cmp.confirm() end
+              if luasnip.jumpable() then return luasnip.jump(1) end
               if luasnip.expandable() then return luasnip.expand() end
               return fallback()
             end,
@@ -82,11 +84,20 @@ return {
               return fallback()
             end,
           },
-          ["<s-tab>"] = cmp.mapping(function() return luasnip.jump(-1) end, { "i", "c", "s" }),
+          -- ["<s-tab>"] = cmp.mapping(function() return luasnip.jump(-1) end, { "i", "c", "s" }),
           ["<c-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
           ["<c-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-          ["<c-p>"] = cmp.mapping(function(fallback) return fallback() end, { "c" }),
-          ["<c-n>"] = cmp.mapping(function(fallback) return fallback() end, { "c" }),
+          -- HACK: fallback to history navagation
+          ["<c-p>"] = cmp.mapping {
+            i = function() luasnip.jump(-1) end,
+            s = function() luasnip.jump(-1) end,
+            c = function(fallback) return fallback() end,
+          },
+          ["<c-n>"] = cmp.mapping {
+            i = function() luasnip.jump(1) end,
+            s = function() luasnip.jump(1) end,
+            c = function(fallback) return fallback() end,
+          },
           ["<cr>"] = cmp.mapping(cmp.mapping.confirm { select = false }, { "i", "c" }),
         },
         snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
