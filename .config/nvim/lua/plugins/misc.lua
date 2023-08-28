@@ -3,7 +3,6 @@ local highlight = require "utils.hightlights"
 return {
   {
     "voldikss/vim-browser-search",
-    cond = false,
     event = "VeryLazy",
     keys = {
       { "gl", mode = { "x", "n" } },

@@ -65,7 +65,7 @@ return {
         -- disable in TelescopePrompt
         -- enabled = function() return vim.api.nvim_buf_get_option(0, "modifiable") and vim.bo.buftype ~= "prompt" end,
         mapping = {
-          ["<c-g>"] = cmp.mapping(function()
+          ["<c-\\>"] = cmp.mapping(function()
             if cmp.visible() then return cmp.abort() end
             return cmp.complete()
           end, { "i", "c" }),
