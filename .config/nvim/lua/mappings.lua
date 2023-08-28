@@ -139,7 +139,7 @@ end, { desc = "toggle nrformats" })
 nmap("<leader>oj", "<cmd>wincmd _<cr>")
 nmap("<leader>ok", "<cmd>wincmd =<cr>")
 nmap("<leader>ob", f.toggle_bg, { desc = "toggle background" })
-nmap("<leader><tab>", f.next_colorscheme, { desc = "switch colorscheme" })
+-- nmap("<leader><tab>", f.next_colorscheme, { desc = "switch colorscheme" })
 -- TODO: make it a real toggle
 nmap("<leader>oJ", function() vim.cmd [[noremap J gJ]] end, { desc = "toggle join mode" })
 nmap("<leader>ow", function() vim.cmd [[set wrap!]] end)

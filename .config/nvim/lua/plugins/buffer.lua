@@ -7,11 +7,10 @@ return {
 
   {
     "kwkarlwang/bufjump.nvim",
-    cond = false,
     event = "VeryLazy",
     opts = {
-      forward = "<leader><c-n>",
-      backward = "<leader><c-p>",
+      forward = "<leader><c-i>",
+      backward = "<leader><c-o>",
       on_success = nil,
     },
   },

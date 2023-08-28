@@ -61,7 +61,7 @@ return {
       { "<leader>m",        tb.builtin,              mode = { "n", "x" } },
       { "<c-l>",            tb.find_files,           mode = { "n", "x" } },
       { "<c-b>",            tb.buffers,              mode = { "n", "x" } },
-      { "<leader><tab>",    tb.colorscheme,          mode = { "n", "x" } },
+      -- { "<leader><tab>",    tb.colorscheme,          mode = { "n", "x" } },
       { "<leader><leader>", tb.resume,               mode = { "n", "x" } },
       -- { "<leader>j",        tb.oldfiles,             mode = { "n", "x" }, },
       { "<leader>h",        help_tags,               mode = { "n", "x" } },
