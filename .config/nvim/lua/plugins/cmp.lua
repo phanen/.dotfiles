@@ -89,12 +89,24 @@ return {
           ["<c-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
           -- HACK: fallback to history navagation
           ["<c-p>"] = cmp.mapping {
-            i = function() luasnip.jump(-1) end,
+            i = function(fallback)
+              if luasnip.jumpable() then
+                luasnip.jump(-1)
+              else
+                fallback()
+              end
+            end,
             s = function() luasnip.jump(-1) end,
             c = function(fallback) return fallback() end,
           },
           ["<c-n>"] = cmp.mapping {
-            i = function() luasnip.jump(1) end,
+            i = function(fallback)
+              if luasnip.jumpable() then
+                luasnip.jump(1)
+              else
+                fallback()
+              end
+            end,
             s = function() luasnip.jump(1) end,
             c = function(fallback) return fallback() end,
           },
