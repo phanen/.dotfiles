@@ -1,7 +1,7 @@
 # /usr/share/doc/alacritty/example/alacritty.yml
 
 # import:
-#   - ~/.config/alacritty/nightfox.yml
+  # - ~/.config/alacritty/nightfox.yml
 
 # schemes:
 #   tokyo-night: &tokyo-night
@@ -85,34 +85,6 @@ font:
   builtin_box_drawing: false
 # draw_bold_text_with_bright_colors: false
 
-#bell:
-# Visual Bell Animation
-#animation: EaseOutExpo
-# Duration of the visual bell flash in milliseconds. A `duration` of `0` will
-# disable the visual bell animation.
-#duration: 0
-
-# Visual bell animation color.
-#color: '#ffffff'
-
-# Bell Command
-#
-# This program is executed whenever the bell is rung.
-#
-# When set to `command: None`, no command will be executed.
-#
-# Example:
-#   command:
-#     program: notify-send
-#     args: ["Hello, World!"]
-#
-#command: None
-
-#selection:
-#semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-# to the primary clipboard
-#save_to_clipboard: false
-
 cursor:
   style:
     shape: Block
@@ -124,19 +96,8 @@ cursor:
 
 live_config_reload: true
 
-## shell to launch if `$SHELL` is unset
-# shell:
-#  program: /bin/bash
-#  args:
-#    - --login
-
-# Send ESC (\x1b) before characters when alt is pressed.
-#alt_send_esc: true
-
 # Offer IPC using `alacritty msg` (unix only)
-# ipc_socket: true
-
-# Hints
+ipc_socket: true
 
 key_bindings:
   # - { key: L, mods: Control, action: ClearLogNotice }
