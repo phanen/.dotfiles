@@ -23,7 +23,12 @@ if [[ -z $(pgrep -fo "tabbed-sub $id") ]]; then
   #       workaround1: insert a sleep...ugly
   #       workaround2: don't use poor launcher, make it by yourlself (https://github.com/davatorium/rofi/issues/1546)
   #       workaround3: dmenu, ~/bin/tabexec.sh eval "$(dmenu_path | rofi -dmenu)"
+  # TODO: don't work
   tabc autoattach "$id" && eval "$@" && tabc autoattach "$id"
+  # tabc autoattach "$id"
+  # sleep .1
+  # exec "$@"
+  # tabc autoattach "$id"
 else # should not happend, but we handle it
   eval "$@" && tabc autoattach "$id"
 fi
