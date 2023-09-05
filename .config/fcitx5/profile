@@ -18,6 +18,27 @@ Name=shuangpin
 # Layout
 Layout=
 
+[Groups/1]
+# Group Name
+Name=japan
+# Layout
+Default Layout=us
+# Default Input Method
+DefaultIM=mozc
+
+[Groups/1/Items/0]
+# Name
+Name=keyboard-us
+# Layout
+Layout=
+
+[Groups/1/Items/1]
+# Name
+Name=mozc
+# Layout
+Layout=
+
 [GroupOrder]
-0=Default
+0=japan
+1=Default
 
