@@ -44,3 +44,6 @@
 # gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 # xfconf-query -c xsettings -p /Gtk/KeyThemeName -s Emacs
 !gtk-3.0
+
+# windows
+!Microsoft.PowerShell_profile.ps1
