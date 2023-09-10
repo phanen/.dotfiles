@@ -130,7 +130,7 @@ iverilog
 iw
 jdk11-openjdk
 jdk8-openjdk
-joshuto-bin
+joshuto-git
 jpegoptim
 jq
 kdeconnect
@@ -331,6 +331,7 @@ whois
 wine
 wine-osu
 winetricks-git
+wireshark-qt
 wpa_supplicant
 xclip
 xdg-desktop-portal-gtk
