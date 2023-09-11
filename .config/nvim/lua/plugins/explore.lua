@@ -40,7 +40,10 @@ return {
         mappings = {
           custom_only = false,
           list = {
-            -- user mappings go here
+            { key = "l", action = "edit" },
+            { key = "L", action = "cd" },
+            { key = "H", action = "dir_up" },
+            { key = "D", action = "toggle_dotfiles" },
           },
         },
         float = {
