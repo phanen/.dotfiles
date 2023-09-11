@@ -32,3 +32,5 @@ map({ "n", "x" }, "<leader>il", link_wrap "raw")
 -- map({ "n", "x" }, "<leader>il", link_wrap("link"))
 map({ "n", "x" }, "<leader>ii", link_wrap "img")
 map({ "n", "x" }, "<leader>ig", link_wrap "git")
+
+map({ "n" }, "<leader>gm", "<cmd>%!npx md-padding<cr>")
