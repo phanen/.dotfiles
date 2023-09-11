@@ -1,7 +1,7 @@
 export EDITOR=nvim
 export VISUAL=nvim
 export TERMINAL=alacritty
-[ -n "$DISPLAY" ] && export BROWSER=chromium || export BROWSER=links
+[ -n "$DISPLAY" ] && export BROWSER=google-chrome-stable || export BROWSER=links
 export PDF="chromium"
 export FETCHER=uwufetch
 # export MANPAGER="/bin/sh -c \"col -b | nvim -u NORC -c 'set ft=man ts=8 nomod nolist nonu noma' -\""

@@ -2,9 +2,9 @@
 text/=nvim.desktop
 application/pdf=chrome.desktop
 application/html=chrome.desktop
-x-scheme-handler/https=chromium.desktop
-x-scheme-handler/http=chromium.desktop
-text/html=chromium.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+text/html=google-chrome.desktop
 x-scheme-handler/chrome=chrome.desktop
 application/x-extension-htm=chrome.desktop
 application/x-extension-html=chrome.desktop
@@ -14,8 +14,8 @@ application/x-extension-xhtml=chrome.desktop
 application/x-extension-xht=chrome.desktop
 x-scheme-handler/chrome=chrome.desktop
 inode/directory=vifm.desktop
-x-scheme-handler/about=chromium.desktop
-x-scheme-handler/unknown=chromium.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
 
 [Added Associations]
 x-scheme-handler/http=chrome.desktop;chrome.desktop;
