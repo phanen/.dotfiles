@@ -37,6 +37,8 @@ fi
 # _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
 fcitx5 -d
 sleep .5
+sudo rmmod uinput
+sudo modprobe uinput
 kmonad ~/.config/kmonad/kmonad.kbd -w 10 &
 polybar -r &
 picom &
