@@ -41,6 +41,6 @@ esac
 
 # _util_netcfg
 # [ -z "${SSH_TTY}" ] && [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && cd ~ && startx # && sudo kbdrate -d 150 -r 65
-export NEMU_HOME=$HOME/ysyx/ysyx-workbench/nemu
-export NPC_HOME=$HOME/ysyx/ysyx-workbench/npc
-export NVBOARD_HOME=$HOME/ysyx/ysyx-workbench/nvboard
+export NEMU_HOME=$HOME/ysyx-workbench/nemu
+export NPC_HOME=$HOME/ysyx-workbench/npc
+export NVBOARD_HOME=$HOME/ysyx-workbench/nvboard

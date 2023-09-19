@@ -44,8 +44,12 @@ cmake
 code
 cpio
 cronie
+cuda
+cuda-tools
+cudnn
 darkman
 debootstrap
+deepin-wine-wechat
 deno
 devtools
 dex
@@ -86,6 +90,7 @@ fisher
 flameshot
 flashrom
 flatpak
+foliate
 fontpreview-ueberzug-git
 fzf
 fzf-tab-git
@@ -120,6 +125,7 @@ httping
 hugo
 hyperfine
 hyperv
+icalingua++
 imagemagick
 inetutils
 inotify-tools
@@ -159,6 +165,7 @@ linux
 linux-docs
 linux-firmware
 linux-headers
+linuxqq
 lldb
 lostfiles
 lsb-release
@@ -188,6 +195,7 @@ net-tools
 netease-cloud-music-gtk4
 nethack
 networkmanager
+newsboat
 ninja
 nmap
 nodejs
@@ -201,11 +209,13 @@ ntp
 obsidian
 onboard
 onscripter-yuri
+opencv
 openssh
 openvpn
 os-prober
 pacman-contrib
 pacutils
+papis
 pdfarranger
 pdfgrep
 perl-cgi
@@ -216,6 +226,7 @@ pip2pkgbuild
 pipewire-pulse
 pkgfile
 pkgstats
+pnpm
 podman
 polybar
 procs
@@ -238,12 +249,14 @@ python-qrcode_terminal
 python-qtconsole
 python-sympy
 python2
+qbittorrent-enhanced-git
 qemu-emulators-full
 qemu-full
 qt6-doc
 qtcreator
 qutebrowser
 rar
+rclone
 reflector
 ripgrep
 rlwrap

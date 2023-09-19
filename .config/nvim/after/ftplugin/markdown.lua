@@ -34,3 +34,4 @@ map({ "n", "x" }, "<leader>ii", link_wrap "img")
 map({ "n", "x" }, "<leader>ig", link_wrap "git")
 
 map({ "n" }, "<leader>gm", "<cmd>%!npx md-padding<cr>")
+-- map({ "n" }, "<leader>gm", "<cmd>AsyncRun npx md-padding -i %<cr>")

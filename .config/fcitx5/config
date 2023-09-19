@@ -20,7 +20,7 @@ TogglePreedit=
 2=Hangul
 
 [Hotkey/EnumerateGroupForwardKeys]
-0=Super+V
+0=Shift+Super+A
 
 [Hotkey/ActivateKeys]
 0=Hangul_Hanja

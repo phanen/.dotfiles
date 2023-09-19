@@ -223,4 +223,9 @@ return {
     "RaafatTurki/hex.nvim",
     config = true,
   },
+
+  {
+    "skywind3000/asyncrun.vim",
+    cmd = "AsyncRun",
+  },
 }

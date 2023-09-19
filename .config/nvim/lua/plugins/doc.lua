@@ -110,7 +110,7 @@ return {
   },
 
   {
-    "opdavies/toggle-checkbox.nvim",
+    "phanen/toggle-checkbox.nvim",
     ft = "markdown",
     keys = { { "<c-space>", "<cmd>lua require('toggle-checkbox').toggle()<cr>" } },
   },

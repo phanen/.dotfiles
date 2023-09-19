@@ -128,8 +128,8 @@ super + {_, ctrl + } slash
 super + period
 	alacritty --working-directory ~/notes --command nvim todo.md
 	# FIXME kitty --detach --working-directory ~/notes nvim ~/notes/todo.md
-super + t
-	dex --term alacritty /usr/share/applications/vifm.desktop
+# super + t
+	# dex --term alacritty /usr/share/applications/vifm.desktop
 super + {z, x, c}
 	{scrcpy, walrnd, darkman toggle}
 super + p
