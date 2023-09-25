@@ -1,7 +1,5 @@
 acpi
 acpica
-adwaita-qt5
-adwaita-qt6
 alacritty
 alsa-utils
 apr
@@ -29,6 +27,7 @@ binutils
 bison
 bluez
 bluez-utils
+boost
 bottom
 bpftrace
 brave-bin
@@ -76,7 +75,7 @@ egl-wayland
 eglexternalplatform
 emacs
 evtest
-exa
+eza
 fakeroot
 farbfeld
 fcitx5
@@ -197,7 +196,7 @@ namcap
 nano
 nasm
 neovide
-neovim-git
+neovim
 nerd-fonts-cascadia-code
 net-tools
 netease-cloud-music-gtk4

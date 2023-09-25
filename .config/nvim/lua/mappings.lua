@@ -2,6 +2,7 @@
 local nmap = function(...) map("n", ...) end
 local cmap = function(...) map("c", ...) end
 local xmap = function(...) map("x", ...) end
+local omap = function(...) map("o", ...) end
 local tmap = function(...) map("t", ...) end
 
 local f = require "utils.keymap"
@@ -80,6 +81,7 @@ nmap("<c-s-h>", "<cmd>vertical resize -2<cr>")
 nmap("<c-s-l>", "<cmd>vertical resize +2<cr>")
 
 nmap("vv", "viw")
+nmap("cc", "ciw")
 -- }}}
 
 -- subtitution {{{
@@ -93,15 +95,23 @@ nmap(
 nmap("<leader>rs", "<cmd>%s/\\s*$//g<cr>''", { desc = "clean tail space" })
 nmap("<leader>rl", "<cmd>g/^$/d<cr>''", { desc = "clean the blank line" })
 xmap("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
--- TODO (complete comment char)
-nmap("<leader>rc", "<cmd>g/^#/d<cr>''", { desc = "clean the comment line" })
+
+-- TODO: genearlize comment string
+-- TODO: detect comment text area
+-- nmap("<leader>rc", "<cmd>g/^#/d<cr>''", { desc = "clean the comment line" })
+nmap("<leader>rc", [[<cmd>%s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
+xmap("<leader>rc", [[:s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
 
 xmap("<leader>rk", [[:s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
 xmap("<leader>r,", [[:s/,\([^ ]\)/, \1/g<cr>]])
+
 -- no.-> no.space
 xmap("<leader>rn", [[:s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
 -- TODO: smart remove in-text whitespace
 -- :%s/\([^ ]\+ \) \+/\1/g
+
+-- remove all comment string/line?
+-- "%s/ *\/\/.*//g"
 
 -- hex to dec
 xmap("<leader>ro", [[:'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
@@ -214,5 +224,18 @@ nmap("<leader><c-_>", function()
   -- if in_commet
   vim.cmd "norm vic"
 end)
+
+-- https://stackoverflow.com/questions/1680194/reverse-a-word-in-vim
+vim.cmd[[
+vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
+ \:let old_reg=@"<CR>
+ \gv"ay
+ \:let @a=substitute(@a, '.\(.*\)\@=',
+ \ '\=@a[strlen(submatch(1))]', 'g')<CR>
+ \gvc<C-R>a<Esc>
+ \:let @a=old_reg_a<CR>
+ \:let @"=old_reg<CR>
+]]
+
 
 -- vim:foldmethod=marker
