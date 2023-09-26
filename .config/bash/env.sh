@@ -43,6 +43,9 @@ export CHROOT=$HOME/chroot
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+export LIBRARY_PATH=$LIBRARY_PATH:/opt/cuda/include/
+export CPATH=$CPATH:/opt/cuda/include/
+
 # export sduwifi=101.76.193.1
 
 # gsettings set org.gnome.desktop.interface color-scheme prefer-dark

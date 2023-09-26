@@ -23,6 +23,7 @@ beep
 bind
 bluez
 bluez-utils
+boost
 bottom
 bpftrace
 broot
@@ -216,14 +217,19 @@ pwgen
 pypy
 python
 python-certifi
+python-cuda
 python-markdown
 python-markdown-it-py
+python-onnx
+python-onnxconverter-common
 python-pip
 python-pipx
 python-poetry
 python-pycryptodome
+python-pycuda
 python-pynvim
 python-pyquery
+python-pytorch
 python-qrcode
 python-qtconsole
 python-sympy
@@ -238,6 +244,9 @@ rar
 rclone
 reflector
 ripgrep
+riscv64-linux-gnu-binutils
+riscv64-linux-gnu-gcc
+riscv64-linux-gnu-glibc
 rlwrap
 rmlint
 rofi
@@ -255,6 +264,7 @@ sioyek
 slock
 sof-firmware
 spice-vdagent
+spike
 squashfs-tools
 sshfs
 starship
@@ -287,6 +297,7 @@ texlive-pstricks
 texlive-publishers
 texlive-xetex
 the_silver_searcher
+tinyemu
 tmux
 tokei
 traceroute

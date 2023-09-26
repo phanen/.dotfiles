@@ -78,3 +78,6 @@ alias vifm='vifmrun'
 alias rigdb="riscv64-linux-gnu-gdb"
 alias wezterm='flatpak run org.wezfurlong.wezterm'
 alias foliate='flatpak run com.github.johnfactotum.Foliate'
+
+alias ppush="rclone sync papers gd:papers -P"
+alias ppull="rclone sync gd:papers papers -P"
