@@ -45,6 +45,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 export LIBRARY_PATH=$LIBRARY_PATH:/opt/cuda/include/
 export CPATH=$CPATH:/opt/cuda/include/
+export PATH=$PATH:/opt/cuda/bin/
 
 # export sduwifi=101.76.193.1
 

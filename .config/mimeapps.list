@@ -1,6 +1,6 @@
 [Default Applications]
 text/=nvim.desktop
-application/pdf=chrome.desktop
+application/pdf=google-chrome.desktop
 application/html=chrome.desktop
 x-scheme-handler/https=google-chrome.desktop
 x-scheme-handler/http=google-chrome.desktop

@@ -111,6 +111,7 @@ return {
 
   {
     "phanen/toggle-checkbox.nvim",
+    branch = "add-checkbox-on-line-without-checkbox",
     ft = "markdown",
     keys = { { "<c-space>", "<cmd>lua require('toggle-checkbox').toggle()<cr>" } },
   },

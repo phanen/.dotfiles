@@ -5,9 +5,10 @@ LFCD="$XDG_CONFIG_HOME/lf/lfcd.sh"
 
 # awesome fzf
 fsl() { fzf -m --margin 5% --padding 5% --border --preview 'cat {}'; }
-fp() { fzf | tr -d "\n" | xsel -b; }
-fpd() { $PDF "$(fzf)" >/dev/null 2>&1; }
 fhs() { stty -echo && history | grep ""$@ | awk '{$1=$2=$3=""; print $0}' | fzf | xargs -I {} xdotool type {} && stty echo; }
+fy() { fzf | tr -d "\n" | xsel -b; }
+fv() { $VISUAL "$(fzf)"; }
+fp() { $PDF "$(fzf)" >/dev/null 2>&1; }
 
 fcl() {
 	# cd "${XDG_CONFIG_HOME}"/clash/ || exit

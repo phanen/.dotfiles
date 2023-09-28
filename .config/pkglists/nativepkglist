@@ -47,6 +47,10 @@ cobalt
 code
 cpio
 cronie
+csview-git
+cuda
+cuda-tools
+cudnn
 debootstrap
 debugedit
 devtools
@@ -67,6 +71,7 @@ edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
+eigen
 emacs
 evtest
 eza
@@ -94,6 +99,7 @@ fzf
 fzf-tab-git
 gawk
 gcc
+gcc10
 gdb
 gettext
 ghc
@@ -121,6 +127,7 @@ gtkwave
 gvim
 gzip
 handlr
+hdf5
 hexer
 hexyl
 htop
@@ -197,6 +204,7 @@ nvidia-prime
 nvidia-settings
 nvidia-utils
 obsidian
+opencv
 openssh
 os-prober
 p7zip
@@ -222,6 +230,9 @@ python
 python-certifi
 python-markdown
 python-markdown-it-py
+python-onnx
+python-onnx-debug
+python-onnxconverter-common
 python-pip
 python-pipx
 python-poetry
@@ -229,12 +240,15 @@ python-pynvim
 python-pyquery
 python-qrcode
 python-qtconsole
+python-tabview
 python2
+python37
 qemu-emulators-full
 qemu-full
 qt6-doc
 qtcreator
 rar
+rclone
 reflector
 ripgrep
 rlwrap
@@ -303,6 +317,7 @@ vifm
 virt-manager
 virt-viewer
 vmpk
+vtk
 wget
 which
 wpa_supplicant

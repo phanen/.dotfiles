@@ -52,9 +52,14 @@ code
 code-marketplace
 cpio
 cronie
+csview-git
+cuda
+cuda-tools
+cudnn
 darkman
 debootstrap
 debugedit
+deepin-wine-wechat
 devtools
 dex
 dhclient
@@ -73,6 +78,7 @@ edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
+eigen
 emacs
 evtest
 eza
@@ -104,6 +110,7 @@ fzf
 fzf-tab-git
 gawk
 gcc
+gcc10
 gdb
 gettext
 ghc
@@ -133,6 +140,7 @@ gtkwave
 gvim
 gzip
 handlr
+hdf5
 hexer
 hexyl
 htop
@@ -216,6 +224,7 @@ nvidia-prime
 nvidia-settings
 nvidia-utils
 obsidian
+opencv
 openssh
 os-prober
 p7zip
@@ -245,6 +254,9 @@ python-bilibili-api-python
 python-certifi
 python-markdown
 python-markdown-it-py
+python-onnx
+python-onnx-debug
+python-onnxconverter-common
 python-pip
 python-pipx
 python-poetry
@@ -253,13 +265,18 @@ python-pyquery
 python-qrcode
 python-qrcode_terminal
 python-qtconsole
+python-tabview
+python-tensorrt
 python2
+python2-numpy
+python37
 qemu-emulators-full
 qemu-full
 qt6-doc
 qt6-tools-desktop
 qtcreator
 rar
+rclone
 reflector
 ripgrep
 rlwrap
@@ -290,6 +307,7 @@ sxiv
 sysz
 tcc
 tealdeer
+tensorrt
 terminus-font
 texinfo
 texlive-basic
@@ -338,6 +356,7 @@ virt-manager
 virt-viewer
 vivado
 vmpk
+vtk
 wemeet-bin
 wget
 which
