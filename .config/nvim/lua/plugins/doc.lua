@@ -82,7 +82,7 @@ return {
           MkdnGoBack = { "n", "<BS>" },
           MkdnGoForward = { "n", "<Del>" },
           MkdnCreateLink = false, -- see MkdnEnter
-          MkdnFollowLink = { "n", "gl" }, -- see MkdnEnter
+          MkdnFollowLink = false, -- see MkdnEnter
           MkdnDestroyLink = { "n", "<M-CR>" },
           MkdnTagSpan = { "v", "<M-CR>" },
           MkdnMoveSource = false,
