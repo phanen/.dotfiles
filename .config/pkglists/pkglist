@@ -30,7 +30,6 @@ bluez-utils
 boost
 bottom
 bpftrace
-brave-bin
 broot
 bsp-layout
 bsptab-git
@@ -42,7 +41,6 @@ cdrtools
 chafa
 chatgpt-shell-cli
 chntpw
-chromium
 clang
 clash
 clipmenu
@@ -151,6 +149,7 @@ hyperv
 imagemagick
 inetutils
 inotify-tools
+intel-gpu-tools
 intel-media-driver
 intel-ucode
 iptables-nft
@@ -194,7 +193,6 @@ man-db
 man-pages
 mesa-utils
 meson
-microsoft-edge-stable-bin
 minicom
 mkinitcpio-firmware
 mpv
@@ -279,6 +277,9 @@ rar
 rclone
 reflector
 ripgrep
+riscv64-linux-gnu-binutils
+riscv64-linux-gnu-gcc
+riscv64-linux-gnu-glibc
 rlwrap
 rmlint
 rofi
@@ -296,6 +297,7 @@ sioyek
 slip
 slock
 spice-vdagent
+spike
 squashfs-tools
 sshfs
 stow
@@ -332,6 +334,7 @@ texlive-pstricks
 texlive-publishers
 texlive-xetex
 the_silver_searcher
+tinyemu
 tmux
 tokei
 traceroute

@@ -29,7 +29,6 @@ bluez-utils
 boost
 bottom
 bpftrace
-brave-bin
 broot
 bspwm
 btop
@@ -38,7 +37,6 @@ catimg
 cdrtools
 chafa
 chntpw
-chromium
 clang
 clash
 clipmenu
@@ -138,6 +136,7 @@ hyperv
 imagemagick
 inetutils
 inotify-tools
+intel-gpu-tools
 intel-media-driver
 intel-ucode
 iptables-nft
@@ -251,6 +250,9 @@ rar
 rclone
 reflector
 ripgrep
+riscv64-linux-gnu-binutils
+riscv64-linux-gnu-gcc
+riscv64-linux-gnu-glibc
 rlwrap
 rmlint
 rofi
@@ -266,6 +268,7 @@ silicon
 sioyek
 slock
 spice-vdagent
+spike
 squashfs-tools
 sshfs
 stow
@@ -299,6 +302,7 @@ texlive-pstricks
 texlive-publishers
 texlive-xetex
 the_silver_searcher
+tinyemu
 tmux
 tokei
 traceroute
