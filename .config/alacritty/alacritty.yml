@@ -107,7 +107,7 @@ font:
   size: 10
 
   builtin_box_drawing: false
-# draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 cursor:
   style:
@@ -129,7 +129,6 @@ key_bindings:
   - { key: V, mods: Control, action: Paste }
   - { key: Comma, mods: Control, mode: ~Vi, action: Copy }
   - { key: Space, mods: Shift, mode: ~Search, action: ToggleViMode }
-  # - { key: Return, mods: Control, action: SpawnNewInstance }
   - { key: U, mode: Vi|~Search, action: ScrollHalfPageUp }
   - { key: D, mode: Vi|~Search, action: ScrollHalfPageDown }
 
