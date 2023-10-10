@@ -2,6 +2,7 @@ acpi
 acpica
 alacritty
 alsa-utils
+anki
 apr
 apr-util
 archinstall
@@ -78,6 +79,7 @@ egl-wayland
 eglexternalplatform
 eigen
 emacs
+evince
 evtest
 eza
 fakeroot
@@ -93,6 +95,7 @@ fcitx5-qt
 fd
 feh
 ffmpegthumbnailer
+fig2dev
 file
 findutils
 firefox
@@ -148,6 +151,7 @@ hyperfine
 hyperv
 imagemagick
 inetutils
+inkscape
 inotify-tools
 intel-gpu-tools
 intel-media-driver
@@ -159,7 +163,6 @@ jdk8-openjdk
 joshuto-bin
 jpegoptim
 jq
-kdeconnect
 keepassxc
 kitty
 kmonad-git
@@ -204,6 +207,7 @@ nasm
 neovide
 neovim
 nerd-fonts-cascadia-code
+nerd-fonts-dejavu-sans-mono
 net-tools
 netease-cloud-music-gtk4
 networkmanager
@@ -224,6 +228,7 @@ nvidia-utils
 obsidian
 opencv
 openssh
+openvswitch
 os-prober
 p7zip
 pacman
@@ -340,11 +345,13 @@ tokei
 traceroute
 tree
 tree-sitter
+ttf-dejavu-nerd
 ttf-firacode-nerd
 ttf-ms-fonts
 ttf-nerd-fonts-symbols
 ttf-wps-fonts
 typora
+typst
 ubuntu-keyring
 unzip
 updaurpkg-git
@@ -363,6 +370,8 @@ vtk
 wemeet-bin
 wget
 which
+wireshark-cli
+wireshark-qt
 wpa_supplicant
 wps-office-cn
 wps-office-mime-cn
