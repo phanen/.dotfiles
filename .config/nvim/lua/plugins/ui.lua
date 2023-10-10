@@ -57,23 +57,7 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     event = "BufReadPre",
-    opts = {
-      char = "│", -- ┆ ┊ 
-      show_foldtext = false,
-      context_char = "│", -- ▎
-      char_priority = 12,
-      show_current_context = true,
-      show_current_context_start = true,
-      show_current_context_start_on_current_line = false,
-      show_first_indent_level = true,
-      -- stylua: ignore
-      filetype_exclude = {
-        'NvimTree', 'log', 'gitcommit', 'git',
-        'txt', 'help', 'undotree',
-        'markdown', 'norg', 'org', 'orgagenda',
-        '', -- for all buffers without a file type
-      },
-    },
+    opts = {},
   },
 
   {
@@ -126,19 +110,19 @@ return {
         },
       },
       presets = {
-        bottom_search = false,        -- use a classic bottom cmdline for search
-        command_palette = true,       -- position the cmdline and popupmenu together
+        bottom_search = false, -- use a classic bottom cmdline for search
+        command_palette = true, -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        lsp_doc_border = true,        -- add a border to hover docs and signature help
+        lsp_doc_border = true, -- add a border to hover docs and signature help
       },
       messages = {
         -- NOTE: If you enable messages, then the cmdline is enabled automatically.
         -- This is a current Neovim limitation.
-        enabled = true,              -- enables the Noice messages UI
-        view = "notify",             -- default view for messages
-        view_error = "notify",       -- view for errors
-        view_warn = "notify",        -- view for warnings
-        view_history = "messages",   -- view for :messages
+        enabled = true, -- enables the Noice messages UI
+        view = "notify", -- default view for messages
+        view_error = "notify", -- view for errors
+        view_warn = "notify", -- view for warnings
+        view_history = "messages", -- view for :messages
         view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
       },
     },
