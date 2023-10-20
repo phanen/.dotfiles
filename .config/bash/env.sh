@@ -50,3 +50,5 @@ export PATH=$PATH:/opt/cuda/bin/
 # export sduwifi=101.76.193.1
 
 # gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+export RUSTUP_DIST_SERVER="https://rsproxy.cn"
+export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
