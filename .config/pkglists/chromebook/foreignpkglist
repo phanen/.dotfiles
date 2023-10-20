@@ -1,7 +1,6 @@
 babelfish-fish
 bsp-layout
 bsptab-git
-darkman
 deepin-wine-wechat
 farbfeld
 fish-fifc
@@ -12,11 +11,16 @@ google-chrome
 gsu
 linuxqq
 manim
+microsoft-edge-dev-bin
+microsoft-edge-stable-bin
 nodejs-neovim
 onscripter-yuri
 papis
+papis-rofi-git
+papis-zotero
 picom-simpleanims-next-git
 pip2pkgbuild
+pycharm-eap
 python-bilibili-api-python
 python-qrcode_terminal
 rustlings

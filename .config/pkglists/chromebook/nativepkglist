@@ -34,7 +34,6 @@ catimg
 cdrtools
 chafa
 chntpw
-chromium
 clang
 clash
 clipmenu
@@ -45,6 +44,8 @@ cronie
 cuda
 cuda-tools
 cudnn
+cunit
+darkman
 debootstrap
 deno
 devtools
@@ -164,6 +165,7 @@ lua
 lutris
 man-db
 man-pages
+massif-visualizer
 mdbook
 mesa-utils
 meson
@@ -177,7 +179,6 @@ nano
 nasm
 neovide
 neovim
-nerd-fonts-cascadia-code
 net-tools
 netease-cloud-music-gtk4
 nethack
@@ -244,8 +245,16 @@ rar
 rclone
 reflector
 ripgrep
+riscv32-elf-binutils
+riscv32-elf-gdb
+riscv32-elf-newlib
+riscv64-elf-binutils
+riscv64-elf-gcc
+riscv64-elf-gdb
+riscv64-elf-newlib
 riscv64-linux-gnu-binutils
 riscv64-linux-gnu-gcc
+riscv64-linux-gnu-gdb
 riscv64-linux-gnu-glibc
 rlwrap
 rmlint
@@ -273,6 +282,7 @@ strace
 sxhkd
 sxiv
 tcc
+tcpdump
 tealdeer
 terminus-font
 texlive-basic
@@ -303,6 +313,7 @@ tokei
 traceroute
 translate-shell
 tree
+ttf-cascadia-code-nerd
 ttf-firacode-nerd
 ttf-nerd-fonts-symbols
 typora
@@ -312,6 +323,7 @@ urxvt-perls
 usbutils
 uwufetch
 vagrant
+valgrind
 vdpauinfo
 verilator
 vifm
@@ -325,6 +337,7 @@ vlc
 vmpk
 vulkan-intel
 vulkan-tools
+wakeonlan
 wget
 whois
 wine

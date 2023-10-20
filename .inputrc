@@ -72,6 +72,7 @@ $if mode=emacs
 
 $endif
 
+set editing-mode emacs
 
 # switch between vi or emacs
 set keymap emacs
