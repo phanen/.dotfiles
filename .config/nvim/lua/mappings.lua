@@ -238,4 +238,7 @@ vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
 ]]
 
 
+nmap("<leader>cd", "<cmd>cd %:h<cr>")
+nmap("<leader>cb", "<cmd>cd %:h/..<cr>")
+
 -- vim:foldmethod=marker
