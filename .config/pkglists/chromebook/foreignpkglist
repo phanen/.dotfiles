@@ -13,6 +13,7 @@ linuxqq
 manim
 microsoft-edge-dev-bin
 microsoft-edge-stable-bin
+mkdocs-material
 nodejs-neovim
 onscripter-yuri
 papis
@@ -22,10 +23,12 @@ picom-simpleanims-next-git
 pip2pkgbuild
 pycharm-eap
 python-bilibili-api-python
+python-paginate
 python-qrcode_terminal
 rustlings
 slip
 sysz
+translator-rs
 vifm-colors-git
 vifmimg-git
 winetricks-git

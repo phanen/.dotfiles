@@ -18,6 +18,7 @@ base
 base-devel
 bash-completion
 bat
+bazel
 bc
 bear
 beep
@@ -60,6 +61,7 @@ difftastic
 dkms
 dmenu
 dnsmasq
+docker
 dosfstools
 doxygen
 dunst
@@ -69,6 +71,7 @@ edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
+evince
 evtest
 eww-x11
 eza
@@ -84,6 +87,7 @@ fcitx5-qt
 fd
 feh
 ffmpegthumbnailer
+firefox
 fish
 fish-fifc
 fish-fzf
@@ -140,7 +144,6 @@ jdk8-openjdk
 joshuto-git
 jpegoptim
 jq
-kdeconnect
 keepassxc
 kmonad-git
 kubo
@@ -167,6 +170,7 @@ linux-docs
 linux-firmware
 linux-headers
 linuxqq
+lld
 lldb
 lostfiles
 lsb-release
@@ -178,7 +182,6 @@ lutris
 man-db
 man-pages
 manim
-massif-visualizer
 mdbook
 mesa-utils
 meson
@@ -186,6 +189,7 @@ metasploit
 microsoft-edge-dev-bin
 microsoft-edge-stable-bin
 minicom
+mkdocs-material
 mpv
 mtools
 mupdf-tools
@@ -247,6 +251,7 @@ python-markdown
 python-markdown-it-py
 python-onnx
 python-onnxconverter-common
+python-paginate
 python-pip
 python-pipx
 python-poetry
@@ -340,6 +345,7 @@ tmux
 tokei
 traceroute
 translate-shell
+translator-rs
 tree
 ttf-cascadia-code-nerd
 ttf-firacode-nerd
