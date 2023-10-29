@@ -4,6 +4,7 @@ local cmap = function(...) map("c", ...) end
 local xmap = function(...) map("x", ...) end
 local omap = function(...) map("o", ...) end
 local tmap = function(...) map("t", ...) end
+local imap = function(...) map("i", ...) end
 
 local f = require "utils.keymap"
 
@@ -204,6 +205,17 @@ nmap("<c-p>", "I- <esc>")
 xmap("<c-p>", "I- <esc>")
 
 -- }}}
+
+-- readline {{{
+-- Insert mode
+-- imap('<c-a>', '<c-o>^')
+-- imap('<c-e>', '<c-o>$')
+-- imap('<c-b>', '<esc>i')
+-- imap('<c-k>', '<c-o>c')
+-- cmap('<c-a>', '<home>')
+-- cmap('<c-e>', '<end>')
+-- }}}
+
 
 -- resize gui font
 -- BUG: firenvim window size auto change

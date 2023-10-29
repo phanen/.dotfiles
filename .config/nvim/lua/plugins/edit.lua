@@ -2,7 +2,8 @@ return {
 
   "tpope/vim-fugitive",
   {
-    "linty-org/readline.nvim",
+    "phanen/readline.nvim",
+    branch = "fix-dir-structure",
     -- stylua: ignore
     keys = {
       { "<c-f>",  "<right>",                                               mode = "!" },
