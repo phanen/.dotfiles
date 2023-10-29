@@ -60,8 +60,9 @@ opt.shortmess = opt.shortmess + { c = true }
 o.updatetime = 300
 
 -- avoid sticky escape as alt
-o.ttimeout = false
+-- o.ttimeout = false
 o.ttimeoutlen = 10
+o.timeoutlen = 100 -- for which-key popup
 -- }}}
 
 return {

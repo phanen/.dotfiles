@@ -1,5 +1,3 @@
-vim.o.timeoutlen = 300
-
 return {
   {
     "folke/lazy.nvim",

@@ -11,23 +11,24 @@ au("TextYankPost", {
 })
 
 -- stash the IM when switching modes
-local input_method_group = ag("InputMethod", { clear = true })
-
-local cur_im = "keyboard-us"
-au({ "InsertLeave" }, {
-  pattern = "*",
-  callback = function() -- inactivate and record
-    cur_im = tostring(fn.system "fcitx5-remote -n")
-    fn.system "fcitx5-remote -c"
-  end,
-  group = input_method_group,
-})
-
-au({ "InsertEnter" }, {
-  pattern = "*",
-  callback = function() fn.system("fcitx5-remote -s" .. cur_im) end,
-  group = input_method_group,
-})
+-- FIXME: it delay switch, make readline not comfortable
+-- local input_method_group = ag("InputMethod", { clear = true })
+--
+-- local cur_im = "keyboard-us"
+-- au({ "InsertLeave" }, {
+--   pattern = "*",
+--   callback = function() -- inactivate and record
+--     cur_im = tostring(fn.system "fcitx5-remote -n")
+--     fn.system "fcitx5-remote -c"
+--   end,
+--   group = input_method_group,
+-- })
+--
+-- au({ "InsertEnter" }, {
+--   pattern = "*",
+--   callback = function() fn.system("fcitx5-remote -s" .. cur_im) end,
+--   group = input_method_group,
+-- })
 
 local function open_nvim_tree(data)
   if not (fn.isdirectory(data.file) == 1) then return end
@@ -115,7 +116,7 @@ au({ "BufLeave" }, {
 })
 
 -- create directories when needed, when saving a file
-vim.api.nvim_create_autocmd("BufWritePre", {
+au("BufWritePre", {
   group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
   callback = function(event)
     local file = vim.loop.fs_realpath(event.match) or event.match
