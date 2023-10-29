@@ -1,0 +1,431 @@
+;; /usr/share/doc/kmonad-git/quick-reference.md
+
+(defcfg
+  ;; input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
+  ;; input  (device-file "/dev/input/by-id/usb-HS-HW098A__D-US-01-00-_USB_Keyboard-event-kbd")
+  input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+
+  output (uinput-sink "KMonad" "sleep .3 && xset r rate 145 85")
+  ;; cmp-seq ralt
+  fallthrough true
+  allow-cmd true
+)
+
+(defalias
+
+  qwe            #((layer-switch qwerty)      (cmd-button "~/.config/kmonad/keypress.sh qwe"))
+  nor            #((layer-switch vim-normal)  (cmd-button "~/.config/kmonad/keypress.sh nor"))
+
+  ;; add            #((layer-add vim-visual)  (cmd-button "~/.config/kmonad/keypress.sh vis"))
+  ;; rem            #((layer-rem vim-visual)  (cmd-button "~/.config/kmonad/keypress.sh nor"))
+  vis            #((layer-switch vim-visual)  (cmd-button "~/.config/kmonad/keypress.sh vis"))
+
+  sym            #((layer-switch symbol)      (cmd-button "~/.config/kmonad/keypress.sh sym"))
+  cmk            #((layer-switch colemak)     (cmd-button "~/.config/kmonad/keypress.sh cmk"))
+
+      ;; TODO: avoid C-x C-x + different prefix in a same layer
+  s    (tap-hold-next-release 500 M-s (around (around lctl lalt) (layer-toggle qwerty)))
+  w    (tap-hold-next-release 500 M-w (layer-toggle meta-w))
+  z    (tap-hold-next-release 500 z   lalt)
+  .    (tap-hold-next-release 500 .   (around lctrl lsft))
+  '    (tap-hold-next-release 500 '   (layer-toggle symbol))
+  ;    (tap-next-press ;              (layer-toggle symbol))
+  /    (tap-hold-next-release 500 /   (layer-toggle symbol))
+
+  sft  (tap-next grv (around lsft (layer-toggle shift)))
+
+  mt   (multi-tap 10 j 10 k esc)
+
+  qc   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
+  sm   (tap-hold-next-release 500 spc (layer-toggle meta))
+  lm   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
+  tb   (tap-hold-next-release 500 tab (layer-toggle modular))
+
+  mc   (tap-next esc lctl)
+
+  vi   (tap-hold 500 @nor lalt)
+  vc   (tap-next esc (layer-toggle emacs-young))
+  kw   C-bspc
+  kl   C-S-bspc
+
+)
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rctl
+)
+
+(deflayer qwerty
+  grv  _    _    3    4    5    6    7    8    9    0    .    =    bspc
+  @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
+  @qc  a    s    d    f    g    h    j    k    l    @;   @'   ret
+  @sft @z   x    c    v    b    n    m    ,    .    /    \
+  lctl @lm @vi           @sm            ralt rctl
+)
+
+(deflayer colemak
+  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
+  @tb  q    w    f    p    g    j    l    u    o    y    bspc ]    \
+  @qc  a    r    s    t    d    h    n    e    i    @;   @'  ret
+  @sft @z   x    c    v    b    k    m    ,    .    /    \
+  lctl @lm lalt           @sm            ralt rctl
+)
+
+(deflayer control
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    \    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer shift
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    ;    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer symbol
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  ~    !    ^    #    $    ~    ~    &    *    +    |    _    _    _
+  C-^  [    ]    \(   \)   @    %    \_   -    =    _    _    _
+  grv  <    >    {    }  #(- >) {    }    _    .    /    \
+  _    _    _              _              _    _
+)
+
+(deflayer modular
+  grv M-f1 M-f2 M-f3 M-f4 M-f5  6    7    8    9    @cmk _    =    bspc
+  @tb q M-C-[ M-[ M-] t    y    u    M-f3 M-f4 p    [    ]    \
+  @qc  a M-f9  M-S-[  C-=   g   C--  M-f1 M-f2 l    ;    '    ret
+  lsft z    x    c    v    M-f11 M-f10  M-f5 M-f6 M-F7 M-F8 rsft
+  lctl @lm lalt           @sm            ralt rctl
+)
+
+(deflayer meta
+  M-grv  M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  M--  M-=  M-bspc
+  M-tab  M-q  @w   M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
+  @mc    M-a  @s   M-d  M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
+  lsft   M-z  M-x  M-c  M-v  M-b  M-n  M-m  M-,  M-.  M-/  rsft
+  M-lctl M-@lm M-lalt           @sm            M-ralt M-rctl
+)
+
+(defalias
+  sge #(> =)
+  sle #(< =)
+  sne #(! =)
+
+  ;; FIXME: LONG PRESS will only type tail char
+  sar #(- >)
+  brk #(b spc * 0 x)
+)
+
+(deflayer meta-w
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    t    y    _    _    _    p    _    _    _
+  _    _    _    _    _    _    @sle @sar _    @sge ;    _    _
+  _    _    _    _    _    @brk [    ]    _    _    _    _
+  _    _    _              _              _    _
+)
+
+(deflayer vim-normal
+  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
+  @tb  _ C-right _  C-S-z  t    C-c C-z  @qwe  o    C-V  [    ]    \
+  @vc  _    _    bspc f    g    left down up right del   _    _
+  @sft _  _   _  @vis   C-left  _    _    _    _    _    _
+  lctl @lm @qwe          @sm            ralt rctl
+)
+
+(deflayer vim-visual
+  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
+  @tb  _ C-S-right _  C-z  t    C-c C-z  @qwe o   C-V    [    ]    \
+  @vc  _    _    bspc f    g    S-left S-down S-up S-right del  _ _
+  @sft _  _   _  _    C-S-left  _    _    _    _    _    _
+  lctl @lm @qwe          @sm            ralt rctl
+)
+
+;; (deflayer vim-visual
+;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_ S-_
+;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_ S-_
+;;   @rem   S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_
+;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_
+;;   S-_    S-_    S-_              _              _    _
+;; )
+
+(deflayer emacs-young
+  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
+  @qwe q    @kw end   r    t    y    @kl i    o    up   [    ]    \
+  _    home s    d  right  g    bspc j    k    l    \    @'   ret
+  @sft @z   x    c    v    left down m    ,    .    /    \
+  _    _    @qwe           _              _    _
+)
+
+;; ;; '<,'>s/\v(^|\s)(\w)(\s|$)/\1@\2/g
+;; ;; chord
+;; (defalias
+;;   ;; delay bug
+;;   ;;  df  (around-next-timeout 8 (layer-toggle chord-l) d)
+;;   ;;  fd  (around-next-timeout 8 (layer-toggle chord-l) f)
+;;   ;;  jk  (around-next-timeout 8 (layer-toggle chord-l) j)
+;;   ;;  kj  (around-next-timeout 8 (layer-toggle chord-l) k)
+;;
+;;   ;; undo bug
+;;   ;; #(c (layer-delay 50 c+))
+;;
+;;   ;; workaround
+;;   a  (tap-hold-next 8 a (layer-toggle a-chord-l) :timeout-button a)
+;;   b  (tap-hold-next 8 b (layer-toggle b-chord-l) :timeout-button b)
+;;   c  (tap-hold-next 8 c (layer-toggle c-chord-l) :timeout-button c)
+;;   d  (tap-hold-next 8 d (layer-toggle d-chord-l) :timeout-button d)
+;;   e  (tap-hold-next 8 e (layer-toggle e-chord-l) :timeout-button e)
+;;   f  (tap-hold-next 8 f (layer-toggle f-chord-l) :timeout-button f)
+;;   g  (tap-hold-next 8 g (layer-toggle g-chord-l) :timeout-button g)
+;;   h  (tap-hold-next 8 h (layer-toggle h-chord-l) :timeout-button h)
+;;   i  (tap-hold-next 8 i (layer-toggle i-chord-l) :timeout-button i)
+;;   j  (tap-hold-next 8 j (layer-toggle j-chord-l) :timeout-button j)
+;;   k  (tap-hold-next 8 k (layer-toggle k-chord-l) :timeout-button k)
+;;   l  (tap-hold-next 8 l (layer-toggle l-chord-l) :timeout-button l)
+;;   m  (tap-hold-next 8 m (layer-toggle m-chord-l) :timeout-button m)
+;;   n  (tap-hold-next 8 n (layer-toggle n-chord-l) :timeout-button n)
+;;   o  (tap-hold-next 8 o (layer-toggle o-chord-l) :timeout-button o)
+;;   p  (tap-hold-next 8 p (layer-toggle p-chord-l) :timeout-button p)
+;;   q  (tap-hold-next 8 q (layer-toggle q-chord-l) :timeout-button q)
+;;   r  (tap-hold-next 8 r (layer-toggle r-chord-l) :timeout-button r)
+;;   s  (tap-hold-next 8 s (layer-toggle s-chord-l) :timeout-button s)
+;;   t  (tap-hold-next 8 t (layer-toggle t-chord-l) :timeout-button t)
+;;   u  (tap-hold-next 8 u (layer-toggle u-chord-l) :timeout-button u)
+;;   v  (tap-hold-next 8 v (layer-toggle v-chord-l) :timeout-button v)
+;;   w  (tap-hold-next 8 w (layer-toggle w-chord-l) :timeout-button w)
+;;   x  (tap-hold-next 8 x (layer-toggle x-chord-l) :timeout-button x)
+;;   y  (tap-hold-next 8 y (layer-toggle y-chord-l) :timeout-button y)
+;;   z  (tap-hold-next 8 z (layer-toggle z-chord-l) :timeout-button z)
+;; )
+;;
+;;
+;; ;; TODO:
+;; ;; 1. when try to map jk -> esc, it make jx -> x
+;; ;;      workaround A: #(j h), complex and jh rh h-> jhjhjh
+;; ;;      workaround B: different timeout for different chord?
+;; ;; 2. ji jo  ji ri o -> good move
+;; ;;    but ji rj? j -> jjjjjjjj
+;; ;; 3. j io with ctrl
+;; (deflayer template-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer a-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer b-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer c-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer d-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer e-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    ^    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer f-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    ^    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    esc  _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; ;; wired
+;; (deflayer g-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    #(g h)  _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer h-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    #(h g)  h    left _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer i-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    left _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer j-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    left right _    _    _    _
+;;   lctl _    _    _    _    g    left   _  bspc \_   _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer k-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    bspc _    -    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer l-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    \_   -    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer m-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer n-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer o-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    h    right _   _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer p-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer q-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer r-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer s-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer t-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer u-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer v-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer w-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer x-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer y-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
+;;
+;; (deflayer z-chord-l
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _
+;; )
