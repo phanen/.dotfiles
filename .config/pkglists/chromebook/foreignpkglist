@@ -1,6 +1,8 @@
 babelfish-fish
+boost1.69
 bsp-layout
 bsptab-git
+cppreference
 deepin-wine-wechat
 farbfeld
 fish-fifc
@@ -26,6 +28,7 @@ python-bilibili-api-python
 python-paginate
 python-qrcode_terminal
 rustlings
+rvasm-git
 slip
 sysz
 translator-rs

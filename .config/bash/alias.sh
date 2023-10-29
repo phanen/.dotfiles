@@ -36,7 +36,8 @@ alias ua="sudo umount -R /mnt"
 alias hm="l | wc -l"
 alias cs="cd $XDG_STATE_HOME/nvim/swap/"
 alias ok='echo $status'
-alias km='pkill kmonad; kmonad ~/.config/kmonad/kmonad.kbd -w 50 & disown'
+alias kc='pkill kmonad; kmonad ~/.config/kmonad/kmonad-cb.kbd -w 50 & disown'
+alias kh='pkill kmonad; kmonad ~/.config/kmonad/kmonad-hs.kbd -w 50 & disown'
 
 # pacman
 alias pi='sudo pacman -S'

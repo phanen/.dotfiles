@@ -1,2 +1,7 @@
+llvm
+mpdecimal
+pipewire-audio
 python2-setuptools
 python-pyqt5-webengine
+tk
+wireplumber

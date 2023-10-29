@@ -26,6 +26,7 @@ bind
 bluez
 bluez-utils
 boost
+boost1.69
 bottom
 bpftrace
 broot
@@ -44,6 +45,8 @@ clipmenu
 cmake
 code
 cpio
+cppman
+cppreference
 cronie
 cuda
 cuda-tools
@@ -232,7 +235,6 @@ perl-image-exiftool
 picom-simpleanims-next-git
 pigz
 pip2pkgbuild
-pipewire-pulse
 pkgfile
 pkgstats
 pnpm
@@ -240,6 +242,7 @@ podman
 polybar
 procs
 proton
+pulseaudio
 pwgen
 pycharm-eap
 pypy
@@ -293,6 +296,7 @@ rsync
 rtorrent
 rustlings
 rustup
+rvasm-git
 sagemath
 scrcpy
 screenkey

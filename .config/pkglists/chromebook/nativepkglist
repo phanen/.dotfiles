@@ -41,6 +41,7 @@ clipmenu
 cmake
 code
 cpio
+cppman
 cronie
 cuda
 cuda-tools
@@ -209,7 +210,6 @@ pdfgrep
 perl-cgi
 perl-image-exiftool
 pigz
-pipewire-pulse
 pkgfile
 pkgstats
 pnpm
@@ -217,6 +217,7 @@ podman
 polybar
 procs
 proton
+pulseaudio
 pwgen
 pypy
 python
