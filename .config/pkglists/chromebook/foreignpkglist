@@ -2,6 +2,7 @@ babelfish-fish
 boost1.69
 bsp-layout
 bsptab-git
+codelldb
 cppreference
 deepin-wine-wechat
 farbfeld
@@ -13,6 +14,7 @@ google-chrome
 gsu
 linuxqq
 manim
+mdformat-gfm-git
 microsoft-edge-dev-bin
 microsoft-edge-stable-bin
 mkdocs-material

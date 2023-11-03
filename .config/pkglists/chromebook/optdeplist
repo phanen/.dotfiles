@@ -1,7 +1,6 @@
 llvm
 mpdecimal
-pipewire-audio
 python2-setuptools
+python-pickleshare
 python-pyqt5-webengine
 tk
-wireplumber

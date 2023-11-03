@@ -2,7 +2,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 export TERMINAL=alacritty
 [ -n "$DISPLAY" ] && export BROWSER=google-chrome-stable || export BROWSER=links
-export PDF="chromium"
+export PDF="google-chrome-stable"
 export FETCHER=uwufetch
 # export MANPAGER="/bin/sh -c \"col -b | nvim -u NORC -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 # export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
@@ -43,9 +43,9 @@ export CHROOT=$HOME/chroot
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-export LIBRARY_PATH=$LIBRARY_PATH:/opt/cuda/include/
-export CPATH=$CPATH:/opt/cuda/include/
-export PATH=$PATH:/opt/cuda/bin/
+# export LIBRARY_PATH=$LIBRARY_PATH:/opt/cuda/include/
+# export CPATH=$CPATH:/opt/cuda/include/
+# export PATH=$PATH:/opt/cuda/bin/
 
 # export sduwifi=101.76.193.1
 
