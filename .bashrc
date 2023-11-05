@@ -19,6 +19,7 @@ _util_append_path "$XDG_CONFIG_HOME/emacs/bin"
 [[ -r $BASHRC_DIR/alias.sh ]] && . $BASHRC_DIR/alias.sh
 [[ -r $BASHRC_DIR/functions.sh ]] && . $BASHRC_DIR/functions.sh
 [[ -r $BASHRC_DIR/plugins.sh ]] && . $BASHRC_DIR/plugins.sh
+[[ -r $BASHRC_DIR/package.sh ]] && . $BASHRC_DIR/package.sh
 
 # bash specific
 which_shell=$(ps -o comm= -p $$) # or $BASH?
