@@ -34,12 +34,13 @@ export all_proxy=$http_proxy
 export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 
 # dark mode
+# export GTK_THEME=Adwaita-dark
+# export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
 export GTK_THEME=Adwaita
 export GTK2_RC_FILES=/usr/share/themes/Adwaita/gtk-2.0/gtkrc
 export QT_STYLE_OVERRIDE=adwaita
 
 export EDK_TOOLS_PATH=$HOME/demo/os/edk2/BaseTools
-export CHROOT=$HOME/chroot
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 

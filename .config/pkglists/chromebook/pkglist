@@ -59,7 +59,9 @@ darkman
 debootstrap
 deepin-wine-wechat
 deno
-devtools
+devtools-archlinuxcn
+devtools-cn-git
+devtools-riscv64
 dex
 dhclient
 dhcpcd
@@ -116,6 +118,7 @@ git-delta
 github-cli
 gitstats-git
 gnome-epub-thumbnailer
+gnome-themes-extra
 gnu-free-fonts
 gnu-netcat
 gnuplot
@@ -276,6 +279,7 @@ python2
 qbittorrent-enhanced-git
 qemu-emulators-full
 qemu-full
+qemu-user-static-binfmt
 qt6-doc
 qtcreator
 qutebrowser

@@ -8,14 +8,14 @@
 [alias]
 	a = add
 	c = commit
- 	s = status
-    P = pull
-    p = push
+	s = status
+	P = pull
+	p = push
 	cl = clone
 	sl = clone --depth=1
 	co = checkout
- 	df = diff --color --color-words --abbrev
- 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
+	df = diff --color --color-words --abbrev
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
 	who = shortlog -sn
 	amend = commit --amend --all --no-edit
 ; 	undocommit = reset HEAD~
