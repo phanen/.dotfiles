@@ -4,42 +4,35 @@ export USERNAME=phanen
 
 alias rb="extra-riscv64-build -- -d $CACHE_DIR:/var/cache/pacman/pkg"
 
+rv-patch() {
+  git diff --no-prefix --relative | tail -n +3  > riscv64.patch
+}
+
+rv-ent() {
+  sudo systemd-nspawn -D ./plct/archriscv/ --machine archriscv -a -U
+}
+
+__init_rv_pkg() {
+    cd ~
+    mkdir src pkg
+    sudo pacman -Sy --noconfirm pkgctl devtools-riscv64  # -Syu & reboot first, if necessary
+    git clone git@github.com:$USERNAME/archriscv-packages.git
+    cd archriscv-packages
+    git remote add upstream https://github.com/felixonmars/archriscv-packages.git
+}
+
 peek() {
     . ./PKGBUILD
     echo arch="(${arch[@]})"
     for s in "${source[@]}"; do
         echo $s
     done
-    for s in "${_commit[@]}"; do
-        echo $s
+    for s in "${_commit[@]}"; do echo $s
     done
 }
 
-rv-patch() {
-  git diff --no-prefix --relative | tail -n +3  > riscv64.patch
-}
-rv-ent() {
-  sudo systemd-nspawn -D ./plct/archriscv/ --machine archriscv -a -U
-}
-
-gib() {
-    fname=$1
-
-    # no arg: cd to src
-    test -z $fname && echo "no pkgname" && cd ~/src && return
-
-    # pkg exist
-    gib && peek && return
-
-    # pkg not exist, fetch it
-    yay -G $fname || return
-    cd $fname
-
-    peek
-
-    # get old patch
-    cp ~/archriscv-packages/$fname/*.patch .
-
+add-key() {
+    . ./PKGBUILD
     for key in "${validpgpkeys[@]}"; do
         echo "Receiving key ${key}..."
         # try both servers as some keys exist one place and others another
@@ -49,11 +42,32 @@ gib() {
     done
 }
 
+gib() {
+    fname=$1
+
+    # no arg: cd to src
+    test -z $fname && cd ~/src && return
+
+    gib 
+    # pkg exist
+    cd $fname && peek && return
+
+    # pkg not exist, fetch it
+    yay -G $fname || return
+    cd $fname
+
+    peek
+    add-key
+
+    # get old patch
+    cp ~/archriscv-packages/$fname/*.patch .
+}
+
 pie() {
     fname=$1
 
     # no arg, cd to repo
-    test -z $fname && echo "no pkgname" && cd ~/archriscv-packages && return
+    test -z $fname && cd ~/archriscv-packages && return
 
     # no new patch
     cd ~/src/$fname || return
@@ -77,4 +91,5 @@ pie() {
     cd $fname
 
     cp ~/src/$fname/*.patch .
+    test -s riscv64.patch || rm *.patch
 }
