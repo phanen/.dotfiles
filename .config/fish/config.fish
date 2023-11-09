@@ -4,7 +4,6 @@ abbr -a c cargo
 abbr -a e nvim
 abbr -a m make
 abbr -a o xdg-open
-abbr -a g git
 
 set -U fish_greeting
 # set fish_greeting ""
@@ -27,6 +26,7 @@ bind --preset L end-of-line
 bind --preset -M visual H beginning-of-line
 bind --preset -M visual L end-of-line
 bind --preset -M visual -m default v end-selection repaint-mode
+bind \cy fish_clipboard_copy
 
 # fzf, https://github.com/gazorby/dotfiles/tree/19916f70981658aa5d59a154b21fab3faed28cf4
 # fifc -f --bind='space:accept,;:abort'

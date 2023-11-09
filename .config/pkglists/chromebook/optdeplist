@@ -1,6 +1,2 @@
-llvm
-mpdecimal
-python2-setuptools
-python-pickleshare
-python-pyqt5-webengine
-tk
+python-black
+python-tox

@@ -7,10 +7,12 @@ anki
 apr
 apr-util
 archinstall
+archlinux-repro
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
 asp
+atuin
 aurpublish
 awesome-terminal-fonts
 baidupcs-go
@@ -42,12 +44,14 @@ chntpw
 clang
 clash
 clipmenu
+cloudflared
 cmake
 cmark
 code
 cpio
 cppman
 cronie
+crystal
 cunit
 darkman
 debootstrap
@@ -68,11 +72,13 @@ doxygen
 dummyhttp
 dunst
 dust
+e3
 eclipse-platform
 edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
+esbuild
 evince
 evtest
 eww-x11
@@ -104,6 +110,7 @@ gimp
 git
 git-delta
 github-cli
+gitlab
 gitstats-git
 gnome-epub-thumbnailer
 gnome-themes-extra
@@ -133,7 +140,9 @@ inetutils
 inotify-tools
 intel-media-driver
 intel-ucode
+intellij-idea-community-edition
 iptables-nft
+istio
 iverilog
 iw
 jack2
@@ -169,6 +178,7 @@ linux-firmware
 linux-headers
 lld
 lldb
+llvm
 lostfiles
 lsb-release
 lshw
@@ -178,6 +188,7 @@ lua
 lutris
 man-db
 man-pages
+maven
 mdbook
 mdformat
 mdp
@@ -186,8 +197,8 @@ meson
 metasploit
 minicom
 minify
+mokutil
 mpv
-mtools
 namcap
 nano
 nasm
@@ -231,6 +242,7 @@ proton
 pwgen
 pypy
 python
+python-awesomeversion
 python-certifi
 python-markdown
 python-markdown-it-py
@@ -240,6 +252,7 @@ python-poetry
 python-pycryptodome
 python-pynvim
 python-pyquery
+python-pytest-snapshot
 python-pytorch
 python-qrcode
 python-qtconsole
@@ -254,6 +267,7 @@ qtcreator
 qutebrowser
 rar
 rclone
+refind
 reflector
 resvg
 ripgrep
@@ -281,6 +295,7 @@ scrot
 sd
 setconf
 silicon
+simde
 slock
 sof-firmware
 spice-vdagent
