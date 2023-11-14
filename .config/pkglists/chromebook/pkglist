@@ -1,3 +1,4 @@
+aarch64-linux-gnu-binutils
 acpi
 acpica
 age
@@ -15,6 +16,8 @@ asp
 atuin
 aurpublish
 awesome-terminal-fonts
+aws-c-mqtt
+babel-cli
 babelfish-fish
 baidupcs-go
 base
@@ -47,6 +50,7 @@ chafa
 chntpw
 clang
 clash
+clash-verge
 clipmenu
 cloudflared
 cmake
@@ -89,6 +93,7 @@ esbuild
 evince
 evtest
 eww-x11
+extra-cmake-modules-git
 eza
 farbfeld
 fcitx5
@@ -126,6 +131,7 @@ gitlab
 gitstats-git
 gnome-epub-thumbnailer
 gnome-themes-extra
+gnu-efi
 gnu-free-fonts
 gnu-netcat
 gnuplot
@@ -148,7 +154,6 @@ httping
 hugo
 hyperfine
 hyperv
-icalingua++
 imagemagick
 inetutils
 inotify-tools
@@ -180,6 +185,7 @@ lib32-openal
 lib32-v4l-utils
 lib32-vulkan-icd-loader
 lib32-vulkan-intel
+libreoffice-fresh
 libsixel
 libva-intel-driver
 libva-utils
@@ -201,6 +207,7 @@ lsof
 ltrace
 lua
 lutris
+lxc
 man-db
 man-pages
 manim
@@ -212,12 +219,11 @@ mdp
 mesa-utils
 meson
 metasploit
-microsoft-edge-dev-bin
-microsoft-edge-stable-bin
 minicom
 minify
 mkdocs-material
 mokutil
+mosh
 mpv
 namcap
 nano
@@ -231,8 +237,8 @@ networkmanager
 newsboat
 ninja
 nmap
-nodejs
 nodejs-neovim
+nomad-driver-lxc
 noto-fonts-cjk
 noto-fonts-emoji
 npm
@@ -260,6 +266,7 @@ pip2pkgbuild
 pipewire-pulse
 pkgfile
 pkgstats
+plasma-wayland-protocols-git
 pnpm
 podman
 polybar
@@ -279,6 +286,7 @@ python-paginate
 python-pip
 python-pipx
 python-poetry
+python-ptrace
 python-pycryptodome
 python-pynvim
 python-pyquery
@@ -323,7 +331,6 @@ rustup
 rvasm-git
 sagemath
 scrcpy
-screenkey
 scrot
 sd
 setconf
@@ -369,6 +376,7 @@ texlive-publishers
 texlive-xetex
 the_silver_searcher
 tinyemu
+tk
 tmux
 tokei
 traceroute
@@ -378,6 +386,7 @@ tree
 ttf-cascadia-code-nerd
 ttf-firacode-nerd
 ttf-nerd-fonts-symbols
+typescript
 typora
 ubuntu-keyring
 unzip
@@ -408,6 +417,8 @@ wine-osu
 winetricks-git
 wireshark-qt
 wpa_supplicant
+wps-office-cn
+wps-office-mui-zh-cn
 xclip
 xdg-desktop-portal-gtk
 xdo

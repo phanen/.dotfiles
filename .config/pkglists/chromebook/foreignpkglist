@@ -15,8 +15,6 @@ gsu
 linuxqq
 manim
 mdformat-gfm-git
-microsoft-edge-dev-bin
-microsoft-edge-stable-bin
 mkdocs-material
 nodejs-neovim
 onscripter-yuri
@@ -25,6 +23,7 @@ papis-rofi-git
 papis-zotero
 picom-simpleanims-next-git
 pip2pkgbuild
+plasma-wayland-protocols-git
 pycharm-eap
 python-bilibili-api-python
 python-paginate
@@ -37,3 +36,5 @@ translator-rs
 vifm-colors-git
 vifmimg-git
 winetricks-git
+wps-office-cn
+wps-office-mui-zh-cn
