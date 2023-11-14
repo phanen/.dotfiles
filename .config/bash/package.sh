@@ -3,6 +3,8 @@ export CACHE_DIR=$HOME/pkg/
 export USERNAME=phanen
 
 alias rb="extra-riscv64-build -- -d $CACHE_DIR:/var/cache/pacman/pkg"
+alias xb="extra-x86_64-build -- -d $CACHE_DIR:/var/cache/pacman/pkg"
+alias lb="/bin/ls /var/lib/archbuild/extra-riscv64/*/build"
 
 rv-patch() {
   git diff --no-prefix --relative | tail -n +3  > riscv64.patch
@@ -11,6 +13,15 @@ rv-patch() {
 rv-ent() {
   sudo systemd-nspawn -D ./plct/archriscv/ --machine archriscv -a -U
 }
+
+ptos() {
+    cp *.patch ~/src/$1
+}
+
+upd-keyring() {
+    sudo arch-chroot /var/lib/archbuild/extra-riscv64/root pacman -Syu
+}
+
 
 __init_rv_pkg() {
     cd ~
