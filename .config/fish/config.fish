@@ -2,8 +2,8 @@
 
 abbr -a c cargo
 abbr -a e nvim
-abbr -a m make
 abbr -a o xdg-open
+abbr -a --position anywhere ppp https_proxy=127.0.0.1:7890 http_proxy=127.0.0.1:7890 all_proxy=127.0.0.1:7890
 
 set -U fish_greeting
 # set fish_greeting ""

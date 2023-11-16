@@ -61,10 +61,6 @@ vw() { vi "$(which $1 |head -1)"; }
 fw() { file "$(which $1 |head -1)"; }
 lw() { ls -la "$(which $1 |head -1)"; }
 
-md() { mkdir -p "$1" && cd "$1"; }
-zz() { md /tmp/tmp; yay -G $1; }
-zd() { md /tmp/tmp/demo; }
-
 pzip() { tar -c --use-compress-program=pigz -f "$1".tar.gz $1; }
 da2b() { dd bs=4M if="$1" of="$2" status=progress && sync; }
 

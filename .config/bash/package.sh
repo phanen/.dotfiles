@@ -3,8 +3,13 @@ export CACHE_DIR=$HOME/pkg/
 export USERNAME=phanen
 
 alias rb="extra-riscv64-build -- -d $CACHE_DIR:/var/cache/pacman/pkg"
-alias xb="extra-x86_64-build -- -d $CACHE_DIR:/var/cache/pacman/pkg"
+alias crb="extra-riscv64-build -c -- -d $CACHE_DIR:/var/cache/pacman/pkg"
+alias xb="extra-x86_64-build -- -d $HOME/xpkg:/var/cache/pacman/pkg"
+alias cxb="extra-x86_64-build -c -- -d $HOME/xpkg:/var/cache/pacman/pkg"
 alias lb="/bin/ls /var/lib/archbuild/extra-riscv64/*/build"
+
+m() { mkdir -p "$1" && cd "$1"; }
+alias zz="m /tmp/tmp; yay -G "
 
 rv-patch() {
   git diff --no-prefix --relative | tail -n +3  > riscv64.patch
