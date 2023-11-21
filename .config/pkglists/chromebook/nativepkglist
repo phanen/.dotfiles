@@ -12,12 +12,10 @@ archlinux-repro
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
-asp
 atuin
 aurpublish
 awesome-terminal-fonts
 aws-c-mqtt
-babel-cli
 baidupcs-go
 base
 base-devel
@@ -46,6 +44,7 @@ chafa
 chntpw
 clang
 clash
+clash-meta-alpha-git
 clash-verge
 clipmenu
 cloudflared
@@ -117,6 +116,7 @@ git-delta
 github-cli
 gitlab
 gitstats-git
+gn
 gnome-epub-thumbnailer
 gnome-themes-extra
 gnu-efi
@@ -131,7 +131,6 @@ grub
 gsmartcontrol
 gtk-vnc
 gtkwave
-gvim
 handlr
 hexer
 hexyl
@@ -139,6 +138,7 @@ htop
 httping
 hugo
 hyperfine
+hyperscan
 hyperv
 imagemagick
 inetutils
@@ -204,6 +204,7 @@ meson
 metasploit
 minicom
 minify
+mirro-rs
 mokutil
 mosh
 mpv
@@ -227,12 +228,14 @@ ntfs-3g
 ntl
 ntp
 obsidian
+ogre-next
 opencv
 openssh
 openvpn
 os-prober
 pacman-contrib
 pacutils
+paru
 pdfarranger
 pdfgrep
 perl-cgi
@@ -293,6 +296,7 @@ riscv64-linux-gnu-gdb
 riscv64-linux-gnu-glibc
 rlwrap
 rmlint
+rocm-language-runtime
 rofi
 rsync
 rtorrent
@@ -301,10 +305,12 @@ sagemath
 scrcpy
 scrot
 sd
+sdl2_net
 setconf
 silicon
 simde
 slock
+socat
 sof-firmware
 spice-vdagent
 spike
@@ -361,13 +367,13 @@ uwufetch
 valgrind
 vdpauinfo
 verilator
-vifm
 virt-manager
 virt-viewer
 virtualbox
 virtualbox-ext-oracle
 virtualbox-guest-iso
 virtualbox-guest-utils
+viu
 vlc
 vmpk
 vulkan-intel
@@ -429,7 +435,7 @@ xorg-xwud
 xplr
 xsel
 xterm
-yay
+yay-git
 you-get
 yq
 zenity

@@ -1,6 +1,4 @@
 return {
-
-  "tpope/vim-fugitive",
   {
     "phanen/readline.nvim",
     branch = "fix-dir-structure",

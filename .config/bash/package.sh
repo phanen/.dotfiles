@@ -64,7 +64,7 @@ gib() {
     # no arg: cd to src
     test -z $fname && cd ~/src && return
 
-    gib 
+    gib
     # pkg exist
     cd $fname && peek && return
 
@@ -108,4 +108,12 @@ pie() {
 
     cp ~/src/$fname/*.patch .
     test -s riscv64.patch || rm *.patch
+}
+
+find-old() {
+    ag -l autoreconf | xargs -I {} sh -c 'git log -1 --pretty="format:%ci" {} && echo \ {}' | tee /tmp/.tmp-gitdate && echo /tmp/.tmp-gitdate
+}
+
+baklog() {
+    find . -name "*.log" | xargs -I{} cp {} {}1.log
 }
