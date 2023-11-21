@@ -10,7 +10,6 @@ archlinux-keyring
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
-asp
 autoconf
 automake
 awesome-terminal-fonts
@@ -53,7 +52,8 @@ cudnn
 darkman
 debootstrap
 debugedit
-devtools
+devtools-archlinuxcn
+devtools-riscv64
 dex
 dhclient
 dhcpcd
@@ -61,6 +61,7 @@ difftastic
 dkms
 dmenu
 dnsmasq
+docker
 dosfstools
 doxygen
 dpkg
@@ -181,6 +182,7 @@ man-pages
 mesa-utils
 meson
 minicom
+mosh
 mpv
 mtools
 mupdf-tools
@@ -189,7 +191,6 @@ nano
 nasm
 neovide
 neovim
-nerd-fonts-cascadia-code
 nerd-fonts-dejavu-sans-mono
 net-tools
 netease-cloud-music-gtk4
@@ -197,12 +198,12 @@ networkmanager
 nikola
 ninja
 nmap
-nodejs
 noto-fonts-cjk
 noto-fonts-emoji
 npm
 ntfs-3g
 ntp
+nvidia-container-toolkit
 nvidia-open
 nvidia-prime
 nvidia-settings
@@ -227,6 +228,7 @@ pipewire-pulse
 pkgconf
 pkgfile
 pkgstats
+pnpm
 podman
 polybar
 procs
@@ -283,6 +285,7 @@ sudo
 sxhkd
 sxiv
 tcc
+tcpdump
 tealdeer
 terminus-font
 texinfo
@@ -314,6 +317,7 @@ tokei
 traceroute
 tree
 tree-sitter
+ttf-cascadia-code-nerd
 ttf-dejavu-nerd
 ttf-firacode-nerd
 ttf-nerd-fonts-symbols
@@ -330,6 +334,7 @@ virt-manager
 virt-viewer
 vmpk
 vtk
+wakeonlan
 wget
 which
 wireshark-cli

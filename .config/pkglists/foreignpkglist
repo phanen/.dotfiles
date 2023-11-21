@@ -1,3 +1,4 @@
+asp
 babelfish-fish
 bsp-layout
 bsptab-git
@@ -8,6 +9,9 @@ farbfeld
 fish-fifc
 fish-fzf
 fontpreview-ueberzug-git
+gcc7
+gcc7-fortran
+gcc7-libs
 gibo
 google-chrome
 joshuto-bin
@@ -17,7 +21,6 @@ looking-glass-module-dkms
 mkinitcpio-firmware
 nodejs-neovim
 papis
-pdf-compress
 picom-simpleanims-next-git
 python-bilibili-api-python
 python-qrcode_terminal

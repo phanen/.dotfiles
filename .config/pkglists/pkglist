@@ -59,7 +59,8 @@ darkman
 debootstrap
 debugedit
 deepin-wine-wechat
-devtools
+devtools-archlinuxcn
+devtools-riscv64
 dex
 dhclient
 dhcpcd
@@ -67,6 +68,7 @@ difftastic
 dkms
 dmenu
 dnsmasq
+docker
 dosfstools
 doxygen
 dpkg
@@ -112,6 +114,9 @@ fzf-tab-git
 gawk
 gcc
 gcc10
+gcc7
+gcc7-fortran
+gcc7-libs
 gdb
 gettext
 ghc
@@ -198,6 +203,7 @@ mesa-utils
 meson
 minicom
 mkinitcpio-firmware
+mosh
 mpv
 mtools
 mupdf-tools
@@ -206,7 +212,6 @@ nano
 nasm
 neovide
 neovim
-nerd-fonts-cascadia-code
 nerd-fonts-dejavu-sans-mono
 net-tools
 netease-cloud-music-gtk4
@@ -214,13 +219,13 @@ networkmanager
 nikola
 ninja
 nmap
-nodejs
 nodejs-neovim
 noto-fonts-cjk
 noto-fonts-emoji
 npm
 ntfs-3g
 ntp
+nvidia-container-toolkit
 nvidia-open
 nvidia-prime
 nvidia-settings
@@ -236,7 +241,6 @@ pacman-contrib
 pacutils
 papis
 patch
-pdf-compress
 pdfarranger
 pdfgrep
 peek
@@ -248,6 +252,7 @@ pipewire-pulse
 pkgconf
 pkgfile
 pkgstats
+pnpm
 podman
 polybar
 procs
@@ -313,6 +318,7 @@ sxhkd
 sxiv
 sysz
 tcc
+tcpdump
 tealdeer
 tensorrt
 terminus-font
@@ -345,6 +351,7 @@ tokei
 traceroute
 tree
 tree-sitter
+ttf-cascadia-code-nerd
 ttf-dejavu-nerd
 ttf-firacode-nerd
 ttf-ms-fonts
@@ -367,6 +374,7 @@ virt-viewer
 vivado
 vmpk
 vtk
+wakeonlan
 wemeet-bin
 wget
 which
