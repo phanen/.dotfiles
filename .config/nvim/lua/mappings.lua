@@ -40,8 +40,6 @@ nmap("X", "D")
 map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
 map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
 
-nmap("<c-s>", "<c-u>")
-
 nmap("<leader>V", "ggVG")
 nmap("<leader>P", 'ggVG"_dp')
 nmap("<leader>Y", "ggVGy")
@@ -252,5 +250,18 @@ vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
 
 nmap("<leader>cd", "<cmd>cd %:h<cr>")
 nmap("<leader>cb", "<cmd>cd %:h/..<cr>")
+
+
+-- left-hand {{{
+map({ "n", "v", "o" }, "<a-f>", "<cmd>BufferLineCycleNext<cr>")
+map({ "n", "v", "o" }, "<a-d>", "<cmd>BufferLineCyclePrev<cr>")
+
+nmap("<a-s>", "<c-o>")
+nmap("<a-e>", "<c-i>")
+
+-- TODO: since kmonad cannot handle mouse event now...
+nmap("<a-w>", "gd")
+nmap("<c-s>", "<c-u>")
+-- }}}
 
 -- vim:foldmethod=marker
