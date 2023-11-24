@@ -79,7 +79,7 @@ return {
   {
     "voldikss/vim-translator",
     cmd = { "Translate", "TranslateW" },
-    keys = { { "<leader>K", "<cmd>Translate<cr>", mode = { "n", "x" } } },
+    keys = { { "<leader>K", ":Translate<cr>", mode = { "n", "x" } } },
   },
 
   {

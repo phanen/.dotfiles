@@ -6,7 +6,6 @@
 assert(vim.loop.os_uname().sysname == "Linux")
 
 vim.g.mapleader = " "
--- vim.g.maplocalleader = "`"
 vim.g.maplocalleader = ","
 
 _G.map = vim.keymap.set
