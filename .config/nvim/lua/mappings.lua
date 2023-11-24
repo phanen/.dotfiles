@@ -1,31 +1,24 @@
 -- `:h map-table`
 local nmap = function(...) map("n", ...) end
-local cmap = function(...) map("c", ...) end
 local xmap = function(...) map("x", ...) end
-local omap = function(...) map("o", ...) end
 local tmap = function(...) map("t", ...) end
-local imap = function(...) map("i", ...) end
+local vmap = function(...) map("v", ...) end
 
 local f = require "utils.keymap"
 
 -- basics {{{
-map({ "n", "x", "o" }, "<space>", "<nop>")
-map({ "n", "x", "o" }, "`", "<nop>")
-
--- map({ "n", "x" }, ";", ":")
--- map({ "n", "x" }, ":", ";")
+map({ "n", "x" }, "<space>", "<nop>")
 
 nmap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
 nmap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 
+nmap("gj", "yyp")
+nmap("gk", "yyP")
+map({ "n", "x", "o" }, "ga", "G")
+-- nmap("<leader>j", "yyp")
+
 nmap("<c-u>", "<c-u>zz")
 nmap("<c-d>", "<c-d>zz")
-
-xmap("<", "<gv")
-xmap(">", ">gv")
-
--- https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
-cmap("w!!", "w !sudo tee > /dev/null")
 
 xmap("p", '"_dp')
 nmap("d", '"_d')
@@ -36,21 +29,9 @@ xmap("c", '"_c')
 nmap("C", '"_C')
 nmap("X", "D")
 
--- buffer switch
-map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
-map({ "n", "v", "o" }, "<c-h>", "<cmd>BufferLineCyclePrev<cr>")
-
 nmap("<leader>V", "ggVG")
 nmap("<leader>P", 'ggVG"_dp')
 nmap("<leader>Y", "ggVGy")
-nmap("<leader>D", "ggVDy")
-nmap("<leader>T", ":Translate ")
-
-nmap("<leader>j", "yyp")
-
--- how to quit in vim
-nmap("<c-e>", "<cmd>Bdelete!<cr>")
-nmap("<leader>q", "<cmd>wincmd q<cr>")
 
 nmap("<a-j>", "<cmd>move+<cr>")
 nmap("<a-k>", "<cmd>move-2<cr>")
@@ -61,26 +42,44 @@ nmap("<a-h>", "<<")
 nmap("<a-l>", ">>")
 xmap("<a-h>", "<gv")
 xmap("<a-l>", ">gv")
-nmap("_", "5j")
-xmap("_", "5j")
-nmap("-", "5k")
-xmap("-", "5k")
 
-nmap("<c-j>", "<cmd>wincmd w<cr>")
-nmap("<c-k>", "<cmd>wincmd W<cr>")
+map({ "n", "x" }, "_", "5j")
+map({ "n", "x" }, "-", "5k")
 
-map({ "n", "v", "o" }, "^", "g^")
-map({ "n", "v", "o" }, "$", "g$")
--- map({ "n", "v", "o" }, "H", "g^")
--- map({ "n", "v", "o" }, "L", "g$")
-
-nmap("<c-s-k>", "<cmd>resize -2<cr>")
-nmap("<c-s-j>", "<cmd>resize +2<cr>")
-nmap("<c-s-h>", "<cmd>vertical resize -2<cr>")
-nmap("<c-s-l>", "<cmd>vertical resize +2<cr>")
+-- map({ "n", "v", "o" }, "^", "g^")
+-- map({ "n", "v", "o" }, "$", "g$")
 
 nmap("vv", "viw")
 nmap("cc", "ciw")
+
+-- nmap("<c-q>", "<c-u>")
+-- nmap("<a-s>", "<c-o>")
+-- nmap("<a-d>", "<c-i>")
+-- TODO: since kmonad cannot handle mouse event now...
+-- nmap("<a-w>", "gd")
+-- }}}
+
+-- buffer {{{
+map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
+map({ "n", "v", "o" }, "<c-e>", "<cmd>BufferLineCyclePrev<cr>")
+nmap("<c-w>", "<cmd>Bdelete!<cr>")
+-- }}}
+
+-- window {{{
+nmap("<c-s><c-s>", "<cmd>wincmd q<cr>")
+
+nmap("<leader>oj", "<cmd>wincmd _<cr>")
+nmap("<leader>ok", "<cmd>wincmd =<cr>")
+
+nmap("<c-s>v", "<cmd>wincmd v<cr>")
+nmap("<c-s>s", "<cmd>wincmd s<cr>")
+
+nmap("<c-j>", "<cmd>wincmd w<cr>")
+nmap("<c-k>", "<cmd>wincmd W<cr>")
+-- nmap("<d-s-k>", "<cmd>resize -2<cr>")
+-- nmap("<d-s-j>", "<cmd>resize +2<cr>")
+-- nmap("<d-s-h>", "<cmd>vertical resize -2<cr>")
+-- nmap("<d-s-l>", "<cmd>vertical resize +2<cr>")
 -- }}}
 
 -- subtitution {{{
@@ -126,7 +125,6 @@ xmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 -- toggle windows {{{
 nmap("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
 nmap("<leader>wo", "<cmd>AerialToggle<cr>")
--- nmap("<leader>wm", "<cmd>MarkdownPreview<cr>")
 nmap("<leader>wl", "<cmd>Lazy<cr>")
 nmap("<leader>wj", "<cmd>Navbuddy<cr>")
 nmap("<leader>wi", "<cmd>LspInfo<cr>")
@@ -145,8 +143,6 @@ nmap("<leader>on", function()
     vim.cmd [[set nrformats+=alpha]]
   end
 end, { desc = "toggle nrformats" })
-nmap("<leader>oj", "<cmd>wincmd _<cr>")
-nmap("<leader>ok", "<cmd>wincmd =<cr>")
 nmap("<leader>ob", f.toggle_bg, { desc = "toggle background" })
 -- nmap("<leader><tab>", f.next_colorscheme, { desc = "switch colorscheme" })
 -- TODO: make it a real toggle
@@ -156,8 +152,8 @@ nmap("<leader>ow", function() vim.cmd [[set wrap!]] end)
 
 -- term {{{
 -- nmap("<a-t>", ":split term://zsh<cr>i")
-tmap("<c-s>", "<c-\\><c-n>")
-tmap("<a-t>", "<c-\\><c-n>:bdelete! %<cr>")
+tmap("<esc>", "<c-\\><c-n>")
+-- tmap("<a-t>", "<c-\\><c-n>:bdelete! %<cr>")
 -- }}}
 
 -- diagnostic {{{
@@ -179,7 +175,7 @@ nmap("<leader>E", "<Cmd>Inspect<CR>", { desc = "Inspect the cursor position" })
 
 -- FIXME: pos
 nmap("<leader>bo", [[<cmd>w <bar> %bd <bar> e#<cr>]], { desc = "close all other buffers" })
-nmap("<localleader><tab>", [[:b <tab>]], { silent = false, desc = "open buffer list" })
+-- nmap("<localleader><tab>", [[:b <tab>]], { silent = false, desc = "open buffer list" })
 
 nmap("<leader>U", "gUiw", { desc = "capitalize word" })
 nmap("<c-w>f", "<c-w>vgf", { desc = "open file in vertical split" })
@@ -198,24 +194,31 @@ xmap("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
   desc = "replace word under the cursor (visual)",
 })
 
--- FIXME: wired delay?
 nmap("<c-p>", "I- <esc>")
 xmap("<c-p>", "I- <esc>")
 
--- }}}
+-- HACK: wordaround for batch comment toggle
+nmap("<leader><c-_>", function()
+  -- if in_commet
+  vim.cmd "norm vic"
+end)
 
--- readline {{{
--- Insert mode
--- imap('<c-a>', '<c-o>^')
--- imap('<c-e>', '<c-o>$')
--- imap('<c-b>', '<esc>i')
--- imap('<c-k>', '<c-o>c')
--- cmap('<c-a>', '<home>')
--- cmap('<c-e>', '<end>')
--- }}}
+-- https://stackoverflow.com/questions/1680194/reverse-a-word-in-vim
+vim.cmd [[
+vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
+ \:let old_reg=@"<CR>
+ \gv"ay
+ \:let @a=substitute(@a, '.\(.*\)\@=',
+ \ '\=@a[strlen(submatch(1))]', 'g')<CR>
+ \gvc<C-R>a<Esc>
+ \:let @a=old_reg_a<CR>
+ \:let @"=old_reg<CR>
+]]
 
+nmap("<leader>cd", "<cmd>cd %:h<cr>")
+nmap("<leader>cb", "<cmd>cd %:h/..<cr>")
 
--- resize gui font
+-- neovide: resize gui font
 -- BUG: firenvim window size auto change
 -- https://github.com/glacambre/firenvim/issues/800
 -- https://github.com/glacambre/firenvim/issues/1006
@@ -228,40 +231,16 @@ nmap("<c-=>", function()
   fsize = fsize + 1
   vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(fsize)
 end)
+-- }}}
 
--- TODO: wordaround for batch comment toggle
-nmap("<leader><c-_>", function()
-  -- if in_commet
-  vim.cmd "norm vic"
-end)
-
--- https://stackoverflow.com/questions/1680194/reverse-a-word-in-vim
-vim.cmd[[
-vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
- \:let old_reg=@"<CR>
- \gv"ay
- \:let @a=substitute(@a, '.\(.*\)\@=',
- \ '\=@a[strlen(submatch(1))]', 'g')<CR>
- \gvc<C-R>a<Esc>
- \:let @a=old_reg_a<CR>
- \:let @"=old_reg<CR>
-]]
-
-
-nmap("<leader>cd", "<cmd>cd %:h<cr>")
-nmap("<leader>cb", "<cmd>cd %:h/..<cr>")
-
-
--- left-hand {{{
-map({ "n", "v", "o" }, "<a-f>", "<cmd>BufferLineCycleNext<cr>")
-map({ "n", "v", "o" }, "<a-d>", "<cmd>BufferLineCyclePrev<cr>")
-
-nmap("<a-s>", "<c-o>")
-nmap("<a-e>", "<c-i>")
-
--- TODO: since kmonad cannot handle mouse event now...
-nmap("<a-w>", "gd")
-nmap("<c-s>", "<c-u>")
+-- readline {{{
+-- Insert mode
+-- imap('<c-a>', '<c-o>^')
+-- imap('<c-e>', '<c-o>$')
+-- imap('<c-b>', '<esc>i')
+-- imap('<c-k>', '<c-o>c')
+-- cmap('<c-a>', '<home>')
+-- cmap('<c-e>', '<end>')
 -- }}}
 
 -- vim:foldmethod=marker

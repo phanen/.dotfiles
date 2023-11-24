@@ -12,44 +12,28 @@ super + {_, ctrl +} q
 # navigate
 super + {j, k}
 	bspc node -f {next, prev}.local.!hidden.window
-super + {e, w}
-	bspc desktop -f {next, prev}.local
-super + ctrl + {j, k}
-	bspc desktop -f {next, prev}.local
-# super + {e, h}
-# 	bspc {desktop -f last, node -f last.local}
+super + {f, e}
+	bspc desktop -f {next, prev}
+	# bspc desktop -f {next, prev}.local
 super + r
 	bspc desktop -f last
+super + w
+	(bspc node -f biggest.window.local && \
+		bspc node -f last.window.local && \
+		bspc node -s biggest.window.local) || \
+	(bspc node -f last.window.local && bspc node -s biggest.window.local)
 super + {o, i}
 	bspc wm -h off; \
 	bspc node -f {older, newer}; \
 	bspc wm -h on
-# super + ctrl + {_, shift + } {i, o}
-# 	bspc {desktop -f, node -d} "^{1,7}"
-
-# main
-super + l
-	(bspc node -f biggest.window.local && \
-		bspc node -f last.window.local && \
-		bspc node -s biggest.window.local) || \
-	(bspc node -f last.window.local && bspc node -s biggest.window.local)
-super + s
-	(bspc node -f biggest.window.local && \
-		bspc node -f last.window.local && \
-		bspc node -s biggest.window.local) || \
-	(bspc node -f last.window.local && bspc node -s biggest.window.local)
 
 # move
-super + shift + {j, k}
+super + ctrl + {j, k}
 	bspc node -d {next, prev} --follow
 super + ctrl + shift + {j, k}
 	bspc node -d {next, prev}
-# super + shift + {{j, k}, ctrl + {j, k}}
-# 	bspc node -d {{next, prev} --follow, {next, prev}}
-super + alt + {j, k}
+super + shift + {j, k}
 	bspc desktop -s {next, prev} -f; bspc monitor -d 1 2 3 4 5 6 0
-# super + {_, ctrl +} g
-# 	bspc node -s {next, prev}.window.local
 # super + alt + {p, b, w, e}
 # 	bspc node -f @{parent, brother, first, second}
 
@@ -60,23 +44,12 @@ super + shift + {1-6, 0}
 	bspc node -d '^{1-7}' --follow
 super + ctrl + {1-6, 0}
 	bspc node -d '^{1-7}'
-super + u
-	bspc desktop -f '^6'
 
 # status switch
-super + m
-	bspc desktop -l next
 super + g
 	bspc desktop -l next
-
-# hide
-# super + {_, alt + } v
-# 	bspc node {-g hidden, ${bspc query -N -n .hidden | tail -n1} -g hidden=off}
-# super + d
-	# sh $XDG_CONFIG_HOME/sxhkd/scripts/toggle-hidden.sh
-
-super + alt + {m, l, s, p}
-	bspc node -g {marked, locked, sticky, private}
+super + m
+	bspc desktop -l next
 
 super + shift + f
 	bspc node -t \~floating
@@ -84,6 +57,11 @@ super + y
 	bspc node -t \~pseudo_tiled
 super + shift + y
 	bspc node -t \~tiled
+# hide
+# super + {_, alt + } v
+# 	bspc node {-g hidden, ${bspc query -N -n .hidden | tail -n1} -g hidden=off}
+# super + d
+	# sh $XDG_CONFIG_HOME/sxhkd/scripts/toggle-hidden.sh
 
 # resize
 super + ctrl + {h, l}
@@ -113,31 +91,29 @@ super + ctrl + t
 # 	bsp-layout set tall
 
 # launch
-super + b
-	~/bin/tabexec.sh alacritty msg create-window
 super + n
+	alacritty --working-directory ~
+super + c
 	alacritty --working-directory ~
 super + semicolon
 	rofi -show drun -matching fuzzy
-super + apostrophe
-	~/bin/tabexec.sh eval "$(dmenu_path | rofi -dmenu)"
+super + p
+	CM_LAUNCHER=rofi clipmenu
+super + slash
+	alacritty --working-directory ~ --command nvim
+super + u
+	~/bin/tabexec.sh alacritty msg create-window
+# super + apostrophe
+# 	~/bin/tabexec.sh eval "$(dmenu_path | rofi -dmenu)"
 	# ~/bin/tabexec.sh rofi -show run -matching fuzzy
 	# id=$(bspc query -N -n focused); tabc autoattach $id; rofi -show run -matching fuzzy; sleep 0.3; tabc autoattach $id;
 # super + w
 # 	rofi -show window -matching fuzzy
-super + backslash
-	rofi -show keys -matching fuzzy
-super + {_, ctrl + } slash
-	alacritty --working-directory ~ --command nvim {_, $XDG_CONFIG_HOME/sxhkd/sxhkdrc}
-super + period
-	alacritty --working-directory ~/notes --command nvim todo.md
 	# FIXME kitty --detach --working-directory ~/notes nvim ~/notes/todo.md
 # super + t
 	# dex --term alacritty /usr/share/applications/vifm.desktop
-super + {z, x, c}
-	{scrcpy, walrnd, darkman toggle}
-super + p
-	CM_LAUNCHER=rofi clipmenu
+# super + {z, x, c}
+# 	{scrcpy, walrnd, darkman toggle}
 
 super + {minus, equal}
 	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.com.gitee.gmg137.NeteaseCloudMusicGtk4 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,Next}
