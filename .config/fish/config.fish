@@ -26,7 +26,6 @@ bind --preset L end-of-line
 bind --preset -M visual H beginning-of-line
 bind --preset -M visual L end-of-line
 bind --preset -M visual -m default v end-selection repaint-mode
-bind \cy fish_clipboard_copy
 
 # fzf, https://github.com/gazorby/dotfiles/tree/19916f70981658aa5d59a154b21fab3faed28cf4
 # fifc -f --bind='space:accept,;:abort'
@@ -90,18 +89,19 @@ end
 
 # fish_key_reader
 
+bind \cy fish_clipboard_copy
+# PERF: since nvim cannot restart now
+bind \cs nvim
+bind \cg lazygit
+bind \ck prevd-or-backward-word
+bind \cj nextd-or-forward-word
+
 bind \co prevd-or-backward-word
 bind \x1c nextd-or-forward-word
 
-bind \ef vifm
-bind \cq lazygit
-bind \eg lazygit
-
 bind \ej '\ca\ce 2>&1|rg'
-bind \ek clear
 bind \el '\ca\ce 2>&1|bat'
-bind \eq '\ca\ce >/dev/null 2>&1&'
-bind \en nvim
+bind \ek '\ca\ce >/dev/null 2>&1&'
 
 
 # stty werase undef
