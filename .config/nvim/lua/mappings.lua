@@ -152,7 +152,7 @@ nmap("<leader>ow", function() vim.cmd [[set wrap!]] end)
 
 -- term {{{
 -- nmap("<a-t>", ":split term://zsh<cr>i")
-tmap("<esc>", "<c-\\><c-n>")
+tmap("<c-space>", "<c-\\><c-n>")
 -- tmap("<a-t>", "<c-\\><c-n>:bdelete! %<cr>")
 -- }}}
 
