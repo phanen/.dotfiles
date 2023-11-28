@@ -2,7 +2,6 @@
 local nmap = function(...) map("n", ...) end
 local xmap = function(...) map("x", ...) end
 local tmap = function(...) map("t", ...) end
-local vmap = function(...) map("v", ...) end
 
 local f = require "utils.keymap"
 
@@ -80,6 +79,14 @@ nmap("<c-k>", "<cmd>wincmd W<cr>")
 -- nmap("<d-s-j>", "<cmd>resize +2<cr>")
 -- nmap("<d-s-h>", "<cmd>vertical resize -2<cr>")
 -- nmap("<d-s-l>", "<cmd>vertical resize +2<cr>")
+-- }}}
+
+-- tab {{{
+nmap("gy", "gT")
+-- }}}
+
+-- tag {{{
+nmap("<c-y>", "<cmd>pop<cr>")
 -- }}}
 
 -- subtitution {{{
