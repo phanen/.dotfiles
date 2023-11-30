@@ -56,6 +56,7 @@ bind \cg lazygit
 bind \x1c htop
 bind \co prevd-or-backward-word
 bind \cj nextd-or-forward-word
+bind \cl __fish_list_current_token
 
 zoxide init fish | source
 # /usr/bin/starship init fish --print-full-init | source

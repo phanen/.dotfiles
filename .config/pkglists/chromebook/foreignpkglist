@@ -14,7 +14,6 @@ gibo
 google-chrome
 gsu
 linuxqq
-manim
 mdformat-gfm-git
 mkdocs-material
 nodejs-neovim
@@ -35,6 +34,7 @@ slip
 sysz
 translator-rs
 vifm-colors-git
+wemeet-bin
 winetricks-git
 wps-office-cn
 wps-office-mui-zh-cn

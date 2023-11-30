@@ -30,8 +30,12 @@ local toggle_cache_mode = function() cache_flag = not cache_flag end
 local curbuf_fzf = function()
   return tb.current_buffer_fuzzy_find { previewer = false, default_text = getVisualSelection() }
 end
+
 local live_grep = function() return tb.live_grep { default_text = getVisualSelection() } end
 local help_tags = function() return tb.help_tags { default_text = getVisualSelection() } end
+
+local live_grep_ni = function() return tb.live_grep { no_ignore = true, default_text = getVisualSelection() } end
+local find_files_ni = function() return tb.find_files { no_ignore = true, default_text = getVisualSelection() } end
 
 return {
   {
@@ -60,20 +64,19 @@ return {
       { "<leader>ft",       toggle_cache_mode,       mode = { "n", "x" } },
       { "<leader>m",        tb.builtin,              mode = { "n", "x" } },
       { "<c-l>",            tb.find_files,           mode = { "n", "x" } },
-      { "<c-b>",            tb.buffers,              mode = { "n", "x" } },
-      -- { "<leader><tab>",    tb.colorscheme,          mode = { "n", "x" } },
-      { "<leader><leader>", tb.resume,               mode = { "n", "x" } },
-      -- { "<leader>j",        tb.oldfiles,             mode = { "n", "x" }, },
-      { "<leader>h",        help_tags,               mode = { "n", "x" } },
       { "<leader>l",        live_grep,               mode = { "n", "x" } },
-      { "<leader>/",        curbuf_fzf,              mode = { "n", "x" } },
+      { "<leader>f<c-l>",   find_files_ni,          mode = { "n", "x" } },
+      { "<leader>fl",       live_grep_ni,         mode = { "n", "x" } },
+      { "<c-h>",            tb.buffers,              mode = { "n", "x" } },
+      { "<leader><leader>", tb.resume,               mode = { "n", "x" } },
+      { "<leader>h",        help_tags,               mode = { "n", "x" } },
       { "<leader>;",        tb.command_history,      mode = { "n", "x" } },
+      { "<leader>f/",       curbuf_fzf,              mode = { "n", "x" } },
       { "<leader>fo",       tb.oldfiles,             mode = { "n", "x" } },
       { "<leader>fd",       tb.diagnostics,          mode = { "n", "x" } },
       { "<leader>fg",       tb.grep_string,          mode = { "n", "x" } },
       { "<leader>fk",       tb.keymaps,              mode = { "n", "x" } },
       { "<leader>fh",       tb.help_tags,            mode = { "n", "x" } },
-      { "<leader>fu",       tb.resume,               mode = { "n", "x" } },
       { "<leader>fm",       tb.man_pages,            mode = { "n", "x" } },
       { "<leader>fs",       tb.lsp_document_symbols, mode = { "n", "x" } },
       { "<leader>fS",       tb.git_status,           mode = { "n", "x" } },

@@ -1,3 +1,4 @@
+64gram-desktop
 aarch64-linux-gnu-binutils
 acpi
 acpica
@@ -12,7 +13,6 @@ archlinux-repro
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
-atuin
 aurpublish
 awesome-terminal-fonts
 aws-c-mqtt
@@ -25,14 +25,12 @@ bazel
 bc
 bear
 beep
-bind
 bluez
 bluez-utils
 bochs
 boost
 bottom
 bpftrace
-broot
 bspwm
 cabextract
 caribou
@@ -44,7 +42,6 @@ chafa
 chntpw
 clang
 clash
-clash-meta-alpha-git
 clash-verge
 clipmenu
 cloudflared
@@ -52,7 +49,6 @@ cmake
 cmark
 code
 cpio
-cppman
 cronie
 crystal
 cunit
@@ -81,6 +77,7 @@ edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
+enca
 esbuild
 evince
 evtest
@@ -114,7 +111,6 @@ gimp
 git
 git-delta
 github-cli
-gitlab
 gitstats-git
 gn
 gnome-epub-thumbnailer
@@ -157,6 +153,7 @@ joshuto-git
 jpegoptim
 jq
 keepassxc
+kitty
 kmonad-git
 kubo
 lazygit
@@ -182,6 +179,7 @@ linux
 linux-docs
 linux-firmware
 linux-headers
+linux-zen
 lld
 lldb
 llvm
@@ -191,7 +189,6 @@ lshw
 lsof
 ltrace
 lua
-lutris
 lxc
 man-db
 man-pages
@@ -204,8 +201,8 @@ meson
 metasploit
 minicom
 minify
-mirro-rs
 mokutil
+moreutils
 mosh
 mpv
 namcap
@@ -213,6 +210,7 @@ nano
 nasm
 neovide
 neovim
+nerd-fonts-cascadia-code
 net-tools
 netease-cloud-music-gtk4
 nethack
@@ -235,7 +233,6 @@ openvpn
 os-prober
 pacman-contrib
 pacutils
-paru
 pdfarranger
 pdfgrep
 perl-cgi
@@ -269,6 +266,7 @@ python-pytorch
 python-qrcode
 python-qtconsole
 python-sympy
+python-watchdog
 python2
 qbittorrent-enhanced-git
 qemu-emulators-full
@@ -294,6 +292,8 @@ riscv64-linux-gnu-binutils
 riscv64-linux-gnu-gcc
 riscv64-linux-gnu-gdb
 riscv64-linux-gnu-glibc
+riscv64-unknown-elf-binutils-debug
+riscv64-unknown-elf-gcc
 rlwrap
 rmlint
 rocm-language-runtime
@@ -301,10 +301,8 @@ rofi
 rsync
 rtorrent
 rustup
-sagemath
 scrcpy
 scrot
-sd
 sdl2_net
 setconf
 silicon
@@ -316,6 +314,7 @@ spice-vdagent
 spike
 squashfs-tools
 sshfs
+stack
 starship
 stow
 strace
@@ -324,6 +323,7 @@ sxiv
 tcc
 tcpdump
 tealdeer
+teamviewer
 terminus-font
 texlive-basic
 texlive-bibtexextra
@@ -354,7 +354,6 @@ tokei
 traceroute
 translate-shell
 tree
-ttf-cascadia-code-nerd
 ttf-firacode-nerd
 ttf-nerd-fonts-symbols
 typescript
@@ -369,16 +368,13 @@ vdpauinfo
 verilator
 virt-manager
 virt-viewer
-virtualbox
-virtualbox-ext-oracle
-virtualbox-guest-iso
-virtualbox-guest-utils
 viu
 vlc
 vmpk
 vulkan-intel
 vulkan-tools
 wakeonlan
+wezterm
 wget
 whois
 wine
@@ -432,7 +428,6 @@ xorg-xvinfo
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
-xplr
 xsel
 xterm
 yay-git

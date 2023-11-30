@@ -24,8 +24,6 @@
   cmk            #((layer-switch colemak)     (cmd-button "~/.config/kmonad/keypress.sh cmk"))
 
       ;; TODO: avoid C-x C-x + different prefix in a same layer
-  s    (tap-hold-next-release 500 M-s (around (around lctl lalt) (layer-toggle qwerty)))
-  w    (tap-hold-next-release 500 M-w (layer-toggle meta-w))
   z    (tap-hold-next-release 500 z   lalt)
   .    (tap-hold-next-release 500 .   (around lctrl lsft))
   '    (tap-hold-next-release 500 '   (layer-toggle symbol))
@@ -44,7 +42,7 @@
   mc   (tap-next esc lctl)
 
   vi   (tap-hold 500 @nor lalt)
-  vc   (tap-next esc (layer-toggle emacs-young))
+  vc   (tap-next esc (layer-toggle emacs))
   kw   C-bspc
   kl   C-S-bspc
 
@@ -59,7 +57,7 @@
 )
 
 (deflayer qwerty
-  grv  _    _    3    4    5    6    7    8    9    0    .    =    bspc
+  bspc _    _    3    4    5    6    7    8    9    0    .    =    bspc
   @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
   @qc  a    s    d    f    g    h    j    k    l    @;   @'   ret
   @sft @z   x    c    v    b    n    m    ,    .    /    \
@@ -108,8 +106,8 @@
 
 (deflayer meta
   M-grv  M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  M--  M-=  M-bspc
-  M-tab  M-q  @w   M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
-  @mc    M-a  @s   M-d  M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
+  M-tab  M-q  M-w  M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
+  @mc    M-a  M-s  M-d  M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
   lsft   M-z  M-x  M-c  M-v  M-b  M-n  M-m  M-,  M-.  M-/  rsft
   M-lctl M-@lm M-lalt           @sm            M-ralt M-rctl
 )
@@ -122,14 +120,6 @@
   ;; FIXME: LONG PRESS will only type tail char
   sar #(- >)
   brk #(b spc * 0 x)
-)
-
-(deflayer meta-w
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    t    y    _    _    _    p    _    _    _
-  _    _    _    _    _    _    @sle @sar _    @sge ;    _    _
-  _    _    _    _    _    @brk [    ]    _    _    _    _
-  _    _    _              _              _    _
 )
 
 (deflayer vim-normal
@@ -148,15 +138,7 @@
   lctl @lm @qwe          @sm            ralt rctl
 )
 
-;; (deflayer vim-visual
-;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_ S-_
-;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_ S-_
-;;   @rem   S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_   S-_
-;;   S-_    S-_    S-_    S-_    S-_    S-_   S-_  S-_  S-_  S-_  S-_  S-_
-;;   S-_    S-_    S-_              _              _    _
-;; )
-
-(deflayer emacs-young
+(deflayer emacs
   grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
   @qwe q    @kw end   r    t    y    @kl i    o    up   [    ]    \
   _    home s    d  right  g    bspc j    k    l    \    @'   ret

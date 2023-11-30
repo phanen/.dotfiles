@@ -9,14 +9,14 @@ alias cxb="extra-x86_64-build -c -- -d $HOME/xpkg:/var/cache/pacman/pkg"
 alias lb="/bin/ls /var/lib/archbuild/extra-riscv64/*/build"
 
 m() { mkdir -p "$1" && cd "$1"; }
-alias zz="m /tmp/tmp; yay -G "
+alias zz="m /tmp/tmp; yay -G"
 
 rv-patch() {
   git diff --no-prefix --relative | tail -n +3  > riscv64.patch
 }
 
 rv-ent() {
-  sudo systemd-nspawn -D ./plct/archriscv/ --machine archriscv -a -U
+  sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
 }
 
 ptos() {

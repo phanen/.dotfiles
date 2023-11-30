@@ -1,3 +1,4 @@
+64gram-desktop
 aarch64-linux-gnu-binutils
 acpi
 acpica
@@ -13,7 +14,6 @@ archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
 asp
-atuin
 aurpublish
 awesome-terminal-fonts
 aws-c-mqtt
@@ -27,7 +27,6 @@ bazel
 bc
 bear
 beep
-bind
 bluez
 bluez-utils
 bochs
@@ -35,7 +34,6 @@ boost
 boost1.69
 bottom
 bpftrace
-broot
 bsp-layout
 bsptab-git
 bspwm
@@ -49,7 +47,6 @@ chafa
 chntpw
 clang
 clash
-clash-meta-alpha-git
 clash-verge
 clipmenu
 cloudflared
@@ -58,7 +55,6 @@ cmark
 code
 codelldb
 cpio
-cppman
 cppreference
 cronie
 crystal
@@ -89,6 +85,7 @@ edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
+enca
 esbuild
 evince
 evtest
@@ -127,7 +124,6 @@ gimp
 git
 git-delta
 github-cli
-gitlab
 gitstats-git
 gn
 gnome-epub-thumbnailer
@@ -172,6 +168,7 @@ joshuto-git
 jpegoptim
 jq
 keepassxc
+kitty
 kmonad-git
 kubo
 lazygit
@@ -197,6 +194,7 @@ linux
 linux-docs
 linux-firmware
 linux-headers
+linux-zen
 linuxqq
 lld
 lldb
@@ -207,11 +205,9 @@ lshw
 lsof
 ltrace
 lua
-lutris
 lxc
 man-db
 man-pages
-manim
 maven
 mdbook
 mdformat
@@ -222,9 +218,9 @@ meson
 metasploit
 minicom
 minify
-mirro-rs
 mkdocs-material
 mokutil
+moreutils
 mosh
 mpv
 namcap
@@ -232,6 +228,7 @@ nano
 nasm
 neovide
 neovim
+nerd-fonts-cascadia-code
 net-tools
 netease-cloud-music-gtk4
 nethack
@@ -259,7 +256,6 @@ pacutils
 papis
 papis-rofi-git
 papis-zotero
-paru
 pdfarranger
 pdfgrep
 perl-cgi
@@ -300,6 +296,7 @@ python-qrcode
 python-qrcode_terminal
 python-qtconsole
 python-sympy
+python-watchdog
 python2
 qbittorrent-enhanced-git
 qemu-emulators-full
@@ -325,6 +322,8 @@ riscv64-linux-gnu-binutils
 riscv64-linux-gnu-gcc
 riscv64-linux-gnu-gdb
 riscv64-linux-gnu-glibc
+riscv64-unknown-elf-binutils-debug
+riscv64-unknown-elf-gcc
 rlwrap
 rmlint
 rocm-language-runtime
@@ -334,10 +333,8 @@ rtorrent
 rustlings
 rustup
 rvasm-git
-sagemath
 scrcpy
 scrot
-sd
 sdl2_net
 setconf
 silicon
@@ -350,6 +347,7 @@ spice-vdagent
 spike
 squashfs-tools
 sshfs
+stack
 starship
 stow
 strace
@@ -359,6 +357,7 @@ sysz
 tcc
 tcpdump
 tealdeer
+teamviewer
 terminus-font
 texlive-basic
 texlive-bibtexextra
@@ -390,7 +389,6 @@ traceroute
 translate-shell
 translator-rs
 tree
-ttf-cascadia-code-nerd
 ttf-firacode-nerd
 ttf-nerd-fonts-symbols
 typescript
@@ -406,16 +404,14 @@ verilator
 vifm-colors-git
 virt-manager
 virt-viewer
-virtualbox
-virtualbox-ext-oracle
-virtualbox-guest-iso
-virtualbox-guest-utils
 viu
 vlc
 vmpk
 vulkan-intel
 vulkan-tools
 wakeonlan
+wemeet-bin
+wezterm
 wget
 whois
 wine
@@ -472,7 +468,6 @@ xorg-xvinfo
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
-xplr
 xsel
 xterm
 yay-git

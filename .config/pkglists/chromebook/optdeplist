@@ -1,7 +1,6 @@
-arrow
-cython0
 gcc-fortran
+gst-libav
 gst-plugins-bad
 python-hypothesis
 python-pyqt5
-qt5-multimedia
+qt5-tools
