@@ -5,7 +5,7 @@
 !.gitignore
 !.gitmodules
 
-!bin/
+!.bin/
 
 !.bashrc
 !.bash_profile

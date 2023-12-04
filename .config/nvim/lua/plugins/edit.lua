@@ -26,8 +26,8 @@ return {
     -- lazy = false,
     keys = {
       { "s", mode = "x" },
-      "<C-g>s",
-      "<C-g>S",
+      -- "<C-g>s",
+      -- "<C-g>S",
       "ys",
       "yss",
       "yS",

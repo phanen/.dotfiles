@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env shsxh
 
 # /usr/share/doc/bspwm/examples/sxhkdrc
 # don't use xdotool, maybe collide with kmonad
@@ -16,6 +16,8 @@ super + {f, e}
 	bspc desktop -f {next, prev}
 	# bspc desktop -f {next, prev}.local
 super + r
+	bspc desktop -f last
+super + Tab
 	bspc desktop -f last
 super + w
 	(bspc node -f biggest.window.local && \
@@ -99,10 +101,10 @@ super + semicolon
 	rofi -show drun -matching fuzzy
 super + p
 	CM_LAUNCHER=rofi clipmenu
-super + slash
-	alacritty --working-directory ~ --command nvim
 super + u
 	~/bin/tabexec.sh alacritty msg create-window
+super + slash
+	alacritty --working-directory ~ --command nvim todo.md
 # super + apostrophe
 # 	~/bin/tabexec.sh eval "$(dmenu_path | rofi -dmenu)"
 	# ~/bin/tabexec.sh rofi -show run -matching fuzzy
@@ -126,9 +128,8 @@ super + BackSpace
 # 	&& tabc detach $id \
 # 	|| tabc create $id
 	## tabc autoattach $(bspc query -N -n focused)
-
-super + Tab
-	dunstctl close-all
+# super + Tab
+# 	dunstctl close-all
 
 super + plus
 	bspc node @/ --equalize
