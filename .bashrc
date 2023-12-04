@@ -10,7 +10,7 @@ export BASHRC_DIR=$HOME/.config/bash # simply for `gf`...
 [[ -r $BASHRC_DIR/env.sh ]] && . $BASHRC_DIR/env.sh
 
 # workaround: in fish, the $PATH is split by space, so we add one by one
-_util_append_path "$HOME/bin"
+_util_append_path "$HOME/.bin"
 _util_append_path "$XDG_DATA_HOME/nvim/mason/bin"
 _util_append_path "$HOME/.local/bin"
 _util_append_path "$HOME/.cargo/bin"
