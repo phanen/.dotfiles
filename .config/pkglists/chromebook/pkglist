@@ -1,4 +1,3 @@
-64gram-desktop
 aarch64-linux-gnu-binutils
 acpi
 acpica
@@ -19,6 +18,7 @@ awesome-terminal-fonts
 aws-c-mqtt
 babelfish-fish
 baidupcs-go
+balena-etcher
 base
 base-devel
 bash-completion
@@ -59,7 +59,6 @@ cppreference
 cronie
 crystal
 cunit
-darkman
 debootstrap
 deepin-wine-wechat
 deno
@@ -74,6 +73,7 @@ dkms
 dmenu
 dnsmasq
 docker
+dog
 dosfstools
 doxygen
 dummyhttp
@@ -145,12 +145,14 @@ gtkwave
 handlr
 hexer
 hexyl
+hsetroot
 htop
 httping
 hugo
 hyperfine
 hyperscan
 hyperv
+i2c-tools
 imagemagick
 inetutils
 inotify-tools
@@ -195,6 +197,7 @@ linux-docs
 linux-firmware
 linux-headers
 linux-zen
+linux-zen-headers
 linuxqq
 lld
 lldb
@@ -213,6 +216,7 @@ mdbook
 mdformat
 mdformat-gfm-git
 mdp
+meek
 mesa-utils
 meson
 metasploit
@@ -244,6 +248,7 @@ npm
 ntfs-3g
 ntl
 ntp
+nyx
 obsidian
 ogre-next
 onscripter-yuri
@@ -253,6 +258,8 @@ openvpn
 os-prober
 pacman-contrib
 pacutils
+pacwall-git
+pandoc-bin
 papis
 papis-rofi-git
 papis-zotero
@@ -358,6 +365,7 @@ tcc
 tcpdump
 tealdeer
 teamviewer
+telegram-desktop
 terminus-font
 texlive-basic
 texlive-bibtexextra
@@ -381,6 +389,7 @@ texlive-pstricks
 texlive-publishers
 texlive-xetex
 the_silver_searcher
+thefuck
 tinyemu
 tk
 tmux
@@ -396,6 +405,7 @@ typora
 ubuntu-keyring
 unzip
 urxvt-perls
+usbip
 usbutils
 uwufetch
 valgrind
@@ -404,6 +414,7 @@ verilator
 vifm-colors-git
 virt-manager
 virt-viewer
+vitetris
 viu
 vlc
 vmpk
