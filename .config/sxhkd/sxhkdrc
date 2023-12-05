@@ -36,6 +36,7 @@ super + ctrl + shift + {j, k}
 	bspc node -d {next, prev}
 super + shift + {j, k}
 	bspc desktop -s {next, prev} -f; bspc monitor -d 1 2 3 4 5 6 0
+ad
 # super + alt + {p, b, w, e}
 # 	bspc node -f @{parent, brother, first, second}
 
@@ -102,13 +103,9 @@ super + semicolon
 super + p
 	CM_LAUNCHER=rofi clipmenu
 super + u
-	~/bin/tabexec.sh alacritty msg create-window
+	~/.bin/tabexec.sh alacritty msg create-window
 super + slash
 	alacritty --working-directory ~ --command nvim todo.md
-# super + apostrophe
-# 	~/bin/tabexec.sh eval "$(dmenu_path | rofi -dmenu)"
-	# ~/bin/tabexec.sh rofi -show run -matching fuzzy
-	# id=$(bspc query -N -n focused); tabc autoattach $id; rofi -show run -matching fuzzy; sleep 0.3; tabc autoattach $id;
 # super + w
 # 	rofi -show window -matching fuzzy
 	# FIXME kitty --detach --working-directory ~/notes nvim ~/notes/todo.md
@@ -116,6 +113,9 @@ super + slash
 	# dex --term alacritty /usr/share/applications/vifm.desktop
 # super + {z, x, c}
 # 	{scrcpy, walrnd, darkman toggle}
+# TODO: need a santinizer
+super + s
+	xsel -b | sh $XDG_CONFIG_HOME/sxhkd/scripts/url-santinizer.sh >> $XDG_CONFIG_HOME/newsboat/urls
 
 super + {minus, equal}
 	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.com.gitee.gmg137.NeteaseCloudMusicGtk4 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,Next}
@@ -152,4 +152,4 @@ super + shift + bracketleft
 super + bracketright
 	slip --stop || slip --gif
 super + F11
-	~/bin/toggle-touchpad.sh
+	~/.bin/toggle-touchpad.sh
