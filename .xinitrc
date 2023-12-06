@@ -42,6 +42,7 @@ sudo modprobe uinput
 kmonad ~/.config/kmonad/kmonad.kbd -w 10 &
 polybar -r &
 picom &
+# echo ~/.shellrc | entr sh2fish.sh &
 
 # avoid fish handle sxhkd
 export SXHKD_SHELL='/usr/bin/sh'

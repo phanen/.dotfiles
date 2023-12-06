@@ -10,7 +10,8 @@ abbr -a --position anywhere ppp https_proxy=127.0.0.1:7890 http_proxy=127.0.0.1:
 set -U fish_greeting
 # set fish_greeting ""
 
-cat ~/.bashrc | sed "/\$-/d;" | babelfish | source
+source "$HOME/.config/fish/sh-common.fish"
+
 # WIP
 # cat ~/.config/bash/keybindings.sh | sed "/\$-/d;" | babelfish | source
 

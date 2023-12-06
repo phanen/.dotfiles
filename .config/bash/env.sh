@@ -53,3 +53,9 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
 export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
+
+# chores
+export NEMU_HOME=$HOME/ysyx-workbench/nemu
+export NPC_HOME=$HOME/ysyx-workbench/npc
+export NVBOARD_HOME=$HOME/ysyx-workbench/nvboard
+

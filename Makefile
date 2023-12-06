@@ -1,6 +1,8 @@
 .PHONY = apply nvim-theme zsh fish tmux
 
-DOTFILES_DIR = $(HOME)/dotfiles
+DOTFILES_DIR = ${HOME}/dotfiles
+
+$(shell mkdir -p ~/notes)
 
 apply:
 	@[[ $$PWD == "$$HOME"/dotfiles ]] && rsync -av . .. || echo "not in correct directory"
@@ -8,17 +10,20 @@ apply:
 $(shell touch ~/.config/nvim/theme)
 
 zsh:
-	yay -S zsh-autosuggestions \
+	@yay -S --needed zsh-autosuggestions \
 		zsh-completions \
 		zsh-fast-syntax-highlighting \
 		fzf-tab-git
 
 fish:
-	yay -S fifc \
-		fish-fzf
+	@yay -S --needed fish-fifc \
+		fish-fzf \
+		babelfish-fish
+	# flatten bash then translate it into fish
+	@~/.bin/sh2fish.sh
 
 font:
-	yay -S nerd-fonts-cascadia-code \
+	@yay -S --needed nerd-fonts-cascadia-code \
 		ttf-firacode-nerd \
 		noto-fonts-cjk \
 		gnu-free-fonts \
