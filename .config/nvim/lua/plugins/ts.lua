@@ -9,14 +9,15 @@ return {
     },
     config = function()
       require("nvim-treesitter.configs").setup {
+      -- disable for vps...
         ensure_installed = {
-          "c",
-          "cpp",
-          "lua",
-          "python",
-          "markdown",
-          "markdown_inline",
-          "vimdoc",
+          -- "c",
+          -- "cpp",
+          -- "lua",
+          -- "python",
+          -- "markdown",
+          -- "markdown_inline",
+          -- "vimdoc",
         },
 
         highlight = {

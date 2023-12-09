@@ -2,19 +2,6 @@ local highlight = require "utils.hightlights"
 
 return {
   {
-    "voldikss/vim-browser-search",
-    event = "VeryLazy",
-    keys = {
-      { "gl", mode = { "x", "n" } },
-    },
-    config = function()
-      map({ "x" }, "gl", "<Plug>SearchVisual")
-      -- https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser
-      map({ "n" }, "gl", "<cmd>execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>")
-    end,
-  },
-
-  {
     -- "Pocco81/auto-save.nvim",
     -- FIXME: immediate_save actually not work
     "okuuva/auto-save.nvim",
@@ -43,35 +30,14 @@ return {
   },
 
   {
-    "mrjones2014/smart-splits.nvim",
-    cond = false,
-    config = true,
-    build = "./kitty/install-kittens.bash",
-    keys = {
-      { "<a-h>", function() require("smart-splits").resize_left() end },
-      { "<a-l>", function() require("smart-splits").resize_right() end },
-      -- moving between splits
-      { "<c-h>", function() require("smart-splits").move_cursor_left() end },
-      { "<c-j>", function() require("smart-splits").move_cursor_down() end },
-      { "<c-k>", function() require("smart-splits").move_cursor_up() end },
-      { "<c-l>", function() require("smart-splits").move_cursor_right() end },
-      -- swapping buffers between windows
-      { "<leader><leader>h", function() require("smart-splits").swap_buf_left() end, desc = { "swap left" } },
-      { "<leader><leader>j", function() require("smart-splits").swap_buf_down() end, { desc = "swap down" } },
-      { "<leader><leader>k", function() require("smart-splits").swap_buf_up() end, { desc = "swap up" } },
-      { "<leader><leader>l", function() require("smart-splits").swap_buf_right() end, { desc = "swap right" } },
-    },
-  },
-
-  {
     "karb94/neoscroll.nvim",
     cond = false,
     keys = {
       { "<c-u>", mode = { "n", "x" } },
       { "<c-d>", mode = { "n", "x" } },
-      { "zt", mode = { "n", "x" } },
-      { "zz", mode = { "n", "x" } },
-      { "zb", mode = { "n", "x" } },
+      { "zt",    mode = { "n", "x" } },
+      { "zz",    mode = { "n", "x" } },
+      { "zb",    mode = { "n", "x" } },
     },
     config = true,
   },
@@ -79,18 +45,7 @@ return {
   {
     "voldikss/vim-translator",
     cmd = { "Translate", "TranslateW" },
-    keys = { { "<leader>K", ":Translate<cr>", mode = { "n", "x" } } },
-  },
-
-  {
-    "vifm/vifm.vim",
-    cond = false,
-    lazy = "VeryLazy",
-  },
-  {
-    "nanotee/zoxide.vim",
-    cmd = { "Z", "Lz", "Tz", "Zi", "Lzi", "Tzi" },
-    config = function() require("zoxide").setup {} end,
+    keys = { { "gk", ":Translate<cr>", mode = { "n", "x" } } },
   },
 
   {
@@ -112,24 +67,6 @@ return {
       },
     },
     opts = { highlight = { keyword = "bg" } },
-  },
-
-  {
-    "glts/vim-textobj-comment",
-    dependencies = { { "kana/vim-textobj-user", dependencies = { "kana/vim-operator-user" } } },
-    init = function() vim.g.textobj_comment_no_default_key_mappings = 1 end,
-    keys = {
-      { "ac", "<Plug>(textobj-comment-a)", mode = { "x", "o" } },
-      { "ic", "<Plug>(textobj-comment-i)", mode = { "x", "o" } },
-    },
-  },
-  {
-    "LeonB/vim-textobj-url",
-    dependencies = "kana/vim-textobj-user",
-    keys = {
-      { "au", mode = { "x", "o" } },
-      { "iu", mode = { "x", "o" } },
-    },
   },
 
   {
@@ -160,59 +97,36 @@ return {
     -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
     lazy = not vim.g.started_by_firenvim,
     build = function() vim.fn["firenvim#install"](0) end,
+    init = function()
+      if vim.g.started_by_firenvim then
+        vim.o.laststatus = 0
+
+        vim.g.firenvim_config = {
+          localSettings = {
+            [".*"] = { cmdline = "none" },
+            ["https?://www.google.com"] = { takeover = "never", priority = 1 },
+          },
+        }
+
+        vim.cmd [[
+      au BufEnter leetcode*.txt set filetype=rust
+      au BufEnter *ipynb*.txt set filetype=python
+      au BufEnter github.com_*.txt set filetype=markdown
+      " auto insert
+      au FocusGained * startinsert
+    ]]
+        vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+          nested = true,
+          command = "write",
+        })
+      end
+    end,
   },
 
   -- diff arbitrary blocks of text with each other
   { "AndrewRadev/linediff.vim", cmd = "Linediff" },
-  { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
+  { "jspringyc/vim-word",       cmd = { "WordCount", "WordCountLine" } },
 
-  {
-    "phanen/browse.nvim",
-    branch = "visual-mode",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    keys = {
-      {
-        mode = { "n", "x" },
-        "<leader>S",
-        function() require("browse").open_bookmarks() end,
-      },
-      {
-        mode = { "n", "x" },
-        "<leader>B",
-        function() require("browse").browse() end,
-      },
-      {
-        mode = { "n", "x" },
-        "<leader>I",
-        function() require("browse").input_search() end,
-      },
-    },
-
-    opts = {
-      bookmarks = {
-        -- ["github_code"] = "https://github.com/search?q=%s&type=code",
-        ["github_repo"] = "https://github.com/search?q=%s&type=repositories",
-      },
-    },
-  },
-
-  {
-    "pwntester/octo.nvim",
-    cmd = "Octo",
-    config = function()
-      require("octo").setup {}
-      -- BUG: take no effect...
-      -- vim.api.nvim_set_hl(0, "OctoEditable", { bg = highlight.get("NormalFloat", "bg") })
-      vim.api.nvim_set_hl(0, "OctoEditable", { bg = "#e4dcd4" })
-      map("i", "@", "@<C-x><C-o>", { silent = true, buffer = true })
-      map("i", "#", "#<C-x><C-o>", { silent = true, buffer = true })
-    end,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      "nvim-tree/nvim-web-devicons",
-    },
-  },
   {
     "psliwka/vim-dirtytalk",
     lazy = false,
@@ -232,6 +146,6 @@ return {
   -- no delay, friendly to mapped readline
   {
     "lilydjwg/fcitx.vim",
-    lazy = false,
+    event = "VeryLazy",
   },
 }

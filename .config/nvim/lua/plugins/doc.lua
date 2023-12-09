@@ -7,7 +7,6 @@ return {
     config = function()
       vim.g.mkdp_filetypes = { "markdown" }
       vim.g.mkdp_auto_close = 0
-      -- vim.g.mkdp_markdown_css = '/home/phanium/Downloads/typora-onedark-theme-1.10/theme/onedark_linux.css'
     end,
     ft = { "markdown" },
   },
@@ -181,5 +180,16 @@ return {
     dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
     config = function() require("luasnip-latex-snippets").setup { use_treesitter = true } end,
     ft = { "tex", "markdown" },
+  },
+
+  {
+    "3rd/image.nvim",
+    lazy = false,
+    opts = {},
+    init = function()
+      -- Example for configuring Neovim to load user-installed installed Lua rocks:
+      package.path = package.path .. ";" .. vim.fn.expand "$HOME" .. "/.luarocks/share/lua/5.1/?/init.lua;"
+      package.path = package.path .. ";" .. vim.fn.expand "$HOME" .. "/.luarocks/share/lua/5.1/?.lua;"
+    end,
   },
 }

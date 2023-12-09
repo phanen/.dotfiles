@@ -1,6 +1,6 @@
 return {
   { "EdenEast/nightfox.nvim", lazy = false },
-
+  { "NLKNguyen/papercolor-theme", lazy = false },
   -- { "igorgue/danger",         lazy = false },
   --
   -- { "rebelot/kanagawa.nvim",  lazy = false },

@@ -3,7 +3,6 @@ if status is-interactive
 end
 
 abbr -a c cargo
-abbr -a e nvim
 abbr -a o xdg-open
 abbr -a --position anywhere ppp https_proxy=127.0.0.1:7890 http_proxy=127.0.0.1:7890 all_proxy=127.0.0.1:7890
 
@@ -50,7 +49,7 @@ if type -q fzf
 end
 
 bind \ew fish_key_reader
-bind \cy fish_clipboard_copy
+bind \cq fish_clipboard_copy
 # PERF: since nvim cannot restart now
 bind \cs nvim
 bind \cg lazygit
@@ -58,6 +57,10 @@ bind \x1c htop
 bind \co prevd-or-backward-word
 bind \cj nextd-or-forward-word
 bind \cl __fish_list_current_token
+bind \ei 'tmux a 2>1 >/dev/null || tmux 2>1 >/dev/null || tmux det'
 
 zoxide init fish | source
+if test -z "$TMUX" && test -n "$SSH_TTY"
+    exec sh -c 'tmux a || tmux'
+end
 # /usr/bin/starship init fish --print-full-init | source

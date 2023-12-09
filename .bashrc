@@ -2,7 +2,7 @@
 
 # non-interactively
 [[ $- != *i* ]] && return
-[[ -f ~/.shellrc ]] && ~/.shellrc
+[[ -f ~/.shellrc ]] && . ~/.shellrc
 
 PS1='[\u@\h \W]\$ '
 shopt -s autocd checkwinsize

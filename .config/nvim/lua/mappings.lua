@@ -11,10 +11,12 @@ map({ "n", "x" }, "<space>", "<nop>")
 nmap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
 nmap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 
+-- PERF: don't change pos location?
 nmap("gj", "yyp")
-nmap("gk", "yyP")
+xmap("gj", "ygv<esc>p")
+xmap("gy", "ygv<esc>")
+
 map({ "n", "x", "o" }, "ga", "G")
--- nmap("<leader>j", "yyp")
 
 nmap("<c-u>", "<c-u>zz")
 nmap("<c-d>", "<c-d>zz")
@@ -45,8 +47,19 @@ xmap("<a-l>", ">gv")
 map({ "n", "x" }, "_", "5j")
 map({ "n", "x" }, "-", "5k")
 
--- map({ "n", "v", "o" }, "^", "g^")
--- map({ "n", "v", "o" }, "$", "g$")
+-- tab {{{
+nmap("<m-f>", "gt")
+nmap("<m-e>", "gT")
+-- TODO: if new tab close, all file in that dir should also be closed
+-- nmap("<leader>gj", "<cmd>tabnew ~/notes/private/todo.md<cr><cmd>tcd notes<cr>")
+nmap("<leader>gj", "<cmd>e ~/notes/private/todo.md<cr>")
+nmap("<leader>gk", "<cmd>tabnew<cr><cmd>tcd<cr>")
+-- }}}
+
+nmap("<c-s-k>", "<cmd>resize -2<cr>")
+nmap("<c-s-j>", "<cmd>resize +2<cr>")
+nmap("<c-s-h>", "<cmd>vertical resize -2<cr>")
+nmap("<c-s-l>", "<cmd>vertical resize +2<cr>")
 
 nmap("vv", "viw")
 nmap("cc", "ciw")

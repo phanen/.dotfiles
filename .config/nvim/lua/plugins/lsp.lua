@@ -14,6 +14,7 @@ return {
       },
       {
         "folke/neoconf.nvim",
+        cond = false,
         cmd = { "Neoconf" },
         opts = { local_settings = ".nvim.json", global_settings = "nvim.json" },
       },

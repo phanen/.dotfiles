@@ -35,18 +35,17 @@ super + ctrl + {j, k}
 super + ctrl + shift + {j, k}
 	bspc node -d {next, prev}
 super + shift + {j, k}
-	bspc desktop -s {next, prev} -f; bspc monitor -d 1 2 3 4 5 6 0
-ad
+	bspc desktop -s {next, prev} -f; bspc monitor -d 0 1 2
 # super + alt + {p, b, w, e}
 # 	bspc node -f @{parent, brother, first, second}
 
 # tag num
-super + {1-6, 0}
-	bspc desktop -f '^{1-7}'
-super + shift + {1-6, 0}
-	bspc node -d '^{1-7}' --follow
-super + ctrl + {1-6, 0}
-	bspc node -d '^{1-7}'
+super + {1-2, 0}
+	bspc desktop -f '^{1-3}'
+super + shift + {1-2, 0}
+	bspc node -d '^{1-3}' --follow
+super + ctrl + {1-2, 0}
+	bspc node -d '^{1-3}'
 
 # status switch
 super + g
@@ -97,7 +96,7 @@ super + ctrl + t
 super + n
 	alacritty --working-directory ~
 super + c
-	alacritty --working-directory ~
+	kitty
 super + semicolon
 	rofi -show drun -matching fuzzy
 super + p
@@ -105,7 +104,7 @@ super + p
 super + u
 	~/.bin/tabexec.sh alacritty msg create-window
 super + slash
-	alacritty --working-directory ~ --command nvim todo.md
+	alacritty --working-directory ~ --command nvim ~/notes/private/todo.md
 # super + w
 # 	rofi -show window -matching fuzzy
 	# FIXME kitty --detach --working-directory ~/notes nvim ~/notes/todo.md

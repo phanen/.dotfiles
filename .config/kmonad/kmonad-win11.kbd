@@ -100,7 +100,7 @@
 
 (deflayer modular
   grv M-f1 M-f2 M-f3 M-f4 M-f5  6    7    8    9    @cmk _    =    bspc
-  @tb q M-C-[ M-[ M-] t    y    u    M-f3 M-f4 p    [    ]    \
+  @tb q M-C-[ C-- M-] t    y    u    M-f3 M-f4 p    [    ]    \
   @qc  a M-f9  M-S-[  C-=   g   C--  M-f1 M-f2 l    ;    '    ret
   lsft z    x    c    v    M-f11 M-f10  M-f5 M-f6 M-F7 M-F8 rsft
   lctl @lm lalt           @sm            ralt rctl
@@ -112,16 +112,6 @@
   @mc    M-a  M-s  M-d  M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
   lsft   M-z  M-x  M-c  M-v  M-b  M-n  M-m  M-,  M-.  M-/  rsft
   M-lctl M-@lm M-lalt           @sm            M-ralt M-rctl
-)
-
-(defalias
-  sge #(> =)
-  sle #(< =)
-  sne #(! =)
-
-  ;; FIXME: LONG PRESS will only type tail char
-  sar #(- >)
-  brk #(b spc * 0 x)
 )
 
 (deflayer vim-normal

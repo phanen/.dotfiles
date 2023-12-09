@@ -8,6 +8,5 @@
     # hack
     XAUTHORITY="/home/$(ls /home/ | head -n1)/.Xauthority"
     export DISPLAY XAUTHORITY
-
-    xset r rate 150 75
+    xset r rate 145 85
 ) &

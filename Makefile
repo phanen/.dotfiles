@@ -9,6 +9,8 @@ apply:
 
 $(shell touch ~/.config/nvim/theme)
 
+# manual add cn repo, or scp /etc/pacman.conf
+
 zsh:
 	@yay -S --needed zsh-autosuggestions \
 		zsh-completions \
@@ -28,6 +30,13 @@ font:
 		noto-fonts-cjk \
 		gnu-free-fonts \
 		awesome-terminal-fonts
+
+# set X11Forwarding yes in /etc/ssh/sshd_config then restart sshd daemon
+clipboard:
+	@yay -S xsel xauth
+
+dep:
+	@yay -S zoxide exa lazygit
 
 tmux:
 	mkdir -p ~/.config/tmux/plugins/

@@ -1,4 +1,3 @@
-alias e='$EDITOR'
 alias v='nvim'
 alias k='pkill'
 alias x='xsel'
@@ -12,7 +11,6 @@ alias ll="ls -lah"
 alias la="ls -a"
 alias l="ll"
 alias lt="ls --tree"
-alias lta="ls -a --tree"
 alias grep="grep --color"
 # alias rm="rm -i"
 alias df="df -h"
@@ -25,7 +23,8 @@ alias mx='chmod +x'
 alias rx='chmod -x'
 alias vi='nvim'
 alias vn='vi -u NONE'
-alias si="sudo -E vi"
+# alias si="sudo -E vi"
+alias si="sudoedit"
 alias du="dust"
 alias em="emacs -nw"
 alias hl="helix"
@@ -73,12 +72,6 @@ alias mkp="makepkg -do --skippgpcheck"
 alias pov='podman volume'
 alias por='podman run'
 
-alias todo="$EDITOR $HOME/notes/todo.md"
-alias log="$EDITOR $HOME/LOG.md"
 alias vifm='vifmrun'
-alias rigdb="riscv64-linux-gnu-gdb"
-# alias wezterm='flatpak run org.wezfurlong.wezterm'
-# alias foliate='flatpak run com.github.johnfactotum.Foliate'
-
 alias ppush="rclone sync papers gd:papers -P"
 alias ppull="rclone sync gd:papers papers -P"

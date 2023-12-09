@@ -39,7 +39,7 @@ fcitx5 -d
 sleep .5
 sudo rmmod uinput
 sudo modprobe uinput
-kmonad ~/.config/kmonad/kmonad.kbd -w 10 &
+kmonad ~/.config/kmonad/kmonad-$(hostname).kbd -w 10 &
 polybar -r &
 picom &
 # echo ~/.shellrc | entr sh2fish.sh &
