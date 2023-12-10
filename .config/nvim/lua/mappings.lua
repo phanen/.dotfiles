@@ -50,10 +50,6 @@ map({ "n", "x" }, "-", "5k")
 -- tab {{{
 nmap("<m-f>", "gt")
 nmap("<m-e>", "gT")
--- TODO: if new tab close, all file in that dir should also be closed
--- nmap("<leader>gj", "<cmd>tabnew ~/notes/private/todo.md<cr><cmd>tcd notes<cr>")
-nmap("<leader>gj", "<cmd>e ~/notes/private/todo.md<cr>")
-nmap("<leader>gk", "<cmd>tabnew<cr><cmd>tcd<cr>")
 -- }}}
 
 nmap("<c-s-k>", "<cmd>resize -2<cr>")
@@ -234,9 +230,6 @@ vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
  \:let @a=old_reg_a<CR>
  \:let @"=old_reg<CR>
 ]]
-
-nmap("<leader>cd", "<cmd>cd %:h<cr>")
-nmap("<leader>cb", "<cmd>cd %:h/..<cr>")
 
 -- neovide: resize gui font
 -- BUG: firenvim window size auto change
