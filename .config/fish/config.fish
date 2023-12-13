@@ -36,11 +36,11 @@ if type -q fzf
         --height=90%
         --prompt='~ ' --pointer='▶' --marker='✓'
         --multi
-        --bind='space:accept'
         --bind=';:abort'
         --bind='?:toggle-preview'
         --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
     "
+    # --bind='space:accept'
 
     # fzf_configure_bindings --directory=\cf --processes=\cp --git_log=\cg --history=\cr
 
@@ -57,6 +57,7 @@ bind \x1c htop
 bind \co prevd-or-backward-word
 bind \cj nextd-or-forward-word
 bind \cl __fish_list_current_token
+bind \el clear
 bind \ei 'tmux a 2>1 >/dev/null || tmux 2>1 >/dev/null || tmux det'
 
 zoxide init fish | source
