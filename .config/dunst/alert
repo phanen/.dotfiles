@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# paplay /home/phanium/.local/share/sounds/where-the-fuck-i-am.ogg
-paplay /home/phanium/.local/share/sounds/not.mp3
-

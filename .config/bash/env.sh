@@ -34,14 +34,12 @@ export all_proxy=$http_proxy
 export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 
 # dark mode
-# export GTK_THEME=Adwaita-dark
-# export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
-export GTK_THEME=Adwaita
-export GTK2_RC_FILES=/usr/share/themes/Adwaita/gtk-2.0/gtkrc
-export QT_STYLE_OVERRIDE=adwaita
+export GTK_THEME=Adwaita-dark
+export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
+export QT_STYLE_OVERRIDE=adwaita-dark
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 export EDK_TOOLS_PATH=$HOME/demo/os/edk2/BaseTools
-
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # export LIBRARY_PATH=$LIBRARY_PATH:/opt/cuda/include/
@@ -50,7 +48,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # export sduwifi=101.76.193.1
 
-# gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
 export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 
