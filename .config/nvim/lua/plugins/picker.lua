@@ -27,20 +27,23 @@ end
 local tb = reqcall "telescope.builtin"
 local toggle_cache_mode = function() cache_flag = not cache_flag end
 
-local curbuf_fzf = function()
-  return tb.current_buffer_fuzzy_find { previewer = false, default_text = getVisualSelection() }
-end
-
-local live_grep = function() return tb.live_grep { default_text = getVisualSelection() } end
-local help_tags = function() return tb.help_tags { default_text = getVisualSelection() } end
+local find_files = function() return tb.find_files { previewer = false, default_text = getVisualSelection() } end
+local live_grep = function() return tb.live_grep { previewer = true, default_text = getVisualSelection() } end
+local buf_fzf = function() return tb.current_buffer_fuzzy_find { default_text = getVisualSelection() } end
 
 local live_grep_ni = function() return tb.live_grep { no_ignore = true, default_text = getVisualSelection() } end
 local find_files_ni = function() return tb.find_files { no_ignore = true, default_text = getVisualSelection() } end
 
+local find_dots = function() tb.find_files { search_dirs = { "~" } } end
+local find_notes = function() tb.find_files { search_dirs = { "~/notes" } } end
+local grep_dots = function() tb.live_grep { search_dirs = { "~" } } end
+local grep_notes = function() tb.live_grep { search_dirs = { "~/notes" } } end
+local findme = function() tb.live_grep { search_dirs = { "~", "~/notes" } } end
+
 return {
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.4",
+    tag = "0.1.5",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       -- { 'molecule-man/telescope-menufacture' },
@@ -62,29 +65,25 @@ return {
     cmd = "Telescope",
     keys = {
       { "<leader>ft",       toggle_cache_mode,       mode = { "n", "x" } },
+      { "<leader><leader>", tb.resume,               mode = { "n", "x" } },
       { "<leader>m",        tb.builtin,              mode = { "n", "x" } },
-      { "<c-l>",            tb.find_files,           mode = { "n", "x" } },
+
+      { "<c-l>",            find_files,              mode = { "n", "x" } },
       { "<leader>l",        live_grep,               mode = { "n", "x" } },
-      { "<leader>j",        tb.grep_string,          mode = { "n", "x" } },
-      { "<leader>f<c-l>",   find_files_ni,           mode = { "n", "x" } },
       { "<leader><c-l>",    find_files_ni,           mode = { "n", "x" } },
       { "<leader>fl",       live_grep_ni,            mode = { "n", "x" } },
-      { "<c-h>",            tb.buffers,              mode = { "n", "x" } },
-      { "<leader><leader>", tb.resume,               mode = { "n", "x" } },
-      -- { "<leader>j",        tb.oldfiles,             mode = { "n", "x" }, },
-      { "<leader>h",        help_tags,               mode = { "n", "x" } },
-      { "<leader>l",        live_grep,               mode = { "n", "x" } },
       { "<leader>j",        tb.grep_string,          mode = { "n", "x" } },
-      { "<leader>f<c-l>",   find_files_ni,           mode = { "n", "x" } },
-      { "<leader>fl",       live_grep_ni,            mode = { "n", "x" } },
-      { "<c-h>",            tb.buffers,              mode = { "n", "x" } },
-      { "<leader><leader>", tb.resume,               mode = { "n", "x" } },
-      { "<leader>h",        help_tags,               mode = { "n", "x" } },
+
+      { "<leader>fj",       find_dots,               mode = { "n", "x" } },
+      { "<leader>fk",       find_notes,              mode = { "n", "x" } },
+      { "<leader>gj",       grep_dots,               mode = { "n", "x" } },
+      { "<leader>gk",       grep_notes,              mode = { "n", "x" } },
+
+      { "<c-b>",            tb.buffers,              mode = { "n", "x" } },
       { "<leader>;",        tb.command_history,      mode = { "n", "x" } },
-      { "<leader>f/",       curbuf_fzf,              mode = { "n", "x" } },
+      { "<leader>f/",       buf_fzf,                 mode = { "n", "x" } },
       { "<leader>fo",       tb.oldfiles,             mode = { "n", "x" } },
-      { "<leader>fd",       tb.diagnostics,          mode = { "n", "x" } },
-      { "<leader>fk",       tb.keymaps,              mode = { "n", "x" } },
+      -- { "<leader>fd",       tb.diagnostics,          mode = { "n", "x" } },
       { "<leader>fh",       tb.help_tags,            mode = { "n", "x" } },
       { "<leader>fm",       tb.man_pages,            mode = { "n", "x" } },
       { "<leader>fs",       tb.lsp_document_symbols, mode = { "n", "x" } },
@@ -100,23 +99,42 @@ return {
     config = function()
       local tl = require "telescope"
       local ta = require "telescope.actions"
-      local tag = require "telescope.actions.generate"
       local tas = require "telescope.actions.state"
+      local tal = require "telescope.actions.layout"
 
       tl.setup {
         defaults = {
-          file_ignore_patterns = {
-            -- "!.*",
+          -- layout_strategy = "vertical",
+          sorting_strategy = "ascending",
+          path_display = {
+            -- smart = true,
+            -- shorten = { len = 1, exclude = { 1, -1 } },
+          },
+          preview = { hide_on_startup = true },
+          layout_config = {
+            horizontal = {
+              height = 0.5,
+              width = 0.8,
+              preview_cutoff = 10,
+              preview_width = 0.55,
+              prompt_position = "top",
+              -- mirror = true,
+            },
+            vertical = {
+              prompt_position = "top",
+            },
           },
           mappings = {
             i = {
-              ["<c-u>"] = false,
-              ["<c-d>"] = false,
+              ["<c-u>"] = ta.preview_scrolling_up,
+              ["<c-d>"] = ta.preview_scrolling_down,
               ["<c-v>"] = false,
+              ["<c-g>"] = tal.toggle_preview,
+              ["<c-n>"] = tal.toggle_mirror,
               ["<esc>"] = ta.close,
               ["<c-j>"] = ta.move_selection_next,
               ["<c-k>"] = ta.move_selection_previous,
-              ["<c-g>"] = ta.move_to_bottom,
+              ["<c-p>"] = tal.cycle_layout_next,
               ["<c-y>"] = function(prompt_bufnr)
                 local entry = tas.get_selected_entry()
                 local prompt_text = entry.text or entry[1]
@@ -139,11 +157,11 @@ return {
               -- https://www.reddit.com/r/neovim/comments/11puvr6/getting_custom_telescope_live_grep_to_selectjump/
 
               -- https://github.com/nvim-telescope/telescope.nvim/issues/814
-              ["<C-o>"] = function(prompt_bufnr)
+              ["<c-o>"] = function(prompt_bufnr)
                 require("telescope.actions").select_default(prompt_bufnr)
                 require("telescope.builtin").resume()
               end,
-              ["<C-q>"] = ta.add_selected_to_qflist,
+              ["<c-q>"] = ta.add_selected_to_qflist,
             },
           },
         },
@@ -156,24 +174,25 @@ return {
   },
 
   {
-    "crispgm/telescope-heading.nvim",
-    ft = { "markdown", "tex" },
-    -- keys = { "<leader>fh", "<cmd>Telescope heading<cr>", desc = "find headings" },
-  },
-
-  {
     "benfowler/telescope-luasnip.nvim",
     cond = false,
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function() require("telescope").load_extension "luasnip" end,
   },
 
-  --lazy
   {
     "nvim-telescope/telescope-file-browser.nvim",
     cond = false,
     keys = { { "<leader>ff", "<cmd>Telescope file_browser<cr>" } },
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     config = function() require("telescope").load_extension "file_browser" end,
+  },
+
+  -- faster
+  {
+    "junegunn/fzf.vim",
+    lazy = false,
+    -- cond = false,
+    dependencies = { "junegunn/fzf", name = "fzf" },
   },
 }

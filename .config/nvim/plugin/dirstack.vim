@@ -7,4 +7,3 @@ command -bar Dirs echo g:dir_stack
 
 nnoremap <leader>cd <cmd>Pushd %:h<cr>
 nnoremap <leader>cb <cmd>Popd<cr>
-nnoremap <leader>gj <cmd>e ~/notes/priv/todo.md<cr>

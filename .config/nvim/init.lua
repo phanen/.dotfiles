@@ -12,8 +12,8 @@ _G.map = vim.keymap.set
 _G.P = vim.print
 
 for _, source in ipairs {
-  "options",
-  "mappings",
+  "opt",
+  "map",
 } do
   local ok, fault = pcall(require, source)
   if not ok then vim.api.nvim_err_writeln("Failed to load " .. source .. "\n\n" .. fault) end
@@ -53,8 +53,12 @@ require("lazy").setup("plugins", {
   performance = {
     rtp = {
       paths = { vim.fn.stdpath "data" .. "/site" },
-      -- newrw need prefix like `https://`
-      disabled_plugins = { "netrw", "netrwPlugin" },
+      disabled_plugins = {
+        -- use gx.nvim instead
+        "netrw",
+        "netrwPlugin",
+        "tutor",
+      },
     },
   },
 })
@@ -62,7 +66,5 @@ require("lazy").setup("plugins", {
 -- filter down a quickfix list
 -- vim.cmd.packadd "cfilter"
 
--- vim.cmd.background("light")
+vim.cmd("set bg=" .. vim.fn.system "darkman get")
 vim.cmd.colorscheme(color_name)
-
--- vim.cmd("set bg=" .. vim.fn.system("darkman get"))

@@ -235,7 +235,7 @@ vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
 -- BUG: firenvim window size auto change
 -- https://github.com/glacambre/firenvim/issues/800
 -- https://github.com/glacambre/firenvim/issues/1006
-local fsize = require("options").gui_font_size
+local fsize = require("opt").gui_font_size
 nmap("<c-->", function()
   fsize = fsize - 1
   vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(fsize)
@@ -244,6 +244,8 @@ nmap("<c-=>", function()
   fsize = fsize + 1
   vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(fsize)
 end)
+
+nmap("<leader>gl", "<cmd>e ~/notes/priv/todo.md<cr>")
 -- }}}
 
 -- readline {{{

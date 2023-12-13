@@ -1,25 +1,19 @@
 return {
   { "EdenEast/nightfox.nvim", lazy = false },
   { "NLKNguyen/papercolor-theme", lazy = false },
-  -- { "igorgue/danger",         lazy = false },
-  --
-  -- { "rebelot/kanagawa.nvim",  lazy = false },
-  --
-  -- { "folke/tokyonight.nvim",  lazy = false },
-  --
-  --
-  -- { "navarasu/onedark.nvim",  lazy = false },
-  --
-  -- { "AlexvZyl/nordic.nvim",   lazy = false },
-  --
-  -- { "rose-pine/neovim",       name = "rose-pine", lazy = false },
-  --
-  -- {
-  --   "catppuccin/nvim",
-  --   name = "catppuccin",
-  --   lazy = false,
-  --   opts = { transparent_background = true },
-  -- },
+  { "igorgue/danger", lazy = false },
+  { "rebelot/kanagawa.nvim", lazy = false },
+  { "folke/tokyonight.nvim", lazy = false },
+  { "navarasu/onedark.nvim", lazy = false },
+  { "AlexvZyl/nordic.nvim", lazy = false },
+  { "rose-pine/neovim", name = "rose-pine", lazy = false },
+  { "Mofiqul/dracula.nvim", lazy = false },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = false,
+    -- opts = { transparent_background = true },
+  },
   --
   -- {
   --   "mcchrish/zenbones.nvim",
