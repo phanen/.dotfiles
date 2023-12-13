@@ -27,7 +27,7 @@ return {
     "kylechui/nvim-surround",
     -- lazy = false,
     keys = {
-      { "s", mode = "x" },
+      { "s",            mode = "x" },
       -- "<C-g>s",
       -- "<C-g>S",
       "ys",
@@ -35,7 +35,7 @@ return {
       "yS",
       "cs",
       "ds",
-      { mode = { "x" }, "`", "<Plug>(nvim-surround-visual)`" },
+      { mode = { "x" }, "`",       "<Plug>(nvim-surround-visual)`" },
     },
     opts = {
       move_cursor = true,
@@ -104,23 +104,35 @@ return {
     "numToStr/Comment.nvim",
     keys = {
       { "gcc" },
-      { "gc", mode = { "n", "v" } },
+      { "gc",        mode = { "n", "v" } },
       { "<leader>O" },
       { "<leader>A" },
       { "<leader>oo" },
       -- https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
       {
+        "<c-/>",
+        function()
+          return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)"
+              or "<Plug>(comment_toggle_linewise_count)"
+        end,
+        expr = true,
+        mode = { "n" },
+      },
+      -- FIXME: position of cursor should not move
+      { "<c-/>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
+      { "<c-/>", "<Plug>(comment_toggle_linewise_visual)",                mode = { "v" } },
+      {
         "<c-_>",
         function()
           return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)"
-            or "<Plug>(comment_toggle_linewise_count)"
+              or "<Plug>(comment_toggle_linewise_count)"
         end,
         expr = true,
         mode = { "n" },
       },
       -- FIXME: position of cursor should not move
       { "<c-_>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
-      { "<c-_>", "<Plug>(comment_toggle_linewise_visual)", mode = { "v" } },
+      { "<c-_>", "<Plug>(comment_toggle_linewise_visual)",                mode = { "v" } },
     },
     opts = {
       padding = true,
@@ -195,9 +207,9 @@ return {
     keys = {
       -- { "<leader>S",  function() require("substitute").visual() end,            mode = "x" },
       -- { "<leader>S",  function() require("substitute").operator() end,          mode = "n" },
-      { "<leader>X", function() require("substitute.exchange").operator() end, mode = "n" },
-      { "<leader>X", function() require("substitute.exchange").visual() end, mode = "x" },
-      { "<leader>Xc", function() require("substitute.exchange").cancel() end, mode = { "n", "x" } },
+      { "<leader>X",  function() require("substitute.exchange").operator() end, mode = "n" },
+      { "<leader>X",  function() require("substitute.exchange").visual() end,   mode = "x" },
+      { "<leader>Xc", function() require("substitute.exchange").cancel() end,   mode = { "n", "x" } },
     },
   },
   {
