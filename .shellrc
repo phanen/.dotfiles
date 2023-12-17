@@ -6,8 +6,3 @@
 
 # disable tty ctrl-s
 [[ "$(ps -o comm= -p $$)" != fish ]] && stty stop undef
-
-case  $(tty) in
-  *tty*) setfont ter-d28b;;
-  *) ;;
-esac
