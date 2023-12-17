@@ -1,33 +1,10 @@
-if status is-interactive
-
-end
+source ~/.config/fish/sh-common.fish
 
 abbr -a c cargo
 abbr -a o xdg-open
 abbr -a --position anywhere ppp https_proxy=127.0.0.1:7890 http_proxy=127.0.0.1:7890 all_proxy=127.0.0.1:7890
 
-set -U fish_greeting
-# set fish_greeting ""
-
-source "$HOME/.config/fish/sh-common.fish"
-
-# WIP
-# cat ~/.config/bash/keybindings.sh | sed "/\$-/d;" | babelfish | source
-
-# fcitx5 env, should export here, anyway...
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
-export SDL_IM_MODULE=fcitx
-export GLFW_IM_MODULE=ibus
-
-fish_default_key_bindings
-
-bind --preset H beginning-of-line
-bind --preset L end-of-line
-bind --preset -M visual H beginning-of-line
-bind --preset -M visual L end-of-line
-bind --preset -M visual -m default v end-selection repaint-mode
+# fish_default_key_bindings
 
 # fzf, https://github.com/gazorby/dotfiles/tree/19916f70981658aa5d59a154b21fab3faed28cf4
 if type -q fzf
@@ -59,9 +36,13 @@ bind \cj nextd-or-forward-word
 bind \cl __fish_list_current_token
 bind \el clear
 bind \ei 'tmux a 2>1 >/dev/null || tmux 2>1 >/dev/null || tmux det'
+bind \er 'sh2fish.sh && rs'
+bind \cd delete-or-exit
 
+set -U fish_greeting
 zoxide init fish | source
-if test -z "$TMUX" && test -n "$SSH_TTY"
-    exec sh -c 'tmux a || tmux'
-end
 # /usr/bin/starship init fish --print-full-init | source
+
+# if status is-login && test -z "$TMUX" && test -n "$SSH_TTY"
+#     exec sh -c 'tmux a || tmux'
+# end

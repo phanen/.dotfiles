@@ -5,21 +5,11 @@ LFCD="$XDG_CONFIG_HOME/lf/lfcd.sh"
 
 # awesome fzf
 fsl() { fzf -m --margin 5% --padding 5% --border --preview 'cat {}'; }
-fhs() { stty -echo && history | grep ""$@ | awk '{$1=$2=$3=""; print $0}' | fzf | xargs -I {} xdotool type {} && stty echo; }
 fy() { fzf | tr -d "\n" | xsel -b; }
 fv() { $VISUAL "$(fzf)"; }
 fp() { $PDF "$(fzf)" >/dev/null 2>&1; }
 
-fcl() {
-  # cd "${XDG_CONFIG_HOME}"/clash/ || exit
-  # ln -sf $(ls *.yaml | fzf) config.yaml
-  # clash
-  CLASH_CONFIG=$(find .config/clash -type f -name "*.yaml" | fzf)
-  [[ -n $CLASH_CONFIG ]] && clash -f $CLASH_CONFIG || exit
-}
-
 diskcheck() {
-# https://stackoverflow.com/questions/35005915/using-watch-to-run-a-function-repeatedly-in-bash
   (
     sudo smartctl -a /dev/nvme0n1
     sudo smartctl -a /dev/nvme1n1
@@ -45,11 +35,6 @@ vis() {
   NVIM_APPNAME=$SELECTED nvim $@
 }
 
-gitit() {
-  git remote add origin git@github.com:phanen/phanen.git
-  git branch -M master
-  git push -u origin master
-}
 gitp() {
   git checkout HEAD^1
 }
@@ -57,9 +42,19 @@ gitn() {
   git log --reverse --pretty=%H ${1-master} | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout
 }
 
-vw() { vi "$(which $1 |head -1)"; }
-fw() { file "$(which $1 |head -1)"; }
-lw() { ls -la "$(which $1 |head -1)"; }
+vw() {
+  which $1 1>/dev/null 2>/dev/null || return
+  $VISUAL $(which $1 | head -1)
+}
+lw() {
+  which $1 1>/dev/null 2>/dev/null || return
+  file $(which $1 | head -1);
+  ls -la $(which $1 | head -1);
+}
+ldw() {
+  which $1 1>/dev/null 2>/dev/null || return
+  ldd $(which $1 | head -1)
+}
 
 pzip() { tar -c --use-compress-program=pigz -f "$1".tar.gz $1; }
 da2b() { dd bs=4M if="$1" of="$2" status=progress && sync; }

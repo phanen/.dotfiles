@@ -29,37 +29,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 	unset f
 fi
 
-# setxkbmap -option caps:escape
-# setxkbmap -option altwin:swap_alt_win
-
-# session-wise daemon, but:
-#     fcitx5/browser seems not work in multiply xdisplay?
-# _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
-fcitx5 -d
-sleep .5
-sudo rmmod uinput
-sudo modprobe uinput
-kmonad ~/.config/kmonad/kmonad-$(hostname).kbd -w 10 &
-polybar -r &
-picom &
-# echo ~/.shellrc | entr sh2fish.sh &
-
-# avoid fish handle sxhkd
-export SXHKD_SHELL='/usr/bin/sh'
-sxhkd -a Tab & # dont use Espace...
-
-# TODO
-# swhkds &
-# pkexec swhkd
-
-# udiskie &
-
-# fix idea
-export _JAVA_AWT_WM_NONREPARENTING=1
-
-# fix xdg portral
-# dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
-
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
   [ -x "$f" ] && . "$f"
@@ -67,10 +36,27 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-# exec chromium
-# xrandr --auto
+
+# setxkbmap -option caps:escape
+# setxkbmap -option altwin:swap_alt_win
+
+# possible for session-wise daemon, but: fcitx5/browser seems not work in multiply xdisplay
+# _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
+fcitx5 -d
+kmonad ~/.config/kmonad/kmonad-$(hostname).kbd -w 10 &
+polybar -r &
+picom &
+dunst &
+sxhkd -a Tab &
+# xsel -b --watch clipman store &
+# swhks &
+# pkexec swhkd &
+# udiskie &
+
+xrandr --auto
 
 # export DESKTOP_SESSION=plasma
+# exec google-chrome-stable
 session=${1:-bspwm}
 case $session in
     bspwm             ) exec bspwm;;
