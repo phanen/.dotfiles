@@ -66,5 +66,5 @@ require("lazy").setup("plugins", {
 -- filter down a quickfix list
 -- vim.cmd.packadd "cfilter"
 
-vim.cmd("set bg=" .. vim.fn.system "darkman get")
+-- vim.cmd("set bg=" .. vim.fn.system "darkman get")
 vim.cmd.colorscheme(color_name)

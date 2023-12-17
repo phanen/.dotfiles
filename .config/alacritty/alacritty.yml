@@ -1,13 +1,16 @@
 # /usr/share/doc/alacritty/example/alacritty.yml
 
 import:
-  # - ~/.config/alacritty/kitty.yml
-  - ~/.config/alacritty/dracula.yml
+  - ~/.config/alacritty/kitty.yml
+  # - ~/.config/alacritty/dracula.yml
 
 env:
   # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
   TERM: alacritty
   # TERM: xterm-256color
+
+shell:
+ program: /bin/fish
 
 window:
   opacity: 0.9

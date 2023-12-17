@@ -185,6 +185,7 @@ return {
   {
     "3rd/image.nvim",
     lazy = false,
+    cond = false,
     opts = {},
     init = function()
       -- Example for configuring Neovim to load user-installed installed Lua rocks:

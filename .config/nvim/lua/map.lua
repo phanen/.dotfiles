@@ -179,7 +179,7 @@ nmap("<leader>df", vim.diagnostic.open_float, { desc = "diagnostic: open floatin
 nmap("<leader>ds", vim.diagnostic.setloclist, { desc = "diagnostic: open quickfix list" })
 -- }}}
 
--- miscs {{{
+-- misc {{{
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
 xmap("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
@@ -213,12 +213,6 @@ xmap("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
 nmap("<c-p>", "I- <esc>")
 xmap("<c-p>", "I- <esc>")
 
--- HACK: wordaround for batch comment toggle
-nmap("<leader><c-_>", function()
-  -- if in_commet
-  vim.cmd "norm vic"
-end)
-
 -- https://stackoverflow.com/questions/1680194/reverse-a-word-in-vim
 vim.cmd [[
 vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
@@ -246,6 +240,7 @@ nmap("<c-=>", function()
 end)
 
 nmap("<leader>gl", "<cmd>e ~/notes/priv/todo.md<cr>")
+nmap("<leader>cx", "<cmd>!chmod +x %<cr>")
 -- }}}
 
 -- readline {{{

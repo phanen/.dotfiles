@@ -22,7 +22,6 @@ return {
       { "<c-u>",  function() require("readline").backward_kill_line() end, mode = "!" },
     },
   },
-
   {
     "kylechui/nvim-surround",
     -- lazy = false,
@@ -99,7 +98,6 @@ return {
       },
     },
   },
-
   {
     "numToStr/Comment.nvim",
     keys = {
@@ -118,7 +116,6 @@ return {
         expr = true,
         mode = { "n" },
       },
-      -- FIXME: position of cursor should not move
       { "<c-/>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
       { "<c-/>", "<Plug>(comment_toggle_linewise_visual)",                mode = { "v" } },
       {
@@ -130,9 +127,12 @@ return {
         expr = true,
         mode = { "n" },
       },
-      -- FIXME: position of cursor should not move
       { "<c-_>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
       { "<c-_>", "<Plug>(comment_toggle_linewise_visual)",                mode = { "v" } },
+      -- HACK: wordaround for 
+      -- {"<leader><c-_>", function() vim.cmd "norm vic<c-_>" end, mode = { "n"}},
+      -- {"<leader><c-/>", function() vim.cmd "norm vic<c-/>" end, mode = {"n"}}
+
     },
     opts = {
       padding = true,
@@ -146,7 +146,6 @@ return {
       post_hook = nil,
     },
   },
-
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -173,7 +172,6 @@ return {
       }
     end,
   },
-
   {
     "smjonas/inc-rename.nvim",
     keys = {
@@ -186,21 +184,10 @@ return {
       },
     },
   },
-
-  {
-    "mg979/vim-visual-multi",
-    keys = "<c-n>",
-  },
-
-  { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
-  { "tpope/vim-sleuth", event = "VeryLazy" },
-  { "tpope/vim-repeat", event = "VeryLazy" },
-
-  {
-    "vim-scripts/DrawIt",
-    cond = false,
-  },
-
+  { "mg979/vim-visual-multi", keys = "<c-n>" },
+  { "tpope/vim-eunuch",       cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
+  { "tpope/vim-sleuth",       event = "VeryLazy" },
+  { "tpope/vim-repeat",       event = "VeryLazy" },
   {
     "gbprod/substitute.nvim",
     config = true,
@@ -237,7 +224,7 @@ return {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
     event = "BufReadPost",
-    enabled = false,
+    cond = false,
     opts = {},
 
     init = function()

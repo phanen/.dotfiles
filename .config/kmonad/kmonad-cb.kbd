@@ -4,8 +4,8 @@
   ;; input  (device-file "/dev/input/by-id/usb-ITE_Tech._Inc._ITE_Device_8910_-event-kbd")
   ;; input  (device-file "/dev/input/by-id/usb-HS-HW098A__D-US-01-00-_USB_Keyboard-event-kbd")
   input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
-
-  output (uinput-sink "KMonad" "sleep .3 && xset r rate 145 85")
+  ;; output (uinput-sink "KMonad" "sleep .3 && xset r rate 145 85")
+  output (uinput-sink "KMonad")
   ;; cmp-seq ralt
   fallthrough true
   allow-cmd true
@@ -103,7 +103,7 @@
 
 (deflayer tabular
   grv @mpct M-f2 M-f3 M-f4 M-f5  6    7    8    9    @cmk _    =    bspc
-  @tb q M-C-[ C-- M-] t    y    u    M-f3 M-f4 @mpcp [    ]    \
+  @tb  q M-C-[ C-- M-] t    y    u    M-f3 M-f4 @mpcp [    ]    \
   @qc  a M-f9  M-S-[  C-=   g   C--  M-f1 M-f2 l    ;    '    ret
   lsft z    x    c    v    M-f11 @mpcn  M-f5 M-f6 M-F7 M-F8 rsft
   lctl @lm lalt           @sm            ralt rctl

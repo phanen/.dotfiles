@@ -62,8 +62,6 @@ return {
             cmp.config.compare.order,
           },
         },
-        -- disable in TelescopePrompt
-        -- enabled = function() return vim.api.nvim_buf_get_option(0, "modifiable") and vim.bo.buftype ~= "prompt" end,
         mapping = {
           ["<c-\\>"] = cmp.mapping(function()
             if cmp.visible() then return cmp.abort() end

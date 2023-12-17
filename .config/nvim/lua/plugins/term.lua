@@ -6,7 +6,7 @@ return {
       open_mapping = [[<c-\>]],
       start_in_insert = true,
       direction = "float",
-
+      shell = "/bin/fish",
       highlights = {
         -- NormalFloat = { link = "", cterm = "bold" },
         -- NormalFloat = { guibg = "#1a1b26", guifg = "#a9b1d6" },
