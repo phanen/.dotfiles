@@ -4,9 +4,8 @@
 
 # control
 super + z
-	pkill -USR1 -x sxhkd
-super + Shift + z
-	bspc wm -r; pkill polybar; polybar -r;
+	pkill -USR1 -x sxhkd ; bspc wm -r; pkill polybar; polybar -r;
+# super + Shift + z
 super + q
 	bspc node -c
 super + ctrl + q
@@ -20,19 +19,17 @@ super + {f, e}
 	# bspc desktop -f {next, prev}.local
 super + r
 	bspc desktop -f last
-super + Tab
-	bspc desktop -f last
-super + w
-	(bspc node -f biggest.window.local && \
-		bspc node -f last.window.local && \
-		bspc node -s biggest.window.local) || \
-	(bspc node -f last.window.local && bspc node -s biggest.window.local)
 super + {o, i}
 	bspc wm -h off; \
 	bspc node -f {older, newer}; \
 	bspc wm -h on
 
 # move
+super + Return
+	(bspc node -f biggest.window.local && \
+		bspc node -f last.window.local && \
+		bspc node -s biggest.window.local) || \
+	(bspc node -f last.window.local && bspc node -s biggest.window.local)
 super + ctrl + {j, k}
 	bspc node -d {next, prev} --follow
 super + ctrl + shift + {j, k}
@@ -42,7 +39,6 @@ super + shift + {j, k}
 # super + alt + {p, b, w, e}
 # 	bspc node -f @{parent, brother, first, second}
 
-# tag num
 super + {1-2, 0}
 	bspc desktop -f '^{1-3}'
 super + shift + {1-2, 0}
@@ -53,7 +49,6 @@ super + ctrl + {1-2, 0}
 # status switch
 super + m
 	bspc desktop -l next
-
 super + shift + f
 	bspc node -t \~floating
 super + y
@@ -82,21 +77,11 @@ super + shift + {u, i, o, p}
 				bottom 0 -20 || bspc node -z top 0 -20, \
 				left 20 0 || bspc node -z right 20 0}
 
-# misc
-# rotation
-super + shift + r
-    bspc node @/ -R 90
-super + shift + e
-    bspc node @parent -R 90
-super + ctrl + t
-	sh $XDG_CONFIG_HOME/sxhkd/scripts/toggle-polybar.sh
-# super + shift + c
-# 	bsp-layout set tall
-
 # launch
 super + n
-	alacritty --working-directory ~
+	wezterm
 	# kitty
+	# alacritty --working-directory ~
 super + c
 	alacritty --working-directory ~
 super + semicolon
@@ -106,9 +91,20 @@ super + p
 # TODO: need a santinizer
 super + s
 	xsel -b | sh $XDG_CONFIG_HOME/sxhkd/scripts/url-santinizer.sh >> $XDG_CONFIG_HOME/newsboat/urls
-
 super + Tab
-	dunstctl close-all
+	darkman toggle
+super + ctrl + t
+	sh $XDG_CONFIG_HOME/sxhkd/scripts/toggle-polybar.sh
+
+# FIXME: this is just workaround for wezterm builtin lua config
+# super key not work well with wezterm builtin config
+super + u
+	wezterm cli spawn
+super + l
+	wezterm cli activate-tab --tab-relative +1
+super + h
+	wezterm cli activate-tab --tab-relative -1
+
 
 # proxy via kmonad
 super + {F1, F2}

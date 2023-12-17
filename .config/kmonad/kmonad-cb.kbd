@@ -35,7 +35,7 @@
   mt   (multi-tap 10 j 10 k esc)
 
   qc   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
-  sm   (tap-hold-next-release 500 spc (layer-toggle space))
+  sm   (tap-hold-next-release 500 spc (layer-toggle super))
   lm   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
   tb   (tap-hold-next-release 500 tab (layer-toggle tabular))
 
@@ -92,7 +92,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   ~    !    ^    #    $    ~    ~    &    *    +    |    _    _    _
   C-^  [    ]    \(   \)   @    %    \_   -    =    _    _    _
-  grv  <    >    {    }  #(- >) {    }    _    .    /    \
+  grv  <    >    {    }  #(- P5 >) {    }    _    .    /    \
   _    _    _              _              _    _
 )
 (defalias
@@ -109,7 +109,7 @@
   lctl @lm lalt           @sm            ralt rctl
 )
 
-(deflayer space
+(deflayer super
   M-grv  M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  M--  M-=  M-bspc
   M-tab  M-q  M-w  M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
   @mc    M-a  M-s  M-d  M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
