@@ -1,60 +1,13 @@
 #!/bin/sh
-
 # /usr/share/doc/bspwm/examples/bspwmrc
-
-# TODO to started from tty or wm, that's a question...
-
-# _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
-# _bootstrap kmonad ~/.config/kmonad/kmonad.kbd &
-# _bootstrap sxhkd -a Tab &
-# _bootstrap polybar -r &
-# _bootstrap fcitx5 -d &
-# _bootstrap udiskie &
-# _bootstrap picom &
-
-# unnecessary
-# pgrep -x sxhkd > /dev/null || sxhkd &
-
-# _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
-
-bspc monitor -d 0 1 2
 
 bspc config border_width        4
 bspc config focused_border_color \#00ff00
-
 bspc config window_gap          0
-
 bspc config focus_follows_pointer true
-
 bspc config split_ratio          0.56
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
-
 bspc rule -a Bochs state=tiled
-
-bspc rule --add idea state=floating rectangle=xH+X+Y
-
-bspc rule --add wemeetapp:EmojiFloatWnd state=floating rectangle=1x1+1+1
-bspc rule --add wemeetapp::EmojiFloatWnd state=floating rectangle=1x1+1+1
-
-bspc rule -a \* rectangle=1200x800+0+0 center=true
-
-
-echo "1 2 3 4 5 6 0" | tr ' ' '\n' | xargs -I@ bsp-layout set tall @
-
-# _loop_run() {
-#   while true; do
-#     local ret="$(eval "$@" 2>&1)"
-#     [[ "$ret" =~ "socket" ]] && exit
-#     # [[ "$(tty)" =~ "/dev/tty" ]] && exit
-#   done &
-# }
-
-# _loop_run "tabc autod Alacritty"
-
-# ~/bin/loop.sh
-# _run() { while true; do eval "$@" 2>&1 >/dev/null; done; }
-
-# bspc config automatic_scheme spiral
-# bspc config initial_polarity first_child
-# bspc config removal_adjustment true
+# only use three tag, then we can navigate
+echo "1 2 3" | tr ' ' '\n' | xargs -I@ bsp-layout set tall @
