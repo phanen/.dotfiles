@@ -97,11 +97,6 @@ return {
   },
 
   {
-    "rush-rs/tree-sitter-asm",
-    ft = "markdown",
-  },
-
-  {
     "nvim-treesitter/nvim-treesitter-context",
     cond = false,
     event = "VeryLazy",

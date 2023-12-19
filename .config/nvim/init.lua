@@ -32,32 +32,16 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- WIP: navie config parser
-local f = assert(io.open(vim.fn.stdpath "config" .. "/theme", "r"))
-local color_name = f:read "*all"
-f:close()
-
+-- TODO: asyc install missing
 require("lazy").setup("plugins", {
   defaults = { lazy = true },
   change_detection = { notify = false },
-  checker = {
-    enabled = false,
-    concurrency = 30,
-    notify = false,
-    frequency = 3600,
-  },
-  install = {
-    missing = true,
-    colorscheme = { color_name, "nightfox", "tokyonight", "habamax", "default" },
-  },
+  checker = { concurrency = 30 },
   performance = {
     rtp = {
       paths = { vim.fn.stdpath "data" .. "/site" },
       disabled_plugins = {
-        -- use gx.nvim instead
-        "netrw",
-        "netrwPlugin",
-        "tutor",
+        "netrw", -- use gx.nvim
       },
     },
   },
@@ -65,6 +49,5 @@ require("lazy").setup("plugins", {
 
 -- filter down a quickfix list
 -- vim.cmd.packadd "cfilter"
-
+if vim.fn.getenv "SSH_TTY" ~= vim.NIL then vim.cmd.colorscheme "dracula" end
 -- vim.cmd("set bg=" .. vim.fn.system "darkman get")
-vim.cmd.colorscheme(color_name)

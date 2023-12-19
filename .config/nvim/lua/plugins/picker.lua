@@ -29,7 +29,7 @@ local pk = function(picker, opts)
 end
 
 -- picker on dir, prefer node path
-local pn = function(picker, dir)
+local pn = function(picker, dirs)
   local node_path_dir = function()
     local node = require("nvim-tree.api").tree.get_node_under_cursor()
     if not node then return end
@@ -37,11 +37,11 @@ local pn = function(picker, dir)
     return node.absolute_path
   end
   return function()
+    local ndir = nil
     local ft = vim.api.nvim_get_option_value("filetype", {})
-    local ndir
     if ft == "NvimTree" then ndir = node_path_dir() end
     picker {
-      search_dirs = { ndir or dir },
+      search_dirs = ndir and { ndir } or dirs,
       previewer = picker == tb.live_grep,
       default_text = get_cache(),
     }
@@ -72,42 +72,29 @@ return {
       { "<leader><leader>", tb.resume,                               mode = { "n", "x" } },
       { "<leader>m",        pk(tb.builtin),                          mode = { "n", "x" } },
       { "<c-l>",            pk(tb.find_files),                       mode = { "n", "x" } },
-      { "<leader>l",        pk(tb.live_grep),                        mode = { "n", "x" } },
+      { "<leader>j",        pk(tb.live_grep),                        mode = { "n", "x" } },
       { "<leader><c-l>",    pk(tb.find_files, { no_ignore = true }), mode = { "n", "x" } },
       { "<leader>fl",       pk(tb.live_grep, { no_ignore = true }),  mode = { "n", "x" } },
-      { "<leader>j",        pk(tb.grep_string),                      mode = { "n", "x" } },
-      { "<leader>fj",       pn(tb.find_files, "~"),                  mode = { "n", "x" } },
-      { "<leader>fk",       pn(tb.find_files, "~/notes"),            mode = { "n", "x" } },
-      { "<leader>gj",       pn(tb.live_grep, "~"),                   mode = { "n", "x" } },
-      { "<leader>gk",       pn(tb.live_grep, "~/notes"),             mode = { "n", "x" } },
-      { "<c-b>",            tb.buffers,                              mode = { "n", "x" } },
-      { "<leader>;",        tb.command_history,                      mode = { "n", "x" } },
-      { "<leader>f/",       pk(tb.current_buffer_fuzzy_find),        mode = { "n", "x" } },
-      { "<leader>fo",       tb.oldfiles,                             mode = { "n", "x" } },
-      -- { "<leader>fd",       tb.diagnostics,          mode = { "n", "x" } },
-      { "<leader>fh",       tb.help_tags,                            mode = { "n", "x" } },
-      { "<leader>fs",       tb.lsp_document_symbols,                 mode = { "n", "x" } },
-      { "<leader>fS",       tb.git_status,                           mode = { "n", "x" } },
-      { "<leader>fC",       tb.git_commits,                          mode = { "n", "x" } },
-      { "<leader>fB",       tb.git_bcommits,                         mode = { "n", "x" } },
-      { "<leader>f<tab>",   tb.colorscheme,                          mode = { "n", "x" } },
-      { "<leader>fq",       tb.quickfix,                             mode = { "n", "x" } },
-      { "zj",               tb.spell_suggest,                        mode = { "n", "x" } },
+      { "<leader>fj",       pn(tb.find_files, { "~", "~/notes" }),   mode = { "n", "x" } },
+      { "<leader>fk",       pn(tb.live_grep, { "~", "~/notes" }),    mode = { "n", "x" } },
+      { "<leader>/",        pk(tb.current_buffer_fuzzy_find),        mode = { "n", "x" } },
+      { "<leader>;",        pk(tb.command_history),                  mode = { "n", "x" } },
+      { "<leader>fo",       pk(tb.oldfiles),                         mode = { "n", "x" } },
+      { "<leader>fh",       pk(tb.help_tags),                        mode = { "n", "x" } },
+      { "<leader>fs",       pk(tb.lsp_document_symbols),             mode = { "n", "x" } },
+      { "<leader>fg",       pk(tb.git_status),                       mode = { "n", "x" } },
+      { "<leader>f<tab>",   pk(tb.colorscheme),                      mode = { "n", "x" } },
+      { "zj",               pk(tb.spell_suggest),                    mode = { "n", "x" } },
     },
     opts = {
       defaults = {
         -- layout_strategy = "vertical",
         sorting_strategy = "ascending",
-        path_display = {
-          -- smart = true,
-          -- shorten = { len = 1, exclude = { 1, -1 } },
-        },
         preview = { hide_on_startup = true },
         layout_config = {
           horizontal = {
             height = 0.5,
-            width = 0.8,
-            preview_cutoff = 10,
+            -- preview_cutoff = 10,
             preview_width = 0.55,
             prompt_position = "top",
             -- mirror = true,
@@ -166,25 +153,23 @@ return {
   },
 
   {
-    "benfowler/telescope-luasnip.nvim",
-    cond = false,
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function() require("telescope").load_extension "luasnip" end,
-  },
-
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
-    cond = false,
-    keys = { { "<leader>ff", "<cmd>Telescope file_browser<cr>" } },
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-    config = function() require("telescope").load_extension "file_browser" end,
+    "folke/todo-comments.nvim",
+    dependencies = { "telescope.nvim", "nvim-lua/plenary.nvim" },
+    keys = {
+      {
+        "<leader>L",
+        ":TodoTelescope cwd=" .. require("utils").get_root() .. "<CR>",
+        silent = true,
+      },
+    },
+    opts = { highlight = { keyword = "bg" } },
   },
 
   -- faster
   {
     "junegunn/fzf.vim",
     lazy = false,
-    -- cond = false,
+    -- enabled = false,
     dependencies = { "junegunn/fzf", name = "fzf" },
   },
 }

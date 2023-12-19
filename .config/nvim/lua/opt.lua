@@ -33,7 +33,6 @@ o.shiftround = true
 
 o.scrolloff = 16
 
-wo.signcolumn = "yes"
 wo.conceallevel = 2
 
 opt.completeopt = { "menuone", "noselect", "noinsert" }

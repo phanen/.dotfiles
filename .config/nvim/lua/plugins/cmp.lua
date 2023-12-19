@@ -113,7 +113,6 @@ return {
         snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
         sources = {
           { name = "nvim_lsp" },
-          { name = "nvim_lsp_signature_help" },
           { name = "luasnip" },
           { name = "path" },
           {
@@ -128,7 +127,7 @@ return {
 
       cmp.setup.cmdline("/", {
         sources = {
-          { name = "buffer" },
+          -- { name = "buffer" },
           { name = "path" },
         },
         formatting = formatting,
@@ -137,7 +136,7 @@ return {
       cmp.setup.cmdline("?", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = "buffer" },
+          -- { name = "buffer" },
           { name = "path" },
         },
       })

@@ -10,26 +10,6 @@ au("TextYankPost", {
   group = highlight_group,
 })
 
--- stash the IM when switching modes
--- FIXME: it delay switch, make readline not comfortable
--- local input_method_group = ag("InputMethod", { clear = true })
---
--- local cur_im = "keyboard-us"
--- au({ "InsertLeave" }, {
---   pattern = "*",
---   callback = function() -- inactivate and record
---     cur_im = tostring(fn.system "fcitx5-remote -n")
---     fn.system "fcitx5-remote -c"
---   end,
---   group = input_method_group,
--- })
---
--- au({ "InsertEnter" }, {
---   pattern = "*",
---   callback = function() fn.system("fcitx5-remote -s" .. cur_im) end,
---   group = input_method_group,
--- })
-
 local function open_nvim_tree(data)
   if not (fn.isdirectory(data.file) == 1) then return end
   vim.cmd.cd(data.file)
@@ -47,14 +27,6 @@ au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
   command = [[if &nu | set nornu | endif]],
 })
 
--- -- format on save
--- local format_group = ag("Format", { clear = true })
--- au({"BufWritePost"}, {
---   pattern = "*",
---   command = 'normal! gg=G``',
---   group = format_group
--- })
-
 -- -- open :h in vsplit right
 -- au("BufWinEnter", {
 --     group = ag("HelpWindowLeft", {}),
@@ -70,40 +42,25 @@ function NvimTree_width_ratio(percentage)
   return width
 end
 
--- resize nvimtree if window got resized
-au({ "VimResized" }, {
-  group = api.nvim_create_augroup("NvimTreeResize", { clear = true }),
-  callback = function()
-    local width = NvimTree_width_ratio(20)
-    vim.cmd("tabdo NvimTreeResize " .. width)
-  end,
-})
-
 -- restore cursor position
 au({ "BufReadPost" }, {
   pattern = { "*" },
   callback = function() api.nvim_exec('silent! normal! g`"zv', false) end,
 })
 
+-- TODO: better organized
 au({ "ColorScheme" }, {
   pattern = "*",
-  callback = function() -- inactivate and record
-    -- vim.fs.dirname
-    local f = assert(io.open(fn.stdpath "config" .. "/theme", "w"))
-    f:write(vim.g.colors_name)
-    f:close()
+  callback = function()
+    -- local f = assert(io.open(fn.stdpath "config" .. "/theme", "w"))
+    -- f:write(vim.g.colors_name)
+    -- f:close()
   end,
 })
 
--- https://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively
--- let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
--- for r in regs
---   call setreg(r, [])
--- endfor
 
 -- https://www.reddit.com/r/neovim/comments/wjzjwe/how_to_set_no_name_buffer_to_scratch_buffer/
 local kill_no_name_group = ag("KillNoName", { clear = true })
-
 au({ "BufLeave" }, {
   pattern = "{}",
   callback = function()

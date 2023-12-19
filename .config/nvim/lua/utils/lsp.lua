@@ -1,8 +1,7 @@
 local lsp, fs, fn, api, fmt = vim.lsp, vim.fs, vim.fn, vim.api, string.format
 local M = {}
 
-local capabilities = lsp.protocol.make_client_capabilities()
-M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+M.capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- M.capabilities.offsetEncoding = 'utf-8'
 
 function M.lsp_attach(_, bufnr)
@@ -35,14 +34,6 @@ M.lsp_servers = {
   -- gopls = {},
   -- pyright = {},
   -- tsserver = {},
-  -- jsonls = {
-  --   settings = {
-  --     json = {
-  --       schemas = require("schemastore").json.schemas(),
-  --       validate = { enable = true },
-  --     },
-  --   },
-  -- },
   yamlls = {
     schemaStore = {
       -- You must disable built-in schemaStore support if you want to use

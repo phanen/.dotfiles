@@ -3,6 +3,7 @@ local fn = vim.fn
 return {
   {
     "mfussenegger/nvim-dap",
+    cond = false,
     keys = {
       {
         "<localleader>dL",
@@ -198,6 +199,7 @@ return {
 
   {
     "andrewferrier/debugprint.nvim",
+    cond = false,
     opts = { create_keymaps = false },
     keys = {
       {

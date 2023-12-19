@@ -1,0 +1,71 @@
+# /etc/sway/config
+
+set $s Mod4
+set $term alacritty
+set $menu rofi -show drun -matching fuzzy | xargs swaymsg exec --
+set $clip clipman pick --tool=rofi
+
+# swaymsg -t get_outputs
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+input "1267:172:Elan_Touchpad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
+input "4661:22137:KMonad" {
+    repeat_delay 145
+    repeat_rate 85
+}
+
+bindsym $s+z reload
+bindsym $s+Ctrl+q exec swaymsg exit
+bindsym $s+q kill
+bindsym $s+n exec $term
+bindsym $s+semicolon exec $menu
+bindsym $s+p exec $clip
+
+bindsym $s+d splith
+bindsym $s+s splitv
+
+bindsym $s+j focus next
+bindsym $s+k focus prev
+bindsym $s+f workspace next
+bindsym $s+e workspace prev
+
+bindsym $s+1 workspace number 1
+bindsym $s+2 workspace number 2
+bindsym $s+3 workspace number 3
+bindsym $s+Shift+1 move container to workspace number 1
+bindsym $s+Shift+2 move container to workspace number 2
+bindsym $s+Shift+3 move container to workspace number 3
+# bindsym $s+b splith
+# bindsym $s+s layout stacking
+# bindsym $s+e layout toggle split
+
+# Make the current focus fullscreen
+bindsym $s+m fullscreen
+bindsym $s+Shift+f floating toggle
+bindsym $s+space focus mode_toggle
+bindsym $s+a focus parent
+# bindsym $s+s scratchpad show
+bindsym $s+Shift+s move scratchpad
+
+bindsym $s+Ctrl+h resize grow width 10px
+bindsym $s+Ctrl+l resize shrink width 10px
+
+bindsym $s+c floating toggle
+bindsym $s+v focus mode_toggle
+bindsym $s+b floating toggle
+
+bar {
+    position top
+    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+    colors {
+        statusline #ffffff
+        background #000000
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+
+include /etc/sway/config.d/*

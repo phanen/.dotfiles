@@ -1,0 +1,38 @@
+#!/usr/bin/ruby
+
+`ps aww`.split(/\n/).each do |line|
+  next unless line.include? 'felixbuild '
+
+  pid = line.split[0]
+  cwd = File.readlink("/proc/#{pid}/cwd")
+
+  server = line.split("felixbuild ")[1].split[0].match(/[a-zA-Z.@]+/)[0].split("@")[-1]
+
+  begin
+    buildcmd = line.split("felixbuild ")[1]
+    maincmd = buildcmd.split[1]
+    if maincmd == "pkgctl"
+      # New pkgctl
+      arch = "x86_64"
+      repo = "*"
+      if buildcmd.split[-1] == "--staging"
+        repo += "-staging"
+      elsif buildcmd.split[-1] == "--testing"
+        repo += "-testing"
+      end
+    else
+      # Legacy #repo-#arch-build
+      repo, arch = maincmd.match(/([\w-]+)-(\w+)-build/)[1..]
+    end
+  rescue
+    repo, arch = "unknown", "unknown"
+  end
+
+  if File.exist? "#{cwd}/PKGBUILD"
+    pkgbase = cwd.split("/")[-1]
+  else
+    pkgbase = "unknown"
+  end
+
+  puts "[#{repo}] #{pkgbase} #{arch} on #{server}"
+end

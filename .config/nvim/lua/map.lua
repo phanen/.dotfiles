@@ -1,126 +1,87 @@
 -- `:h map-table`
-local nmap = function(...) map("n", ...) end
-local xmap = function(...) map("x", ...) end
-local tmap = function(...) map("t", ...) end
-
-local f = require "utils.keymap"
+local n = function(...) map("n", ...) end
+local x = function(...) map("x", ...) end
+local t = function(...) map("t", ...) end
 
 -- basics {{{
-map({ "n", "x" }, "<space>", "<nop>")
+n("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
+n("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 
-nmap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
-nmap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
+n("gj", "yyp")
+x("gj", "y'>gp")
+x("gy", "ygv<esc>")
 
--- PERF: don't change pos location?
-nmap("gj", "yyp")
-xmap("gj", "ygv<esc>p")
-xmap("gy", "ygv<esc>")
+n("<c-u>", "<c-u>zz")
+n("<c-d>", "<c-d>zz")
 
-map({ "n", "x", "o" }, "ga", "G")
+x("p", "P")
+n("d", '"_d')
+x("d", '"_d')
+n("D", '"_D')
+n("c", '"_c')
+x("c", '"_c')
+n("C", '"_C')
+n("X", "D")
 
-nmap("<c-u>", "<c-u>zz")
-nmap("<c-d>", "<c-d>zz")
+n("<leader>P", 'gg"_dGP')
+n("<leader>y", "ggVGy")
 
-xmap("p", '"_dp')
-nmap("d", '"_d')
-xmap("d", '"_d')
-nmap("D", '"_D')
-nmap("c", '"_c')
-xmap("c", '"_c')
-nmap("C", '"_C')
-nmap("X", "D")
+n("<a-j>", "<cmd>move+<cr>")
+n("<a-k>", "<cmd>move-2<cr>")
+x("<a-j>", ":move '>+1<cr>gv=gv")
+x("<a-k>", ":move '<-2<cr>gv=gv")
 
-nmap("<leader>V", "ggVG")
-nmap("<leader>P", 'ggVG"_dp')
-nmap("<leader>Y", "ggVGy")
+n("<", "<<")
+n(">", ">>")
+n("<a-h>", "<<")
+n("<a-l>", ">>")
+x("<a-h>", "<gv")
+x("<a-l>", ">gv")
 
-nmap("<a-j>", "<cmd>move+<cr>")
-nmap("<a-k>", "<cmd>move-2<cr>")
-xmap("<a-j>", ":move '>+1<cr>gv=gv")
-xmap("<a-k>", ":move '<-2<cr>gv=gv")
-
-nmap("<a-h>", "<<")
-nmap("<a-l>", ">>")
-xmap("<a-h>", "<gv")
-xmap("<a-l>", ">gv")
-
-map({ "n", "x" }, "_", "5j")
-map({ "n", "x" }, "-", "5k")
-
--- tab {{{
-nmap("<m-f>", "gt")
-nmap("<m-e>", "gT")
+-- tab
+n("<c-y>", "<cmd>pop<cr>")
+t("<c-space>", "<c-\\><c-n>")
 -- }}}
-
-nmap("<c-s-k>", "<cmd>resize -2<cr>")
-nmap("<c-s-j>", "<cmd>resize +2<cr>")
-nmap("<c-s-h>", "<cmd>vertical resize -2<cr>")
-nmap("<c-s-l>", "<cmd>vertical resize +2<cr>")
-
-nmap("vv", "viw")
-nmap("cc", "ciw")
-
--- nmap("<c-q>", "<c-u>")
--- nmap("<a-s>", "<c-o>")
--- nmap("<a-d>", "<c-i>")
--- TODO: since kmonad cannot handle mouse event now...
--- nmap("<a-w>", "gd")
--- }}}
-
 -- buffer {{{
-map({ "n", "v", "o" }, "<c-f>", "<cmd>BufferLineCycleNext<cr>")
-map({ "n", "v", "o" }, "<c-e>", "<cmd>BufferLineCyclePrev<cr>")
-nmap("<c-w>", "<cmd>Bdelete!<cr>")
+n("<c-f>", "<cmd>BufferLineCycleNext<cr>")
+n("<c-e>", "<cmd>BufferLineCyclePrev<cr>")
+n("<c-w>", "<cmd>Bdelete!<cr>")
+n("<leader>bo", [[<cmd>w <bar> %bd <bar> e#<cr>]], { desc = "close all other buffers" })
 -- }}}
-
 -- window {{{
-nmap("<c-s><c-s>", "<cmd>wincmd q<cr>")
-
-nmap("<leader>oj", "<cmd>wincmd _<cr>")
-nmap("<leader>ok", "<cmd>wincmd =<cr>")
-
-nmap("<c-s>v", "<cmd>wincmd v<cr>")
-nmap("<c-s>s", "<cmd>wincmd s<cr>")
-
-nmap("<c-j>", "<cmd>wincmd w<cr>")
-nmap("<c-k>", "<cmd>wincmd W<cr>")
--- nmap("<d-s-k>", "<cmd>resize -2<cr>")
--- nmap("<d-s-j>", "<cmd>resize +2<cr>")
--- nmap("<d-s-h>", "<cmd>vertical resize -2<cr>")
--- nmap("<d-s-l>", "<cmd>vertical resize +2<cr>")
+n("<c-s><c-s>", "<cmd>wincmd q<cr>")
+-- nmap("<c-s><c-s>", "<cmd>wincmd q<cr>")
+-- nmap("<c-s><c-s>", "<cmd>wincmd q<cr>")
+-- nmap("<leader>oj", "<cmd>wincmd _<cr>")
+-- nmap("<leader>ok", "<cmd>wincmd =<cr>")
+-- nmap("<c-s>v", "<cmd>wincmd v<cr>")
+-- nmap("<c-s>s", "<cmd>wincmd s<cr>")
+n("<c-j>", "<cmd>wincmd w<cr>")
+n("<c-k>", "<cmd>wincmd W<cr>")
 -- }}}
-
--- tab {{{
-nmap("gy", "gT")
--- }}}
-
--- tag {{{
-nmap("<c-y>", "<cmd>pop<cr>")
--- }}}
-
 -- subtitution {{{
-nmap(
+n(
   "<leader>rp",
   [[
         <cmd>%s/[，、（）［］｛｝＜＞？／；。！“”：　]/\={'，':', ', '、':', ', '（':'(', '）':')', '［':'[', '］':']', '｛':'{', '｝':'}', '＜':'<', '＞':'>', '？':'? ', '／':'\/', '；':'; ', '。':'. ', '：': ': ', '！': '! ', '”': '"', '“': '"', '　':'  '}[submatch(0)]/g<cr>
     ]],
   { desc = "half to full" }
 )
-nmap("<leader>rs", "<cmd>%s/\\s*$//g<cr>''", { desc = "clean tail space" })
-nmap("<leader>rl", "<cmd>g/^$/d<cr>''", { desc = "clean the blank line" })
-xmap("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
+n("<leader>rs", "<cmd>%s/\\s*$//g<cr>''", { desc = "clean tail space" })
+n("<leader>rl", "<cmd>g/^$/d<cr>''", { desc = "clean the blank line" })
+x("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
 
 -- TODO: genearlize comment string
 -- TODO: detect comment text area
 -- nmap("<leader>rc", "<cmd>g/^#/d<cr>''", { desc = "clean the comment line" })
-nmap("<leader>rc", [[<cmd>%s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
-xmap("<leader>rc", [[:s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
+n("<leader>rc", [[<cmd>%s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
+x("<leader>rc", [[:s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
 
-xmap("<leader>rk", [[:s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
-xmap("<leader>r,", [[:s/,\([^ ]\)/, \1/g<cr>]])
+x("<leader>rk", [[:s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
+x("<leader>r,", [[:s/,\([^ ]\)/, \1/g<cr>]])
 
 -- no.-> no.space
-xmap("<leader>rn", [[:s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
+x("<leader>rn", [[:s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
 -- TODO: smart remove in-text whitespace
 -- :%s/\([^ ]\+ \) \+/\1/g
 
@@ -128,90 +89,65 @@ xmap("<leader>rn", [[:s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
 -- "%s/ *\/\/.*//g"
 
 -- hex to dec
-xmap("<leader>ro", [[:'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
+x("<leader>ro", [[:'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
 -- dec to hex
-xmap("<leader>rh", [[:'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
+x("<leader>rh", [[:'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
 
-xmap("<leader>rm", [[:s/\s\{1,}//g<cr>]])
+x("<leader>rm", [[:s/\s\{1,}//g<cr>]])
 
-nmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
-xmap("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
+n("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
+x("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 -- }}}
-
--- toggle windows {{{
-nmap("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
-nmap("<leader>wo", "<cmd>AerialToggle<cr>")
-nmap("<leader>wl", "<cmd>Lazy<cr>")
-nmap("<leader>wj", "<cmd>Navbuddy<cr>")
-nmap("<leader>wi", "<cmd>LspInfo<cr>")
-nmap("<leader>wu", "<cmd>NullLsInfo<cr>")
-nmap("<leader>wy", "<cmd>Mason<cr>")
--- }}}
-
--- toggle options {{{
-nmap("<leader>oc", "<cmd>set cursorline! cursorcolumn!<cr>")
-nmap("<leader>of", "<cmd>set foldenable!<cr>")
-nmap("<leader>os", "<cmd>set spell!<cr>")
-nmap("<leader>on", function()
+-- toggle {{{
+-- windows
+n("<leader>l", "<cmd>NvimTreeFindFileToggle<cr>")
+n("<leader>l", "<cmd>NvimTreeFindFileToggle<cr>")
+n("<leader>wo", "<cmd>AerialToggle<cr>")
+n("<leader>wl", "<cmd>Lazy<cr>")
+n("<leader>wj", "<cmd>Navbuddy<cr>")
+n("<leader>wi", "<cmd>LspInfo<cr>")
+n("<leader>wu", "<cmd>NullLsInfo<cr>")
+n("<leader>wy", "<cmd>Mason<cr>")
+-- options
+n("<leader>oc", "<cmd>set cursorline! cursorcolumn!<cr>")
+n("<leader>of", "<cmd>set foldenable!<cr>")
+n("<leader>os", "<cmd>set spell!<cr>")
+n("<leader>on", function()
   if string.match(vim.o.nrformats, "alpha") then
     vim.cmd [[set nrformats-=alpha]]
   else
     vim.cmd [[set nrformats+=alpha]]
   end
 end, { desc = "toggle nrformats" })
-nmap("<leader>ob", f.toggle_bg, { desc = "toggle background" })
--- nmap("<leader><tab>", f.next_colorscheme, { desc = "switch colorscheme" })
 -- TODO: make it a real toggle
-nmap("<leader>oJ", function() vim.cmd [[noremap J gJ]] end, { desc = "toggle join mode" })
-nmap("<leader>ow", function() vim.cmd [[set wrap!]] end)
+n("<leader>ow", function() vim.cmd [[set wrap!]] end)
 -- }}}
-
--- term {{{
--- nmap("<a-t>", ":split term://zsh<cr>i")
-tmap("<c-space>", "<c-\\><c-n>")
--- tmap("<a-t>", "<c-\\><c-n>:bdelete! %<cr>")
--- }}}
-
 -- diagnostic {{{
-nmap("[d", vim.diagnostic.goto_prev)
-nmap("]d", vim.diagnostic.goto_next)
-nmap("<leader>df", vim.diagnostic.open_float, { desc = "diagnostic: open floating window" })
-nmap("<leader>ds", vim.diagnostic.setloclist, { desc = "diagnostic: open quickfix list" })
+n("[d", vim.diagnostic.goto_prev)
+n("]d", vim.diagnostic.goto_next)
+n("<leader>df", vim.diagnostic.open_float, { desc = "d: float" })
+n("<leader>ds", vim.diagnostic.setloclist, { desc = "d: quickfix" })
 -- }}}
-
 -- misc {{{
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
-xmap("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
+x("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 
-nmap("<leader>t,", f.toggle_last_char ",", { desc = "add ',' to end of line" })
-nmap("<leader>t;", f.toggle_last_char ";", { desc = "add ';' to end of line" })
-
-nmap("<leader>E", "<Cmd>Inspect<CR>", { desc = "Inspect the cursor position" })
-
--- FIXME: pos
-nmap("<leader>bo", [[<cmd>w <bar> %bd <bar> e#<cr>]], { desc = "close all other buffers" })
--- nmap("<localleader><tab>", [[:b <tab>]], { silent = false, desc = "open buffer list" })
-
-nmap("<leader>U", "gUiw", { desc = "capitalize word" })
-nmap("<c-w>f", "<c-w>vgf", { desc = "open file in vertical split" })
-
+n("<leader>E", "<Cmd>Inspect<CR>", { desc = "Inspect the cursor position" })
 -- FIXME: cross line ^M -> \n
-nmap("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
-  silent = false,
+n("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
   desc = "replace word under the cursor (file)",
 })
-nmap("<leader>cl", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
-  silent = false,
-  desc = "replace word under the cursor (line)",
+n("<leader>cl", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
+  desc = "re word under the cursor (line)",
 })
-xmap("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
+x("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
   silent = false,
   desc = "replace word under the cursor (visual)",
 })
 
-nmap("<c-p>", "I- <esc>")
-xmap("<c-p>", "I- <esc>")
+n("<c-p>", "I- <esc>")
+x("<c-p>", "I- <esc>")
 
 -- https://stackoverflow.com/questions/1680194/reverse-a-word-in-vim
 vim.cmd [[
@@ -230,27 +166,17 @@ vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
 -- https://github.com/glacambre/firenvim/issues/800
 -- https://github.com/glacambre/firenvim/issues/1006
 local fsize = require("opt").gui_font_size
-nmap("<c-->", function()
+n("<c-->", function()
   fsize = fsize - 1
   vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(fsize)
 end)
-nmap("<c-=>", function()
+n("<c-=>", function()
   fsize = fsize + 1
   vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(fsize)
 end)
 
-nmap("<leader>gl", "<cmd>e ~/notes/priv/todo.md<cr>")
-nmap("<leader>cx", "<cmd>!chmod +x %<cr>")
--- }}}
-
--- readline {{{
--- Insert mode
--- imap('<c-a>', '<c-o>^')
--- imap('<c-e>', '<c-o>$')
--- imap('<c-b>', '<esc>i')
--- imap('<c-k>', '<c-o>c')
--- cmap('<c-a>', '<home>')
--- cmap('<c-e>', '<end>')
+n("<leader>gl", "<cmd>e ~/notes/priv/todo.md<cr>")
+n("<leader>cx", "<cmd>!chmod +x %<cr>")
 -- }}}
 
 -- vim:foldmethod=marker

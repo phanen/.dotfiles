@@ -129,10 +129,6 @@ return {
       },
       { "<c-_>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
       { "<c-_>", "<Plug>(comment_toggle_linewise_visual)",                mode = { "v" } },
-      -- HACK: wordaround for 
-      -- {"<leader><c-_>", function() vim.cmd "norm vic<c-_>" end, mode = { "n"}},
-      -- {"<leader><c-/>", function() vim.cmd "norm vic<c-/>" end, mode = {"n"}}
-
     },
     opts = {
       padding = true,
@@ -209,31 +205,6 @@ return {
     end,
   },
   {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    opts = {
-      plugins = {
-        gitsigns = true,
-        tmux = true,
-        kitty = { enabled = false, font = "+2" },
-      },
-    },
-    keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
-  },
-  {
-    "kevinhwang91/nvim-ufo",
-    dependencies = "kevinhwang91/promise-async",
-    event = "BufReadPost",
-    cond = false,
-    opts = {},
-
-    init = function()
-      -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-      vim.keymap.set("n", "zR", function() require("ufo").openAllFolds() end)
-      vim.keymap.set("n", "zM", function() require("ufo").closeAllFolds() end)
-    end,
-  },
-  {
     "cshuaimin/ssr.nvim",
     keys = {
       {
@@ -241,6 +212,21 @@ return {
         function() require("ssr").open() end,
         mode = { "n", "x" },
         desc = "Structural Replace",
+      },
+    },
+  },
+  {
+    "folke/flash.nvim",
+    keys = {
+      { "s", mode = { "n" },      function() require("flash").jump() end,       desc = "Flash" },
+      { "_", mode = { "x", "o" }, function() require("flash").jump() end,       desc = "Flash" },
+      { "S", mode = { "n", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o",          function() require("flash").remote() end,     desc = "Remote Flash" },
+    },
+    opts = {
+      modes = {
+        search = { enabled = false },
+        treesitter = { labels = "asdfghjklqwertyuiopzxcvbnm", highlight = { backdrop = true } },
       },
     },
   },

@@ -1,7 +1,9 @@
 source ~/.config/fish/sh-common.fish
 
 abbr -a c cargo
+abbr -a g git
 abbr -a o xdg-open
+abbr -a ta tmux a || tmux
 abbr -a --position anywhere ppp https_proxy=127.0.0.1:7890 http_proxy=127.0.0.1:7890 all_proxy=127.0.0.1:7890
 
 # fish_default_key_bindings

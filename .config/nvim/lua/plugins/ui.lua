@@ -77,19 +77,19 @@ return {
         },
       },
       presets = {
-        bottom_search = false, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
+        bottom_search = false,        -- use a classic bottom cmdline for search
+        command_palette = true,       -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        lsp_doc_border = true, -- add a border to hover docs and signature help
+        lsp_doc_border = true,        -- add a border to hover docs and signature help
       },
       messages = {
         -- NOTE: If you enable messages, then the cmdline is enabled automatically.
         -- This is a current Neovim limitation.
-        enabled = true, -- enables the Noice messages UI
-        view = "notify", -- default view for messages
-        view_error = "notify", -- view for errors
-        view_warn = "notify", -- view for warnings
-        view_history = "messages", -- view for :messages
+        enabled = true,              -- enables the Noice messages UI
+        view = "notify",             -- default view for messages
+        view_error = "notify",       -- view for errors
+        view_warn = "notify",        -- view for warnings
+        view_history = "messages",   -- view for :messages
         view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
       },
     },
@@ -102,7 +102,8 @@ return {
   -- breadcrumbs
   {
     "glepnir/lspsaga.nvim",
-    cond = vim.g.started_by_firenvim == nil,
+    -- cond = vim.g.started_by_firenvim == nil,
+    cond = false,
     event = "LspAttach",
     config = true,
     dependencies = {

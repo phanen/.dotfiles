@@ -6,7 +6,8 @@ local function get_scheme()
 	local appearance = wezterm.gui.get_appearance()
 	if appearance:find("Light") then
 		-- return "dayfox"
-		return "catppuccin-latte"
+		-- return "catppuccin-latte"
+		return "Google (light) (terminal.sexy)"
 	end
 	return "Dracula (Official)"
 end
@@ -21,13 +22,13 @@ local M = {
 	color_scheme = get_scheme(),
 	default_prog = { "fish" },
 
+	scrollback_lines = 10000,
 	use_ime = true,
 	check_for_updates = false,
-	-- FIXME: not work
 	automatically_reload_config = false,
 
 	window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
-	window_background_opacity = 1,
+	window_background_opacity = 0.95,
 	window_decorations = "RESIZE",
 	window_close_confirmation = "NeverPrompt",
 
@@ -38,33 +39,134 @@ local M = {
 }
 
 -- wezterm show-keys --lua  &| less
+local ClearSelOrExitCopy = wezterm.action_callback(function(window, pane)
+	-- TODO: better has_selection, this feels cost alot
+	local has_selection = window:get_selection_text_for_pane(pane) ~= ""
+	if has_selection then
+		window:perform_action(act.CopyMode("ClearSelectionMode"), pane)
+	else
+		window:perform_action(act.CopyMode("ClearPattern"), pane)
+		window:perform_action(act.CopyMode("Close"), pane)
+	end
+end)
+local CopyOrSend = wezterm.action_callback(function(window, pane)
+	local has_selection = window:get_selection_text_for_pane(pane) ~= ""
+	if has_selection then
+		window:perform_action(act.CopyTo("ClipboardAndPrimarySelection"), pane)
+		window:perform_action(act.CopyMode("ClearSelectionMode"), pane)
+	else
+		window:perform_action(act.SendKey({ key = "c", mods = "CTRL" }), pane)
+	end
+end)
+
+-- NOTE: mode is impl by stack overlay
 M.key_tables = {
-	-- PERF: need confirm-mode
-	-- search_mode = {
-	-- },
-	-- no copy mode?
+	copy_mode = {
+		-- TODO: open link under enter
+		-- { mods = "NONE", key = "Enter", action = act.CopyMode("MoveToStartOfNextLine") },
+		{ mods = "NONE",  key = "i",      action = act.CopyMode("Close") },
+		{ mods = "NONE",  key = "Escape", action = ClearSelOrExitCopy },
+		-- TODO: make copy mode much more visible
+		{ mods = "SHIFT", key = "Space",  action = act.CopyMode("Close") },
+		{ mods = "NONE",  key = "w",      action = act.CopyMode("MoveForwardWord") },
+		{ mods = "NONE",  key = "e",      action = act.CopyMode("MoveForwardWordEnd") },
+		{ mods = "NONE",  key = "b",      action = act.CopyMode("MoveBackwardWord") },
+		{ mods = "NONE",  key = "h",      action = act.CopyMode("MoveLeft") },
+		{ mods = "NONE",  key = "j",      action = act.CopyMode("MoveDown") },
+		{ mods = "NONE",  key = "k",      action = act.CopyMode("MoveUp") },
+		{ mods = "NONE",  key = "l",      action = act.CopyMode("MoveRight") },
+		{ mods = "NONE",  key = "g",      action = act.CopyMode("MoveToScrollbackTop") },
+		{ mods = "NONE",  key = "G",      action = act.CopyMode("MoveToScrollbackBottom") },
+		{ mods = "NONE",  key = "$",      action = act.CopyMode("MoveToEndOfLineContent") },
+		{ mods = "NONE",  key = "0",      action = act.CopyMode("MoveToStartOfLine") },
+		{ mods = "NONE",  key = "+",      action = act.CopyMode("MoveToStartOfNextLine") },
+		{ mods = "NONE",  key = "^",      action = act.CopyMode("MoveToStartOfLineContent") },
+		{ mods = "NONE",  key = "o",      action = act.CopyMode("MoveToSelectionOtherEnd") },
+		{ mods = "NONE",  key = "O",      action = act.CopyMode("MoveToSelectionOtherEndHoriz") },
+		{ mods = "NONE",  key = "d",      action = act.CopyMode({ MoveByPage = 0.5 }) },
+		{ mods = "CTRL",  key = "d",      action = act.CopyMode({ MoveByPage = 0.5 }) },
+		{ mods = "NONE",  key = "u",      action = act.CopyMode({ MoveByPage = -0.5 }) },
+		{ mods = "CTRL",  key = "u",      action = act.CopyMode({ MoveByPage = -0.5 }) },
+		{ mods = "NONE",  key = "H",      action = act.CopyMode("MoveToViewportTop") },
+		{ mods = "NONE",  key = "L",      action = act.CopyMode("MoveToViewportBottom") },
+		{ mods = "NONE",  key = "M",      action = act.CopyMode("MoveToViewportMiddle") },
+		-- TODO: support uppercase char
+		{ mods = "NONE",  key = "f",      action = act.CopyMode({ JumpForward = { prev_char = false } }) },
+		{ mods = "NONE",  key = "t",      action = act.CopyMode({ JumpForward = { prev_char = true } }) },
+		{ mods = "NONE",  key = "F",      action = act.CopyMode({ JumpBackward = { prev_char = false } }) },
+		{ mods = "NONE",  key = "T",      action = act.CopyMode({ JumpBackward = { prev_char = true } }) },
+		{ mods = "NONE",  key = ";",      action = act.CopyMode("JumpAgain") },
+		{ mods = "NONE",  key = ",",      action = act.CopyMode("JumpReverse") },
+		-- TODO: invert selected color, https://github.com/wez/wezterm/issues/4257
+		{ mods = "NONE",  key = "v",      action = act.CopyMode({ SetSelectionMode = "Cell" }) },
+		{ mods = "NONE",  key = "V",      action = act.CopyMode({ SetSelectionMode = "Line" }) },
+		{ mods = "CTRL",  key = "q",      action = act.CopyMode({ SetSelectionMode = "Block" }) },
+		{
+			mods = "NONE",
+			key = "y",
+			action = act.Multiple({
+				act.CopyTo("ClipboardAndPrimarySelection"),
+				act.CopyMode("ClearSelectionMode"),
+			}),
+		},
+		{ mods = "NONE", key = "?", action = act.CopyMode("EditPattern") },
+		{ mods = "NONE", key = "/", action = act.Search({ CaseInSensitiveString = "" }) },
+		{ mods = "NONE", key = "n", action = act.CopyMode("NextMatch") },
+		{ mods = "NONE", key = "N", action = act.CopyMode("PriorMatch") },
+	},
+
+	-- TODO: change cursor color
+	-- TODO: search history
+	search_mode = {
+		{
+			mods = "NONE",
+			key = "Escape",
+			action = act.Multiple({ act.CopyMode("ClearPattern"), act.ActivateCopyMode }),
+		},
+		{ mods = "CTRL", key = "c",     action = act.Multiple({ act.CopyMode("ClearPattern"), act.ActivateCopyMode }) },
+		{ mods = "CTRL", key = "r",     action = act.CopyMode("CycleMatchType") },
+		{ mods = "CTRL", key = "u",     action = act.CopyMode("ClearPattern") },
+		-- TODO: editing support
+		{ mods = "CTRL", key = "w",     action = act.CopyMode("ClearPattern") },
+		{ mods = "NONE", key = "Enter", action = act.CopyMode("AcceptPattern") },
+	},
 }
 
 M.keys = {
-	{ mods = "SHIFT|CTRL", key = "R",          action = act.ReloadConfiguration },
-
-	-- modes
-	{ mods = "SHIFT",      key = "Space",      action = act.ActivateCopyMode },
-	{ mods = "SHIFT|CTRL", key = "phys:Space", action = act.QuickSelect },
-	{ mods = "SHIFT|CTRL", key = "p",          action = act.ActivateCommandPalette },
-	{ mods = "SHIFT|CTRL", key = "f",          action = act.Search("CurrentSelectionOrEmptyString") },
+	{ mods = "CTRL",  key = "R",     action = act.ReloadConfiguration },
+	-- TODO: auto clean target when enter copy_mode
+	{ mods = "SHIFT", key = "Space", action = act.Multiple({ act.CopyMode("ClearPattern"), act.ActivateCopyMode }) },
+	-- TODO: sed key to tmux
+	-- { mods = "CTRL", key = "Space", action = fallback_if_tmux_inside },
+	{ mods = "CTRL",  key = "P",     action = act.ActivateCommandPalette },
+	-- TODO: search
+	{ mods = "CTRL",  key = "F",     action = act.Search("CurrentSelectionOrEmptyString") },
+	-- TODO: dim other text, only hi target
+	{
+		mods = "CTRL",
+		key = "J",
+		action = act.QuickSelectArgs({
+			patterns = {
+				[[(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})]],
+				[[<([^>]+\.[^>]+)>]],
+			},
+			-- https://github.com/wez/wezterm/issues/1362
+			action = wezterm.action_callback(function(window, pane)
+				local url = window:get_selection_text_for_pane(pane)
+				wezterm.log_info("opening: " .. url)
+				-- wezterm.open_with(url)
+				wezterm.open_with(url, "google-chrome-stable")
+			end),
+		}),
+	},
+	{ mods = "CTRL", key = "H", action = act.QuickSelect },
+	{ mods = "CTRL", key = "K", action = act.Search({ Regex = "[a-f0-9]{6,}" }) },
 	-- TODO: wtf
-	{ mods = "SHIFT|CTRL", key = "z",          action = act.TogglePaneZoomState },
-	{ mods = "SHIFT|CTRL", key = "k",          action = act.ClearScrollback("ScrollbackOnly") },
-	{ mods = "SUPER",      key = "l",          action = act.ActivateTabRelative(1) },
-	{ mods = "SUPER",      key = "h",          action = act.ActivateTabRelative(-1) },
-	{ mods = "SUPER",      key = "u",          action = act.SpawnTab("CurrentPaneDomain") },
-	{ mods = "SHIFT|CTRL", key = "w",          action = act.CloseCurrentTab({ confirm = false }) },
-	-- clipboard
-	-- PERF: copy-or-interrupt
-	-- { mods = "CTRL",       key = "c",          action = act.CopyTo("Clipboard") },
-	{ mods = "SHIFT|CTRL", key = "c",          action = act.CopyTo("Clipboard") },
-	{ mods = "CTRL",       key = "v",          action = act.PasteFrom("Clipboard") },
+	-- { mods = "CTRL",       key = "Z",     action = act.TogglePaneZoomState },
+	-- { mods = "CTRL",       key = "K",     action = act.ClearScrollback("ScrollbackOnly") },
+	{ mods = "CTRL", key = "C", action = act.CopyTo("ClipboardAndPrimarySelection") },
+	{ mods = "CTRL", key = "v", action = act.PasteFrom("Clipboard") },
+	{ mods = "CTRL", key = "c", action = CopyOrSend },
 }
 
 return M

@@ -10,8 +10,8 @@ super + {j, k}
 	bspc node -f {next, prev}.local.!hidden.window
 super + {f, e}
 	bspc desktop -f {next, prev}
-super + {o, i}
-	wezterm cli activate-tab --tab-relative {+1, -1}
+super + {h, l}
+	wezterm cli activate-tab --tab-relative {-1, +1}
 super + r
 	bspc desktop -f last
 # apostrophe
@@ -34,6 +34,7 @@ super + m
 super + ctrl + {h, l}
 	bspc node -z {left -20 0 || bspc node -z right -20 0, \
 				right 20 0 || bspc node -z left 20 0}
+
 # launch
 super + n
 	wezterm

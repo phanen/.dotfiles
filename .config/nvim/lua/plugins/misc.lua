@@ -1,4 +1,4 @@
-local highlight = require "utils.hightlights"
+local hl = require "utils.hl"
 
 return {
   {
@@ -57,19 +57,6 @@ return {
   },
 
   {
-    "folke/todo-comments.nvim",
-    dependencies = { "telescope.nvim", "nvim-lua/plenary.nvim" },
-    keys = {
-      {
-        "<leader>L",
-        ":TodoTelescope cwd=" .. require("utils").get_root() .. "<CR>",
-        silent = true,
-      },
-    },
-    opts = { highlight = { keyword = "bg" } },
-  },
-
-  {
     "chaoren/vim-wordmotion",
     cond = false,
     lazy = false,
@@ -80,7 +67,7 @@ return {
     "itchyny/vim-highlighturl",
     event = "ColorScheme",
     -- HACK: fix ?
-    config = function() vim.g.highlighturl_guifg = highlight.get("@keyword", "fg") end,
+    config = function() vim.g.highlighturl_guifg = hl.get("@keyword", "fg") end,
   },
 
   -- peek line

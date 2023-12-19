@@ -10,10 +10,9 @@
 !.inputrc
 
 !.shellrc
-
+!.profile
 !.bashrc
 !.bash_profile
-
 !.zshrc
 !.zprofile
 
@@ -21,10 +20,4 @@
 # xrdb ~/.Xresource
 !.Xresources
 
-!.gtkrc-2.0
-
 !.config/
-
-*.log
-*.db
-*.local

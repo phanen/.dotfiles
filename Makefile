@@ -1,7 +1,5 @@
 DOTFILES_DIR = ${HOME}/dotfiles
 
-$(shell touch ~/.config/nvim/theme)
-
 .PHONY += apply
 apply:
 	@[[ $$PWD == "$$HOME"/dotfiles ]] && rsync -av . .. || echo "not in correct directory"

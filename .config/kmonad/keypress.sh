@@ -1,5 +1,4 @@
 #!/bin/sh
-# TODO: status machine
 
 hookid=${1:-0}
 case $1 in
@@ -9,5 +8,4 @@ case $1 in
   cmk       ) hookid=3;;
   sym       ) hookid=4;;
 esac
-
 polybar-msg action kmonad hook ${hookid}
