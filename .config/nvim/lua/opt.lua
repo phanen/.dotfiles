@@ -8,13 +8,8 @@ o.number = true
 o.relativenumber = true
 o.termguicolors = true
 
-local gui_font_size = 13
-o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(gui_font_size)
-
 -- https://www.zhihu.com/question/22363620
 o.fileencodings = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
-
--- https://stackoverflow.com/questions/2574027/automatically-go-to-next-line-in-vim--TODO
 o.whichwrap = "b,s,h,l"
 
 -- unless /C or capital in search
@@ -57,14 +52,8 @@ opt.shortmess = opt.shortmess + { c = true }
 -- timings {{{
 -- for CursorHold
 o.updatetime = 300
-
--- avoid sticky escape as alt
--- o.ttimeout = false
-o.ttimeoutlen = 10
+o.ttimeout = false -- avoid sticky escape as alt
 o.timeoutlen = 100 -- for which-key popup
 -- }}}
 
-return {
-  gui_font_size = gui_font_size,
-}
 -- vim:foldmethod=marker

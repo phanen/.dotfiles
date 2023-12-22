@@ -32,6 +32,9 @@ map({ "n", "x" }, "<leader>il", link_wrap "raw")
 -- map({ "n", "x" }, "<leader>il", link_wrap("link"))
 map({ "n", "x" }, "<leader>ii", link_wrap "img")
 map({ "n", "x" }, "<leader>ig", link_wrap "git")
-
-map({ "n" }, "<leader>gm", "<cmd>%!npx md-padding<cr>")
--- map({ "n" }, "<leader>gm", "<cmd>AsyncRun npx md-padding -i %<cr>")
+-- map({ "n", "x" }, "<leader>ip", 
+--   function()
+--     if vim.v.event.operator == "y" then vim.fn.setpos(".", vim.g.current_cursor_pos) end
+--   end
+-- )
+--

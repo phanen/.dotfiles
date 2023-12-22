@@ -2,24 +2,37 @@ local arg = vim.fn.argv()[1]
 return {
   {
     "nvim-tree/nvim-tree.lua",
-    tag = "nightly",
     lazy = arg == nil or not vim.fn.isdirectory(arg),
     cmd = { "NvimTreeFindFileToggle" },
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      sync_root_with_cwd = true,
-      view = {
-        -- width = function() return 0.1 * vim.fn.winwidth(0) end,
-        mappings = {
-          custom_only = false,
-          list = {
-            { key = "l", action = "edit" },
-            { key = "L", action = "cd" },
-            { key = "H", action = "dir_up" },
-            { key = "D", action = "toggle_dotfiles" },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      {
+        "stevearc/dressing.nvim",
+        opts = {
+          input = {
+            mappings = { i = { ["<c-p>"] = "HistoryPrev", ["<c-n>"] = "HistoryNext" } },
           },
         },
       },
+    },
+    opts = {
+      sync_root_with_cwd = true,
+      select_prompts = true,
+      -- TODO: impl proper rooter
+      -- current root_dirs is static, should set pwd when switch buf
+      -- update_focused_file = {
+      --   enable = true,
+      --   update_root = true,
+      -- },
+      on_attach = function(bufnr)
+        local api = require "nvim-tree.api"
+        api.config.mappings.default_on_attach(bufnr)
+        local nmap = function(lhs, rhs, desc) return map("n", lhs, rhs, { desc = desc, buffer = bufnr }) end
+        -- TODO: dirstack, or use tcd in nvim-tree (but that's limited now)
+        nmap("h", api.tree.change_root_to_parent, "up")
+        nmap("l", api.node.open.edit, "edit")
+        nmap("L", api.tree.change_root_to_node, "cd")
+      end,
     },
   },
 }

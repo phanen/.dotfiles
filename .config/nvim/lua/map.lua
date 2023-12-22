@@ -1,4 +1,3 @@
--- `:h map-table`
 local n = function(...) map("n", ...) end
 local x = function(...) map("x", ...) end
 local t = function(...) map("t", ...) end
@@ -8,8 +7,7 @@ n("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
 n("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 
 n("gj", "yyp")
-x("gj", "y'>gp")
-x("gy", "ygv<esc>")
+x("gj", "y'>p")
 
 n("<c-u>", "<c-u>zz")
 n("<c-d>", "<c-d>zz")
@@ -21,10 +19,9 @@ n("D", '"_D')
 n("c", '"_c')
 x("c", '"_c')
 n("C", '"_C')
-n("X", "D")
 
-n("<leader>P", 'gg"_dGP')
-n("<leader>y", "ggVGy")
+n("<leader>P", "<cmd>%d _<cr><cmd>norm P<cr>")
+n("<leader>y", "<cmd>%y<cr>")
 
 n("<a-j>", "<cmd>move+<cr>")
 n("<a-k>", "<cmd>move-2<cr>")
@@ -50,12 +47,12 @@ n("<leader>bo", [[<cmd>w <bar> %bd <bar> e#<cr>]], { desc = "close all other buf
 -- }}}
 -- window {{{
 n("<c-s><c-s>", "<cmd>wincmd q<cr>")
--- nmap("<c-s><c-s>", "<cmd>wincmd q<cr>")
--- nmap("<c-s><c-s>", "<cmd>wincmd q<cr>")
--- nmap("<leader>oj", "<cmd>wincmd _<cr>")
--- nmap("<leader>ok", "<cmd>wincmd =<cr>")
--- nmap("<c-s>v", "<cmd>wincmd v<cr>")
--- nmap("<c-s>s", "<cmd>wincmd s<cr>")
+-- TODO: restart with session
+-- n("<c-s>r", "<cmd>wincmd q<cr>")
+n("<leader>oj", "<cmd>wincmd _<cr>")
+n("<leader>ok", "<cmd>wincmd =<cr>")
+n("<c-s>v", "<cmd>wincmd v<cr>")
+n("<c-s>s", "<cmd>wincmd s<cr>")
 n("<c-j>", "<cmd>wincmd w<cr>")
 n("<c-k>", "<cmd>wincmd W<cr>")
 -- }}}
@@ -100,8 +97,7 @@ x("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 -- }}}
 -- toggle {{{
 -- windows
-n("<leader>l", "<cmd>NvimTreeFindFileToggle<cr>")
-n("<leader>l", "<cmd>NvimTreeFindFileToggle<cr>")
+n("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
 n("<leader>wo", "<cmd>AerialToggle<cr>")
 n("<leader>wl", "<cmd>Lazy<cr>")
 n("<leader>wj", "<cmd>Navbuddy<cr>")
@@ -123,11 +119,28 @@ end, { desc = "toggle nrformats" })
 n("<leader>ow", function() vim.cmd [[set wrap!]] end)
 -- }}}
 -- diagnostic {{{
-n("[d", vim.diagnostic.goto_prev)
-n("]d", vim.diagnostic.goto_next)
+n("[d", vim.diagnostic.goto_prev, { desc = "d: prev" })
+n("]d", vim.diagnostic.goto_next, { desc = "d: next" })
 n("<leader>df", vim.diagnostic.open_float, { desc = "d: float" })
 n("<leader>ds", vim.diagnostic.setloclist, { desc = "d: quickfix" })
 -- }}}
+-- gui {{{
+local gui_font_size = 13
+vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(gui_font_size)
+
+-- neovide: resize gui font
+-- BUG: firenvim window size auto change
+-- https://github.com/glacambre/firenvim/issues/800
+-- https://github.com/glacambre/firenvim/issues/1006
+n("<c-->", function()
+  gui_font_size = gui_font_size - 1
+  vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(gui_font_size)
+end)
+n("<c-=>", function()
+  gui_font_size = gui_font_size + 1
+  vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(gui_font_size)
+end)
+--}}}
 -- misc {{{
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
@@ -146,9 +159,6 @@ x("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
   desc = "replace word under the cursor (visual)",
 })
 
-n("<c-p>", "I- <esc>")
-x("<c-p>", "I- <esc>")
-
 -- https://stackoverflow.com/questions/1680194/reverse-a-word-in-vim
 vim.cmd [[
 vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
@@ -160,20 +170,6 @@ vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
  \:let @a=old_reg_a<CR>
  \:let @"=old_reg<CR>
 ]]
-
--- neovide: resize gui font
--- BUG: firenvim window size auto change
--- https://github.com/glacambre/firenvim/issues/800
--- https://github.com/glacambre/firenvim/issues/1006
-local fsize = require("opt").gui_font_size
-n("<c-->", function()
-  fsize = fsize - 1
-  vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(fsize)
-end)
-n("<c-=>", function()
-  fsize = fsize + 1
-  vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(fsize)
-end)
 
 n("<leader>gl", "<cmd>e ~/notes/priv/todo.md<cr>")
 n("<leader>cx", "<cmd>!chmod +x %<cr>")

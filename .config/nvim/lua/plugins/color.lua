@@ -21,9 +21,7 @@ return {
     "4e554c4c/darkman.nvim",
     build = "go build -o bin/darkman.nvim",
     lazy = false,
-    opts = {
-      colorscheme = { dark = "dracula", light = "dayfox" },
-    },
+    opts = { colorscheme = { dark = "dracula", light = "dayfox" } },
   },
   -- {
   --   "norcalli/nvim-colorizer.lua",

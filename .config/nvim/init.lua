@@ -1,12 +1,5 @@
---  _ __ | |__   __ _ _ __ (_)_   _ _ __ ___
--- | '_ \| '_ \ / _` | '_ \| | | | | '_ ` _ \
--- | |_) | | | | (_| | | | | | |_| | | | | | |
--- | .__/|_| |_|\__,_|_| |_|_|\__,_|_| |_| |_|
--- |_|
-assert(vim.loop.os_uname().sysname == "Linux")
-
 vim.g.mapleader = " "
-vim.g.maplocalleader = ","
+vim.g.maplocalleader = "+"
 
 _G.map = vim.keymap.set
 _G.P = vim.print
@@ -32,16 +25,26 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- TODO: asyc install missing
+-- TODO: async install missing
 require("lazy").setup("plugins", {
   defaults = { lazy = true },
   change_detection = { notify = false },
+  ui = {
+    border = "rounded",
+  },
   checker = { concurrency = 30 },
   performance = {
     rtp = {
       paths = { vim.fn.stdpath "data" .. "/site" },
       disabled_plugins = {
-        "netrw", -- use gx.nvim
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
       },
     },
   },

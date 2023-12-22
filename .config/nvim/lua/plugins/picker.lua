@@ -54,17 +54,6 @@ return {
     tag = "0.1.5",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
-      {
-        "stevearc/dressing.nvim",
-        init = function()
-          ---@diagnostic disable-next-line: duplicate-set-field
-          vim.ui.select = function(...)
-            require("lazy").load { plugins = { "dressing.nvim" } }
-            return vim.ui.select(...)
-          end
-        end,
-        opts = {},
-      },
     },
     cmd = "Telescope",
     keys = {
@@ -73,6 +62,7 @@ return {
       { "<leader>m",        pk(tb.builtin),                          mode = { "n", "x" } },
       { "<c-l>",            pk(tb.find_files),                       mode = { "n", "x" } },
       { "<leader>j",        pk(tb.live_grep),                        mode = { "n", "x" } },
+      -- TODO: toggle ignore w
       { "<leader><c-l>",    pk(tb.find_files, { no_ignore = true }), mode = { "n", "x" } },
       { "<leader>fl",       pk(tb.live_grep, { no_ignore = true }),  mode = { "n", "x" } },
       { "<leader>fj",       pn(tb.find_files, { "~", "~/notes" }),   mode = { "n", "x" } },
@@ -83,6 +73,7 @@ return {
       { "<leader>fh",       pk(tb.help_tags),                        mode = { "n", "x" } },
       { "<leader>fs",       pk(tb.lsp_document_symbols),             mode = { "n", "x" } },
       { "<leader>fg",       pk(tb.git_status),                       mode = { "n", "x" } },
+      { "<leader>fc",       pk(tb.git_commits),                      mode = { "n", "x" } },
       { "<leader>f<tab>",   pk(tb.colorscheme),                      mode = { "n", "x" } },
       { "zj",               pk(tb.spell_suggest),                    mode = { "n", "x" } },
     },
@@ -151,7 +142,6 @@ return {
       },
     },
   },
-
   {
     "folke/todo-comments.nvim",
     dependencies = { "telescope.nvim", "nvim-lua/plenary.nvim" },
@@ -164,8 +154,6 @@ return {
     },
     opts = { highlight = { keyword = "bg" } },
   },
-
-  -- faster
   {
     "junegunn/fzf.vim",
     lazy = false,

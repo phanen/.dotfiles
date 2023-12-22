@@ -11,43 +11,6 @@
   allow-cmd true
 )
 
-(defalias
-
-  qwe            #((layer-switch qwerty)      (cmd-button "~/.config/kmonad/keypress.sh qwe"))
-  nor            #((layer-switch vim-normal)  (cmd-button "~/.config/kmonad/keypress.sh nor"))
-
-  ;; add            #((layer-add vim-visual)  (cmd-button "~/.config/kmonad/keypress.sh vis"))
-  ;; rem            #((layer-rem vim-visual)  (cmd-button "~/.config/kmonad/keypress.sh nor"))
-  vis            #((layer-switch vim-visual)  (cmd-button "~/.config/kmonad/keypress.sh vis"))
-
-  sym            #((layer-switch symbol)      (cmd-button "~/.config/kmonad/keypress.sh sym"))
-  cmk            #((layer-switch colemak)     (cmd-button "~/.config/kmonad/keypress.sh cmk"))
-
-      ;; TODO: avoid C-x C-x + different prefix in a same layer
-  z    (tap-hold-next-release 500 z   lalt)
-  .    (tap-hold-next-release 500 .   (around lctrl lsft))
-  '    (tap-hold-next-release 500 '   (layer-toggle symbol))
-  ;    (tap-next-press ;              (layer-toggle symbol))
-  /    (tap-hold-next-release 500 /   (layer-toggle symbol))
-
-  sft  (tap-next grv (around lsft (layer-toggle shift)))
-
-  mt   (multi-tap 10 j 10 k esc)
-
-  qc   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
-  sm   (tap-hold-next-release 500 spc (layer-toggle super))
-  lm   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
-  tb   (tap-hold-next-release 500 tab (layer-toggle tabular))
-
-  mc   (tap-next esc lctl)
-
-  vi   (tap-hold 500 @nor lalt)
-  vc   (tap-next esc (layer-toggle emacs))
-  kw   C-bspc
-  kl   C-S-bspc
-
-)
-
 (defsrc
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
@@ -95,11 +58,6 @@
   grv  <    >    {    }  #(- P5 >) {    }    _    .    /    \
   _    _    _              _              _    _
 )
-(defalias
-  mpct (cmd-button "mpc toggle")
-  mpcn (cmd-button "mpc next")
-  mpcp (cmd-button "mpc prev")
-)
 
 (deflayer tabular
   grv @mpct M-f2 M-f3 M-f4 M-f5  6    7    8    9    @cmk _    =    bspc
@@ -140,3 +98,56 @@
   @sft @z   x    c    v    left down m    ,    .    /    \
   _    _    @qwe           _              _    _
 )
+
+(defalias
+  qwe            #((layer-switch qwerty)      (cmd-button "~/.config/kmonad/keypress.sh qwe"))
+  nor            #((layer-switch vim-normal)  (cmd-button "~/.config/kmonad/keypress.sh nor"))
+  vis            #((layer-switch vim-visual)  (cmd-button "~/.config/kmonad/keypress.sh vis"))
+  sym            #((layer-switch symbol)      (cmd-button "~/.config/kmonad/keypress.sh sym"))
+  cmk            #((layer-switch colemak)     (cmd-button "~/.config/kmonad/keypress.sh cmk"))
+
+  ;; TODO: avoid C-x C-x + different prefix in a same layer
+  z    (tap-hold-next-release 500 z   lalt)
+  .    (tap-hold-next-release 500 .   (around lctrl lsft))
+  '    (tap-hold-next-release 500 '   (layer-toggle symbol))
+  ;    (tap-next-press ;              (layer-toggle symbol))
+  /    (tap-hold-next-release 500 /   (layer-toggle symbol))
+
+  sft  (tap-next grv (around lsft (layer-toggle shift)))
+
+  qc   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
+  sm   (tap-hold-next-release 500 spc (layer-toggle super))
+  lm   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle super))))
+  tb   (tap-hold-next-release 500 tab (layer-toggle tabular))
+
+  mc   (tap-next esc lctl)
+
+  vi   (tap-hold 500 @nor lalt)
+  vc   (tap-next esc (layer-toggle emacs))
+  kw   C-bspc
+  kl   C-S-bspc
+)
+
+;; scripts
+(defalias
+  mpct (cmd-button "mpc toggle")
+  mpcn (cmd-button "mpc next")
+  mpcp (cmd-button "mpc prev")
+)
+
+;; TODO: we need much more declarative way
+;; super + {F1, F2}
+;; 	sound-control {down, up}
+;; super + {F3, F4}
+;; 	light-control {down, up}
+;; super + {F5, F6, F7, F8}
+;; 	xrandr -o {left, right, normal, inverted}
+;; super + F9
+;; 	flameshot gui
+;; super + shift + bracketleft
+;; 	flameshot gui -r | imgur.sh
+;; super + bracketright
+;; 	slip --stop || slip --gif
+;; super + F11
+;; 	~/.bin/toggle-touchpad.sh
+;;

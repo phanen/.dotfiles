@@ -1,5 +1,4 @@
 return {
-  -- statusline
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
@@ -13,53 +12,29 @@ return {
     },
   },
   {
-    "nvimdev/whiskyline.nvim",
-    lazy = false,
-    cond = false,
-    opts = {},
-  },
-
-  -- hint on indent
-  {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     event = "BufReadPre",
-    opts = {},
+    opts = {
+      scope = { enabled = false }, -- disable ts
+    },
   },
-
   {
     "HiPhish/rainbow-delimiters.nvim",
     event = "VeryLazy",
-    config = function()
-      local rainbow_delimiters = require "rainbow-delimiters"
-
-      vim.g.rainbow_delimiters = {
-        strategy = {
-          [""] = rainbow_delimiters.strategy["global"],
-        },
-        query = {
-          [""] = "rainbow-delimiters",
-        },
-      }
-    end,
   },
-
-  -- icon
   {
     "onsails/lspkind.nvim",
+    lazy = "VeryLazy",
     opts = { preset = "codicons", mode = "symbol_text" },
     config = function(_, opts) require("lspkind").init(opts) end,
   },
-
-  -- disgnose
   {
     "folke/trouble.nvim",
     cond = false,
     dependencies = "nvim-tree/nvim-web-devicons",
     config = true,
   },
-
-  -- https://www.reddit.com/r/neovim/comments/12lf0ke/does_anyone_have_a_cmdheight0_setup_without/
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -98,20 +73,6 @@ return {
       "rcarriga/nvim-notify",
     },
   },
-
-  -- breadcrumbs
-  {
-    "glepnir/lspsaga.nvim",
-    -- cond = vim.g.started_by_firenvim == nil,
-    cond = false,
-    event = "LspAttach",
-    config = true,
-    dependencies = {
-      { "nvim-tree/nvim-web-devicons" },
-      -- ensure markdown and markdown_inline parser
-      { "nvim-treesitter/nvim-treesitter" },
-    },
-  },
   {
     "SmiteshP/nvim-navic",
     cond = false,
@@ -123,8 +84,6 @@ return {
     event = "VeryLazy",
     keys = { { "<leader>wp", function() require("dropbar.api").pick() end, desc = "winbar: pick" } },
   },
-
-  -- outline
   {
     "SmiteshP/nvim-navbuddy",
     lazy = false,
@@ -139,36 +98,8 @@ return {
     opts = {
       lsp = { auto_attach = true },
       -- icons = require('lspkind').symbol_map,
-      icons = {
-        Text = "󰉿",
-        Method = "󰆧",
-        Function = "󰊕",
-        Constructor = "",
-        Field = "󰜢",
-        Variable = "󰀫",
-        Class = "󰠱",
-        Interface = "",
-        Module = "",
-        Property = "󰜢",
-        Unit = "󰑭",
-        Value = "󰎠",
-        Enum = "",
-        Keyword = "󰌋",
-        Snippet = "",
-        Color = "󰏘",
-        File = "󰈙",
-        Reference = "󰈇",
-        Folder = "󰉋",
-        EnumMember = "",
-        Constant = "󰏿",
-        Struct = "󰙅",
-        Event = "",
-        Operator = "󰆕",
-        TypeParameter = "",
-      },
     },
   },
-
   {
     "stevearc/aerial.nvim",
     config = true,

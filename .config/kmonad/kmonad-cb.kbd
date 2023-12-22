@@ -136,18 +136,18 @@
   mpcn (cmd-button "mpc next")
   mpcp (cmd-button "mpc prev")
 )
-super + {F1, F2}
-	sound-control {down, up}
-super + {F3, F4}
-	light-control {down, up}
-super + {F5, F6, F7, F8}
-	xrandr -o {left, right, normal, inverted}
-super + F9
-	flameshot gui
-super + shift + bracketleft
-	flameshot gui -r | imgur.sh
-super + bracketright
-	slip --stop || slip --gif
-super + F11
-	~/.bin/toggle-touchpad.sh
-
+;; super + {F1, F2}
+;; 	sound-control {down, up}
+;; super + {F3, F4}
+;; 	light-control {down, up}
+;; super + {F5, F6, F7, F8}
+;; 	xrandr -o {left, right, normal, inverted}
+;; super + F9
+;; 	flameshot gui
+;; super + shift + bracketleft
+;; 	flameshot gui -r | imgur.sh
+;; super + bracketright
+;; 	slip --stop || slip --gif
+;; super + F11
+;; 	~/.bin/toggle-touchpad.sh
+;;

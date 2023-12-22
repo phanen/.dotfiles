@@ -9,17 +9,15 @@ function M.lsp_attach(_, bufnr)
     if desc then desc = "LSP: " .. desc end
     map("n", keys, func, { buffer = bufnr, desc = desc })
   end
-
   local tb = require "telescope.builtin"
   nmap("<leader>rn", lsp.buf.rename, "rename")
-  nmap("<leader>gg", lsp.buf.format, "format buffer")
+  nmap("gw", lsp.buf.format, "format buffer")
   nmap("K", lsp.buf.hover, "hover documentation")
   nmap("gD", lsp.buf.declaration, "goto declaration")
   nmap("gd", lsp.buf.definition, "goto definition")
   nmap("gI", lsp.buf.implementation, "goto implementation")
   nmap("gr", tb.lsp_references, "goto references")
   nmap("<leader>D", lsp.buf.type_definition, "type definition")
-  -- for _, v in pairs(get_keymap()) do nmap(unpack(vim.tbl_values(v))) end
 end
 
 M.lsp_servers = {
@@ -42,7 +40,6 @@ M.lsp_servers = {
     },
     schemas = require("schemastore").yaml.schemas(),
   },
-  -- marksman = {},
 }
 
 return M

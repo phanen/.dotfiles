@@ -10,12 +10,9 @@ return {
     },
     opts = {
       options = {
-        mode = "buffers",
-        numbers = "ordinal",
-        offsets = { -- left for file explorer
+        offsets = {
           {
             filetype = "NvimTree",
-            -- TODO: quoter
             text = "time wait for no man",
             highlight = "Directory",
             text_align = "left",
@@ -32,7 +29,6 @@ return {
   },
   {
     "famiu/bufdelete.nvim",
-    -- keys = "c-e",
     cmd = "Bdelete",
   },
   {

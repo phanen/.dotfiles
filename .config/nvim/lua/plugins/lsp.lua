@@ -24,18 +24,8 @@ return {
   -- status updates for lsp
   {
     "j-hui/fidget.nvim",
-    tag = "legacy",
     event = "LspAttach",
-    opts = {
-      sources = {
-        ["null-ls"] = {
-          ignore = true,
-        },
-        ["pylsp"] = {
-          ignore = true,
-        },
-      },
-    },
+    opts = {},
   },
 
   {
@@ -43,7 +33,6 @@ return {
     build = ":MasonUpdate",
     cmd = "Mason",
     opts = {},
-    -- opts = { ui = { border = border, height = 0.8 } },
   },
 
   {

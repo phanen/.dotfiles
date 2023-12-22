@@ -32,9 +32,8 @@ return {
     opts = {},
   },
 
-  { -- TODO: since treesitter has been a performance killer...
+  {
     "lukas-reineke/headlines.nvim",
-    -- cond = false,
     ft = "markdown",
     dependencies = "nvim-treesitter/nvim-treesitter",
     opts = {

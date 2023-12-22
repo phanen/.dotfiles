@@ -1,21 +1,21 @@
 # /usr/share/doc/bspwm/examples/sxhkdrc
 super + z
 	pkill -USR1 -x sxhkd ; bspc wm -r; pkill polybar; polybar -r;
+# TODO: remove `bspc` ad-hoc stuffs
 super + q
 	bspc node -c
 super + ctrl + q
 	bspc quit
-
 super + {j, k}
 	bspc node -f {next, prev}.local.!hidden.window
-super + {f, e}
+super + {i, o}
 	bspc desktop -f {next, prev}
-super + {h, l}
-	wezterm cli activate-tab --tab-relative {-1, +1}
+# TODO: tab should not be managed by term
+super + {f, e}
+	wezterm cli activate-tab --tab-relative {+1, \-1}
 super + r
 	bspc desktop -f last
-# apostrophe
-super + w
+super + l
 	(bspc node -f biggest.window.local && \
 		bspc node -f last.window.local && \
 		bspc node -s biggest.window.local) || \
@@ -28,8 +28,8 @@ super + ctrl + shift + {j, k}
 super + shift + {j, k}
 	bspc desktop -s {next, prev} -f; bspc monitor -d 0 1 2
 
-super + m
-	bspc desktop -l next
+super + {m, g}
+	bspc desktop -l next { , }
 
 super + ctrl + {h, l}
 	bspc node -z {left -20 0 || bspc node -z right -20 0, \
@@ -38,7 +38,7 @@ super + ctrl + {h, l}
 # launch
 super + n
 	wezterm
-super + u
+super + w
 	wezterm cli spawn
 super + c
 	alacritty --working-directory ~
