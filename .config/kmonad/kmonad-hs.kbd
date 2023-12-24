@@ -20,9 +20,9 @@
 )
 
 (deflayer qwerty
-  bspc _    _    3    4    5    6    7    8    9    0    .    =    bspc
-  @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
-  @qc  a    s    d    f    g    h    j    k    l    @;   @'   ret
+  bspc _    _    _    _    _    _    _    _    _    _    .    =    bspc
+  @tb  _    _    _    _    _    _    _    _    _    _    bspc caps \
+  @qc  _    _    _    _    _    _    _    _    _    @;   @'   ret
   @sft @z   x    c    v    b    n    m    ,    .    /    \
   lctl @lm @vi           @sm            ralt rctl
 )
@@ -117,7 +117,7 @@
 
   qc   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
   sm   (tap-hold-next-release 500 spc (layer-toggle super))
-  lm   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle super))))
+  lm   (tap-next esc                  (around lmet (around (layer-toggle qwerty) (layer-toggle control))))
   tb   (tap-hold-next-release 500 tab (layer-toggle tabular))
 
   mc   (tap-next esc lctl)
@@ -150,4 +150,3 @@
 ;; 	slip --stop || slip --gif
 ;; super + F11
 ;; 	~/.bin/toggle-touchpad.sh
-;;

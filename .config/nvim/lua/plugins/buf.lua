@@ -32,6 +32,12 @@ return {
     cmd = "Bdelete",
   },
   {
+    "ojroques/nvim-bufdel",
+    cond = false,
+    cmd = "BufDel",
+    opts = { quit = false, }
+  },
+  {
     "kwkarlwang/bufjump.nvim",
     event = "VeryLazy",
     opts = {

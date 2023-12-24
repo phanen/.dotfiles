@@ -1,6 +1,30 @@
 local hl = require "utils.hl"
 
 return {
+  { "folke/lazy.nvim", },
+  -- FIXME: which-key will not register _d
+  -- cannot set timeoutlen = 0
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      plugins = { spelling = { enabled = false } },
+      triggers = "auto",
+      disable = {
+        filetypes = { "man" },
+        buftypes = { "help" },
+      },
+    }
+  },
+  {
+    "mbbill/undotree",
+    cmd = "UndotreeToggle",
+    keys = { { "<leader>u", "<Cmd>UndotreeToggle<CR>", desc = "undotree: toggle" } },
+    config = function()
+      vim.g.undotree_TreeNodeShape = "◦" -- Alternative: '◉'
+      vim.g.undotree_SetFocusWhenToggle = 1
+    end,
+  },
   {
     -- "Pocco81/auto-save.nvim",
     -- FIXME: immediate_save actually not work
@@ -28,26 +52,11 @@ return {
       -- au TextChanged,TextChangedI <buffer> if &readonly == 0 && filereadable(bufname('%')) | silent write | endif
     },
   },
-
-  {
-    "karb94/neoscroll.nvim",
-    cond = false,
-    keys = {
-      { "<c-u>", mode = { "n", "x" } },
-      { "<c-d>", mode = { "n", "x" } },
-      { "zt",    mode = { "n", "x" } },
-      { "zz",    mode = { "n", "x" } },
-      { "zb",    mode = { "n", "x" } },
-    },
-    config = true,
-  },
-
   {
     "voldikss/vim-translator",
     cmd = { "Translate", "TranslateW" },
     keys = { { "gk", ":Translate<cr>", mode = { "n", "x" } } },
   },
-
   {
     "rgroli/other.nvim",
     cond = false,
@@ -55,28 +64,23 @@ return {
     cmd = { "Other", "OtherSplit", "OtherVsplit" },
     opts = {},
   },
-
   {
     "chaoren/vim-wordmotion",
     cond = false,
     lazy = false,
     init = function() vim.g.wordmotion_spaces = { "-", "_", "\\/", "\\." } end,
   },
-
   {
     "itchyny/vim-highlighturl",
     event = "ColorScheme",
     -- HACK: fix ?
     config = function() vim.g.highlighturl_guifg = hl.get("@keyword", "fg") end,
   },
-
-  -- peek line
   {
     "nacro90/numb.nvim",
     event = "CmdlineEnter",
     opts = {},
   },
-
   {
     "glacambre/firenvim",
     -- Lazy load firenvim
@@ -109,30 +113,34 @@ return {
       end
     end,
   },
-
   -- diff arbitrary blocks of text with each other
   { "AndrewRadev/linediff.vim", cmd = "Linediff" },
   { "jspringyc/vim-word",       cmd = { "WordCount", "WordCountLine" } },
-
   {
     "psliwka/vim-dirtytalk",
     lazy = false,
     build = ":DirtytalkUpdate",
     config = function() vim.opt.spelllang:append "programming" end,
   },
-  {
-    "RaafatTurki/hex.nvim",
-    config = true,
-  },
-
-  {
-    "skywind3000/asyncrun.vim",
-    cmd = "AsyncRun",
-  },
-
+  { "RaafatTurki/hex.nvim",     config = true },
+  { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
   -- no delay, friendly to mapped readline
+  { "lilydjwg/fcitx.vim",       event = "VeryLazy", },
   {
-    "lilydjwg/fcitx.vim",
-    event = "VeryLazy",
-  },
+    "kevinhwang91/nvim-hlslens",
+    lazy = false,
+    keys = {
+      { "n",     [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>zz]] },
+      { "N",     [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>zz]] },
+      { "*",     [[*<Cmd>lua require('hlslens').start()<CR>]] },
+      { "#",     [[#<Cmd>lua require('hlslens').start()<CR>]] },
+      { "g*",    [[g*<Cmd>lua require('hlslens').start()<CR>]] },
+      { "g#",    [[g#<Cmd>lua require('hlslens').start()<CR>]] },
+      { "<ESC>", [[<cmd>noh<CR><cmd>lua require('hlslens').stop()<CR>]] },
+    },
+    opts = {
+      calm_down = true,
+      nearest_only = true,
+    }
+  }
 }

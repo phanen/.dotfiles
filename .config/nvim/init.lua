@@ -1,15 +1,17 @@
+vim.loader.enable()
 vim.g.mapleader = " "
 vim.g.maplocalleader = "+"
 
 _G.map = vim.keymap.set
-_G.P = vim.print
 
 for _, source in ipairs {
+  --"glb"
   "opt",
   "map",
+  "lsp",
 } do
   local ok, fault = pcall(require, source)
-  if not ok then vim.api.nvim_err_writeln("Failed to load " .. source .. "\n\n" .. fault) end
+  if not ok then vim.api.nvim_err_writeln("failed to load " .. source .. "\n\n" .. fault) end
 end
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -26,12 +28,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- TODO: async install missing
-require("lazy").setup("plugins", {
+require "lazy".setup {
+  spec = "plugins",
   defaults = { lazy = true },
   change_detection = { notify = false },
-  ui = {
-    border = "rounded",
-  },
   checker = { concurrency = 30 },
   performance = {
     rtp = {
@@ -48,7 +48,7 @@ require("lazy").setup("plugins", {
       },
     },
   },
-})
+}
 
 -- filter down a quickfix list
 -- vim.cmd.packadd "cfilter"

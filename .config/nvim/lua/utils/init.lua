@@ -7,8 +7,6 @@ function M.get_nvim_version()
   return string.format("%d.%d.%d", version.major, version.minor, version.patch)
 end
 
--- M.dev_dir = vim.env.DEV_DIR or vim.fn.expand('~/demo')
-
 ---@param require_path string
 ---@return table<string, fun(...): any>
 function M.reqcall(require_path)

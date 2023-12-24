@@ -1,6 +1,6 @@
 ## install
 ```bash
-cd ~ && git clone git@github.com:phanen/.dotfiles.git && cd .dotfiles
+cd ~ && git clone git@github.com:phanen/.dotfiles && cd .dotfiles
 make
 ```
 

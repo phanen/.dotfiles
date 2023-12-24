@@ -17,7 +17,6 @@ return {
     },
     opts = {
       sync_root_with_cwd = true,
-      select_prompts = true,
       -- TODO: impl proper rooter
       -- current root_dirs is static, should set pwd when switch buf
       -- update_focused_file = {

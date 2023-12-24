@@ -146,11 +146,7 @@ return {
     "folke/todo-comments.nvim",
     dependencies = { "telescope.nvim", "nvim-lua/plenary.nvim" },
     keys = {
-      {
-        "<leader>L",
-        ":TodoTelescope cwd=" .. require("utils").get_root() .. "<CR>",
-        silent = true,
-      },
+      { "<leader>L", ":TodoTelescope cwd=" .. require("utils").get_root() .. "<CR>", },
     },
     opts = { highlight = { keyword = "bg" } },
   },

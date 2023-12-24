@@ -9,6 +9,7 @@ vim.filetype.add {
     Brewfile = "ruby",
   },
   pattern = {
+    [".*%.rasi"] = "css",
     [".*%.conf"] = "conf",
     [".*%.theme"] = "conf",
     [".*%.gradle"] = "groovy",

@@ -8,13 +8,11 @@ super + ctrl + q
 	bspc quit
 super + {j, k}
 	bspc node -f {next, prev}.local.!hidden.window
-super + {i, o}
-	bspc desktop -f {next, prev}
+super + {w, o}
+	bspc desktop -f next
 # TODO: tab should not be managed by term
 super + {f, e}
 	wezterm cli activate-tab --tab-relative {+1, \-1}
-super + r
-	bspc desktop -f last
 super + l
 	(bspc node -f biggest.window.local && \
 		bspc node -f last.window.local && \
@@ -38,16 +36,16 @@ super + ctrl + {h, l}
 # launch
 super + n
 	wezterm
-super + w
+super + i
 	wezterm cli spawn
 super + c
-	alacritty --working-directory ~
+	alacritty
 super + semicolon
 	rofi -show drun -matching fuzzy
 super + p
 	CM_LAUNCHER=rofi clipmenu
 # TODO: need a santinizer
-super + s
+super + x
 	xsel -b | sh $XDG_CONFIG_HOME/sxhkd/scripts/url-santinizer.sh >> $XDG_CONFIG_HOME/newsboat/urls
 super + Tab
 	darkman toggle

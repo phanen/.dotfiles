@@ -1,6 +1,5 @@
 local o, wo, opt = vim.o, vim.wo, vim.opt
 
--- basics {{{
 o.clipboard = "unnamedplus"
 o.mouse = "a"
 o.undofile = true
@@ -11,11 +10,9 @@ o.termguicolors = true
 -- https://www.zhihu.com/question/22363620
 o.fileencodings = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
 o.whichwrap = "b,s,h,l"
-
--- unless /C or capital in search
-o.ignorecase = true
+o.ignorecase = true -- use /C
 o.smartcase = true
-o.hlsearch = false
+-- o.hlsearch = false
 
 -- 1 tab = 2 space
 o.tabstop = 4
@@ -44,16 +41,18 @@ opt.listchars = {
   precedes = "░", -- Alternatives: … « ‹
   trail = "•", -- BULLET (U+2022, UTF-8: E2 80 A2)
 }
--- }}}
 
 -- message
 opt.shortmess = opt.shortmess + { c = true }
 
--- timings {{{
--- for CursorHold
-o.updatetime = 300
+o.updatetime = 1000 -- for CursorHold
+-- o.timeout = false
+o.timeoutlen = 100
 o.ttimeout = false -- avoid sticky escape as alt
-o.timeoutlen = 100 -- for which-key popup
--- }}}
+
+for _, provider in ipairs({ "perl", "node", "ruby", "python", "python3", }) do
+  local var = "loaded_" .. provider .. "_provider"
+  vim.g[var] = 0
+end
 
 -- vim:foldmethod=marker

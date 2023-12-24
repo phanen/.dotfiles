@@ -1,118 +1,89 @@
-local lsp_attach = require("utils.lsp").lsp_attach
-local lsp_servers = require("utils.lsp").lsp_servers
-local capabilities = require("utils.lsp").capabilities
-
 return {
-  {
-    "neovim/nvim-lspconfig",
-    cmd = { "LspInfo", "LspInstall", "LspUninstall" },
-    dependencies = {
-      {
-        "folke/neodev.nvim",
-        ft = "lua",
-        opts = { library = { plugins = { "nvim-dap-ui" } } },
-      },
-      {
-        "folke/neoconf.nvim",
-        cond = false,
-        cmd = { "Neoconf" },
-        opts = { local_settings = ".nvim.json", global_settings = "nvim.json" },
-      },
-    },
-  },
-
-  -- status updates for lsp
-  {
-    "j-hui/fidget.nvim",
-    event = "LspAttach",
-    opts = {},
-  },
-
-  {
-    "williamboman/mason.nvim",
-    build = ":MasonUpdate",
-    cmd = "Mason",
-    opts = {},
-  },
-
+  { "neovim/nvim-lspconfig", cmd = { "LspInfo", "LspInstall", "LspUninstall" } },
+  { "j-hui/fidget.nvim", event = "LspAttach", opts = {} },
+  { "williamboman/mason.nvim", build = ":MasonUpdate", cmd = "Mason", opts = {} },
   {
     "williamboman/mason-lspconfig.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "williamboman/mason.nvim" },
+    dependencies = {
+      { "williamboman/mason.nvim" },
+      { "folke/neodev.nvim", ft = "lua", opts = {} },
+    },
     config = function()
-      local mlsp = require "mason-lspconfig"
-      mlsp.setup { ensure_installed = vim.tbl_keys(lsp_servers) }
-      mlsp.setup_handlers {
-        function(server_name)
-          require("lspconfig")[server_name].setup {
-            capabilities = capabilities,
-            on_attach = lsp_attach,
-            settings = lsp_servers[server_name],
-          }
-        end,
-        ["rust_analyzer"] = function()
-          local rt = require "rust-tools"
-          rt.setup {
-            server = {
-              on_attach = function(_, bufnr)
-                lsp_attach(_, bufnr)
-                local function nmap(lhs, rhs) map("n", lhs, rhs, { buffer = bufnr }) end
-                nmap("K", rt.hover_actions.hover_actions)
-                nmap("gA", rt.code_action_group.code_action_group)
-                nmap("gR", rt.runnables.runnables)
-                nmap("gM", rt.expand_macro.expand_macro)
-                nmap("gC", rt.open_cargo_toml.open_cargo_toml)
-                nmap("gP", rt.parent_module.parent_module)
-                -- nmap("<a-k>", rt.move_item.move_item(true))
-                -- nmap("<a-j>", rt.move_item.move_item(false))
-                -- nmap("", rt.hover_range.hover_range)
-                nmap("J", rt.join_lines.join_lines)
-                nmap("gS", rt.ssr.ssr)
-                nmap("gV", rt.crate_graph.view_crate_graph)
-                -- rt.ssr.ssr(query)
-                -- rt.crate_graph.view_crate_graph(backend, output)
+      -- local capabilities = require "capabilities"
+      local lspconfig = require "lspconfig"
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local a = 2
+      print(a + a)
+      require("mason-lspconfig").setup {
+        handlers = {
+          function(server)
+            lspconfig[server].setup {
+              capabilities = capabilities,
+            }
+          end,
+          lua_ls = function()
+            lspconfig.lua_ls.setup {
+              on_attach = function(client, _)
+                -- NOTE: regard thisa as LspAttachPre
+                -- which formatter should be used?
+                -- client.server_capabilities.documentFormattingProvider = false
               end,
-            },
-          }
-        end,
-        -- ['texlab'] = function () require('lspconfig').texlab.setup({ end })
+              capabilities = capabilities,
+              settings = {
+                Lua = {
+                  hint = {
+                    enable = true,
+                    setType = true,
+                  },
+                  completion = {
+                    callSnippet = "Replace",
+                    postfix = ".",
+                    showWord = "Disable",
+                    workspaceWord = false,
+                  },
+                  format = {
+                    defaultConfig = {
+                      call_arg_parentheses = "remove_table_only",
+                      add_comma = "comma",
+                    },
+                  },
+                },
+              },
+            }
+          end,
+          yamlls = function()
+            lspconfig.yamlls.setup {
+              capabilities = capabilities,
+              settings = {
+                yaml = {
+                  keyOrdering = false,
+                  schemaStore = {
+                    enable = false,
+                    url = "",
+                  },
+                  schemas = require("schemastore").yaml.schemas(),
+                },
+              },
+            }
+          end,
+        },
       }
     end,
   },
+  "b0o/schemastore.nvim",
   {
     "nvimtools/none-ls.nvim",
-    -- cond = false,
+    cond = false,
     dependencies = { "nvim-lua/plenary.nvim" },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local nls = require "null-ls"
       nls.setup {
-        on_attach = lsp_attach,
-        -- on_init = function(new_client, _)
-        --   new_client.offset_encoding = "utf-16"
-        -- end,
+        on_attach = wtf_attch_why_this_is_allowed,
         sources = {
-          -- nls.builtins.diagnostics.cspell,
-          -- nls.builtins.code_actions.cspell,
-
-          -- nls.builtins.code_actions.shellcheck,
-          -- nls.builtins.diagnostics.shellcheck,
-
-          -- .with {
-          --       diagnostics_format = "[#{c}] #{m} (#{s})",
-          --       diagnostic_config = {
-          --         -- see :help vim.diagnostic.config()
-          --         underline = true,
-          --         virtual_text = false,
-          --         signs = true,
-          --         update_in_insert = true,
-          --         severity_sort = true,
-          --       },
-          --     }
-          -- nls.builtins.completion.spell,
-
           nls.builtins.formatting.shfmt,
-          nls.builtins.formatting.prettier, -- markdown formatting
+          nls.builtins.formatting.prettier,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.rustfmt.with {
             extra_args = function(params)
@@ -134,14 +105,8 @@ return {
           -- nls.builtins.code_actions.eslint_d,
           nls.builtins.diagnostics.eslint_d,
           nls.builtins.formatting.eslint_d,
-          -- nls.builtins.diagnostics.markdownlint,
-          -- require "nu-ls",
         },
       }
-      -- TODO: on_attach of null-ls don't work
-      -- lsp_attach()
-      -- vim.cmd "map <Leader>gg :lua vim.lsp.buf.format({timeout_ms = 2000})<CR>"
-      -- vim.keymap.set("n", "<leader>go", "<cmd>lua vim.lsp.buf.code_action()<CR>")
     end,
   },
 }

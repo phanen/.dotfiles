@@ -1,13 +1,19 @@
 local n = function(...) map("n", ...) end
 local x = function(...) map("x", ...) end
 local t = function(...) map("t", ...) end
+local o = function(...) map("o", ...) end
 
 -- basics {{{
 n("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
 n("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 
-n("gj", "yyp")
-x("gj", "y'>p")
+n("gj", '"gyy"gp')
+x("gj", '"gy\'>"gp')
+n("$", "g_")
+x("$", "g_")
+
+-- format
+n("gw", "gg=G``")
 
 n("<c-u>", "<c-u>zz")
 n("<c-d>", "<c-d>zz")
@@ -38,6 +44,22 @@ x("<a-l>", ">gv")
 -- tab
 n("<c-y>", "<cmd>pop<cr>")
 t("<c-space>", "<c-\\><c-n>")
+
+local toggle_qf = function()
+  local qf_exists = false
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win["quickfix"] == 1 then qf_exists = true end
+  end
+  if qf_exists then
+    vim.cmd "cclose"
+    return
+  end
+  if not vim.tbl_isempty(vim.fn.getqflist()) then vim.cmd "copen" end
+end
+n("<leader>q", toggle_qf)
+
+x("iq", 'i"')
+o("iq", 'i"')
 -- }}}
 -- buffer {{{
 n("<c-f>", "<cmd>BufferLineCycleNext<cr>")
@@ -162,13 +184,13 @@ x("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
 -- https://stackoverflow.com/questions/1680194/reverse-a-word-in-vim
 vim.cmd [[
 vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
- \:let old_reg=@"<CR>
- \gv"ay
- \:let @a=substitute(@a, '.\(.*\)\@=',
- \ '\=@a[strlen(submatch(1))]', 'g')<CR>
- \gvc<C-R>a<Esc>
- \:let @a=old_reg_a<CR>
- \:let @"=old_reg<CR>
+\:let old_reg=@"<CR>
+\gv"ay
+\:let @a=substitute(@a, '.\(.*\)\@=',
+\ '\=@a[strlen(submatch(1))]', 'g')<CR>
+\gvc<C-R>a<Esc>
+\:let @a=old_reg_a<CR>
+\:let @"=old_reg<CR>
 ]]
 
 n("<leader>gl", "<cmd>e ~/notes/priv/todo.md<cr>")

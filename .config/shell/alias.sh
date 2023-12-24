@@ -5,6 +5,7 @@ alias t="type"
 alias p="sudo pacman"
 alias y="yay"
 alias s="sysz"
+alias vj="NVIM_APPNAME=nvim-test nvim"
 
 alias ls="exa --color=auto"
 alias ll="ls -lah"

@@ -10,7 +10,6 @@ return {
     end,
     ft = { "markdown" },
   },
-
   {
     "toppair/peek.nvim",
     cond = false,
@@ -31,7 +30,6 @@ return {
     },
     opts = {},
   },
-
   {
     "lukas-reineke/headlines.nvim",
     ft = "markdown",
@@ -46,88 +44,74 @@ return {
       },
     },
   },
-
   {
     "jakewvincent/mkdnflow.nvim",
     ft = { "markdown" },
-    config = function()
-      -- FIXME: cannot use opt, collision with lazyload
-      require("mkdnflow").setup {
-        modules = {
-          bib = false,
-          buffers = false,
-          conceal = false,
-          cursor = true,
-          folds = true,
-          links = true,
-          lists = true,
-          maps = true,
-          paths = true,
-          tables = true,
-          yaml = false,
-        },
-        mappings = {
-          MkdnNextHeading = { "n", "]]" },
-          MkdnPrevHeading = { "n", "[[" },
-          MkdnNewListItemBelowInsert = { "n", "o" },
-          MkdnNewListItemAboveInsert = { "n", "O" },
-          MkdnCreateLinkFromClipboard = { { "n", "v" }, "<leader>p" }, -- see MkdnEnter
-          MkdnEnter = false,
-          MkdnTab = false,
-          MkdnSTab = false,
-          MkdnNextLink = false,
-          MkdnPrevLink = false,
-          MkdnGoBack = { "n", "<BS>" },
-          MkdnGoForward = { "n", "<Del>" },
-          MkdnCreateLink = false, -- see MkdnEnter
-          MkdnFollowLink = false, -- see MkdnEnter
-          MkdnDestroyLink = { "n", "<M-CR>" },
-          MkdnTagSpan = { "v", "<M-CR>" },
-          MkdnMoveSource = false,
-          MkdnYankAnchorLink = { "n", "ya" },
-          MkdnYankFileAnchorLink = { "n", "yfa" },
-          MkdnIncreaseHeading = { "n", "+" },
-          MkdnDecreaseHeading = { "n", "-" },
-          MkdnToggleToDo = false,
-          MkdnNewListItem = false,
-          MkdnExtendList = false,
-          MkdnUpdateNumbering = { "n", "<leader>nn" },
-          MkdnTableNextCell = { "i", "<Tab>" },
-          MkdnTablePrevCell = { "i", "<S-Tab>" },
-          MkdnTableNextRow = false,
-          MkdnTablePrevRow = { "i", "<M-CR>" },
-          MkdnTableNewRowBelow = { "n", "<leader>ir" },
-          MkdnTableNewRowAbove = { "n", "<leader>iR" },
-          MkdnTableNewColAfter = { "n", "<leader>ic" },
-          MkdnTableNewColBefore = { "n", "<leader>iC" },
-          MkdnFoldSection = false,
-          MkdnUnfoldSection = false,
-        },
-      }
-    end,
+    opts = {
+      modules = {
+        bib = false,
+        buffers = false,
+        conceal = false,
+        cursor = true,
+        folds = true,
+        links = true,
+        lists = true,
+        maps = true,
+        paths = true,
+        tables = true,
+        yaml = false,
+      },
+      mappings = {
+        MkdnNextHeading = { "n", "]n" },
+        MkdnPrevHeading = { "n", "[n" },
+        MkdnNewListItemBelowInsert = { "n", "o" },
+        MkdnNewListItemAboveInsert = { "n", "O" },
+        MkdnCreateLinkFromClipboard = { { "n", "v" }, "<leader>p" }, -- see MkdnEnter
+        MkdnEnter = false,
+        MkdnTab = false,
+        MkdnSTab = false,
+        MkdnNextLink = false,
+        MkdnPrevLink = false,
+        MkdnGoBack = { "n", "<BS>" },
+        MkdnGoForward = { "n", "<Del>" },
+        MkdnCreateLink = false, -- see MkdnEnter
+        MkdnFollowLink = false, -- see MkdnEnter
+        MkdnDestroyLink = { "n", "<M-CR>" },
+        MkdnTagSpan = { "v", "<M-CR>" },
+        MkdnMoveSource = false,
+        MkdnYankAnchorLink = { "n", "ya" },
+        MkdnYankFileAnchorLink = { "n", "yfa" },
+        MkdnIncreaseHeading = { "n", "+" },
+        MkdnDecreaseHeading = { "n", "-" },
+        MkdnToggleToDo = false,
+        MkdnNewListItem = false,
+        MkdnExtendList = false,
+        MkdnUpdateNumbering = { "n", "<leader>nn" },
+        MkdnTableNextCell = { "i", "<Tab>" },
+        MkdnTablePrevCell = { "i", "<S-Tab>" },
+        MkdnTableNextRow = false,
+        MkdnTablePrevRow = { "i", "<M-CR>" },
+        MkdnTableNewRowBelow = { "n", "<leader>ir" },
+        MkdnTableNewRowAbove = { "n", "<leader>iR" },
+        MkdnTableNewColAfter = { "n", "<leader>ic" },
+        MkdnTableNewColBefore = { "n", "<leader>iC" },
+        MkdnFoldSection = false,
+        MkdnUnfoldSection = false,
+      },
+    }
   },
-
   {
     "phanen/toggle-checkbox.nvim",
-    branch = "add-checkbox-on-line-without-checkbox",
     ft = "markdown",
-    keys = { { "<c-space>", "<cmd>lua require('toggle-checkbox').toggle()<cr>" } },
+    keys = {
+      { mode = { "n", "x" }, "<c-space>", "<cmd>lua require('toggle-checkbox').toggle()<cr>" },
+    },
+    opts = {},
   },
-
-  -- kitty only
   {
-    "edluffy/hologram.nvim",
-    cond = false,
-    ft = { "markdown" },
-    event = "VeryLazy",
-    config = function()
-      require("hologram").setup {
-        auto_display = true, -- WIP automatic markdown image display, may be prone to breaking
-      }
-    end,
+    "dhruvasagar/vim-table-mode",
+    ft = { "markdown", "org" },
   },
-
-  -- latex
   {
     "f3fora/nvim-texlabconfig",
     cond = false,
@@ -135,7 +119,6 @@ return {
     ft = { "tex", "bib" }, -- for lazy loading
     build = "go build",
   },
-
   {
     "lervag/vimtex",
     -- :h :VimtexInverseSearch
@@ -171,7 +154,6 @@ return {
       -- vim.g.syntax_conceal_disable = 1
     end,
   },
-
   -- math mode snippets
   {
     "iurimateus/luasnip-latex-snippets.nvim",
@@ -180,7 +162,6 @@ return {
     config = function() require("luasnip-latex-snippets").setup { use_treesitter = true } end,
     ft = { "tex", "markdown" },
   },
-
   {
     "3rd/image.nvim",
     lazy = false,

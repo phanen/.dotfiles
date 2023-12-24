@@ -56,6 +56,14 @@ return {
             target = "^(`?)().-(`?)()$",
           },
         },
+        ["q"] = {
+          add = { '"', '"' },
+          find = '".-"',
+          delete = '^("?)().-("?)()$',
+          change = {
+            target = '^("?)().-("?)()$',
+          },
+        },
         ["K"] = {
           add = { "```", "```" },
           find = "```.-```",
@@ -168,19 +176,8 @@ return {
       }
     end,
   },
-  {
-    "smjonas/inc-rename.nvim",
-    keys = {
-      {
-        "<leader>rn",
-        function() return vim.fmt(":IncRename %s", vim.fn.expand "<cword>") end,
-        expr = true,
-        silent = false,
-        desc = "lsp: incremental rename",
-      },
-    },
-  },
-  { "mg979/vim-visual-multi", keys = "<c-n>" },
+  { "smjonas/inc-rename.nvim", cmd = "IncRename" },
+  { "mg979/vim-visual-multi", keys = { { mode = { "n", "v" }, "<c-n>" } } },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
   { "tpope/vim-sleuth", event = "VeryLazy" },
   { "tpope/vim-repeat", event = "VeryLazy" },

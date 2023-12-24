@@ -1,27 +1,12 @@
-// @theme "~/.local/share/rofi/themes/spotlight-dark.rasi"
 @theme "~/.config/rofi/laucher.rasi"
 
 configuration {
   modi: "window,run,ssh,drun,combi,keys";
-  // combi-hide-mode-prefix: true;
+  combi-hide-mode-prefix: true;
   combi-modi: "run,drun";
-  font: "FiraCode Nerd Font Mono 12";
   show-icons: true;
   hide-scrollbar: true;
-  // disable-history: false;
 
-  // window-format: " [{w}]\t\t{t:0}";
-  // drun-display-format:        "{name}";
-
-  display-run: " ";
-  display-drun: " ";
-  display-window: " ";
-  // drun { display-name: " "; }
-  // run { display-name: " "; }
-
-
-  // rofi -show run -kb-accept-entry 'Control+Shift+space'
-  // need some hack... preset four then one
   kb-accept-entry: "Return"; 
   kb-accept-custom: "Control+Return";
   kb-cancel: "Escape,Control+g";
@@ -32,113 +17,10 @@ configuration {
   kb-row-up: "Control+k";
   kb-row-left: "Control+p";
   kb-row-right: "Control+n";
-  kb-row-first: "Control+Shift+g";
   kb-row-select: "Control+space";
-  kb-mode-complete: "Control+Shift+l";
   kb-mode-next: "Control+i";
   kb-mode-previous: "Control+o";
 
-
   me-select-entry: "MousePrimary";
   me-accept-entry: "!MousePrimary";
-
 }
-
-// configuration {
-//   combi-hide-mode-prefix: true;
-//   }
-//
-//   * {
-//     black:      #000000;
-//     red:        #f7768e;
-//     green:      #9ece6a;
-//     yellow:     #e0af68;
-//     blue:       #7aa2f7;
-//     purple:     #847af7;
-//     mangenta:   #bb9af7;
-//     cyan:       #7dcfff;
-//     emphasis:   #3d59a1;
-//     text:       #c0caf5;
-//     text-alt:   #a9b1d6;
-//     fg:         #abb2bf;
-//     bg:         #24283b;
-//
-//     spacing: 0;
-//     background-color: transparent;
-//
-//     text-color: @text;
-//   }
-//
-//   window {
-//     transparency: "real";
-//     fullscreen: true;
-//     background-color: #24283bdd;
-//   }
-//
-//   mainbox {
-//     padding: 30% 30%;
-//   }
-//
-//   inputbar {
-//     margin: 0px 0px 20px 0px;
-//     children: [prompt, textbox-prompt-colon, entry, case-indicator];
-//   }
-//
-//   prompt {
-//     text-color: @blue;
-//   }
-//
-//   textbox-prompt-colon {
-//     expand: false;
-//     str: ":";
-//     text-color: @text-alt;
-//   }
-//
-//   entry {
-//     margin: 0px 10px;
-//   }
-//
-//   listview {
-//     spacing: 5px;
-//     dynamic: true;
-//     scrollbar: false;
-//   }
-//
-//   element {
-//     padding: 5px;
-//     text-color: @text-alt;
-//     highlight: bold #9ece6a; /* green */
-//     border-radius: 3px;
-//   }
-//
-//   element-icon {
-//     padding: 1px;
-//     size: 1.5em;
-//   }
-//
-//   element selected {
-//     background-color: @emphasis;
-//     text-color: @text;
-//   }
-//
-//   element urgent, element selected urgent {
-//     text-color: @red;
-//   }
-//
-//   element active, element selected active {
-//     text-color: @purple;
-//   }
-//
-//   message {
-//     padding: 5px;
-//     border-radius: 3px;
-//     background-color: @emphasis;
-//     border: 1px;
-//     border-color: @cyan;
-//   }
-//
-//   button selected {
-//     padding: 5px;
-//     border-radius: 3px;
-//     background-color: @emphasis;
-// }
