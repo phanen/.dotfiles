@@ -187,14 +187,27 @@ return {
     keys = {
       -- { "<leader>S",  function() require("substitute").visual() end,            mode = "x" },
       -- { "<leader>S",  function() require("substitute").operator() end,          mode = "n" },
-      { "<leader>X", function() require("substitute.exchange").operator() end, mode = "n" },
-      { "<leader>X", function() require("substitute.exchange").visual() end, mode = "x" },
-      { "<leader>Xc", function() require("substitute.exchange").cancel() end, mode = { "n", "x" } },
+      {
+        "<leader>X",
+        function() require("substitute.exchange").operator() end,
+        mode = "n",
+      },
+      {
+        "<leader>X",
+        function() require("substitute.exchange").visual() end,
+        mode = "x",
+      },
+      {
+        "<leader>Xc",
+        function() require("substitute.exchange").cancel() end,
+        mode = { "n", "x" },
+      },
     },
   },
   {
     "andymass/vim-matchup",
     event = "BufReadPost",
+    keys = { mode = { "n", "x", "o" }, "%" },
     init = function() vim.o.matchpairs = "(:),{:},[:],<:>" end,
     config = function()
       vim.g.matchup_matchparen_deferred = 1
@@ -204,12 +217,7 @@ return {
   {
     "cshuaimin/ssr.nvim",
     keys = {
-      {
-        "<leader>rr",
-        function() require("ssr").open() end,
-        mode = { "n", "x" },
-        desc = "Structural Replace",
-      },
+      { "<leader>rr", function() require("ssr").open() end, mode = { "n", "x" }, desc = "structural replace" },
     },
   },
   {

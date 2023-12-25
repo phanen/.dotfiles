@@ -28,8 +28,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- TODO: async install missing
-require "lazy".setup {
-  spec = "plugins",
+require("lazy").setup {
+  spec = { import = "plugins" },
   defaults = { lazy = true },
   change_detection = { notify = false },
   checker = { concurrency = 30 },

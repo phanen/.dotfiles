@@ -108,23 +108,30 @@ return {
           },
           ["<cr>"] = cmp.mapping(cmp.mapping.confirm { select = false }, { "i", "c" }),
         },
-        snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+        snippet = {
+          expand = function(args) luasnip.lsp_expand(args.body) end,
+        },
         sources = {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-          { name = "buffer",  options = { get_bufnrs = function() return vim.api.nvim_list_bufs() end }, },
+          {
+            name = "buffer",
+            options = {
+              get_bufnrs = function() return vim.api.nvim_list_bufs() end,
+            },
+          },
           { name = "emoji" },
         },
         formatting = formatting,
         performance = { max_view_entries = 8 },
       }
 
-      cmp.setup.cmdline("/", { sources = { { name = "buffer" }, }, })
-      cmp.setup.cmdline("?", { sources = { { name = "buffer" }, }, })
+      cmp.setup.cmdline("/", { sources = { { name = "buffer" } } })
+      cmp.setup.cmdline("?", { sources = { { name = "buffer" } } })
       cmp.setup.cmdline(":", {
         sources = {
-          { name = "cmdline", option = { ignore_cmds = { "Man", "!" } }, },
+          { name = "cmdline", option = { ignore_cmds = { "Man", "!" } } },
           { name = "path" },
           { name = "buffer" },
         },
@@ -140,7 +147,7 @@ return {
       local ls = require "luasnip"
       local types = require "luasnip.util.types"
       local extras = require "luasnip.extras"
-      local fmt = require "luasnip.extras.fmt".fmt
+      local fmt = require("luasnip.extras.fmt").fmt
 
       ls.config.set_config {
         -- history = false,
@@ -174,9 +181,9 @@ return {
         },
       }
 
-      require "luasnip.loaders.from_lua".lazy_load()
-      require "luasnip.loaders.from_vscode".lazy_load()
-      require "luasnip.loaders.from_vscode".lazy_load { paths = "./snippets" }
+      require("luasnip.loaders.from_lua").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load { paths = "./snippets" }
       ls.filetype_extend("all", { "_" })
     end,
   },

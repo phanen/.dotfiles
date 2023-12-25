@@ -1,34 +1,9 @@
 return {
   {
     "iamcco/markdown-preview.nvim",
-    keys = { { "<leader>wm", "<cmd>MarkdownPreview<cr>" } },
     cmd = "MarkdownPreview",
     build = "cd app && npm install",
-    config = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-      vim.g.mkdp_auto_close = 0
-    end,
     ft = { "markdown" },
-  },
-  {
-    "toppair/peek.nvim",
-    cond = false,
-    build = "deno task --quiet build:fast",
-    keys = {
-      {
-        "<leader>wm",
-        function()
-          local peek = require "peek"
-          if peek.is_open() then
-            peek.close()
-          else
-            peek.open()
-          end
-        end,
-        desc = "Peek (Markdown Preview)",
-      },
-    },
-    opts = {},
   },
   {
     "lukas-reineke/headlines.nvim",
@@ -36,7 +11,6 @@ return {
     dependencies = "nvim-treesitter/nvim-treesitter",
     opts = {
       markdown = {
-        headline_highlights = { "Headline" },
         codeblock_highlight = false,
         dash_highlight = false,
         quote_highlight = false,
@@ -44,85 +18,12 @@ return {
       },
     },
   },
-  {
-    "jakewvincent/mkdnflow.nvim",
-    ft = { "markdown" },
-    opts = {
-      modules = {
-        bib = false,
-        buffers = false,
-        conceal = false,
-        cursor = true,
-        folds = true,
-        links = true,
-        lists = true,
-        maps = true,
-        paths = true,
-        tables = true,
-        yaml = false,
-      },
-      mappings = {
-        MkdnNextHeading = { "n", "]n" },
-        MkdnPrevHeading = { "n", "[n" },
-        MkdnNewListItemBelowInsert = { "n", "o" },
-        MkdnNewListItemAboveInsert = { "n", "O" },
-        MkdnCreateLinkFromClipboard = { { "n", "v" }, "<leader>p" }, -- see MkdnEnter
-        MkdnEnter = false,
-        MkdnTab = false,
-        MkdnSTab = false,
-        MkdnNextLink = false,
-        MkdnPrevLink = false,
-        MkdnGoBack = { "n", "<BS>" },
-        MkdnGoForward = { "n", "<Del>" },
-        MkdnCreateLink = false, -- see MkdnEnter
-        MkdnFollowLink = false, -- see MkdnEnter
-        MkdnDestroyLink = { "n", "<M-CR>" },
-        MkdnTagSpan = { "v", "<M-CR>" },
-        MkdnMoveSource = false,
-        MkdnYankAnchorLink = { "n", "ya" },
-        MkdnYankFileAnchorLink = { "n", "yfa" },
-        MkdnIncreaseHeading = { "n", "+" },
-        MkdnDecreaseHeading = { "n", "-" },
-        MkdnToggleToDo = false,
-        MkdnNewListItem = false,
-        MkdnExtendList = false,
-        MkdnUpdateNumbering = { "n", "<leader>nn" },
-        MkdnTableNextCell = { "i", "<Tab>" },
-        MkdnTablePrevCell = { "i", "<S-Tab>" },
-        MkdnTableNextRow = false,
-        MkdnTablePrevRow = { "i", "<M-CR>" },
-        MkdnTableNewRowBelow = { "n", "<leader>ir" },
-        MkdnTableNewRowAbove = { "n", "<leader>iR" },
-        MkdnTableNewColAfter = { "n", "<leader>ic" },
-        MkdnTableNewColBefore = { "n", "<leader>iC" },
-        MkdnFoldSection = false,
-        MkdnUnfoldSection = false,
-      },
-    }
-  },
-  {
-    "phanen/toggle-checkbox.nvim",
-    ft = "markdown",
-    keys = {
-      { mode = { "n", "x" }, "<c-space>", "<cmd>lua require('toggle-checkbox').toggle()<cr>" },
-    },
-    opts = {},
-  },
-  {
-    "dhruvasagar/vim-table-mode",
-    ft = { "markdown", "org" },
-  },
-  {
-    "f3fora/nvim-texlabconfig",
-    cond = false,
-    config = function() require("texlabconfig").setup() end,
-    ft = { "tex", "bib" }, -- for lazy loading
-    build = "go build",
-  },
+  { "dhruvasagar/vim-table-mode", cond = false, ft = { "markdown", "org" } },
   {
     "lervag/vimtex",
     -- :h :VimtexInverseSearch
     -- https://github.com/lervag/vimtex/pull/2560
+    cond = false,
     lazy = false,
     ft = "tex",
     keys = {
@@ -132,29 +33,12 @@ return {
       { "<leader>vv", "<plug>(vimtex-view)" },
     },
     config = function()
-      -- vim.cmd[[
-      --   filetype plugin indent on
-      --   syntax enable
-      -- ]]
-      -- vim.g.vimtex_view_method = "zathura"
       vim.g.vimtex_view_method = "sioyek"
-      -- vim.g.vimtex_view_general_viewer = 'okular'
-      -- vim.g.vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-      -- vim.g.vimtex_compiler_method = 'latexrun'
-
-      -- vim.opt.concealcursor = "nc"
-      -- vim.opt.conceallevel = 2
       vim.g.tex_flavor = "latex"
       vim.g.tex_conceal = "abdmgs"
       vim.g.vimtex_quickfix_mode = 0
-      -- vim.g.vimtex_compiler_latexmk_engines = { ["_"] = "-lualatex" }
-      -- vim.g.vimtex_view_enabled = 0
-      -- vim.g.vimtex_view_automatic = 0
-      -- vim.g.vimtex_indent_on_ampersands = 0
-      -- vim.g.syntax_conceal_disable = 1
     end,
   },
-  -- math mode snippets
   {
     "iurimateus/luasnip-latex-snippets.nvim",
     cond = false,
@@ -164,8 +48,8 @@ return {
   },
   {
     "3rd/image.nvim",
-    lazy = false,
-    cond = false,
+    enbaled = false,
+    ft = "markdown",
     opts = {},
     init = function()
       -- Example for configuring Neovim to load user-installed installed Lua rocks:

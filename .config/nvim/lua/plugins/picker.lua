@@ -1,8 +1,8 @@
-local tb = require "telescope.builtin"
-local tl = require "telescope"
-local ta = require "telescope.actions"
-local tas = require "telescope.actions.state"
-local tal = require "telescope.actions.layout"
+local req = require("utils").reqcall
+local tb = req "telescope.builtin"
+local ta = req "telescope.actions"
+local tas = req "telescope.actions.state"
+local tal = req "telescope.actions.layout"
 
 local use_cache = false
 local toggle_cache = function() use_cache = not use_cache end
@@ -56,6 +56,7 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
     cmd = "Telescope",
+    -- stylua: ignore
     keys = {
       { "<leader>ft",       toggle_cache,                            mode = { "n", "x" } },
       { "<leader><leader>", tb.resume,                               mode = { "n", "x" } },
@@ -79,21 +80,9 @@ return {
     },
     opts = {
       defaults = {
-        -- layout_strategy = "vertical",
         sorting_strategy = "ascending",
         preview = { hide_on_startup = true },
-        layout_config = {
-          horizontal = {
-            height = 0.5,
-            -- preview_cutoff = 10,
-            preview_width = 0.55,
-            prompt_position = "top",
-            -- mirror = true,
-          },
-          vertical = {
-            prompt_position = "top",
-          },
-        },
+        layout_config = { horizontal = { height = 0.5, preview_width = 0.55 }, prompt_position = "top" },
         mappings = {
           i = {
             ["<c-u>"] = ta.preview_scrolling_up,
@@ -105,14 +94,13 @@ return {
             ["<c-j>"] = ta.move_selection_next,
             ["<c-k>"] = ta.move_selection_previous,
             ["<c-g>"] = tal.cycle_layout_next,
-            ["<c-y>"] = function(prompt_bufnr)
+            ["<c-y>"] = function(_)
               local entry = tas.get_selected_entry()
               local prompt_text = entry.text or entry[1]
               vim.fn.system("echo -n " .. prompt_text .. "| xsel -ib")
-              -- ta.close(prompt_bufnr)
-              return true -- otherwise, cannot close?
+              return true
             end,
-            ["<c-l>"] = function(prompt_bufnr)
+            ["<c-l>"] = function(_)
               local entry = tas.get_selected_entry()
               local prompt_text = entry.text or entry[1]
               vim.fn.system("echo -n " .. prompt_text .. "| xsel -ib")
@@ -124,8 +112,7 @@ return {
               require("telescope.builtin").resume()
             end,
             ["<c-q>"] = ta.add_selected_to_qflist,
-            ["<cr>"] = function(prompt_bufnr)
-              -- TODO: need async!!!
+            ["<cr>"] = function(prompt_bufnr) -- TODO: need async!!!
               local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
               local multi = picker:get_multi_selection()
               if not vim.tbl_isempty(multi) then
@@ -146,14 +133,9 @@ return {
     "folke/todo-comments.nvim",
     dependencies = { "telescope.nvim", "nvim-lua/plenary.nvim" },
     keys = {
-      { "<leader>L", ":TodoTelescope cwd=" .. require("utils").get_root() .. "<CR>", },
+      { "<leader>L", ":TodoTelescope cwd=" .. require("utils").get_root() .. "<CR>" },
     },
     opts = { highlight = { keyword = "bg" } },
   },
-  {
-    "junegunn/fzf.vim",
-    lazy = false,
-    -- enabled = false,
-    dependencies = { "junegunn/fzf", name = "fzf" },
-  },
+  { "junegunn/fzf.vim", cmd = "Files", dependencies = { "junegunn/fzf", name = "fzf" } },
 }

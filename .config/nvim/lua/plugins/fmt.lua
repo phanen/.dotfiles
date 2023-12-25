@@ -1,6 +1,5 @@
 return {
   "stevearc/conform.nvim",
-  event = "VeryLazy",
   opts = {
     formatters_by_ft = {
       -- TODO: stylua cannot align
@@ -22,11 +21,6 @@ return {
     },
   },
   keys = {
-    {
-      "gw",
-      function() require("conform").format { lsp_fallback = true } end,
-      desc = "format",
-      mode = { "n", "v" },
-    },
+    { mode = { "n", "x" }, "gw", function() require("conform").format { lsp_fallback = true } end, desc = "format" },
   },
 }

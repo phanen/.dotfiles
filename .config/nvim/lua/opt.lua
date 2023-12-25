@@ -41,6 +41,7 @@ opt.listchars = {
   precedes = "░", -- Alternatives: … « ‹
   trail = "•", -- BULLET (U+2022, UTF-8: E2 80 A2)
 }
+vim.opt.listchars = { leadmultispace = "│ ", multispace = "│ ", tab = "│ " }
 
 -- message
 opt.shortmess = opt.shortmess + { c = true }
@@ -50,7 +51,7 @@ o.updatetime = 1000 -- for CursorHold
 o.timeoutlen = 100
 o.ttimeout = false -- avoid sticky escape as alt
 
-for _, provider in ipairs({ "perl", "node", "ruby", "python", "python3", }) do
+for _, provider in ipairs { "perl", "node", "ruby", "python", "python3" } do
   local var = "loaded_" .. provider .. "_provider"
   vim.g[var] = 0
 end

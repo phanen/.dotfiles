@@ -1,8 +1,7 @@
 local link_wrap = function(type)
   return function()
-    local text = vim.fn.getreg("+")
+    local text = vim.fn.getreg "+"
     text = string.gsub(text, "\n", "")
-
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
     if type == "raw" then
       text = "<" .. text .. ">"
@@ -17,14 +16,57 @@ local link_wrap = function(type)
   end
 end
 
-vim.api.nvim_create_autocmd("Filetype", {
-  group = vim.api.nvim_create_augroup("latex_group", { clear = true }),
-  pattern = { "markdown", },
-  callback = function()
-    local m = function(lhs, rhs)
-      map({ "n", "x" }, lhs, rhs, { buffer = 0 })
+local toggle_checkbox = function()
+  local CHECK_BOX = "%[x%]"
+  local EMPTY_BOX = "%[ %]"
+  local PREFIX = "-"
+  local toggle_line = function(line)
+    local has = function(box) return line:find("^%s*- " .. box) or line:find("^%s*%d%. " .. box) end
+    local check = function() return line:gsub(EMPTY_BOX, CHECK_BOX, 1) end
+    local clear = function() return line:gsub(CHECK_BOX, EMPTY_BOX, 1) end
+    local make_box = function()
+      if line:match "^%s*-%s.*$" then return line:gsub("(%s*- )(.*)", "%1[ ] %2", 1) end
+      if line:match "^%s*%d%s.*$" then return line:gsub("(%s*%d%. )(.*)", "%1[ ] %2", 1) end
+      return line:gsub("(%S+)", PREFIX .. " %1", 1)
     end
-    m("<leader>il", link_wrap "raw")
-    m("<leader>ii", link_wrap "img")
+    if has(CHECK_BOX) then return clear() end
+    if has(EMPTY_BOX) then return check() end
+    return make_box()
   end
+  local vstart, vend = vim.fn.getpos(".")[2], vim.fn.getpos("v")[2]
+  if vstart > vend then
+    vstart, vend = vend, vstart
+  end
+  vstart = vstart - 1
+  local lines = vim.api.nvim_buf_get_lines(0, vstart, vend, false)
+  for i, line in ipairs(lines) do
+    lines[i] = toggle_line(line)
+  end
+  vim.api.nvim_buf_set_lines(0, vstart, vend, false, lines)
+end
+
+-- context-aware item creator
+local list_item = function(c)
+  return function()
+    local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+    local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
+    return line:find "^%s*- " and c .. "- " or c
+  end
+end
+
+vim.api.nvim_create_autocmd("Filetype", {
+  group = vim.api.nvim_create_augroup("markdown", { clear = true }),
+  pattern = { "markdown" },
+  callback = function()
+    local m = function(mode, lhs, rhs, opts)
+      opts = opts or {}
+      opts.buffer = 0
+      map(mode, lhs, rhs, opts)
+    end
+    m({ "n", "x" }, "<leader>il", link_wrap "raw")
+    m({ "n", "x" }, "<leader>ii", link_wrap "img")
+    m({ "n", "x" }, "<c-space>", toggle_checkbox)
+    m("n", "o", list_item "o", { expr = true })
+    m("n", "O", list_item "O", { expr = true })
+  end,
 })

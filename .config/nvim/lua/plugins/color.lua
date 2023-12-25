@@ -10,20 +10,10 @@ return {
   { "NTBBloodbath/doom-one.nvim" },
   { "mswift42/vim-themes" },
   { "marko-cerovac/material.nvim" },
-  { "phanen/dracula.nvim", branch = "fix" },
   { "dracula/vim", name = "dracula.vim" },
   { "rose-pine/neovim", name = "rose-pine" },
   { "catppuccin/nvim", name = "catppuccin" },
   { "mcchrish/zenbones.nvim", dependencies = "rktjmp/lush.nvim" },
-  {
-    "rockyzhang24/arctic.nvim",
-    branch = "v2",
-    priority = 1000,
-    dependencies = { "rktjmp/lush.nvim" },
-    config = function()
-      -- vim.cmd([[colorscheme arctic]])
-    end,
-  },
   -- tools
   { "xiyaowong/transparent.nvim", cmd = "TransparentToggle", config = true },
   {

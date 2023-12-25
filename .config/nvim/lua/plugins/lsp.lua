@@ -1,10 +1,11 @@
 return {
   { "neovim/nvim-lspconfig", cmd = { "LspInfo", "LspInstall", "LspUninstall" } },
-  { "j-hui/fidget.nvim", event = "LspAttach", opts = {} },
+  { "j-hui/fidget.nvim", cond = false, event = "LspAttach", opts = {} },
   { "williamboman/mason.nvim", build = ":MasonUpdate", cmd = "Mason", opts = {} },
   {
     "williamboman/mason-lspconfig.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    -- event = "VeryLazy",
     dependencies = {
       { "williamboman/mason.nvim" },
       { "folke/neodev.nvim", ft = "lua", opts = {} },
@@ -25,7 +26,7 @@ return {
           lua_ls = function()
             lspconfig.lua_ls.setup {
               on_attach = function(client, _)
-                -- NOTE: regard thisa as LspAttachPre
+                -- NOTE: regard this as LspAttachPre
                 -- which formatter should be used?
                 -- client.server_capabilities.documentFormattingProvider = false
               end,

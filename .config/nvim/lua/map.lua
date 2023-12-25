@@ -86,7 +86,7 @@ n(
     ]],
   { desc = "half to full" }
 )
-n("<leader>rs", "<cmd>%s/\\s*$//g<cr>''", { desc = "clean tail space" })
+n("<leader>rs", "<cmd>%s/\\s*$//g<cw>''", { desc = "clean tail space" })
 n("<leader>rl", "<cmd>g/^$/d<cr>''", { desc = "clean the blank line" })
 x("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
 

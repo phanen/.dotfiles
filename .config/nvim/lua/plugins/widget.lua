@@ -3,9 +3,7 @@ return {
   {
     "pwntester/octo.nvim",
     cmd = "Octo",
-    init = function()
-      vim.treesitter.language.register("markdown", "octo")
-    end,
+    init = function() vim.treesitter.language.register("markdown", "octo") end,
     config = function()
       require("octo").setup {}
       -- BUG: take no effect...

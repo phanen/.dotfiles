@@ -2,23 +2,18 @@ local M = {}
 
 function M.mux(cond, lhs, rhs) return (cond and { lhs } or { rhs })[1] end
 
-function M.get_nvim_version()
-  local version = vim.version()
-  return string.format("%d.%d.%d", version.major, version.minor, version.patch)
-end
-
----@param require_path string
+---@param path string
 ---@return table<string, fun(...): any>
-function M.reqcall(require_path)
+M.reqcall = function(path)
   return setmetatable({}, {
     __index = function(_, k)
-      return function(...) return require(require_path)[k](...) end
+      return function(...) return require(path)[k](...) end
     end,
   })
 end
 
 ---@return string
-function M.get_root()
+M.get_root = function()
   local path = vim.loop.fs_realpath(vim.api.nvim_buf_get_name(0))
   ---@type string[]
   local roots = {}
@@ -49,7 +44,7 @@ end
 ---@generic T:table
 ---@param callback fun(itme: T, key: any)
 ---@param list [TODO:parameter]
-function M.foreach(callback, list)
+M.foreach = function(callback, list)
   for k, v in pairs(list) do
     callback(v, k)
   end
@@ -58,7 +53,7 @@ end
 -- https://vi.stackexchange.com/questions/467/how-can-i-clear-a-register-multiple-registers-completely
 --- get visual text string
 ---@return string
-function M.get_visual()
+M.get_visual = function()
   local reg_bak = vim.fn.getreg "v"
   vim.fn.setreg("v", {})
   -- do nothing in normal mode

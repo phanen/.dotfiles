@@ -5,8 +5,8 @@ return {
     cond = vim.g.started_by_firenvim == nil,
     dependencies = "nvim-tree/nvim-web-devicons",
     keys = {
-      { "[b", "<Cmd>BufferLineMovePrev<CR>", { desc = "bufferline: move next" } },
-      { "]b", "<Cmd>BufferLineMoveNext<CR>", { desc = "bufferline: move prev" } },
+      { "H", "<cmd>bufferlinemoveprev<cr>", { desc = "bufferline: move next" } },
+      { "L", "<cmd>bufferlinemovenext<cr>", { desc = "bufferline: move prev" } },
     },
     opts = {
       options = {
@@ -27,23 +27,13 @@ return {
       },
     },
   },
-  {
-    "famiu/bufdelete.nvim",
-    cmd = "Bdelete",
-  },
-  {
-    "ojroques/nvim-bufdel",
-    cond = false,
-    cmd = "BufDel",
-    opts = { quit = false, }
-  },
+  { "famiu/bufdelete.nvim", cmd = "Bdelete" },
+  { "ojroques/nvim-bufdel", cmd = "BufDel", opts = { quit = false } },
   {
     "kwkarlwang/bufjump.nvim",
-    event = "VeryLazy",
-    opts = {
-      forward = "<leader><c-i>",
-      backward = "<leader><c-o>",
-      on_success = nil,
+    keys = {
+      { "<leader><c-o>", "<cmd>lua require('bufjump').backward()<cr>" },
+      { "<leader><c-i>", "<cmd>lua require('bufjump').forward()<cr>" },
     },
   },
 }

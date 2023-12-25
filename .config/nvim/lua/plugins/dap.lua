@@ -3,38 +3,13 @@ local fn = vim.fn
 return {
   {
     "mfussenegger/nvim-dap",
-    cond = false,
     keys = {
-      {
-        "<localleader>dL",
-        function() require("dap").set_breakpoint(nil, nil, fn.input "Log point message: ") end,
-        desc = "dap: log breakpoint",
-      },
-      {
-        "<localleader>db",
-        function() require("dap").toggle_breakpoint() end,
-        desc = "dap: toggle breakpoint",
-      },
-      {
-        "<localleader>dB",
-        function() require("dap").set_breakpoint(fn.input "Breakpoint condition: ") end,
-        desc = "dap: set conditional breakpoint",
-      },
-      {
-        "<localleader>dc",
-        function() require("dap").continue() end,
-        desc = "dap: continue or start debugging",
-      },
-      {
-        "<localleader>duc",
-        function() require("dapui").close() end,
-        desc = "dap ui: close",
-      },
-      {
-        "<localleader>dut",
-        function() require("dapui").toggle() end,
-        desc = "dap ui: toggle",
-      },
+      { "<localleader>dL", function() require("dap").set_breakpoint(nil, nil, fn.input "log: ") end, desc = "d: log" },
+      { "<localleader>db", function() require("dap").toggle_breakpoint() end, desc = "dap: break" },
+      { "<localleader>dB", function() require("dap").set_breakpoint(fn.input "bc: ") end, desc = "dap: set cb" },
+      { "<localleader>dc", function() require("dap").continue() end, desc = "dap: continue" },
+      { "<localleader>duc", function() require("dapui").close() end, desc = "dap ui: close" },
+      { "<localleader>dut", function() require("dapui").toggle() end, desc = "dap ui: toggle" },
       { "<localleader>dt", function() require("dap").repl.toggle() end, desc = "dap: toggle repl" },
       { "<localleader>de", function() require("dap").step_out() end, desc = "dap: step out" },
       { "<localleader>di", function() require("dap").step_into() end, desc = "dap: step into" },
@@ -164,42 +139,24 @@ return {
       },
     },
   },
-
-  {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-  },
-
+  { "simrat39/rust-tools.nvim", ft = "rust" },
   {
     "jayp0521/mason-nvim-dap.nvim",
-    cond = false,
     opts = {
       automatic_installation = true,
       ensure_installed = { "codelldb" },
     },
   },
-
   {
     "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
-    config = function()
-      require("toggle_lsp_diagnostics").init()
-      -- require('toggle_lsp_diagnostics').init(vim.diagnostic.config())
-    end,
+    config = function() require("toggle_lsp_diagnostics").init() end,
     keys = {
-      -- { "<leader>tlu", mode = { "n" }, "<Plug>(toggle-lsp-diag-underline)" },
-      -- { "<leader>tls", mode = { "n" }, "<Plug>(toggle-lsp-diag-signs)" },
-      -- { "<leader>tlv", mode = { "n" }, "<Plug>(toggle-lsp-diag-vtext)" },
-      -- { "<leader>tlp", mode = { "n" }, "<Plug>(toggle-lsp-diag-update_in_insert)" },
-      -- { "<leader>tld", mode = { "n" }, "<Plug>(toggle-lsp-diag)" },
-      -- { "<leader>tldd", mode = { "n" }, "<Plug>(toggle-lsp-diag-default)" },
-      { "<leader>tf", mode = { "n" }, "<Plug>(toggle-lsp-diag-off)" },
-      { "<leader>to", mode = { "n" }, "<Plug>(toggle-lsp-diag-on)" },
+      { "<leader>tf", "<Plug>(toggle-lsp-diag-off)" },
+      { "<leader>to", "<Plug>(toggle-lsp-diag-on)" },
     },
   },
-
   {
     "andrewferrier/debugprint.nvim",
-    cond = false,
     opts = { create_keymaps = false },
     keys = {
       {

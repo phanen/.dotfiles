@@ -8,29 +8,19 @@ return {
       "nvim-tree/nvim-web-devicons",
       {
         "stevearc/dressing.nvim",
-        opts = {
-          input = {
-            mappings = { i = { ["<c-p>"] = "HistoryPrev", ["<c-n>"] = "HistoryNext" } },
-          },
-        },
+        opts = { input = { mappings = { i = { ["<c-p>"] = "HistoryPrev", ["<c-n>"] = "HistoryNext" } } } },
       },
     },
     opts = {
       sync_root_with_cwd = true,
-      -- TODO: impl proper rooter
-      -- current root_dirs is static, should set pwd when switch buf
-      -- update_focused_file = {
-      --   enable = true,
-      --   update_root = true,
-      -- },
+      actions = { change_dir = { enable = true, global = true } },
       on_attach = function(bufnr)
         local api = require "nvim-tree.api"
         api.config.mappings.default_on_attach(bufnr)
-        local nmap = function(lhs, rhs, desc) return map("n", lhs, rhs, { desc = desc, buffer = bufnr }) end
-        -- TODO: dirstack, or use tcd in nvim-tree (but that's limited now)
-        nmap("h", api.tree.change_root_to_parent, "up")
-        nmap("l", api.node.open.edit, "edit")
-        nmap("L", api.tree.change_root_to_node, "cd")
+        local n = function(lhs, rhs, desc) return map("n", lhs, rhs, { desc = desc, buffer = bufnr }) end
+        n("h", api.tree.change_root_to_parent, "up")
+        n("l", api.node.open.edit, "edit")
+        n("_", api.tree.change_root_to_node, "cd")
       end,
     },
   },

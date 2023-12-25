@@ -11,10 +11,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     n("gd", lsp.buf.definition, "definition")
     n("gI", lsp.buf.implementation, "implementation")
     n("gr", function() lsp.buf.references { includeDeclaration = false } end, "references")
-    -- n("<leader>rn", lsp.buf.rename, "rename")
+    n("<leader>rn", lsp.buf.rename, "rename")
     n("<leader>D", lsp.buf.type_definition, "type definition")
     n("<leader>ca", lsp.buf.code_action)
-    -- n("gw", function() lsp.buf.format { async = true } end, "format buffer")
+    n("gq", function() lsp.buf.format { async = true } end, "format buffer")
     n("gs", vim.lsp.buf.signature_help, "signature_help")
   end,
 })

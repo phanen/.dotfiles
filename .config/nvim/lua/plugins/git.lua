@@ -15,6 +15,7 @@ return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     keys = { { "<localleader>gs", "<cmd>Gitsigns<cr>" } },
+    dependencies = "dressing.nvim",
     opts = {
       signs = {
         add = { text = "+" },
@@ -50,7 +51,11 @@ return {
     "TimUntersberger/neogit",
     cmd = "Neogit",
     dependencies = { "nvim-lua/plenary.nvim" },
-    keys = { { "<localleader>gn", function() require("neogit").open() end, desc = "neogit" } },
+    keys = { {
+      "<localleader>gn",
+      function() require("neogit").open() end,
+      desc = "neogit",
+    } },
     opts = {
       disable_hint = true,
       disable_insert_on_commit = false,
@@ -59,7 +64,6 @@ return {
         item = { "▸", "▾" },
         hunk = { "󰐕", "󰍴" },
       },
-      integrations = { diffview = true, },
     },
   },
 }
