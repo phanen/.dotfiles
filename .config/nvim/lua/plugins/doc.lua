@@ -5,19 +5,6 @@ return {
     build = "cd app && npm install",
     ft = { "markdown" },
   },
-  {
-    "lukas-reineke/headlines.nvim",
-    ft = "markdown",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    opts = {
-      markdown = {
-        codeblock_highlight = false,
-        dash_highlight = false,
-        quote_highlight = false,
-        fat_headlines = false,
-      },
-    },
-  },
   { "dhruvasagar/vim-table-mode", cond = false, ft = { "markdown", "org" } },
   {
     "lervag/vimtex",
@@ -48,7 +35,7 @@ return {
   },
   {
     "3rd/image.nvim",
-    enbaled = false,
+    cond = false,
     ft = "markdown",
     opts = {},
     init = function()
