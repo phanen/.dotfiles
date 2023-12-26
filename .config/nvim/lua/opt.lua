@@ -1,20 +1,18 @@
-local o, wo, opt = vim.o, vim.wo, vim.opt
+local o = vim.o
 
 o.clipboard = "unnamedplus"
 o.mouse = "a"
 o.undofile = true
 o.number = true
 o.relativenumber = true
-o.termguicolors = true
 
--- https://www.zhihu.com/question/22363620
+o.termguicolors = true
 o.fileencodings = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
 o.whichwrap = "b,s,h,l"
+
 o.ignorecase = true -- use /C
 o.smartcase = true
--- o.hlsearch = false
 
--- 1 tab = 2 space
 o.tabstop = 4
 o.softtabstop = 2
 o.shiftwidth = 2
@@ -23,31 +21,19 @@ o.autoindent = true
 o.breakindent = true
 o.shiftround = true
 
+-- o.jumpoptions = "stack"
 o.scrolloff = 16
-
-wo.conceallevel = 2
-
-opt.completeopt = { "menuone", "noselect", "noinsert" }
-
+o.completeopt = "menuone,noselect,noinsert"
 o.splitright = true
-
--- o.wrapmargin = 2
 o.showbreak = "↪ "
-o.list = true -- invisible chars
-opt.listchars = {
-  eol = nil,
-  tab = "  ", -- Alternatives: '▷▷',
-  extends = "…", -- Alternatives: … » ›
-  precedes = "░", -- Alternatives: … « ‹
-  trail = "•", -- BULLET (U+2022, UTF-8: E2 80 A2)
-}
-vim.opt.listchars = { leadmultispace = "│ ", multispace = "│ ", tab = "│ " }
 
--- message
-opt.shortmess = opt.shortmess + { c = true }
+o.list = true
+-- o.listchars = o.listchars .. ",leadmultispace:▎ ,tab:▎ "
+-- o.listchars = o.listchars .. ",leadmultispace:┊ ,tab:┊ "
+o.listchars = o.listchars .. ",leadmultispace:│ "
+-- o.listchars = o.listchars .. ",leadmultispace:│ ,tab:│ "
 
 o.updatetime = 1000 -- for CursorHold
--- o.timeout = false
 o.timeoutlen = 100
 o.ttimeout = false -- avoid sticky escape as alt
 
@@ -55,5 +41,37 @@ for _, provider in ipairs { "perl", "node", "ruby", "python", "python3" } do
   local var = "loaded_" .. provider .. "_provider"
   vim.g[var] = 0
 end
+
+-- wezterm integration
+local base64 = function(data)
+  data = tostring(data)
+  local bit = require("bit")
+  local b64chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+  local b64, len = "", #data
+  local rshift, lshift, bor = bit.rshift, bit.lshift, bit.bor
+
+  for i = 1, len, 3 do
+    local a, b, c = data:byte(i, i + 2)
+    b = b or 0
+    c = c or 0
+
+    local buffer = bor(lshift(a, 16), lshift(b, 8), c)
+    for j = 0, 3 do
+      local index = rshift(buffer, (3 - j) * 6) % 64
+      b64 = b64 .. b64chars:sub(index + 1, index + 1)
+    end
+  end
+
+  local padding = (3 - len % 3) % 3
+  b64 = b64:sub(1, -1 - padding) .. ("="):rep(padding)
+
+  return b64
+end
+
+local set_user_var = function(key, value)
+  io.write(string.format("\027]1337;SetUserVar=%s=%s\a", key, base64(value)))
+end
+
+set_user_var()
 
 -- vim:foldmethod=marker

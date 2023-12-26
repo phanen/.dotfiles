@@ -2,27 +2,16 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "UIEnter",
-    cond = vim.g.started_by_firenvim == nil,
     dependencies = "nvim-tree/nvim-web-devicons",
     keys = {
-      { "H", "<cmd>bufferlinemoveprev<cr>", { desc = "bufferline: move next" } },
-      { "L", "<cmd>bufferlinemovenext<cr>", { desc = "bufferline: move prev" } },
+      { "H", "<cmd>BufferLineMovePrev<cr>", { desc = "bl: move next" } },
+      { "L", "<cmd>BufferLineMoveNext<cr>", { desc = "bl: move prev" } },
     },
     opts = {
       options = {
         offsets = {
-          {
-            filetype = "NvimTree",
-            text = "time wait for no man",
-            highlight = "Directory",
-            text_align = "left",
-          },
-          {
-            text = "UNDOTREE",
-            filetype = "undotree",
-            highlight = "PanelHeading",
-            separator = true,
-          },
+          { filetype = "NvimTree", text = function() return vim.fn.getcwd() end, text_align = "left" },
+          { filetype = "undotree", text = "UNDOTREE", text_align = "left" },
         },
       },
     },

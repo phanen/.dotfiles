@@ -3,7 +3,7 @@ return {
   { "NLKNguyen/papercolor-theme" },
   { "igorgue/danger" },
   { "rebelot/kanagawa.nvim" },
-  { "folke/tokyonight.nvim" },
+  { "folke/tokyonight.nvim", priority = 1000 },
   { "navarasu/onedark.nvim" },
   { "shaunsingh/nord.nvim" },
   { "AlexvZyl/nordic.nvim" },
@@ -24,6 +24,6 @@ return {
   },
   { "norcalli/nvim-colorizer.lua" },
   -- syntax highlight
-  { "kovetskiy/sxhkd-vim", ft = "sxhkd" },
-  { "kmonad/kmonad-vim", ft = "kbd" },
+  { "kovetskiy/sxhkd-vim", cond = false, ft = "sxhkd" },
+  { "kmonad/kmonad-vim", cond = false, ft = "kbd" },
 }

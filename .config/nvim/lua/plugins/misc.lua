@@ -7,7 +7,6 @@ return {
   {
     "folke/which-key.nvim",
     keys = { "<leader>", "<localleader>", "g", "z", "<c-s>" },
-    -- event = "VeryLazy",
     opts = {
       plugins = { spelling = { enabled = false } },
       triggers = "auto",
@@ -26,7 +25,6 @@ return {
   {
     "okuuva/auto-save.nvim",
     event = { "InsertLeave", "TextChanged" },
-    cond = vim.g.started_by_firenvim == nil,
     opts = {
       execution_message = { enabled = false },
       debounce_delay = 0,
@@ -71,26 +69,13 @@ return {
     opts = { calm_down = true, nearest_only = true },
   },
   { "kevinhwang91/nvim-bqf", ft = "qf", opts = {} },
-  -- diagnostics icons
   { url = "https://gitlab.com/yorickpeterse/nvim-pqf", ft = "qf", opts = {} },
   {
     "Shatur/neovim-session-manager",
     keys = {
-      {
-        "<leader>ss",
-        "<cmd>SessionManager save_current_session<cr>",
-        desc = "save current session",
-      },
-      {
-        "<leader>sl",
-        "<cmd>SessionManager load_session<cr>",
-        desc = "load last session",
-      },
-      {
-        "<leader>sd",
-        "<cmd>SessionManager delete_session<cr>",
-        desc = "delete session",
-      },
+      { "<leader>ss", "<cmd>SessionManager save_current_session<cr>", desc = "save session" },
+      { "<leader>sl", "<cmd>SessionManager load_session<cr>", desc = "load last session" },
+      { "<leader>sd", "<cmd>SessionManager delete_session<cr>", desc = "delete session" },
     },
     opts = function()
       return {
@@ -104,5 +89,45 @@ return {
     keys = { { "gl", "gx", mode = { "x", "n" }, remap = true } },
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
+  },
+  {
+    -- "phanen/dirstack.nvim",
+    -- dev = true,
+    dir = "~/dev/dirstack.nvim",
+    lazy = false,
+    cmd = "DirChangdPre",
+    keys = {
+      { "<leader>#", function() require("dirstack").prev() end },
+      { "<leader>*", function() require("dirstack").next() end },
+      { "<leader>$", function() require("dirstack").info() end },
+    },
+    opts = {},
+  },
+  -- TODO: make it more usable...
+  {
+    "nazo6/restart.nvim",
+    cond = false,
+    dependencies = "jedrzejboczar/possession.nvim",
+    lazy = false,
+    cmd = "Restart",
+    opts = {},
+  },
+  {
+    "pwntester/octo.nvim",
+    cmd = "Octo",
+    init = function() vim.treesitter.language.register("markdown", "octo") end,
+    config = function()
+      require("octo").setup {}
+      -- BUG: take no effect...
+      -- vim.api.nvim_set_hl(0, "OctoEditable", { bg = highlight.get("NormalFloat", "bg") })
+      vim.api.nvim_set_hl(0, "OctoEditable", { bg = "#e4dcd4" })
+      map("i", "@", "@<C-x><C-o>", { silent = true, buffer = true })
+      map("i", "#", "#<C-x><C-o>", { silent = true, buffer = true })
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-tree/nvim-web-devicons",
+    },
   },
 }

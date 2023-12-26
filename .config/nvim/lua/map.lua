@@ -6,6 +6,8 @@ local o = function(...) map("o", ...) end
 -- basics {{{
 n("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
 n("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
+x("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
+x("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 
 n("gj", '"gyy"gp')
 x("gj", '"gy\'>"gp')
@@ -67,6 +69,18 @@ n("<c-e>", "<cmd>BufferLineCyclePrev<cr>")
 n("<c-w>", "<cmd>Bdelete!<cr>")
 n("<leader>bo", [[<cmd>w <bar> %bd <bar> e#<cr>]], { desc = "close all other buffers" })
 -- }}}
+-- readline {{{
+map("!", "<c-f>", "<right>")
+map("!", "<c-b>", "<left>")
+map("!", "<c-p>", "<up>")
+map("!", "<c-n>", "<down>")
+map("!", "<c-a>", "<home>")
+map("!", "<c-e>", "<end>")
+map("!", "<c-j>", function() require("readline").forward_word() end)
+map("!", "<c-o>", function() require("readline").backward_word() end)
+map("!", "<c-l>", function() require("readline").kill_word() end)
+map("!", "<c-k>", function() require("readline").kill_line() end)
+-- }}}
 -- window {{{
 n("<c-s><c-s>", "<cmd>wincmd q<cr>")
 -- TODO: restart with session
@@ -75,6 +89,8 @@ n("<leader>oj", "<cmd>wincmd _<cr>")
 n("<leader>ok", "<cmd>wincmd =<cr>")
 n("<c-s>v", "<cmd>wincmd v<cr>")
 n("<c-s>s", "<cmd>wincmd s<cr>")
+n("<c-s>H", "<cmd>wincmd H<cr>")
+n("<c-s>J", "<cmd>wincmd J<cr>")
 n("<c-j>", "<cmd>wincmd w<cr>")
 n("<c-k>", "<cmd>wincmd W<cr>")
 -- }}}
@@ -149,11 +165,6 @@ n("<leader>ds", vim.diagnostic.setloclist, { desc = "d: quickfix" })
 -- gui {{{
 local gui_font_size = 13
 vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(gui_font_size)
-
--- neovide: resize gui font
--- BUG: firenvim window size auto change
--- https://github.com/glacambre/firenvim/issues/800
--- https://github.com/glacambre/firenvim/issues/1006
 n("<c-->", function()
   gui_font_size = gui_font_size - 1
   vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(gui_font_size)
@@ -168,7 +179,8 @@ end)
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
 x("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 
-n("<leader>E", "<Cmd>Inspect<CR>", { desc = "Inspect the cursor position" })
+n("<leader>I", "<Cmd>Inspect<CR>")
+n("<leader>M", "<Cmd>messages<CR>")
 -- FIXME: cross line ^M -> \n
 n("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
   desc = "replace word under the cursor (file)",

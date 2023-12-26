@@ -8,12 +8,12 @@ local ag = api.nvim_create_augroup
 au("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
-    if vim.v.event.operator == "y" then vim.fn.setpos(".", vim.g.current_cursor_pos) end
+    -- if vim.v.event.operator == "y" then vim.fn.setpos(".", vim.g.current_cursor_pos) end
   end,
 })
-au({ "CursorMoved" }, {
-  callback = function() vim.g.current_cursor_pos = vim.fn.getcurpos() end,
-})
+-- au({ "CursorMoved" }, {
+--   callback = function() vim.g.current_cursor_pos = vim.fn.getcurpos() end,
+-- })
 
 -- credit to https://github.com/jeffkreeftmeijer/vim-numbertoggle
 au({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {

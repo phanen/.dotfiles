@@ -1,8 +1,6 @@
-local arg = vim.fn.argv()[1]
 return {
   {
     "nvim-tree/nvim-tree.lua",
-    lazy = arg == nil or not vim.fn.isdirectory(arg),
     cmd = { "NvimTreeFindFileToggle" },
     dependencies = {
       "nvim-tree/nvim-web-devicons",

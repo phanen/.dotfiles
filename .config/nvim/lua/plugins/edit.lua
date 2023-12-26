@@ -1,34 +1,9 @@
 return {
-  {
-    "phanen/readline.nvim",
-    branch = "fix-dir-structure",
-    -- stylua: ignore
-    keys = {
-      { "<c-f>",  "<right>",                                               mode = "!" },
-      { "<c-b>",  "<left>",                                                mode = "!" },
-      { "<c-p>",  "<up>",                                                  mode = "!" },
-      { "<c-n>",  "<down>",                                                mode = "!" },
-      { "<m-f>",  function() require("readline").forward_word() end,       mode = "!" },
-      { "<c-j>",  function() require("readline").forward_word() end,       mode = "!" },
-      { "<m-b>",  function() require("readline").backward_word() end,      mode = "!" },
-      { "<c-o>",  function() require("readline").backward_word() end,      mode = "!" },
-      { "<c-a>",  function() require("readline").beginning_of_line() end,  mode = "!" },
-      { "<c-e>",  function() require("readline").end_of_line() end,        mode = "!" },
-      -- { '<c-w>', function() require('readline').unix_word_rubout() end, mode = '!' },
-      { "<m-bs>", function() require("readline").backward_kill_word() end, mode = "!" },
-      { "<m-d>",  function() require("readline").kill_word() end,          mode = "!" },
-      { "<c-l>",  function() require("readline").kill_word() end,          mode = "!" },
-      { "<c-k>",  function() require("readline").kill_line() end,          mode = "!" },
-      { "<c-u>",  function() require("readline").backward_kill_line() end, mode = "!" },
-    },
-  },
+  { "phanen/readline.nvim", branch = "fix-dir-structure" },
   {
     "kylechui/nvim-surround",
-    -- lazy = false,
     keys = {
       { "s", mode = "x" },
-      -- "<C-g>s",
-      -- "<C-g>S",
       "ys",
       "yss",
       "yS",
@@ -138,17 +113,7 @@ return {
       { "<c-_>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
       { "<c-_>", "<Plug>(comment_toggle_linewise_visual)", mode = { "v" } },
     },
-    opts = {
-      padding = true,
-      sticky = true,
-      ignore = nil,
-      toggler = { line = "gcc", block = "gbc" },
-      opleader = { line = "gc", block = "gb" },
-      extra = { above = "<leader>O", below = "<leader>oo", eol = "<leader>A" },
-      mappings = { basic = true, extra = true },
-      pre_hook = nil,
-      post_hook = nil,
-    },
+    opts = { extra = { above = "<leader>O", below = "<leader>oo", eol = "<leader>A" } },
   },
   {
     "windwp/nvim-autopairs",
@@ -176,7 +141,6 @@ return {
       }
     end,
   },
-  { "smjonas/inc-rename.nvim", cmd = "IncRename" },
   { "mg979/vim-visual-multi", keys = { { mode = { "n", "v" }, "<c-n>" } } },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
   { "tpope/vim-sleuth", event = "VeryLazy" },
@@ -222,6 +186,7 @@ return {
   },
   {
     "folke/flash.nvim",
+    -- TODO: esc to quit dim
     keys = {
       { "s", mode = { "n" }, function() require("flash").jump() end, desc = "Flash" },
       { "_", mode = { "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
@@ -234,6 +199,32 @@ return {
         search = { enabled = false },
         treesitter = { labels = "asdfghjklqwertyuiopzxcvbnm", highlight = { backdrop = true } },
       },
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        -- TODO: stylua cannot align
+        -- but lua_ls(EmmyLuaCodeStyle) cannot trailing cooma
+        lua = { "stylua" },
+        python = { "isort", "black" },
+        go = { "gofumpt", "goimports" },
+        html = { "prettier" },
+        css = { "prettier" },
+        less = { "prettier" },
+        scss = { "prettier" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
+        vue = { "prettier" },
+        json = { "prettier" },
+        yaml = { "prettier" },
+      },
+    },
+    keys = {
+      { mode = { "n", "x" }, "gw", function() require("conform").format { lsp_fallback = true } end, desc = "format" },
     },
   },
 }

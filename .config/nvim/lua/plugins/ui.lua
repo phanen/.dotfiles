@@ -2,18 +2,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    opts = {
-      options = {
-        component_separators = "|",
-        section_separators = "",
-      },
-    },
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    event = "BufReadPre",
-    opts = { scope = { enabled = false } },
+    opts = { options = { component_separators = "|", section_separators = "" } },
   },
   { "HiPhish/rainbow-delimiters.nvim", event = "VeryLazy" },
   {
@@ -27,10 +16,11 @@ return {
     cmd = { "AerialToggle" },
     opts = {
       keymaps = {
-        ["<C-n>"] = "actions.down_and_scroll",
-        ["<C-p>"] = "actions.up_and_scroll",
-        ["<C-j>"] = "",
-        ["<C-k>"] = "",
+        ["<c-n>"] = "actions.down_and_scroll",
+        ["<c-p>"] = "actions.up_and_scroll",
+        -- FIXME: switch window
+        ["<c-j>"] = "<cmd>wincmd j<cr>",
+        ["<c-k>"] = "<cmd>wincmd k<cr>",
       },
     },
   },

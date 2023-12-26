@@ -10,7 +10,7 @@ append_path () {
 append_path $HOME/.bin
 append_path $HOME/.local/bin
 append_path $HOME/.cargo/bin
-append_path $HOME/.config/nvim/mason/bin
+append_path $HOME/.local/share/nvim/mason/bin/
 
 export EDITOR=nvim
 export VISUAL=nvim

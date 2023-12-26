@@ -31,8 +31,12 @@ local M = {
 
   enable_tab_bar = true,
   use_fancy_tab_bar = false,
-  hide_tab_bar_if_only_one_tab = true,
+  hide_tab_bar_if_only_one_tab = false,
   tab_bar_at_bottom = false,
+  -- HACK: `PROC_INFO_CACHE_TTL` limit the refresh of `get_foreground_process_name`
+  -- but anyhow set a low interval will force a stale (no idea why...)
+  -- then wezterm will spawn a thread to update, this seems also not ensure update
+  status_update_interval = 50,
 }
 
 M.color_schemes = {
@@ -53,15 +57,24 @@ M.color_schemes = {
 
 local Mux = function(cond, act1, act2)
   return ac(function(window, pane)
-    if cond(window, pane) then
-      window:perform_action(act1, pane)
-    else
-      window:perform_action(act2, pane)
-    end
+    local select_act = cond(window, pane) and act1 or act2
+    window:perform_action(select_act, pane)
   end)
 end
 
-local function is_nvim(_, pane) return pane:get_foreground_process_name():find "n?vim" end
+local function should_send_key(_, pane)
+  local path = pane:get_foreground_process_name()
+  print(path)
+  return path:find "n?vim" or path:find "tmux"
+end
+
+local function basename(s) return string.gsub(s, "(.*[/\\])(.*)", "%2") end
+wezterm.on("update-right-status", function(window, pane)
+  local path = pane:get_foreground_process_name()
+  -- for debug overlay
+  if path then window:set_right_status(basename(path)) end
+end)
+
 local function has_selection(window, pane) return window:get_selection_text_for_pane(pane) ~= "" end
 local CopySelOrExitCopy = Mux(
   has_selection,
@@ -149,7 +162,7 @@ M.keys = {
     key = "Space",
     -- FIXME: need toggle ?
     action = Mux(
-      is_nvim,
+      should_send_key,
       act.SendKey { mods = "CTRL", key = "Space" },
       am { act.CopyMode "ClearPattern", act.ActivateCopyMode }
     ),

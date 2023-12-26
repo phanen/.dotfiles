@@ -14,8 +14,6 @@ return {
       -- local capabilities = require "capabilities"
       local lspconfig = require "lspconfig"
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local a = 2
-      print(a + a)
       require("mason-lspconfig").setup {
         handlers = {
           function(server)

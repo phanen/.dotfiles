@@ -4,15 +4,9 @@ vim.g.maplocalleader = "+"
 
 _G.map = vim.keymap.set
 
-for _, source in ipairs {
-  --"glb"
-  "opt",
-  "map",
-  "lsp",
-} do
-  local ok, fault = pcall(require, source)
-  if not ok then vim.api.nvim_err_writeln("failed to load " .. source .. "\n\n" .. fault) end
-end
+require "opt"
+require "map"
+require "lsp"
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -48,6 +42,7 @@ require("lazy").setup {
       },
     },
   },
+  dev = { path = vim.fn.stdpath "data" .. "/lazy/local", fallback = false },
 }
 
 -- filter down a quickfix list
