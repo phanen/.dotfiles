@@ -9,13 +9,13 @@ farbfeld
 fish-fifc
 fish-fzf
 fontpreview-ueberzug-git
+gcc6
 gcc7
 gcc7-fortran
 gcc7-libs
 gibo
 google-chrome
 joshuto-bin
-linuxqq
 looking-glass-git
 looking-glass-module-dkms
 mkinitcpio-firmware
@@ -42,5 +42,4 @@ wemeet-bin
 wps-office-cn
 wps-office-mime-cn
 wps-office-mui-zh-cn
-xdg-desktop-portal-termfilechooser-git
 zsh-fast-syntax-highlighting

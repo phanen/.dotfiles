@@ -12,7 +12,6 @@ archlinuxcn-mirrorlist-git
 aria2
 armv7l-linux-gnueabihf-gcc
 awesome-terminal-fonts
-babelfish-fish
 baidupcs-go
 base
 base-devel
@@ -28,8 +27,6 @@ bochs
 boost
 bottom
 bpftrace
-bsp-layout
-bsptab-git
 bspwm
 catimg
 certbot
@@ -39,12 +36,10 @@ clash-verge
 clipman
 clipmenu
 cmake
-codelldb
 cpio
 cronie
 darkman
 debootstrap
-deepin-wine-wechat
 devtools-archlinuxcn
 devtools-cn-git
 devtools-riscv64
@@ -89,11 +84,6 @@ foliate
 fzf
 gcc10
 gcc12
-gcc6
-gcc6-fortran
-gcc6-gcj
-gcc6-libs
-gcc9-bin
 gdb
 ghc
 git
@@ -102,7 +92,6 @@ gnu-efi
 gnu-free-fonts
 gnu-netcat
 go
-google-chrome
 gpg-tui
 grub
 gsmartcontrol
@@ -160,12 +149,12 @@ linux-firmware
 linux-headers
 linux-zen
 linux-zen-headers
-linuxqq
 lld
 lldb
 llvm
 llvm15
 lostfiles
+love
 lsb-release
 lsof
 ltrace
@@ -180,7 +169,6 @@ mesa-utils
 meson
 metasploit
 minicom
-mkdocs-material
 mpc
 mpd
 mpv
@@ -230,7 +218,6 @@ python-awesomeversion
 python-certifi
 python-markdown
 python-markdown-it-py
-python-paginate
 python-pip
 python-pipx
 python-poetry
@@ -281,17 +268,14 @@ stow
 strace
 sway
 swaybg
-swhkd-bin
 sxhkd
 sxiv
 syncthing
-sysz
 tcpdump
 tealdeer
 telegram-desktop
 terminus-font
 the_silver_searcher
-thorium-browser-bin
 tmux
 tokei
 traceroute
@@ -317,7 +301,6 @@ viu
 vulkan-intel
 vulkan-tools
 w3m
-wemeet-bin
 wezterm
 wget
 whois
@@ -326,8 +309,6 @@ wl-clipboard
 wmctrl
 wofi
 wpa_supplicant
-wps-office-cn
-wps-office-mui-zh-cn
 xclip
 xdg-desktop-portal
 xdo

@@ -63,6 +63,7 @@ dmenu
 dnsmasq
 docker
 dosfstools
+downgrade
 doxygen
 dpkg
 dunst
@@ -74,7 +75,6 @@ egl-wayland
 eglexternalplatform
 eigen
 emacs
-evince
 evtest
 eza
 fakeroot
@@ -138,6 +138,7 @@ httping
 hugo
 hyperfine
 hyperv
+i2c-tools
 imagemagick
 inetutils
 inkscape
@@ -151,6 +152,7 @@ jdk11-openjdk
 jdk8-openjdk
 jpegoptim
 jq
+just
 keepassxc
 kitty
 kmonad-git
@@ -175,13 +177,14 @@ lshw
 lsof
 ltrace
 lua
+luarocks
 m4
 make
 man-db
 man-pages
 mesa-utils
-meson
 minicom
+moreutils
 mosh
 mpv
 mtools
@@ -196,7 +199,6 @@ net-tools
 netease-cloud-music-gtk4
 networkmanager
 nikola
-ninja
 nmap
 noto-fonts-cjk
 noto-fonts-emoji
@@ -217,6 +219,7 @@ p7zip
 pacman
 pacman-contrib
 pacutils
+paru
 patch
 pdfarranger
 pdfgrep
@@ -260,7 +263,9 @@ reflector
 ripgrep
 riscv64-linux-gnu-binutils
 riscv64-linux-gnu-gcc
+riscv64-linux-gnu-gdb
 riscv64-linux-gnu-glibc
+riscv64-unknown-elf-gcc
 rlwrap
 rmlint
 rofi
@@ -335,6 +340,7 @@ virt-viewer
 vmpk
 vtk
 wakeonlan
+wezterm
 wget
 which
 wireshark-cli

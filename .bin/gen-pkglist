@@ -1,24 +1,5 @@
-#!/bin/bash
-
-if [[ "$(hostname)" = "cb" ]]; then
-  # all pkg
-  pacman -Qqe > $XDG_CONFIG_HOME/pkglists/chromebook/pkglist
-  # pkg in sync db
-  pacman -Qqen > $XDG_CONFIG_HOME/pkglists/chromebook/nativepkglist
-  # pkg in aur or manually build
-  pacman -Qqem > $XDG_CONFIG_HOME/pkglists/chromebook/foreignpkglist
-  # optional dependencies
-  comm -13 <(pacman -Qqdt | sort) <(pacman -Qqdtt | sort) > $XDG_CONFIG_HOME/pkglists/chromebook/optdeplist
-
-elif [[ "$(hostname)" = "arch" ]]; then
-  # all pkg
-  pacman -Qqe > $XDG_CONFIG_HOME/pkglists/pkglist
-  # pkg in sync db
-  pacman -Qqen > $XDG_CONFIG_HOME/pkglists/nativepkglist
-  # pkg in aur or manually build
-  pacman -Qqem > $XDG_CONFIG_HOME/pkglists/foreignpkglist
-  # optional dependencies
-  comm -13 <(pacman -Qqdt | sort) <(pacman -Qqdtt | sort) > $XDG_CONFIG_HOME/pkglists/optdeplist
-else
-  echo "who fucking you are"
-fi
+#!/bin/sh
+BASE=$XDG_CONFIG_HOME/pkglists/$(hostnamectl hostname)
+mkdir -p $BASE
+pacman -Qqen > $BASE/nativepkglist
+pacman -Qqem > $BASE/foreignpkglist
