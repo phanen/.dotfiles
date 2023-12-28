@@ -1,4 +1,5 @@
-gcc-fortran
+dbus-python
 gst-libav
-gst-plugins-bad
+python-asgiref
+python-brotli
 python-hypothesis

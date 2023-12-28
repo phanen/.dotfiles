@@ -1,5 +1,3 @@
-local hl = require "utils.hl"
-
 return {
   { "folke/lazy.nvim" },
   -- FIXME: which-key will not register _d, cannot set timeoutlen = 0
@@ -45,11 +43,7 @@ return {
     },
   },
   { "voldikss/vim-translator", cmd = "Translate", keys = { { "gk", ":Translate<cr>", mode = { "n", "x" } } } },
-  {
-    "itchyny/vim-highlighturl",
-    event = "ColorScheme",
-    config = function() vim.g.highlighturl_guifg = hl.get("@keyword", "fg") end,
-  },
+  { "itchyny/vim-highlighturl", event = "ColorScheme" },
   { "nacro90/numb.nvim", event = "CmdlineEnter", opts = {} },
   { "AndrewRadev/linediff.vim", cmd = "Linediff" },
   { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
@@ -91,17 +85,15 @@ return {
     opts = {},
   },
   {
-    -- "phanen/dirstack.nvim",
-    -- dev = true,
     dir = "~/dev/dirstack.nvim",
+    event = "DirChangedPre",
     lazy = false,
-    cmd = "DirChangdPre",
     keys = {
-      { "<leader>#", function() require("dirstack").prev() end },
-      { "<leader>*", function() require("dirstack").next() end },
-      { "<leader>$", function() require("dirstack").info() end },
+      { "<c-p>", function() require("dirstack").prev() end },
+      { "<c-n>", function() require("dirstack").next() end },
+      { "<c-g>", function() require("dirstack").info() end },
     },
-    opts = {},
+    config = true,
   },
   -- TODO: make it more usable...
   {
@@ -130,4 +122,5 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
   },
+  -- { "airblade/vim-rooter", lazy = false }
 }

@@ -1,8 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    keys = { ":", "/" },
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
@@ -15,11 +14,10 @@ return {
     config = function()
       local cmp = require "cmp"
       local luasnip = require "luasnip"
-      local lspkind = require "lspkind"
 
       local formatting = {
         fields = { "kind", "abbr", "menu" },
-        format = lspkind.cmp_format {
+        format = require("lspkind").cmp_format {
           mode = "symbol",
           maxwidth = math.min(50, math.floor(vim.o.columns * 0.5)),
           ellipsis_char = "…",
@@ -40,91 +38,62 @@ return {
         },
       }
       cmp.setup {
-        experimental = {
-          ghost_text = true,
-        },
-        -- TODO: menu width and height
-        window = {
-          completion = cmp.config.window.bordered {},
-          documentation = cmp.config.window.bordered {},
-        },
         sorting = {
           comparators = {
             cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.recently_used,
-            -- require "clangd_extensions.cmp_scores",
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
             cmp.config.compare.length,
             cmp.config.compare.order,
           },
         },
+        -- stylua: ignore
         mapping = {
           ["<c-\\>"] = cmp.mapping(function()
             if cmp.visible() then return cmp.abort() end
             return cmp.complete()
-          end, { "i", "c" }),
-          -- NOTE: use <c-i> may cause bug
+          end),
+          -- TODO: lsp performance
           ["<tab>"] = cmp.mapping {
-            i = function(fallback)
-              -- visible and have selected
+            i = function(fb)
               if cmp.visible() and cmp.get_selected_entry() then return cmp.confirm() end
               if luasnip.jumpable() then return luasnip.jump(1) end
               if luasnip.expandable() then return luasnip.expand() end
-              return fallback()
+              return fb()
             end,
             c = cmp.mapping.select_next_item(),
-            s = function(fallback)
-              if luasnip.jumpable() then return luasnip.jump(1) end
-              return fallback()
-            end,
+            s = function(fb) if luasnip.jumpable() then luasnip.jump(1) else fb() end end,
           },
-          -- ["<s-tab>"] = cmp.mapping(function() return luasnip.jump(-1) end, { "i", "c", "s" }),
           ["<c-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
           ["<c-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-          -- HACK: fallback to history navagation
           ["<c-p>"] = cmp.mapping {
-            i = function(fallback)
-              if luasnip.jumpable() then
-                luasnip.jump(-1)
-              else
-                fallback()
-              end
-            end,
+            i = function(fb) if luasnip.jumpable() then luasnip.jump(-1) else fb() end end,
             s = function() luasnip.jump(-1) end,
-            c = function(fallback) return fallback() end,
+            c = function(fb) return fb() end,
           },
           ["<c-n>"] = cmp.mapping {
-            i = function(fallback)
-              if luasnip.jumpable() then
-                luasnip.jump(1)
-              else
-                fallback()
-              end
-            end,
+            i = function(fb) if luasnip.jumpable() then luasnip.jump(1) else fb() end end,
             s = function() luasnip.jump(1) end,
-            c = function(fallback) return fallback() end,
+            c = function(fb) return fb() end,
           },
+          ["<c-o>"] = cmp.mapping(function(fb) if cmp.visible() then cmp.abort() end fb() end),
           ["<cr>"] = cmp.mapping(cmp.mapping.confirm { select = false }, { "i", "c" }),
         },
-        snippet = {
-          expand = function(args) luasnip.lsp_expand(args.body) end,
-        },
+        snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
         sources = {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-          {
-            name = "buffer",
-            options = {
-              get_bufnrs = function() return vim.api.nvim_list_bufs() end,
-            },
-          },
+          { name = "buffer", options = { get_bufnrs = function() return vim.api.nvim_list_bufs() end } },
           { name = "emoji" },
         },
         formatting = formatting,
-        performance = { max_view_entries = 8 },
+        performance = {
+          max_view_entries = 12,
+          fetching_timeout = 1,
+        },
       }
 
       cmp.setup.cmdline("/", { sources = { { name = "buffer" } } })
@@ -187,11 +156,10 @@ return {
       ls.filetype_extend("all", { "_" })
     end,
   },
-
   {
     "danymat/neogen",
     cmd = "Neogen",
-    keys = { { "<leader>.", "<cmd>Neogen<CR>", desc = "Generate annotation" } },
+    keys = { { "<leader>.", "<cmd>Neogen<CR>", desc = "generate annotation" } },
     opts = { snippet_engine = "luasnip" },
   },
   {
@@ -223,11 +191,7 @@ return {
     "jackMort/ChatGPT.nvim",
     cond = vim.env.OPENAI_API_KEY ~= nil,
     cmd = "ChatGPT",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
     opts = {},
   },
 }

@@ -21,21 +21,20 @@ o.autoindent = true
 o.breakindent = true
 o.shiftround = true
 
--- o.jumpoptions = "stack"
+o.jumpoptions = "stack"
 o.scrolloff = 16
 o.completeopt = "menuone,noselect,noinsert"
 o.splitright = true
 o.showbreak = "↪ "
 
 o.list = true
--- o.listchars = o.listchars .. ",leadmultispace:▎ ,tab:▎ "
--- o.listchars = o.listchars .. ",leadmultispace:┊ ,tab:┊ "
 o.listchars = o.listchars .. ",leadmultispace:│ "
--- o.listchars = o.listchars .. ",leadmultispace:│ ,tab:│ "
 
 o.updatetime = 1000 -- for CursorHold
 o.timeoutlen = 100
 o.ttimeout = false -- avoid sticky escape as alt
+
+o.synmaxcol = 200
 
 for _, provider in ipairs { "perl", "node", "ruby", "python", "python3" } do
   local var = "loaded_" .. provider .. "_provider"
@@ -45,7 +44,7 @@ end
 -- wezterm integration
 local base64 = function(data)
   data = tostring(data)
-  local bit = require("bit")
+  local bit = require "bit"
   local b64chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
   local b64, len = "", #data
   local rshift, lshift, bor = bit.rshift, bit.lshift, bit.bor
@@ -68,9 +67,7 @@ local base64 = function(data)
   return b64
 end
 
-local set_user_var = function(key, value)
-  io.write(string.format("\027]1337;SetUserVar=%s=%s\a", key, base64(value)))
-end
+local set_user_var = function(key, value) io.write(string.format("\027]1337;SetUserVar=%s=%s\a", key, base64(value))) end
 
 set_user_var()
 

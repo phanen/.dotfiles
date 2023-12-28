@@ -47,6 +47,8 @@ super + p
 # TODO: need a santinizer
 super + x
 	xsel -b | sh $XDG_CONFIG_HOME/sxhkd/scripts/url-santinizer.sh >> $XDG_CONFIG_HOME/newsboat/urls
+super + v
+	xsel -b | sh $XDG_CONFIG_HOME/sxhkd/scripts/url-santinizer.sh >> $XDG_CONFIG_HOME/.urls
 super + Tab
 	darkman toggle
 super + ctrl + t

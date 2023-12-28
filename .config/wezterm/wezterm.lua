@@ -15,7 +15,7 @@ local M = {
     "CaskaydiaCove Nerd Font",
     "Noto Sans CJK SC",
   },
-  font_size = 16.5,
+  font_size = 17,
   color_scheme = get_scheme(),
   default_prog = { "fish" },
 
@@ -64,8 +64,8 @@ end
 
 local function should_send_key(_, pane)
   local path = pane:get_foreground_process_name()
-  print(path)
-  return path:find "n?vim" or path:find "tmux"
+  -- this is fine if we always use tmux
+  return path:find "n?vim" or path:find "tmux" or path:find "ssh"
 end
 
 local function basename(s) return string.gsub(s, "(.*[/\\])(.*)", "%2") end

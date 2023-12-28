@@ -4,6 +4,7 @@ abbr -a c cargo
 abbr -a g git
 abbr -a o xdg-open
 abbr -a ta 'tmux a || tmux'
+abbr -a p 'patch -Np1 -i -'
 abbr -a --position anywhere ppp https_proxy=127.0.0.1:7890 http_proxy=127.0.0.1:7890 all_proxy=127.0.0.1:7890
 
 # fish_default_key_bindings
@@ -29,8 +30,30 @@ end
 
 bind \ew fish_key_reader
 bind \cq fish_clipboard_copy
-# PERF: since nvim cannot restart now
-bind \cs nvim
+
+function wrap_edit
+  set -l line (commandline -b)
+  if string match -r '^gib (.+)' $line 2>/dev/null 1>2
+    echo
+    if eval $line
+      nvim +args\ % PKGBUILD riscv64.patch # avoid E173
+      return
+    end
+  end
+  nvim
+end
+
+function reco
+  set -l line (commandline -b)
+  echo
+  eval $line
+  fish_prompt
+  echo -n $line # FIX: no highlight
+  # commandline --replace $line # FIX: no highlight.. even worse...
+end
+
+bind \ct reco
+bind \cs wrap_edit
 bind \cg lazygit
 bind \x1c htop
 bind \co prevd-or-backward-word
@@ -44,6 +67,15 @@ bind \cd delete-or-exit
 set -U fish_greeting
 zoxide init fish | source
 # /usr/bin/starship init fish --print-full-init | source
+
+function up
+  while test $PWD != "/"
+    if test -d .git
+      break
+    end
+  cd ..
+  end
+end
 
 # if status is-login && test -z "$TMUX" && test -n "$SSH_TTY"
 #     exec sh -c 'tmux a || tmux'

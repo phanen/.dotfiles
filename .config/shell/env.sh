@@ -14,7 +14,6 @@ append_path $HOME/.local/share/nvim/mason/bin/
 
 export EDITOR=nvim
 export VISUAL=nvim
-export TERMINAL=alacritty
 export BROWSER=google-chrome-stable
 export PDF="google-chrome-stable"
 export FETCHER=uwufetch

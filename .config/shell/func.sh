@@ -1,8 +1,5 @@
 # shellcheck source=/dev/null
 
-LFCD="$XDG_CONFIG_HOME/lf/lfcd.sh"
-[ -f "$LFCD" ] && . "$LFCD"
-
 # awesome fzf
 fsl() { fzf -m --margin 5% --padding 5% --border --preview 'cat {}'; }
 fy() { fzf | tr -d "\n" | xsel -b; }

@@ -9,7 +9,7 @@ alias cxb="extra-x86_64-build -c -- -d $HOME/xpkg:/var/cache/pacman/pkg"
 alias lb="/bin/ls /var/lib/archbuild/extra-riscv64/*/build"
 
 m() { mkdir -p "$1" && cd "$1"; }
-alias zz="m /tmp/tmp; yay -G"
+alias zz="m /tmp/tmp; paru -G"
 
 rv-patch() {
     rm -v riscv64.patch
@@ -20,14 +20,9 @@ rv-ent() {
     sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
 }
 
-ptos() {
-    cp *.patch ~/src/$1
-}
-
 upd-keyring() {
     sudo arch-chroot /var/lib/archbuild/extra-riscv64/root pacman -Syu
 }
-
 
 __init_rv_pkg() {
     cd ~
@@ -60,59 +55,49 @@ add-key() {
 }
 
 gib() {
-    fname=$1
-
-    # no arg: cd to src
-    test -z $fname && cd ~/src && return
-
-    gib
-    # pkg exist
-    cd $fname && peek && return
-
-    # pkg not exist, fetch it
-    yay -G $fname || return
-    cd $fname
-
+    cd ~/src || return 1
+    [[ -z $1 ]] && return 1
+    if [[ -d $1 ]]; then
+        fname=$1
+        cd $fname
+    else
+        yay -G $1 || return 1
+        # TODO: pkgname
+        # out=$(paru -G $1) || return 1
+        # fname=$(echo $out | awk '{print $NF}')
+        fname=$1
+        cd $fname
+        # add-key
+    fi
     peek
-    add-key
-
-    # get old patch
     cp ~/archriscv-packages/$fname/*.patch .
+    return 0
 }
 
 pie() {
+    cd ~/archriscv-packages || return
+    [[ -z $1 ]] && return
+
+    # update patch
     fname=$1
-
-    # no arg, cd to repo
-    test -z $fname && cd ~/archriscv-packages && return
-
-    # no new patch
     cd ~/src/$fname || return
-
-    # gen patch
-    rv-patch
-    cat riscv64.patch
-    # fetch commit info by the way
+    rv-patch && cat riscv64.patch
     . ./PKGBUILD
     echo -n "${fname} ${pkgver}-${pkgrel}" | xsel
 
-    pie
-    echo "Pulling from upstream (Fast-Forward Only)..."
+    # prepare for commit
+    cd ~/archriscv-packages || return
     git checkout master
     git pull --ff-only upstream master:master
-    git push
-    git checkout -b "$fname" || git checkout "$fname"
-    git rebase master # if branch exist, sync it first
-
-    mkdir -p ~/archriscv-packages/"$fname"
-    cd $fname
-
+    git checkout -b $fname || git checkout $fname
+    git rebase master
+    m $fname
     cp ~/src/$fname/*.patch .
     test -s riscv64.patch || rm *.patch
 }
 
-find-old() {
-    ag -l autoreconf | xargs -I {} sh -c 'git log -1 --pretty="format:%ci" {} && echo \ {}' | tee /tmp/.tmp-gitdate && echo /tmp/.tmp-gitdate
+find-pkg() {
+    ag -l $1 | xargs -I {} sh -c 'git log -1 --pretty="format:%ci" {} && echo \ {}'
 }
 
 baklog() {

@@ -132,9 +132,7 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = { "telescope.nvim", "nvim-lua/plenary.nvim" },
-    keys = {
-      { "<leader>L", ":TodoTelescope cwd=" .. require("utils").get_root() .. "<CR>" },
-    },
+    keys = { { "<leader>L", "<cmd>TodoTelescope<cr>" } },
     opts = { highlight = { keyword = "bg" } },
   },
   { "junegunn/fzf.vim", cmd = "Files", dependencies = { "junegunn/fzf", name = "fzf" } },

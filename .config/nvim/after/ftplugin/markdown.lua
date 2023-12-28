@@ -54,19 +54,13 @@ local list_item = function(c)
   end
 end
 
-vim.api.nvim_create_autocmd("Filetype", {
-  group = vim.api.nvim_create_augroup("markdown", { clear = true }),
-  pattern = { "markdown" },
-  callback = function()
-    local m = function(mode, lhs, rhs, opts)
-      opts = opts or {}
-      opts.buffer = 0
-      map(mode, lhs, rhs, opts)
-    end
-    m({ "n", "x" }, "<leader>il", link_wrap "raw")
-    m({ "n", "x" }, "<leader>ii", link_wrap "img")
-    m({ "n", "x" }, "<c-space>", toggle_checkbox)
-    m("n", "o", list_item "o", { expr = true })
-    m("n", "O", list_item "O", { expr = true })
-  end,
-})
+local m = function(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.buffer = 0
+  map(mode, lhs, rhs, opts)
+end
+m({ "n", "x" }, "<leader>il", link_wrap "raw")
+m({ "n", "x" }, "<leader>ii", link_wrap "img")
+m({ "n", "x" }, "<c-space>", toggle_checkbox)
+m("n", "o", list_item "o", { expr = true })
+m("n", "O", list_item "O", { expr = true })
