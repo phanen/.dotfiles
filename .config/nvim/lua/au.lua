@@ -51,11 +51,7 @@ au("BufWritePre", {
 })
 
 -- reload buffer on focus
-au({
-  "FocusGained",
-  "BufEnter",
-  "CursorHold",
-}, {
+au({ "FocusGained", "BufEnter", "CursorHold" }, {
   callback = function()
     if vim.fn.getcmdwintype() == "" then vim.cmd "checktime" end
   end,

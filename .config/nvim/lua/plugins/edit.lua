@@ -149,23 +149,10 @@ return {
     "gbprod/substitute.nvim",
     config = true,
     keys = {
-      -- { "<leader>S",  function() require("substitute").visual() end,            mode = "x" },
-      -- { "<leader>S",  function() require("substitute").operator() end,          mode = "n" },
-      {
-        "<leader>X",
-        function() require("substitute.exchange").operator() end,
-        mode = "n",
-      },
-      {
-        "<leader>X",
-        function() require("substitute.exchange").visual() end,
-        mode = "x",
-      },
-      {
-        "<leader>Xc",
-        function() require("substitute.exchange").cancel() end,
-        mode = { "n", "x" },
-      },
+      { "<leader>S", function() require("substitute").visual() end, mode = "x" },
+      { "<leader>S", function() require("substitute").operator() end, mode = "n" },
+      { "<leader>x", function() require("substitute.exchange").operator() end, mode = "n" },
+      { "<leader>x", function() require("substitute.exchange").visual() end, mode = "x" },
     },
   },
   {
@@ -186,7 +173,6 @@ return {
   },
   {
     "folke/flash.nvim",
-    -- TODO: esc to quit dim
     keys = {
       { "s", mode = { "n" }, function() require("flash").jump() end, desc = "Flash" },
       { "_", mode = { "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
@@ -223,8 +209,6 @@ return {
         yaml = { "prettier" },
       },
     },
-    keys = {
-      { mode = { "n", "x" }, "gw", function() require("conform").format { lsp_fallback = true } end, desc = "format" },
-    },
+    keys = { { "gw", [[<cmd>lua require("conform").format { lsp_fallback = true }<cr>]] } },
   },
 }

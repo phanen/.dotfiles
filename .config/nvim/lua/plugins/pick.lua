@@ -88,18 +88,12 @@ return {
             ["<c-u>"] = ta.preview_scrolling_up,
             ["<c-d>"] = ta.preview_scrolling_down,
             ["<c-v>"] = false,
-            ["<c-p>"] = tal.toggle_preview,
+            ["<c-\\>"] = tal.toggle_preview,
             ["<c-n>"] = tal.toggle_mirror,
             ["<esc>"] = ta.close,
             ["<c-j>"] = ta.move_selection_next,
             ["<c-k>"] = ta.move_selection_previous,
             ["<c-g>"] = tal.cycle_layout_next,
-            ["<c-y>"] = function(_)
-              local entry = tas.get_selected_entry()
-              local prompt_text = entry.text or entry[1]
-              vim.fn.system("echo -n " .. prompt_text .. "| xsel -ib")
-              return true
-            end,
             ["<c-l>"] = function(_)
               local entry = tas.get_selected_entry()
               local prompt_text = entry.text or entry[1]
@@ -107,21 +101,21 @@ return {
               vim.api.nvim_paste(prompt_text, true, 1)
               return true
             end,
-            ["<c-o>"] = function(prompt_bufnr)
-              require("telescope.actions").select_default(prompt_bufnr)
+            ["<c-o>"] = function(bufnr)
+              require("telescope.actions").select_default(bufnr)
               require("telescope.builtin").resume()
             end,
             ["<c-q>"] = ta.add_selected_to_qflist,
-            ["<cr>"] = function(prompt_bufnr) -- TODO: need async!!!
-              local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+            ["<cr>"] = function(bufnr) -- TODO: need async!!!
+              local picker = require("telescope.actions.state").get_current_picker(bufnr)
               local multi = picker:get_multi_selection()
               if not vim.tbl_isempty(multi) then
-                ta.close(prompt_bufnr)
+                ta.close(bufnr)
                 for _, j in pairs(multi) do
                   if j.path ~= nil then vim.cmd(string.format("%s %s", "edit", j.path)) end
                 end
               else
-                ta.select_default(prompt_bufnr)
+                ta.select_default(bufnr)
               end
             end,
           },

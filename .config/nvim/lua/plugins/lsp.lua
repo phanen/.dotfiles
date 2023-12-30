@@ -1,6 +1,6 @@
 return {
   { "neovim/nvim-lspconfig", cmd = { "LspInfo", "LspInstall", "LspUninstall" } },
-  { "j-hui/fidget.nvim", cond = false, event = "LspAttach", opts = {} },
+  { "j-hui/fidget.nvim", event = "LspAttach", opts = {} },
   { "williamboman/mason.nvim", build = ":MasonUpdate", cmd = "Mason", opts = {} },
   {
     "williamboman/mason-lspconfig.nvim",
@@ -8,7 +8,7 @@ return {
     -- event = "VeryLazy",
     dependencies = {
       { "williamboman/mason.nvim" },
-      { "folke/neodev.nvim", ft = "lua", opts = {} },
+      { "folke/neodev.nvim", cond = false, ft = "lua", opts = {} },
     },
     config = function()
       -- local capabilities = require "capabilities"
@@ -71,41 +71,4 @@ return {
     end,
   },
   "b0o/schemastore.nvim",
-  {
-    "nvimtools/none-ls.nvim",
-    cond = false,
-    dependencies = { "nvim-lua/plenary.nvim" },
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      local nls = require "null-ls"
-      nls.setup {
-        on_attach = wtf_attch_why_this_is_allowed,
-        sources = {
-          nls.builtins.formatting.shfmt,
-          nls.builtins.formatting.prettier,
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.rustfmt.with {
-            extra_args = function(params)
-              local Path = require "plenary.path"
-              local cargo_toml = Path:new(params.root .. "/" .. "Cargo.toml")
-
-              if cargo_toml:exists() and cargo_toml:is_file() then
-                for _, line in ipairs(cargo_toml:readlines()) do
-                  local edition = line:match [[^edition%s*=%s*%"(%d+)%"]]
-                  if edition then return { "--edition=" .. edition } end
-                end
-              end
-              -- default edition when we don't find `Cargo.toml` or the `edition` in it.
-              return { "--edition=2021" }
-            end,
-          },
-          nls.builtins.formatting.black,
-
-          -- nls.builtins.code_actions.eslint_d,
-          nls.builtins.diagnostics.eslint_d,
-          nls.builtins.formatting.eslint_d,
-        },
-      }
-    end,
-  },
 }

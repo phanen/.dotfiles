@@ -1,4 +1,5 @@
 local lsp = vim.lsp
+
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     local bufnr = ev.buf
