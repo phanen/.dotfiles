@@ -33,7 +33,7 @@ bind \cq fish_clipboard_copy
 
 function wrap_edit
   set -l line (commandline -b)
-  if string match -r '^gib (.+)' $line 2>/dev/null 1>2
+  if string match -r '^gib (.+)' $line 2>/dev/null 1>&2
     echo
     if eval $line
       nvim +args\ % PKGBUILD riscv64.patch # avoid E173
@@ -60,7 +60,7 @@ bind \co prevd-or-backward-word
 bind \cj nextd-or-forward-word
 bind \cl __fish_list_current_token
 bind \el clear
-bind \ei 'tmux a 2>1 >/dev/null || tmux 2>1 >/dev/null || tmux det'
+bind \ei 'tmux a 2>&1 >/dev/null || tmux 2>&1 >/dev/null || tmux det'
 bind \er 'sh2fish.sh && rs'
 bind \cd delete-or-exit
 

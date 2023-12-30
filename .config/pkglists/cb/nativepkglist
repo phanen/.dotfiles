@@ -3,7 +3,6 @@ acpi
 age
 alacritty
 alsa-utils
-anki
 apr
 apr-util
 archinstall
@@ -33,9 +32,10 @@ certbot
 clang
 clash
 clash-verge
-clipman
+cliphist
 clipmenu
 cmake
+code
 cpio
 cronie
 darkman
@@ -60,6 +60,7 @@ edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
+emacs
 entr
 esbuild
 evtest
@@ -94,9 +95,9 @@ gnu-netcat
 go
 gpg-tui
 grub
-gsmartcontrol
 gtk-vnc
 gtkwave
+gvim
 hexer
 hexyl
 hsetroot
@@ -143,7 +144,6 @@ libva-intel-driver
 libva-utils
 libxft
 libxinerama
-linux
 linux-docs
 linux-firmware
 linux-headers
@@ -176,7 +176,8 @@ namcap
 nano
 nasm
 ncmpcpp
-neovim
+neovide
+neovim-git
 neovim-qt
 nerd-fonts-cascadia-code
 nerd-fonts-dejavu-sans-mono
@@ -210,6 +211,7 @@ pkgfile
 pkgstats
 pnpm
 podman
+poedit
 polybar
 prettier
 pulsemixer
@@ -287,13 +289,14 @@ ttf-firacode-nerd
 ttf-nerd-fonts-symbols
 typescript
 typora
+typst
 ubuntu-keyring
 unzip
 usbutils
 uwufetch
 valgrind
 verilator
-vim
+vi
 virt-manager
 virt-viewer
 vitetris
@@ -301,6 +304,7 @@ viu
 vulkan-intel
 vulkan-tools
 w3m
+waybar-lily
 wezterm
 wget
 whois

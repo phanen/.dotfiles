@@ -6,7 +6,7 @@ local o = function(...) map("o", ...) end
 -- basics {{{
 n("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
 n("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
-x("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
+x("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
 x("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 
 n("gj", '"gyy"gp')
@@ -43,8 +43,6 @@ n("<a-l>", ">>")
 x("<a-h>", "<gv")
 x("<a-l>", ">gv")
 
--- tab
-n("<c-y>", "<cmd>pop<cr>")
 t("<c-space>", "<c-\\><c-n>")
 
 local toggle_qf = function()
@@ -62,6 +60,11 @@ n("<leader>q", toggle_qf)
 
 x("iq", 'i"')
 o("iq", 'i"')
+
+n("gl", "gx", { remap = true })
+
+n("<leader>cd", "<cmd>cd %:h<cr>")
+n("<leader>cb", "<cmd>Popd<cr>")
 -- }}}
 -- buffer {{{
 n("<c-f>", "<cmd>BufferLineCycleNext<cr>")
@@ -102,8 +105,8 @@ n(
     ]],
   { desc = "half to full" }
 )
-n("<leader>rs", "<cmd>%s/\\s*$//g<cw>''", { desc = "clean tail space" })
-n("<leader>rl", "<cmd>g/^$/d<cr>''", { desc = "clean the blank line" })
+n("<leader>rs", "<cmd>%s/\\s*$//g<cr>''", { desc = "clean tail space" })
+n("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
 x("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
 
 -- TODO: genearlize comment string
@@ -114,24 +117,10 @@ x("<leader>rc", [[:s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
 
 x("<leader>rk", [[:s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
 x("<leader>r,", [[:s/,\([^ ]\)/, \1/g<cr>]])
-
--- no.-> no.space
 x("<leader>rn", [[:s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
--- TODO: smart remove in-text whitespace
--- :%s/\([^ ]\+ \) \+/\1/g
-
--- remove all comment string/line?
--- "%s/ *\/\/.*//g"
-
--- hex to dec
-x("<leader>ro", [[:'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
--- dec to hex
+x("<leader>rd", [[:'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
 x("<leader>rh", [[:'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
-
 x("<leader>rm", [[:s/\s\{1,}//g<cr>]])
-
-n("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
-x("<leader>rU", [[:s/\v<(.)(\w*)/\u\1\L\2/g<cr>]])
 -- }}}
 -- toggle {{{
 -- windows
@@ -157,10 +146,10 @@ end, { desc = "toggle nrformats" })
 n("<leader>ow", function() vim.cmd [[set wrap!]] end)
 -- }}}
 -- diagnostic {{{
-n("[d", vim.diagnostic.goto_prev, { desc = "d: prev" })
-n("]d", vim.diagnostic.goto_next, { desc = "d: next" })
-n("<leader>df", vim.diagnostic.open_float, { desc = "d: float" })
-n("<leader>ds", vim.diagnostic.setloclist, { desc = "d: quickfix" })
+n("[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+n("]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+n("<leader>df", "<cmd>lua vim.diagnostic.open_float()<cr>")
+n("<leader>ds", "<cmd>lua vim.diagnostic.setloclist()<cr>")
 -- }}}
 -- gui {{{
 local gui_font_size = 13
@@ -182,30 +171,11 @@ x("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 n("<leader>I", "<Cmd>Inspect<CR>")
 n("<leader>M", "<Cmd>messages<CR>")
 -- FIXME: cross line ^M -> \n
-n("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
-  desc = "replace word under the cursor (file)",
-})
-n("<leader>cl", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]], {
-  desc = "re word under the cursor (line)",
-})
-x("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]], {
-  silent = false,
-  desc = "replace word under the cursor (visual)",
-})
+n("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]])
+n("<leader>cl", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]])
+x("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]])
 
--- https://stackoverflow.com/questions/1680194/reverse-a-word-in-vim
-vim.cmd [[
-vnoremap <silent> <Leader>is :<C-U>let old_reg_a=@a<CR>
-\:let old_reg=@"<CR>
-\gv"ay
-\:let @a=substitute(@a, '.\(.*\)\@=',
-\ '\=@a[strlen(submatch(1))]', 'g')<CR>
-\gvc<C-R>a<Esc>
-\:let @a=old_reg_a<CR>
-\:let @"=old_reg<CR>
-]]
-
-n("<leader>gl", "<cmd>e ~/notes/priv/todo.md<cr>")
+n("<leader>e", "<cmd>e ~/priv/todo.md<cr>")
 n("<leader>cx", "<cmd>!chmod +x %<cr>")
 -- }}}
 

@@ -1,25 +1,11 @@
 #!/bin/sh
 
-# SCONTROL=Master
-# if [[ "$(hostname)" = "cb" ]]; then
-# SCONTROL=DAC1
-# fi
-#
-# case "$1" in
-#     on) amixer sset "${SCONTROL}" on;;
-#     toggle) amixer sset "${SCONTROL}" toggle ;;
-#     mute) amixer sset "${SCONTROL}" mute;;
-#     up) amixer sset "${SCONTROL}" 5%+;;
-#     down) amixer sset "${SCONTROL}" 5%-;;
-#     bigup) amixer sset "${SCONTROL}" 15%+;;
-#     bigdown) amixer sset "${SCONTROL}" 15%-;;
-# esac 
-#>/dev/null
-
-
 volume=$(pulsemixer --get-volume | awk '{print $1}')
 setter="pulsemixer --set-volume"
 case "$1" in
-  up) $setter $((volume+5));;
-  down) $setter $((volume-5));;
+  +) $setter $((volume+5));;
+  -) $setter $((volume-5));;
+  *) echo "Usage: $0 +|-"
+     exit 1
+     ;;
 esac

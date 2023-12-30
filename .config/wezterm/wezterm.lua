@@ -17,7 +17,7 @@ local M = {
   },
   font_size = 17,
   color_scheme = get_scheme(),
-  default_prog = { "fish" },
+  default_prog = { "/bin/fish" },
 
   scrollback_lines = 10000,
   use_ime = true,

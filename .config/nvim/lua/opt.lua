@@ -36,10 +36,10 @@ o.ttimeout = false -- avoid sticky escape as alt
 
 o.synmaxcol = 200
 
-for _, provider in ipairs { "perl", "node", "ruby", "python", "python3" } do
-  local var = "loaded_" .. provider .. "_provider"
-  vim.g[var] = 0
-end
+-- for _, provider in ipairs { "perl", "node", "ruby", "python", "python3" } do
+--   local var = "loaded_" .. provider .. "_provider"
+--   vim.g[var] = 0
+-- end
 
 -- wezterm integration
 local base64 = function(data)
@@ -68,7 +68,26 @@ local base64 = function(data)
 end
 
 local set_user_var = function(key, value) io.write(string.format("\027]1337;SetUserVar=%s=%s\a", key, base64(value))) end
-
 set_user_var()
+
+-- Signs
+---@param opts {highlight: string, icon: string}
+local function sign(opts)
+  vim.fn.sign_define(opts.highlight, {
+    text = opts.icon,
+    texthl = opts.highlight,
+    linehl = opts.highlight .. "Line",
+  })
+end
+
+local error = "" -- '✗'
+local warn = "" -- 
+local info = "󰋼" --  ℹ 󰙎 
+local hint = "󰌶" --  ⚑
+
+sign { highlight = "DiagnosticSignError", icon = error }
+sign { highlight = "DiagnosticSignWarn", icon = warn }
+sign { highlight = "DiagnosticSignInfo", icon = info }
+sign { highlight = "DiagnosticSignHint", icon = hint }
 
 -- vim:foldmethod=marker

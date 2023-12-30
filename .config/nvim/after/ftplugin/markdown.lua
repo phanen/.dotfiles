@@ -8,6 +8,7 @@ local link_wrap = function(type)
     elseif type == "img" then
       text = "![img:](" .. text .. ")"
     end
+
     vim.api.nvim_paste(text, true, 1)
     if type == "link" or type == "img" then
       vim.api.nvim_win_set_cursor(0, { row, col + 6 })
@@ -50,17 +51,14 @@ local list_item = function(c)
   return function()
     local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
     local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
-    return line:find "^%s*- " and c .. "- " or c
+    if line:find "^%s*- %[ %]" then return c .. "- [ ] " end
+    if line:find "^%s*- " then return c .. "- " end
+    return c
   end
 end
 
-local m = function(mode, lhs, rhs, opts)
-  opts = opts or {}
-  opts.buffer = 0
-  map(mode, lhs, rhs, opts)
-end
-m({ "n", "x" }, "<leader>il", link_wrap "raw")
-m({ "n", "x" }, "<leader>ii", link_wrap "img")
-m({ "n", "x" }, "<c-space>", toggle_checkbox)
-m("n", "o", list_item "o", { expr = true })
-m("n", "O", list_item "O", { expr = true })
+map({ "n", "x" }, "<leader>il", link_wrap "raw", { buffer = 0 })
+map({ "n", "x" }, "<leader>ii", link_wrap "img", { buffer = 0 })
+map({ "n", "x" }, "<c-space>", toggle_checkbox, { buffer = 0 })
+map("n", "o", list_item "o", { expr = true, buffer = 0 })
+map("n", "O", list_item "O", { expr = true, buffer = 0 })

@@ -9,7 +9,7 @@ alias cxb="extra-x86_64-build -c -- -d $HOME/xpkg:/var/cache/pacman/pkg"
 alias lb="/bin/ls /var/lib/archbuild/extra-riscv64/*/build"
 
 m() { mkdir -p "$1" && cd "$1"; }
-alias zz="m /tmp/tmp; paru -G"
+alias zz="m /tmp/tmp; yay -G"
 
 rv-patch() {
     rm -v riscv64.patch
@@ -63,7 +63,7 @@ gib() {
     else
         yay -G $1 || return 1
         # TODO: pkgname
-        # out=$(paru -G $1) || return 1
+        # out=$(yay -G $1) || return 1
         # fname=$(echo $out | awk '{print $NF}')
         fname=$1
         cd $fname

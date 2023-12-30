@@ -2,15 +2,7 @@ return {
   { "phanen/readline.nvim", branch = "fix-dir-structure" },
   {
     "kylechui/nvim-surround",
-    keys = {
-      { "s", mode = "x" },
-      "ys",
-      "yss",
-      "yS",
-      "cs",
-      "ds",
-      { mode = { "x" }, "`", "<Plug>(nvim-surround-visual)`" },
-    },
+    keys = { "ys", "yss", "yS", "cs", "ds", { "s", mode = "x" }, { "`", "<Plug>(nvim-surround-visual)`", mode = "x" } },
     opts = {
       move_cursor = true,
       keymaps = { visual = "s" },
@@ -21,14 +13,6 @@ return {
           delete = "^(%*%*?)().-(%*%*?)()$",
           change = {
             target = "^(%*%*?)().-(%*%*?)()$",
-          },
-        },
-        ["k"] = {
-          add = { "`", "`" },
-          find = "`.-`",
-          delete = "^(`?)().-(`?)()$",
-          change = {
-            target = "^(`?)().-(`?)()$",
           },
         },
         ["q"] = {
@@ -85,7 +69,7 @@ return {
     "numToStr/Comment.nvim",
     keys = {
       { "gcc" },
-      { "gc", mode = { "n", "v" } },
+      { "gc", mode = { "n", "x" } },
       { "<leader>O" },
       { "<leader>A" },
       { "<leader>oo" },
@@ -97,21 +81,9 @@ return {
             or "<Plug>(comment_toggle_linewise_count)"
         end,
         expr = true,
-        mode = { "n" },
       },
-      { "<c-/>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
-      { "<c-/>", "<Plug>(comment_toggle_linewise_visual)", mode = { "v" } },
-      {
-        "<c-_>",
-        function()
-          return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)"
-            or "<Plug>(comment_toggle_linewise_count)"
-        end,
-        expr = true,
-        mode = { "n" },
-      },
-      { "<c-_>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = { "i" } },
-      { "<c-_>", "<Plug>(comment_toggle_linewise_visual)", mode = { "v" } },
+      { "<c-/>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = "i" },
+      { "<c-/>", "<Plug>(comment_toggle_linewise_visual)", mode = "v" },
     },
     opts = { extra = { above = "<leader>O", below = "<leader>oo", eol = "<leader>A" } },
   },
@@ -141,7 +113,11 @@ return {
       }
     end,
   },
-  { "mg979/vim-visual-multi", keys = { { mode = { "n", "v" }, "<c-n>" } } },
+  {
+    "mg979/vim-visual-multi",
+    keys = { "<leader>n" },
+    init = function() vim.g.VM_maps = { ["Find Under"] = "<leader>n" } end,
+  },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
   { "tpope/vim-sleuth", event = "VeryLazy" },
   { "tpope/vim-repeat", event = "VeryLazy" },
@@ -149,23 +125,10 @@ return {
     "gbprod/substitute.nvim",
     config = true,
     keys = {
-      -- { "<leader>S",  function() require("substitute").visual() end,            mode = "x" },
-      -- { "<leader>S",  function() require("substitute").operator() end,          mode = "n" },
-      {
-        "<leader>X",
-        function() require("substitute.exchange").operator() end,
-        mode = "n",
-      },
-      {
-        "<leader>X",
-        function() require("substitute.exchange").visual() end,
-        mode = "x",
-      },
-      {
-        "<leader>Xc",
-        function() require("substitute.exchange").cancel() end,
-        mode = { "n", "x" },
-      },
+      { "<leader>S", function() require("substitute").visual() end, mode = "x" },
+      { "<leader>S", function() require("substitute").operator() end, mode = "n" },
+      { "<leader>x", function() require("substitute.exchange").operator() end, mode = "n" },
+      { "<leader>x", function() require("substitute.exchange").visual() end, mode = "x" },
     },
   },
   {
@@ -186,13 +149,12 @@ return {
   },
   {
     "folke/flash.nvim",
-    -- TODO: esc to quit dim
     keys = {
       { "s", mode = { "n" }, function() require("flash").jump() end, desc = "Flash" },
       { "_", mode = { "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
       { "S", mode = { "n", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
       { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "f", mode = { "n", "o" } },
+      { "f", mode = { "n", "x", "o" } },
     },
     opts = {
       modes = {
@@ -223,8 +185,6 @@ return {
         yaml = { "prettier" },
       },
     },
-    keys = {
-      { mode = { "n", "x" }, "gw", function() require("conform").format { lsp_fallback = true } end, desc = "format" },
-    },
+    keys = { { "gw", [[<cmd>lua require("conform").format { lsp_fallback = true }<cr>]] } },
   },
 }

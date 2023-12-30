@@ -10,11 +10,16 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-emoji",
+      {
+        "onsails/lspkind.nvim",
+        opts = { preset = "codicons", mode = "symbol_text" },
+        config = function(_, opts) require("lspkind").init(opts) end,
+      },
     },
     config = function()
       local cmp = require "cmp"
-      local luasnip = require "luasnip"
-
+      local ls = require "luasnip"
+      local m = cmp.mapping
       local formatting = {
         fields = { "kind", "abbr", "menu" },
         format = require("lspkind").cmp_format {
@@ -51,51 +56,44 @@ return {
         },
         -- stylua: ignore
         mapping = {
-          ["<c-\\>"] = cmp.mapping(function()
-            if cmp.visible() then return cmp.abort() end
-            return cmp.complete()
-          end),
-          -- TODO: lsp performance
-          ["<tab>"] = cmp.mapping {
+          ["<c-\\>"] = m(function() if cmp.visible() then cmp.abort() else cmp.complete() end end, { "i", "c" }),
+          ["<tab>"] = m {
             i = function(fb)
               if cmp.visible() and cmp.get_selected_entry() then return cmp.confirm() end
-              if luasnip.jumpable() then return luasnip.jump(1) end
-              if luasnip.expandable() then return luasnip.expand() end
+              if ls.jumpable() then return ls.jump(1) end
+              if ls.expandable() then return ls.expand() end
               return fb()
             end,
-            c = cmp.mapping.select_next_item(),
-            s = function(fb) if luasnip.jumpable() then luasnip.jump(1) else fb() end end,
+            c = m.select_next_item(),
+            s = function(fb) if ls.jumpable() then ls.jump(1) else fb() end end,
           },
-          ["<c-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-          ["<c-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-          ["<c-p>"] = cmp.mapping {
-            i = function(fb) if luasnip.jumpable() then luasnip.jump(-1) else fb() end end,
-            s = function() luasnip.jump(-1) end,
-            c = function(fb) return fb() end,
+          ["<c-k>"] = m(m.select_prev_item(), { "i", "c" }),
+          ["<c-j>"] = m(m.select_next_item(), { "i", "c" }),
+          ["<c-p>"] = m {
+            i = function(fb) if ls.jumpable() then ls.jump(-1) else fb() end end,
+            s = function() ls.jump(-1) end,
           },
-          ["<c-n>"] = cmp.mapping {
-            i = function(fb) if luasnip.jumpable() then luasnip.jump(1) else fb() end end,
-            s = function() luasnip.jump(1) end,
-            c = function(fb) return fb() end,
+          ["<c-n>"] = m {
+            i = function(fb) if ls.jumpable() then ls.jump(1) else fb() end end,
+            s = function() ls.jump(1) end,
           },
-          ["<c-o>"] = cmp.mapping(function(fb) if cmp.visible() then cmp.abort() end fb() end),
-          ["<cr>"] = cmp.mapping(cmp.mapping.confirm { select = false }, { "i", "c" }),
+          ["<c-o>"] = m(function(fb) if cmp.visible() then cmp.abort() end fb() end, { "i", "c" }),
+          ["<cr>"] = m(m.confirm { select = false }, { "i", "c" }),
         },
-        snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+        snippet = { expand = function(args) ls.lsp_expand(args.body) end },
         sources = {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-          { name = "buffer", options = { get_bufnrs = function() return vim.api.nvim_list_bufs() end } },
+          { name = "buffer", options = { get_bufnrs = vim.api.nvim_list_bufs } },
           { name = "emoji" },
         },
         formatting = formatting,
         performance = {
           max_view_entries = 12,
-          fetching_timeout = 1,
+          fetching_timeout = 0,
         },
       }
-
       cmp.setup.cmdline("/", { sources = { { name = "buffer" } } })
       cmp.setup.cmdline("?", { sources = { { name = "buffer" } } })
       cmp.setup.cmdline(":", {
