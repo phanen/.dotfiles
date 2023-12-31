@@ -9,6 +9,7 @@ gcc6-gcj
 gcc6-libs
 gcc9-bin
 google-chrome
+i3a
 linuxqq
 mkdocs-material
 python-paginate
@@ -18,3 +19,4 @@ thorium-browser-bin
 wemeet-bin
 wps-office-cn
 wps-office-mui-zh-cn
+xautocfg

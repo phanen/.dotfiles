@@ -1,6 +1,6 @@
 return {
   { "neovim/nvim-lspconfig", cmd = { "LspInfo", "LspInstall", "LspUninstall" } },
-  { "j-hui/fidget.nvim", event = "LspAttach", opts = {} },
+  { "j-hui/fidget.nvim", cond = false, event = "LspAttach", opts = {} },
   { "williamboman/mason.nvim", build = ":MasonUpdate", cmd = "Mason", opts = {} },
   {
     "williamboman/mason-lspconfig.nvim",

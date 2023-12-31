@@ -1,6 +1,0 @@
-#!/bin/bash
-
-CHROOT=$(pwd)
-mkarchroot $CHROOT/root base-devel
-# arch-nspawn $CHROOT/root pacman -Syu
-makechrootpkg -c -r $CHROOT

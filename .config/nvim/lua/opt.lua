@@ -36,10 +36,10 @@ o.ttimeout = false -- avoid sticky escape as alt
 
 o.synmaxcol = 200
 
-for _, provider in ipairs { "perl", "node", "ruby", "python", "python3" } do
-  local var = "loaded_" .. provider .. "_provider"
-  vim.g[var] = 0
-end
+-- for _, provider in ipairs { "perl", "node", "ruby", "python", "python3" } do
+--   local var = "loaded_" .. provider .. "_provider"
+--   vim.g[var] = 0
+-- end
 
 -- wezterm integration
 local base64 = function(data)

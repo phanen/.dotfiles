@@ -2,11 +2,10 @@
 
 # https://unix.stackexchange.com/questions/121858/how-can-i-set-repeat-rate-of-usb-keyboard-with-udev
 (
-    sleep 1
-
-    DISPLAY=":0.0"
-    # hack
-    XAUTHORITY="/home/$(ls /home/ | head -n1)/.Xauthority"
-    export DISPLAY XAUTHORITY
-    xset r rate 145 85
+	set -e
+    PID=$(pgrep bspwm | head -1)
+    eval "$(sed 's:\x0:\n:g' /proc/$PID/environ | ag 'DISPLAY=' | head -1)"
+    eval "$(sed 's:\x0:\n:g' /proc/$PID/environ | ag 'USER=' | head -1)"
+    XAUTHORITY="/home/$USER/.Xauthority"
+    DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY xset r rate 140 100
 ) &

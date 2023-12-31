@@ -12,7 +12,6 @@ return {
       "hrsh7th/cmp-emoji",
       {
         "onsails/lspkind.nvim",
-        lazy = "VeryLazy",
         opts = { preset = "codicons", mode = "symbol_text" },
         config = function(_, opts) require("lspkind").init(opts) end,
       },
