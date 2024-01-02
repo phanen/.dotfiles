@@ -18,10 +18,6 @@
 	who = shortlog -sn
 	amend = commit --amend --all --no-edit
 
-[url "git@github.com:"]
-	insteadOf = https://github.com/
-; [url "git@gitlab.com:"]
-; 	insteadOf = https://gitlab.com/
 [user]
 	signingkey = phanium
 [commit]

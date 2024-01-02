@@ -70,10 +70,9 @@ return {
     keys = {
       { "gcc" },
       { "gc", mode = { "n", "x" } },
-      { "<leader>O" },
-      { "<leader>A" },
-      { "<leader>oo" },
-      -- https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
+      { "<leader>O", "gcO", remap = true },
+      { "<leader>A", "gcA", remap = true },
+      { "<c-_>", "<c-/>", remap = true, mode = { "n", "x", "i" } },
       {
         "<c-/>",
         function()
@@ -85,51 +84,29 @@ return {
       { "<c-/>", "<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>", mode = "i" },
       { "<c-/>", "<Plug>(comment_toggle_linewise_visual)", mode = "v" },
     },
-    opts = { extra = { above = "<leader>O", below = "<leader>oo", eol = "<leader>A" } },
+    config = true,
   },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     dependencies = { "hrsh7th/nvim-cmp" },
-    config = function()
-      local autopairs = require "nvim-autopairs"
-      local Rule = require "nvim-autopairs.rule"
-      local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-      require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-      autopairs.setup {
-        close_triple_quotes = true,
-        check_ts = true,
-        fast_wrap = { map = "<c-s>" },
-        ts_config = {
-          lua = { "string" },
-          dart = { "string" },
-          javascript = { "template_string" },
-        },
-      }
-      -- credit: https://github.com/JoosepAlviste
-      autopairs.add_rules {
-        -- Typing n when the| -> then|end
-        Rule("then", "end", "lua"):end_wise(function(opts) return string.match(opts.line, "^%s*if") ~= nil end),
-      }
-    end,
+    config = true,
   },
   {
     "mg979/vim-visual-multi",
     keys = { "<leader>n" },
     init = function() vim.g.VM_maps = { ["Find Under"] = "<leader>n" } end,
   },
-  { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
-  { "tpope/vim-sleuth", event = "VeryLazy" },
   { "tpope/vim-repeat", event = "VeryLazy" },
   {
     "gbprod/substitute.nvim",
-    config = true,
     keys = {
       { "<leader>S", function() require("substitute").visual() end, mode = "x" },
       { "<leader>S", function() require("substitute").operator() end, mode = "n" },
       { "<leader>x", function() require("substitute.exchange").operator() end, mode = "n" },
       { "<leader>x", function() require("substitute.exchange").visual() end, mode = "x" },
     },
+    config = true,
   },
   {
     "andymass/vim-matchup",

@@ -62,3 +62,7 @@ map({ "n", "x" }, "<leader>ii", link_wrap "img", { buffer = 0 })
 map({ "n", "x" }, "<c-space>", toggle_checkbox, { buffer = 0 })
 map("n", "o", list_item "o", { expr = true, buffer = 0 })
 map("n", "O", list_item "O", { expr = true, buffer = 0 })
+
+vim.bo.tabstop = 4
+vim.bo.softtabstop = 2
+vim.bo.shiftwidth = 2
