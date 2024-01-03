@@ -41,6 +41,12 @@ o.synmaxcol = 200
 --   vim.g[var] = 0
 -- end
 
+-- built-in plugins that really useless
+for _, plugin in ipairs { "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers" } do
+  local var = "loaded_" .. plugin
+  vim.g[var] = 1
+end
+
 -- wezterm integration
 local base64 = function(data)
   data = tostring(data)

@@ -1,6 +1,5 @@
 export CHROOT=$HOME/chroot/
 export CACHE_DIR=$HOME/pkg/
-export USERNAME=phanen
 
 alias rb="extra-riscv64-build -- -d $CACHE_DIR:/var/cache/pacman/pkg"
 alias crb="extra-riscv64-build -c -- -d $CACHE_DIR:/var/cache/pacman/pkg"

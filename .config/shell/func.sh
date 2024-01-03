@@ -20,7 +20,7 @@ toggle_proxy() { unset http_proxy https_proxy all_proxy; }
 clip2img() { xclip -selection clipboard -target image/png -o >$1.png; }
 
 vis() {
-  local CONFIG="$(find ~/.config/nvim*/ -prune -exec basename {} \;)"
+  local CONFIG="$(find ~/.config/*/init.lua -prune -exec sh -c 'basename $(dirname {})' \;)"
   local SELECTED=$(printf "%s\n" "${CONFIG[@]}" | fzf --prompt="Neovim Config >>" --height=~50% --layout=reverse --border --exit-0)
   echo $SELECTED
   if [[ -z $SELECTED ]]; then

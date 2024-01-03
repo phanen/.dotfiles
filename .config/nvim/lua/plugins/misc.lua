@@ -51,7 +51,7 @@ return {
     build = "go build -o bin/darkman.nvim",
     opts = { colorscheme = { dark = "tokyonight", light = "dayfox" } },
   },
-  { "norcalli/nvim-colorizer.lua" },
+  { "norcalli/nvim-colorizer.lua", cmd = "ColorizerToggle ", config = true },
   -- syntax highlight
   { "kovetskiy/sxhkd-vim", cond = false, ft = "sxhkd" },
   { "kmonad/kmonad-vim", cond = false, ft = "kbd" },
@@ -59,6 +59,7 @@ return {
   -- doc {{{
   {
     "iamcco/markdown-preview.nvim",
+    cond = vim.env.SSH_TTY ~= nil,
     cmd = "MarkdownPreview",
     build = "cd app && npm install",
     ft = { "markdown" },
@@ -188,8 +189,8 @@ return {
   -- tree {{{
   {
     "nvim-tree/nvim-tree.lua",
-    lazy = false,
     lazy = not vim.fn.argv()[1],
+    event = "CmdlineEnter", -- workaround
     cmd = { "NvimTreeFindFileToggle" },
     dependencies = {
       "nvim-tree/nvim-web-devicons",
@@ -245,6 +246,8 @@ return {
   { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
   { "lilydjwg/fcitx.vim", event = "VeryLazy" },
   { "chrishrb/gx.nvim", keys = "gx", dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
+  { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
+  { "tpope/vim-sleuth", event = "VeryLazy" },
   { "mikesmithgh/kitty-scrollback.nvim" },
   {
     "mbbill/undotree",
@@ -283,7 +286,8 @@ return {
         function()
           vim.cmd.noh()
           require("hlslens").stop()
-          vim.api.nvim_feedkeys(vim.keycode "<esc>", "n", false)
+          -- vim.api.nvim_feedkeys(vim.keycode "<esc>", "n", false)
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", false)
         end,
       },
     },
@@ -305,7 +309,7 @@ return {
   },
   {
     "phanen/dirstack.nvim",
-    event = "DirChangedPre",
+    event = "VeryLazy",
     keys = {
       { "<c-p>", function() require("dirstack").prev() end },
       { "<c-n>", function() require("dirstack").next() end },

@@ -64,8 +64,8 @@ end
 
 local function should_send_key(_, pane)
   local path = pane:get_foreground_process_name()
-  -- this is fine if we always use tmux
-  return path:find "n?vim" or path:find "tmux" or path:find "ssh"
+  -- TODO: stupid...
+  return path:find "n?vim" or path:find "tmux" or path:find "ssh" or path:find "man"
 end
 
 local function basename(s) return string.gsub(s, "(.*[/\\])(.*)", "%2") end

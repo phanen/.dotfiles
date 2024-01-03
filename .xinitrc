@@ -48,7 +48,10 @@ polybar -r &
 picom &
 dunst &
 sxhkd -a Tab &
-# xsel -b --watch clipman store &
+xsel -b --watch clipman store &
+# timeout 1s ssh arch input-leapc && input-leaps --config inputleap.conf
+
+# cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy
 # swhks &
 # pkexec swhkd &
 # udiskie &
