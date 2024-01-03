@@ -245,6 +245,7 @@ return {
   { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
   { "lilydjwg/fcitx.vim", event = "VeryLazy" },
   { "chrishrb/gx.nvim", keys = "gx", dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
+  { "mikesmithgh/kitty-scrollback.nvim" },
   {
     "mbbill/undotree",
     cmd = "UndotreeToggle",

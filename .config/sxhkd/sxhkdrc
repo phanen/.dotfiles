@@ -11,8 +11,8 @@ super + {j, k}
 super + {w, o}
 	bspc desktop -f next
 # TODO: tab should not be managed by term
-super + {f, e}
-	wezterm cli activate-tab --tab-relative {+1, \-1}
+# super + {f, e}
+# 	wezterm cli activate-tab --tab-relative {+1, \-1}
 super + l
 	(bspc node -f biggest.window.local && \
 		bspc node -f last.window.local && \
@@ -33,11 +33,13 @@ super + ctrl + {h, l}
 	bspc node -z {left -20 0 || bspc node -z right -20 0, \
 				right 20 0 || bspc node -z left 20 0}
 
+super + shift + f
+	bspc node -t \~floating
 # launch
 super + n
-	wezterm
-super + i
-	wezterm cli spawn
+	kitty
+# super + i
+# 	wezterm cli spawn
 super + c
 	alacritty
 super + semicolon
