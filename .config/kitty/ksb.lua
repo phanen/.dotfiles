@@ -107,3 +107,5 @@ m("n", "<c-c>", "y")
 m("n", "u", "<c-u>")
 m("n", "d", "<c-d>")
 m({ "n", "o", "x" }, "ga", "G")
+-- fake a shell integration
+m("n", "<leader><leader>", "/phan@cb<cr>N")

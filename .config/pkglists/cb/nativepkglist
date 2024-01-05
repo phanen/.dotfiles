@@ -10,7 +10,9 @@ archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
 armv7l-linux-gnueabihf-gcc
+atuin
 awesome-terminal-fonts
+aws-cli-v2
 baidupcs-go
 base
 base-devel
@@ -31,9 +33,8 @@ catimg
 certbot
 clang
 clash
-clash-verge
 cliphist
-clipmenu
+clipnotify
 cmake
 code
 cpio
@@ -93,6 +94,7 @@ gnu-efi
 gnu-free-fonts
 gnu-netcat
 go
+goldendict-git
 gpg-tui
 grub
 gtk-vnc
@@ -100,6 +102,7 @@ gtkwave
 gvim
 hexer
 hexyl
+hostapd
 hsetroot
 htop
 httping
@@ -118,6 +121,7 @@ iw
 jack2
 jdk11-openjdk
 jdk8-openjdk
+joshuto-git
 jpegoptim
 jq
 just
@@ -147,6 +151,7 @@ libxinerama
 linux-docs
 linux-firmware
 linux-headers
+linux-wifi-hotspot
 linux-zen
 linux-zen-headers
 lld
@@ -154,7 +159,6 @@ lldb
 llvm
 llvm15
 lostfiles
-love
 lsb-release
 lsof
 ltrace
@@ -169,6 +173,7 @@ mesa-utils
 meson
 metasploit
 minicom
+mosh
 mpc
 mpd
 mpv
@@ -176,9 +181,7 @@ namcap
 nano
 nasm
 ncmpcpp
-neovide
 neovim-git
-neovim-qt
 nerd-fonts-cascadia-code
 nerd-fonts-dejavu-sans-mono
 net-tools
@@ -259,12 +262,14 @@ rsync
 rtorrent
 rustup
 scrcpy
+scrot
 setconf
 slock
 socat
 sof-firmware
 spice-vdagent
 sshfs
+stardict
 starship
 stow
 strace
@@ -274,6 +279,7 @@ sxhkd
 sxiv
 syncthing
 tcpdump
+tdlib
 tealdeer
 telegram-desktop
 terminus-font
@@ -283,6 +289,7 @@ tokei
 traceroute
 tree
 trizen
+ttf-cascadia-code
 ttf-dejavu
 ttf-dejavu-nerd
 ttf-firacode-nerd
@@ -364,6 +371,7 @@ xsel
 xterm
 yarn
 yay-git
+yazi
 you-get
 yq
 zip

@@ -35,7 +35,7 @@ super + ctrl + {h, l}
 
 super + shift + f
 	bspc node -t \~floating
-# launch
+
 super + n
 	kitty
 # super + i
@@ -45,8 +45,8 @@ super + c
 super + semicolon
 	rofi -show drun -matching fuzzy
 super + p
-	CM_LAUNCHER=rofi clipmenu
-# TODO: need a santinizer
+	cliphist list | rofi -dmenu -display-columns 2 | cliphist decode
+	# rofi -modi clipboard:~/.bin/cliphist-rofi-img.sh  -show clipboard -show-icons
 super + x
 	xsel -b | sh $XDG_CONFIG_HOME/sxhkd/scripts/url-santinizer.sh >> $XDG_CONFIG_HOME/newsboat/urls
 super + v
