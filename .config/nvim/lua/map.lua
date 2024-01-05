@@ -13,11 +13,11 @@ n("gj", '"gyy"gp')
 x("gj", '"gy\'>"gp')
 n("$", "g_")
 x("$", "g_")
-
--- format
 n("gw", "gg=G``")
 
 n("<c-u>", "<c-u>zz")
+n("<c-d>", "<c-d>zz")
+
 n("<c-d>", "<c-d>zz")
 
 x("p", "P")
@@ -46,15 +46,13 @@ x("<a-l>", ">gv")
 t("<c-space>", "<c-\\><c-n>")
 
 local toggle_qf = function()
-  local qf_exists = false
-  for _, win in pairs(vim.fn.getwininfo()) do
-    if win["quickfix"] == 1 then qf_exists = true end
+  local wins = vim.fn.getwininfo()
+  local qf_win = vim.iter(wins):filter(function(win) return win.quickfix == 1 end):totable()
+  if #qf_win == 0 then
+    vim.cmd.copen()
+  else
+    vim.cmd.cclose()
   end
-  if qf_exists then
-    vim.cmd "cclose"
-    return
-  end
-  if not vim.tbl_isempty(vim.fn.getqflist()) then vim.cmd "copen" end
 end
 n("<leader>q", toggle_qf)
 
@@ -126,6 +124,7 @@ x("<leader>rm", [[:s/\s\{1,}//g<cr>]])
 -- windows
 n("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
 n("<leader>wo", "<cmd>AerialToggle<cr>")
+n("<leader>a", "<cmd>AerialToggle<cr>")
 n("<leader>wl", "<cmd>Lazy<cr>")
 n("<leader>wj", "<cmd>Navbuddy<cr>")
 n("<leader>wi", "<cmd>LspInfo<cr>")
@@ -175,7 +174,9 @@ n("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]])
 n("<leader>cl", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]])
 x("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]])
 
-n("<leader>e", "<cmd>e ~/priv/todo.md<cr>")
+n("<leader>E", "<cmd>e ~/priv/todo.md<cr>")
+n("<leader>e", "<cmd>e ~/priv/" .. vim.trim(vim.fn.system "date +%m-%d", "\n") .. ".md<cr>")
+
 n("<leader>cx", "<cmd>!chmod +x %<cr>")
 -- }}}
 

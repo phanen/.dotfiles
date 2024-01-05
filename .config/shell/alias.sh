@@ -3,12 +3,12 @@ alias k='pkill'
 alias x='xsel'
 alias t="type"
 alias p="sudo pacman"
-# alias yay="paru"
+alias yay="paru"
 alias y="yay"
 alias s="sysz"
 alias vj="NVIM_APPNAME=nvim-test nvim"
 
-alias ls="exa --color=auto"
+alias ls="exa --color=auto --hyperlink"
 alias ll="ls -lah"
 alias la="ls -a"
 alias l="ll"

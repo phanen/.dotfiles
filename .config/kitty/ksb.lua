@@ -3,7 +3,7 @@ vim.loader.enable()
 
 vim.g.mapleader = " "
 vim.o.clipboard = "unnamedplus"
-vim.o.laststatus = 2
+vim.o.laststatus = 0
 vim.o.cmdheight = 0
 vim.o.scrolloff = 999
 
@@ -27,6 +27,8 @@ local plug = function(basename)
   return function(opts) require(packname).setup(opts) end
 end
 
+-- TODO: avoid screen blink (or avoid redraw??)
+-- TODO: hot update to neovim...
 plug "kitty-scrollback.nvim" {
   custom = function(_)
     return {
@@ -36,7 +38,19 @@ plug "kitty-scrollback.nvim" {
       highlight_overrides = { KittyScrollbackNvimVisual = { bg = "Cyan", fg = "Black" } },
     }
   end,
+  last_cmd_output = function()
+    return {
+      paste_window = { yank_register_enabled = false },
+      restore_options = true,
+      highlight_overrides = { KittyScrollbackNvimVisual = { bg = "Cyan", fg = "Black" } },
+      kitty_get_text = { extent = "last_cmd_output", ansi = true },
+    }
+  end,
 }
+
+-- plug "flash.nvim" { modes = { search = { enabled = false } } }
+-- m({ "n", "x", "o" }, "s", function() require("flash").jump() end)
+-- m({ "n", "x", "o" }, "_", function() require("flash").jump() end)
 
 plug "lazy.nvim" {
   {
@@ -45,11 +59,14 @@ plug "lazy.nvim" {
       { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end },
       { "_", mode = { "n", "x", "o" }, function() require("flash").jump() end },
       { "f", mode = { "n", "x", "o" } },
+      { "F", mode = { "n", "x", "o" } },
     },
     opts = { modes = { search = { enabled = false } } },
   },
   {
     "kevinhwang91/nvim-hlslens",
+    -- FIXME: sometimes the bar show in the bottom, make it useless
+    cond = false,
     keys = {
       { "n", [[<cmd>execute('normal! ' . v:count1 . 'n')<cr><cmd>lua require('hlslens').start()<cr>zz]] },
       { "N", [[<cmd>execute('normal! ' . v:count1 . 'N')<cr><cmd>lua require('hlslens').start()<cr>zz]] },
@@ -57,7 +74,15 @@ plug "lazy.nvim" {
       { "#", [[#<cmd>lua require('hlslens').start()<cr>]] },
       { "g*", [[g*<cmd>lua require('hlslens').start()<cr>]] },
       { "g#", [[g#<cmd>lua require('hlslens').start()<cr>]] },
-      -- FIXME: if hls started, <esc> should stop hls first, need a map which auto changes it self
+      {
+        "<esc>",
+        function()
+          vim.cmd.noh()
+          require("hlslens").stop()
+          -- vim.api.nvim_feedkeys(vim.keycode "<esc>", "n", false)
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", false)
+        end,
+      },
     },
     opts = { calm_down = true, nearest_only = true },
   },
@@ -71,6 +96,14 @@ m("!", "<c-n>", "<down>")
 m("!", "<c-a>", "<home>")
 m("!", "<c-e>", "<end>")
 m("n", "gl", "gx", { remap = true })
-m("n", "<esc>", "<Plug>(KsbCloseOrQuitAll)")
+
+-- don't map esc
+-- m("n", "<esc>", "<Plug>(KsbCloseOrQuitAll)")
 -- avoid going back to term mode(paste_window)
 m("n", "i", "<Plug>(KsbCloseOrQuitAll)")
+m("n", "q", "<Plug>(KsbCloseOrQuitAll)")
+m("n", "a", "<Plug>(KsbCloseOrQuitAll)")
+m("n", "<c-c>", "y")
+m("n", "u", "<c-u>")
+m("n", "d", "<c-d>")
+m({ "n", "o", "x" }, "ga", "G")

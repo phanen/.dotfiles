@@ -132,6 +132,7 @@ return {
       { "S", mode = { "n", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
       { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
       { "f", mode = { "n", "x", "o" } },
+      { "F", mode = { "n", "x", "o" } },
     },
     opts = {
       modes = {

@@ -6,6 +6,7 @@ abbr -a o xdg-open
 abbr -a ta 'tmux a || tmux'
 abbr -a p 'patch -Np1 -i -'
 abbr -a --position anywhere ppp https_proxy=127.0.0.1:7890 http_proxy=127.0.0.1:7890 all_proxy=127.0.0.1:7890
+abbr -a cl 'printf "\e[H\e[3J"'
 
 # fish_default_key_bindings
 

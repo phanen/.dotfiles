@@ -17,23 +17,7 @@ defaults:
   issuesLimit: 20
   preview:
     open: true
-    width: 60
+    width: 100
 keybindings:
 pager:
   diff: less
-#
-# theme:
-#   colors:
-#     text:
-#       primary: "#e2e1ed"
-#       secondary: "#666ca6"
-#       inverted: "#242347"
-#       faint: "#797d9c"
-#       warning: "#f23d5c"
-#       success: "#3df294"
-#     background:
-#       selected: "#151622"
-#     border:
-#       primary: "#383b5b"
-#       secondary: "#39386b"
-#       faint: "#2b2b40"

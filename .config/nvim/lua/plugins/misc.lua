@@ -94,13 +94,34 @@ return {
   },
   {
     "3rd/image.nvim",
-    cond = false,
-    ft = "markdown",
+    ft = { "markdown", "org" },
     opts = {},
     init = function()
       -- Example for configuring Neovim to load user-installed installed Lua rocks:
       package.path = package.path .. ";" .. vim.fn.expand "$HOME" .. "/.luarocks/share/lua/5.1/?/init.lua;"
       package.path = package.path .. ";" .. vim.fn.expand "$HOME" .. "/.luarocks/share/lua/5.1/?.lua;"
+    end,
+  },
+  {
+    "nvim-orgmode/orgmode",
+    dependencies = {
+      { "nvim-treesitter/nvim-treesitter", lazy = true },
+    },
+    ft = "org",
+    event = "VeryLazy",
+    config = function()
+      require("orgmode").setup_ts_grammar()
+      require("nvim-treesitter.configs").setup {
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = { "org" },
+        },
+        ensure_installed = { "org" },
+      }
+      require("orgmode").setup {
+        org_agenda_files = "~/orgfiles/**/*",
+        org_default_notes_file = "~/orgfiles/refile.org",
+      }
     end,
   },
   -- }}}
@@ -202,6 +223,7 @@ return {
     opts = {
       sync_root_with_cwd = true,
       actions = { change_dir = { enable = true, global = true } },
+      view = { adaptive_size = true },
       on_attach = function(bufnr)
         local api = require "nvim-tree.api"
         api.config.mappings.default_on_attach(bufnr)
@@ -244,7 +266,7 @@ return {
   { "AndrewRadev/linediff.vim", cmd = "Linediff" },
   { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
   { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
-  { "lilydjwg/fcitx.vim", event = "VeryLazy" },
+  { "lilydjwg/fcitx.vim", lazy = false, event = "InsertEnter" },
   { "chrishrb/gx.nvim", keys = "gx", dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
   { "tpope/vim-sleuth", event = "VeryLazy" },

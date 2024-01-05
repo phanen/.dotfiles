@@ -2,4 +2,4 @@ git:
   paging:
     colorArg: always
     useConfig: true
-    # pager: delta --dark --paging=never --24-bit-color=never
+promptToReturnFromSubprocess: false
