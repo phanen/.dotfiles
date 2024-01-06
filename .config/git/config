@@ -22,3 +22,6 @@
 	signingkey = phanium
 [commit]
 	gpgsign = false
+[credential "https://gitlab.archlinux.org"]
+	helper = 
+	helper = !/usr/bin/glab auth git-credential

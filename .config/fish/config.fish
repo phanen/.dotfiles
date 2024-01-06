@@ -8,22 +8,18 @@ abbr -a p 'patch -Np1 -i -'
 abbr -a --position anywhere ppp https_proxy=127.0.0.1:7890 http_proxy=127.0.0.1:7890 all_proxy=127.0.0.1:7890
 abbr -a cl 'printf "\e[H\e[3J"'
 
-# fzf, https://github.com/gazorby/dotfiles/tree/19916f70981658aa5d59a154b21fab3faed28cf4
-if type -q fzf
-    set -Ux FZF_DEFAULT_OPTS "
-        --layout=reverse
-        --height=90%
-        --prompt='~ ' --pointer='▶' --marker='✓'
-        --multi
-        --bind=';:abort'
-        --bind='?:toggle-preview'
-        --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
-    "
-    # --bind='space:accept'
-    # fzf_configure_bindings --directory=\cf --processes=\cp --git_log=\cg --history=\cr
-    set -Ux fifc_editor nvim
-    set -U fifc_keybinding \ci
-end
+set -Ux FZF_DEFAULT_OPTS "
+  --layout=reverse
+  --height=90%
+  --prompt='~ ' --pointer='▶' --marker='✓'
+  --multi
+  --bind=';:abort'
+  --bind='?:toggle-preview'
+  --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
+"
+fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
+set -Ux fifc_editor nvim
+set -U fifc_keybinding \ci
 
 # FIXME: standard way to redraw fish prompt
 function if_empty
@@ -42,7 +38,7 @@ function bind_edit
   nvim
 end
 
-function bind_enter
+function repeat_cmd
   set -l lastline $history[1]
   test -z (string trim (commandline))
   and commandline -r $lastline
@@ -50,9 +46,7 @@ function bind_enter
 end
 
 bind \ew 'fish_key_reader -c'
-bind \r bind_enter
-# this save tons of keystoke, but we need a smart way to adjust prompt position
-# HACK: pad a neofetch, just a joke...
+bind \ct repeat_cmd
 bind \cq 'if_empty lazygit fish_clipboard_copy'
 bind \cs bind_edit
 bind \cg 'if_empty yazi yazi'
@@ -71,7 +65,7 @@ bind \ce 'if_empty "zi;fish_prompt" "commandline -f end-of-line"'
 
 set -U fish_greeting
 zoxide init fish | source
-# /usr/bin/starship init fish --print-full-init | source
+starship init fish --print-full-init | source
 # if status is-login && test -z "$TMUX" && test -n "$SSH_TTY"
 #     exec sh -c 'tmux a || tmux'
 # end

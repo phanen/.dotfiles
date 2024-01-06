@@ -45,7 +45,7 @@ super + c
 super + semicolon
 	rofi -show drun -matching fuzzy
 super + p
-	cliphist list | rofi -dmenu -display-columns 2 | cliphist decode
+	cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | xsel -ib
 	# rofi -modi clipboard:~/.bin/cliphist-rofi-img.sh  -show clipboard -show-icons
 super + x
 	xsel -b | sh $XDG_CONFIG_HOME/sxhkd/scripts/url-santinizer.sh >> $XDG_CONFIG_HOME/newsboat/urls

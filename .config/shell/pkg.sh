@@ -102,3 +102,12 @@ find-pkg() {
 baklog() {
     find . -name "*.log" | xargs -I{} cp {} {}1.log
 }
+
+rv-triple() {
+    sed "s/--target \"\$CARCH-unknown-linux-gnu\"/--target \"\$(rustc -vV | sed -n \'s\/host: \/\/p\')\"/g" -i PKGBUILD
+    sed "s/--target \$CARCH-unknown-linux-gnu/--target \"\$(rustc -vV | sed -n \'s\/host: \/\/p\')\"/g" -i PKGBUILD
+    printf "
+    Refer to latest guideline in wiki: https://wiki.archlinux.org/title/Rust_package_guidelines#Prepare
+    Facilitate the portability to platform like RISC-V, which should use `riscv64gc-unknown-linux-gnu` for packaging (rather than `riscv64-unknown-linux-gnu` when use hardcode `\$CARCH`)
+    " | xsel -ib
+}

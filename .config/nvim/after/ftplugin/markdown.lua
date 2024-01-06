@@ -17,21 +17,33 @@ local link_wrap = function(type)
   end
 end
 
+local item_pattern = {
+  ["-"] = "%-",
+  ["+"] = "%+",
+  ["*"] = "%*",
+  ["="] = "%=",
+}
+
 local toggle_checkbox = function()
-  local CHECK_BOX = "%[x%]"
-  local EMPTY_BOX = "%[ %]"
-  local PREFIX = "-"
+  local C = "%[x%]"
+  local E = "%[ %]"
   local toggle_line = function(line)
-    local has = function(box) return line:find("^%s*- " .. box) or line:find("^%s*%d%. " .. box) end
-    local check = function() return line:gsub(EMPTY_BOX, CHECK_BOX, 1) end
-    local clear = function() return line:gsub(CHECK_BOX, EMPTY_BOX, 1) end
-    local make_box = function()
-      if line:match "^%s*-%s.*$" then return line:gsub("(%s*- )(.*)", "%1[ ] %2", 1) end
-      if line:match "^%s*%d%s.*$" then return line:gsub("(%s*%d%. )(.*)", "%1[ ] %2", 1) end
-      return line:gsub("(%S+)", PREFIX .. " %1", 1)
+    local has = function(box)
+      for _, pat in pairs(item_pattern) do
+        if line:find("^%s*" .. pat .. " " .. box) then return true end
+      end
+      return false
     end
-    if has(CHECK_BOX) then return clear() end
-    if has(EMPTY_BOX) then return check() end
+    local check = function() return line:gsub(E, C, 1) end
+    local clear = function() return line:gsub(C, E, 1) end
+    local make_box = function()
+      for _, pat in pairs(item_pattern) do
+        if line:match("^%s*" .. pat .. "%s.*$") then return line:gsub("(%s*" .. pat .. " )(.*)", "%1[ ] %2", 1) end
+      end
+      return line:gsub("(%S+)", "* %1", 1)
+    end
+    if has(C) then return clear() end
+    if has(E) then return check() end
     return make_box()
   end
   local vstart, vend = vim.fn.getpos(".")[2], vim.fn.getpos("v")[2]
@@ -40,7 +52,7 @@ local toggle_checkbox = function()
   end
   vstart = vstart - 1
   local lines = vim.api.nvim_buf_get_lines(0, vstart, vend, false)
-  for i, line in ipairs(lines) do
+  for i, line in pairs(lines) do
     lines[i] = toggle_line(line)
   end
   vim.api.nvim_buf_set_lines(0, vstart, vend, false, lines)
@@ -51,8 +63,10 @@ local list_item = function(c)
   return function()
     local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
     local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
-    if line:find "^%s*- %[ %]" then return c .. "- [ ] " end
-    if line:find "^%s*- " then return c .. "- " end
+    for it, pat in pairs(item_pattern) do
+      if line:find("^%s*" .. pat .. " %[ %]") then return c .. it .. " [ ] " end
+      if line:find("^%s*" .. pat .. " ") then return c .. it .. " " end
+    end
     return c
   end
 end
