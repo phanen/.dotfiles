@@ -29,42 +29,34 @@ return {
   -- }}}
   -- color {{{
   { "EdenEast/nightfox.nvim" },
-  -- { "NLKNguyen/papercolor-theme" },
-  -- { "igorgue/danger" },
-  -- { "rebelot/kanagawa.nvim" },
+  { "NLKNguyen/papercolor-theme" },
+  { "igorgue/danger" },
+  { "rebelot/kanagawa.nvim" },
+  { "projekt0n/github-nvim-theme" },
   { "folke/tokyonight.nvim" },
-  -- { "navarasu/onedark.nvim" },
-  -- { "shaunsingh/nord.nvim" },
-  -- { "AlexvZyl/nordic.nvim" },
-  -- { "NTBBloodbath/doom-one.nvim" },
-  -- { "mswift42/vim-themes" },
-  -- { "marko-cerovac/material.nvim" },
-  -- { "dracula/vim", name = "dracula.vim" },
-  -- { "rose-pine/neovim", name = "rose-pine" },
-  -- { "catppuccin/nvim", name = "catppuccin" },
-  -- { "mcchrish/zenbones.nvim", dependencies = "rktjmp/lush.nvim" },
+  { "navarasu/onedark.nvim" },
+  { "shaunsingh/nord.nvim" },
+  { "AlexvZyl/nordic.nvim" },
+  { "NTBBloodbath/doom-one.nvim" },
+  { "mswift42/vim-themes" },
+  { "marko-cerovac/material.nvim" },
+  { "dracula/vim", name = "dracula.vim" },
+  { "rose-pine/neovim", name = "rose-pine" },
+  { "catppuccin/nvim", name = "catppuccin" },
+  { "mcchrish/zenbones.nvim", dependencies = "rktjmp/lush.nvim" },
   -- tools
   { "xiyaowong/transparent.nvim", cmd = "TransparentToggle", config = true },
   {
     "4e554c4c/darkman.nvim",
     event = "VeryLazy",
     build = "go build -o bin/darkman.nvim",
-    opts = { colorscheme = { dark = "tokyonight", light = "dayfox" } },
+    opts = { colorscheme = { dark = "tokyonight", light = "github_light" } },
   },
   { "norcalli/nvim-colorizer.lua", cmd = "ColorizerToggle ", config = true },
-  -- syntax highlight
-  { "kovetskiy/sxhkd-vim", cond = false, ft = "sxhkd" },
-  { "kmonad/kmonad-vim", cond = false, ft = "kbd" },
   -- }}}
   -- doc {{{
-  {
-    "iamcco/markdown-preview.nvim",
-    cond = vim.env.SSH_TTY ~= nil,
-    cmd = "MarkdownPreview",
-    build = "cd app && npm install",
-    ft = { "markdown" },
-  },
   { "dhruvasagar/vim-table-mode", cond = false, ft = { "markdown", "org" } },
+  { "hotoo/pangu.vim", ft = "markdown" },
   {
     "lervag/vimtex",
     -- :h :VimtexInverseSearch
@@ -86,16 +78,9 @@ return {
     end,
   },
   {
-    "iurimateus/luasnip-latex-snippets.nvim",
-    cond = false,
-    dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
-    config = function() require("luasnip-latex-snippets").setup { use_treesitter = true } end,
-    ft = { "tex", "markdown" },
-  },
-  {
     "3rd/image.nvim",
     ft = { "markdown", "org" },
-    opts = {},
+    config = true,
     init = function()
       -- Example for configuring Neovim to load user-installed installed Lua rocks:
       package.path = package.path .. ";" .. vim.fn.expand "$HOME" .. "/.luarocks/share/lua/5.1/?/init.lua;"
@@ -104,11 +89,8 @@ return {
   },
   {
     "nvim-orgmode/orgmode",
-    dependencies = {
-      { "nvim-treesitter/nvim-treesitter", lazy = true },
-    },
+    dependencies = { { "nvim-treesitter/nvim-treesitter" } },
     ft = "org",
-    event = "VeryLazy",
     config = function()
       require("orgmode").setup_ts_grammar()
       require("nvim-treesitter.configs").setup {
@@ -196,14 +178,8 @@ return {
     keys = { [[<c-\>]] },
     opts = {
       open_mapping = [[<c-\>]],
-      start_in_insert = true,
       direction = "float",
       shell = "/bin/fish",
-      highlights = {
-        -- NormalFloat = { link = "", cterm = "bold" },
-        -- NormalFloat = { guibg = "#1a1b26", guifg = "#a9b1d6" },
-        -- NormalFloat = { guibg = "#192330", guifg = "#81b29a" },
-      },
     },
   },
   --- }}}
@@ -234,6 +210,12 @@ return {
       end,
     },
   },
+  {
+    "stevearc/oil.nvim",
+    cmd = "Oil",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = true,
+  },
   -- }}}
   -- tobj {{{
   {
@@ -262,12 +244,12 @@ return {
   { "folke/which-key.nvim", event = "VeryLazy", opts = { plugins = { spelling = { enabled = false } } } },
   { "dstein64/vim-startuptime", cmd = "StartupTime" },
   { "voldikss/vim-translator", cmd = "Translate", keys = { { "gk", ":Translate<cr>", mode = { "n", "x" } } } },
-  { "nacro90/numb.nvim", event = "CmdlineEnter", opts = {} },
+  { "nacro90/numb.nvim", event = "CmdlineEnter", config = true },
   { "AndrewRadev/linediff.vim", cmd = "Linediff" },
   { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
   { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
-  { "lilydjwg/fcitx.vim", lazy = false, event = "InsertEnter" },
-  { "chrishrb/gx.nvim", keys = "gx", dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
+  { "lilydjwg/fcitx.vim", event = "InsertEnter" },
+  { "chrishrb/gx.nvim", keys = "gx", dependencies = { "nvim-lua/plenary.nvim" }, config = true },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
   { "tpope/vim-sleuth", event = "VeryLazy" },
   { "mikesmithgh/kitty-scrollback.nvim" },
@@ -352,20 +334,23 @@ return {
       },
     },
   },
+  { "stevearc/aerial.nvim", cmd = { "AerialToggle" }, config = true },
+  { "hedyhli/outline.nvim", cond = false, cmd = "Outline", config = true },
   {
-    "stevearc/aerial.nvim",
-    cmd = { "AerialToggle" },
+    "kevinhwang91/nvim-bqf",
+    ft = "qf",
     opts = {
-      keymaps = {
-        ["<c-n>"] = "actions.down_and_scroll",
-        ["<c-p>"] = "actions.up_and_scroll",
-        -- FIXME: switch window
-        ["<c-j>"] = "<cmd>wincmd j<cr>",
-        ["<c-k>"] = "<cmd>wincmd k<cr>",
+      preview = {
+        should_preview_cb = function(bufnr, _)
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+          local fsize = vim.fn.getfsize(bufname)
+          if bufname:match "^fugitive://" then return false end
+          if fsize > 100 * 1024 then return false end
+          return true
+        end,
       },
     },
   },
-  { "kevinhwang91/nvim-bqf", ft = "qf" },
   { "HiPhish/rainbow-delimiters.nvim", event = "VeryLazy" },
   { "itchyny/vim-highlighturl", event = "ColorScheme" },
   -- }}}

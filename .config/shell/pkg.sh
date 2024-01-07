@@ -82,12 +82,13 @@ pie() {
     cd ~/src/$fname || return
     rv-patch && cat riscv64.patch
     . ./PKGBUILD
-    echo -n "${fname} ${pkgver}-${pkgrel}" | xsel
+    echo -n "${fname} ${pkgver}-${pkgrel}" | xsel -ib
 
     # prepare for commit
     cd ~/archriscv-packages || return
     git checkout master
     git pull --ff-only upstream master:master
+    git push
     git checkout -b $fname || git checkout $fname
     git rebase master
     m $fname

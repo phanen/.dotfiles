@@ -43,23 +43,19 @@ fi
 # possible for session-wise daemon, but: fcitx5/browser seems not work in multiply xdisplay
 # _bootstrap() { if ! pgrep "$1"; then eval "$@" 2>&1 >/dev/null; fi }
 fcitx5 -d
-kmonad ~/.config/kmonad/kmonad-$(hostname).kbd -w 10 &
+~/.bin/kmonad.sh
 polybar -r &
 picom &
 dunst &
 sxhkd -a Tab &
-
 # timeout 1s ssh arch input-leapc && input-leaps --config inputleap.conf
 while clipnotify; do xclip -o -selection c | cliphist store; done &
-
 # swhks &
 # pkexec swhkd &
 # udiskie &
-
 xrandr --auto
 
 # export DESKTOP_SESSION=plasma
-# exec google-chrome-stable
 session=${1:-bspwm}
 case $session in
     bspwm             ) exec bspwm;;

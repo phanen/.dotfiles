@@ -2,19 +2,21 @@ source ~/.config/fish/sh-common.fish
 
 abbr -a c cargo
 abbr -a g git
+abbr -a gp git pull
 abbr -a o xdg-open
 abbr -a ta 'tmux a || tmux'
 abbr -a p 'patch -Np1 -i -'
-abbr -a --position anywhere ppp https_proxy=127.0.0.1:7890 http_proxy=127.0.0.1:7890 all_proxy=127.0.0.1:7890
 abbr -a cl 'printf "\e[H\e[3J"'
+abbr -a rm ' rm'
+abbr -a vb 'VIMRUNTIME=~/b/neovim/runtime NVIM_APPNAME=nvim-test ~/b/neovim/build/bin/nvim'
+abbr -a vv 'VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim'
 
 set -Ux FZF_DEFAULT_OPTS "
   --layout=reverse
   --height=90%
   --prompt='~ ' --pointer='▶' --marker='✓'
   --multi
-  --bind=';:abort'
-  --bind='?:toggle-preview'
+  --bind=';:toggle-preview'
   --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
 "
 fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
@@ -53,7 +55,7 @@ bind \cg 'if_empty yazi yazi'
 bind \e\; 'htop'
 bind \co prevd-or-backward-word
 bind \cj nextd-or-forward-word
-bind \cl __fish_list_current_token
+bind \cl kill-bigword
 bind \el clear
 bind \ei 'tmux a 2>&1 >/dev/null || tmux 2>&1 >/dev/null || tmux det'
 bind \er 'sh2fish.sh && exec fish'
@@ -65,7 +67,7 @@ bind \ce 'if_empty "zi;fish_prompt" "commandline -f end-of-line"'
 
 set -U fish_greeting
 zoxide init fish | source
-starship init fish --print-full-init | source
+# starship init fish --print-full-init | source
 # if status is-login && test -z "$TMUX" && test -n "$SSH_TTY"
 #     exec sh -c 'tmux a || tmux'
 # end

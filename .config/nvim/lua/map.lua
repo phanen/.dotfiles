@@ -123,8 +123,8 @@ x("<leader>rm", [[:s/\s\{1,}//g<cr>]])
 -- toggle {{{
 -- windows
 n("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
-n("<leader>wo", "<cmd>AerialToggle<cr>")
 n("<leader>a", "<cmd>AerialToggle<cr>")
+-- n("<leader>a", "<cmd>Outline<cr>")
 n("<leader>wl", "<cmd>Lazy<cr>")
 n("<leader>wj", "<cmd>Navbuddy<cr>")
 n("<leader>wi", "<cmd>LspInfo<cr>")
@@ -134,15 +134,7 @@ n("<leader>wy", "<cmd>Mason<cr>")
 n("<leader>oc", "<cmd>set cursorline! cursorcolumn!<cr>")
 n("<leader>of", "<cmd>set foldenable!<cr>")
 n("<leader>os", "<cmd>set spell!<cr>")
-n("<leader>on", function()
-  if string.match(vim.o.nrformats, "alpha") then
-    vim.cmd [[set nrformats-=alpha]]
-  else
-    vim.cmd [[set nrformats+=alpha]]
-  end
-end, { desc = "toggle nrformats" })
--- TODO: make it a real toggle
-n("<leader>ow", function() vim.cmd [[set wrap!]] end)
+n("<leader>ow", "<cmd>set wrap!]]")
 -- }}}
 -- diagnostic {{{
 n("[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")

@@ -43,7 +43,7 @@ local pn = function(picker, dirs)
     picker {
       search_dirs = ndir and { ndir } or dirs,
       previewer = picker == tb.live_grep,
-      default_text = get_cache(),
+      -- default_text = get_cache(),
     }
   end
 end
@@ -54,6 +54,11 @@ return {
     tag = "0.1.5",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+        config = function() require("telescope").load_extension "fzf" end,
+      },
     },
     cmd = "Telescope",
     -- stylua: ignore
@@ -66,8 +71,8 @@ return {
       -- TODO: toggle ignore w
       { "<leader><c-l>",    pk(tb.find_files, { no_ignore = true }), mode = { "n", "x" } },
       { "<leader>fl",       pk(tb.live_grep, { no_ignore = true }),  mode = { "n", "x" } },
-      { "<leader>fj",       pn(tb.find_files, { "~", "~/notes" }),   mode = { "n", "x" } },
-      { "<leader>fk",       pn(tb.live_grep, { "~", "~/notes" }),    mode = { "n", "x" } },
+      { "<localleader>+",   pn(tb.find_files, { "~", "~/notes" }),   mode = { "n", "x" } },
+      { "<localleader>o",   pn(tb.live_grep, { "~", "~/notes" }),    mode = { "n", "x" } },
       { "<leader>/",        pk(tb.current_buffer_fuzzy_find),        mode = { "n", "x" } },
       { "<leader>;",        pk(tb.command_history),                  mode = { "n", "x" } },
       { "<leader>fo",       pk(tb.oldfiles),                         mode = { "n", "x" } },
@@ -89,11 +94,11 @@ return {
             ["<c-d>"] = ta.preview_scrolling_down,
             ["<c-v>"] = false,
             ["<c-\\>"] = tal.toggle_preview,
-            ["<c-n>"] = tal.toggle_mirror,
+            ["<c-p>"] = tal.toggle_mirror,
             ["<esc>"] = ta.close,
             ["<c-j>"] = ta.move_selection_next,
             ["<c-k>"] = ta.move_selection_previous,
-            ["<c-g>"] = tal.cycle_layout_next,
+            ["<c-n>"] = tal.cycle_layout_next,
             ["<c-l>"] = function(_)
               local entry = tas.get_selected_entry()
               local prompt_text = entry.text or entry[1]
@@ -129,5 +134,5 @@ return {
     keys = { { "<leader>L", "<cmd>TodoTelescope<cr>" } },
     opts = { highlight = { keyword = "bg" } },
   },
-  { "junegunn/fzf.vim", cmd = "Files", dependencies = { "junegunn/fzf", name = "fzf" } },
+  { "junegunn/fzf.vim", cmd = { "Files" }, dependencies = { "junegunn/fzf", name = "fzf" } },
 }

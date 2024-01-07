@@ -61,7 +61,6 @@ edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
-emacs
 entr
 esbuild
 evtest
@@ -90,6 +89,7 @@ gdb
 ghc
 git
 github-cli
+glab
 gnu-efi
 gnu-free-fonts
 gnu-netcat
@@ -100,6 +100,7 @@ grub
 gtk-vnc
 gtkwave
 gvim
+helix
 hexer
 hexyl
 hostapd
@@ -195,6 +196,7 @@ noto-fonts-cjk
 noto-fonts-emoji
 npm
 ntfs-3g
+nvm
 ocaml
 openssh
 openvpn
@@ -269,7 +271,6 @@ socat
 sof-firmware
 spice-vdagent
 sshfs
-stardict
 starship
 stow
 strace
@@ -283,6 +284,7 @@ tdlib
 tealdeer
 telegram-desktop
 terminus-font
+tesseract-data-eng
 the_silver_searcher
 tmux
 tokei

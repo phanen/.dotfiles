@@ -110,6 +110,7 @@ return {
   },
   {
     "andymass/vim-matchup",
+    cond = false,
     event = "BufReadPost",
     keys = { mode = { "n", "x", "o" }, "%" },
     init = function() vim.o.matchpairs = "(:),{:},[:],<:>" end,
@@ -143,6 +144,7 @@ return {
   },
   {
     "stevearc/conform.nvim",
+    keys = { { "gw", [[<cmd>lua require("conform").format { lsp_fallback = true }<cr>]] } },
     opts = {
       formatters_by_ft = {
         -- TODO: stylua cannot align
@@ -163,6 +165,5 @@ return {
         yaml = { "prettier" },
       },
     },
-    keys = { { "gw", [[<cmd>lua require("conform").format { lsp_fallback = true }<cr>]] } },
   },
 }

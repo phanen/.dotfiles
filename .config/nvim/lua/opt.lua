@@ -32,20 +32,10 @@ o.listchars = o.listchars .. ",leadmultispace:│ "
 
 o.updatetime = 1000 -- for CursorHold
 o.timeoutlen = 100
-o.ttimeout = false -- avoid sticky escape as alt
+-- o.ttimeout = false -- avoid sticky escape as alt
+o.ttimeoutlen = 0
 
 o.synmaxcol = 200
-
--- for _, provider in ipairs { "perl", "node", "ruby", "python", "python3" } do
---   local var = "loaded_" .. provider .. "_provider"
---   vim.g[var] = 0
--- end
-
--- built-in plugins that really useless
-for _, plugin in ipairs { "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers" } do
-  local var = "loaded_" .. plugin
-  vim.g[var] = 1
-end
 
 -- wezterm integration
 local base64 = function(data)
@@ -96,4 +86,39 @@ sign { highlight = "DiagnosticSignWarn", icon = warn }
 sign { highlight = "DiagnosticSignInfo", icon = info }
 sign { highlight = "DiagnosticSignHint", icon = hint }
 
+vim.cmd [[
+" line object, https://vi.stackexchange.com/questions/24861/selector-for-line-of-text
+function! Textobj_line(count) abort
+    normal! gv
+    if visualmode() !=# 'v'
+    normal! v
+    endif
+    let startpos = getpos("'<")
+    let endpos = getpos("'>")
+    if startpos == endpos
+    execute "normal! ^o".a:count."g_"
+    return
+    endif
+    let curpos = getpos('.')
+    if curpos == endpos
+    normal! g_
+    let curpos = getpos('.')
+    if curpos == endpos
+        execute "normal!" (a:count+1)."g_"
+    elseif a:count > 1
+        execute "normal!" a:count."g_"
+    endif
+    else
+    normal! ^
+    let curpos = getpos('.')
+    if curpos == startpos
+        execute "normal!" a:count."-"
+    elseif a:count > 1
+        execute "normal!" (a:count-1)."-"
+    endif
+    endif
+endfunction
+xnoremap <silent> il :<C-U>call Textobj_line(v:count1)<CR>
+onoremap <silent> il :<C-U>execute "normal! ^v".v:count1."g_"<CR>
+]]
 -- vim:foldmethod=marker

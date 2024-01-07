@@ -190,6 +190,6 @@ return {
     cond = vim.env.OPENAI_API_KEY ~= nil,
     cmd = "ChatGPT",
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
-    opts = {},
+    config = true,
   },
 }

@@ -48,9 +48,9 @@ super + p
 	cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | xsel -ib
 	# rofi -modi clipboard:~/.bin/cliphist-rofi-img.sh  -show clipboard -show-icons
 super + x
-	xsel -b | sh $XDG_CONFIG_HOME/sxhkd/scripts/url-santinizer.sh >> $XDG_CONFIG_HOME/newsboat/urls
+	xsel -ob | $HOME/.bin/scripts/url-bookmark.sh $XDG_CONFIG_HOME/newsboat/urls
 super + v
-	xsel -b | sh $XDG_CONFIG_HOME/sxhkd/scripts/url-santinizer.sh >> $XDG_CONFIG_HOME/.urls
+	(xsel -ob; echo) >> "$HOME/priv/$(date +%m-%d).md"
 super + Tab
 	darkman toggle
 super + ctrl + t
