@@ -1,4 +1,0 @@
-#!/bin/sh
-IFS="/" read -ra parts <<< "$(pwd)"
-pkgpath=$(IFS="/" ; echo "${parts[*]:0:5}")
-cd $pkgpath

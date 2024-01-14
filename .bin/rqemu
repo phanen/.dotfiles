@@ -1,3 +1,0 @@
-#!/bin/bash
-qemu-system-x86_64 -enable-kvm --enable-kvm -cdrom latest-nixos-minimal-x86_64-linux.iso -drive file=nixos.qcow2 -m 4G -smp 4
-

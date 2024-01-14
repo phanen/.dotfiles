@@ -6,6 +6,7 @@ alsa-utils
 apr
 apr-util
 archinstall
+archiso
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
@@ -128,7 +129,6 @@ iw
 jack2
 jdk11-openjdk
 jdk8-openjdk
-joshuto-git
 jpegoptim
 jq
 just
@@ -176,8 +176,8 @@ lua51
 luarocks
 man-db
 man-pages
-maven
 mdbook
+mdformat
 mesa-utils
 meson
 metasploit
@@ -228,6 +228,7 @@ pkgstats
 pnpm
 podman
 poedit
+poketex
 polybar
 prettier
 pulsemixer
@@ -251,7 +252,6 @@ python2
 qemu-emulators-full
 qemu-full
 qemu-user-static-binfmt
-qt6-doc
 qutebrowser
 rar
 rclone
@@ -335,7 +335,6 @@ waybar-lily
 wezterm
 wget
 whois
-wireshark-qt
 wl-clipboard
 wmctrl
 wofi

@@ -123,7 +123,7 @@ x("<leader>rm", [[:s/\s\{1,}//g<cr>]])
 -- toggle {{{
 -- windows
 n("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
-n("<leader>a", "<cmd>AerialToggle<cr>")
+n("<leader>wo", "<cmd>AerialToggle<cr>")
 -- n("<leader>a", "<cmd>Outline<cr>")
 n("<leader>wl", "<cmd>Lazy<cr>")
 n("<leader>wj", "<cmd>Navbuddy<cr>")

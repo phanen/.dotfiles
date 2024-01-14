@@ -32,7 +32,6 @@ return {
             if length < MIN_MENU_WIDTH then vim_item.abbr = label .. string.rep(" ", MIN_MENU_WIDTH - length) end
             return vim_item
           end,
-          symbol_map = { Copilot = " " },
           menu = {
             buffer = "[buf]",
             nvim_lsp = "[lsp]",
@@ -163,26 +162,16 @@ return {
   {
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",
-    cond = false,
     dependencies = { "nvim-cmp" },
+    keys = {
+      { mode = "i", "<a-cr>", [[<cmd>lua require("copilot.panel").open()<cr>]] },
+      { mode = "i", "<a-f>", [[<cmd>lua require("copilot.suggestion").accept_word()<cr>]] },
+      { mode = "i", "<a-l>", [[<cmd>lua require("copilot.suggestion").accept_line()<cr>]] },
+      { mode = "i", "<a-s>", [[<cmd>lua require("copilot.suggestion").accept()<cr>]] },
+    },
     opts = {
-      panel = {
-        enabled = true,
-        auto_refresh = true,
-        keymap = { open = "<a-cr>" },
-        layout = { position = "right", ratio = 0.4 },
-      },
-      suggestion = {
-        auto_trigger = true,
-        keymap = { accept = false, accept_word = "<a-w>", accept_line = "<a-l>" },
-      },
-      filetypes = {
-        gitcommit = false,
-        NeogitCommitMessage = false,
-        DressingInput = false,
-        TelescopePrompt = false,
-        ["dap-repl"] = false,
-      },
+      panel = { layout = { position = "right", ratio = 0.4 } },
+      suggestion = { auto_trigger = true },
     },
   },
   {
