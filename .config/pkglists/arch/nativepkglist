@@ -45,7 +45,6 @@ cobalt
 cpio
 cronie
 csview-git
-cuda
 darkman
 debootstrap
 debugedit
@@ -147,8 +146,6 @@ intel-ucode
 iptables-nft
 iverilog
 iw
-jdk11-openjdk
-jdk8-openjdk
 jpegoptim
 jq
 just
@@ -186,6 +183,7 @@ man-db
 man-pages
 mesa-utils
 minicom
+miniserve
 moreutils
 mosh
 mpv
@@ -201,6 +199,7 @@ netease-cloud-music-gtk4
 networkmanager
 nikola
 nmap
+nodejs
 noto-fonts-cjk
 noto-fonts-emoji
 npm
@@ -312,7 +311,6 @@ texlive-langchinese
 texlive-latexextra
 texlive-luatex
 texlive-mathscience
-texlive-meta
 texlive-metapost
 texlive-music
 texlive-pictures
