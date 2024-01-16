@@ -56,7 +56,7 @@ return {
   -- }}}
   -- doc {{{
   { "dhruvasagar/vim-table-mode", cond = false, ft = { "markdown", "org" } },
-  { "hotoo/pangu.vim", ft = "markdown" },
+  { "hotoo/pangu.vim", cmd = "Pangu", ft = "markdown" },
   {
     "lervag/vimtex",
     -- :h :VimtexInverseSearch

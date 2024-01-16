@@ -2,52 +2,40 @@ local n = function(...) map("n", ...) end
 local x = function(...) map("x", ...) end
 local t = function(...) map("t", ...) end
 local o = function(...) map("o", ...) end
+local e = function(...) map({ "n", "x" }, ...) end
 
 -- basics {{{
-n("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
-n("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
-x("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
-x("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
+e("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
+e("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
 
 n("gj", '"gyy"gp')
 x("gj", '"gy\'>"gp')
-n("$", "g_")
-x("$", "g_")
+e("$", "g_")
+
 n("gw", "gg=G``")
 
-n("<c-u>", "<c-u>zz")
-n("<c-d>", "<c-d>zz")
-
-n("<c-d>", "<c-d>zz")
-
 x("p", "P")
-n("d", '"_d')
-x("d", '"_d')
-n("D", '"_D')
-n("c", '"_c')
-x("c", '"_c')
-n("C", '"_C')
+e("d", '"_d')
+e("D", '"_D')
+e("c", '"_c')
+e("C", '"_C')
 
-n("<leader>P", "<cmd>%d _<cr><cmd>norm P<cr>")
+n("<leader>p", "<cmd>%d _<cr><cmd>norm P<cr>")
 n("<leader>y", "<cmd>%y<cr>")
 
 n("<a-j>", "<cmd>move+<cr>")
 n("<a-k>", "<cmd>move-2<cr>")
-x("<a-j>", ":move '>+1<cr>gv=gv")
-x("<a-k>", ":move '<-2<cr>gv=gv")
-
-n("<", "<<")
-n(">", ">>")
+x("<a-j>", ":move '>+<cr>gv")
+x("<a-k>", ":move '<-2<cr>gv")
 n("<a-h>", "<<")
 n("<a-l>", ">>")
 x("<a-h>", "<gv")
 x("<a-l>", ">gv")
 
-t("<c-space>", "<c-\\><c-n>")
+t("<c- >", "<c-\\><c-n>")
 
 local toggle_qf = function()
-  local wins = vim.fn.getwininfo()
-  local qf_win = vim.iter(wins):filter(function(win) return win.quickfix == 1 end):totable()
+  local qf_win = vim.iter(vim.fn.getwininfo()):filter(function(win) return win.quickfix == 1 end):totable()
   if #qf_win == 0 then
     vim.cmd.copen()
   else
@@ -62,13 +50,12 @@ o("iq", 'i"')
 n("gl", "gx", { remap = true })
 
 n("<leader>cd", "<cmd>cd %:h<cr>")
-n("<leader>cb", "<cmd>Popd<cr>")
 -- }}}
 -- buffer {{{
 n("<c-f>", "<cmd>BufferLineCycleNext<cr>")
 n("<c-e>", "<cmd>BufferLineCyclePrev<cr>")
 n("<c-w>", "<cmd>Bdelete!<cr>")
-n("<leader>bo", [[<cmd>w <bar> %bd <bar> e#<cr>]], { desc = "close all other buffers" })
+n("<leader>bo", [[<cmd>w | %bd | e#<cr>]])
 -- }}}
 -- readline {{{
 map("!", "<c-f>", "<right>")
@@ -103,22 +90,11 @@ n(
     ]],
   { desc = "half to full" }
 )
-n("<leader>rs", "<cmd>%s/\\s*$//g<cr>''", { desc = "clean tail space" })
-n("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
-x("<leader>rl", ":g/^$/d<cr>''", { desc = "clean the blank line" })
-
--- TODO: genearlize comment string
--- TODO: detect comment text area
--- nmap("<leader>rc", "<cmd>g/^#/d<cr>''", { desc = "clean the comment line" })
+n("<leader>rs", ":%s/\\s*$//g<cr>''", { desc = "clean tail space" })
+e("<leader>rl", ":g/^$/d<cr>''")
 n("<leader>rc", [[<cmd>%s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
 x("<leader>rc", [[:s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
-
-x("<leader>rk", [[:s/\/\* \(.*\) \*\//\/\/ \1/g<cr>]])
-x("<leader>r,", [[:s/,\([^ ]\)/, \1/g<cr>]])
 x("<leader>rn", [[:s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
-x("<leader>rd", [[:'<,'>s/0x[0-9a-fA-F]\+/\=str2nr(submatch(0), 16)<cr>]])
-x("<leader>rh", [[:'<,'>s/\d\+/\=printf("0x%04x", submatch(0))<cr>]])
-x("<leader>rm", [[:s/\s\{1,}//g<cr>]])
 -- }}}
 -- toggle {{{
 -- windows
@@ -171,5 +147,41 @@ n("<leader>e", "<cmd>e ~/priv/" .. vim.trim(vim.fn.system "date +%m-%d", "\n") .
 
 n("<leader>cx", "<cmd>!chmod +x %<cr>")
 -- }}}
-
+-- tobj {{{
+vim.cmd [[
+" line object, https://vi.stackexchange.com/questions/24861/selector-for-line-of-text
+function! Textobj_line(count) abort
+    normal! gv
+    if visualmode() !=# 'v'
+    normal! v
+    endif
+    let startpos = getpos("'<")
+    let endpos = getpos("'>")
+    if startpos == endpos
+    execute "normal! ^o".a:count."g_"
+    return
+    endif
+    let curpos = getpos('.')
+    if curpos == endpos
+    normal! g_
+    let curpos = getpos('.')
+    if curpos == endpos
+        execute "normal!" (a:count+1)."g_"
+    elseif a:count > 1
+        execute "normal!" a:count."g_"
+    endif
+    else
+    normal! ^
+    let curpos = getpos('.')
+    if curpos == startpos
+        execute "normal!" a:count."-"
+    elseif a:count > 1
+        execute "normal!" (a:count-1)."-"
+    endif
+    endif
+endfunction
+xnoremap <silent> il :<C-U>call Textobj_line(v:count1)<CR>
+onoremap <silent> il :<C-U>execute "normal! ^v".v:count1."g_"<CR>
+]]
+-- }}}
 -- vim:foldmethod=marker

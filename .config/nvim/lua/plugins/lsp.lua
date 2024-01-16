@@ -1,14 +1,14 @@
 return {
   { "neovim/nvim-lspconfig", cmd = { "LspInfo", "LspInstall", "LspUninstall" } },
-  { "j-hui/fidget.nvim", event = "LspAttach", config = true, },
-  { "williamboman/mason.nvim", build = ":MasonUpdate", cmd = "Mason", config = true, },
+  { "j-hui/fidget.nvim", event = "LspAttach", config = true },
+  { "williamboman/mason.nvim", build = ":MasonUpdate", cmd = "Mason", config = true },
   {
     "williamboman/mason-lspconfig.nvim",
     event = { "BufReadPre", "BufNewFile" },
     -- event = "VeryLazy",
     dependencies = {
       { "williamboman/mason.nvim" },
-      { "folke/neodev.nvim", cond = false, ft = "lua", config = true, },
+      { "folke/neodev.nvim", cond = false, ft = "lua", config = true },
     },
     config = function()
       -- local capabilities = require "capabilities"

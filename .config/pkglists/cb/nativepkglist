@@ -1,17 +1,13 @@
-aarch64-linux-gnu-gcc
 acpi
 age
 alacritty
 alsa-utils
 apr
 apr-util
-archinstall
 archiso
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
-armv7l-linux-gnueabihf-gcc
-asciidoc
 atuin
 awesome-terminal-fonts
 aws-cli-v2
@@ -212,6 +208,7 @@ ocaml
 openssh
 openvpn
 os-prober
+pacman
 pacman-contrib
 pacutils
 pandoc-bin
@@ -306,7 +303,6 @@ tmux
 tokei
 traceroute
 tree
-trizen
 trojan
 ttf-cascadia-code
 ttf-dejavu

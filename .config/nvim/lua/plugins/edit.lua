@@ -101,10 +101,8 @@ return {
   {
     "gbprod/substitute.nvim",
     keys = {
-      { "<leader>S", function() require("substitute").visual() end, mode = "x" },
-      { "<leader>S", function() require("substitute").operator() end, mode = "n" },
-      { "<leader>x", function() require("substitute.exchange").operator() end, mode = "n" },
-      { "<leader>x", function() require("substitute.exchange").visual() end, mode = "x" },
+      { "<localleader>s", function() require("substitute.exchange").operator() end, mode = "n" },
+      { "<localleader>s", function() require("substitute.exchange").visual() end, mode = "x" },
     },
     config = true,
   },
@@ -121,9 +119,7 @@ return {
   },
   {
     "cshuaimin/ssr.nvim",
-    keys = {
-      { "<leader>rr", function() require("ssr").open() end, mode = { "n", "x" }, desc = "structural replace" },
-    },
+    keys = { { "<localleader>r", function() require("ssr").open() end, mode = { "n", "x" } } },
   },
   {
     "folke/flash.nvim",
