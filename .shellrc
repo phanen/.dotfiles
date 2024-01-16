@@ -1,8 +1,202 @@
 # run sh2fish.sh
+# alias {{{
+alias v='nvim'
+alias k='pkill'
+alias t="type -a"
+alias y="paru"
+alias s="sysz"
+alias vj="NVIM_APPNAME=nvim-test nvim"
+alias ls="eza --color=auto --hyperlink"
+alias la="eza -a"
+alias l="eza -la"
+alias lt="eza --tree"
+alias df="df -h"
+alias which="which -a"
+alias cs="cd $XDG_STATE_HOME/nvim/swap/"
+alias rs="exec $SHELL"
+alias tl='tldr'
+alias mx='chmod +x'
+alias rx='chmod -x'
+alias vn='vi -u NONE'
+alias du="dust"
+alias em="emacs -nw"
+alias lg="lazygit"
 
-[[ -f ~/.config/shell/alias.sh ]] && . ~/.config/shell/alias.sh
-[[ -f ~/.config/shell/func.sh ]] && . ~/.config/shell/func.sh
-[[ -f ~/.config/shell/pkg.sh ]] && . ~/.config/shell/pkg.sh
+alias pi='sudo pacman -S'
+alias pd='sudo pacman -Rns'
+alias pao='pacman -Qo'
+alias pfo='pacman -F'
+alias pai='pacman -Qi'
+alias psi='pacman -Si'
+alias pal='pacman -Ql'
+alias pfl='pacman -Fl'
+alias pas='pacman -Qs'
+alias pss='pacman -Ss'
+alias yss='paru -Ss'
+alias ysi='paru -Si'
+alias yi='paru -S'
+alias pat='pactree -lu'
+alias par='pactree -r -lu'
+alias pst='pactree -slu'
+alias psr='pactree -r -slu'
+# }}}
+# func {{{
+diskcheck() {
+  (
+    sudo smartctl -a /dev/nvme0n1
+    sudo smartctl -a /dev/nvme1n1
+  ) | rg "Percentage Used" -C10
+}
 
-# disable tty ctrl-s
-[[ "$(ps -o comm= -p $$)" != fish ]] && stty stop undef
+archman() { curl -sL "https://man.archlinux.org/man/$1.raw" | man -l -; }
+
+toggle_proxy() { unset http_proxy https_proxy all_proxy; }
+
+vis() {
+  local CONFIG="$(find ~/.config/*/init.lua -prune -exec sh -c 'basename $(dirname {})' \;)"
+  local SELECTED=$(printf "%s\n" "${CONFIG[@]}" | fzf --prompt="Neovim Config >>" --height=~50% --layout=reverse --border --exit-0)
+  echo $SELECTED
+  if [[ -z $SELECTED ]]; then
+    echo "Nothing selected"
+    return 0
+  elif [[ $SELECTED == "default" ]]; then
+    SELECTED=""
+  fi
+  NVIM_APPNAME=$SELECTED nvim $@
+}
+
+gitp() {
+  git checkout HEAD^1
+}
+gitn() {
+  git log --reverse --pretty=%H ${1-master} | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout
+}
+
+vw() {
+  which $1 1>/dev/null 2>/dev/null || return
+  $VISUAL $(which $1 | head -1)
+}
+lw() {
+  which $1 1>/dev/null 2>/dev/null || return
+  file $(which $1 | head -1);
+  ls -la $(which $1 | head -1);
+}
+ldw() {
+  which $1 1>/dev/null 2>/dev/null || return
+  ldd $(which $1 | head -1)
+}
+
+dev-monitor() { udevadm monitor --environment --udev; }
+# }}}
+# pkg {{{
+alias rb="extra-riscv64-build -- -d $HOME/pkg/:/var/cache/pacman/pkg"
+alias lb="/bin/ls /var/lib/archbuild/extra-riscv64/*/build"
+
+m() { mkdir -p "$1" && cd "$1"; }
+alias zz="m /tmp/tmp; paru -G"
+
+rv-patch() {
+    rm -v riscv64.patch
+    git diff --no-prefix --relative | tail -n +3  > riscv64.patch
+}
+
+rv-ent() {
+    sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
+}
+
+rv-upd() {
+    sudo arch-chroot /var/lib/archbuild/extra-riscv64/root pacman -Syu
+}
+
+__init_rv_pkg() {
+    cd ~
+    mkdir src pkg
+    sudo pacman -Sy --noconfirm pkgctl devtools-riscv64  # -Syu & reboot first, if necessary
+    git clone git@github.com:$USERNAME/archriscv-packages.git
+    cd archriscv-packages
+    git remote add upstream https://github.com/felixonmars/archriscv-packages.git
+}
+
+peek() {
+    . ./PKGBUILD
+    echo arch="(${arch[@]})"
+    for s in "${source[@]}"; do
+        echo $s
+    done
+    for s in "${_commit[@]}"; do echo $s
+    done
+}
+
+add-key() {
+    . ./PKGBUILD
+    for key in "${validpgpkeys[@]}"; do
+        echo "Receiving key ${key}..."
+        # try both servers as some keys exist one place and others another
+        # we also want to always try to receive keys to pick up any update
+        gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys "$key" || true
+        gpg --keyserver hkps://keys.openpgp.org --recv-keys "$key" || true
+    done
+}
+
+gib() {
+    cd ~/src || return 1
+    [[ -z $1 ]] && return 1
+    if [[ -d $1 ]]; then
+        fname=$1
+        cd $fname
+    else
+        paru -G $1 || return 1
+        # TODO: pkgname
+        # out=$(yay -G $1) || return 1
+        # fname=$(echo $out | awk '{print $NF}')
+        fname=$1
+        cd $fname
+        # add-key
+    fi
+    peek
+    cp ~/archriscv-packages/$fname/*.patch .
+    return 0
+}
+
+pie() {
+    cd ~/archriscv-packages || return
+    [[ -z $1 ]] && return
+
+    # update patch
+    fname=$1
+    cd ~/src/$fname || return
+    rv-patch && cat riscv64.patch
+    . ./PKGBUILD
+    echo -n "${fname} ${pkgver}-${pkgrel}" | xsel -ib
+
+    # prepare for commit
+    cd ~/archriscv-packages || return
+    git checkout master
+    git pull --ff-only upstream master:master
+    git push
+    git checkout -b $fname || git checkout $fname
+    git rebase master
+    m $fname
+    cp ~/src/$fname/*.patch .
+    test -s riscv64.patch || rm *.patch
+}
+
+find-pkg() {
+    ag -l $1 | xargs -I {} sh -c 'git log -1 --pretty="format:%ci" {} && echo \ {}'
+}
+
+baklog() {
+    find . -name "*.log" | xargs -I{} cp {} {}1.log
+}
+
+rv-triple() {
+    sed "s/--target \"\$CARCH-unknown-linux-gnu\"/--target \"\$(rustc -vV | sed -n \'s\/host: \/\/p\')\"/g" -i PKGBUILD
+    sed "s/--target \$CARCH-unknown-linux-gnu/--target \"\$(rustc -vV | sed -n \'s\/host: \/\/p\')\"/g" -i PKGBUILD
+    printf "
+    Refer to latest guideline in wiki: https://wiki.archlinux.org/title/Rust_package_guidelines#Prepare
+    Facilitate the portability to platform like RISC-V, which should use `riscv64gc-unknown-linux-gnu` for packaging (rather than `riscv64-unknown-linux-gnu` when use hardcode `\$CARCH`)
+    " | xsel -ib
+}
+# }}}
+# vim:foldmethod=marker
+# vim:ft=sh

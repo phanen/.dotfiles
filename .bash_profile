@@ -1,3 +1,3 @@
 
-[[ -f ~/.config/shell/env.sh ]] && . ~/.config/shell/env.sh
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+. ~/.config/shell/env.sh
+. ~/.bashrc
