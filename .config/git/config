@@ -5,14 +5,11 @@
 	defaultBranch = master
 
 [alias]
-	a = add
-	c = commit
 	s = status
-	P = push
 	p = pull
-	cl = clone
-	sl = clone --depth=1
-	co = checkout
+	r = remote -v
+	ssh = !git remote set-url origin $(git remote get-url origin | sed -E 's,^https://([^/]*)/(.*)$,git@\\1:\\2,')
+	htt = !git remote set-url origin $(git remote get-url origin | sed -E 's,^git@([^:]*):/*(.*)$,https://\\1/\\2,')
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
 	who = shortlog -sn
