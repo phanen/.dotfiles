@@ -19,10 +19,10 @@ vim.opt.fillchars = { eob = " " }
 vim.o.wrap = false
 vim.o.report = 999999 -- arbitrary large number to hide yank messages
 
-local join = function(...) return (table.concat({ ... }, "/"):gsub("//+", "/")) end
-local root = join(vim.fn.stdpath "data", "lazy")
+local m = vim.keymap.set
+local root = vim.fn.stdpath "data" .. "/lazy"
 local plug = function(basename)
-  vim.opt.rtp:prepend(join(root, basename))
+  vim.opt.rtp:prepend(root .. "/" .. basename)
   local packname = vim.fn.trim(basename, ".nvim")
   return function(opts) require(packname).setup(opts) end
 end
@@ -48,57 +48,17 @@ plug "kitty-scrollback.nvim" {
   end,
 }
 
--- plug "flash.nvim" { modes = { search = { enabled = false } } }
--- m({ "n", "x", "o" }, "s", function() require("flash").jump() end)
--- m({ "n", "x", "o" }, "_", function() require("flash").jump() end)
+plug "flash.nvim" { modes = { search = { enabled = false } } }
+m({ "n", "x", "o" }, "s", function() require("flash").jump() end)
+m({ "n", "x", "o" }, "_", function() require("flash").jump() end)
 
-plug "lazy.nvim" {
-  {
-    "folke/flash.nvim",
-    keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end },
-      { "_", mode = { "n", "x", "o" }, function() require("flash").jump() end },
-      { "f", mode = { "n", "x", "o" } },
-      { "F", mode = { "n", "x", "o" } },
-    },
-    opts = { modes = { search = { enabled = false } } },
-  },
-  {
-    "kevinhwang91/nvim-hlslens",
-    -- FIXME: sometimes the bar show in the bottom, make it useless
-    cond = false,
-    keys = {
-      { "n", [[<cmd>execute('normal! ' . v:count1 . 'n')<cr><cmd>lua require('hlslens').start()<cr>zz]] },
-      { "N", [[<cmd>execute('normal! ' . v:count1 . 'N')<cr><cmd>lua require('hlslens').start()<cr>zz]] },
-      { "*", [[*<cmd>lua require('hlslens').start()<cr>]] },
-      { "#", [[#<cmd>lua require('hlslens').start()<cr>]] },
-      { "g*", [[g*<cmd>lua require('hlslens').start()<cr>]] },
-      { "g#", [[g#<cmd>lua require('hlslens').start()<cr>]] },
-      {
-        "<esc>",
-        function()
-          vim.cmd.noh()
-          require("hlslens").stop()
-          -- vim.api.nvim_feedkeys(vim.keycode "<esc>", "n", false)
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", false)
-        end,
-      },
-    },
-    opts = { calm_down = true, nearest_only = true },
-  },
-}
-
-local m = vim.keymap.set
 m("!", "<c-f>", "<right>")
 m("!", "<c-b>", "<left>")
 m("!", "<c-p>", "<up>")
 m("!", "<c-n>", "<down>")
 m("!", "<c-a>", "<home>")
 m("!", "<c-e>", "<end>")
-m("n", "gl", "gx", { remap = true })
 
--- don't map esc
--- m("n", "<esc>", "<Plug>(KsbCloseOrQuitAll)")
 -- avoid going back to term mode(paste_window)
 m("n", "i", "<Plug>(KsbCloseOrQuitAll)")
 m("n", "q", "<Plug>(KsbCloseOrQuitAll)")
@@ -108,4 +68,9 @@ m("n", "u", "<c-u>")
 m("n", "d", "<c-d>")
 m({ "n", "o", "x" }, "ga", "G")
 -- fake a shell integration
-m("n", "<leader><leader>", "/phan@cb<cr>N")
+m(
+  "n",
+  "<leader><leader>",
+  function() return "/" .. vim.fn.getenv "USER" .. "@" .. vim.fn.system { "hostnamectl", "hostname" } end,
+  { expr = true }
+)
