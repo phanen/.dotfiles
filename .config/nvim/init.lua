@@ -17,13 +17,22 @@ end
 
 vim.opt.rtp:prepend(path)
 require("lazy").setup {
-  spec = { { import = "plugins" } },
+  spec = {
+    { import = "plugins.cmp" },
+    { import = "plugins.dap" },
+    { import = "plugins.edit" },
+    { import = "plugins.lsp" },
+    { import = "plugins.misc" },
+    { import = "plugins.pick" },
+    { import = "plugins.ts" },
+  },
   defaults = { lazy = true },
   change_detection = { notify = false },
   performance = {
     rtp = {
       paths = { vim.fn.stdpath "data" .. "/site" },
       disabled_plugins = {
+        "matchit",
         "matchparen",
         "netrwPlugin",
         "osc52",

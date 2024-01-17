@@ -6,7 +6,7 @@
 # only keep a daemon for active kbd? but how to decide which is active..
 # or we need a "lazy" machism?
 cfg=~/.config/kmonad/kmonad.kbd
-
+pkill -x kmonad
 # fd '^(usb|platform).+event-kbd$' /dev/input | while read kbd; do
 cat /proc/bus/input/devices |
   cut -f 2- -d ' ' |

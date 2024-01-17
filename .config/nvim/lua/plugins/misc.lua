@@ -244,7 +244,6 @@ return {
   { "folke/which-key.nvim", event = "VeryLazy", opts = { plugins = { spelling = { enabled = false } } } },
   { "dstein64/vim-startuptime", cmd = "StartupTime" },
   { "voldikss/vim-translator", cmd = "Translate", keys = { { "gk", ":Translate<cr>", mode = { "n", "x" } } } },
-  { "nacro90/numb.nvim", event = "CmdlineEnter", config = true },
   { "AndrewRadev/linediff.vim", cmd = "Linediff" },
   { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
   { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
@@ -252,6 +251,7 @@ return {
   { "chrishrb/gx.nvim", keys = "gx", dependencies = { "nvim-lua/plenary.nvim" }, config = true },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
   { "tpope/vim-sleuth", event = "VeryLazy" },
+  { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "mikesmithgh/kitty-scrollback.nvim" },
   {
     "mbbill/undotree",
@@ -321,6 +321,12 @@ return {
     },
     config = true,
   },
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = "DiffviewOpen",
+    opts = {},
+  },
   -- }}}
   -- ui {{{
   {
@@ -351,6 +357,7 @@ return {
       },
     },
   },
+  { "nacro90/numb.nvim", event = "CmdlineEnter", config = true },
   { "HiPhish/rainbow-delimiters.nvim", event = "VeryLazy" },
   { "itchyny/vim-highlighturl", event = "ColorScheme" },
   -- }}}

@@ -83,18 +83,14 @@ n("<c-j>", "<cmd>wincmd w<cr>")
 n("<c-k>", "<cmd>wincmd W<cr>")
 -- }}}
 -- subtitution {{{
-n(
-  "<leader>rp",
-  [[
-        <cmd>%s/[，、（）［］｛｝＜＞？／；。！“”：　]/\={'，':', ', '、':', ', '（':'(', '）':')', '［':'[', '］':']', '｛':'{', '｝':'}', '＜':'<', '＞':'>', '？':'? ', '／':'\/', '；':'; ', '。':'. ', '：': ': ', '！': '! ', '”': '"', '“': '"', '　':'  '}[submatch(0)]/g<cr>
-    ]],
-  { desc = "half to full" }
-)
-n("<leader>rs", ":%s/\\s*$//g<cr>''", { desc = "clean tail space" })
+n("<leader>rp", "<cmd>%FullwidthPunctConvert<cr>")
+x("<leader>rp", ":FullwidthPunctConvert<cr>")
+n("<leader>rs", ":%s/\\s*$//g<cr>''")
 e("<leader>rl", ":g/^$/d<cr>''")
 n("<leader>rc", [[<cmd>%s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
 x("<leader>rc", [[:s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
-x("<leader>rn", [[:s/^\([0-9]\.\)\([^ ]\)/\1 \2/g<cr>]])
+x("<leader>r*", [[:s/^\([  ]*\)- \(.*\)/\1* \2/g]])
+n("<leader>r*", [[:%s/^\([  ]*\)- \(.*\)/\1* \2/g]])
 -- }}}
 -- toggle {{{
 -- windows
@@ -135,8 +131,8 @@ end)
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
 x("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 
-n("<leader>I", "<Cmd>Inspect<CR>")
-n("<leader>M", "<Cmd>messages<CR>")
+n("<leader>I", "<cmd>Inspect<cr>")
+n("<leader>M", "<cmd>messages<cr>")
 -- FIXME: cross line ^M -> \n
 n("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]])
 n("<leader>cl", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]])
@@ -180,8 +176,8 @@ function! Textobj_line(count) abort
     endif
     endif
 endfunction
-xnoremap <silent> il :<C-U>call Textobj_line(v:count1)<CR>
-onoremap <silent> il :<C-U>execute "normal! ^v".v:count1."g_"<CR>
+xnoremap <silent> il :<c-u>call Textobj_line(v:count1)<cr>
+onoremap <silent> il :<c-u>execute "normal! ^v".v:count1."g_"<cr>
 ]]
 -- }}}
 -- vim:foldmethod=marker

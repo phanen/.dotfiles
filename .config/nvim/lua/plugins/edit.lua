@@ -107,19 +107,19 @@ return {
     config = true,
   },
   {
-    "andymass/vim-matchup",
-    cond = false,
+    "cshuaimin/ssr.nvim",
+    keys = { { "<localleader>r", function() require("ssr").open() end, mode = { "n", "x" } } },
+  },
+  {
+    "andymass/vim-matchup", -- TODO: slow when use flash.nvim
     event = "BufReadPost",
     keys = { mode = { "n", "x", "o" }, "%" },
     init = function() vim.o.matchpairs = "(:),{:},[:],<:>" end,
     config = function()
+      vim.g.matchup_matchparen_enabled = 0
       vim.g.matchup_matchparen_deferred = 1
-      vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+      vim.g.matchup_matchparen_offscreen = {}
     end,
-  },
-  {
-    "cshuaimin/ssr.nvim",
-    keys = { { "<localleader>r", function() require("ssr").open() end, mode = { "n", "x" } } },
   },
   {
     "folke/flash.nvim",

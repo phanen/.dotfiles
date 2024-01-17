@@ -11,18 +11,6 @@ abbr -a rm ' rm'
 abbr -a vb 'VIMRUNTIME=~/b/neovim/runtime NVIM_APPNAME=nvim-test ~/b/neovim/build/bin/nvim'
 abbr -a vv 'VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim'
 
-set -Ux FZF_DEFAULT_OPTS "
-  --layout=reverse
-  --height=90%
-  --prompt='~ ' --pointer='▶' --marker='✓'
-  --multi
-  --bind=';:toggle-preview'
-  --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
-"
-fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
-set -Ux fifc_editor nvim
-set -U fifc_keybinding \ci
-
 # FIXME: standard way to redraw fish prompt
 function if_empty
   test -z (string trim (commandline))
@@ -47,6 +35,19 @@ function repeat_cmd
   commandline -f execute
 end
 
+set -Ux FZF_DEFAULT_OPTS "
+  --layout=reverse
+  --height=90%
+  --prompt='~ ' --pointer='▶' --marker='✓'
+  --multi
+  --bind=';:toggle-preview'
+  --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
+"
+# fish_hybrid_key_bindings
+fish_default_key_bindings
+fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
+set -Ux fifc_editor nvim
+set -U fifc_keybinding \ci
 bind \ew 'fish_key_reader -c'
 bind \ct repeat_cmd
 bind \cq 'if_empty lazygit fish_clipboard_copy'
