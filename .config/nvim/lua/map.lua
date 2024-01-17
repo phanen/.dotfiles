@@ -20,9 +20,6 @@ e("D", '"_D')
 e("c", '"_c')
 e("C", '"_C')
 
-n("<leader>p", "<cmd>%d _<cr><cmd>norm P<cr>")
-n("<leader>y", "<cmd>%y<cr>")
-
 n("<a-j>", "<cmd>move+<cr>")
 n("<a-k>", "<cmd>move-2<cr>")
 x("<a-j>", ":move '>+<cr>gv")
@@ -47,8 +44,8 @@ n("<leader>q", toggle_qf)
 x("iq", 'i"')
 o("iq", 'i"')
 
-n("gl", "gx", { remap = true })
-
+n("<leader>p", "<cmd>%d _<cr><cmd>norm P<cr>")
+n("<leader>y", "<cmd>%y<cr>")
 n("<leader>cd", "<cmd>cd %:h<cr>")
 -- }}}
 -- buffer {{{

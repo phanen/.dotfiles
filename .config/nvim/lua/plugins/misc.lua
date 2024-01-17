@@ -171,6 +171,15 @@ return {
       },
     },
   },
+  {
+    "linrongbin16/gitlinker.nvim",
+    keys = {
+      { "<localleader>gl", "<cmd>GitLink!<cr>", mode = { "n", "x" } },
+      { "<localleader>gb", "<cmd>GitLink! blame<cr>", mode = { "n", "x" } },
+    },
+    cmd = "GitLink",
+    config = true,
+  },
   --- }}}
   -- term {{{
   {
@@ -248,11 +257,17 @@ return {
   { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
   { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
   { "lilydjwg/fcitx.vim", event = "InsertEnter" },
-  { "chrishrb/gx.nvim", keys = "gx", dependencies = { "nvim-lua/plenary.nvim" }, config = true },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
-  { "tpope/vim-sleuth", event = "VeryLazy" },
+  { "tpope/vim-sleuth", cond = false, event = "VeryLazy" },
   { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "mikesmithgh/kitty-scrollback.nvim" },
+  {
+    "chrishrb/gx.nvim",
+    cmd = "Browse",
+    keys = { { "gl", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = true,
+  },
   {
     "mbbill/undotree",
     cmd = "UndotreeToggle",
