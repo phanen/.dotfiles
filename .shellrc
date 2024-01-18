@@ -49,7 +49,6 @@ diskcheck() {
 }
 
 archman() { curl -sL "https://man.archlinux.org/man/$1.raw" | man -l -; }
-
 toggle_proxy() { unset http_proxy https_proxy all_proxy; }
 
 vis() {
@@ -85,8 +84,6 @@ ldw() {
   which $1 1>/dev/null 2>/dev/null || return
   ldd $(which $1 | head -1)
 }
-
-dev-monitor() { udevadm monitor --environment --udev; }
 # }}}
 # pkg {{{
 alias rb="extra-riscv64-build -- -d $HOME/pkg/:/var/cache/pacman/pkg"
@@ -186,7 +183,7 @@ find-pkg() {
 }
 
 baklog() {
-    find . -name "*.log" | xargs -I{} cp {} {}1.log
+    find . -name "*.log" | xargs -I{} cp basename suffix {} {}.log
 }
 
 rv-triple() {

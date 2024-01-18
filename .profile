@@ -1,2 +1,2 @@
-. ~/.config/shell/env.sh
+. ~/.env
 exec fish

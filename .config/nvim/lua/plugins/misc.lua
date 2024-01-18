@@ -260,7 +260,7 @@ return {
   { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
   { "lilydjwg/fcitx.vim", event = "InsertEnter" },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
-  { "tpope/vim-sleuth", event = "VeryLazy" },
+  { "tpope/vim-sleuth", cond = false, lazy = "VeryLazy" },
   { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "mikesmithgh/kitty-scrollback.nvim" },
   {

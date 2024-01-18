@@ -37,6 +37,7 @@ cmake
 code
 cpio
 cronie
+crow-translate
 darkman
 debootstrap
 devtools-archlinuxcn
@@ -302,6 +303,7 @@ the_silver_searcher
 tmux
 tokei
 traceroute
+translate-shell
 tree
 trojan
 ttf-cascadia-code

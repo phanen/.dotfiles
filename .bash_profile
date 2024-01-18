@@ -1,3 +1,3 @@
 
-. ~/.config/shell/env.sh
+. ~/.env
 . ~/.bashrc

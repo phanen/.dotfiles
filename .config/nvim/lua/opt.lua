@@ -19,13 +19,13 @@ o.showbreak = "↪ "
 o.ignorecase = true
 o.smartcase = true
 
-o.expandtab = true -- tab to space
-o.tabstop = 2 -- width of actual <tab>
-o.softtabstop = 2 -- width of inserted <tab>
-o.shiftwidth = 2 -- width of indent-op
+o.expandtab = true -- use space
+o.tabstop = 2 -- tab width
+o.softtabstop = 2 -- inserted tab
+o.shiftwidth = 2 -- indent
 
-o.updatetime = 1000 -- for CursorHold
+o.updatetime = 1000 -- CursorHold
 o.timeoutlen = 100
--- o.ttimeout = false -- avoid sticky escape as alt
+-- o.ttimeout = false
 o.ttimeoutlen = 0
 o.synmaxcol = 200

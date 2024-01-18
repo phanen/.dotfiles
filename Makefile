@@ -1,22 +1,19 @@
-DOTFILES_DIR = ${HOME}/dotfiles
-
-.PHONY += apply
 apply:
-	@[[ $$PWD == "$$HOME"/dotfiles ]] && rsync -av . .. || echo "not in correct directory"
+	rsync -av ~/.dotfiles ~/
 
 cnrepo:
-	@~/.bin/scripts/add_cn_repo.sh
+	~/.bin/scripts/add_cn_repo.sh
 
 # manual add cn repo, or scp /etc/pacman.conf
-dep: clipboard tmux fish
-	@yay -S zoxide exa lazygit tmux ripgrep
+dep: clipboard tmux fish font
+	yay -S zoxide exa lazygit tmux ripgrep
 
 # set X11Forwarding yes in /etc/ssh/sshd_config then restart sshd daemon
 clipboard:
-	@yay -S xsel xauth
+	yay -S xsel xauth
 
 zsh:
-	@yay -S --needed \
+	yay -S --needed \
 		zsh \
 		zsh-autosuggestions \
 		zsh-completions \
@@ -24,12 +21,11 @@ zsh:
 		fzf-tab-git
 
 fish:
-	@yay -S --needed \
+	yay -S --needed \
 		fish \
 		fish-fifc \
 		fish-fzf
-	# flatten bash then translate it into fish
-	@~/.bin/sh2fish.sh
+	~/.bin/sh2fish.sh
 
 font:
 	@yay -S --needed \
