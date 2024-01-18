@@ -55,8 +55,10 @@ return {
   { "norcalli/nvim-colorizer.lua", cmd = "ColorizerToggle ", config = true },
   -- }}}
   -- doc {{{
+  { "HiPhish/info.vim", cmd = "Info" },
   { "dhruvasagar/vim-table-mode", cond = false, ft = { "markdown", "org" } },
   { "hotoo/pangu.vim", cmd = "Pangu", ft = "markdown" },
+  { "chomosuke/typst-preview.nvim", ft = "typst", build = function() require("typst-preview").update() end },
   {
     "lervag/vimtex",
     -- :h :VimtexInverseSearch
@@ -258,7 +260,7 @@ return {
   { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
   { "lilydjwg/fcitx.vim", event = "InsertEnter" },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
-  { "tpope/vim-sleuth", cond = false, event = "VeryLazy" },
+  { "tpope/vim-sleuth", event = "VeryLazy" },
   { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "mikesmithgh/kitty-scrollback.nvim" },
   {

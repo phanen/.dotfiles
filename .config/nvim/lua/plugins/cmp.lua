@@ -126,15 +126,9 @@ return {
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",
     dependencies = { "nvim-cmp" },
-    keys = {
-      { mode = "i", "<a-cr>", [[<cmd>lua require("copilot.panel").open()<cr>]] },
-      { mode = "i", "<a-f>", [[<cmd>lua require("copilot.suggestion").accept_word()<cr>]] },
-      { mode = "i", "<a-l>", [[<cmd>lua require("copilot.suggestion").accept_line()<cr>]] },
-      { mode = "i", "<a-s>", [[<cmd>lua require("copilot.suggestion").accept()<cr>]] },
-    },
     opts = {
       panel = { layout = { position = "right", ratio = 0.4 } },
-      suggestion = { auto_trigger = true },
+      suggestion = { auto_trigger = true, keymap = { accpet = "<a-s>", accpet_line = "<a-l>", accpet_word = "<a-f>" } },
     },
   },
   {

@@ -37,20 +37,20 @@ do
     return vim.iter(items):any(function(i) return line:find("^%s*" .. i .. " " .. box) end)
   end
 
-  local make_box = function(line, fallback)
+  local make_box = function(line)
     local ok
     for _, i in ipairs(items) do
-      line, ok = line:gsub("(%s*" .. i .. "%s)(.*)", "%1[ ] %2", 1)
+      line, ok = line:gsub("^(%s*" .. i .. "%s)(.*)", "%1[ ] %2", 1)
       if ok == 1 then return line end
     end
-    return fallback(line)
+    return ({ line:gsub("(%S*)", "* %1", 1) })[1]
   end
 
   local toggle_line = function(line)
     if line == "" then return "* " end
     if has_box(line, C) then return ({ line:gsub(C, E, 1) })[1] end
     if has_box(line, E) then return ({ line:gsub(E, C, 1) })[1] end
-    return make_box(line, function(l) return ({ l:gsub("(%S*)", "* %1", 1) })[1] end)
+    return make_box(line)
   end
 
   local toggle = function()
@@ -74,7 +74,7 @@ do
       return c
     end
   end
-  map({ "n", "x" }, "<c-space>", toggle, { buffer = 0 })
+  map({ "n", "x" }, "<c- >", toggle, { buffer = 0 })
   map("n", "o", list_item "o", { expr = true, buffer = 0 })
   map("n", "O", list_item "O", { expr = true, buffer = 0 })
 end
