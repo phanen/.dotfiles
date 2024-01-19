@@ -1,57 +1,58 @@
 # /usr/share/doc/bspwm/examples/sxhkdrc
 super + z
-	pkill -USR1 -x sxhkd ; bspc wm -r; pkill polybar; polybar -r;
+  pkill -USR1 -x sxhkd; bspc wm -r; pkill polybar; polybar -r;
 # TODO: remove `bspc` ad-hoc stuffs
 super + q
-	bspc node -c
+  bspc node -c
 super + ctrl + q
-	bspc quit
+  bspc quit
 super + {j, k}
-	bspc node -f {next, prev}.local.!hidden.window
+  bspc node -f {next, prev}.local.!hidden.window
 super + {w, o}
-	bspc desktop -f next
-# TODO: tab should not be managed by term
+  bspc desktop -f next
 # super + {f, e}
-#	wezterm cli activate-tab --tab-relative {+1, \-1}
+#   wezterm cli activate-tab --tab-relative {+1, \-1}
 super + l
-	(bspc node -f biggest.window.local && \
-		bspc node -f last.window.local && \
-		bspc node -s biggest.window.local) || \
-	(bspc node -f last.window.local && bspc node -s biggest.window.local)
+  (bspc node -f biggest.window.local && \
+    bspc node -f last.window.local && \
+    bspc node -s biggest.window.local) || \
+  (bspc node -f last.window.local && bspc node -s biggest.window.local)
 
 super + ctrl + {j, k}
-	bspc node -d {next, prev} --follow
+  bspc node -d {next, prev} --follow
 super + ctrl + shift + {j, k}
-	bspc node -d {next, prev}
+  bspc node -d {next, prev}
 super + shift + {j, k}
-	bspc desktop -s {next, prev} -f; bspc monitor -d 0 1 2
+  bspc desktop -s {next, prev} -f; bspc monitor -d 0 1 2
 
 super + {m, g}
-	bspc desktop -l next { , }
+  bspc desktop -l next { , }
 
 super + ctrl + {h, l}
-	bspc node -z {left -20 0 || bspc node -z right -20 0, \
-				right 20 0 || bspc node -z left 20 0}
+  bspc node -z {left -20 0 || bspc node -z right -20 0, \
+        right 20 0 || bspc node -z left 20 0}
 
 super + shift + f
-	bspc node -t \~floating
+  bspc node -t \~floating
 
 super + n
-	kitty
+  kitty
 # super + i
-#	wezterm cli spawn
+# wezterm cli spawn
 super + c
-	alacritty
+  alacritty
 super + semicolon
-	rofi -show drun -matching fuzzy
+  rofi -show drun -matching fuzzy
 super + p
-	cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | xsel -ib
-	# rofi -modi clipboard:~/.bin/cliphist-rofi-img.sh  -show clipboard -show-icons
+  cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | xsel -ib
+  # rofi -modi clipboard:~/.bin/cliphist-rofi-img.sh  -show clipboard -show-icons
 super + x
-	xsel -ob | $HOME/.bin/scripts/url-bookmark.sh $XDG_CONFIG_HOME/newsboat/urls
+  xsel -ob | $HOME/.bin/scripts/url-bookmark.sh $XDG_CONFIG_HOME/newsboat/urls
 super + v
-	(xsel -ob; echo) >> "$HOME/priv/$(date +%m-%d).md"
+  (xsel -ob; echo) >> "$HOME/priv/$(date +%m-%d).md"
 super + Tab
-	darkman toggle
+  darkman toggle
 super + ctrl + t
-	sh $XDG_CONFIG_HOME/sxhkd/scripts/toggle-polybar.sh
+  sh $XDG_CONFIG_HOME/sxhkd/scripts/toggle-polybar.sh
+super + ctrl + BackSpace
+  timeout 5 ssh arch sudo shutdown -h now; sudo shutdown -h now

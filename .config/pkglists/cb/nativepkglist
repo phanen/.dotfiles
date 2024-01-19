@@ -47,6 +47,7 @@ dhclient
 dhcpcd
 dkms
 dmenu
+dnsmasq-china-list-git
 docker
 dog
 dosfstools
@@ -114,6 +115,7 @@ httping
 hyperfine
 hyperv
 i2c-tools
+i3-wm
 imagemagick
 inetutils
 inotify-tools
@@ -230,6 +232,8 @@ poketex
 polybar
 prettier
 pulsemixer
+pwgen
+pwru
 python
 python-awesomeversion
 python-certifi
@@ -243,6 +247,7 @@ python-pycryptodome
 python-pynvim
 python-pyquery
 python-pytest-snapshot
+python-pywal
 python-qrcode
 python-sympy
 python-watchdog
@@ -281,6 +286,7 @@ scrot
 setconf
 slock
 smartmontools
+smokeping
 socat
 sof-firmware
 spice-vdagent
@@ -329,7 +335,6 @@ viu
 vulkan-intel
 vulkan-tools
 w3m
-waybar-lily
 wezterm
 wget
 whois

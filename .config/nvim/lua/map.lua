@@ -138,6 +138,7 @@ x("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]])
 
 n("<leader>E", "<cmd>e ~/priv/todo.md<cr>")
 n("<leader>e", "<cmd>e ~/priv/" .. vim.trim(vim.fn.system "date +%m-%d", "\n") .. ".md<cr>")
+n("<leader>cx", "<cmd>!chmod +x %<cr>")
 -- n("qk", function() return "<cmd>!crow --brief " .. vim.fn.expand "<cword>" .. "<cr>" end, { expr = true })
 -- x("qk", function() vim.system { "ls" } end)
 -- }}}
