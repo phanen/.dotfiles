@@ -97,7 +97,6 @@ return {
     keys = { "<leader>n" },
     init = function() vim.g.VM_maps = { ["Find Under"] = "<leader>n" } end,
   },
-  { "tpope/vim-repeat", event = "VeryLazy" },
   {
     "gbprod/substitute.nvim",
     keys = {

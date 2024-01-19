@@ -9,7 +9,6 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-emoji",
       {
         "onsails/lspkind.nvim",
         opts = { preset = "codicons", mode = "symbol_text" },
@@ -37,7 +36,6 @@ return {
             nvim_lsp = "[lsp]",
             path = "[path]",
             luasnip = "[snip]",
-            emoji = "[emoji]",
           },
         },
       }
@@ -85,7 +83,6 @@ return {
           { name = "luasnip" },
           { name = "path" },
           { name = "buffer", options = { get_bufnrs = vim.api.nvim_list_bufs } },
-          { name = "emoji" },
         },
         formatting = formatting,
         performance = {

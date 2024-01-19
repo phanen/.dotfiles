@@ -5,7 +5,7 @@ o.undofile = true
 o.number = true
 o.relativenumber = true
 o.termguicolors = true
-o.fileencodings = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
+-- o.fileencodings = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
 o.whichwrap = "b,s,h,l"
 o.jumpoptions = "stack"
 o.scrolloff = 16
@@ -29,3 +29,5 @@ o.timeoutlen = 100
 -- o.ttimeout = false
 o.ttimeoutlen = 0
 o.synmaxcol = 200
+
+vim.g.markdown_recommended_style = 0

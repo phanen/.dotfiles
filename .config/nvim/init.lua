@@ -62,4 +62,5 @@ require("lazy").setup {
   },
 }
 
-vim.g.colors_name = "vim"
+-- vim.g.colors_name = "vim"
+vim.cmd.colorscheme "tokyonight"

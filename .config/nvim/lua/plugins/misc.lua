@@ -2,11 +2,11 @@ return {
   -- buf {{{
   {
     "akinsho/bufferline.nvim",
-    event = "UIEnter",
+    event = {"BufReadPre", "BufNewFile"},
     dependencies = "nvim-tree/nvim-web-devicons",
     keys = {
-      { "H", "<cmd>BufferLineMovePrev<cr>", { desc = "bl: move next" } },
-      { "L", "<cmd>BufferLineMoveNext<cr>", { desc = "bl: move prev" } },
+      { "H", "<cmd>BufferLineMovePrev<cr>" },
+      { "L", "<cmd>BufferLineMoveNext<cr>" },
     },
     opts = {
       options = {
@@ -48,6 +48,7 @@ return {
   { "xiyaowong/transparent.nvim", cmd = "TransparentToggle", config = true },
   {
     "4e554c4c/darkman.nvim",
+    cond = false,
     event = "VeryLazy",
     build = "go build -o bin/darkman.nvim",
     opts = { colorscheme = { dark = "tokyonight", light = "github_light" } },
@@ -259,8 +260,9 @@ return {
   { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
   { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
   { "lilydjwg/fcitx.vim", event = "InsertEnter" },
+  { "tpope/vim-repeat", cond = false, event = "VeryLazy" },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
-  { "tpope/vim-sleuth", cond = false, lazy = "VeryLazy" },
+  { "tpope/vim-sleuth", cond = false, event = "VeryLazy" },
   { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "mikesmithgh/kitty-scrollback.nvim" },
   {
@@ -348,7 +350,7 @@ return {
   -- ui {{{
   {
     "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
+    event = {"BufReadPre", "BufNewFile"},
     opts = {
       options = { component_separators = "|", section_separators = "" },
       sections = {
@@ -375,7 +377,7 @@ return {
     },
   },
   { "nacro90/numb.nvim", event = "CmdlineEnter", config = true },
-  { "HiPhish/rainbow-delimiters.nvim", event = "VeryLazy" },
+  { "HiPhish/rainbow-delimiters.nvim", event = {"BufReadPre", "BufNewFile"} },
   { "itchyny/vim-highlighturl", event = "ColorScheme" },
   -- }}}
 }

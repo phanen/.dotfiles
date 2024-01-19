@@ -25,7 +25,7 @@ au({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
 
 -- restore cursor position
 au({ "BufReadPost" }, {
-  callback = function() api.nvim_exec('silent! normal! g`"zv', false) end,
+  callback = function() api.nvim_exec2('silent! normal! g`"zv', { output = false }) end,
 })
 
 -- https://www.reddit.com/r/neovim/comments/wjzjwe/how_to_set_no_name_buffer_to_scratch_buffer/
