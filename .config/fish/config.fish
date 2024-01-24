@@ -1,4 +1,5 @@
 source ~/.config/fish/sh-common.fish
+# bass source ~/.shellrc
 
 abbr -a c cargo
 abbr -a g git
