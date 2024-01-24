@@ -84,6 +84,7 @@ return {
               ["<c-n>"] = tal.cycle_layout_next,
               ["<c-l>"] = function(_)
                 local entry = tas.get_selected_entry()
+                if entry == nil then return true end
                 local prompt_text = entry.text or entry[1]
                 vim.fn.system("echo -n " .. prompt_text .. "| xsel -ib")
                 vim.api.nvim_paste(prompt_text, true, 1)
