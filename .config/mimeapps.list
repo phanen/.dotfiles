@@ -102,6 +102,7 @@ application/wps-office.wps=wps-office-prometheus.desktop
 application/wps-office.wpt=wps-office-prometheus.desktop
 application/wps-office.wpss=wps-office-prometheus.desktop
 application/wps-office.wpso=wps-office-prometheus.desktop
+x-scheme-handler/clash=clash-verge.desktop
 
 [Added Associations]
 x-scheme-handler/http=chrome.desktop;chrome.desktop;
