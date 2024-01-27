@@ -25,13 +25,15 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
   unset f
 fi
 
-fcitx5 -d
+fcitx5 -d &
 polybar -r &
 picom &
 dunst &
 sxhkd -a Tab &
+input-leaps --disable-crypto --config ~/.config/InputLeap/server.conf &
 while clipnotify; do xclip -o -selection c | cliphist store; done &
 xrandr --auto
+~/.bin/xrate-refresh.sh
 
 case $1 in
     i3     ) exec i3;;

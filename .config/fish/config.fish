@@ -4,6 +4,7 @@ source ~/.config/fish/sh-common.fish
 abbr -a c cargo
 abbr -a g git
 abbr -a gp git pull
+abbr -a gc git clone
 abbr -a o xdg-open
 abbr -a ta 'tmux a || tmux'
 abbr -a p 'patch -Np1 -i -'

@@ -2,7 +2,7 @@ return {
   -- buf {{{
   {
     "akinsho/bufferline.nvim",
-    event = {"BufReadPre", "BufNewFile"},
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = "nvim-tree/nvim-web-devicons",
     keys = {
       { "H", "<cmd>BufferLineMovePrev<cr>" },
@@ -83,7 +83,6 @@ return {
   {
     "3rd/image.nvim",
     ft = { "markdown", "org" },
-    cond = false,
     config = true,
     init = function()
       -- Example for configuring Neovim to load user-installed installed Lua rocks:
@@ -347,11 +346,22 @@ return {
     cmd = "DiffviewOpen",
     opts = {},
   },
+  {
+    "kawre/leetcode.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    lazy = vim.fn.argv()[1] ~= "leetcode.nvim",
+    opts = {
+      cn = { enabled = true },
+      injector = { ["cpp"] = { before = { "#include <bits/stdc++.h>", "using namespace std;" } } },
+      storage = { home = "~/c/leetcode" },
+      image_support = true,
+    },
+  },
   -- }}}
   -- ui {{{
   {
     "nvim-lualine/lualine.nvim",
-    event = {"BufReadPre", "BufNewFile"},
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
       options = { component_separators = "|", section_separators = "" },
       sections = {
@@ -378,7 +388,7 @@ return {
     },
   },
   { "nacro90/numb.nvim", event = "CmdlineEnter", config = true },
-  { "HiPhish/rainbow-delimiters.nvim", event = {"BufReadPre", "BufNewFile"} },
+  { "HiPhish/rainbow-delimiters.nvim", event = { "BufReadPre", "BufNewFile" } },
   { "itchyny/vim-highlighturl", event = "ColorScheme" },
   -- }}}
 }
