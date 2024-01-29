@@ -30,6 +30,7 @@ x("<a-h>", "<gv")
 x("<a-l>", ">gv")
 
 t("<c- >", "<c-\\><c-n>")
+x(".", ":normal .<cr>")
 
 local toggle_qf = function()
   local qf_win = vim.iter(vim.fn.getwininfo()):filter(function(win) return win.quickfix == 1 end):totable()
@@ -48,12 +49,6 @@ n("<leader>p", "<cmd>%d _<cr><cmd>norm P<cr>")
 n("<leader>y", "<cmd>%y<cr>")
 n("<leader>cd", "<cmd>cd %:h<cr>")
 -- }}}
--- buffer {{{
-n("<c-f>", "<cmd>BufferLineCycleNext<cr>")
-n("<c-e>", "<cmd>BufferLineCyclePrev<cr>")
-n("<c-w>", "<cmd>Bdelete!<cr>")
-n("<leader>bo", [[<cmd>w | %bd | e#<cr>]])
--- }}}
 -- readline {{{
 map("!", "<c-f>", "<right>")
 map("!", "<c-b>", "<left>")
@@ -66,7 +61,12 @@ map("!", "<c-o>", function() require("readline").backward_word() end)
 map("!", "<c-l>", function() require("readline").kill_word() end)
 map("!", "<c-k>", function() require("readline").kill_line() end)
 -- }}}
--- window {{{
+-- layout {{{
+n("<c-f>", "<cmd>BufferLineCycleNext<cr>")
+n("<c-e>", "<cmd>BufferLineCyclePrev<cr>")
+n("<c-w>", "<cmd>Bdelete!<cr>")
+n("<leader>bo", [[<cmd>w | %bd | e#<cr>]])
+
 n("<c-s><c-s>", "<cmd>wincmd q<cr>")
 -- TODO: restart with session
 -- n("<c-s>r", "<cmd>wincmd q<cr>")
@@ -78,6 +78,8 @@ n("<c-s>H", "<cmd>wincmd H<cr>")
 n("<c-s>J", "<cmd>wincmd J<cr>")
 n("<c-j>", "<cmd>wincmd w<cr>")
 n("<c-k>", "<cmd>wincmd W<cr>")
+
+n("<localleader>q", "<cmd>tabclose<cr>")
 -- }}}
 -- subtitution {{{
 n("<leader>rp", "<cmd>%FullwidthPunctConvert<cr>")

@@ -58,7 +58,7 @@ return {
             i = function(fb)
               if cmp.visible() and cmp.get_selected_entry() then return cmp.confirm() end
               if ls.jumpable() then return ls.jump(1) end
-              if ls.expandable() then return ls.expand() end
+              -- if ls.expandable() then return ls.expand() end
               return fb()
             end,
             c = m.select_next_item(),
@@ -121,6 +121,7 @@ return {
   },
   {
     "zbirenbaum/copilot.lua",
+    cond = vim.fn.argv()[1] ~= "leetcode.nvim",
     event = "InsertEnter",
     dependencies = { "nvim-cmp" },
     opts = {

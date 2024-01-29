@@ -2,6 +2,7 @@ acpi
 age
 alacritty
 alsa-utils
+android-file-transfer
 apr
 apr-util
 archiso
@@ -20,6 +21,7 @@ bazel
 bc
 bear
 beep
+bitwarden-cli
 bluez
 bluez-utils
 bochs
@@ -31,6 +33,7 @@ catimg
 certbot
 clang
 clash
+clash-verge
 cliphist
 clipnotify
 cmake
@@ -71,6 +74,7 @@ evtest
 expac
 extra-cmake-modules-git
 eza
+fastfetch
 fcitx5
 fcitx5-chinese-addons
 fcitx5-configtool
@@ -132,15 +136,14 @@ jpegoptim
 jq
 just
 kakoune
+kdiskmark
 keepassxc
 kitty
 kmonad-git
 kubo
 lazygit
-lib32-alsa-plugins
+lf
 lib32-gcc-libs
-lib32-gst-plugins-base-libs
-lib32-gtk3
 lib32-libglvnd
 lib32-libpulse
 lib32-ocl-icd
@@ -202,6 +205,7 @@ newsboat
 ninja
 nmap
 notcurses
+noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 npm
@@ -231,6 +235,7 @@ poedit
 poketex
 polybar
 prettier
+pulseaudio-alsa
 pulsemixer
 pwgen
 pwru
@@ -247,7 +252,6 @@ python-pycryptodome
 python-pynvim
 python-pyquery
 python-pytest-snapshot
-python-pywal
 python-qrcode
 python-sympy
 python-watchdog
@@ -277,8 +281,10 @@ riscv64-linux-gnu-glibc
 riscv64-unknown-elf-binutils-debug
 riscv64-unknown-elf-gcc
 rofi
+rp-pppoe
 rsync
 rtorrent
+rust-script
 rustup
 scrcpy
 screen
@@ -286,9 +292,9 @@ scrot
 setconf
 slock
 smartmontools
-smokeping
 socat
 sof-firmware
+speedtest-cli
 spice-vdagent
 sshfs
 starship
@@ -344,6 +350,7 @@ wofi
 wpa_supplicant
 xclip
 xdg-desktop-portal
+xdg-desktop-portal-gtk
 xdo
 xf86-video-vesa
 xfconf

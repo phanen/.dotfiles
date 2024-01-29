@@ -73,7 +73,7 @@
   xl (cmd-button "xrandr -o left")
   xr (cmd-button "xrandr -o right")
   xn (cmd-button "xrandr -o normal")
-  xi (cmd-button "xrandr -o invert")
+  xi (cmd-button "xrandr -o inverted")
   t= (cmd-button "toggle-touchpad.sh")
 )
 

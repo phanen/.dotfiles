@@ -3,12 +3,10 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = function() require("nvim-treesitter.install").update { with_sync = true } end,
     event = "BufReadPost",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
+    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     config = function()
       require("nvim-treesitter.configs").setup {
-        ensure_installed = { "c", "lua", "rust" },
+        ensure_installed = { "c", "lua", "rust", "vimdoc", "markdown", "markdown_inline" },
         highlight = {
           enable = true,
           disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
@@ -60,6 +58,6 @@ return {
     "Wansmer/treesj",
     dependencies = { "nvim-treesitter" },
     opts = { use_default_keymaps = false },
-    keys = { { "gJ", "<Cmd>TSJToggle<CR>", desc = "toggle fuck" } },
+    keys = { { "gS", "<Cmd>TSJToggle<CR>", desc = "toggle fuck" } },
   },
 }

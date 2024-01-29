@@ -1,5 +1,6 @@
 babelfish-fish
 bsptab-git
+cargo-clean-all
 codelldb
 gcc6
 gcc6-fortran

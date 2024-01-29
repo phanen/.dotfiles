@@ -352,7 +352,39 @@ return {
     lazy = vim.fn.argv()[1] ~= "leetcode.nvim",
     opts = {
       cn = { enabled = true },
-      injector = { ["cpp"] = { before = { "#include <bits/stdc++.h>", "using namespace std;" } } },
+      injector = {
+        ["cpp"] = {
+          before = { "#include <bits/stdc++.h>", "using namespace std;" },
+          after = "int main() {}",
+        },
+        ["rust"] = {},
+      },
+      hooks = {
+        LeetQuestionNew = {
+          function(q)
+            local m = function(l, r) map("n", l, r, { buffer = q.bufnr }) end
+            m("<localleader>a", "<cmd>Leet lang<cr>")
+            m("<localleader>c", "<cmd>Leet console<cr>")
+            m("<localleader>d", "<cmd>Leet desc<cr>")
+            m("<leader>k", "<cmd>Leet desc<cr>")
+            m("<localleader>i", "<cmd>Leet info<cr>")
+            m("<localleader>l", "<cmd>Leet list<cr>")
+            m("<localleader>r", "<cmd>Leet run<cr>")
+            m("<localleader>s", "<cmd>Leet submit<cr>")
+            m("<localleader>t", "<cmd>Leet tabs<cr>")
+            m("<localleader>y", "<cmd>Leet yank<cr>")
+            m(
+              "<localleader>o",
+              function()
+                vim.fn.system {
+                  "xdg-open",
+                  "https://leetcode.cn/problems/" .. vim.fn.expand("%:t:r"):gsub("%d+%.", "", 1) .. "/solutions/",
+                }
+              end
+            )
+          end,
+        },
+      },
       storage = { home = "~/c/leetcode" },
       image_support = true,
     },
