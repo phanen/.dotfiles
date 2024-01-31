@@ -1,3 +1,4 @@
+;; vim:ft=clojure
 ;; /usr/share/doc/kmonad-git/quick-reference.md
 
 (defcfg
@@ -17,17 +18,17 @@
 (deflayer qwerty
   bspc _    _    3    4    5    6    7    8    9    0    .    =    bspc
   @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
-  @qc  a    s    d    f    g    h    j    k    l    @;   @'   ret
+  @qc  a    s    d    f    g    h    j    k    l    @;   '   ret
   @sft @z   x    c    v    b    n    m    ,    .    /    \
-  lctl @lm @vi           @sm            ralt rctl
+  lctl lmet lalt           @sm            ralt rctl
 )
 
 (deflayer colemak
   grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
-  @tb  q    w    f    p    g    j    l    u    o    y    bspc ]    \
-  @qc  a    r    s    t    d    h    n    e    i    @;   @'  ret
+  @tb  q    w    f    p    g    j    l    u    o    y    bspc caps \
+  @qc  a    r    s    t    d    h    n    e    i    @;   '  ret
   @sft @z   x    c    v    b    k    m    ,    .    /    \
-  lctl @lm lalt           @sm            ralt rctl
+  lctl lmet lalt           @sm            ralt rctl
 )
 
 (deflayer control
@@ -82,60 +83,16 @@
   M-tab  M-q  M-w  M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
   @mc    M-a  C-F1 C-F2 M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
   lsft   M-z  M-x  M-c  M-v  M-b  M-n  M-m  M-,  M-.  M-/  rsft
-  M-lctl M-@lm M-lalt           @sm            M-ralt M-rctl
-)
-
-(deflayer vim-normal
-  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
-  @tb  _ C-right _  C-S-z  t    C-c C-z  @qwe  o    C-V  [    ]    \
-  @vc  _    _    bspc f    g    left down up right del   _    _
-  @sft _  _   _  @vis   C-left  _    _    _    _    _    _
-  lctl @lm @qwe          @sm            ralt rctl
-)
-
-(deflayer vim-visual
-  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
-  @tb  _ C-S-right _  C-z  t    C-c C-z  @qwe o   C-V    [    ]    \
-  @vc  _    _    bspc f    g    S-left S-down S-up S-right del  _ _
-  @sft _  _   _  _    C-S-left  _    _    _    _    _    _
-  lctl @lm @qwe          @sm            ralt rctl
-)
-
-(deflayer emacs
-  grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
-  @qwe q    @kw end   r    t    y    @kl i    o    up   [    ]    \
-  _    home s    d  right  g    bspc j    k    l    \    @'   ret
-  @sft @z   x    c    v    left down m    ,    .    /    \
-  _    _    @qwe           _              _    _
+  M-lctl M-lmet M-lalt           @sm            M-ralt M-rctl
 )
 
 (defalias
-  qwe            #((layer-switch qwerty)      (cmd-button "~/.config/kmonad/keypress.sh qwe"))
-  nor            #((layer-switch vim-normal)  (cmd-button "~/.config/kmonad/keypress.sh nor"))
-  vis            #((layer-switch vim-visual)  (cmd-button "~/.config/kmonad/keypress.sh vis"))
-  sym            #((layer-switch symbol)      (cmd-button "~/.config/kmonad/keypress.sh sym"))
-  cmk            #((layer-switch colemak)     (cmd-button "~/.config/kmonad/keypress.sh cmk"))
-
-  ;; TODO: avoid C-x C-x + different prefix in a same layer
-  z    (tap-hold-next-release 500 z   lalt)
-  .    (tap-hold-next-release 500 .   (around lctrl lsft))
-  '    (tap-hold-next-release 500 '   (layer-toggle symbol))
-  ;    (tap-next-press ;              (layer-toggle symbol))
-  /    (tap-hold-next-release 500 /   (layer-toggle symbol))
-
+  z    (tap-hold-next-release 500 z  lalt)
+  .    (tap-hold-next-release 500 .  (around lctrl lsft))
+  ;    (tap-next-press ;             (layer-toggle symbol))
   sft  (tap-next grv (around lsft (layer-toggle shift)))
-
-  mt   (multi-tap 10 j 10 k esc)
-
-  qc   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
+  qc   (tap-next esc (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
   sm   (tap-hold-next-release 500 spc (layer-toggle super))
-  lm   (tap-next esc                  (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
   tb   (tap-hold-next-release 500 tab (layer-toggle tabular))
-
   mc   (tap-next esc lctl)
-
-  vi   (tap-hold 500 @nor lalt)
-  vc   (tap-next esc (layer-toggle emacs))
-  kw   C-bspc
-  kl   C-S-bspc
 )
