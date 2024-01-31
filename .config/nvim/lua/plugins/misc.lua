@@ -181,7 +181,28 @@ return {
       { "<localleader>gb", "<cmd>GitLink! blame<cr>", mode = { "n", "x" } },
     },
     cmd = "GitLink",
-    config = true,
+    opts = {
+      router = {
+        browse = {
+          ["^ssh%.github%.com"] = "https://github.com/"
+            .. "{_A.ORG}/"
+            .. "{_A.REPO}/blob/"
+            .. "{_A.REV}/"
+            .. "{_A.FILE}?plain=1" -- '?plain=1'
+            .. "#L{_A.LSTART}"
+            .. "{(_A.LEND > _A.LSTART and ('-L' .. _A.LEND) or '')}",
+        },
+        blame = {
+          ["^ssh%.github%.com"] = "https://github.com/"
+            .. "{_A.ORG}/"
+            .. "{_A.REPO}/blame/"
+            .. "{_A.REV}/"
+            .. "{_A.FILE}?plain=1" -- '?plain=1'
+            .. "#L{_A.LSTART}"
+            .. "{(_A.LEND > _A.LSTART and ('-L' .. _A.LEND) or '')}",
+        },
+      },
+    },
   },
   --- }}}
   -- term {{{
@@ -354,7 +375,7 @@ return {
       cn = { enabled = true },
       injector = {
         ["cpp"] = {
-          before = { "#include <bits/stdc++.h>", "using namespace std;" },
+          before = { "#include <bits/stdc++.h>", '#include "lib.h"', "using namespace std;" },
           after = "int main() {}",
         },
         ["rust"] = {},
@@ -386,7 +407,7 @@ return {
         },
       },
       storage = { home = "~/c/leetcode" },
-      image_support = true,
+      image_support = false,
     },
   },
   -- }}}
