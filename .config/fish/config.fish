@@ -1,15 +1,14 @@
 source ~/.config/fish/sh-common.fish
-# bass source ~/.shellrc
 
 abbr -a c cargo
+abbr -a cl 'printf "\e[H\e[3J"'
+abbr -a gc git clone
 abbr -a g git
 abbr -a gp git pull
-abbr -a gc git clone
 abbr -a o xdg-open
-abbr -a ta 'tmux a || tmux'
 abbr -a p 'patch -Np1 -i -'
-abbr -a cl 'printf "\e[H\e[3J"'
 abbr -a rm ' rm'
+abbr -a ta 'tmux a || tmux'
 abbr -a vb 'VIMRUNTIME=~/b/neovim/runtime NVIM_APPNAME=nvim-test ~/b/neovim/build/bin/nvim'
 abbr -a vv 'VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim'
 
@@ -21,8 +20,12 @@ function if_empty
 end
 
 # TODO: generalized -> predicate and a or b
-function bind_edit
+function _s
   set -l line (commandline)
+  string match -r '^https?://git(.+)' $line 2>/dev/null 1>&2
+  and eval 'commandline -r ""'
+  and eval 'git clone $line; return'
+
   string match -r '^gib (.+)' $line 2>/dev/null 1>&2
   and eval $line
   and nvim +args\ % PKGBUILD riscv64.patch
@@ -50,20 +53,20 @@ fish_default_key_bindings
 fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
 set -Ux fifc_editor nvim
 set -U fifc_keybinding \ci
-bind \ew 'fish_key_reader -c'
-bind \ct repeat_cmd
-bind \cq 'if_empty lazygit fish_clipboard_copy'
-bind \cs bind_edit
-bind \cg 'if_empty yazi yazi'
-bind \e\; 'htop'
-bind \co prevd-or-backward-word
-bind \cj nextd-or-forward-word
-bind \cl kill-bigword
-bind \el clear
-bind \ei 'tmux a 2>&1 >/dev/null || tmux 2>&1 >/dev/null || tmux det'
-bind \er 'sh2fish.sh && exec fish'
 bind \cd delete-or-exit
 bind \ce 'if_empty "zi;fish_prompt" "commandline -f end-of-line"'
+bind \cg 'if_empty yazi yazi'
+bind \cj nextd-or-forward-word
+bind \cl kill-bigword
+bind \co prevd-or-backward-word
+bind \cq 'if_empty lazygit fish_clipboard_copy'
+bind \cs _s
+bind \ct repeat_cmd
+bind \e\; 'htop'
+bind \ei 'tmux a 2>&1 >/dev/null || tmux 2>&1 >/dev/null || tmux det'
+bind \el clear
+bind \er 'sh2fish.sh && exec fish'
+bind \ew 'fish_key_reader -c'
 # TODO: <c-a> in tmux should work as prefix
 # TODO: <c-u> cut job part
 # only if cmdline is empty or it has been in the begin

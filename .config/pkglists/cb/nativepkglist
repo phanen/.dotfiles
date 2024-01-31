@@ -52,10 +52,9 @@ dkms
 dmenu
 dnsmasq-china-list-git
 docker
+docker-compose
 dog
 dosfstools
-dotnet-runtime
-dotnet-sdk
 downgrade
 doxygen
 dummyhttp
