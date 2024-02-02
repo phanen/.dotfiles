@@ -18,25 +18,17 @@
 (deflayer qwerty
   bspc _    _    3    4    5    6    7    8    9    0    .    =    bspc
   @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
-  @qc  a    s    d    f    g    h    j    k    l    @;   '   ret
-  @sft @z   x    c    v    b    n    m    ,    .    /    \
+  @ec  a    s    d    f    g    h    j    k    l    @;s  '   ret
+  @gs  @za  x    c    v    b    n    m    ,    .    /    \
   lctl lmet lalt           @sm            ralt rctl
 )
 
 (deflayer colemak
   grv  1    2    3    4    5    6    7    8    9    0    .    =    bspc
   @tb  q    w    f    p    g    j    l    u    o    y    bspc caps \
-  @qc  a    r    s    t    d    h    n    e    i    @;   '  ret
-  @sft @z   x    c    v    b    k    m    ,    .    /    \
+  @ec  a    r    s    t    d    h    n    e    i    @;s  '  ret
+  @gs  @za  x    c    v    b    k    m    ,    .    /    \
   lctl lmet lalt           @sm            ralt rctl
-)
-
-(deflayer control
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    \    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _              _              _    _
 )
 
 (deflayer shift
@@ -55,11 +47,10 @@
   _    _    _              _              _    _
 )
 
-;; the damn part
 (deflayer tabular
-  @fc  @s+  @s-  @l+  @l-  @xl  @xr  @xn  @xi  9    @t=  -    =    bspc
-  tab  @fu  w    C--  r    t    y    u    C-+  C--  p  [    ]    \
-  caps a    s    d    C-+ g     bspc j    k    l    ;    '    ret
+  grv  @s+  @s-  @l+  @l-  @xl  @xr  @xn  @xi  @t!  0    -    =    bspc
+  tab  @fu  @fc  C--  r    t    y    u    C-+  C--  p  [    ]    \
+  caps a    s    d    C-+  g    bspc j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rctl
 )
@@ -69,13 +60,13 @@
   s- (cmd-button "sound-control -")
   l+ (cmd-button "light-control +")
   l- (cmd-button "light-control -")
-  fc (cmd-button "flameshot gui")
-  fu (cmd-button "flameshot gui -r | imgur.sh")
   xl (cmd-button "xrandr -o left")
   xr (cmd-button "xrandr -o right")
   xn (cmd-button "xrandr -o normal")
   xi (cmd-button "xrandr -o inverted")
-  t= (cmd-button "toggle-touchpad.sh")
+  t! (cmd-button "toggle-touchpad.sh")
+  fc (cmd-button "flameshot gui")
+  fu (cmd-button "flameshot gui -r | imgur.sh")
 )
 
 (deflayer super
@@ -87,11 +78,10 @@
 )
 
 (defalias
-  z    (tap-hold-next-release 500 z  lalt)
-  .    (tap-hold-next-release 500 .  (around lctrl lsft))
-  ;    (tap-next-press ;             (layer-toggle symbol))
-  sft  (tap-next grv (around lsft (layer-toggle shift)))
-  qc   (tap-next esc (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
+  za   (tap-hold-next-release 500 z  lalt)
+  ;s   (tap-next-press ;      (layer-toggle symbol))
+  gs   (tap-next grv (around lsft (layer-toggle shift)))
+  ec   (tap-next esc (around lctrl (layer-toggle qwerty)))
   sm   (tap-hold-next-release 500 spc (layer-toggle super))
   tb   (tap-hold-next-release 500 tab (layer-toggle tabular))
   mc   (tap-next esc lctl)

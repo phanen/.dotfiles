@@ -18,7 +18,6 @@ return {
     },
   },
   { "famiu/bufdelete.nvim", cmd = "Bdelete" },
-  { "ojroques/nvim-bufdel", cmd = "BufDel", opts = { quit = false } },
   {
     "kwkarlwang/bufjump.nvim",
     keys = {
@@ -56,7 +55,6 @@ return {
   { "norcalli/nvim-colorizer.lua", cmd = "ColorizerToggle ", config = true },
   -- }}}
   -- doc {{{
-  { "HiPhish/info.vim", cmd = "Info" },
   { "dhruvasagar/vim-table-mode", cond = false, ft = { "markdown", "org" } },
   { "hotoo/pangu.vim", cmd = "Pangu", ft = "markdown" },
   { "chomosuke/typst-preview.nvim", ft = "typst", build = function() require("typst-preview").update() end },
@@ -208,9 +206,9 @@ return {
   -- term {{{
   {
     "akinsho/toggleterm.nvim",
-    keys = { [[<c-\>]] },
+    keys = { [[<c-;>]] },
     opts = {
-      open_mapping = [[<c-\>]],
+      open_mapping = [[<c-;>]],
       direction = "float",
       shell = "/bin/fish",
     },
@@ -281,9 +279,7 @@ return {
   { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
   { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
   { "lilydjwg/fcitx.vim", event = "InsertEnter" },
-  { "tpope/vim-repeat", cond = false, event = "VeryLazy" },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
-  { "tpope/vim-sleuth", cond = false, event = "VeryLazy" },
   { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "mikesmithgh/kitty-scrollback.nvim" },
   {
@@ -336,20 +332,6 @@ return {
       },
     },
     opts = { calm_down = true, nearest_only = true },
-  },
-  {
-    "Shatur/neovim-session-manager",
-    keys = {
-      { "<leader>ss", "<cmd>SessionManager save_current_session<cr>" },
-      { "<leader>sl", "<cmd>SessionManager load_session<cr>" },
-      { "<leader>sd", "<cmd>SessionManager delete_session<cr>" },
-    },
-    opts = function()
-      return {
-        autoload_mode = require("session_manager.config").AutoloadMode.Disabled,
-        autosave_last_session = false,
-      }
-    end,
   },
   {
     "phanen/dirstack.nvim",

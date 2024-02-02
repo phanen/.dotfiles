@@ -44,6 +44,8 @@ n("<leader>q", toggle_qf)
 
 x("iq", 'i"')
 o("iq", 'i"')
+x("aq", 'a"')
+o("aq", 'a"')
 
 n("<leader>p", "<cmd>%d _<cr><cmd>norm P<cr>")
 n("<leader>y", "<cmd>%y<cr>")

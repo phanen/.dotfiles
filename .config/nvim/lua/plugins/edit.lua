@@ -80,18 +80,6 @@ return {
     init = function() vim.g.VM_maps = { ["Find Under"] = "<leader>n" } end,
   },
   {
-    "gbprod/substitute.nvim",
-    keys = {
-      { "<localleader>s", function() require("substitute.exchange").operator() end, mode = "n" },
-      { "<localleader>s", function() require("substitute.exchange").visual() end, mode = "x" },
-    },
-    config = true,
-  },
-  {
-    "cshuaimin/ssr.nvim",
-    keys = { { "<localleader>r", function() require("ssr").open() end, mode = { "n", "x" } } },
-  },
-  {
     "andymass/vim-matchup", -- TODO: slow when use flash.nvim
     event = "BufReadPost",
     keys = { mode = { "n", "x", "o" }, "%" },
