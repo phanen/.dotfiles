@@ -49,6 +49,8 @@ alias rb="extra-riscv64-build -- -d $HOME/pkg/:/var/cache/pacman/pkg"
 alias rvp="git diff --no-prefix --relative | tail -n +3  > riscv64.patch"
 alias rve="sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U"
 
+alias nvp="git diff | tee ~/.config/nvim/patches/\$(basename \$(pwd)).patch"
+
 add-key() {
   . ./PKGBUILD
   for key in "${validpgpkeys[@]}"; do

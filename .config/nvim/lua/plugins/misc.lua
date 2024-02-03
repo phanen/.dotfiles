@@ -217,8 +217,10 @@ return {
   -- tree {{{
   {
     "nvim-tree/nvim-tree.lua",
+    -- workaround for open dir
     lazy = not vim.fn.argv()[1],
-    event = "CmdlineEnter", -- workaround
+    keys = "gf",
+    event = "CmdlineEnter",
     cmd = { "NvimTreeFindFileToggle" },
     dependencies = {
       "nvim-tree/nvim-web-devicons",
@@ -231,13 +233,14 @@ return {
       sync_root_with_cwd = true,
       actions = { change_dir = { enable = true, global = true } },
       view = { adaptive_size = true },
+      -- hijack_directories = { enable = false },
       on_attach = function(bufnr)
         local api = require "nvim-tree.api"
         api.config.mappings.default_on_attach(bufnr)
         local n = function(lhs, rhs, desc) return map("n", lhs, rhs, { desc = desc, buffer = bufnr }) end
         n("h", api.tree.change_root_to_parent, "up")
         n("l", api.node.open.edit, "edit")
-        n("_", api.tree.change_root_to_node, "cd")
+        n("o", api.tree.change_root_to_node, "cd")
       end,
     },
   },
@@ -282,6 +285,11 @@ return {
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
   { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "mikesmithgh/kitty-scrollback.nvim" },
+  {
+    "polirritmico/lazy-local-patcher.nvim",
+    ft = "lazy",
+    config = true,
+  },
   {
     "chrishrb/gx.nvim",
     cmd = "Browse",
@@ -335,7 +343,7 @@ return {
   },
   {
     "phanen/dirstack.nvim",
-    event = "VeryLazy",
+    event = "DirChangedPre",
     keys = {
       { "<c-p>", function() require("dirstack").prev() end },
       { "<c-n>", function() require("dirstack").next() end },
@@ -347,7 +355,7 @@ return {
     "sindrets/diffview.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = "DiffviewOpen",
-    opts = {},
+    config = true,
   },
   {
     "kawre/leetcode.nvim",

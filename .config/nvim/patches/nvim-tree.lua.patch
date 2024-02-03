@@ -1,0 +1,13 @@
+diff --git a/lua/nvim-tree.lua b/lua/nvim-tree.lua
+index 1cfead1..ef5489f 100644
+--- a/lua/nvim-tree.lua
++++ b/lua/nvim-tree.lua
+@@ -256,7 +256,7 @@ local function setup_autocommands(opts)
+   end
+ 
+   if opts.hijack_directories.enable then
+-    create_nvim_tree_autocmd({ "BufEnter", "BufNewFile" }, { callback = M.open_on_directory })
++    create_nvim_tree_autocmd({ "BufEnter", "BufNewFile" }, { callback = M.open_on_directory, nested = true })
+   end
+ 
+   create_nvim_tree_autocmd("BufEnter", {
