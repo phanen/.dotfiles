@@ -98,7 +98,6 @@ x("<leader>r ", [[:s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g<cr>]])
 -- windows
 n("<leader>k", "<cmd>NvimTreeFindFileToggle<cr>")
 n("<leader>wo", "<cmd>AerialToggle<cr>")
--- n("<leader>a", "<cmd>Outline<cr>")
 n("<leader>wl", "<cmd>Lazy<cr>")
 n("<leader>wj", "<cmd>Navbuddy<cr>")
 n("<leader>wi", "<cmd>LspInfo<cr>")
@@ -116,18 +115,6 @@ n("]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 n("<leader>df", "<cmd>lua vim.diagnostic.open_float()<cr>")
 n("<leader>ds", "<cmd>lua vim.diagnostic.setloclist()<cr>")
 -- }}}
--- gui {{{
-local gui_font_size = 13
-vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(gui_font_size)
-n("<c-->", function()
-  gui_font_size = gui_font_size - 1
-  vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(gui_font_size)
-end)
-n("<c-=>", function()
-  gui_font_size = gui_font_size + 1
-  vim.o.guifont = "CaskaydiaCove Nerd Font:h" .. tostring(gui_font_size)
-end)
---}}}
 -- misc {{{
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
@@ -143,8 +130,6 @@ x("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]])
 n("<leader>E", "<cmd>e ~/priv/todo.md<cr>")
 n("<leader>e", "<cmd>e ~/priv/" .. vim.trim(vim.fn.system "date +%m-%d", "\n") .. ".md<cr>")
 n("<leader>cx", "<cmd>!chmod +x %<cr>")
--- n("qk", function() return "<cmd>!crow --brief " .. vim.fn.expand "<cword>" .. "<cr>" end, { expr = true })
--- x("qk", function() vim.system { "ls" } end)
 -- }}}
 -- tobj {{{
 vim.cmd [[

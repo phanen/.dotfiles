@@ -29,5 +29,3 @@ o.timeoutlen = 100
 -- o.ttimeout = false
 o.ttimeoutlen = 0
 o.synmaxcol = 200
-
-vim.g.markdown_recommended_style = 0

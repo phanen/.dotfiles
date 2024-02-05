@@ -45,24 +45,18 @@ return {
   { "mcchrish/zenbones.nvim", dependencies = "rktjmp/lush.nvim" },
   -- tools
   { "xiyaowong/transparent.nvim", cmd = "TransparentToggle", config = true },
-  {
-    "4e554c4c/darkman.nvim",
-    cond = false,
-    event = "VeryLazy",
-    build = "go build -o bin/darkman.nvim",
-    opts = { colorscheme = { dark = "tokyonight", light = "github_light" } },
-  },
   { "norcalli/nvim-colorizer.lua", cmd = "ColorizerToggle ", config = true },
   -- }}}
   -- doc {{{
-  { "dhruvasagar/vim-table-mode", cond = false, ft = { "markdown", "org" } },
   { "hotoo/pangu.vim", cmd = "Pangu", ft = "markdown" },
+  { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
+  { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "chomosuke/typst-preview.nvim", ft = "typst", build = function() require("typst-preview").update() end },
+  { "kaarmu/typst.vim", ft = "typst" },
   {
     "lervag/vimtex",
     -- :h :VimtexInverseSearch
     -- https://github.com/lervag/vimtex/pull/2560
-    cond = false,
     lazy = false,
     ft = "tex",
     keys = {
@@ -203,17 +197,6 @@ return {
     },
   },
   --- }}}
-  -- term {{{
-  {
-    "akinsho/toggleterm.nvim",
-    keys = { [[<c-;>]] },
-    opts = {
-      open_mapping = [[<c-;>]],
-      direction = "float",
-      shell = "/bin/fish",
-    },
-  },
-  --- }}}
   -- tree {{{
   {
     "nvim-tree/nvim-tree.lua",
@@ -276,14 +259,10 @@ return {
   { "folke/lazy.nvim" },
   -- FIXME: register _d, cannot set timeoutlen = 0
   { "folke/which-key.nvim", event = "VeryLazy", opts = { plugins = { spelling = { enabled = false } } } },
-  { "dstein64/vim-startuptime", cmd = "StartupTime" },
   { "voldikss/vim-translator", cmd = "Translate", keys = { { "gk", ":Translate<cr>", mode = { "n", "x" } } } },
   { "AndrewRadev/linediff.vim", cmd = "Linediff" },
-  { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
-  { "skywind3000/asyncrun.vim", cmd = "AsyncRun" },
   { "lilydjwg/fcitx.vim", event = "InsertEnter" },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
-  { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "mikesmithgh/kitty-scrollback.nvim" },
   {
     "polirritmico/lazy-local-patcher.nvim",
@@ -345,9 +324,9 @@ return {
     "phanen/dirstack.nvim",
     event = "DirChangedPre",
     keys = {
-      { "<c-p>", function() require("dirstack").prev() end },
-      { "<c-n>", function() require("dirstack").next() end },
-      { "<c-g>", function() require("dirstack").info() end },
+      { "<localleader><c-p>", function() require("dirstack").prev() end },
+      { "<localleader><c-n>", function() require("dirstack").next() end },
+      { "<localleader><c-g>", function() require("dirstack").info() end },
     },
     config = true,
   },
@@ -402,6 +381,18 @@ return {
   },
   -- }}}
   -- ui {{{
+  { "stevearc/aerial.nvim", cmd = "AerialToggle", config = true },
+  { "HiPhish/rainbow-delimiters.nvim", event = { "BufReadPre", "BufNewFile" } },
+  { "itchyny/vim-highlighturl", event = "ColorScheme" },
+  {
+    "akinsho/toggleterm.nvim",
+    keys = { [[<c-;>]] },
+    opts = {
+      open_mapping = [[<c-;>]],
+      direction = "float",
+      shell = "/bin/fish",
+    },
+  },
   {
     "nvim-lualine/lualine.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -413,8 +404,6 @@ return {
       },
     },
   },
-  { "stevearc/aerial.nvim", cmd = { "AerialToggle" }, config = true },
-  { "hedyhli/outline.nvim", cond = false, cmd = "Outline", config = true },
   {
     "kevinhwang91/nvim-bqf",
     ft = "qf",
@@ -430,9 +419,6 @@ return {
       },
     },
   },
-  { "nacro90/numb.nvim", event = "CmdlineEnter", config = true },
-  { "HiPhish/rainbow-delimiters.nvim", event = { "BufReadPre", "BufNewFile" } },
-  { "itchyny/vim-highlighturl", event = "ColorScheme" },
   -- }}}
 }
 -- vim:foldmethod=marker

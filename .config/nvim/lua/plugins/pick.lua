@@ -47,11 +47,10 @@ return {
       { "<leader>m",        pk(tb.builtin),                          mode = { "n", "x" } },
       { "<c-l>",            pk(tb.find_files),                       mode = { "n", "x" } },
       { "<leader>j",        pk(tb.live_grep),                        mode = { "n", "x" } },
-      -- TODO: toggle ignore w
-      { "<leader><c-l>",    pk(tb.find_files, { no_ignore = true }), mode = { "n", "x" } },
-      { "<leader>fl",       pk(tb.live_grep, { no_ignore = true }),  mode = { "n", "x" } },
+      -- { "<leader><c-l>",    pk(tb.find_files, { no_ignore = true }), mode = { "n", "x" } },
+      -- { "<leader>fl",       pk(tb.live_grep, { no_ignore = true }),  mode = { "n", "x" } },
       { "<localleader>+",   pn(tb.find_files, { "~", "~/notes" }),   mode = { "n", "x" } },
-      { "<localleader>j",   pn(tb.live_grep, { "~", "~/notes" }),    mode = { "n", "x" } },
+      { "<localleader>_",   pn(tb.live_grep, { "~", "~/notes" }),    mode = { "n", "x" } },
       { "<leader>/",        pk(tb.current_buffer_fuzzy_find),        mode = { "n", "x" } },
       { "<leader>;",        pk(tb.command_history),                  mode = { "n", "x" } },
       { "<leader>fo",       pk(tb.oldfiles),                         mode = { "n", "x" } },
@@ -119,5 +118,10 @@ return {
     keys = { { "<leader>L", "<cmd>TodoTelescope<cr>" } },
     opts = { highlight = { keyword = "bg" } },
   },
-  { "junegunn/fzf.vim", cmd = { "Files" }, dependencies = { "junegunn/fzf", name = "fzf" } },
+  {
+    "junegunn/fzf.vim",
+    cmd = { "Files" },
+    keys = { { "<leader><c-l>", "<cmd>Files<cr>", mode = { "n", "x" } } },
+    dependencies = { "junegunn/fzf", name = "fzf" },
+  },
 }

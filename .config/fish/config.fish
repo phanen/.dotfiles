@@ -1,5 +1,12 @@
 source ~/.config/fish/sh-common.fish
 
+set fisher_path $__fish_user_data_dir/fisher
+set fish_complete_path $fish_complete_path[1] $fisher_path/completions $fish_complete_path[2..]
+set fish_function_path $fish_function_path[1] $fisher_path/functions $fish_function_path[2..]
+for file in $fisher_path/conf.d/*.fish
+  source $file
+end
+
 abbr -a c cargo
 abbr -a cl 'printf "\e[H\e[3J"'
 abbr -a gc git clone
@@ -22,11 +29,11 @@ end
 # TODO: generalized -> predicate and a or b
 function _s
   set -l line (commandline)
-  string match -r '^https?://git(.+)' $line 2>/dev/null 1>&2
-  and eval 'commandline -r ""'
-  and eval 'git clone $line; return'
+  string match -r "^https?://git.+" $line &>/dev/null
+  and commandline -r ""
+  and eval "git clone $line; return"
 
-  string match -r '^gib (.+)' $line 2>/dev/null 1>&2
+  string match -r "^gib (.+)" $line &>/dev/null
   and eval $line
   and nvim +args\ % PKGBUILD riscv64.patch
   and return
@@ -62,8 +69,8 @@ bind \co prevd-or-backward-word
 bind \cq 'if_empty lazygit fish_clipboard_copy'
 bind \cs _s
 bind \ct repeat_cmd
-bind \e\; 'htop'
-bind \ei 'tmux a 2>&1 >/dev/null || tmux 2>&1 >/dev/null || tmux det'
+bind \e\; 'htop'config.fishconfig.fish
+bind \ei 'tmux a &>/dev/null || tmux &>/dev/null || tmux det'
 bind \el clear
 bind \er 'sh2fish.sh && exec fish'
 bind \ew 'fish_key_reader -c'

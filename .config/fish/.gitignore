@@ -1,7 +1,1 @@
-sh-common.fish
 fish_variables
-
-functions
-conf.d
-completions
-themes

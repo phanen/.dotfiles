@@ -1,3 +1,5 @@
+vim.g.markdown_recommended_style = 0
+
 do
   local link_wrap = function(type)
     return function()
