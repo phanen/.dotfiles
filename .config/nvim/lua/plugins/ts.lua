@@ -50,14 +50,9 @@ return {
     end,
   },
   {
-    "nvim-treesitter/playground",
-    cmd = { "TSPlaygroundToggle" },
-    dependencies = { "nvim-treesitter" },
-  },
-  {
     "Wansmer/treesj",
     dependencies = { "nvim-treesitter" },
+    keys = { { "gS", "<cmd>TSJToggle<cr>" } },
     opts = { use_default_keymaps = false },
-    keys = { { "gS", "<Cmd>TSJToggle<CR>", desc = "toggle fuck" } },
   },
 }

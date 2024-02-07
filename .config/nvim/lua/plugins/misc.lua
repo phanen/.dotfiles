@@ -54,25 +54,6 @@ return {
   { "chomosuke/typst-preview.nvim", ft = "typst", build = function() require("typst-preview").update() end },
   { "kaarmu/typst.vim", ft = "typst" },
   {
-    "lervag/vimtex",
-    -- :h :VimtexInverseSearch
-    -- https://github.com/lervag/vimtex/pull/2560
-    lazy = false,
-    ft = "tex",
-    keys = {
-      { "<leader>vc", "<cmd>VimtexCompile<cr>" },
-      { "<leader>vl", "<cmd>VimtexClean<cr>" },
-      { "<leader>vs", "<cmd>VimtexCompileSS<cr>" },
-      { "<leader>vv", "<plug>(vimtex-view)" },
-    },
-    config = function()
-      vim.g.vimtex_view_method = "sioyek"
-      vim.g.tex_flavor = "latex"
-      vim.g.tex_conceal = "abdmgs"
-      vim.g.vimtex_quickfix_mode = 0
-    end,
-  },
-  {
     "3rd/image.nvim",
     ft = { "markdown", "org" },
     config = true,
@@ -84,22 +65,9 @@ return {
   },
   {
     "nvim-orgmode/orgmode",
-    dependencies = { { "nvim-treesitter/nvim-treesitter" } },
+    dependencies = "nvim-treesitter/nvim-treesitter",
     ft = "org",
-    config = function()
-      require("orgmode").setup_ts_grammar()
-      require("nvim-treesitter.configs").setup {
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = { "org" },
-        },
-        ensure_installed = { "org" },
-      }
-      require("orgmode").setup {
-        org_agenda_files = "~/orgfiles/**/*",
-        org_default_notes_file = "~/orgfiles/refile.org",
-      }
-    end,
+    config = true,
   },
   -- }}}
   -- git {{{
@@ -418,6 +386,11 @@ return {
         end,
       },
     },
+  },
+  {
+    "Bekaboo/dropbar.nvim",
+    event = "LspAttach",
+    dependencies = "nvim-telescope/telescope-fzf-native.nvim",
   },
   -- }}}
 }

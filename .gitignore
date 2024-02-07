@@ -3,15 +3,14 @@
 !.bashrc
 !.bin
 !.config/
+!.env
 !.gitignore
 !.gitmodules
+!init.sh
 !.inputrc
-!Makefile
 !.profile
-!README.md
 !.shellrc
 !.xinitrc
 !.Xresources
 !.zprofile
 !.zshrc
-!.env

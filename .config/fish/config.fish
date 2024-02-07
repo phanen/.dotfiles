@@ -9,9 +9,7 @@ end
 
 abbr -a c cargo
 abbr -a cl 'printf "\e[H\e[3J"'
-abbr -a gc git clone
 abbr -a g git
-abbr -a gp git pull
 abbr -a o xdg-open
 abbr -a p 'patch -Np1 -i -'
 abbr -a rm ' rm'
