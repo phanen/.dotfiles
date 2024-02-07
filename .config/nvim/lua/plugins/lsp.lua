@@ -7,7 +7,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       { "williamboman/mason.nvim" },
-      { "folke/neodev.nvim", cond = false, ft = "lua", config = true },
+      { "folke/neodev.nvim", ft = "lua", config = true },
     },
     config = function()
       -- local capabilities = require "capabilities"

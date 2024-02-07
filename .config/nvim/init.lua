@@ -37,7 +37,6 @@ vim.opt.rtp:prepend(path)
 require("lazy").setup {
   spec = {
     { import = "plugins.cmp" },
-    { import = "plugins.dap" },
     { import = "plugins.edit" },
     { import = "plugins.lsp" },
     { import = "plugins.misc" },

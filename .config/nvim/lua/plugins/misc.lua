@@ -307,40 +307,34 @@ return {
   {
     "kawre/leetcode.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },
+    cond = vim.fn.argv()[1] == "leetcode.nvim",
     lazy = vim.fn.argv()[1] ~= "leetcode.nvim",
+    keys = {
+      { "n", "<localleader>a", "<cmd>Leet lang<cr>" },
+      { "n", "<localleader>c", "<cmd>Leet console<cr>" },
+      { "n", "<localleader>d", "<cmd>Leet desc<cr>" },
+      { "n", "<localleader>i", "<cmd>Leet info<cr>" },
+      { "n", "<localleader>l", "<cmd>Leet list<cr>" },
+      { "n", "<localleader>r", "<cmd>Leet run<cr>" },
+      { "n", "<localleader>s", "<cmd>Leet submit<cr>" },
+      { "n", "<localleader>t", "<cmd>Leet tabs<cr>" },
+      { "n", "<localleader>y", "<cmd>Leet yank<cr>" },
+      {
+        "<localleader>o",
+        function()
+          vim.fn.system {
+            "xdg-open",
+            "https://leetcode.cn/problems/" .. vim.fn.expand("%:t:r"):gsub("%d+%.", "", 1) .. "/solutions/",
+          }
+        end,
+      },
+    },
     opts = {
       cn = { enabled = true },
       injector = {
         ["cpp"] = {
           before = { "#include <bits/stdc++.h>", '#include "lib.h"', "using namespace std;" },
           after = "int main() {}",
-        },
-        ["rust"] = {},
-      },
-      hooks = {
-        LeetQuestionNew = {
-          function(q)
-            local m = function(l, r) map("n", l, r, { buffer = q.bufnr }) end
-            m("<localleader>a", "<cmd>Leet lang<cr>")
-            m("<localleader>c", "<cmd>Leet console<cr>")
-            m("<localleader>d", "<cmd>Leet desc<cr>")
-            m("<leader>k", "<cmd>Leet desc<cr>")
-            m("<localleader>i", "<cmd>Leet info<cr>")
-            m("<localleader>l", "<cmd>Leet list<cr>")
-            m("<localleader>r", "<cmd>Leet run<cr>")
-            m("<localleader>s", "<cmd>Leet submit<cr>")
-            m("<localleader>t", "<cmd>Leet tabs<cr>")
-            m("<localleader>y", "<cmd>Leet yank<cr>")
-            m(
-              "<localleader>o",
-              function()
-                vim.fn.system {
-                  "xdg-open",
-                  "https://leetcode.cn/problems/" .. vim.fn.expand("%:t:r"):gsub("%d+%.", "", 1) .. "/solutions/",
-                }
-              end
-            )
-          end,
         },
       },
       storage = { home = "~/c/leetcode" },
@@ -349,7 +343,7 @@ return {
   },
   -- }}}
   -- ui {{{
-  { "stevearc/aerial.nvim", cmd = "AerialToggle", config = true },
+  { "stevearc/aerial.nvim", cmd = "AerialToggle", opts = { keymaps = { ["<C-k>"] = false } } },
   { "HiPhish/rainbow-delimiters.nvim", event = { "BufReadPre", "BufNewFile" } },
   { "itchyny/vim-highlighturl", event = "ColorScheme" },
   {
