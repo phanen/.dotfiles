@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import xml.etree.ElementTree as ET
+import os
 
 
 def create_outline(url):
@@ -26,7 +27,7 @@ def convert_to_opml(file_path, output_path):
     tree.write(output_path, encoding="utf-8", xml_declaration=True)
 
 
-homedir = "/home/phan"
+homedir = os.environ["HOME"]
 input_file = homedir + "/.config/newsboat/urls"
 output_file = homedir + "/priv/rss.opml"
 convert_to_opml(input_file, output_file)
