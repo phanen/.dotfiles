@@ -50,6 +50,12 @@ o("aq", 'a"')
 n("<leader>p", "<cmd>%d _<cr><cmd>norm P<cr>")
 n("<leader>y", "<cmd>%y<cr>")
 n("<leader>cd", "<cmd>cd %:h<cr>")
+n("<leader>cg", function()
+  local root = vim.system({ "git", "rev-parse", "--show-toplevel" }):wait().stdout
+  if root == nil then return end
+  root = vim.trim(root)
+  vim.fn.chdir(root)
+end)
 -- }}}
 -- readline {{{
 map("!", "<c-f>", "<right>")

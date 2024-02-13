@@ -1,5 +1,6 @@
 return {
   -- buf {{{
+  { "famiu/bufdelete.nvim", cmd = "Bdelete" },
   {
     "akinsho/bufferline.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -17,7 +18,6 @@ return {
       },
     },
   },
-  { "famiu/bufdelete.nvim", cmd = "Bdelete" },
   {
     "kwkarlwang/bufjump.nvim",
     keys = {
@@ -27,23 +27,7 @@ return {
   },
   -- }}}
   -- color {{{
-  { "EdenEast/nightfox.nvim" },
-  { "NLKNguyen/papercolor-theme" },
-  { "igorgue/danger" },
-  { "rebelot/kanagawa.nvim" },
-  { "projekt0n/github-nvim-theme" },
   { "folke/tokyonight.nvim" },
-  { "navarasu/onedark.nvim" },
-  { "shaunsingh/nord.nvim" },
-  { "AlexvZyl/nordic.nvim" },
-  { "NTBBloodbath/doom-one.nvim" },
-  { "mswift42/vim-themes" },
-  { "marko-cerovac/material.nvim" },
-  { "dracula/vim", name = "dracula.vim" },
-  { "rose-pine/neovim", name = "rose-pine" },
-  { "catppuccin/nvim", name = "catppuccin" },
-  { "mcchrish/zenbones.nvim", dependencies = "rktjmp/lush.nvim" },
-  -- tools
   { "xiyaowong/transparent.nvim", cmd = "TransparentToggle", config = true },
   { "norcalli/nvim-colorizer.lua", cmd = "ColorizerToggle ", config = true },
   -- }}}
@@ -343,7 +327,7 @@ return {
   },
   -- }}}
   -- ui {{{
-  { "stevearc/aerial.nvim", cmd = "AerialToggle", opts = { keymaps = { ["<C-k>"] = false } } },
+  { "stevearc/aerial.nvim", cmd = "AerialToggle", opts = { keymaps = { ["<C-k>"] = false, ["<C-j>"] = false } } },
   { "HiPhish/rainbow-delimiters.nvim", event = { "BufReadPre", "BufNewFile" } },
   { "itchyny/vim-highlighturl", event = "ColorScheme" },
   {

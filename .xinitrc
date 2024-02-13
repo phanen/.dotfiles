@@ -32,7 +32,9 @@ dunst &
 sxhkd -a Tab &
 input-leaps --disable-crypto --config ~/.config/InputLeap/server.conf &
 while clipnotify; do xclip -o -selection c | cliphist store; done &
+input-leapc --disable-crypto --server arch
 xrandr --auto
+# xrandr -o right
 ~/.bin/xrate-refresh.sh
 
 case $1 in

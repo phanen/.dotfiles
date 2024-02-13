@@ -4,7 +4,6 @@ return {
     "kylechui/nvim-surround",
     keys = { "ys", "yss", "yS", "cs", "ds", { "s", mode = "x" }, { "`", "<Plug>(nvim-surround-visual)`", mode = "x" } },
     opts = {
-      move_cursor = true,
       keymaps = { visual = "s" },
       surrounds = {
         ["j"] = {
@@ -110,25 +109,7 @@ return {
   {
     "stevearc/conform.nvim",
     keys = { { "gw", [[<cmd>lua require("conform").format { lsp_fallback = true }<cr>]] } },
-    opts = {
-      formatters_by_ft = {
-        -- TODO: stylua cannot align
-        -- but lua_ls(EmmyLuaCodeStyle) cannot trailing cooma
-        lua = { "stylua" },
-        python = { "isort", "black" },
-        go = { "gofumpt", "goimports" },
-        html = { "prettier" },
-        css = { "prettier" },
-        less = { "prettier" },
-        scss = { "prettier" },
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescriptreact = { "prettier" },
-        vue = { "prettier" },
-        json = { "prettier" },
-        yaml = { "prettier" },
-      },
-    },
+    -- TODO: stylua -> no align, lua_ls(EmmyLua) -> no trailing comma
+    opts = { formatters_by_ft = { lua = { "stylua" } } },
   },
 }

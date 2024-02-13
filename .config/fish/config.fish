@@ -14,6 +14,7 @@ abbr -a o xdg-open
 abbr -a p 'patch -Np1 -i -'
 abbr -a rm ' rm'
 abbr -a ta 'tmux a || tmux'
+abbr -a h tokei
 abbr -a vb 'VIMRUNTIME=~/b/neovim/runtime NVIM_APPNAME=nvim-test ~/b/neovim/build/bin/nvim'
 abbr -a vv 'VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim'
 
@@ -67,7 +68,7 @@ bind \co prevd-or-backward-word
 bind \cq 'if_empty lazygit fish_clipboard_copy'
 bind \cs _s
 bind \ct repeat_cmd
-bind \e\; 'htop'config.fishconfig.fish
+bind \e\; 'htop'
 bind \ei 'tmux a &>/dev/null || tmux &>/dev/null || tmux det'
 bind \el clear
 bind \er 'sh2fish.sh && exec fish'

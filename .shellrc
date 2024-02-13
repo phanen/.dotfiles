@@ -10,7 +10,6 @@ alias l="eza -la"
 alias lt="eza --tree"
 alias df="df -h"
 alias which="which -a"
-alias cs="cd $XDG_STATE_HOME/nvim/swap/"
 alias rs="exec $SHELL"
 alias tl='tldr'
 alias mx='chmod +x'
@@ -41,69 +40,37 @@ alias psr='pactree -r -slu'
 alias vw='which.sh $VISUAL'
 alias lw='which.sh exa\ -la'
 alias ldw='which.sh ldd'
+alias fw='which.sh file'
 
 alias tp="unset http_proxy https_proxy all_proxy;"
 alias zz="mkdir -p /tmp/tmp; cd /tmp/tmp; paru -G"
 
-alias rb="extra-riscv64-build -- -d $HOME/pkg/:/var/cache/pacman/pkg"
+alias rb="extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg"
 alias rvp="git diff --no-prefix --relative | tail -n +3  > riscv64.patch"
 alias rve="sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U"
 
 alias nvp="git diff | tee ~/.config/nvim/patches/\$(basename \$(pwd)).patch"
 
-add-key() {
-  . ./PKGBUILD
-  for key in "${validpgpkeys[@]}"; do
-    echo "Receiving key ${key}..."
-    gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys "$key" || true
-    gpg --keyserver hkps://keys.openpgp.org --recv-keys "$key" || true
-  done
-}
-
 gib() {
-  cd ~/src || return 1
-  [[ -z $1 ]] && return 1
-  if [[ -d $1 ]]; then
-    fname=$1
-    cd $fname
-  else
-    paru -G $1 || return 1
-    fname=$1
-    cd $fname
-    # add-key
-  fi
-  . ./PKGBUILD
-  echo arch="(${arch[@]})"
-  for s in "${source[@]}"; do
-    echo $s
-  done
-  for s in "${_commit[@]}"; do echo $s
-  done
-  cp ~/archriscv-packages/$fname/*.patch .
-  return 0
+  cd ~/src || return
+  cd $1 && return
+  paru -G $1 || return
+  cd $1
+  cp -v ~/archriscv-packages/$1/*.patch .
 }
 
 pie() {
   cd ~/archriscv-packages || return
   [[ -z $1 ]] && return
-
-  # update patch
-  fname=$1
-  cd ~/src/$fname || return
+  cd ~/src/$1 || return
   git diff --no-prefix --relative | tail -n +3  > riscv64.patch
-  cat riscv64.patch
-  . ./PKGBUILD
-  echo -n "${fname} ${pkgver}-${pkgrel}" | xsel -ib
-
-  # prepare for commit
+  bash -c '. ./PKGBUILD; echo -n $pkgname $pkgver-$pkgrel' | cliphist store
   cd ~/archriscv-packages || return
-  git checkout master
   git pull --ff-only upstream master:master
-  git push
-  git checkout -b $fname || git checkout $fname
-  git rebase master
-  mkdir -p $fname && cd $fname
-  cp ~/src/$fname/*.patch .
+  git push origin master:master
+  git checkout -B $1 master
+  mkdir -p $1 && cd $1
+  cp -v ~/src/$1/*.patch .
   test -s riscv64.patch || rm *.patch
 }
 

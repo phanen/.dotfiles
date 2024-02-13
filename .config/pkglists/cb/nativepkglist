@@ -1,5 +1,6 @@
 acpi
 age
+aircrack-ng
 alacritty
 alsa-utils
 android-file-transfer
@@ -224,7 +225,6 @@ pdfarranger
 pdfgrep
 perl-cgi
 perl-image-exiftool
-picom-git
 pipewire-pulse
 pkgfile
 pkgstats

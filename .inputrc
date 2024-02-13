@@ -74,10 +74,10 @@ $endif
 
 set editing-mode emacs
 
-# switch between vi or emacs
-set keymap emacs
-"\e[": vi-editing-mode
-set keymap vi-insert
-"\e[": emacs-editing-mode
-set keymap vi-command
-"\e[": emacs-editing-mode
+# # switch between vi or emacs
+# set keymap emacs
+# "\e[": vi-editing-mode
+# set keymap vi-insert
+# "\e[": emacs-editing-mode
+# set keymap vi-command
+# "\e[": emacs-editing-mode

@@ -123,11 +123,18 @@ return {
     "zbirenbaum/copilot.lua",
     cond = vim.fn.argv()[1] ~= "leetcode.nvim",
     event = "InsertEnter",
-    dependencies = { "nvim-cmp" },
-    opts = {
-      panel = { layout = { position = "right", ratio = 0.4 } },
-      suggestion = { auto_trigger = true, keymap = { accpet = "<a-s>", accpet_line = "<a-l>", accpet_word = "<a-f>" } },
-    },
+    dependencies = { "hrsh7th/nvim-cmp" },
+    config = function()
+      require("copilot").setup {
+        panel = { layout = { position = "right", ratio = 0.4 } },
+        suggestion = { auto_trigger = true },
+      }
+      map("i", "<a-f>", '<cmd>lua require("copilot.suggestion").accept_word()<cr>')
+      map("i", "<a-l>", '<cmd>lua require("copilot.suggestion").accept_line()<cr>')
+      map("i", "<a-s>", '<cmd>lua require("copilot.suggestion").accept()<cr>')
+      map("i", "<a-n>", '<cmd>lua require("copilot.suggestion").next()<cr>')
+      map("i", "<a-p>", '<cmd>lua require("copilot.suggestion").prev()<cr>')
+    end,
   },
   {
     "jackMort/ChatGPT.nvim",
