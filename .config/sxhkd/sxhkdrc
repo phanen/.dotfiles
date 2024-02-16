@@ -35,6 +35,8 @@ super + ctrl + {h, l}
 super + shift + f
   bspc node -t \~floating
 
+super + r
+  tdrop -y 5% -h 85% -x 10% -w 80% -mta kitty
 super + n
   kitty
 # super + i

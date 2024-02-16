@@ -66,14 +66,6 @@ function repeat_cmd
   commandline -f execute
 end
 
-set -Ux FZF_DEFAULT_OPTS "
-  --layout=reverse
-  --height=90%
-  --prompt='~ ' --pointer='▶' --marker='✓'
-  --multi
-  --bind=';:toggle-preview'
-  --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
-"
 # fish_hybrid_key_bindings
 fish_default_key_bindings
 fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
