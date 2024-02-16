@@ -10,7 +10,6 @@ alias l="eza -la"
 alias lt="eza --tree"
 alias df="df -h"
 alias which="which -a"
-alias rs="exec $SHELL"
 alias tl='tldr'
 alias mx='chmod +x'
 alias rx='chmod -x'
@@ -51,30 +50,5 @@ alias rvp="git diff --no-prefix --relative | tail -n +3  > riscv64.patch"
 alias rve="sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U"
 
 alias nvp="git diff | tee ~/.config/nvim/patches/\$(basename \$(pwd)).patch"
-
-gib() {
-  cd ~/src || return
-  cd $1 && return
-  paru -G $1 || return
-  cd $1
-  cp -v ~/archriscv-packages/$1/*.patch .
-}
-
-pie() {
-  cd ~/archriscv-packages || return
-  [[ -z $1 ]] && return
-  cd ~/src/$1 || return
-  git diff --no-prefix --relative | tail -n +3  > riscv64.patch
-  bash -c '. ./PKGBUILD; echo -n $pkgname $pkgver-$pkgrel' | cliphist store
-  cd ~/archriscv-packages || return
-  git pull --ff-only upstream master:master
-  git push origin master:master
-  git checkout -B $1 master
-  mkdir -p $1 && cd $1
-  cp -v ~/src/$1/*.patch .
-  test -s riscv64.patch || rm *.patch
-}
-
-# vim:foldmethod=marker
 # vim:ft=sh
 

@@ -1,4 +1,4 @@
-source ~/.config/fish/sh-common.fish
+source ~/.shellrc
 
 set fisher_path $__fish_user_data_dir/fisher
 set fish_complete_path $fish_complete_path[1] $fisher_path/completions $fish_complete_path[2..]
@@ -8,15 +8,35 @@ for file in $fisher_path/conf.d/*.fish
 end
 
 abbr -a c cargo
-abbr -a cl 'printf "\e[H\e[3J"'
+abbr -a cl printf "\e[H\e[3J"
 abbr -a g git
-abbr -a o xdg-open
-abbr -a p 'patch -Np1 -i -'
-abbr -a rm ' rm'
-abbr -a ta 'tmux a || tmux'
+abbr -a p patch -Np1 -i -
+abbr -a rm \ rm
+abbr -a ta tmux a || tmux
 abbr -a h tokei
-abbr -a vb 'VIMRUNTIME=~/b/neovim/runtime NVIM_APPNAME=nvim-test ~/b/neovim/build/bin/nvim'
-abbr -a vv 'VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim'
+
+function gib
+  cd ~/src || return
+  cd $argv[1] && return
+  paru -G $argv[1] || return
+  cd $argv[1]
+  cp -v ~/archriscv-packages/$argv[1]/*.patch .
+end
+
+function pie
+  cd ~/archriscv-packages || return
+  test -z $argv[1] && return
+  cd ~/src/$argv[1] || return
+  git diff --no-prefix --relative | tail -n +3 >riscv64.patch
+  bash -c '. ./PKGBUILD; echo -n $pkgname $pkgver-$pkgrel' | cliphist store
+  cd ~/archriscv-packages || return
+  git pull --ff-only upstream master:master
+  git push origin master:master
+  git checkout -B $argv[1] master
+  mkdir -p $argv[1] && cd $argv[1]
+  cp -v ~/src/$argv[1]/*.patch .
+  test -s riscv64.patch || rm *.patch
+end
 
 # FIXME: standard way to redraw fish prompt
 function if_empty
@@ -26,7 +46,7 @@ function if_empty
 end
 
 # TODO: generalized -> predicate and a or b
-function _s
+function ctrl_s
   set -l line (commandline)
   string match -r "^https?://git.+" $line &>/dev/null
   and commandline -r ""
@@ -66,12 +86,12 @@ bind \cj nextd-or-forward-word
 bind \cl kill-bigword
 bind \co prevd-or-backward-word
 bind \cq 'if_empty lazygit fish_clipboard_copy'
-bind \cs _s
+bind \cs ctrl_s
 bind \ct repeat_cmd
 bind \e\; 'htop'
 bind \ei 'tmux a &>/dev/null || tmux &>/dev/null || tmux det'
 bind \el clear
-bind \er 'sh2fish.sh && exec fish'
+bind \er 'exec fish'
 bind \ew 'fish_key_reader -c'
 # TODO: <c-a> in tmux should work as prefix
 # TODO: <c-u> cut job part
