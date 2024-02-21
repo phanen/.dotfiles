@@ -332,9 +332,9 @@ return {
   { "itchyny/vim-highlighturl", event = "ColorScheme" },
   {
     "akinsho/toggleterm.nvim",
-    keys = { [[<c-;>]] },
+    keys = { "<c-\\>" },
     opts = {
-      open_mapping = [[<c-;>]],
+      open_mapping = "<c-\\>",
       direction = "float",
       shell = "/bin/fish",
     },

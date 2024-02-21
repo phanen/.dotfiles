@@ -75,7 +75,7 @@ return {
               ["<c-u>"] = ta.preview_scrolling_up,
               ["<c-d>"] = ta.preview_scrolling_down,
               ["<c-v>"] = false,
-              ["<c-;>"] = tal.toggle_preview,
+              ["<c-\\>"] = tal.toggle_preview,
               ["<c-p>"] = tal.toggle_mirror,
               ["<esc>"] = ta.close,
               ["<c-j>"] = ta.move_selection_next,

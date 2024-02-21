@@ -39,6 +39,14 @@
   _    _    _              _              _    _
 )
 
+(deflayer control
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    \    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _
+)
+
 (deflayer symbol
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   ~    !    ^    #    $    _    _    &    *    +    |    _    _    _
@@ -81,8 +89,9 @@
 (defalias
   za   (tap-hold-next-release 500 z  lalt)
   ;s   (tap-next-press ;      (layer-toggle symbol))
+  \s   (tap-next-press \      (layer-toggle symbol))
   gs   (tap-next grv (around lsft (layer-toggle shift)))
-  ec   (tap-next esc (around lctrl (layer-toggle qwerty)))
+  ec   (tap-next esc (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
   sm   (tap-hold-next-release 500 spc (layer-toggle super))
   tb   (tap-hold-next-release 500 tab (layer-toggle tabular))
 )
