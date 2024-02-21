@@ -4,7 +4,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "+"
 
 _G.map = vim.keymap.set
-
+_G.k = vim.keycode
 _G.req = function(path)
   return setmetatable({}, {
     __index = function(_, k)
@@ -12,7 +12,6 @@ _G.req = function(path)
     end,
   })
 end
-
 _G.getvisual = function()
   local save_a = vim.fn.getreg "a"
   vim.fn.setreg("a", {})

@@ -72,15 +72,18 @@ return {
           layout_config = { horizontal = { height = 0.5, preview_width = 0.55 }, prompt_position = "top" },
           mappings = {
             i = {
+              ["<c-n>"] = require("telescope.actions").cycle_history_next,
+              ["<c-p>"] = require("telescope.actions").cycle_history_prev,
               ["<c-u>"] = ta.preview_scrolling_up,
               ["<c-d>"] = ta.preview_scrolling_down,
               ["<c-v>"] = false,
               ["<c-\\>"] = tal.toggle_preview,
-              ["<c-p>"] = tal.toggle_mirror,
               ["<esc>"] = ta.close,
               ["<c-j>"] = ta.move_selection_next,
               ["<c-k>"] = ta.move_selection_previous,
-              ["<c-n>"] = tal.cycle_layout_next,
+              ["<a-m>"] = tal.toggle_mirror,
+              ["<a-p>"] = tal.cycle_layout_next,
+              ["<a-n>"] = tal.cycle_layout_next,
               ["<c-l>"] = function(_)
                 local entry = tas.get_selected_entry()
                 if entry == nil then return true end

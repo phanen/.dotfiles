@@ -56,13 +56,13 @@ do
   end
 
   local toggle = function()
-    local vstart, vend = vim.fn.getpos(".")[2], vim.fn.getpos("v")[2]
-    if vstart > vend then
-      vstart, vend = vend, vstart
+    local vs, ve = vim.fn.getpos(".")[2], vim.fn.getpos("v")[2]
+    if vs > ve then
+      vs, ve = ve, vs
     end
-    vstart = vstart - 1
-    local lines = vim.api.nvim_buf_get_lines(0, vstart, vend, false)
-    vim.api.nvim_buf_set_lines(0, vstart, vend, false, vim.iter(lines):map(toggle_line):totable())
+    vs = vs - 1
+    local lines = vim.api.nvim_buf_get_lines(0, vs, ve, false)
+    vim.api.nvim_buf_set_lines(0, vs, ve, false, vim.iter(lines):map(toggle_line):totable())
   end
   -- context-aware item creator
   local list_item = function(c)
@@ -79,4 +79,25 @@ do
   map({ "n", "x" }, "<c- >", toggle, { buffer = 0 })
   map("n", "o", list_item "o", { expr = true, buffer = 0 })
   map("n", "O", list_item "O", { expr = true, buffer = 0 })
+end
+
+-- surround codeblock with correct indent
+do
+  local wrap_codeblock = function()
+    local vs, ve = vim.fn.getpos(".")[2], vim.fn.getpos("v")[2]
+    if vs > ve then
+      vs, ve = ve, vs
+    end
+    vs = vs - 1
+    local lines = vim.api.nvim_buf_get_lines(0, vs, ve, false)
+    lines = { "```", unpack(lines) }
+    lines[#lines + 1] = "```"
+    vim.api.nvim_buf_set_lines(0, vs, ve, false, lines)
+
+    vim.api.nvim_feedkeys(k "<esc>", "x", false)
+    vim.api.nvim_win_set_cursor(0, { vs + 1, 3 })
+    vim.api.nvim_feedkeys(k "A", "n", false)
+  end
+
+  map("x", "<c-e>", wrap_codeblock)
 end
