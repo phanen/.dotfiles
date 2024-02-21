@@ -161,6 +161,7 @@ neovim-git
 net-tools
 netease-cloud-music-gtk4
 networkmanager
+ninja
 nmap
 nodejs
 noto-fonts-cjk
@@ -247,7 +248,6 @@ tokei
 traceroute
 translate-shell
 tree
-tree-sitter
 ttf-cascadia-code-nerd
 ttf-dejavu-nerd
 ttf-nerd-fonts-symbols

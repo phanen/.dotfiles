@@ -158,11 +158,10 @@ libva-intel-driver
 libva-utils
 libxft
 libxinerama
-linux-docs
 linux-firmware
-linux-headers
 linux-wifi-hotspot
 linux-zen
+linux-zen-docs
 linux-zen-headers
 lld
 lldb

@@ -1,0 +1,100 @@
+function alias
+  set -l wraps --wraps (string escape -- $argv[2])
+  eval "function $argv[1] $wraps; $argv[2] \$argv; end"
+end
+
+alias l "eza -la"
+alias s "systemctl"
+alias t "type -a"
+alias v nvim
+alias v 'VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim'
+alias df "df -h"
+alias la "eza -a"
+alias ls "eza --color=auto --hyperlink"
+alias lt "eza --tree"
+alias tl tldr
+alias wh which -a
+
+alias pi 'sudo pacman -S'
+alias pd 'sudo pacman -Rns'
+alias pa 'sudo pacman -S --asdeps'
+alias pao 'pacman -Qo'
+alias pfo 'pacman -F'
+alias pai 'pacman -Qi'
+alias psi 'pacman -Si'
+alias pal 'pacman -Ql'
+alias pfl 'pacman -Fl'
+alias pas 'pacman -Qs'
+alias pss 'pacman -Ss'
+alias yss 'paru -Ss'
+alias ysi 'paru -Si'
+alias yi 'paru -S'
+alias pat 'pactree -lu'
+alias par 'pactree -r -lu'
+alias pst 'pactree -slu'
+alias psr 'pactree -r -slu'
+
+alias vw 'which.sh $VISUAL'
+alias lw 'which.sh exa\ -la'
+alias ldw 'which.sh ldd'
+alias fw 'which.sh file'
+alias ltw 'which.sh libtree'
+
+alias f __zoxide_z
+
+function e
+  # https://github.com/fish-shell/fish-shell/issues/3847
+  set -l res (trans zh:en --brief $argv | tr -d "\n")
+  echo -n $res
+  echo -n $res | xsel -ib
+end
+
+function cl
+  if test -n $NVIM
+    # https://github.com/neovim/neovim/issues/21403
+    # https://github.com/neovim/neovim/issues/25245
+    nvim --clean --headless --server $NVIM \
+      --remote-send "<cmd>let scbk = &scbk | let &scbk = 1 | \
+      let &scbk = scbk | unlet scbk<CR>" +'qa!' 2>/dev/null
+    printf '\e[H\e[3J'
+    command clear $argv
+    return
+  end
+  printf \033\[2J\033\[3J\033\[1\;1H
+end
+
+function po --wrap 'pacman -Qo'
+  pacman -Qo $argv || pacman -F $argv
+end
+
+function psi
+  pacman -Qi $argv || pacman -Si $argv
+end
+
+
+abbr -a c cargo
+abbr -a g git
+abbr -a h tokei
+abbr -a k pkill
+abbr -a p patch -Np1 -i -
+abbr -a y paru
+
+abbr -a du dust
+abbr -a em emacs -nw
+abbr -a hf hyperfine --warmup 5
+abbr -a lg lazygit
+abbr -a mx chmod +x
+abbr -a py python
+abbr -a rm \ rm
+abbr -a rx chmod -x
+abbr -a ta tmux a || tmux
+abbr -a vj NVIM_APPNAME=nvim-test nvim
+abbr -a vk VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim
+abbr -a vn nvim -u NONE
+
+abbr -a rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
+abbr -a rvp git diff --no-prefix --relative \| tail -n +3  \> riscv64.patch
+abbr -a rve sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
+abbr -a tp unset http_proxy https_proxy all_proxy;
+
+abbr -a nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
