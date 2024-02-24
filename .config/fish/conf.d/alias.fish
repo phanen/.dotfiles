@@ -1,3 +1,5 @@
+status is-interactive; or exit
+
 function alias
   set -l wraps --wraps (string escape -- $argv[2])
   eval "function $argv[1] $wraps; $argv[2] \$argv; end"
@@ -6,8 +8,11 @@ end
 alias l "eza -la"
 alias s "systemctl"
 alias t "type -a"
-alias v nvim
-alias v 'VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim'
+if test -f ~/b/neovim/build/bin/nvim
+  alias v 'VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim'
+else
+  alias v nvim
+end
 alias df "command df -h"
 alias la "eza -a"
 alias ls "eza --color=auto --hyperlink"
@@ -60,7 +65,6 @@ end
 function psi
   pacman -Qi $argv || pacman -Si $argv
 end
-
 
 abbr -a c cargo
 abbr -a g git

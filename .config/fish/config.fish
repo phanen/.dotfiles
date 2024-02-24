@@ -1,6 +1,15 @@
+status is-interactive; or exit
+
 set fisher_path $__fish_user_data_dir/fisher
 set fish_complete_path $fish_complete_path[1] $fisher_path/completions $fish_complete_path[2..]
 set fish_function_path $fish_function_path[1] $fisher_path/functions $fish_function_path[2..]
+if not functions -q fisher
+  set -l t (mktemp)
+  cp $__fish_config_dir/fish_plugins $t
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+  and fisher update >/dev/null
+  mv $t $__fish_config_dir/fish_plugins
+end
 for file in $fisher_path/conf.d/*.fish
   source $file
 end
@@ -44,7 +53,7 @@ bind \ew 'fish_key_reader -c'
 bind \r k_enter
 bind \x1c "kitty +kitten show_key"
 
-# fish_default_key_bindings
-# fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
+type -q fzf_configure_bindings
+and fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
 # zoxide init --no-cmd fish | source
 # starship init --print-full-init fish | source
