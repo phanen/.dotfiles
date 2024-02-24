@@ -1,6 +1,6 @@
 function k_cs
-  set -l line (commandline)
-  if test -z (string trim $line)
+  set -l line "$(commandline)"
+  if test -z "$(string trim -- $line)"
     v
     return
   end

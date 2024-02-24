@@ -6,13 +6,16 @@ for file in $fisher_path/conf.d/*.fish
 end
 
 function _em
-  test -z "$(string trim $(commandline))"
+  test -z "$(string trim -- $(commandline))"
   and eval "$argv[1]; return"
   or eval $argv[2]
 end
 
-# fish_default_key_bindings
-fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
+function ff --wrap "paru -G"
+  mkdir -p /tmp/tmp
+  cd /tmp/tmp
+  paru -G $argv
+end
 
 function _ea
   test -z "$(commandline)"
@@ -23,7 +26,7 @@ end
 bind \ce k_ce
 bind \cf k_cf
 bind \cg k_cg
-bind \ch '_em "echo;tokei;commandline -f repaint" "_autopair_backspace"'
+bind \ch '_ea "echo;tokei;commandline -f repaint" "_autopair_backspace"'
 bind \cj nextd-or-forward-word
 bind \cl '_em "cl;commandline -f repaint" "commandline -f kill-bigword"'
 bind \co prevd-or-backward-word
@@ -41,4 +44,7 @@ bind \ew 'fish_key_reader -c'
 bind \r k_enter
 bind \x1c "kitty +kitten show_key"
 
-zoxide init --no-cmd fish | source
+# fish_default_key_bindings
+# fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
+# zoxide init --no-cmd fish | source
+# starship init --print-full-init fish | source

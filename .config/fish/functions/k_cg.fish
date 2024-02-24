@@ -1,6 +1,6 @@
 function k_cg
-  set -l line (commandline)
-  if test -z (string trim $line)
+  set -l line "$(commandline)"
+  if test -z "$(string trim -- $line)"
     yazi
   else
     __fish_lookup

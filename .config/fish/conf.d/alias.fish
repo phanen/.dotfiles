@@ -8,7 +8,7 @@ alias s "systemctl"
 alias t "type -a"
 alias v nvim
 alias v 'VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim'
-alias df "df -h"
+alias df "command df -h"
 alias la "eza -a"
 alias ls "eza --color=auto --hyperlink"
 alias lt "eza --tree"
@@ -43,24 +43,14 @@ alias ltw 'which.sh libtree'
 alias f __zoxide_z
 
 function e
+  # https://www.reddit.com/r/bash/comments/13rqfjd/detecting_chinese_characters_using_grep
   # https://github.com/fish-shell/fish-shell/issues/3847
-  set -l res (trans zh:en --brief $argv | tr -d "\n")
-  echo -n $res
-  echo -n $res | xsel -ib
-end
-
-function cl
-  if test -n $NVIM
-    # https://github.com/neovim/neovim/issues/21403
-    # https://github.com/neovim/neovim/issues/25245
-    nvim --clean --headless --server $NVIM \
-      --remote-send "<cmd>let scbk = &scbk | let &scbk = 1 | \
-      let &scbk = scbk | unlet scbk<CR>" +'qa!' 2>/dev/null
-    printf '\e[H\e[3J'
-    command clear $argv
-    return
+  # | tr -d "\n"
+  if echo "$argv" | grep -q -P '\p{Script=Han}'
+    trans zh:en -- "$argv"
+  else
+    trans en:zh -- "$argv"
   end
-  printf \033\[2J\033\[3J\033\[1\;1H
 end
 
 function po --wrap 'pacman -Qo'
@@ -76,6 +66,7 @@ abbr -a c cargo
 abbr -a g git
 abbr -a h tokei
 abbr -a k pkill
+abbr -a o cat
 abbr -a p patch -Np1 -i -
 abbr -a y paru
 
