@@ -176,14 +176,10 @@ return {
         n("h", api.tree.change_root_to_parent, "up")
         n("l", api.node.open.edit, "edit")
         n("o", api.tree.change_root_to_node, "cd")
+        n("<c-p>", require("dirstack").prev)
+        n("<c-n>", require("dirstack").next)
       end,
     },
-  },
-  {
-    "stevearc/oil.nvim",
-    cmd = "Oil",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = true,
   },
   -- }}}
   -- tobj {{{
@@ -276,9 +272,9 @@ return {
     "phanen/dirstack.nvim",
     event = "DirChangedPre",
     keys = {
-      { "<localleader><c-p>", function() require("dirstack").prev() end },
-      { "<localleader><c-n>", function() require("dirstack").next() end },
-      { "<localleader><c-g>", function() require("dirstack").info() end },
+      { "<c-p>", function() require("dirstack").prev() end },
+      { "<c-n>", function() require("dirstack").next() end },
+      { "<c-g>", function() require("dirstack").info() end },
     },
     config = true,
   },

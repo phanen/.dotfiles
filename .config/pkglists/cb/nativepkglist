@@ -69,7 +69,6 @@ egl-wayland
 eglexternalplatform
 emacs
 entr
-esbuild
 evtest
 expac
 extra-cmake-modules-git
@@ -138,6 +137,7 @@ just
 kakoune
 kdiskmark
 keepassxc
+keycloak
 kitty
 kmonad-git
 kubo
@@ -304,6 +304,7 @@ sxiv
 syncthing
 tcpdump
 tdlib
+tdrop-git
 tealdeer
 telegram-desktop
 terminus-font
@@ -322,7 +323,6 @@ ttf-firacode-nerd
 ttf-nerd-fonts-symbols
 ttf-roboto-mono
 typescript
-typora
 typst
 ubuntu-keyring
 unzip
