@@ -1,8 +1,12 @@
-status is-interactive; or exit
-
 set fisher_path $__fish_user_data_dir/fisher
 set fish_complete_path $fish_complete_path[1] $fisher_path/completions $fish_complete_path[2..]
 set fish_function_path $fish_function_path[1] $fisher_path/functions $fish_function_path[2..]
+
+test -f $fisher_path/conf.d/fifc.fish
+and source $fisher_path/conf.d/fifc.fish
+
+status is-interactive; or exit
+
 if not functions -q fisher
   set -l t (mktemp)
   cp $__fish_config_dir/fish_plugins $t
@@ -11,6 +15,7 @@ if not functions -q fisher
   mv $t $__fish_config_dir/fish_plugins
 end
 for file in $fisher_path/conf.d/*.fish
+  test $file = $fisher_path/conf.d/fifc.fish; and continue
   source $file
 end
 
@@ -51,6 +56,7 @@ bind \el clear-screen
 bind \er 'exec fish'
 bind \ew 'fish_key_reader -c'
 bind \r k_enter
+bind \t _fifc
 bind \x1c "kitty +kitten show_key"
 
 type -q fzf_configure_bindings
