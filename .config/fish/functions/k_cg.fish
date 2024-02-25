@@ -2,6 +2,7 @@ function k_cg
   set -l line "$(commandline)"
   if test -z "$(string trim -- $line)"
     yazi
+    commandline -f repaint
   else
     __fish_lookup
   end
@@ -33,8 +34,10 @@ function __fish_lookup
     tldr "$maincmd-$args[2]"
   else
     if tldr "$maincmd" &>/dev/null
+      echo
       tldr "$maincmd"
     else if type -q "$maincmd"
+      echo
       type -a "$maincmd"
     else
       printf \a

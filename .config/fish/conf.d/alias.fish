@@ -5,7 +5,7 @@ function alias
   eval "function $argv[1] $wraps; $argv[2] \$argv; end"
 end
 
-alias l "eza -la"
+alias l "eza -a1"
 alias s "systemctl"
 alias t "type -a"
 if test -f ~/b/neovim/build/bin/nvim
@@ -18,6 +18,8 @@ alias la "eza -a"
 alias ls "eza --color=auto --hyperlink"
 alias lt "eza --tree"
 alias tl tldr
+alias vn "nvim -u NONE"
+alias fn "fish --no-config"
 alias wh which -a
 
 alias pi 'sudo pacman -S'
@@ -80,12 +82,11 @@ abbr -a hf hyperfine --warmup 5
 abbr -a lg lazygit
 abbr -a mx chmod +x
 abbr -a py python
-abbr -a rm \ rm
+# abbr -a rm \ rm
 abbr -a rx chmod -x
 abbr -a ta tmux a || tmux
 abbr -a vj NVIM_APPNAME=nvim-test nvim
 abbr -a vk VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim
-abbr -a vn nvim -u NONE
 
 abbr -a rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
 abbr -a rvp git diff --no-prefix --relative \| tail -n +3  \> riscv64.patch

@@ -250,6 +250,7 @@ tokei
 traceroute
 translate-shell
 tree
+tree-sitter-cli
 ttf-cascadia-code-nerd
 ttf-dejavu-nerd
 ttf-nerd-fonts-symbols

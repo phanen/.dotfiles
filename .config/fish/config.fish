@@ -56,8 +56,8 @@ bind \el clear-screen
 bind \er 'exec fish'
 bind \ew 'fish_key_reader -c'
 bind \r k_enter
-bind \t _fifc
-bind \x1c "kitty +kitten show_key"
+bind \t 'SHELL=fish _fifc'
+bind \x1c "exec fish"
 
 type -q fzf_configure_bindings
 and fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr

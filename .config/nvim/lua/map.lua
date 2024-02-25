@@ -1,8 +1,8 @@
 local n = function(...) map("n", ...) end
 local x = function(...) map("x", ...) end
 local t = function(...) map("t", ...) end
-local o = function(...) map("o", ...) end
 local e = function(...) map({ "n", "x" }, ...) end
+local b = function(...) map({ "o", "x" }, ...) end
 
 -- basics {{{
 e("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
@@ -42,10 +42,10 @@ local toggle_qf = function()
 end
 n("<leader>q", toggle_qf)
 
-x("iq", 'i"')
-o("iq", 'i"')
-x("aq", 'a"')
-o("aq", 'a"')
+b("iq", 'i"')
+b("aq", 'a"')
+b("in", "iB")
+b("an", "aB")
 
 n("<leader>p", "<cmd>%d _<cr><cmd>norm P<cr>")
 n("<leader>y", "<cmd>%y<cr>")
@@ -134,7 +134,11 @@ n("<leader>cl", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]])
 x("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]])
 
 n("<leader>E", "<cmd>e ~/priv/todo.md<cr>")
-n("<leader>e", "<cmd>e ~/priv/" .. vim.trim(vim.fn.system "date +%m-%d", "\n") .. ".md<cr>")
+n(
+  "<leader>e",
+  function() return "<cmd>e ~/priv/" .. vim.trim(vim.fn.system "date +%m-%d", "\n") .. ".md<cr>" end,
+  { expr = true }
+)
 n("<leader>cx", "<cmd>!chmod +x %<cr>")
 -- }}}
 -- tobj {{{

@@ -57,8 +57,8 @@ return {
           ["<tab>"] = m {
             i = function(fb)
               if cmp.visible() and cmp.get_selected_entry() then return cmp.confirm() end
-              if ls.jumpable() then return ls.jump(1) end
-              -- if ls.expandable() then return ls.expand() end
+              if ls.jumpable(1) then return ls.jump(1) end
+              if ls.expandable() then return ls.expand() end
               return fb()
             end,
             c = m.select_next_item(),
@@ -130,7 +130,7 @@ return {
         suggestion = { auto_trigger = true },
       }
       map("i", "<a-f>", '<cmd>lua require("copilot.suggestion").accept_word()<cr>')
-      map("i", "<a-l>", '<cmd>lua require("copilot.suggestion").accept_line()<cr>')
+      map("i", "<a-e>", '<cmd>lua require("copilot.suggestion").accept_line()<cr>')
       map("i", "<a-s>", '<cmd>lua require("copilot.suggestion").accept()<cr>')
       map("i", "<a-n>", '<cmd>lua require("copilot.suggestion").next()<cr>')
       map("i", "<a-p>", '<cmd>lua require("copilot.suggestion").prev()<cr>')

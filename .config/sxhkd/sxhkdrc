@@ -35,17 +35,20 @@ super + ctrl + {h, l}
 super + shift + f
   bspc node -t \~floating
 
+super + n
+  tdrop -y 5% -h 85% -x 5% -w 90% -mta kitty
 super + apostrophe
   tdrop -y 5% -h 85% -x 5% -w 90% -mta kitty
 ctrl + apostrophe
   tdrop -y 5% -h 85% -x 5% -w 90% -mta kitty
 
-super + n
-  kitty
+# super + n
+#   kitty
+#   echo "$(bspc query -N -n .window -d focused | grep -n $(bspc query -N -n) | cut -f1 -d:)/$(bspc query -N -n .window -d focused | wc -l)"
 # super + i
 # wezterm cli spawn
 super + c
-  alacritty
+  kitty
 super + semicolon
   rofi -show drun -matching fuzzy
 super + p
@@ -54,7 +57,9 @@ super + p
 super + x
   xsel -ob | $HOME/.bin/scripts/url-bookmark.sh $XDG_CONFIG_HOME/newsboat/urls
 super + v
-  (xsel -ob; echo) >> "$HOME/priv/$(date +%m-%d).md"
+  (rofi -dmenu) >> "$HOME/priv/$(date +%m-%d).md"
+super + b
+  cat "$HOME/priv/$(date +%m-%d).md" | rofi -dmenu
 super + Tab
   darkman toggle
 super + ctrl + t
