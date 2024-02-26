@@ -178,6 +178,7 @@ return {
         n("o", api.tree.change_root_to_node, "cd")
         n("<c-p>", require("dirstack").prev)
         n("<c-n>", require("dirstack").next)
+        n("<c-e>", "")
       end,
     },
   },
@@ -302,10 +303,7 @@ return {
       {
         "<localleader>o",
         function()
-          vim.fn.system {
-            "xdg-open",
-            "https://leetcode.cn/problems/" .. vim.fn.expand("%:t:r"):gsub("%d+%.", "", 1) .. "/solutions/",
-          }
+          vim.ui.open("https://leetcode.cn/problems/" .. vim.fn.expand("%:t:r"):gsub("%d+%.", "", 1) .. "/solutions/")
         end,
       },
     },

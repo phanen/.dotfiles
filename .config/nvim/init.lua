@@ -12,15 +12,6 @@ _G.req = function(path)
     end,
   })
 end
-_G.getvisual = function()
-  local save_a = vim.fn.getreg "a"
-  vim.fn.setreg("a", {})
-  -- do nothing in normal mode
-  vim.cmd [[noau normal! "ay\<esc\>]]
-  local sel_text = vim.fn.getreg "a"
-  vim.fn.setreg("a", save_a)
-  return sel_text
-end
 
 require "opt"
 require "map"

@@ -54,6 +54,12 @@ return {
     config = true,
   },
   {
+    "altermo/ultimate-autopair.nvim",
+    event = { "InsertEnter", "CmdlineEnter" },
+    cond = false,
+    opts = { cmap = false },
+  },
+  {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     dependencies = { "hrsh7th/nvim-cmp" },

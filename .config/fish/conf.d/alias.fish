@@ -8,11 +8,6 @@ end
 alias l "eza -a1"
 alias s "systemctl"
 alias t "type -a"
-if test -f ~/b/neovim/build/bin/nvim
-  alias v 'VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim'
-else
-  alias v nvim
-end
 alias df "command df -h"
 alias la "eza -a"
 alias ls "eza --color=auto --hyperlink"
@@ -60,6 +55,14 @@ function e
   end
 end
 
+function v
+  if test -f ~/b/neovim/build/bin/nvim
+    VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim $argv
+  else
+    nvim $argv
+  end
+end
+
 function po --wrap 'pacman -Qo'
   pacman -Qo $argv || pacman -F $argv
 end
@@ -78,11 +81,14 @@ abbr -a y paru
 
 abbr -a du dust
 abbr -a em emacs -nw
+abbr -a fe funced
+abbr -a fs funcsave
+abbr -a gb gh browse
+abbr -a gr git remote -v
 abbr -a hf hyperfine --warmup 5
 abbr -a lg lazygit
 abbr -a mx chmod +x
 abbr -a py python
-# abbr -a rm \ rm
 abbr -a rx chmod -x
 abbr -a ta tmux a || tmux
 abbr -a vj NVIM_APPNAME=nvim-test nvim
@@ -94,3 +100,4 @@ abbr -a rve sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
 abbr -a tp unset http_proxy https_proxy all_proxy;
 
 abbr -a nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
+abbr -a pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub)'

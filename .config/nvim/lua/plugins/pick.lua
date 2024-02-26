@@ -1,5 +1,7 @@
 local tb = req "telescope.builtin"
 
+local getvisual = function() return vim.fn.getregion(".", "v", vim.fn.mode())[1] or "" end
+
 -- picker with extended options
 local pk = function(picker, opts)
   return function()
