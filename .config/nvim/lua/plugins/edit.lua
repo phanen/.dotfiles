@@ -102,6 +102,11 @@ return {
     "stevearc/conform.nvim",
     keys = { { "gw", [[<cmd>lua require("conform").format { lsp_fallback = true }<cr>]] } },
     -- TODO: stylua -> no align, lua_ls(EmmyLua) -> no trailing comma
-    opts = { formatters_by_ft = { lua = { "stylua" } } },
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "isort", "black" },
+      },
+    },
   },
 }

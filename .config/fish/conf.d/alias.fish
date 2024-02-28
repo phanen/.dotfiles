@@ -71,12 +71,21 @@ function psi
   pacman -Qi $argv || pacman -Si $argv
 end
 
+function __make_or_just
+  if command -q just; and string match -iqr -- "justfile" (pwd)/*
+    echo "just"
+  else
+    echo "make"
+  end
+end
+
 abbr -a c cargo
 abbr -a g git
 abbr -a h tokei
+abbr -a j --function __make_or_just
 abbr -a k pkill
 abbr -a o cat
-abbr -a p patch -Np1 -i -
+abbr -a p python
 abbr -a y paru
 
 abbr -a du dust
@@ -88,7 +97,6 @@ abbr -a gr git remote -v
 abbr -a hf hyperfine --warmup 5
 abbr -a lg lazygit
 abbr -a mx chmod +x
-abbr -a py python
 abbr -a rx chmod -x
 abbr -a ta tmux a || tmux
 abbr -a vj NVIM_APPNAME=nvim-test nvim
@@ -98,6 +106,7 @@ abbr -a rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
 abbr -a rvp git diff --no-prefix --relative \| tail -n +3  \> riscv64.patch
 abbr -a rve sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
 abbr -a tp unset http_proxy https_proxy all_proxy;
+abbr -a pat patch -Np1 -i -
 
 abbr -a nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
 abbr -a pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub)'
