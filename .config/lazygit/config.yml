@@ -3,3 +3,5 @@ git:
     colorArg: always
     useConfig: true
 promptToReturnFromSubprocess: false
+os:
+  edit: 'command -v ~/b/neovim/build/bin/nvim && (VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim; true;) || nvim'

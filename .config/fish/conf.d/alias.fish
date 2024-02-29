@@ -82,6 +82,7 @@ end
 abbr -a c cargo
 abbr -a g git
 abbr -a h tokei
+abbr -a i ipython
 abbr -a j --function __make_or_just
 abbr -a k pkill
 abbr -a o cat
