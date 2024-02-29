@@ -1,34 +1,11 @@
-local tb = req "telescope.builtin"
-
-local getvisual = function() return vim.fn.getregion(".", "v", vim.fn.mode())[1] or "" end
-
--- picker with extended options
 local pk = function(picker, opts)
   return function()
-    local default = { previewer = picker == tb.live_grep, default_text = getvisual():gsub("\n", "") }
-    picker(vim.tbl_deep_extend("force", default, opts or {}))
+    local default = { previewer = picker == "live_grep", default_text = getvisual() }
+    require("telescope.builtin")[picker](vim.tbl_deep_extend("force", default, opts or {}))
   end
 end
 
-local node_path_dir = function()
-  local node = require("nvim-tree.api").tree.get_node_under_cursor()
-  if not node then return end
-  if node.parent and node.type == "file" then return node.parent.absolute_path end
-  return node.absolute_path
-end
--- picker on dir, prefer node path
-local pn = function(picker, dirs)
-  return function()
-    local ndir = nil
-    local ft = vim.api.nvim_get_option_value("filetype", {})
-    if ft == "NvimTree" then ndir = node_path_dir() end
-    picker {
-      search_dirs = ndir and { ndir } or dirs,
-      previewer = picker == tb.live_grep,
-      default_text = getvisual():gsub("\n", ""),
-    }
-  end
-end
+local d = { "~", "~/notes" }
 
 return {
   {
@@ -45,23 +22,21 @@ return {
     cmd = "Telescope",
     -- stylua: ignore
     keys = {
-      { "<leader><leader>", tb.resume,                               mode = { "n", "x" } },
-      { "<leader>m",        pk(tb.builtin),                          mode = { "n", "x" } },
-      { "<c-l>",            pk(tb.find_files),                       mode = { "n", "x" } },
-      { "<leader>j",        pk(tb.live_grep),                        mode = { "n", "x" } },
-      -- { "<leader><c-l>",    pk(tb.find_files, { no_ignore = true }), mode = { "n", "x" } },
-      -- { "<leader>fl",       pk(tb.live_grep, { no_ignore = true }),  mode = { "n", "x" } },
-      { "<localleader>+",   pn(tb.find_files, { "~", "~/notes" }),   mode = { "n", "x" } },
-      { "<localleader>_",   pn(tb.live_grep, { "~", "~/notes" }),    mode = { "n", "x" } },
-      { "<leader>/",        pk(tb.current_buffer_fuzzy_find),        mode = { "n", "x" } },
-      { "<leader>;",        pk(tb.command_history),                  mode = { "n", "x" } },
-      { "<leader>fo",       pk(tb.oldfiles),                         mode = { "n", "x" } },
-      { "<leader>fh",       pk(tb.help_tags),                        mode = { "n", "x" } },
-      { "<leader>fs",       pk(tb.lsp_document_symbols),             mode = { "n", "x" } },
-      { "<leader>fg",       pk(tb.git_status),                       mode = { "n", "x" } },
-      { "<leader>fc",       pk(tb.git_commits),                      mode = { "n", "x" } },
-      { "<leader>f<tab>",   pk(tb.colorscheme),                      mode = { "n", "x" } },
-      { "qj",               pk(tb.spell_suggest),                    mode = { "n", "x" } },
+      { "<leader><leader>", pk("resume"),                           mode = { "n", "x" } },
+      { "<leader>m",        pk("builtin"),                          mode = { "n", "x" } },
+      { "<c-l>",            pk("find_files"),                       mode = { "n", "x" } },
+      { "<leader>j",        pk("live_grep"),                        mode = { "n", "x" } },
+      { "<localleader>+",   pk("find_files", { search_dirs = d }),  mode = { "n", "x" } },
+      { "<localleader>_",   pk("live_grep", { search_dirs = d }),   mode = { "n", "x" } },
+      { "<leader>/",        pk("current_buffer_fuzzy_find"),        mode = { "n", "x" } },
+      { "<leader>;",        pk("command_history"),                  mode = { "n", "x" } },
+      { "<leader>fo",       pk("oldfiles"),                         mode = { "n", "x" } },
+      { "<leader>fh",       pk("help_tags"),                        mode = { "n", "x" } },
+      { "<leader>fs",       pk("lsp_document_symbols"),             mode = { "n", "x" } },
+      { "<leader>fg",       pk("git_status"),                       mode = { "n", "x" } },
+      { "<leader>fc",       pk("git_commits"),                      mode = { "n", "x" } },
+      { "<leader>f<tab>",   pk("colorscheme"),                      mode = { "n", "x" } },
+      { "qj",               pk("spell_suggest"),                    mode = { "n", "x" } },
     },
     config = function()
       local ta = require "telescope.actions"
@@ -128,5 +103,34 @@ return {
     cmd = { "Files" },
     keys = { { "<leader><c-l>", "<cmd>Files<cr>", mode = { "n", "x" } } },
     dependencies = { "junegunn/fzf", name = "fzf" },
+  },
+  {
+    "ibhagwan/fzf-lua",
+    cmd = { "FzfLua" },
+    opts = {
+      winopts = {
+        preview = {
+          border = "noborder",
+          delay = 0,
+          hidden = "hidden",
+          horizontal = "right:55%",
+          scrollbar = false,
+        },
+        height = 0.5,
+        width = 0.8,
+        row = 0.45,
+        col = 0.5,
+      },
+    },
+    keys = {
+      { "<leader>ff", function() require("fzf-lua").files() end, desc = "Files" },
+      { "<leader>fb", function() require("fzf-lua").buffers() end, desc = "Buffers" },
+      { "<leader>fh", function() require("fzf-lua").help_tags() end, desc = "Help tags" },
+      { "<leader>fo", function() require("fzf-lua").oldfiles() end, desc = "Old files" },
+      { "<leader>fs", function() require("fzf-lua").lsp_document_symbols() end, desc = "Symbols" },
+      { "<leader>fS", function() require("fzf-lua").lsp_workspace_symbols() end, desc = "Symbols" },
+      { "<leader>fc", function() require("fzf-lua").colorschemes() end, desc = "Colorscheme" },
+      { "<leader>fg", function() require("fzf-lua").live_grep_native() end, desc = "Live grep" },
+    },
   },
 }

@@ -173,12 +173,32 @@ return {
         local api = require "nvim-tree.api"
         api.config.mappings.default_on_attach(bufnr)
         local n = function(lhs, rhs, desc) return map("n", lhs, rhs, { desc = desc, buffer = bufnr }) end
+
+        local node_path_dir = function()
+          local node = require("nvim-tree.api").tree.get_node_under_cursor()
+          if not node then return end
+          if node.parent and node.type == "file" then return node.parent.absolute_path end
+          return node.absolute_path
+        end
+        -- picker on dir, prefer node path
+        local pn = function(picker, dirs)
+          return function()
+            local ndir = nil
+            local ft = vim.api.nvim_get_option_value("filetype", {})
+            if ft == "NvimTree" then ndir = node_path_dir() end
+            require("telescope.builtin")[picker] {
+              search_dirs = ndir and { ndir } or dirs,
+              previewer = picker == "live_grep",
+            }
+          end
+        end
         n("h", api.tree.change_root_to_parent, "up")
         n("l", api.node.open.edit, "edit")
         n("o", api.tree.change_root_to_node, "cd")
         n("<c-p>", require("dirstack").prev)
         n("<c-n>", require("dirstack").next)
-        n("<c-e>", "")
+        n("<c-e>", pn "live_grep")
+        n("<c-f>", pn "find_files")
       end,
     },
   },
