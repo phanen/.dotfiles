@@ -6,7 +6,8 @@ function cl
       --remote-send "<cmd>let scbk = &scbk | let &scbk = 0 | \
       let &scbk = scbk | unlet scbk<CR>" +'qa!' 2>/dev/null
     printf '\e[H\e[3J'
-    command clear $argv
+    printf '\e[2J\e[3J\e[1;1H'
+    # command clear $argv
     return
   end
   printf \033\[2J\033\[3J\033\[1\;1H
