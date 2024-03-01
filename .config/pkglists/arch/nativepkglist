@@ -55,6 +55,7 @@ efibootmgr
 egl-wayland
 eglexternalplatform
 emacs
+evince
 evtest
 expac
 eza
@@ -227,6 +228,7 @@ sd
 sed
 setconf
 showmethekey
+skim
 slock
 speedtest-cli
 starship

@@ -20,51 +20,61 @@ local link_wrap = function(type)
 end
 
 -- toggle checkbox/list
-local item_pattern = {
-  ["-"] = "%-",
-  ["+"] = "%+",
-  ["*"] = "%*",
-  ["="] = "%=",
-}
-
-local items = { "%-", "%+", "%*", "%=", "%d+%." }
 local C = "%[x%]"
 local E = "%[ %]"
+local ITEMS = { "%-", "%+", "%*", "%=", "%d+%." }
+
 local has_box = function(line, box)
-  return vim.iter(items):any(function(i) return line:find("^%s*" .. i .. " " .. box) end)
+  return vim.iter(ITEMS):any(function(i) return line:find("^%s*" .. i .. " " .. box) end)
 end
 
 local make_box = function(line)
-  local ok
-  for _, i in ipairs(items) do
-    line, ok = line:gsub("^(%s*" .. i .. "%s)(.*)", "%1[ ] %2", 1)
-    if ok == 1 then return line end
+  for _, i in ipairs(ITEMS) do
+    local new_line, ok = line:gsub("^(%s*" .. i .. "%s)(.*)", "%1[ ] %2", 1)
+    if ok == 1 then return new_line end
   end
-  return ({ line:gsub("(%S*)", "* %1", 1) })[1]
+  local new_line = line:gsub("(%S*)", "* %1", 1)
+  return new_line
 end
 
 local toggle_line = function(line)
   if line == "" then return "* " end
-  if has_box(line, C) then return ({ line:gsub(C, E, 1) })[1] end
-  if has_box(line, E) then return ({ line:gsub(E, C, 1) })[1] end
+  if has_box(line, C) then
+    local new_line = line:gsub(C, E, 1)
+    return new_line
+  end
+  if has_box(line, E) then
+    local new_line = line:gsub(E, C, 1)
+    return new_line
+  end
   return make_box(line)
 end
 
-local toggle = function()
+local getvpos = function()
   local vs, ve = vim.fn.getpos(".")[2], vim.fn.getpos("v")[2]
   if vs > ve then
     vs, ve = ve, vs
   end
-  vs = vs - 1
+  return vs - 1, ve
+end
+
+local toggle = function()
+  local vs, ve = getvpos()
   local lines = vim.api.nvim_buf_get_lines(0, vs, ve, false)
   vim.api.nvim_buf_set_lines(0, vs, ve, false, vim.iter(lines):map(toggle_line):totable())
 end
+
 -- context-aware item creator
 local list_item = function(c)
   return function()
     local row = vim.api.nvim_win_get_cursor(0)[1]
     local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
-    for it, pat in pairs(item_pattern) do
+    for it, pat in pairs {
+      ["-"] = "%-",
+      ["+"] = "%+",
+      ["*"] = "%*",
+      ["="] = "%=",
+    } do
       if line:find("^%s*" .. pat .. " %[ %]") then return c .. it .. " [ ] " end
       if line:find("^%s*" .. pat .. " ") then return c .. it .. " " end
     end
@@ -91,7 +101,7 @@ end
 
 local au = vim.api.nvim_create_autocmd
 au("Filetype", {
-  pattern = { "markdown" },
+  pattern = { "markdown", "typst" },
   callback = function()
     map({ "n", "x" }, "<c- >", toggle, { buffer = 0 })
     map("n", "o", list_item "o", { expr = true, buffer = 0 })

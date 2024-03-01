@@ -1,6 +1,6 @@
 local pk = function(picker, opts)
   return function()
-    local default = { previewer = picker == "live_grep", default_text = getvisual() }
+    local default = { previewer = picker == "live_grep", default_text = table.concat(getvisual()) }
     require("telescope.builtin")[picker](vim.tbl_deep_extend("force", default, opts or {}))
   end
 end
@@ -33,6 +33,7 @@ return {
       { "<leader>fo",       pk("oldfiles"),                         mode = { "n", "x" } },
       { "<leader>fh",       pk("help_tags"),                        mode = { "n", "x" } },
       { "<leader>fs",       pk("lsp_document_symbols"),             mode = { "n", "x" } },
+      { "<leader>fS",       pk("lsp_workspace_symbols"),             mode = { "n", "x" } },
       { "<leader>fg",       pk("git_status"),                       mode = { "n", "x" } },
       { "<leader>fc",       pk("git_commits"),                      mode = { "n", "x" } },
       { "<leader>f<tab>",   pk("colorscheme"),                      mode = { "n", "x" } },
@@ -122,6 +123,7 @@ return {
         col = 0.5,
       },
     },
+    cond = false,
     keys = {
       { "<leader>ff", function() require("fzf-lua").files() end, desc = "Files" },
       { "<leader>fb", function() require("fzf-lua").buffers() end, desc = "Buffers" },

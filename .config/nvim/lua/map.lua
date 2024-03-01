@@ -47,9 +47,10 @@ b("aq", 'a"')
 b("in", "iB")
 b("an", "aB")
 
-n("<leader>p", "<cmd>%d _<cr><cmd>norm P<cr>")
+n("<leader>p", "<cmd>%d _ | norm P<cr>")
 n("<leader>y", "<cmd>%y<cr>")
 n("<leader>cd", "<cmd>cd %:h<cr>")
+n("<leader>cy", function() os.execute(string.format("echo -n %s | xsel -ib", vim.fn.expand "%")) end)
 n("<leader>cg", function()
   local root = vim.system({ "git", "rev-parse", "--show-toplevel" }):wait().stdout
   if root == nil then return end
@@ -113,7 +114,7 @@ n("<leader>wy", "<cmd>Mason<cr>")
 n("<leader>oc", "<cmd>set cursorline! cursorcolumn!<cr>")
 n("<leader>of", "<cmd>set foldenable!<cr>")
 n("<leader>os", "<cmd>set spell!<cr>")
-n("<leader>ow", "<cmd>set wrap!]]")
+n("<leader>ow", "<cmd>set wrap!<cr>")
 -- }}}
 -- diagnostic {{{
 n("[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
@@ -136,7 +137,7 @@ x("<leader>cw", [["zy:%s/<c-r><c-o>"//g<left><left>]])
 n("<leader>E", "<cmd>e ~/priv/todo.md<cr>")
 n(
   "<leader>e",
-  function() return "<cmd>e ~/priv/" .. vim.trim(vim.fn.system "date +%m-%d", "\n") .. ".md<cr>" end,
+  function() return string.format("<cmd>e ~/priv/%s.md<cr>", vim.trim(vim.fn.system "date +%m-%d")) end,
   { expr = true }
 )
 n("<leader>cx", "<cmd>!chmod +x %<cr>")

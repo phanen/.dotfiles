@@ -11,6 +11,8 @@ return {
     },
     opts = {
       options = {
+        show_buffer_close_icons = false,
+        hover = { enabled = false },
         offsets = {
           { filetype = "NvimTree", text = function() return vim.fn.getcwd() end, text_align = "left" },
           { filetype = "undotree", text = "UNDOTREE", text_align = "left" },
@@ -25,11 +27,6 @@ return {
       { "<leader><c-i>", "<cmd>lua require('bufjump').forward()<cr>" },
     },
   },
-  -- }}}
-  -- color {{{
-  { "folke/tokyonight.nvim" },
-  { "xiyaowong/transparent.nvim", cmd = "TransparentToggle", config = true },
-  { "norcalli/nvim-colorizer.lua", cmd = "ColorizerToggle ", config = true },
   -- }}}
   -- doc {{{
   { "hotoo/pangu.vim", cmd = "Pangu", ft = "markdown" },
@@ -226,20 +223,19 @@ return {
   -- }}}
   -- tool {{{
   { "folke/lazy.nvim" },
+  { "folke/tokyonight.nvim" },
   -- FIXME: register _d, cannot set timeoutlen = 0
   { "folke/which-key.nvim", event = "VeryLazy", opts = { plugins = { spelling = { enabled = false } } } },
   { "voldikss/vim-translator", cmd = "Translate", keys = { { "gk", ":Translate<cr>", mode = { "n", "x" } } } },
-  { "AndrewRadev/linediff.vim", cmd = "Linediff" },
+  { "AndrewRadev/linediff.vim", cmd = "Linediff", keys = { { mode = "x", "<leader>dl", ":Linediff<cr>" } } },
   { "lilydjwg/fcitx.vim", event = "InsertEnter" },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
   { "mikesmithgh/kitty-scrollback.nvim" },
+  { "polirritmico/lazy-local-patcher.nvim", ft = "lazy", config = true },
   {
-    "polirritmico/lazy-local-patcher.nvim",
-    ft = "lazy",
-    config = true,
-  },
-  {
-    "chrishrb/gx.nvim",
+    -- TODO: upstream
+    "sportshead/gx.nvim",
+    branch = "git-handler",
     cmd = "Browse",
     keys = { { "gl", "<cmd>Browse<cr>", mode = { "n", "x" } } },
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -271,8 +267,8 @@ return {
   {
     "kevinhwang91/nvim-hlslens",
     keys = {
-      { "n", [[<cmd>execute('normal! ' . v:count1 . 'n')<cr><cmd>lua require('hlslens').start()<cr>zz]] },
-      { "N", [[<cmd>execute('normal! ' . v:count1 . 'N')<cr><cmd>lua require('hlslens').start()<cr>zz]] },
+      { "n", [[<cmd>execute('normal! ' . v:count1 . 'n') | lua require('hlslens').start()<cr>zz]] },
+      { "N", [[<cmd>execute('normal! ' . v:count1 . 'N') | lua require('hlslens').start()<cr>zz]] },
       { "*", [[*<cmd>lua require('hlslens').start()<cr>]], { remap = true } },
       { "#", [[#<cmd>lua require('hlslens').start()<cr>]] },
       { "g*", [[g*<cmd>lua require('hlslens').start()<cr>]] },
@@ -282,8 +278,7 @@ return {
         function()
           vim.cmd.noh()
           require("hlslens").stop()
-          -- vim.api.nvim_feedkeys(vim.keycode "<esc>", "n", false)
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", false)
+          vim.api.nvim_feedkeys(k "<esc>", "n", false)
         end,
       },
     },
@@ -343,26 +338,12 @@ return {
   -- ui {{{
   { "stevearc/aerial.nvim", cmd = "AerialToggle", opts = { keymaps = { ["<C-k>"] = false, ["<C-j>"] = false } } },
   { "HiPhish/rainbow-delimiters.nvim", event = { "BufReadPre", "BufNewFile" } },
+  -- https://github.com/neovim/neovim/pull/27132
   { "itchyny/vim-highlighturl", event = "ColorScheme" },
   {
     "akinsho/toggleterm.nvim",
     keys = { "<c-\\>" },
-    opts = {
-      open_mapping = "<c-\\>",
-      direction = "float",
-      shell = "/bin/fish",
-    },
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      options = { component_separators = "|", section_separators = "" },
-      sections = {
-        lualine_a = { { "mode", fmt = function(str) return str:sub(1, 1) end } },
-        lualine_c = { { "filename", file_status = true, path = 3 } },
-      },
-    },
+    opts = { open_mapping = "<c-\\>", direction = "float", shell = "/bin/fish" },
   },
   {
     "kevinhwang91/nvim-bqf",

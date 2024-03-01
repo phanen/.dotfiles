@@ -4,4 +4,4 @@ git:
     useConfig: true
 promptToReturnFromSubprocess: false
 os:
-  edit: 'command -v ~/b/neovim/build/bin/nvim && (VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim; true;) || nvim'
+  edit: 'command -v ~/b/neovim/build/bin/nvim && (VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim {{filename}}; true;) || nvim {{filename}}'

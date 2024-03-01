@@ -5,9 +5,11 @@ function alias
   eval "function $argv[1] $wraps; $argv[2] \$argv; end"
 end
 
+alias f __zoxide_z
 alias l "eza -a1"
 alias s "systemctl"
 alias t "type -a"
+
 alias df "command df -h"
 alias la "eza -a"
 alias ls "eza --color=auto --hyperlink"
@@ -36,13 +38,31 @@ alias par 'pactree -r -lu'
 alias pst 'pactree -slu'
 alias psr 'pactree -r -slu'
 
-alias vw 'which.sh $VISUAL'
-alias lw 'which.sh exa\ -la'
-alias ldw 'which.sh ldd'
-alias fw 'which.sh file'
-alias ltw 'which.sh libtree'
+function vw
+  if command -q $argv
+    v (command -v $argv)
+  else if functions -q $argv
+    funced $argv
+  end
+end
 
-alias f __zoxide_z
+function lw
+  if command -q $argv
+    exa -la (command -v $argv)
+  end
+end
+
+function fw
+  if command -q $argv
+    file (command -v $argv)
+  end
+end
+
+function ldw
+  if command -q $argv
+    ldd (command -v $argv)
+  end
+end
 
 function e
   # https://www.reddit.com/r/bash/comments/13rqfjd/detecting_chinese_characters_using_grep

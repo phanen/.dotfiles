@@ -5,11 +5,7 @@ vim.g.maplocalleader = "+"
 
 _G.map = vim.keymap.set
 _G.k = vim.keycode
-_G.getvisual = function()
-  return table
-    .concat(vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", { type = vim.fn.mode() }), "\n")
-    :gsub("\n", "")
-end
+_G.getvisual = function() return vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", { type = vim.fn.mode() }) end
 _G.req = function(path)
   return setmetatable({}, {
     __index = function(_, k)
