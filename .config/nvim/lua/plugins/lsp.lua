@@ -30,22 +30,10 @@ return {
               capabilities = capabilities,
               settings = {
                 Lua = {
-                  hint = {
-                    enable = true,
-                    setType = true,
-                  },
-                  completion = {
-                    callSnippet = "Replace",
-                    postfix = ".",
-                    showWord = "Disable",
-                    workspaceWord = false,
-                  },
-                  format = {
-                    defaultConfig = {
-                      call_arg_parentheses = "remove_table_only",
-                      add_comma = "comma",
-                    },
-                  },
+                  hint = { enable = true, setType = true },
+                  completion = { callSnippet = "Replace", postfix = ".", showWord = "Disable", workspaceWord = false },
+                  format = { defaultConfig = { call_arg_parentheses = "remove_table_only", add_comma = "comma" } },
+                  runtime = { version = "LuaJIT" },
                 },
               },
             }

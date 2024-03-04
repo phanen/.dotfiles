@@ -24,6 +24,7 @@ bluez-utils
 boost
 bpftrace
 bspwm
+ccache
 clang
 clash
 cliphist
@@ -39,6 +40,7 @@ devtools-archlinuxcn
 devtools-riscv64
 dhclient
 dhcpcd
+direnv
 dkms
 dmenu
 dnsmasq

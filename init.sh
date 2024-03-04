@@ -24,4 +24,4 @@ git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm --depth
 
 sudo pacman -S --needed nerd-fonts-cascadia-code noto-fonts-cjk gnu-free-fonts awesome-terminal-fonts
 
-paru -S --noconfirm babelfish-fish kmonad-git
+paru -S --noconfirm kmonad-git

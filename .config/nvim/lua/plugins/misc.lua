@@ -29,7 +29,7 @@ return {
   },
   -- }}}
   -- doc {{{
-  { "hotoo/pangu.vim", cmd = "Pangu", ft = "markdown" },
+  { "hotoo/pangu.vim", keys = { { mode = "x", "<leader>lj", ":Pangu<cr>" } }, cmd = "Pangu", ft = "markdown" },
   { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
   { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "chomosuke/typst-preview.nvim", ft = "typst", build = function() require("typst-preview").update() end },
@@ -227,7 +227,7 @@ return {
   -- FIXME: register _d, cannot set timeoutlen = 0
   { "folke/which-key.nvim", event = "VeryLazy", opts = { plugins = { spelling = { enabled = false } } } },
   { "voldikss/vim-translator", cmd = "Translate", keys = { { "gk", ":Translate<cr>", mode = { "n", "x" } } } },
-  { "AndrewRadev/linediff.vim", cmd = "Linediff", keys = { { mode = "x", "<leader>dl", ":Linediff<cr>" } } },
+  { "AndrewRadev/linediff.vim", cmd = "Linediff", keys = { { mode = "x", "<leader>ld", ":Linediff<cr>" } } },
   { "lilydjwg/fcitx.vim", event = "InsertEnter" },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
   { "mikesmithgh/kitty-scrollback.nvim" },
