@@ -6,6 +6,7 @@ function upd-nvim
     git branch r upstream/master
   end
   if set -q _flag_pull
+    cd ~/b/neovim
     git pull upstream master:r
     git rebase r master
     return

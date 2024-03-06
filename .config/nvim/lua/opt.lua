@@ -26,6 +26,6 @@ o.shiftwidth = 2 -- indent
 
 o.updatetime = 1000 -- CursorHold
 o.timeoutlen = 100
--- o.ttimeout = false
-o.ttimeoutlen = 0
+o.ttimeout = false
+-- o.ttimeoutlen = 0
 o.synmaxcol = 200

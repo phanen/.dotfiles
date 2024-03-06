@@ -49,6 +49,7 @@ docker
 docker-compose
 dog
 dosfstools
+dotnet-sdk
 downgrade
 doxygen
 dunst

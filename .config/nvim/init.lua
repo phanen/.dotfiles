@@ -4,8 +4,21 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "+"
 
 _G.map = vim.keymap.set
-_G.k = vim.keycode
-_G.getvisual = function() return vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", { type = vim.fn.mode() }) end
+_G.k = function(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
+
+if vim.fn.has "nvim-0.10.0" == 1 then
+  _G.getvisual = function() return vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", { type = vim.fn.mode() }) end
+else
+  _G.getvisual = function()
+    local save_a = vim.fn.getreg "a"
+    vim.fn.setreg("a", {})
+    -- do nothing in normal mode
+    vim.cmd [[noau normal! "ay\<esc\>]]
+    local sel_text = vim.fn.getreg "a"
+    vim.fn.setreg("a", save_a)
+    return { sel_text }
+  end
+end
 _G.req = function(path)
   return setmetatable({}, {
     __index = function(_, k)
