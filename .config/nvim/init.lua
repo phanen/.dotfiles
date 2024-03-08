@@ -49,6 +49,7 @@ require("lazy").setup {
   },
   defaults = { lazy = true },
   change_detection = { notify = false },
+  dev = { path = "~/b", patterns = { "phanen" }, fallback = true },
   performance = {
     rtp = {
       paths = { vim.fn.stdpath "data" .. "/site" },

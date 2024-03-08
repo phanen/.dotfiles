@@ -34,6 +34,22 @@ return {
   { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
   { "chomosuke/typst-preview.nvim", ft = "typst", build = function() require("typst-preview").update() end },
   { "kaarmu/typst.vim", ft = "typst" },
+  { "nvim-orgmode/orgmode", dependencies = "nvim-treesitter/nvim-treesitter", ft = "org", config = true },
+  {
+    "phanen/mder.nvim",
+    ft = "markdown",
+    config = function()
+      vim.api.nvim_create_autocmd("Filetype", {
+        pattern = { "markdown", "typst" },
+        callback = function()
+          map({ "n", "x" }, "<c- >", require("mder").line, { buffer = 0 })
+          map("x", "<c-e>", require("mder").codeblock, { buffer = 0 })
+          map("n", "o", require("mder").listdn, { expr = true, buffer = 0 })
+          map("n", "O", require("mder").listup, { expr = true, buffer = 0 })
+        end,
+      })
+    end,
+  },
   {
     "3rd/image.nvim",
     ft = { "markdown", "org" },
@@ -44,12 +60,6 @@ return {
       package.path = package.path .. ";" .. vim.fn.expand "$HOME" .. "/.luarocks/share/lua/5.1/?/init.lua;"
       package.path = package.path .. ";" .. vim.fn.expand "$HOME" .. "/.luarocks/share/lua/5.1/?.lua;"
     end,
-  },
-  {
-    "nvim-orgmode/orgmode",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    ft = "org",
-    config = true,
   },
   -- }}}
   -- git {{{
