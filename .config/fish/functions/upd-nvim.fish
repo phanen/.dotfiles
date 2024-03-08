@@ -3,6 +3,7 @@ function upd-nvim
   if not test -d ~/b/neovim
     git clone https://github.com/phanen/neovim ~/b/neovim
     git remote add upstream http://github.com/neovim/neovim
+    git fetch
     git branch r upstream/master
   end
   if set -q _flag_pull

@@ -33,7 +33,7 @@ local make_box = function(line)
     local new_line, ok = line:gsub("^(%s*" .. i .. "%s)(.*)", "%1[ ] %2", 1)
     if ok == 1 then return new_line end
   end
-  local new_line = line:gsub("(%S*)", "* %1", 1)
+  local new_line, _ = line:gsub("(%S+)", "* %1", 1)
   return new_line
 end
 

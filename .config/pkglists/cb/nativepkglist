@@ -91,7 +91,6 @@ flameshot
 flashrom
 foliate
 fzf
-gcc10
 gcc12
 gdb
 ghc
@@ -102,7 +101,6 @@ gnu-efi
 gnu-free-fonts
 gnu-netcat
 go
-goldendict-git
 gpg-tui
 grub
 gtk-vnc

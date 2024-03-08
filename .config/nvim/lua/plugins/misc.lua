@@ -37,6 +37,7 @@ return {
   {
     "3rd/image.nvim",
     ft = { "markdown", "org" },
+    cond = false,
     config = true,
     init = function()
       -- Example for configuring Neovim to load user-installed installed Lua rocks:
