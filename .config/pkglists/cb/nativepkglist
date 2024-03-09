@@ -11,6 +11,7 @@ archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
 atuin
+autossh
 awesome-terminal-fonts
 aws-cli-v2
 baidupcs-go
@@ -106,6 +107,7 @@ grub
 gtk-vnc
 gtkwave
 gvim
+handlr
 helix
 hexer
 hexyl
