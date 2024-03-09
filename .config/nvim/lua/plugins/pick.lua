@@ -1,11 +1,17 @@
 local pk = function(picker, opts)
   return function()
-    local default = { previewer = picker == "live_grep", default_text = table.concat(getvisual()) }
+    local default =
+      { previewer = picker == "live_grep" or picker == "jumplist", default_text = table.concat(getvisual()) }
     require("telescope.builtin")[picker](vim.tbl_deep_extend("force", default, opts or {}))
   end
 end
 
 local d = { "~", "~/notes" }
+
+local files = pk("find_files", { hidden = true })
+local grep_open_files = pk("live_grep", { grep_open_files = true })
+local findx = pk("find_files", { search_dirs = d })
+local grepx = pk("live_grep", { search_dirs = d })
 
 return {
   {
@@ -22,22 +28,23 @@ return {
     cmd = "Telescope",
     -- stylua: ignore
     keys = {
-      { "<leader><leader>", pk("resume"),                           mode = { "n", "x" } },
-      { "<leader>m",        pk("builtin"),                          mode = { "n", "x" } },
-      { "<c-l>",            pk("find_files"),                       mode = { "n", "x" } },
-      { "<leader>j",        pk("live_grep"),                        mode = { "n", "x" } },
-      { "<localleader>+",   pk("find_files", { search_dirs = d }),  mode = { "n", "x" } },
-      { "<localleader>_",   pk("live_grep", { search_dirs = d }),   mode = { "n", "x" } },
-      { "<leader>/",        pk("current_buffer_fuzzy_find"),        mode = { "n", "x" } },
-      { "<leader>;",        pk("command_history"),                  mode = { "n", "x" } },
-      { "<leader>fo",       pk("oldfiles"),                         mode = { "n", "x" } },
-      { "<leader>fh",       pk("help_tags"),                        mode = { "n", "x" } },
-      { "<leader>fs",       pk("lsp_document_symbols"),             mode = { "n", "x" } },
-      { "<leader>fS",       pk("lsp_workspace_symbols"),             mode = { "n", "x" } },
-      { "<leader>fg",       pk("git_status"),                       mode = { "n", "x" } },
-      { "<leader>fc",       pk("git_commits"),                      mode = { "n", "x" } },
-      { "<leader>f<tab>",   pk("colorscheme"),                      mode = { "n", "x" } },
-      { "qj",               pk("spell_suggest"),                    mode = { "n", "x" } },
+      { "<leader><leader>", pk("resume"),                mode = { "n", "x" } },
+      { "<c-l>",            files,                       mode = { "n", "x" } },
+      { "<c-p>",            pk("live_grep"),             mode = { "n", "x" } },
+      { "<c-n>",            findx,                       mode = { "n", "x" } },
+      { "<c-h>",            grepx,                       mode = { "n", "x" } },
+      { "<leader>/",        grep_open_files,             mode = { "n", "x" } },
+      { "<leader>;",        pk("command_history"),       mode = { "n", "x" } },
+      { "<leader>fj",       pk("jumplist"),              mode = { "n", "x" } },
+      { "<leader>fs",       pk("lsp_document_symbols"),  mode = { "n", "x" } },
+      { "<leader>fw",       pk("lsp_workspace_symbols"), mode = { "n", "x" } },
+      { "<leader>fa",       pk("builtin"),               mode = { "n", "x" } },
+      { "<leader>fo",       pk("oldfiles"),              mode = { "n", "x" } },
+      { "<leader>fh",       pk("help_tags"),             mode = { "n", "x" } },
+      { "<leader>fg",       pk("git_status"),            mode = { "n", "x" } },
+      { "<leader>fc",       pk("git_commits"),           mode = { "n", "x" } },
+      { "<leader>f<tab>",   pk("colorscheme"),           mode = { "n", "x" } },
+      { "qj",               pk("spell_suggest"),         mode = { "n", "x" } },
     },
     config = function()
       local ta = require "telescope.actions"
@@ -47,7 +54,7 @@ return {
         defaults = {
           sorting_strategy = "ascending",
           preview = { hide_on_startup = true },
-          layout_config = { horizontal = { height = 0.5, preview_width = 0.55 }, prompt_position = "top" },
+          layout_config = { horizontal = { width = 0.85, height = 0.5, preview_width = 0.55 }, prompt_position = "top" },
           mappings = {
             i = {
               ["<c-n>"] = require("telescope.actions").cycle_history_next,
@@ -60,7 +67,7 @@ return {
               ["<c-j>"] = ta.move_selection_next,
               ["<c-k>"] = ta.move_selection_previous,
               ["<a-m>"] = tal.toggle_mirror,
-              ["<a-p>"] = tal.cycle_layout_next,
+              ["<a-p>"] = tal.cycle_layout_prev,
               ["<a-n>"] = tal.cycle_layout_next,
               ["<c-l>"] = function(_)
                 local entry = tas.get_selected_entry()
@@ -100,39 +107,54 @@ return {
     opts = { highlight = { keyword = "bg" } },
   },
   {
-    "junegunn/fzf.vim",
-    cmd = { "Files" },
-    keys = { { "<leader><c-l>", "<cmd>Files<cr>", mode = { "n", "x" } } },
-    dependencies = { "junegunn/fzf", name = "fzf" },
-  },
-  {
     "ibhagwan/fzf-lua",
     cmd = { "FzfLua" },
     opts = {
+      hls = {
+        normal = "NormalFloat",
+        border = "FloatBorder",
+        title = "FloatTitle",
+        preview_normal = "NormalFloat",
+        preview_border = "FloatBorder",
+        preview_title = "FloatTitle",
+      },
+      fzf_colors = {
+        ["fg"] = { "fg", "CursorLine" },
+        ["bg"] = { "bg", "NormalFloat" },
+        ["hl"] = { "fg", "Statement" },
+        ["fg+"] = { "fg", "NormalFloat" },
+        ["bg+"] = { "bg", "CursorLine" },
+        ["hl+"] = { "fg", "Statement" },
+        ["info"] = { "fg", "PreProc" },
+        ["prompt"] = { "fg", "Conditional" },
+        ["pointer"] = { "fg", "Exception" },
+        ["marker"] = { "fg", "Keyword" },
+        ["spinner"] = { "fg", "Label" },
+        ["header"] = { "fg", "Comment" },
+        ["gutter"] = { "bg", "NormalFloat" },
+      },
       winopts = {
         preview = {
           border = "noborder",
           delay = 0,
-          hidden = "hidden",
+          hidden = "nohidden",
           horizontal = "right:55%",
           scrollbar = false,
         },
         height = 0.5,
-        width = 0.8,
-        row = 0.45,
-        col = 0.5,
+        width = 0.9,
+      },
+      keymap = {
+        builtin = {
+          ["<c-\\>"] = "toggle-preview",
+          ["<c-_>"] = "toggle-preview",
+          ["<c-d>"] = "preview-page-down",
+          ["<c-u>"] = "preview-page-up",
+          ["<a-s>"] = "select-all",
+          ["<a-d>"] = "deselect-all",
+        },
       },
     },
-    cond = false,
-    keys = {
-      { "<leader>ff", function() require("fzf-lua").files() end, desc = "Files" },
-      { "<leader>fb", function() require("fzf-lua").buffers() end, desc = "Buffers" },
-      { "<leader>fh", function() require("fzf-lua").help_tags() end, desc = "Help tags" },
-      { "<leader>fo", function() require("fzf-lua").oldfiles() end, desc = "Old files" },
-      { "<leader>fs", function() require("fzf-lua").lsp_document_symbols() end, desc = "Symbols" },
-      { "<leader>fS", function() require("fzf-lua").lsp_workspace_symbols() end, desc = "Symbols" },
-      { "<leader>fc", function() require("fzf-lua").colorschemes() end, desc = "Colorscheme" },
-      { "<leader>fg", function() require("fzf-lua").live_grep_native() end, desc = "Live grep" },
-    },
+    keys = { { "<localleader>fa", "<cmd>FzfLua<cr>", mode = { "n", "x" } } },
   },
 }

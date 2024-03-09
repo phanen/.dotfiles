@@ -11,6 +11,7 @@ alias s "systemctl"
 alias t "type -a"
 
 alias df "command df -h"
+alias fe "funced -s"
 alias la "eza -a"
 alias ls "eza --color=auto --hyperlink"
 alias lt "eza --tree"
@@ -75,8 +76,8 @@ function e
   end
 end
 
-function v
-  if test -f ~/b/neovim/build/bin/nvim
+function v --wrap nvim
+  if test -x ~/b/neovim/build/bin/nvim
     VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim $argv
   else
     nvim $argv
@@ -111,7 +112,6 @@ abbr -a y paru
 
 abbr -a du dust
 abbr -a em emacs -nw
-abbr -a fe funced
 abbr -a fs funcsave
 abbr -a gb gh browse
 abbr -a gr git remote -v

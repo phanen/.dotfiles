@@ -15,18 +15,9 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       require("mason-lspconfig").setup {
         handlers = {
-          function(server)
-            lspconfig[server].setup {
-              capabilities = capabilities,
-            }
-          end,
+          function(server) lspconfig[server].setup { capabilities = capabilities } end,
           lua_ls = function()
             lspconfig.lua_ls.setup {
-              on_attach = function(client, _)
-                -- NOTE: regard this as LspAttachPre
-                -- which formatter should be used?
-                -- client.server_capabilities.documentFormattingProvider = false
-              end,
               capabilities = capabilities,
               settings = {
                 Lua = {
@@ -36,6 +27,13 @@ return {
                   runtime = { version = "LuaJIT" },
                 },
               },
+            }
+          end,
+          clangd = function()
+            lspconfig.clangd.setup {
+              capabilities = capabilities,
+              cmd = { "clangd", "--background-index", "--clang-tidy", "--header-insertion=iwyu" },
+              root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
             }
           end,
           yamlls = function()

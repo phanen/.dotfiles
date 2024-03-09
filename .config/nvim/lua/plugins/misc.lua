@@ -284,9 +284,9 @@ return {
     "phanen/dirstack.nvim",
     event = "DirChangedPre",
     keys = {
-      { "<c-p>", function() require("dirstack").prev() end },
-      { "<c-n>", function() require("dirstack").next() end },
-      { "<c-g>", function() require("dirstack").info() end },
+      { "<leader><c-p>", function() require("dirstack").prev() end },
+      { "<leader><c-n>", function() require("dirstack").next() end },
+      { "<leader><c-g>", function() require("dirstack").info() end },
     },
     config = true,
   },

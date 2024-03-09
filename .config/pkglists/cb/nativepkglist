@@ -32,6 +32,7 @@ bottom
 bpftrace
 bspwm
 catimg
+ccache
 certbot
 clang
 clash
@@ -103,6 +104,7 @@ gnu-free-fonts
 gnu-netcat
 go
 gpg-tui
+graphviz
 grub
 gtk-vnc
 gtkwave
@@ -154,6 +156,7 @@ lib32-vulkan-intel
 libnotify
 libreoffice-fresh
 libsixel
+libtree
 libva-intel-driver
 libva-utils
 libxft
@@ -166,7 +169,6 @@ linux-zen-headers
 lld
 lldb
 llvm
-llvm15
 lostfiles
 lsb-release
 lshw
@@ -352,6 +354,7 @@ xdo
 xf86-video-vesa
 xfconf
 xfsdump
+xmake
 xorg-bdftopcf
 xorg-docs
 xorg-font-util

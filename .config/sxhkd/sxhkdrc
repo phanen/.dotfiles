@@ -4,7 +4,7 @@ super + z
 # TODO: remove `bspc` ad-hoc stuffs
 super + q
   bspc node -c
-super + ctrl + q
+super + ctrl + 1
   bspc quit
 super + {j, k}
   bspc node -f {next, prev}.local.!hidden.window
