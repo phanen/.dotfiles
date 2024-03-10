@@ -222,7 +222,7 @@ return {
   { "folke/tokyonight.nvim" },
   -- FIXME: register _d, cannot set timeoutlen = 0
   { "folke/which-key.nvim", event = "VeryLazy", opts = { plugins = { spelling = { enabled = false } } } },
-  { "voldikss/vim-translator", cmd = "Translate", keys = { { "gk", ":Translate<cr>", mode = { "n", "x" } } } },
+  { "voldikss/vim-translator", cmd = "Translate", keys = { { "K", ":Translate<cr>", mode = { "n", "x" } } } },
   { "AndrewRadev/linediff.vim", cmd = "Linediff", keys = { { mode = "x", "<leader>ld", ":Linediff<cr>" } } },
   { "lilydjwg/fcitx.vim", event = "InsertEnter" },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
@@ -359,7 +359,7 @@ return {
   {
     "Bekaboo/dropbar.nvim",
     event = "LspAttach",
-    dependencies = "nvim-telescope/telescope-fzf-native.nvim",
+    -- dependencies = "nvim-telescope/telescope-fzf-native.nvim",
   },
   -- }}}
 }

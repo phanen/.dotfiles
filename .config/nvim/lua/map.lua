@@ -121,8 +121,8 @@ n("<leader>os", "<cmd>set spell!<cr>")
 n("<leader>ow", "<cmd>set wrap!<cr>")
 -- }}}
 -- diagnostic {{{
-n("[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-n("]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+n("<leader>dp", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+n("<leader>dn", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 n("<leader>df", "<cmd>lua vim.diagnostic.open_float()<cr>")
 n("<leader>ds", "<cmd>lua vim.diagnostic.setloclist()<cr>")
 -- }}}

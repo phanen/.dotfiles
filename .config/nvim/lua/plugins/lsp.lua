@@ -10,9 +10,9 @@ return {
       { "folke/neodev.nvim", ft = "lua", config = true },
     },
     config = function()
-      -- local capabilities = require "capabilities"
       local lspconfig = require "lspconfig"
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+      local capabilities = ok and cmp_nvim_lsp.default_capabilities() or nil
       require("mason-lspconfig").setup {
         handlers = {
           function(server) lspconfig[server].setup { capabilities = capabilities } end,
