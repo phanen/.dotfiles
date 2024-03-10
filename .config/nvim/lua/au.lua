@@ -66,7 +66,7 @@ au("Filetype", {
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(_)
     local bn = function(lhs, rhs) map("n", lhs, rhs, { buffer = 0 }) end
-    bn("gk", vim.lsp.buf.hover)
+    bn("K", vim.lsp.buf.hover)
     bn("gs", vim.lsp.buf.signature_help)
     bn("gd", vim.lsp.buf.definition)
     bn("gD", vim.lsp.buf.declaration)

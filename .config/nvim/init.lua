@@ -3,9 +3,9 @@ vim.loader.enable()
 vim.g.mapleader = " "
 vim.g.maplocalleader = "+"
 
-_G.map = vim.keymap.set
+_G.fmt = string.format
 _G.k = function(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
-
+_G.map = vim.keymap.set
 if vim.fn.has "nvim-0.10.0" == 1 then
   _G.getvisual = function() return vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", { type = vim.fn.mode() }) end
 else

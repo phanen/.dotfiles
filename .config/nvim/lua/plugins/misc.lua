@@ -1,5 +1,6 @@
-return {
-  -- buf {{{
+local misc = {}
+
+misc.buf = {
   { "famiu/bufdelete.nvim", cmd = "Bdelete" },
   {
     "akinsho/bufferline.nvim",
@@ -27,8 +28,9 @@ return {
       { "<leader><c-i>", "<cmd>lua require('bufjump').forward()<cr>" },
     },
   },
-  -- }}}
-  -- doc {{{
+}
+
+misc.doc = {
   { "hotoo/pangu.vim", keys = { { mode = "x", "<leader>lj", ":Pangu<cr>" } }, cmd = "Pangu", ft = "markdown" },
   { "jspringyc/vim-word", cmd = { "WordCount", "WordCountLine" } },
   { "cissoid/vim-fullwidth-punct-convertor", cmd = "FullwidthPunctConvert" },
@@ -46,8 +48,9 @@ return {
       package.path = package.path .. ";" .. vim.fn.expand "$HOME" .. "/.luarocks/share/lua/5.1/?.lua;"
     end,
   },
-  -- }}}
-  -- tree {{{
+}
+
+misc.tree = {
   {
     "nvim-tree/nvim-tree.lua",
     -- workaround for open dir
@@ -100,8 +103,9 @@ return {
       end,
     },
   },
-  -- }}}
-  -- tobj {{{
+}
+
+misc.tobj = {
   {
     "glts/vim-textobj-comment",
     dependencies = { { "kana/vim-textobj-user", dependencies = { "kana/vim-operator-user" } } },
@@ -121,13 +125,14 @@ return {
       { "iu", mode = { "x", "o" } },
     },
   },
-  -- }}}
-  -- tool {{{
+}
+
+misc.tool = {
   { "folke/lazy.nvim" },
   { "folke/tokyonight.nvim" },
   -- FIXME: register _d, cannot set timeoutlen = 0
   { "folke/which-key.nvim", event = "VeryLazy", opts = { plugins = { spelling = { enabled = false } } } },
-  { "voldikss/vim-translator", cmd = "Translate", keys = { { "K", ":Translate<cr>", mode = { "n", "x" } } } },
+  { "voldikss/vim-translator", cmd = "Translate" },
   { "AndrewRadev/linediff.vim", cmd = "Linediff", keys = { { mode = "x", "<leader>ld", ":Linediff<cr>" } } },
   { "lilydjwg/fcitx.vim", event = "InsertEnter" },
   { "tpope/vim-eunuch", cmd = { "Move", "Rename", "Remove", "Delete", "Mkdir" } },
@@ -235,8 +240,9 @@ return {
       image_support = false,
     },
   },
-  -- }}}
-  -- ui {{{
+}
+
+misc.ui = {
   { "stevearc/aerial.nvim", cmd = "AerialToggle", opts = { keymaps = { ["<C-k>"] = false, ["<C-j>"] = false } } },
   { "HiPhish/rainbow-delimiters.nvim", event = { "BufReadPre", "BufNewFile" } },
   -- https://github.com/neovim/neovim/pull/27132
@@ -266,6 +272,15 @@ return {
     event = "LspAttach",
     -- dependencies = "nvim-telescope/telescope-fzf-native.nvim",
   },
-  -- }}}
 }
--- vim:foldmethod=marker
+
+local M = {}
+-- local plugins = vim.tbl_extend("force", {}, M.buf, M.doc, M.tree, M.tobj, M.tool, M.ui)
+-- local plugins = vim.tbl_extend("force", {}, unpack(M))
+-- local plugins = vim.tbl_extend("force", {}, unpack(M))
+
+vim.tbl_map(function(part)
+  vim.tbl_map(function(v) table.insert(M, v) end, part)
+end, misc)
+
+return M

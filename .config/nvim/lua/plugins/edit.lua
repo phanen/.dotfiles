@@ -97,7 +97,6 @@ return {
   },
   {
     "stevearc/conform.nvim",
-    keys = { { "gw", [[<cmd>lua require("conform").format { lsp_fallback = true }<cr>]] } },
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
@@ -107,4 +106,28 @@ return {
     },
   },
   { "junegunn/vim-easy-align", keys = { { "ga", "<plug>(EasyAlign)", mode = { "n", "x" } } } },
+  {
+    "monaqa/dial.nvim",
+    keys = {
+      { "<c-a>", "<plug>(dial-increment)" },
+      { "<c-x>", "<plug>(dial-decrement)" },
+      { "g<c-a>", "g<plug>(dial-increment)" },
+      { "g<c-x>", "g<plug>(dial-decrement)" },
+      { "<c-a>", "<plug>(dial-increment)", mode = "x" },
+      { "<c-x>", "<plug>(dial-decrement)", mode = "x" },
+      { "g<c-a>", "g<plug>(dial-increment)", mode = "x" },
+      { "g<c-x>", "g<plug>(dial-decrement)", mode = "x" },
+    },
+    config = function()
+      local augend = require "dial.augend"
+      require("dial.config").augends:register_group {
+        default = {
+          augend.integer.alias.decimal,
+          augend.integer.alias.hex,
+          augend.date.alias["%Y/%m/%d"],
+          augend.constant.alias.bool,
+        },
+      }
+    end,
+  },
 }

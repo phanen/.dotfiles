@@ -8,9 +8,9 @@ end
 
 local d = { "~", "~/notes" }
 
-local files = pk("find_files", { hidden = true })
+local files = pk("fd", { hidden = true })
 local grep_open_files = pk("live_grep", { grep_open_files = true })
-local findx = pk("find_files", { search_dirs = d })
+local findx = pk("find_files", { hidden = true, search_dirs = d })
 local grepx = pk("live_grep", { search_dirs = d })
 
 return {
@@ -56,11 +56,13 @@ return {
         defaults = {
           sorting_strategy = "ascending",
           preview = { hide_on_startup = true },
+          -- FIXME: vertical no preview
           layout_config = { horizontal = { width = 0.85, height = 0.5, preview_width = 0.55 }, prompt_position = "top" },
+          file_ignore_patterns = { "LICENSE", "*-lock.json" },
           mappings = {
             i = {
-              ["<c-n>"] = require("telescope.actions").cycle_history_next,
-              ["<c-p>"] = require("telescope.actions").cycle_history_prev,
+              ["<c-n>"] = ta.cycle_history_next,
+              ["<c-p>"] = ta.cycle_history_prev,
               ["<c-u>"] = ta.preview_scrolling_up,
               ["<c-d>"] = ta.preview_scrolling_down,
               ["<c-v>"] = false,
@@ -80,17 +82,17 @@ return {
                 return true
               end,
               ["<c-o>"] = function(bufnr)
-                require("telescope.actions").select_default(bufnr)
+                ta.select_default(bufnr)
                 require("telescope.builtin").resume()
               end,
               ["<c-q>"] = ta.add_selected_to_qflist,
               ["<cr>"] = function(bufnr) -- TODO: need async!!!
-                local picker = require("telescope.actions.state").get_current_picker(bufnr)
+                local picker = tas.get_current_picker(bufnr)
                 local multi = picker:get_multi_selection()
                 if not vim.tbl_isempty(multi) then
                   ta.close(bufnr)
                   for _, j in pairs(multi) do
-                    if j.path ~= nil then vim.cmd(string.format("%s %s", "edit", j.path)) end
+                    if j.path ~= nil then vim.cmd(fmt("%s %s", "edit", j.path)) end
                   end
                 else
                   ta.select_default(bufnr)
@@ -99,6 +101,19 @@ return {
             },
           },
         },
+      }
+    end,
+  },
+  {
+    "rguruprakash/simple-note.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    cmd = { "SimpleNoteList" },
+    config = function()
+      require("simple-note").setup {
+        notes_dir = "~/notes/",
+        telescope_new = "<c-n>",
+        telescope_delete = "<c-x>",
+        telescope_rename = "<c-r>",
       }
     end,
   },
