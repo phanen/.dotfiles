@@ -8,22 +8,11 @@ return {
       surrounds = {
         ["j"] = {
           add = { "**", "**" },
-          find = "%*%*.-%*%*",
           delete = "^(%*%*?)().-(%*%*?)()$",
           change = { target = "^(%*%*?)().-(%*%*?)()$" },
         },
-        ["M"] = {
-          add = { "$$", "$$" },
-          find = "$$.-$$",
-          delete = "^($$?)().-($$?)()$",
-          change = { target = "^($$?)().-($$?)()$" },
-        },
-        ["["] = {
-          add = { "[[ ", " ]]" },
-          find = "[[ .- ]]",
-          delete = "^([[ ?)().-( ]]?)()$",
-          change = { target = "^([[ ?)().-( ]]?)()$" },
-        },
+        ["M"] = { add = { "$$", "$$" } },
+        ["["] = { add = { "[[ ", " ]]" } },
       },
       aliases = {
         ["n"] = "}",
@@ -67,8 +56,17 @@ return {
   },
   {
     "mg979/vim-visual-multi",
-    keys = { "<leader>n" },
-    init = function() vim.g.VM_maps = { ["Find Under"] = "<leader>n" } end,
+    keys = {
+      { "<leader>n", mode = { "n", "x" } },
+      { "\\\\A", mode = { "n", "x" } },
+      { "\\\\/", mode = { "n", "x" } },
+    },
+    init = function()
+      vim.g.VM_maps = {
+        ["Find Under"] = "<leader>n",
+        ["Find Subword Under"] = "<leader>n",
+      }
+    end,
   },
   {
     "andymass/vim-matchup", -- TODO: slow when use flash.nvim
@@ -100,7 +98,6 @@ return {
   {
     "stevearc/conform.nvim",
     keys = { { "gw", [[<cmd>lua require("conform").format { lsp_fallback = true }<cr>]] } },
-    -- TODO: stylua -> no align, lua_ls(EmmyLua) -> no trailing comma
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },

@@ -42,6 +42,7 @@ require("lazy").setup {
   spec = {
     { import = "plugins.cmp" },
     { import = "plugins.edit" },
+    { import = "plugins.git" },
     { import = "plugins.lsp" },
     { import = "plugins.misc" },
     { import = "plugins.pick" },
@@ -52,13 +53,15 @@ require("lazy").setup {
   dev = { path = "~/b", patterns = { "phanen" }, fallback = true },
   performance = {
     rtp = {
-      paths = { vim.fn.stdpath "data" .. "/site" },
       disabled_plugins = {
         "matchit",
         "matchparen",
         "netrwPlugin",
+        "nvim",
         "osc52",
         "rplugin",
+        "shada",
+        "spellfile",
         "tohtml",
         "tutor",
       },

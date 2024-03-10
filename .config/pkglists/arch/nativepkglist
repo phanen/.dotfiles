@@ -27,6 +27,7 @@ bspwm
 ccache
 clang
 clash
+clash-verge
 cliphist
 clipnotify
 cmake
@@ -119,6 +120,8 @@ iptables-nft
 ipython
 iverilog
 iw
+java-runtime-common
+jdk-openjdk
 jpegoptim
 jq
 just
@@ -252,6 +255,7 @@ tokei
 traceroute
 translate-shell
 tree
+tree-sitter-git
 ttf-cascadia-code-nerd
 ttf-dejavu-nerd
 ttf-nerd-fonts-symbols

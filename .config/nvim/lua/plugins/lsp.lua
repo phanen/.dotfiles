@@ -1,13 +1,19 @@
 return {
-  { "neovim/nvim-lspconfig", cmd = { "LspInfo", "LspInstall", "LspUninstall" } },
-  { "j-hui/fidget.nvim", event = "LspAttach", config = true },
-  { "williamboman/mason.nvim", build = ":MasonUpdate", cmd = "Mason", config = true },
+  {
+    "j-hui/fidget.nvim",
+    event = "LspAttach",
+    opts = {
+      notification = { poll_rate = 2, override_vim_notify = true },
+      integration = { ["nvim-tree"] = { enable = false } },
+    },
+  },
   {
     "williamboman/mason-lspconfig.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = "Filetype",
     dependencies = {
-      { "williamboman/mason.nvim" },
-      { "folke/neodev.nvim", ft = "lua", config = true },
+      -- { "folke/neodev.nvim", ft = "lua", config = true },
+      { "williamboman/mason.nvim", build = ":MasonUpdate", cmd = "Mason", config = true },
+      { "neovim/nvim-lspconfig", cmd = { "LspInfo", "LspInstall", "LspUninstall" } },
     },
     config = function()
       local lspconfig = require "lspconfig"
@@ -36,24 +42,8 @@ return {
               root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
             }
           end,
-          yamlls = function()
-            lspconfig.yamlls.setup {
-              capabilities = capabilities,
-              settings = {
-                yaml = {
-                  keyOrdering = false,
-                  schemaStore = {
-                    enable = false,
-                    url = "",
-                  },
-                  schemas = require("schemastore").yaml.schemas(),
-                },
-              },
-            }
-          end,
         },
       }
     end,
   },
-  { "b0o/schemastore.nvim" },
 }

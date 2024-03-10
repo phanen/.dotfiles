@@ -74,16 +74,16 @@ ic("<c-k>", function() require("readline").kill_line() end)
 -- layout {{{
 n("<c-f>", "<cmd>BufferLineCycleNext<cr>")
 n("<c-e>", "<cmd>BufferLineCyclePrev<cr>")
-n("<c-w>", "<cmd>Bdelete!<cr>")
+-- n("<c-w>", "<cmd>Bdelete!<cr>")
+n("<c-w>", "<cmd>bdelete!<cr>")
 n("<leader>bo", "<cmd>BufferLineCloseOthers<cr>")
 n("<leader>br", "<cmd>BufferLineCloseRight<cr>")
 n("<leader>bl", "<cmd>BufferLineCloseLeft<cr>")
-n("<c-b>", "<cmd>FzfLua buffers<cr>")
 n("<c-s><c-s>", "<cmd>wincmd q<cr>")
 -- TODO: restart with session
 -- n("<c-s>r", "<cmd>wincmd q<cr>")
-n("<leader>oj", "<cmd>wincmd _<cr>")
-n("<leader>ok", "<cmd>wincmd =<cr>")
+n("<c-s>j", "<cmd>wincmd _<cr>")
+n("<c-s>k", "<cmd>wincmd =<cr>")
 n("<c-s>v", "<cmd>wincmd v<cr>")
 n("<c-s>s", "<cmd>wincmd s<cr>")
 n("<c-s>H", "<cmd>wincmd H<cr>")
@@ -93,16 +93,18 @@ n("<c-k>", "<cmd>wincmd W<cr>")
 
 n("<localleader>q", "<cmd>tabclose<cr>")
 -- }}}
--- subtitution {{{
+-- formatter {{{
 n("<leader>rp", "<cmd>%FullwidthPunctConvert<cr>")
 x("<leader>rp", ":FullwidthPunctConvert<cr>")
 n("<leader>rs", ":%s/\\s*$//g<cr>''")
 nx("<leader>rl", ":g/^$/d<cr>''")
-n("<leader>rc", [[<cmd>%s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
-x("<leader>rc", [[:s/ *\/\/.*//g<cr>'']], { desc = "clean the comment line" })
+-- n("<leader>rc", [[<cmd>%s/ *\/\/.*//g<cr>'']])
+-- x("<leader>rc", [[:s/ *\/\/.*//g<cr>'']])
 x("<leader>r*", [[:s/^\([  ]*\)- \(.*\)/\1* \2/g]])
 n("<leader>r*", [[:%s/^\([  ]*\)- \(.*\)/\1* \2/g]])
 x("<leader>r ", [[:s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g<cr>]])
+n("<leader>r ", [[:%s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g<cr>]])
+x("<leader>rg", ":!sort")
 -- }}}
 -- toggle {{{
 -- windows
@@ -131,8 +133,11 @@ n("<leader>ds", "<cmd>lua vim.diagnostic.setloclist()<cr>")
 -- https://superuser.com/questions/41378/how-to-search-for-selected-text-in-vim
 x("//", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 
-n("<leader>I", "<cmd>Inspect<cr>")
+n("<leader>I", "<cmd>lua vim.show_pos()<cr>")
+n("<localleader>I", "<cmd>lua vim.treesitter.inspect_tree()<cr>")
+n("<localleader>E", "<cmd>lua vim.treesitter.query.edit()<cr>")
 n("<leader>M", "<cmd>messages<cr>")
+n("<leader>H", "<cmd>Fidget history<cr>")
 -- FIXME: cross line ^M -> \n
 n("<leader>cw", [[:%s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]])
 n("<leader>cl", [[:s/\<<c-r>=expand("<cword>")<cr>\>//g<left><left>]])
