@@ -1,6 +1,7 @@
 local pk = function(picker, opts)
   return function()
-    local default = { previewer = picker == "live_grep" or picker == "jumplist", default_text = table.concat(vget()) }
+    local lines = vget(function() vim.api.nvim_feedkeys(k "<esc>", "x", false) end)
+    local default = { previewer = picker == "live_grep" or picker == "jumplist", default_text = table.concat(lines) }
     require("telescope.builtin")[picker](vim.tbl_deep_extend("force", default, opts or {}))
   end
 end
@@ -35,8 +36,8 @@ return {
       { "<c-b>",            pk("buffers"),               mode = { "n", "x" } },
       { "<leader>/",        grep_open_files,             mode = { "n", "x" } },
       { "<leader>;",        pk("command_history"),       mode = { "n", "x" } },
-      { "<leader>j",        pk("jumplist"),              mode = { "n", "x" } },
-      { "<leader>i",        pk("tagstack"),              mode = { "n", "x" } },
+      -- { "<leader>j",        pk("jumplist"),              mode = { "n", "x" } },
+      -- { "<leader>i",        pk("tagstack"),              mode = { "n", "x" } },
       { "<leader>fs",       pk("lsp_document_symbols"),  mode = { "n", "x" } },
       { "<leader>fw",       pk("lsp_workspace_symbols"), mode = { "n", "x" } },
       { "<leader>fa",       pk("builtin"),               mode = { "n", "x" } },

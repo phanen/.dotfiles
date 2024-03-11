@@ -6,7 +6,7 @@
   "workspace": {
     "library": [
       "$VIMRUNTIME/lua",
-      "$LAZYROOT/lazy.nvim",
+      // "$XDG_DATA_HOME/nvim/lazy/",
       "${3rd}/luv/library"
     ]
   },

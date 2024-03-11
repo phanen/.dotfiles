@@ -14,30 +14,22 @@ _G.req = function(path)
     end,
   })
 end
-_G.vget = vim.fn.getregion
-    and function()
-      local text = vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", { type = vim.fn.mode() })
-      vim.api.nvim_feedkeys(k "<esc>", "x", false)
-      return text
-    end
-  or function()
-    local save_a = vim.fn.getreg "a"
-    vim.fn.setreg("a", {})
-    -- do nothing in normal mode
-    vim.cmd [[noau normal! "ay\<esc\>]]
-    local sel_text = vim.fn.getreg "a"
-    vim.fn.setreg("a", save_a)
-    return { sel_text }
-  end
+_G.vget = req("utils").vget
+
+_G.n = function(...) map("n", ...) end
+_G.x = function(...) map("x", ...) end
+_G.nx = function(...) map({ "n", "x" }, ...) end
+_G.ox = function(...) map({ "o", "x" }, ...) end
+_G.ic = function(...) map("!", ...) end
 
 require "opt"
 require "map"
 require "au"
 
-vim.env.LAZYROOT = vim.fn.stdpath "data" .. "/lazy"
-local path = vim.env.LAZYROOT .. "/lazy.nvim"
+local root = vim.fn.stdpath "data" .. "/lazy"
+local path = root .. "/lazy.nvim"
 if not vim.uv.fs_stat(path) then
-  vim.fn.system { "git", "clone", "--filter=blob:none", "--branch=stable", "https://github.com/folke/lazy.nvim", path }
+  vim.fn.system { "git", "clone", "--branch=stable", "https://github.com/folke/lazy.nvim", path }
 end
 
 vim.opt.rtp:prepend(path)
@@ -53,6 +45,7 @@ require("lazy").setup {
   },
   defaults = { lazy = true },
   change_detection = { notify = false },
+  git = { filter = false }, -- blame it
   dev = { path = "~/b", patterns = { "phanen" }, fallback = true },
   performance = {
     rtp = {
@@ -71,6 +64,11 @@ require("lazy").setup {
     },
   },
 }
+
+au("User", {
+  pattern = { "LazySync" },
+  callback = function(_) end,
+})
 
 -- vim.g.colors_name = "vim"
 vim.cmd.colorscheme "tokyonight"

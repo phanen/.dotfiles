@@ -1,14 +1,14 @@
 return {
   {
     "tpope/vim-fugitive",
-    cmd = { "Git", "G" },
+    cmd = { "G" },
     keys = {
-      { "<leader>gd", "<cmd>Gvdiffsplit<cr>" },
-      { "<leader>gD", "<cmd>G diff<cr>" },
-      { "<leader>gs", "<cmd>G<cr>" },
-      { "<leader>ga", "<cmd>Gwrite<cr>" },
-      { "<leader>gc", "<cmd>G commit<cr>" },
+      { "<leader>ga", "<cmd>G<cr>" },
       { "<leader>gb", "<cmd>G blame<cr>" },
+      { "<leader>gc", "<cmd>G commit<cr>" },
+      { "<leader>gd", "<cmd>Gvdiffsplit<cr>" },
+      { "<leader>gr", "<cmd>Gr<cr>" },
+      { "<leader>gs", "<cmd>Gwrite<cr>" },
     },
   },
   {
@@ -24,26 +24,17 @@ return {
         topdelete = { text = "‾" },
         changedelete = { text = "~" },
       },
-      on_attach = function(bufnr)
-        local gs = package.loaded.gitsigns
-        local m = function(mode, l, r, desc)
-          if desc then desc = "gs: " .. desc end
-          map(mode, l, r, { buffer = bufnr, desc = desc })
-        end
-        m("n", "<leader>hj", gs.next_hunk, "next_hunk")
-        m("n", "<leader>hk", gs.prev_hunk, "prev_hunk")
-        m("n", "<leader>hs", gs.stage_hunk, "stage_hunk")
-        m("n", "<leader>hr", gs.reset_hunk, "reset_hunk")
-        m("n", "<leader>hu", gs.undo_stage_hunk, "undo_stage_hunk")
-        m("v", "<leader>hs", function() gs.stage_hunk { vim.fn.line ".", vim.fn.line "v" } end, "stage_hunk")
-        m("v", "<leader>hr", function() gs.reset_hunk { vim.fn.line ".", vim.fn.line "v" } end, "reset_hunk")
-        m("n", "<leader>hS", gs.stage_buffer, "stage_buffer")
-        m("n", "<leader>hR", gs.reset_buffer, "reset_buffer")
-        m("n", "<leader>hb", function() gs.blame_line { full = true } end, "blame_line")
-        m("n", "<leader>hp", gs.preview_hunk, "preview_hunk")
-        m("n", "<leader>hd", gs.diffthis, "diffthis")
-        m("n", "<leader>hD", function() gs.diffthis "~" end, "diffthis")
-        m({ "o", "x" }, "ih", ":<c-u>Gitsigns select_hunk<cr>", "select_hunk")
+      on_attach = function(_)
+        n("gj", "<cmd>Gitsigns next_hunk<cr>")
+        n("gk", "<cmd>Gitsigns prev_hunk<cr>")
+        n("<leader>hs", "<cmd>Gitsigns stage_hunk<cr>")
+        n("<leader>hu", "<cmd>Gitsigns undo_stage_hunk<cr>")
+        n("<leader>hr", "<cmd>Gitsigns reset_hunk<cr>")
+        n("<leader>hi", "<cmd>Gitsigns preview_hunk<cr>")
+        n("<leader>gu", "<cmd>Gitsigns reset_buffer_index<cr>")
+        n("<leader>gu", "<cmd>Gitsigns reset_buffer_index<cr>")
+        n("<leader>gr", "<cmd>Gitsigns reset_buffer<cr>")
+        n("<leader>hd", "<cmd>Gitsigns toggle_deleted<cr><cmd>Gitsigns toggle_word_diff<cr>")
       end,
     },
   },
@@ -51,7 +42,7 @@ return {
     "TimUntersberger/neogit",
     cmd = "Neogit",
     dependencies = { "nvim-lua/plenary.nvim" },
-    keys = { { "<leader>gn", [[<cmd>lua require("neogit").open()<cr>]] } },
+    keys = { { "<localleader>gn", "<cmd>Neogit<cr>" } },
     opts = {
       disable_hint = true,
       disable_insert_on_commit = false,

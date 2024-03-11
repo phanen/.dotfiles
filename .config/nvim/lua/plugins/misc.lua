@@ -246,7 +246,21 @@ misc.ui = {
   { "HiPhish/rainbow-delimiters.nvim", event = { "BufReadPre", "BufNewFile" } },
   -- NOTE: https://github.com/neovim/neovim/pull/27132
   { "itchyny/vim-highlighturl", event = "ColorScheme" },
-  { "Bekaboo/dropbar.nvim", event = { "BufReadPre", "BufNewFile" }, opts = {} },
+  {
+    "Bekaboo/dropbar.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      general = {
+        enable = function(buf, win)
+          return vim.bo[buf].ft == "fugitiveblame"
+            or vim.fn.win_gettype(win) == ""
+              and vim.wo[win].winbar == ""
+              and (vim.bo[buf].bt == "")
+              and (pcall(vim.treesitter.get_parser, buf, vim.bo[buf].ft))
+        end,
+      },
+    },
+  },
   {
     "stevearc/aerial.nvim",
     cmd = "AerialToggle",
@@ -293,4 +307,3 @@ vim.tbl_map(function(part)
 end, misc)
 
 return M
-

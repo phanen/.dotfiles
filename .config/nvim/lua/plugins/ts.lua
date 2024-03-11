@@ -7,7 +7,17 @@ return {
     config = function()
       vim.schedule(function()
         require("nvim-treesitter.configs").setup {
-          ensure_installed = { "c", "lua", "rust", "vimdoc", "markdown", "markdown_inline" },
+          ensure_installed = {
+            "c",
+            "go",
+            "javascript",
+            "lua",
+            "markdown",
+            "markdown_inline",
+            "rust",
+            "typescript",
+            "vimdoc",
+          },
           highlight = {
             enable = true,
             disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,

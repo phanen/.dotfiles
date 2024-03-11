@@ -1,0 +1,12 @@
+diff --git a/lua/gitsigns/actions.lua b/lua/gitsigns/actions.lua
+index 1cc9839..23791c0 100644
+--- a/lua/gitsigns/actions.lua
++++ b/lua/gitsigns/actions.lua
+@@ -709,6 +709,7 @@ M.preview_hunk = noautocmd(function()
+   local hunk, index = get_cursor_hunk(bufnr)
+ 
+   if not hunk then
++    M.blame_line({ full = true })
+     return
+   end
+ 

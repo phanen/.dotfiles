@@ -1,18 +1,19 @@
-local n = function(...) map("n", ...) end
-local x = function(...) map("x", ...) end
-local nx = function(...) map({ "n", "x" }, ...) end
-local ox = function(...) map({ "o", "x" }, ...) end
-local ic = function(...) map("!", ...) end
-
 local kmp = {}
 
 kmp.edit = function()
   nx("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
   nx("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
-  n("gj", '"gyy"gp')
-  x("gj", '"gy\'>"gp')
+
+  n("<leader>j", '<cmd>t .<cr>')
+  x("<leader>j", '"gy\'>"gp')
   nx("$", "g_")
   x(".", ":normal .<cr>")
+
+  x("p", "P")
+  nx("d", '"_d')
+  nx("D", '"_D')
+  nx("c", '"_c')
+  nx("C", '"_C')
 
   n("<a-j>", "<cmd>move+<cr>")
   n("<a-k>", "<cmd>move-2<cr>")
@@ -45,7 +46,7 @@ kmp.buf = function()
   n("<leader>br", "<cmd>BufferLineCloseRight<cr>")
   n("<leader>bl", "<cmd>BufferLineCloseLeft<cr>")
   n("<leader>bi", "<cmd>buffers<cr>")
-  n("<leader>bI", "<cmd>buffers<cr>")
+  n("<leader>bI", "<cmd>buffers!<cr>")
 end
 
 kmp.win = function()
@@ -94,7 +95,7 @@ kmp.fmt = function()
   n("<leader>r*", [[:%s/^\([  ]*\)- \(.*\)/\1* \2/g]])
   x("<leader>r ", [[:s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g<cr>]])
   n("<leader>r ", [[:%s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g<cr>]])
-  x("<leader>rg", ":!sort")
+  x("<leader>rg", ":!sort<cr>")
 
   nx("gw", function() require("conform").format { lsp_fallback = true } end)
 end
@@ -112,23 +113,23 @@ kmp.misc = function()
   n("<localleader>E", "<cmd>lua vim.treesitter.query.edit()<cr>")
   n("<leader>M", "<cmd>messages<cr>")
   n("<leader>H", "<cmd>Fidget history<cr>")
+  nx("<leader>K", ":Translate<cr>")
 
-  n("<leader>cx", "<cmd>!chmod +x %<cr>")
   n("<leader>cd", "<cmd>cd %:h<cr>")
-  n("<leader>cn", function() vim.fn.system(fmt("echo -n %s | xsel -ib", vim.fn.expand "%")) end)
   n("<leader>cg", function()
     local root = vim.system({ "git", "rev-parse", "--show-toplevel" }):wait().stdout
     if root == nil then return end
     root = vim.trim(root)
     vim.fn.chdir(root)
   end)
+  n("<leader>cn", function() vim.fn.system(fmt("echo -n %s | xsel -ib", vim.fn.expand "%")) end)
+  n("<leader>cx", "<cmd>!chmod +x %<cr>")
 
-  nx("gk", ":Translate<cr>")
   map("t", "<c- >", "<c-\\><c-n>")
 
   -- diagnostics
-  n("<leader>dp", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-  n("<leader>dn", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+  n("<leader>dk", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+  n("<leader>dj", "<cmd>lua vim.diagnostic.goto_next()<cr>")
   n("<leader>df", "<cmd>lua vim.diagnostic.open_float()<cr>")
   n("<leader>ds", "<cmd>lua vim.diagnostic.setloclist()<cr>")
 end
@@ -153,7 +154,8 @@ kmp.tobj = function()
   ox("aq", 'a"')
   ox("in", "iB")
   ox("an", "aB")
-
+  ox("ih", ":<c-u>Gitsigns select_hunk<cr>")
+  ox("ah", ":<c-u>Gitsigns select_hunk<cr>")
   vim.cmd [[
 " line object, https://vi.stackexchange.com/questions/24861/selector-for-line-of-text
 function! Textobj_line(count) abort

@@ -3,7 +3,7 @@ return {
     "j-hui/fidget.nvim",
     event = "LspAttach",
     opts = {
-      notification = { poll_rate = 2, override_vim_notify = true },
+      notification = { poll_rate = 2, override_vim_notify = false },
       integration = { ["nvim-tree"] = { enable = false } },
     },
   },
@@ -11,7 +11,8 @@ return {
     "williamboman/mason-lspconfig.nvim",
     event = "Filetype",
     dependencies = {
-      -- { "folke/neodev.nvim", ft = "lua", config = true },
+      -- NOTE: useful in random plugin dir
+      { "folke/neodev.nvim", ft = "lua", config = true },
       { "williamboman/mason.nvim", build = ":MasonUpdate", cmd = "Mason", config = true },
       { "neovim/nvim-lspconfig", cmd = { "LspInfo", "LspInstall", "LspUninstall" } },
     },
