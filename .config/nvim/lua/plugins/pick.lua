@@ -1,7 +1,6 @@
 local pk = function(picker, opts)
   return function()
-    local default =
-      { previewer = picker == "live_grep" or picker == "jumplist", default_text = table.concat(getvisual()) }
+    local default = { previewer = picker == "live_grep" or picker == "jumplist", default_text = table.concat(vget()) }
     require("telescope.builtin")[picker](vim.tbl_deep_extend("force", default, opts or {}))
   end
 end

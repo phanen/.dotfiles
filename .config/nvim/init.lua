@@ -3,13 +3,24 @@ vim.loader.enable()
 vim.g.mapleader = " "
 vim.g.maplocalleader = "+"
 
+_G.au = vim.api.nvim_create_autocmd
 _G.fmt = string.format
 _G.k = function(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
 _G.map = vim.keymap.set
-if vim.fn.has "nvim-0.10.0" == 1 then
-  _G.getvisual = function() return vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", { type = vim.fn.mode() }) end
-else
-  _G.getvisual = function()
+_G.req = function(path)
+  return setmetatable({}, {
+    __index = function(_, k)
+      return function(...) return require(path)[k](...) end
+    end,
+  })
+end
+_G.vget = vim.fn.getregion
+    and function()
+      local text = vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", { type = vim.fn.mode() })
+      vim.api.nvim_feedkeys(k "<esc>", "x", false)
+      return text
+    end
+  or function()
     local save_a = vim.fn.getreg "a"
     vim.fn.setreg("a", {})
     -- do nothing in normal mode
@@ -18,14 +29,6 @@ else
     vim.fn.setreg("a", save_a)
     return { sel_text }
   end
-end
-_G.req = function(path)
-  return setmetatable({}, {
-    __index = function(_, k)
-      return function(...) return require(path)[k](...) end
-    end,
-  })
-end
 
 require "opt"
 require "map"

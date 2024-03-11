@@ -59,7 +59,7 @@ misc.tree = {
     event = "CmdlineEnter",
     cmd = { "NvimTreeFindFileToggle" },
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
+      { "nvim-tree/nvim-web-devicons" },
       {
         "stevearc/dressing.nvim",
         opts = { input = { mappings = { i = { ["<c-p>"] = "HistoryPrev", ["<c-n>"] = "HistoryNext" } } } },
@@ -71,7 +71,7 @@ misc.tree = {
       view = { adaptive_size = true },
       -- hijack_directories = { enable = false },
       on_attach = function(bufnr)
-        local api = require "nvim-tree.api"
+        local api = package.loaded["nvim-tree.api"]
         api.config.mappings.default_on_attach(bufnr)
         local n = function(lhs, rhs, desc) return map("n", lhs, rhs, { desc = desc, buffer = bufnr }) end
 
@@ -96,8 +96,8 @@ misc.tree = {
         n("h", api.tree.change_root_to_parent, "up")
         n("l", api.node.open.edit, "edit")
         n("o", api.tree.change_root_to_node, "cd")
-        n("<c-p>", require("dirstack").prev)
-        n("<c-n>", require("dirstack").next)
+        n("<leader><c-p>", require("dirstack").prev)
+        n("<leader><c-n>", require("dirstack").next)
         n("<c-e>", pn "live_grep")
         n("<c-f>", pn "find_files")
       end,
@@ -243,10 +243,24 @@ misc.tool = {
 }
 
 misc.ui = {
-  { "stevearc/aerial.nvim", cmd = "AerialToggle", opts = { keymaps = { ["<C-k>"] = false, ["<C-j>"] = false } } },
   { "HiPhish/rainbow-delimiters.nvim", event = { "BufReadPre", "BufNewFile" } },
-  -- https://github.com/neovim/neovim/pull/27132
+  -- NOTE: https://github.com/neovim/neovim/pull/27132
   { "itchyny/vim-highlighturl", event = "ColorScheme" },
+  { "Bekaboo/dropbar.nvim", event = { "BufReadPre", "BufNewFile" }, opts = {} },
+  {
+    "stevearc/aerial.nvim",
+    cmd = "AerialToggle",
+    opts = {
+      keymaps = { ["<C-k>"] = false, ["<C-j>"] = false },
+      attach_mode = "global",
+      icons = { -- fix indent
+        Collapsed = "",
+        markdown = { Interface = "󰪥" },
+      },
+      nav = { preview = true },
+      on_attach = function(_) package.loaded.aerial.tree_close_all() end,
+    },
+  },
   {
     "akinsho/toggleterm.nvim",
     keys = { "<c-\\>" },
@@ -267,11 +281,6 @@ misc.ui = {
       },
     },
   },
-  {
-    "Bekaboo/dropbar.nvim",
-    event = "LspAttach",
-    -- dependencies = "nvim-telescope/telescope-fzf-native.nvim",
-  },
 }
 
 local M = {}
@@ -284,3 +293,4 @@ vim.tbl_map(function(part)
 end, misc)
 
 return M
+

@@ -1,6 +1,4 @@
 local api, fn = vim.api, vim.fn
-local au = api.nvim_create_autocmd
-local ag = api.nvim_create_augroup
 
 -- highlight yank, keep pos
 -- TODO: TextYankPre?
@@ -63,7 +61,7 @@ au("Filetype", {
   end,
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
+au("LspAttach", {
   callback = function(_)
     local bn = function(lhs, rhs) map("n", lhs, rhs, { buffer = 0 }) end
     bn("K", vim.lsp.buf.hover)

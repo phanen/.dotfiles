@@ -40,17 +40,20 @@ end
 kmp.buf = function()
   n("<c-f>", "<cmd>BufferLineCycleNext<cr>")
   n("<c-e>", "<cmd>BufferLineCyclePrev<cr>")
-  -- n("<c-w>", "<cmd>Bdelete!<cr>")
-  n("<c-w>", "<cmd>bdelete!<cr>")
+  n("<c-w>", "<cmd>Bdelete!<cr>")
   n("<leader>bo", "<cmd>BufferLineCloseOthers<cr>")
   n("<leader>br", "<cmd>BufferLineCloseRight<cr>")
   n("<leader>bl", "<cmd>BufferLineCloseLeft<cr>")
+  n("<leader>bi", "<cmd>buffers<cr>")
+  n("<leader>bI", "<cmd>buffers<cr>")
 end
 
 kmp.win = function()
   n("<c-s><c-s>", "<cmd>wincmd q<cr>")
   -- TODO: restart with session
   -- n("<c-s>r", "<cmd>wincmd q<cr>")
+  n("<leader>oj", "<cmd>wincmd _<cr>")
+  n("<leader>ok", "<cmd>wincmd =<cr>")
   n("<c-s>j", "<cmd>wincmd _<cr>")
   n("<c-s>k", "<cmd>wincmd =<cr>")
   n("<c-s>v", "<cmd>wincmd v<cr>")
@@ -188,5 +191,5 @@ onoremap <silent> il :<c-u>execute "normal! ^v".v:count1."g_"<cr>
 ]]
 end
 
+nx("<leader>so", "<cmd>so<cr>")
 vim.tbl_map(function(fn) fn() end, kmp)
--- vim:foldmethod=marker

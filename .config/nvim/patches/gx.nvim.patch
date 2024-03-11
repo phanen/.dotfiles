@@ -12,13 +12,13 @@ index 7d47b79..2c42379 100644
        url = parse_git_output(result)
        if url then
 diff --git a/lua/gx/helper.lua b/lua/gx/helper.lua
-index 95d83cd..d67075c 100644
+index 95d83cd..abda0ce 100644
 --- a/lua/gx/helper.lua
 +++ b/lua/gx/helper.lua
-@@ -1,17 +1,6 @@
+@@ -1,17 +1,5 @@
  local M = {}
  
- -- get visual selection
+--- get visual selection
 -local function visual_selection_range()
 -  local _, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
 -  local _, cerow, cecol, _ = unpack(vim.fn.getpos("'>"))
@@ -33,16 +33,17 @@ index 95d83cd..d67075c 100644
  local function table_contains(tbl, x)
    local found = false
    for _, v in pairs(tbl) do
-@@ -50,9 +39,9 @@ function M.cut_with_visual_mode(mode, line)
+@@ -50,9 +38,11 @@ function M.cut_with_visual_mode(mode, line)
      return line
    end
  
--  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, false, true), "x", false)
--  local i, j = visual_selection_range()
--  return string.sub(line, i + 1, j)
-+  return table
++  local ret = table
 +    .concat(vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = vim.fn.mode() }), "\n")
 +    :gsub("\n", "")
+   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, false, true), "x", false)
+-  local i, j = visual_selection_range()
+-  return string.sub(line, i + 1, j)
++  return ret
  end
  
  -- find pattern in line and check if cursor on it
@@ -67,3 +68,4 @@ index 335c396..76d8170 100644
  end
  
  function shell.execute_with_error(command, args, url)
+
