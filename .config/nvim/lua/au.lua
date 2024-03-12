@@ -56,8 +56,10 @@ au({ "FocusGained", "BufEnter", "CursorHold" }, {
 au("Filetype", {
   pattern = { "toggleterm", "help", "man" },
   callback = function()
-    map("n", "u", "<c-u>", { buffer = true })
-    map("n", "d", "<c-d>", { buffer = true })
+    if vim.bo[0].bt ~= "" then
+      n("u", "<c-u>", { buffer = true })
+      n("d", "<c-d>", { buffer = true })
+    end
   end,
 })
 

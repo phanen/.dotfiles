@@ -34,7 +34,7 @@ return {
         n("<leader>gu", "<cmd>Gitsigns reset_buffer_index<cr>")
         n("<leader>gu", "<cmd>Gitsigns reset_buffer_index<cr>")
         n("<leader>gr", "<cmd>Gitsigns reset_buffer<cr>")
-        n("<leader>hd", "<cmd>Gitsigns toggle_deleted<cr><cmd>Gitsigns toggle_word_diff<cr>")
+        n("<leader>hd", "<cmd>Gitsigns toggle_deleted<bar>Gitsigns toggle_word_diff<cr>")
       end,
     },
   },
