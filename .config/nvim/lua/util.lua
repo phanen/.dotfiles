@@ -36,7 +36,7 @@ end
 util.getregion = function(mode)
   mode = mode or vim.api.nvim_get_mode().mode
   if not vim.tbl_contains({ 'v', 'V', '\022' }, mode) then
-    return { '' }
+    return {}
   end
   local ok, lines = pcall(vim.fn.getregion, vim.fn.getpos '.', vim.fn.getpos 'v', { type = mode })
   if ok then

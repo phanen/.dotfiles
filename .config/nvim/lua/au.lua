@@ -90,14 +90,14 @@ au('LspAttach', {
       map('n', lhs, rhs, { buffer = 0 })
     end
     bn('gD', vim.lsp.buf.declaration)
-    bn('gd', vim.lsp.buf.definition)
-    bn('gh', vim.lsp.buf.code_action)
+    -- bn('gd', vim.lsp.buf.definition)
+    -- bn('gh', vim.lsp.buf.code_action)
     bn('gI', vim.lsp.buf.implementation)
-    bn('gr', function()
-      vim.lsp.buf.references { includeDeclaration = false }
-    end)
+    -- bn('gr', function()
+    --   vim.lsp.buf.references { includeDeclaration = false }
+    -- end)
     bn('gs', vim.lsp.buf.signature_help)
-    bn('<leader>gd', vim.lsp.buf.type_definition)
+    -- bn('<leader>gd', vim.lsp.buf.type_definition)
     bn('<leader>i', vim.lsp.buf.hover)
     bn('<leader>rn', vim.lsp.buf.rename)
   end,

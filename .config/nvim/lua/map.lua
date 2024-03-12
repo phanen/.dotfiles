@@ -32,18 +32,10 @@ kmp.edit = function()
   ic('<c-n>', '<down>')
   ic('<c-a>', '<home>')
   ic('<c-e>', '<end>')
-  ic('<c-j>', function()
-    require('readline').forward_word()
-  end)
-  ic('<c-o>', function()
-    require('readline').backward_word()
-  end)
-  ic('<c-l>', function()
-    require('readline').kill_word()
-  end)
-  ic('<c-k>', function()
-    require('readline').kill_line()
-  end)
+  ic('<c-j>', '<cmd>lua require("readline").forward_word()<cr>')
+  ic('<c-o>', '<cmd>lua require("readline").backward_word()<cr>')
+  ic('<c-l>', '<cmd>lua require("readline").kill_word()<cr>')
+  ic('<c-k>', '<cmd>lua require("readline").kill_line()<cr>')
 
   n('<leader>J', '<cmd>TSJToggle<cr>')
 end
@@ -115,6 +107,7 @@ kmp.fmt = function()
   nx('gw', function()
     require('conform').format { lsp_fallback = true }
   end)
+  x('ga', 'gq')
 end
 
 kmp.option = function()
@@ -131,7 +124,7 @@ kmp.misc = function()
   n('<leader>M', '<cmd>messages<cr>')
   n('<leader>H', '<cmd>Fidget history<cr>')
   nx('<leader>i', 'K')
-  n('K', ':Translate<cr>')
+  nx('K', ':Translate<cr>')
 
   n('<leader>cd', '<cmd>cd %:h<cr>')
   n('<leader>cg', function()
@@ -155,9 +148,8 @@ kmp.misc = function()
   n('<leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>')
   n('<leader>ds', '<cmd>lua vim.diagnostic.setloclist()<cr>')
 
-  -- notes
-  n('<leader>e', '<cmd>e ~/notes/todo.md<cr>')
-  nx('<leader>fn', '<cmd>SimpleNoteList<cr>')
+  -- jump sinlge
+  n('<localleader>e', '<cmd>e ~/notes/todo.md<cr>')
 end
 
 kmp.tobj = function()
