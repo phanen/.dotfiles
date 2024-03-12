@@ -1,20 +1,20 @@
 local o = vim.o
 
-o.clipboard = "unnamedplus"
+o.clipboard = 'unnamedplus'
 o.undofile = true
 o.number = true
 o.relativenumber = true
 o.termguicolors = true
 -- o.fileencodings = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
-o.whichwrap = "b,s,h,l"
-o.jumpoptions = "stack"
+o.whichwrap = 'b,s,h,l'
+o.jumpoptions = 'stack'
 o.scrolloff = 16
 o.splitright = true
 -- o.completeopt = "menuone,noselect,noinsert"
 
 o.list = true
-o.listchars = o.listchars .. ",leadmultispace:│ "
-o.showbreak = "↪ "
+o.listchars = o.listchars .. ',leadmultispace:│ '
+o.showbreak = '↪ '
 
 o.ignorecase = true
 o.smartcase = true
