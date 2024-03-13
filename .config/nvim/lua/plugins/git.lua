@@ -53,8 +53,8 @@ return {
   {
     'linrongbin16/gitlinker.nvim',
     keys = {
-      { '<localleader>gl', '<cmd>GitLink!<cr>', mode = { 'n', 'x' } },
-      { '<localleader>gb', '<cmd>GitLink! blame<cr>', mode = { 'n', 'x' } },
+      { '<localleader>gl', '<cmd>GitLink<cr>', mode = { 'n', 'x' } },
+      { '<localleader>gb', '<cmd>GitLink blame<cr>', mode = { 'n', 'x' } },
     },
     cmd = 'GitLink',
     opts = {
