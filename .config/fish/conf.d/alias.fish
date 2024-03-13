@@ -11,6 +11,7 @@ alias s "systemctl"
 alias t "type -a"
 
 alias df "command df -h"
+# TODO: directly edit source...
 alias fe "funced -s"
 alias la "eza -a"
 alias ls "eza --color=auto --hyperlink"
@@ -22,7 +23,7 @@ alias wh which -a
 
 alias pi 'sudo pacman -S'
 alias pd 'sudo pacman -Rns'
-alias pa 'sudo pacman -S --asdeps'
+alias pid 'sudo pacman -S --asdeps'
 alias pao 'pacman -Qo'
 alias pfo 'pacman -F'
 alias pai 'pacman -Qi'
@@ -43,7 +44,7 @@ function vw
   if command -q $argv
     v (command -v $argv)
   else if functions -q $argv
-    funced $argv
+    funced -s $argv
   end
 end
 
@@ -123,12 +124,14 @@ abbr -a rx chmod -x
 abbr -a ta tmux a || tmux
 abbr -a vj NVIM_APPNAME=nvim-test nvim
 abbr -a vk VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim
+abbr -a ze zoxide edit
 
 abbr -a rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
 abbr -a rvp git diff --no-prefix --relative \| tail -n +3  \> riscv64.patch
 abbr -a rve sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
 abbr -a tp unset http_proxy https_proxy all_proxy;
-abbr -a pat patch -Np1 -i -
+abbr -a pa xsel -ob \| patch -Np1 -i -
 
 abbr -a nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
 abbr -a pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub)'
+

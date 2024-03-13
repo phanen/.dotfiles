@@ -59,7 +59,6 @@ bind \r k_enter
 bind \t 'SHELL=fish _fifc'
 bind \x1c "exec fish"
 
-type -q fzf_configure_bindings
-and fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
+# and fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
 # zoxide init --no-cmd fish | source
 # starship init --print-full-init fish | source

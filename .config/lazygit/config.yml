@@ -5,3 +5,27 @@ git:
 promptToReturnFromSubprocess: false
 os:
   edit: 'command -v ~/b/neovim/build/bin/nvim && (VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim {{filename}}; true;) || nvim {{filename}}'
+
+customCommands:
+    # https://github.com/jesseduffield/lazygit/pull/3104
+    # TODO: menu bind
+    - key: 'y'
+      prompts:
+        - type: 'menu'
+          title: 'yank diff'
+          options:
+            - name: 'apply'
+              value: 'xsel -ob | git apply -'
+            - name: 'unstage diff'
+              value: 'git diff | xsel -ib'
+            - name: 'staged diff'
+              value: 'git diff --staged | xsel -ib'
+            - name: 'all diff'
+              value: 'git diff HEAD | xsel -ib'
+      command: "{{index .PromptResponses 0}}"
+      context: 'localBranches'
+    - key: 'y'
+      command: 'cat {{ .SelectedPath }} | xsel -ib'
+      context: 'files'
+      description: 'copy file content to clipboard'
+      subprocess: true
