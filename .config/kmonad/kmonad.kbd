@@ -18,7 +18,7 @@
 (deflayer qwerty
   bspc _    _    3    4    5    6    7    8    9    0    .    =    bspc
   @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
-  @ec  a    s    d    f    g    h    j    k    l    @;s  '   ret
+  @ec  a    s    d    f    g    h    j    k    l    @;s  @'s  ret
   @gs  @za  x    c    v    b    n    m    ,    .    /    \
   lctl @ec  lalt           @sm            ralt rctl
 )
@@ -42,7 +42,7 @@
 (deflayer control
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    \    _    _
+  _    _    _    _    _    _    _    _    _    _    \    S-P  _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _
 )
@@ -89,9 +89,11 @@
 (defalias
   za   (tap-hold-next-release 500 z  lalt)
   ;s   (tap-next-press ;      (layer-toggle symbol))
-  \s   (tap-next-press \      (layer-toggle symbol))
+  's   (tap-next-press '      (around lctl lsft))
   gs   (tap-next grv (around lsft (layer-toggle shift)))
   ec   (tap-next esc (around lctrl (around (layer-toggle qwerty) (layer-toggle control))))
   sm   (tap-hold-next-release 500 spc (layer-toggle super))
   tb   (tap-hold-next-release 500 tab (layer-toggle tabular))
+  ;; kitty mode prefix
+  ns  (around-next (around sft p))
 )

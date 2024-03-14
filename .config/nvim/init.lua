@@ -33,6 +33,13 @@ _G.ic = function(...)
   map('!', ...)
 end
 
+-- require shortcut
+_G.r = setmetatable({}, {
+  __index = function(_, k)
+    return require(k)
+  end,
+})
+
 require 'opt'
 require 'map'
 require 'au'
@@ -53,7 +60,9 @@ require('lazy').setup {
     { import = 'plugins.lsp' },
     { import = 'plugins.misc' },
     { import = 'plugins.ts' },
+    { import = 'plugins.stage' },
   },
+  lockfile = vim.fn.stdpath('data') .. '/lazy-lock.json',
   defaults = { lazy = true },
   change_detection = { enabled = false, notify = false },
   git = { filter = false }, -- blame it

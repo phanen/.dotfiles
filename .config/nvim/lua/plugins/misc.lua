@@ -57,23 +57,17 @@ misc.doc = {
     'nvim-orgmode/orgmode',
     dependencies = 'nvim-treesitter/nvim-treesitter',
     ft = 'org',
-    opts = true,
+    opts = {},
   },
-  { 'phanen/mder.nvim', ft = 'markdown', opts = true },
+  { 'phanen/mder.nvim', ft = 'markdown', opts = {} },
   {
+    -- TODO: https://github.com/3rd/image.nvim/issues/116
     '3rd/image.nvim',
     ft = { 'markdown', 'org' },
     opts = { integrations = { markdown = { only_render_image_at_cursor = true } } },
     init = function()
-      -- Example for configuring Neovim to load user-installed installed Lua rocks:
-      package.path = package.path
-        .. ';'
-        .. vim.fn.expand '$HOME'
-        .. '/.luarocks/share/lua/5.1/?/init.lua;'
-      package.path = package.path
-        .. ';'
-        .. vim.fn.expand '$HOME'
-        .. '/.luarocks/share/lua/5.1/?.lua;'
+      package.path = package.path .. ';' .. vim.fn.expand '~/.luarocks/share/lua/5.1/?/init.lua;'
+      package.path = package.path .. ';' .. vim.fn.expand '~/.luarocks/share/lua/5.1/?.lua;'
     end,
   },
 }
@@ -103,12 +97,8 @@ misc.tree = {
       on_attach = function(bufnr)
         local api = package.loaded['nvim-tree.api']
         api.config.mappings.default_on_attach(bufnr)
-        local n = function(lhs, rhs, desc)
-          return map('n', lhs, rhs, { desc = desc, buffer = bufnr })
-        end
-
         local node_path_dir = function()
-          local node = require('nvim-tree.api').tree.get_node_under_cursor()
+          local node = api.tree.get_node_under_cursor()
           if not node then
             return
           end
@@ -117,27 +107,21 @@ misc.tree = {
           end
           return node.absolute_path
         end
-        -- picker on dir, prefer node path
-        local pn = function(picker, dirs)
-          return function()
-            local ndir = nil
-            local ft = vim.api.nvim_get_option_value('filetype', {})
-            if ft == 'NvimTree' then
-              ndir = node_path_dir()
-            end
-            require('telescope.builtin')[picker] {
-              search_dirs = ndir and { ndir } or dirs,
-              previewer = picker == 'live_grep',
-            }
-          end
+        local files = function()
+          require('fzf-lua').files {
+            ['--history'] = vim.fn.stdpath 'state' .. '/telescope_history',
+            cwd = node_path_dir() or vim.uv.cwd(),
+          }
         end
-        n('h', api.tree.change_root_to_parent, 'up')
-        n('l', api.node.open.edit, 'edit')
-        n('o', api.tree.change_root_to_node, 'cd')
+        local n = function(lhs, rhs)
+          return map('n', lhs, rhs, { buffer = bufnr })
+        end
+        n('h', api.tree.change_root_to_parent)
+        n('l', api.node.open.edit)
+        n('o', api.tree.change_root_to_node)
         n('<leader><c-p>', require('dirstack').prev)
         n('<leader><c-n>', require('dirstack').next)
-        n('<c-e>', pn 'live_grep')
-        n('<c-f>', pn 'find_files')
+        n('f', files)
       end,
     },
   },
@@ -177,15 +161,11 @@ misc.tool = {
     opts = { plugins = { spelling = { enabled = false } } },
   },
   { 'voldikss/vim-translator', cmd = 'Translate' },
-  {
-    'AndrewRadev/linediff.vim',
-    cmd = 'Linediff',
-    keys = { { mode = 'x', '<leader>ld', ':Linediff<cr>' } },
-  },
+  { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
   { 'lilydjwg/fcitx.vim', event = 'InsertEnter' },
   { 'tpope/vim-eunuch', cmd = { 'Move', 'Rename', 'Remove', 'Delete', 'Mkdir' } },
   { 'mikesmithgh/kitty-scrollback.nvim' },
-  { 'polirritmico/lazy-local-patcher.nvim', ft = 'lazy', opts = true },
+  { 'polirritmico/lazy-local-patcher.nvim', ft = 'lazy', opts = {} },
   {
     -- TODO: upstream
     'sportshead/gx.nvim',
@@ -193,7 +173,7 @@ misc.tool = {
     cmd = 'Browse',
     keys = { { 'gl', '<cmd>Browse<cr>', mode = { 'n', 'x' } } },
     dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = true,
+    opts = {},
   },
   {
     'mbbill/undotree',
@@ -265,13 +245,7 @@ misc.tool = {
         end,
       },
     },
-    opts = true,
-  },
-  {
-    'sindrets/diffview.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    cmd = 'DiffviewOpen',
-    opts = true,
+    opts = {},
   },
   {
     'kawre/leetcode.nvim',

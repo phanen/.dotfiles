@@ -5,9 +5,27 @@ return {
     keys = {
       { '<leader>ga', '<cmd>G<cr>' },
       { '<leader>gb', '<cmd>G blame<cr>' },
-      { '<localleader>gd', '<cmd>Gvdiffsplit<cr>' },
+      -- { '<localleader>gd', '<cmd>Gvdiffsplit<cr>' },
       { '<localleader>gr', '<cmd>Gr<cr>' },
       { '<localleader>gs', '<cmd>Gwrite<cr>' },
+    },
+  },
+  {
+    'sindrets/diffview.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    cmd = 'DiffviewOpen',
+    keys = {
+      { '<localleader>gd', ':DiffviewOpen<CR>', mode = { 'n', 'x' } },
+      { '<localleader>gh', ':DiffviewFileHistory<cr>', mode = { 'n', 'x' } },
+    },
+    opts = {
+      enhanced_diff_hl = true,
+      -- default_args = { DiffviewFileHistory = { '%' } },
+      keymaps = {
+        view = { q = '<Cmd>DiffviewClose<CR>' },
+        file_panel = { q = '<Cmd>DiffviewClose<CR>' },
+        file_history_panel = { q = '<Cmd>DiffviewClose<CR>' },
+      },
     },
   },
   {

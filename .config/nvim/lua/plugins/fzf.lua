@@ -145,6 +145,7 @@ return {
   {
     'phanen/fzf-lua-ext',
     dependencies = { 'ibhagwan/fzf-lua' },
+    cond = false,
     -- stylua: ignore
     keys = {
       { '<leader><c-f>', function() require('fzf-lua-ext').zoxide() end,       mode = { 'n', 'x' } },
@@ -172,7 +173,7 @@ return {
       { '<leader>e',     find_notes,                              mode = { 'n', 'x' } },
       { '<leader>fa',    fl.builtin(),                            mode = { 'n', 'x' } },
       { '<leader>fe',    find_daily,                              mode = { 'n', 'x' } },
-      { '<leader>f/',    fl.bline(),                              mode = { 'n', 'x' } },
+      { '<leader>/',    fl.blines(),                             mode = { 'n', 'x' } },
       { '<leader>f;',    fl.command_history(),                    mode = { 'n', 'x' } },
       { '<leader>fh',    fl.help_tags(),                          mode = { 'n', 'x' } },
       { '<leader>fj',    fl.live_grep_native { cwd = "~/notes" }, mode = { 'n', 'x' } },

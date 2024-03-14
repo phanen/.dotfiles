@@ -55,7 +55,7 @@ super + x
 super + v
   (rofi -dmenu) >> "$HOME/priv/$(date +%m-%d).md"
 super + b
-  cat "$HOME/priv/$(date +%m-%d).md" | rofi -dmenu
+  cat "$HOME/notes/bookmark.md" | rofi -dmenu
 super + Tab
   darkman toggle
 super + ctrl + t

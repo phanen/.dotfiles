@@ -35,6 +35,14 @@ au({ 'BufLeave' }, {
   end,
 })
 
+au({ 'BufEnter' }, {
+  callback = function()
+    if vim.fn.bufname() == 'nofile' then
+      n('q', '<cmd>q<cr>', { buffer = true })
+    end
+  end,
+})
+
 -- create directories when needed, when saving a file
 au('BufWritePre', {
   callback = function(event)

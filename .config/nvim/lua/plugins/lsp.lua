@@ -9,11 +9,11 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    event = 'Filetype',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- NOTE: useful in random plugin dir
-      { 'folke/neodev.nvim', ft = 'lua', opts = true },
-      { 'williamboman/mason.nvim', build = ':MasonUpdate', cmd = 'Mason', opts = true },
+      { 'folke/neodev.nvim', ft = 'lua', opts = {} },
+      { 'williamboman/mason.nvim', build = ':MasonUpdate', cmd = 'Mason', opts = {} },
       { 'neovim/nvim-lspconfig', cmd = { 'LspInfo', 'LspInstall', 'LspUninstall' } },
     },
     config = function()

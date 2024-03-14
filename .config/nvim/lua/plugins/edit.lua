@@ -48,7 +48,7 @@ return {
       { '<c-/>', '<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>', mode = 'i' },
       { '<c-/>', '<Plug>(comment_toggle_linewise_visual)', mode = 'v' },
     },
-    opts = true,
+    opts = {},
   },
   {
     'altermo/ultimate-autopair.nvim',
@@ -60,7 +60,7 @@ return {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     dependencies = { 'hrsh7th/nvim-cmp' },
-    opts = true,
+    opts = {},
   },
   {
     'mg979/vim-visual-multi',
@@ -96,7 +96,13 @@ return {
         's',
         mode = { 'n' },
         function()
-          require('flash').jump()
+          require('flash').jump({
+            search = {
+              mode = function(str)
+                return '\\<' .. str
+              end,
+            },
+          })
         end,
         desc = 'Flash',
       },

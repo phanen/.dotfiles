@@ -94,8 +94,8 @@ return {
         },
         formatting = formatting,
         performance = {
+          -- NOTE: no total limit, use it as workaround
           max_view_entries = 12,
-          fetching_timeout = 0,
         },
       }
       cmp.setup.cmdline('/', { sources = { { name = 'buffer' } } })
@@ -153,6 +153,6 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope.nvim',
     },
-    opts = true,
+    opts = {},
   },
 }

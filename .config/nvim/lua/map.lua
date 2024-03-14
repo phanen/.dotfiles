@@ -9,6 +9,7 @@ kmp.edit = function()
   nx('$', 'g_')
   x('.', ':normal .<cr>')
 
+  -- TODO: not sure what happened with c-s-v
   x('p', 'P')
   nx('d', '"_d')
   nx('D', '"_D')
@@ -36,8 +37,16 @@ kmp.edit = function()
   ic('<c-o>', '<cmd>lua require("readline").backward_word()<cr>')
   ic('<c-l>', '<cmd>lua require("readline").kill_word()<cr>')
   ic('<c-k>', '<cmd>lua require("readline").kill_line()<cr>')
-
+  -- TODO: fix flick below, or make repeatable above
+  -- ic('<c-j>', '<c-o>w')
+  -- ic('<c-o>', '<c-o>b')
+  -- ic('<c-l>', '<c-o>dw')
+  -- ic('<c-k>', '<c-o>D')
   n('<leader>J', '<cmd>TSJToggle<cr>')
+  n('<c-h>', '<c-u>')
+  map({ 'n', 'x', 'o' }, '_', 'y')
+  map({ 'n' }, '-', 'V')
+  map({ 'x' }, '-', 'c')
 end
 
 kmp.buf = function()
@@ -55,6 +64,7 @@ end
 
 kmp.win = function()
   n('<c-s><c-s>', '<cmd>wincmd q<cr>')
+  n('<c-s><c-s>', '<cmd>wincmd q<cr>')
   n('<leader>oj', '<cmd>wincmd _<cr>')
   n('<leader>ok', '<cmd>wincmd =<cr>')
   n('<c-s>j', '<cmd>wincmd _<cr>')
@@ -65,6 +75,8 @@ kmp.win = function()
   n('<c-s>J', '<cmd>wincmd J<cr>')
   n('<c-j>', '<cmd>wincmd w<cr>')
   n('<c-k>', '<cmd>wincmd W<cr>')
+  -- n('_', '<cmd>wincmd w<cr>')
+  -- n('-', '<cmd>wincmd W<cr>')
 
   n('<leader>q', function()
     local qf_win = vim
@@ -82,7 +94,6 @@ kmp.win = function()
   n('<leader>k', '<cmd>NvimTreeFindFileToggle<cr>')
   n('<leader>wo', '<cmd>AerialToggle<cr>')
   n('<leader>wl', '<cmd>Lazy<cr>')
-  n('<localleader>r', ':Lazy reload ')
   n('<leader>wj', '<cmd>Navbuddy<cr>')
   n('<leader>wi', '<cmd>LspInfo<cr>')
   n('<leader>wu', '<cmd>NullLsInfo<cr>')
@@ -125,6 +136,8 @@ kmp.misc = function()
   n('<leader>H', '<cmd>Fidget history<cr>')
   nx('<leader>i', 'K')
   nx('K', ':Translate<cr>')
+  nx('<leader>L', ':Linediff<cr>')
+  nx('<leader>E', ':EditCodeBlock<cr>')
 
   n('<leader>cd', '<cmd>cd %:h<cr>')
   n('<leader>cg', function()
@@ -148,8 +161,14 @@ kmp.misc = function()
   n('<leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>')
   n('<leader>ds', '<cmd>lua vim.diagnostic.setloclist()<cr>')
 
-  -- jump sinlge
   n('<localleader>e', '<cmd>e ~/notes/todo.md<cr>')
+
+  -- TODO: fzf
+  -- n('<localleader>r', ':Lazy reload ')
+  n('<localleader>e', '<cmd>e ~/notes/todo.md<cr>')
+  n('<localleader>e', '<cmd>e ~/notes/todo.md<cr>')
+  n('<localleader>fr', ':Rename ')
+  n('<localleader>fd', ':Delete ')
 end
 
 kmp.tobj = function()

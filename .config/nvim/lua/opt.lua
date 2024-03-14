@@ -12,8 +12,8 @@ o.scrolloff = 16
 o.splitright = true
 -- o.completeopt = "menuone,noselect,noinsert"
 
-o.list = true
-o.listchars = o.listchars .. ',leadmultispace:│ '
+-- o.list = true
+-- o.listchars = o.listchars .. ',leadmultispace:│ '
 o.showbreak = '↪ '
 
 o.ignorecase = true
