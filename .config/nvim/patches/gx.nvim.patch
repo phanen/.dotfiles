@@ -11,6 +11,25 @@ index 7d47b79..2c42379 100644
      if exit_code == 0 then
        url = parse_git_output(result)
        if url then
+diff --git a/lua/gx/handlers/url.lua b/lua/gx/handlers/url.lua
+index fa257ce..e455b6b 100644
+--- a/lua/gx/handlers/url.lua
++++ b/lua/gx/handlers/url.lua
+@@ -8,12 +8,12 @@ local M = {
+ 
+ -- get url from line (with http/s)
+ function M.handle(mode, line, _)
+-  local pattern = "(https?://[a-zA-Z%d_/%%%-%.~@\\+#=?&:]+)"
++  local pattern = "(https?://[a-zA-Z%d_/%%%-%.~@\\+#=?&:–]+)"
+   local url = helper.find(line, mode, pattern)
+ 
+   -- match url without http(s)
+   if not url then
+-    pattern = "([a-zA-Z%d_/%-%.~@\\+#]+%.[a-zA-Z%d_/%%%-%.~@\\+#=?&:]+)"
++    pattern = "([a-zA-Z%d_/%-%.~@\\+#]+%.[a-zA-Z%d_/%%%-%.~@\\+#=?&:–]+)"
+     url = helper.find(line, mode, pattern)
+     if url then
+       return "https://" .. url
 diff --git a/lua/gx/helper.lua b/lua/gx/helper.lua
 index 95d83cd..abda0ce 100644
 --- a/lua/gx/helper.lua
@@ -68,4 +87,3 @@ index 335c396..76d8170 100644
  end
  
  function shell.execute_with_error(command, args, url)
-
