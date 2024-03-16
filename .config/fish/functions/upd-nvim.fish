@@ -3,7 +3,7 @@ function upd-nvim
   set -l git git -C ~/b/neovim
   set -l make make -C ~/b/neovim
   if not test -d ~/b/neovim
-      $git clone https://github.com/phanen/neovim ~/b/neovim
+      git clone https://github.com/phanen/neovim ~/b/neovim
       $git remote add upstream http://github.com/neovim/neovim
       $git fetch
       $git branch patch origin/patch

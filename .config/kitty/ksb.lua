@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global
+-- TODO: https://gist.github.com/galaxia4Eva/9e91c4f275554b4bd844b6feece16b3d
 vim.loader.enable()
-
 vim.g.mapleader = " "
 vim.o.clipboard = "unnamedplus"
 vim.o.laststatus = 0

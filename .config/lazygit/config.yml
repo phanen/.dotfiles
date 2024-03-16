@@ -3,8 +3,6 @@ git:
     colorArg: always
     useConfig: true
 promptToReturnFromSubprocess: false
-os:
-  edit: 'command -v ~/b/neovim/build/bin/nvim && (VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim {{filename}}; true;) || nvim {{filename}}'
 
 customCommands:
     # https://github.com/jesseduffield/lazygit/pull/3104

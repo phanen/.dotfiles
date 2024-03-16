@@ -11,8 +11,6 @@ alias s "systemctl"
 alias t "type -a"
 
 alias df "command df -h"
-# TODO: directly edit source...
-alias fe "funced -s"
 alias la "eza -a"
 alias ls "eza --color=auto --hyperlink"
 alias lt "eza --tree"
@@ -40,11 +38,15 @@ alias par 'pactree -r -lu'
 alias pst 'pactree -slu'
 alias psr 'pactree -r -slu'
 
+function fe
+  v (functions --details $argv)
+end
+
 function vw
   if command -q $argv
     v (command -v $argv)
   else if functions -q $argv
-    funced -s $argv
+    fe $argv
   end
 end
 
@@ -79,7 +81,7 @@ function e
 end
 
 function v --wrap nvim
-  if test -x ~/b/neovim/build/bin/nvim
+  if command -q ~/b/neovim/build/bin/nvim
     VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim $argv
   else
     nvim $argv
@@ -135,3 +137,4 @@ abbr -a pa xsel -ob \| patch -Np1 -i -
 abbr -a nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
 abbr -a pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub)'
 
+abbr lua v -l

@@ -55,6 +55,7 @@ bind \ei 'tmux a &>/dev/null || tmux &>/dev/null || tmux det'
 bind \el clear-screen
 bind \er 'exec fish'
 bind \ew 'fish_key_reader -c'
+bind -k nul 'kitten @ action kitty_scrollback_nvim'
 bind \r k_enter
 bind \t 'SHELL=fish _fifc'
 bind \x1c "exec fish"

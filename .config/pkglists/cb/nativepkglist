@@ -129,6 +129,7 @@ intel-media-driver
 intel-ucode
 intellij-idea-community-edition
 iptables-nft
+ipython
 iverilog
 iw
 jack2
@@ -401,7 +402,6 @@ xorg-xwud
 xsel
 xterm
 yarn
-yay-git
 yazi
 you-get
 yq

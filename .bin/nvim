@@ -1,0 +1,6 @@
+#!/bin/sh
+if command -v ~/b/neovim/build/bin/nvim &>/dev/null; then
+  VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim "$@"
+else
+  /bin/nvim "$@"
+fi

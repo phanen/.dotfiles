@@ -36,7 +36,7 @@ super + shift + f
   bspc node -t \~floating
 
 super + n
-  tdrop -y 5% -h 85% -x 5% -w 90% -mta kitty
+  tdrop -y 3% -h 90% -x 4% -w 92% -mta kitty
 
 # super + n
 #   kitty

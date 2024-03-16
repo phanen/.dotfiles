@@ -141,7 +141,9 @@ kmp.misc = function()
 
   n('<leader>cd', '<cmd>cd %:h<cr>')
   n('<leader>cg', function()
-    local root = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait().stdout
+    local root = vim
+      .system({ 'git', '-C', vim.fn.expand('%:p:h'), 'rev-parse', '--show-toplevel' })
+      :wait().stdout
     if root == nil then
       return
     end
@@ -149,7 +151,7 @@ kmp.misc = function()
     vim.fn.chdir(root)
   end)
   n('<leader>cn', function()
-    vim.fn.system(fmt('echo -n %s | xsel -ib', vim.fn.expand '%'))
+    vim.fn.system(fmt('echo %s | xsel -ib --trim', vim.fn.expand '%:p'))
   end)
   n('<leader>cx', '<cmd>!chmod +x %<cr>')
 
