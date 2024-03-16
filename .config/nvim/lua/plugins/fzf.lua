@@ -1,37 +1,13 @@
 local opts_cb = function(k)
   local text = table.concat(util.getregion())
-  local fzf_q, rg_q
+  local opts = {}
   if k:match('grep') then
-    fzf_q, rg_q = nil, text
-  else
-    fzf_q, rg_q = text, nil
+    opts.search = text
+    return opts
   end
-  local opts = {
-    search = rg_q,
-    fzf_opts = {
-      ['--query'] = fzf_q ~= '' and fzf_q or nil, -- fix injection
-    },
-  }
-  if k:match('lsp_') then
-    opts['jump_to_single_result'] = true
-  end
+  opts.fzf_opts = { ['--query'] = text ~= '' and text or nil }
   return opts
 end
-
----@module 'fzf-lua'
-local fl = setmetatable({}, {
-  __index = function(_, k)
-    return function(opts, cb)
-      return function()
-        local _opts = opts_cb(k)
-        require('fzf-lua')[k](vim.tbl_deep_extend('force', _opts, opts or {}))
-        if type(cb) == 'function' then
-          require('fzf-lua')[k](vim.tbl_deep_extend('force', _opts, cb() or {}))
-        end
-      end
-    end
-  end,
-})
 
 local notes_actions = {
   ['ctrl-n'] = function(_, opts)
@@ -95,24 +71,58 @@ local notes_actions = {
   },
 }
 
-local find_notes = fl.files {
-  cwd = '~/notes',
-  file_icons = false,
-  git_icons = false,
-  actions = notes_actions,
+local overlay = {
+  find_dots = { 'files', { cwd = '~' } },
+  live_grep_notes = { 'live_grep_native', { cwd = '~' } },
+  todo_comment = { 'grep', { search = 'TODO|HACK|PERF|NOTE|FIX', no_esc = true } },
+  lsp_references = {
+    'lsp_references',
+    { ignore_current_line = true, includeDeclaration = false },
+  },
+  find_notes = {
+    'files',
+    {
+      cwd = '~/notes',
+      actions = notes_actions,
+      file_icons = false,
+      git_icons = false,
+    },
+  },
+  find_daily = {
+    'files',
+    {
+      cmd = 'fd "[0-9][0-9]-[0-9][0-9]*"  --type f',
+      cwd = '~/notes',
+      actions = notes_actions,
+      file_icons = false,
+      git_icons = false,
+    },
+  },
 }
 
--- TODO: should jump if only one result?
-local find_daily = fl.files {
-  cwd = '~/notes',
-  cmd = 'fd "[0-9][0-9]-[0-9][0-9]*"  --type f',
-  file_icons = false,
-  git_icons = false,
-  actions = notes_actions,
-}
+---@module 'fzf-lua'
+local fl = setmetatable({}, {
+  __index = function(_, k)
+    return function()
+      local opts = opts_cb(k)
+      local picker = k
+      local preset = overlay[k]
+      if preset then
+        local old = opts
+        picker, opts = unpack(preset)
+        opts = vim.tbl_deep_extend('force', old, opts or {})
+        if picker:match('lsp_') then
+          opts.jump_to_single_result = true
+        end
+      end
+      require('fzf-lua')[picker](opts)
+    end
+  end,
+})
 
+-- TODO: extend dir history to fzf-lua ver
+-- since zoxide can not be hack into module, we can
 local zoxide = function(opts)
-  local fzf_lua = require 'fzf-lua'
   opts = opts or {}
   opts.prompt = 'zoxide> '
   local fzf_q = table.concat(util.getregion())
@@ -126,11 +136,8 @@ local zoxide = function(opts)
       vim.api.nvim_set_current_dir(path)
     end,
   }
-  fzf_lua.fzf_exec('zoxide query -ls', opts)
+  require('fzf-lua').fzf_exec('zoxide query -ls', opts)
 end
-
-local todo_comment = fl.grep({ search = 'TODO|HACK|PERF|NOTE|FIX', no_esc = true })
-local lsp_ref = fl.lsp_references { ignore_current_line = true, includeDeclaration = false }
 
 return {
   {
@@ -159,31 +166,36 @@ return {
     cmd = { 'FzfLua' },
     -- stylua: ignore
     keys = {
-      { '<c-b>',         fl.buffers(),                            mode = { 'n', 'x' } },
-      { '<c-l>',         fl.files(),                              mode = { 'n', 'x' } },
-      { '<c-n>',         fl.live_grep_native(),                   mode = { 'n', 'x' } },
-      { '<c-x><c-b>',    fl.complete_bline(),                     mode = 'i' },
-      { '<c-x><c-f>',    fl.complete_file(),                      mode = 'i' },
-      { '<c-x><c-p>',    fl.complete_path(),                      mode = 'i' },
-      { 'gd',            fl.lsp_definitions(),                    mode = { 'n', 'x' } },
-      { 'gh',            fl.lsp_code_actions(),                   mode = { 'n', 'x' } },
-      { 'gr',            lsp_ref,                                 mode = { 'n', 'x' } },
-      { '<leader><c-f>', zoxide,                                  mode = { 'n', 'x' } },
-      { '<leader><c-j>', todo_comment,                            mode = { 'n', 'x' } },
-      { '<leader>e',     find_notes,                              mode = { 'n', 'x' } },
-      { '<leader>fa',    fl.builtin(),                            mode = { 'n', 'x' } },
-      { '<leader>fe',    find_daily,                              mode = { 'n', 'x' } },
-      { '<leader>/',    fl.blines(),                             mode = { 'n', 'x' } },
-      { '<leader>f;',    fl.command_history(),                    mode = { 'n', 'x' } },
-      { '<leader>fh',    fl.help_tags(),                          mode = { 'n', 'x' } },
-      { '<leader>fj',    fl.live_grep_native { cwd = "~/notes" }, mode = { 'n', 'x' } },
-      { '<leader> ',     fl.resume(),                             mode = 'n' },
-      { '<leader>fo',    fl.oldfiles(),                           mode = { 'n', 'x' } },
-      { '<leader>fs',    fl.lsp_document_symbols(),               mode = { 'n', 'x' } },
-      { '<leader>fw',    fl.lsp_live_workspace_symbols(),         mode = { 'n', 'x' } },
-      { '<leader>gd',    fl.lsp_typedefs(),                       mode = { 'n', 'x' } },
-      { '<leader>l',     fl.files { cwd = '~' },                  mode = { 'n', 'x' } },
+      { '<c-b>',         fl.buffers,                    mode = { 'n', 'x' } },
+      { '<c-l>',         fl.files,                      mode = { 'n', 'x' } },
+      { '<c-n>',         fl.live_grep_native,           mode = { 'n', 'x' } },
+      { '<c-x><c-b>',    fl.complete_bline,             mode = 'i' },
+      { '<c-x><c-f>',    fl.complete_file,              mode = 'i' },
+      { '<c-x><c-p>',    fl.complete_path,              mode = 'i' },
+      { 'gd',            fl.lsp_definitions,            mode = { 'n', 'x' } },
+      { 'gh',            fl.lsp_code_actions,           mode = { 'n', 'x' } },
+      { 'gr',            fl.lsp_references,             mode = { 'n', 'x' } },
+      { '<leader><c-f>', zoxide,                        mode = { 'n', 'x' } },
+      { '<leader><c-j>', fl.todo_comment,               mode = { 'n', 'x' } },
+      { '<leader>e',     fl.find_notes,                 mode = { 'n', 'x' } },
+      { '<leader>fa',    fl.builtin,                    mode = { 'n', 'x' } },
+      { '<leader>fe',    fl.find_daily,                 mode = { 'n', 'x' } },
+      { '<leader>f;',    fl.command_history,            mode = { 'n', 'x' } },
+      { '<leader>fh',    fl.help_tags,                  mode = { 'n', 'x' } },
+      { '<leader>fj',    fl.live_grep_notes,            mode = { 'n', 'x' } },
+      { '<leader>fk',    fl.keymaps,                    mode = { 'n', 'x' } },
+      { '<leader>/',     fl.blines,                     mode = { 'n', 'x' } },
+      { '<leader> ',     fl.resume,                     mode = 'n' },
+      { '<leader>;',     fl.spell_suggest,              mode = { 'n', 'x' } },
+      { '<leader>fo',    fl.oldfiles,                   mode = { 'n', 'x' } },
+      { '<leader>fs',    fl.lsp_document_symbols,       mode = { 'n', 'x' } },
+      { '<leader>fw',    fl.lsp_workspace_symbols, mode = { 'n', 'x' } },
+      { '<leader>gd',    fl.lsp_typedefs,               mode = { 'n', 'x' } },
+      { '<leader>l',     fl.find_dots,                  mode = { 'n', 'x' } },
     },
+    -- config = function(_, opts)
+    --   require('fzf-lua').setup(opts or {})
+    -- end,
     opts = {
       previewers = {
         builtin = {
@@ -195,7 +207,7 @@ return {
           ueberzug_scaler = 'cover',
         },
       },
-      winopts = { preview = { delay = 50 }, height = 0.6 },
+      winopts = { preview = { delay = 30 }, height = 0.6 },
       fzf_opts = {
         ['--history'] = vim.fn.stdpath 'state' .. '/telescope_history',
       },
