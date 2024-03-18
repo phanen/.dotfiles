@@ -24,7 +24,7 @@ kmp.edit = function()
   n('<a-l>', '>>')
   x('<a-h>', '<gv')
   x('<a-l>', '>gv')
-  n('<leader>p', '<cmd>%d _ | norm P<cr>')
+  n('<leader>p', '<cmd>%d _ | norm vP<cr>')
   n('<leader>y', '<cmd>%y<cr>')
 
   ic('<c-f>', '<right>')
@@ -45,7 +45,7 @@ kmp.edit = function()
   n('<leader>J', '<cmd>TSJToggle<cr>')
   n('<c-h>', '<c-u>')
   map({ 'n', 'x', 'o' }, '_', 'y')
-  nx('-', 'c')
+  map({ 'n', 'x', 'o' }, '-', 'c')
 end
 
 kmp.buf = function()
@@ -166,8 +166,6 @@ kmp.misc = function()
 
   -- TODO: fzf
   -- n('<localleader>r', ':Lazy reload ')
-  n('<localleader>e', '<cmd>e ~/notes/todo.md<cr>')
-  n('<localleader>e', '<cmd>e ~/notes/todo.md<cr>')
   n('<localleader>fr', ':Rename ')
   n('<localleader>fd', ':Delete ')
 end

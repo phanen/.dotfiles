@@ -137,4 +137,4 @@ abbr -a pa xsel -ob \| patch -Np1 -i -
 abbr -a nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
 abbr -a pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub)'
 
-abbr lua v -l
+abbr lu v -l

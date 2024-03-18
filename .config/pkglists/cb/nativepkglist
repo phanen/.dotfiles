@@ -104,6 +104,7 @@ gnu-efi
 gnu-free-fonts
 gnu-netcat
 go
+gopass
 gpg-tui
 graphviz
 grub
@@ -402,6 +403,7 @@ xorg-xwud
 xsel
 xterm
 yarn
+yay
 yazi
 you-get
 yq

@@ -223,6 +223,7 @@ return {
     'riddlew/asciitree.nvim',
     cmd = 'AsciiTree',
   },
+  -- TODO: show recent file only
   {
     'danielfalk/smart-open.nvim',
     branch = '0.2.x',
@@ -243,5 +244,14 @@ return {
       { 'nvim-telescope/telescope.nvim' },
     },
   },
-}
+  -- optional for icons
 
+  -- optional for the 'fzf' command
+  {
+    'linrongbin16/fzfx.nvim',
+    cmd = 'FzfxFiles',
+    dependencies = { 'nvim-tree/nvim-web-devicons', 'junegunn/fzf' },
+    version = 'v5.*',
+    config = true,
+  },
+}

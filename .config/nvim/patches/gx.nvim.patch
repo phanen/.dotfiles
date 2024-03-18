@@ -1,13 +1,15 @@
 diff --git a/lua/gx/git.lua b/lua/gx/git.lua
-index 7d47b79..2c42379 100644
+index 7d47b79..f30938f 100644
 --- a/lua/gx/git.lua
 +++ b/lua/gx/git.lua
-@@ -22,7 +22,7 @@ function M.get_remote_url(remotes, owner)
+@@ -21,8 +21,9 @@ function M.get_remote_url(remotes, owner)
+ 
    local url = nil
    for _, remote in ipairs(remotes) do
++    local path = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
      local exit_code, result =
 -      require("gx.shell").execute("git", { "remote", "get-url", "--push", remote })
-+      require("gx.shell").execute("git", { "remote", "get-url", "--no-push", remote })
++      require("gx.shell").execute("git", { "-C", path, "remote", "get-url", "--no-push", remote })
      if exit_code == 0 then
        url = parse_git_output(result)
        if url then
