@@ -20,13 +20,8 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     event = { 'BufRead', 'BufNewFile' },
     main = 'ibl',
-    cond = false,
     opts = {
-      scope = {
-        -- Rely on treesitter, bad performance
-        enabled = false,
-        -- highlight = highlight,
-      },
+      scope = { enabled = false },
     },
   },
   {
@@ -228,4 +223,25 @@ return {
     'riddlew/asciitree.nvim',
     cmd = 'AsciiTree',
   },
+  {
+    'danielfalk/smart-open.nvim',
+    branch = '0.2.x',
+    -- keys = { { '<leader>fo', '<cmd>Telescope smart_open<cr>', mode = { 'n', 'x' } } },
+    config = function()
+      require('telescope').load_extension('smart_open')
+    end,
+    dependencies = {
+      'kkharji/sqlite.lua',
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      { 'nvim-telescope/telescope-fzy-native.nvim' },
+    },
+  },
+  {
+    'smartpde/telescope-recent-files',
+    keys = { { '<leader>fo', '<cmd>Telescope smart_open<cr>', mode = { 'n', 'x' } } },
+    dependencies = {
+      { 'nvim-telescope/telescope.nvim' },
+    },
+  },
 }
+

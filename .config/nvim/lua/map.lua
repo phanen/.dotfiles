@@ -45,8 +45,7 @@ kmp.edit = function()
   n('<leader>J', '<cmd>TSJToggle<cr>')
   n('<c-h>', '<c-u>')
   map({ 'n', 'x', 'o' }, '_', 'y')
-  map({ 'n' }, '-', 'V')
-  map({ 'x' }, '-', 'c')
+  nx('-', 'c')
 end
 
 kmp.buf = function()
