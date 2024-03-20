@@ -139,3 +139,4 @@ abbr -a pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo b
 
 abbr lu v -l
 abbr cmd command
+abbr gi  gh repo create --source . --push

@@ -19,7 +19,11 @@ return {
     config = function()
       local lspconfig = require 'lspconfig'
       local ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-      local capabilities = ok and cmp_nvim_lsp.default_capabilities() or nil
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      if ok then
+        capabilities =
+          vim.tbl_deep_extend('force', capabilities, cmp_nvim_lsp.default_capabilities())
+      end
       require('mason-lspconfig').setup {
         handlers = {
           function(server)
@@ -57,6 +61,23 @@ return {
                 'compile_flags.txt',
                 '.git'
               ),
+            }
+          end,
+          gopls = function()
+            lspconfig.gopls.setup {
+              settings = {
+                gopls = {
+                  hints = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    constantValues = true,
+                    functionTypeParameters = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
+                  },
+                },
+              },
             }
           end,
         },
