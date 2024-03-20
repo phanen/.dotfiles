@@ -145,6 +145,38 @@ return {
     end,
   },
   {
+
+    'CopilotC-Nvim/CopilotChat.nvim',
+    branch = 'canary',
+    cmd = { 'CopilotChatDocs', 'CopilotChatCommit' },
+    keys = {
+      {
+        '+fh',
+        function()
+          local actions = require('CopilotChat.actions')
+          require('CopilotChat.integrations.fzflua').pick(actions.help_actions())
+        end,
+        mode = { 'n', 'x' },
+      },
+      {
+        '+fa',
+        function()
+          local actions = require('CopilotChat.actions')
+          require('CopilotChat.integrations.fzflua').pick(actions.prompt_actions())
+        end,
+        mode = { 'n', 'x' },
+      },
+      { '<leader>wj', '<cmd>CopilotChatToggle<cr>' },
+    },
+    dependencies = {
+      { 'zbirenbaum/copilot.lua' },
+      { 'nvim-lua/plenary.nvim' },
+    },
+    opts = {
+      prompts = {},
+    },
+  },
+  {
     'jackMort/ChatGPT.nvim',
     cond = vim.env.OPENAI_API_KEY ~= nil,
     cmd = 'ChatGPT',

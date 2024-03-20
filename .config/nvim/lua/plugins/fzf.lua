@@ -48,6 +48,7 @@ return {
   },
   {
     'ibhagwan/fzf-lua',
+    -- branch = "1089",
     cmd = { 'FzfLua' },
     opts = {
       previewers = {

@@ -4,5 +4,6 @@ function w --wrap watch
   while true
     eval $argv
     sleep $_flag_interval
+    clear
   end
 end

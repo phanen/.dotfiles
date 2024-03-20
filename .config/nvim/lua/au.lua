@@ -1,18 +1,27 @@
--- highlight yank, keep pos
--- TODO: TextYankPre?
+-- smart yank
 au('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
-    -- if vim.v.event.operator == "y" then vim.fn.setpos(".", vim.g.current_cursor_pos) end
+    -- if vim.fn.has('clipboard') ~= 1 then
+    --   return
+    -- end
+    --   if vim.v.operator ~= 'y' then
+    --     return
+    --   end
+    --   local ok, text = pcall(vim.fn.getreg, '0')
+    --   if not ok or #text == 0 then
+    --     return
+    --   end
+    --   ok, text = pcall(vim.fn.setreg, '+', text)
+    --   if not ok then
+    --     return
+    --   end
   end,
 })
--- au({ "CursorMoved" }, {
---   callback = function() vim.g.current_cursor_pos = vim.fn.getcurpos() end,
--- })
 
 -- credit to https://github.com/jeffkreeftmeijer/vim-numbertoggle
 au({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
-  command = [[if &nu && mode() != 'i' | set rnu   | endif]],
+  command = [[if &nu && mode() != 'i' | set rnu | endif]],
 })
 au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
   command = [[if &nu | set nornu | endif]],

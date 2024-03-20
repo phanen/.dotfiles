@@ -5,3 +5,7 @@ function gib --wrap "paru -S"
   cd $argv[1]
   cp -v ~/archriscv-packages/$argv[1]/*.patch .
 end
+
+function jub
+  cd ~/archriscv-packages/$argv
+end

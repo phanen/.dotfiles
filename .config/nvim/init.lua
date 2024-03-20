@@ -3,8 +3,8 @@ vim.loader.enable()
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '+'
 
+vim.uv = vim.uv or vim.loop
 _G.au = vim.api.nvim_create_autocmd
-_G.fmt = string.format
 _G.k = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -69,6 +69,7 @@ require('lazy').setup {
   dev = { path = '~/b', patterns = { 'phanen' }, fallback = true },
   performance = {
     rtp = {
+      reset = false,
       disabled_plugins = {
         'matchit',
         'matchparen',

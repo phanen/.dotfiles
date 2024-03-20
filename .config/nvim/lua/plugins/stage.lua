@@ -29,8 +29,8 @@ return {
     cmd = 'EditCodeBlock',
     opts = {},
   },
-  { 'tpope/vim-repeat', cond = true, lazy = false },
-  { 'tpope/vim-rsi', cond = true },
+  { 'tpope/vim-repeat', cond = false, lazy = false },
+  { 'tpope/vim-rsi', cond = false },
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.5',
@@ -253,5 +253,51 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons', 'junegunn/fzf' },
     version = 'v5.*',
     config = true,
+  },
+  {
+    'svermeulen/vim-subversive',
+    keys = {
+      {
+        mode = { 'n', 'x' },
+        '<localleader>s',
+        '<plug>(SubversiveSubstituteRange)',
+      },
+      {
+        '<localleader>S',
+        '<plug>(SubversiveSubstituteWordRange)',
+      },
+    },
+  },
+  {
+    '9seconds/repolink.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    cmd = {
+      'RepoLink',
+    },
+
+    opts = {
+      -- your configuration goes here.
+      -- keep empty object if you are fine with defaults
+    },
+  },
+  { 'liangxianzhe/floating-input.nvim', opts = {} },
+  {
+    'SuperBo/fugit2.nvim',
+    opts = {},
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'nvim-lua/plenary.nvim',
+      {
+        'chrisgrieser/nvim-tinygit',
+        dependencies = { 'stevearc/dressing.nvim' },
+      },
+    },
+    cmd = { 'Fugit2', 'Fugit2Graph' },
+    keys = {
+      { '<leader>F', mode = 'n', '<cmd>Fugit2<cr>' },
+    },
   },
 }

@@ -12,7 +12,7 @@ alias t "type -a"
 
 alias df "command df -h"
 alias la "eza -a"
-alias ls "eza --color=auto --hyperlink"
+alias ls "eza --color=auto"
 alias lt "eza --tree"
 alias tl tldr
 alias vn "nvim -u NONE"
@@ -21,7 +21,7 @@ alias wh which -a
 
 alias pi 'sudo pacman -S'
 alias pd 'sudo pacman -Rns'
-alias pid 'sudo pacman -S --asdeps'
+alias pdi 'sudo pacman -S --asdeps'
 alias pao 'pacman -Qo'
 alias pfo 'pacman -F'
 alias pai 'pacman -Qi'
@@ -84,7 +84,7 @@ function v --wrap nvim
   if command -q ~/b/neovim/build/bin/nvim
     VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim $argv
   else
-    nvim $argv
+    command nvim $argv
   end
 end
 
@@ -138,3 +138,4 @@ abbr -a nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
 abbr -a pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub)'
 
 abbr lu v -l
+abbr cmd command

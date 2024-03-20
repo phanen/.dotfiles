@@ -101,13 +101,10 @@ kmp.win = function()
 end
 
 kmp.fmt = function()
-  -- n("gw", "gg=G``")
   n('<leader>rp', '<cmd>%FullwidthPunctConvert<cr>')
   x('<leader>rp', ':FullwidthPunctConvert<cr>')
   n('<leader>rs', ":%s/\\s*$//g<cr>''")
   nx('<leader>rl', ":g/^$/d<cr>''")
-  -- n("<leader>rc", [[<cmd>%s/ *\/\/.*//g<cr>'']])
-  -- x("<leader>rc", [[:s/ *\/\/.*//g<cr>'']])
   x('<leader>r*', [[:s/^\([  ]*\)- \(.*\)/\1* \2/g]])
   n('<leader>r*', [[:%s/^\([  ]*\)- \(.*\)/\1* \2/g]])
   x('<leader>r ', [[:s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g<cr>]])
@@ -138,19 +135,17 @@ kmp.misc = function()
   nx('<leader>L', ':Linediff<cr>')
   nx('<leader>E', ':EditCodeBlock<cr>')
 
-  n('<leader>cd', '<cmd>cd %:h<cr>')
-  n('<leader>cg', function()
-    local root = vim
-      .system({ 'git', '-C', vim.fn.expand('%:p:h'), 'rev-parse', '--show-toplevel' })
-      :wait().stdout
-    if root == nil then
+  n('<leader>cf', '<cmd>cd %:h<cr>')
+  n('<leader>cd', function()
+    local path = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
+    local root = vim.system({ 'git', '-C', path, 'rev-parse', '--show-toplevel' }):wait().stdout
+    if not root then
       return
     end
-    root = vim.trim(root)
-    vim.fn.chdir(root)
+    vim.fn.chdir(vim.trim(root))
   end)
   n('<leader>cn', function()
-    vim.fn.system(fmt('echo %s | xsel -ib --trim', vim.fn.expand '%:p'))
+    vim.fn.system(('echo %s | xsel -ib --trim'):format(vim.fn.expand '%:p'))
   end)
   n('<leader>cx', '<cmd>!chmod +x %<cr>')
 

@@ -10,6 +10,7 @@ archiso
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
+asciinema
 atuin
 autossh
 awesome-terminal-fonts
@@ -70,7 +71,6 @@ edk2-shell
 efibootmgr
 egl-wayland
 eglexternalplatform
-emacs
 entr
 evtest
 expac
@@ -112,6 +112,7 @@ gtk-vnc
 gtkwave
 gvim
 handlr-regex
+hddtemp
 helix
 hexer
 hexyl
@@ -291,6 +292,7 @@ rustup
 scrcpy
 screen
 scrot
+selene
 setconf
 slock
 smartmontools
@@ -336,6 +338,7 @@ usbutils
 uwufetch
 valgrind
 verilator
+vhs
 vi
 virt-manager
 virt-viewer
