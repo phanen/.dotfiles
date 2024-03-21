@@ -31,3 +31,5 @@ o.ttimeout = false
 o.synmaxcol = 200
 
 vim.g.markdown_recommended_style = 0
+
+o.guicursor=''

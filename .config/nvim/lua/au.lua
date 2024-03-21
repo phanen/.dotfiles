@@ -113,3 +113,10 @@ au('LspAttach', {
     bn('<leader>rn', vim.lsp.buf.rename)
   end,
 })
+
+-- au('SourceCmd', {
+--   pattern = "*.lua",
+--   callback = function(_)
+--     vim.print('sourcing', vim.fn.expand('<afile>'))
+--   end,
+-- })
