@@ -25,6 +25,7 @@ boost
 bpftrace
 bspwm
 ccache
+cgdb
 clang
 clash
 clash-verge
@@ -218,10 +219,18 @@ refind
 reflector
 reptyr
 ripgrep
+riscv32-elf-binutils
+riscv32-elf-gdb
+riscv32-elf-newlib
+riscv64-elf-binutils
+riscv64-elf-gcc
+riscv64-elf-gdb
+riscv64-elf-newlib
 riscv64-linux-gnu-binutils
 riscv64-linux-gnu-gcc
 riscv64-linux-gnu-gdb
 riscv64-linux-gnu-glibc
+riscv64-unknown-elf-binutils-debug
 riscv64-unknown-elf-gcc
 river
 rofi
