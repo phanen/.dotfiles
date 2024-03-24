@@ -3,7 +3,7 @@ function pie --wrap "paru -G"
   test -z $argv[1] && return
   cd ~/src/$argv[1] || return
   git diff --no-prefix --relative | tail -n +3 >riscv64.patch
-  bash -c '. ./PKGBUILD; echo -n $pkgname $pkgver-$pkgrel' | cliphist store
+  bash -c '. ./PKGBUILD; echo -n $pkgname $pkgver-$pkgrel' | xsel -ib
   cd ~/archriscv-packages || return
   git pull --ff-only upstream master:master
   git push origin master:master

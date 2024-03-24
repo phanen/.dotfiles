@@ -45,4 +45,27 @@ util.getregion = function(mode)
   return getregion(mode)
 end
 
+util.q = function()
+  local count = 0
+  local current_win = vim.api.nvim_get_current_win()
+  -- Close current win only if it's a floating window
+  if vim.api.nvim_win_get_config(current_win).relative ~= '' then
+    vim.api.nvim_win_close(current_win, true)
+    return
+  end
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if vim.api.nvim_win_is_valid(win) then
+      local config = vim.api.nvim_win_get_config(win)
+      -- Close floating windows that can be focused
+      if config.relative ~= '' and config.focusable then
+        vim.api.nvim_win_close(win, false) -- do not force
+        count = count + 1
+      end
+    end
+  end
+  if count == 0 then -- Fallback
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('q', true, true, true), 'n', false)
+  end
+end
+
 return util

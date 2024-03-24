@@ -300,4 +300,38 @@ return {
       { '<leader>F', mode = 'n', '<cmd>Fugit2<cr>' },
     },
   },
+  {
+    'voldikss/vim-hello-word',
+  },
+  {
+    'phanen/word.nvim',
+  },
+  {
+    'SidOfc/carbon.nvim',
+    cmd = 'Carbon',
+    opts = true,
+  },
+  {
+    'jbyuki/nabla.nvim',
+    -- opts = true,
+    keys = {},
+    init = function()
+      vim.cmd [[nnoremap +p :lua require("nabla").popup()<CR> " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`]]
+    end,
+  },
+  { 'junegunn/vim-easy-align', keys = { { 'ga', '<plug>(EasyAlign)', mode = { 'n', 'x' } } } },
+
+  {
+    'AckslD/nvim-neoclip.lua',
+    requires = {
+      { 'ibhagwan/fzf-lua' },
+    },
+    config = function()
+      require('neoclip').setup()
+    end,
+  },
+  {
+    'sbulav/nredir.nvim',
+    cmd = 'Nredir',
+  },
 }

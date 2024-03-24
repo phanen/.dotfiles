@@ -45,7 +45,6 @@ cmake
 code
 cpio
 cronie
-crow-translate
 darkman
 debootstrap
 devtools-archlinuxcn
@@ -93,6 +92,7 @@ fisher
 flameshot
 flashrom
 foliate
+fx
 fzf
 gcc12
 gdb
@@ -142,8 +142,6 @@ jq
 just
 kakoune
 kdiskmark
-keepassxc
-keycloak
 kitty
 kmonad-git
 kubo
@@ -158,7 +156,6 @@ lib32-v4l-utils
 lib32-vulkan-icd-loader
 lib32-vulkan-intel
 libnotify
-libreoffice-fresh
 libsixel
 libtree
 libva-intel-driver
@@ -179,7 +176,8 @@ lshw
 lsof
 ltrace
 lua
-lua51
+lua51-lpeg
+lua51-socket
 luarocks
 man-db
 man-pages
@@ -195,11 +193,13 @@ mosh
 mpc
 mpd
 mpv
+mysql
 namcap
 nano
 nasm
 ncmpcpp
-neovim-git
+neovide
+neovim
 nerd-fonts-cascadia-code
 nerd-fonts-dejavu-sans-mono
 net-tools
@@ -233,7 +233,6 @@ perl-image-exiftool
 pipewire-pulse
 pkgstats
 pnpm
-podman
 poedit
 poketex
 polybar
@@ -262,7 +261,6 @@ python2
 qemu-emulators-full
 qemu-full
 qemu-user-static-binfmt
-qutebrowser
 rar
 rclone
 refind
@@ -313,7 +311,6 @@ tcpdump
 tdlib
 tdrop-git
 tealdeer
-telegram-desktop
 terminus-font
 tesseract-data-eng
 the_silver_searcher

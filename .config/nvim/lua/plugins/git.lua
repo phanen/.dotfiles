@@ -42,14 +42,17 @@ return {
         changedelete = { text = '~' },
       },
       on_attach = function(_)
-        n('gj', '<cmd>Gitsigns next_hunk<cr>')
-        n('gk', '<cmd>Gitsigns prev_hunk<cr>')
-        n('<leader>hs', '<cmd>Gitsigns stage_hunk<cr>')
-        n('<leader>hu', '<cmd>Gitsigns undo_stage_hunk<cr>')
-        n('<leader>hr', '<cmd>Gitsigns reset_hunk<cr>')
-        n('<leader>hi', '<cmd>Gitsigns preview_hunk<cr>')
-        n('<leader>gu', '<cmd>Gitsigns reset_buffer_index<cr>')
-        n('<leader>hd', '<cmd>Gitsigns toggle_deleted<cr><cmd>Gitsigns toggle_word_diff<cr>')
+        local n = function(lhs, rhs)
+          map('n', lhs, ('<cmd>Gitsigns %s<cr>'):format(rhs))
+        end
+        n('gj', 'next_hunk')
+        n('gk', 'prev_hunk')
+        n('<leader>hs', 'stage_hunk')
+        n('<leader>hu', 'undo_stage_hunk')
+        n('<leader>hr', 'reset_hunk')
+        n('<leader>hi', 'preview_hunk')
+        n('<leader>gu', 'reset_buffer_index')
+        n('<leader>hd', 'toggle_deleted<cr><cmd>Gitsigns toggle_word_diff')
       end,
     },
   },

@@ -1,3 +1,11 @@
+local group = vim.api.nvim_create_augroup('Conf', { clear = true })
+
+local au = function(ev, opts)
+  opts = opts or {}
+  opts.group = opts.group or group
+  vim.api.nvim_create_autocmd(ev, opts)
+end
+
 -- smart yank
 au('TextYankPost', {
   callback = function()
@@ -5,17 +13,17 @@ au('TextYankPost', {
     -- if vim.fn.has('clipboard') ~= 1 then
     --   return
     -- end
-    --   if vim.v.operator ~= 'y' then
-    --     return
-    --   end
-    --   local ok, text = pcall(vim.fn.getreg, '0')
-    --   if not ok or #text == 0 then
-    --     return
-    --   end
-    --   ok, text = pcall(vim.fn.setreg, '+', text)
-    --   if not ok then
-    --     return
-    --   end
+    -- if vim.v.operator ~= 'y' then
+    --   return
+    -- end
+    -- local ok, text = pcall(vim.fn.getreg, '0')
+    -- if not ok or #text == 0 then
+    --   return
+    -- end
+    -- ok, text = pcall(vim.fn.setreg, '+', text)
+    -- if not ok then
+    --   return
+    -- end
   end,
 })
 
@@ -45,9 +53,9 @@ au({ 'BufLeave' }, {
 })
 
 au({ 'BufEnter' }, {
-  callback = function()
+  callback = function(ev)
     if vim.fn.bufname() == 'nofile' then
-      n('q', '<cmd>q<cr>', { buffer = true })
+      map('n', 'q', '<cmd>q<cr>', { buffer = ev.buf })
     end
   end,
 })
@@ -64,7 +72,7 @@ au('BufWritePre', {
 })
 
 -- reload buffer on focus
-au({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
+au({ 'FocusGained', 'BufEnter' }, {
   callback = function()
     if vim.fn.getcmdwintype() == '' then
       vim.cmd 'checktime'
@@ -74,37 +82,27 @@ au({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
 
 au('Filetype', {
   pattern = { 'toggleterm', 'help', 'man' },
-  callback = function()
+  callback = function(ev)
     if vim.bo.bt ~= '' then
-      n('u', '<c-u>', { buffer = true })
-      n('d', '<c-d>', { buffer = true })
+      map('n', 'u', '<c-u>', { buffer = ev.buf })
+      map('n', 'd', '<c-d>', { buffer = ev.buf })
     end
   end,
 })
 
 au('Filetype', {
   pattern = { 'NvimTree', 'help', 'man', 'aerial', 'fugitive*' },
-  callback = function()
+  callback = function(ev)
     if vim.bo.bt ~= '' then
-      n('q', '<cmd>q<cr>', { buffer = true })
-    end
-  end,
-})
-
-au('Filetype', {
-  pattern = { 'help', 'man' },
-  callback = function()
-    if vim.bo.bt ~= '' then
-      n('u', '<c-u>', { buffer = true })
-      n('d', '<c-d>', { buffer = true })
+      map('n', 'q', '<cmd>q<cr>', { buffer = ev.buf })
     end
   end,
 })
 
 au('LspAttach', {
-  callback = function(_)
+  callback = function(ev)
     local bn = function(lhs, rhs)
-      map('n', lhs, rhs, { buffer = 0 })
+      map('n', lhs, rhs, { buffer = ev.buf })
     end
     bn('gD', vim.lsp.buf.declaration)
     bn('gI', vim.lsp.buf.implementation)
@@ -114,9 +112,26 @@ au('LspAttach', {
   end,
 })
 
+au('VimResized', {
+  callback = function()
+    if vim.o.columns < 100 then
+      vim.cmd.wincmd('|')
+    else
+      vim.cmd.wincmd('=')
+    end
+  end,
+})
+
 -- au('SourceCmd', {
 --   pattern = "*.lua",
 --   callback = function(_)
 --     vim.print('sourcing', vim.fn.expand('<afile>'))
 --   end,
 -- })
+
+vim.api.nvim_create_autocmd('ModeChanged', {
+  once = true,
+  pattern = '*:[ictRss\x13]*',
+  group = vim.api.nvim_create_augroup('IMSetup', {}),
+  callback = function() end,
+})

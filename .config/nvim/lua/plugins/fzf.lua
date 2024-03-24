@@ -19,6 +19,8 @@ return {
       { '<c-x><c-f>',    fl.complete_file,         mode = 'i' },
       { '<c-x><c-p>',    fl.complete_path,         mode = 'i' },
       { '+e',            fl.grep_notes,            mode = { 'n' } },
+      { '+fs',           fl.scriptnames,           mode = { 'n', 'x' } },
+      { '+fr',           fl.rtp,                   mode = { 'n', 'x' } },
       { 'gd',            fl.lsp_definitions,       mode = { 'n', 'x' } },
       { 'gh',            fl.lsp_code_actions,      mode = { 'n', 'x' } },
       { 'gr',            fl.lsp_references,        mode = { 'n', 'x' } },

@@ -1,3 +1,11 @@
+-- stylua: ignore start
+local n = function(...) map('n', ...) end
+local x = function(...) map('x', ...) end
+local nx = function(...) map({ 'n', 'x' }, ...) end
+local ox = function(...) map({ 'o', 'x' }, ...) end
+local ic = function(...) map('!', ...) end
+-- stylua: ignore end
+
 local kmp = {}
 
 kmp.edit = function()
@@ -11,6 +19,7 @@ kmp.edit = function()
 
   -- TODO: not sure what happened with c-s-v
   x('p', 'P')
+  x('gp', 'p')
   nx('d', '"_d')
   nx('D', '"_D')
   nx('c', '"_c')
@@ -210,6 +219,7 @@ onoremap <silent> il :<c-u>execute "normal! ^v".v:count1."g_"<cr>
 end
 
 nx('<leader>so', '<cmd>so<cr>')
+n('q', '<cmd>lua util.q()<cr>')
 vim.tbl_map(function(fn)
   fn()
 end, kmp)
