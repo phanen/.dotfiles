@@ -165,7 +165,6 @@ misc.tool = {
   { 'lilydjwg/fcitx.vim', event = 'InsertEnter' },
   { 'tpope/vim-eunuch', cmd = { 'Move', 'Rename', 'Remove', 'Delete', 'Mkdir' } },
   { 'mikesmithgh/kitty-scrollback.nvim' },
-  { 'polirritmico/lazy-local-patcher.nvim', ft = 'lazy', opts = {} },
   {
     -- TODO: upstream
     'sportshead/gx.nvim',

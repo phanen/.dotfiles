@@ -1,14 +1,8 @@
 return {
-  -- module
   { 'rktjmp/lush.nvim' },
-
-  {
-    'seandewar/bad-apple.nvim',
-    cmd = 'BadApple',
-  },
-  {
-    'echasnovski/mini.nvim',
-  },
+  -- { 'polirritmico/lazy-local-patcher.nvim', ft = 'lazy', opts = {} },
+  -- { 'seandewar/bad-apple.nvim', cmd = 'BadApple' },
+  -- { 'echasnovski/mini.nvim' },
   {
     '4e554c4c/darkman.nvim',
     cond = false,
@@ -319,7 +313,11 @@ return {
       vim.cmd [[nnoremap +p :lua require("nabla").popup()<CR> " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`]]
     end,
   },
-  { 'junegunn/vim-easy-align', keys = { { 'ga', '<plug>(EasyAlign)', mode = { 'n', 'x' } } } },
+  {
+    'junegunn/vim-easy-align',
+    keys = { { 'ga', '<plug>(EasyAlign)', mode = { 'n', 'x' } } },
+    init = function() end,
+  },
 
   {
     'AckslD/nvim-neoclip.lua',

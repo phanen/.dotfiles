@@ -1,5 +1,4 @@
-local root = vim.fn.stdpath 'data' .. '/lazy'
-local path = root .. '/lazy.nvim'
+local path = vim.fs.joinpath(vim.g.lazy_path, 'lazy.nvim')
 if not vim.uv.fs_stat(path) then
   vim.fn.system { 'git', 'clone', '--branch=stable', 'https://github.com/folke/lazy.nvim', path }
 end
@@ -39,3 +38,6 @@ require('lazy').setup {
     },
   },
 }
+
+-- preserve one more rtp for docs only
+vim.opt.rtp:append(vim.g.docs_path)

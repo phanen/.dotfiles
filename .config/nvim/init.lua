@@ -1,10 +1,9 @@
+local g, fs, fn = vim.g, vim.fs, vim.fn
+
 vim.loader.enable()
 -- vim.go.loadplugins = false
-
-_G.config_path = vim.fn.stdpath('data')
-
-vim.g.mapleader = ' '
-vim.g.maplocalleader = '+'
+g.mapleader = ' '
+g.maplocalleader = '+'
 
 vim.uv = vim.uv or vim.loop
 
@@ -24,10 +23,17 @@ _G.r = setmetatable({}, {
   end,
 })
 
+g.config_path = fn.stdpath('config')
+g.data_path = fn.stdpath('data')
+g.state_path = fn.stdpath('state')
+g.cache_path = fn.stdpath('cache')
+g.docs_path = fs.joinpath(g.state_path, 'lazy', 'docs')
+g.lazy_path = fs.joinpath(g.data_path, 'lazy')
+
 require 'opt'
 require 'map'
 require 'au'
 require 'pm'
 
--- vim.g.colors_name = "vim"
+-- g.colors_name = "vim"
 pcall(vim.cmd.colorscheme, 'tokyonight')
