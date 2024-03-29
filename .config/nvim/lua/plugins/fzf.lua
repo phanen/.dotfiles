@@ -41,7 +41,7 @@ return {
       { '<leader>l',     fl.find_dots,             mode = { 'n', 'x' } },
       { '+l',            fl.grep_dots,             mode = { 'n' } },
     },
-    dependencies = { 'ibhagwan/fzf-lua' },
+    dependencies = { 'phanen/fzf-lua' },
   },
   {
     'junegunn/fzf.vim',
@@ -49,7 +49,7 @@ return {
     dependencies = { 'junegunn/fzf' },
   },
   {
-    'ibhagwan/fzf-lua',
+    'phanen/fzf-lua',
     -- branch = "1089",
     cmd = { 'FzfLua' },
     opts = {
