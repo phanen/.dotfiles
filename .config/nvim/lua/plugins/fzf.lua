@@ -19,8 +19,8 @@ return {
       { '<c-x><c-f>',    fl.complete_file,         mode = 'i' },
       { '<c-x><c-p>',    fl.complete_path,         mode = 'i' },
       { '+e',            fl.grep_notes,            mode = { 'n' } },
-      { '+fs',           fl.scriptnames,           mode = { 'n', 'x' } },
       { '+fr',           fl.rtp,                   mode = { 'n', 'x' } },
+      { '+fs',           fl.scriptnames,           mode = { 'n', 'x' } },
       { 'gd',            fl.lsp_definitions,       mode = { 'n', 'x' } },
       { 'gh',            fl.lsp_code_actions,      mode = { 'n', 'x' } },
       { 'gr',            fl.lsp_references,        mode = { 'n', 'x' } },
@@ -28,6 +28,7 @@ return {
       { '<leader><c-j>', fl.todo_comment,          mode = { 'n', 'x' } },
       { '<leader>e',     fl.find_notes,            mode = { 'n', 'x' } },
       { '<leader>fa',    fl.builtin,               mode = { 'n', 'x' } },
+      { '<leader>fc',    fl.awesome_colorschemes,   mode = { 'n', 'x' } },
       { '<leader>f;',    fl.command_history,       mode = { 'n', 'x' } },
       { '<leader>fh',    fl.help_tags,             mode = { 'n', 'x' } },
       { '<leader>fj',    fl.live_grep_dots,        mode = { 'n', 'x' } },
@@ -41,7 +42,7 @@ return {
       { '<leader>l',     fl.find_dots,             mode = { 'n', 'x' } },
       { '+l',            fl.grep_dots,             mode = { 'n' } },
     },
-    dependencies = { 'phanen/fzf-lua' },
+    dependencies = { url = 'https://gitlab.com/ibhagwan/fzf-lua' },
   },
   {
     'junegunn/fzf.vim',
@@ -49,8 +50,7 @@ return {
     dependencies = { 'junegunn/fzf' },
   },
   {
-    'phanen/fzf-lua',
-    -- branch = "1089",
+    url = 'https://gitlab.com/ibhagwan/fzf-lua',
     cmd = { 'FzfLua' },
     opts = {
       previewers = {
@@ -97,8 +97,9 @@ return {
             require('fzf-lua').actions.file_edit_or_qf(...)
           end,
           ['ctrl-y'] = {
-            fn = function(selected)
-              vim.fn.setreg('+', selected[1]:sub(7))
+            fn = function(selected, opts)
+              local file = require('fzf-lua').path.entry_to_file(selected[1], opts)
+              vim.fn.setreg('+', file.path)
             end,
             reload = true,
           },

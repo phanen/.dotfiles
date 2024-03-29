@@ -1,7 +1,8 @@
+_G.lazy_cfg = package.loaded['lazy.core.config']
+
 return {
   { 'rktjmp/lush.nvim' },
-  -- { 'polirritmico/lazy-local-patcher.nvim', ft = 'lazy', opts = {} },
-  -- { 'seandewar/bad-apple.nvim', cmd = 'BadApple' },
+  { 'seandewar/bad-apple.nvim', cmd = 'BadApple' },
   -- { 'echasnovski/mini.nvim' },
   {
     '4e554c4c/darkman.nvim',
@@ -170,83 +171,18 @@ return {
       -- want per language, but each query can include many captures too.
     end,
   },
-  -- using lazy.nvim
-  {
-    'LintaoAmons/cd-project.nvim',
-    cmd = { 'CdProjectAdd', 'CdProjectBack', 'CdProjectSwitch' },
-    config = function()
-      require('cd-project').setup({
-        -- this json file is acting like a database to update and read the projects in real time.
-        -- So because it's just a json file, you can edit directly to add more paths you want manually
-        projects_config_filepath = vim.fs.normalize(
-          vim.fn.stdpath('config') .. '/cd-project.nvim.json'
-        ),
-        -- this controls the behaviour of `CdProjectAdd` command about how to get the project directory
-        project_dir_pattern = { '.git', '.gitignore', 'Cargo.toml', 'package.json', 'go.mod' },
-        choice_format = 'both', -- optional, you can switch to "name" or "path"
-        projects_picker = 'vim-ui', -- optional, you can switch to `telescope`
-        -- do whatever you like by hooks
-        hooks = {
-          {
-            callback = function(dir)
-              vim.notify('switched to dir: ' .. dir)
-            end,
-          },
-          {
-            callback = function(_)
-              vim.cmd('Telescope find_files')
-            end,
-          },
-          {
-            callback = function(dir)
-              vim.notify('switched to dir: ' .. dir)
-            end, -- required, action when trigger the hook
-            name = 'cd hint', -- optional
-            order = 1, -- optional, the exection order if there're multiple hooks to be trigger at one point
-            pattern = 'cd-project.nvim', -- optional, trigger hook if contains pattern
-            trigger_point = 'DISABLE', -- optional, enum of trigger_points, default to `AFTER_CD`
-            match_rule = function(dir) -- optional, a function return bool. if have this fields, then pattern will be ignored
-              return true
-            end,
-          },
-        },
-      })
-    end,
-  },
-  {
-    'riddlew/asciitree.nvim',
-    cmd = 'AsciiTree',
-  },
-  -- TODO: show recent file only
-  {
-    'danielfalk/smart-open.nvim',
-    branch = '0.2.x',
-    -- keys = { { '<leader>fo', '<cmd>Telescope smart_open<cr>', mode = { 'n', 'x' } } },
-    config = function()
-      require('telescope').load_extension('smart_open')
-    end,
-    dependencies = {
-      'kkharji/sqlite.lua',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-      { 'nvim-telescope/telescope-fzy-native.nvim' },
-    },
-  },
   {
     'smartpde/telescope-recent-files',
-    keys = { { '<leader>fo', '<cmd>Telescope smart_open<cr>', mode = { 'n', 'x' } } },
+    keys = {
+      {
+        '<leader>fo',
+        [[<cmd>lua require('telescope').extensions.recent_files.pick()<cr>]],
+        mode = { 'n', 'x' },
+      },
+    },
     dependencies = {
       { 'nvim-telescope/telescope.nvim' },
     },
-  },
-  -- optional for icons
-
-  -- optional for the 'fzf' command
-  {
-    'linrongbin16/fzfx.nvim',
-    cmd = 'FzfxFiles',
-    dependencies = { 'nvim-tree/nvim-web-devicons', 'junegunn/fzf' },
-    version = 'v5.*',
-    config = true,
   },
   {
     'svermeulen/vim-subversive',
@@ -297,14 +233,8 @@ return {
   {
     'voldikss/vim-hello-word',
   },
-  {
-    'phanen/word.nvim',
-  },
-  {
-    'SidOfc/carbon.nvim',
-    cmd = 'Carbon',
-    opts = true,
-  },
+  { 'phanen/word.nvim' },
+  { 'SidOfc/carbon.nvim', cmd = 'Carbon', opts = true },
   {
     'jbyuki/nabla.nvim',
     -- opts = true,
@@ -318,18 +248,6 @@ return {
     keys = { { 'ga', '<plug>(EasyAlign)', mode = { 'n', 'x' } } },
     init = function() end,
   },
-
-  {
-    'AckslD/nvim-neoclip.lua',
-    requires = {
-      { 'phanen/fzf-lua' },
-    },
-    config = function()
-      require('neoclip').setup()
-    end,
-  },
-  {
-    'sbulav/nredir.nvim',
-    cmd = 'Nredir',
-  },
+  { 'sbulav/nredir.nvim', cmd = 'Nredir' },
+  { 'roginfarrer/fzf-lua-lazy.nvim', lazy = false },
 }

@@ -153,7 +153,6 @@ misc.tobj = {
 
 misc.tool = {
   { 'folke/lazy.nvim' },
-  { 'folke/tokyonight.nvim' },
   -- FIXME: register _d, cannot set timeoutlen = 0
   {
     'folke/which-key.nvim',
@@ -171,7 +170,6 @@ misc.tool = {
     branch = 'git-handler',
     cmd = 'Browse',
     keys = { { 'gl', '<cmd>Browse<cr>', mode = { 'n', 'x' } } },
-    dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {},
   },
   {
@@ -228,25 +226,11 @@ misc.tool = {
   {
     'phanen/dirstack.nvim',
     event = 'DirChangedPre',
+    -- stylua: ignore
     keys = {
-      {
-        '<leader><c-p>',
-        function()
-          require('dirstack').prev()
-        end,
-      },
-      {
-        '<leader><c-n>',
-        function()
-          require('dirstack').next()
-        end,
-      },
-      {
-        '<leader><c-g>',
-        function()
-          require('dirstack').info()
-        end,
-      },
+      { '<leader><c-p>', function() require('dirstack').prev() end, },
+      { '<leader><c-n>', function() require('dirstack').next() end, },
+      { '<leader><c-g>', function() require('dirstack').info() end, },
     },
     opts = {},
   },
@@ -351,15 +335,4 @@ misc.ui = {
   },
 }
 
-local M = {}
--- local plugins = vim.tbl_extend("force", {}, M.buf, M.doc, M.tree, M.tobj, M.tool, M.ui)
--- local plugins = vim.tbl_extend("force", {}, unpack(M))
--- local plugins = vim.tbl_extend("force", {}, unpack(M))
-
-vim.tbl_map(function(part)
-  vim.tbl_map(function(v)
-    table.insert(M, v)
-  end, part)
-end, misc)
-
-return M
+return vim.tbl_values(misc)
