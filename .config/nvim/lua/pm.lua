@@ -6,14 +6,14 @@ end
 vim.opt.rtp:prepend(path)
 require('lazy').setup {
   spec = {
-    { import = 'plugins.cmp' },
-    { import = 'plugins.edit' },
-    { import = 'plugins.fzf' },
-    { import = 'plugins.git' },
-    { import = 'plugins.lsp' },
-    { import = 'plugins.misc' },
-    { import = 'plugins.ts' },
-    { import = 'plugins.stage' },
+    { import = 'pack.cmp' },
+    { import = 'pack.edit' },
+    { import = 'pack.fzf' },
+    { import = 'pack.git' },
+    { import = 'pack.lsp' },
+    { import = 'pack.misc' },
+    { import = 'pack.ts' },
+    { import = 'pack.stage' },
   },
   lockfile = vim.fn.stdpath('data') .. '/lazy-lock.json',
   defaults = { lazy = true },

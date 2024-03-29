@@ -6,8 +6,7 @@ return {
   -- { 'echasnovski/mini.nvim' },
   {
     '4e554c4c/darkman.nvim',
-    cond = false,
-    event = 'VeryLazy',
+    lazy = false,
     build = 'go build -o bin/darkman.nvim',
     opts = { colorscheme = { dark = 'tokyonight', light = 'github_light' } },
   },
@@ -101,74 +100,6 @@ return {
           },
         },
       }
-    end,
-  },
-  {
-    'dawsers/navigator.nvim',
-    cond = false,
-    dependencies = {
-      { 'nvim-treesitter/nvim-treesitter' },
-    },
-    keys = {
-      {
-        '<space><c-n>',
-        function()
-          require('navigator').navigate {
-            query_list = {
-              {
-                -- Each query has to specify the parser it applies to.
-                -- It is the only required parameter.
-                parser = 'markdown',
-                -- This trees-sitter query will create captions for Markdown headers
-                query = [[
-        [
-          (atx_heading (atx_h1_marker))
-          (atx_heading (atx_h2_marker))
-          (atx_heading (atx_h3_marker))
-          (atx_heading (atx_h4_marker))
-          (atx_heading (atx_h5_marker))
-          (atx_heading (atx_h6_marker))
-          (setext_heading (setext_h1_underline))
-          (setext_heading (setext_h2_underline))
-        ] @definition.header
-
-        ((atx_heading (atx_h1_marker)) @definition.header.h1)
-        ((atx_heading (atx_h2_marker)) @definition.header.h2)
-        ((atx_heading (atx_h3_marker)) @definition.header.h3)
-        ((atx_heading (atx_h4_marker)) @definition.header.h4)
-        ((atx_heading (atx_h5_marker)) @definition.header.h5)
-        ((atx_heading (atx_h6_marker)) @definition.header.h6)
-        ((setext_heading (setext_h1_underline)) @definition.header.h1)
-        ((setext_heading (setext_h2_underline)) @definition.header.h2)
-      ]],
-                -- You can also add regex queries that will result in captions with
-                -- `name`. The `expr` is a vim regular expression. You can add as many
-                -- as you want per query
-                regex = {
-                  { name = 'definition.regex_tag', expr = [[#[a-zA-Z_\-\/][0-9a-zA-Z_\-\/]*]] },
-                },
-              },
-              {
-                parser = 'lua',
-                -- navigator.nvim includes a `read_file` function for convenience. It can
-                -- read any query file into a string
-                -- This query is the result of reading a `locals.scm` query file in
-                -- Neovim's runtime path, probably from nvim-treesitter
-                query = require('navigator.queries').read_file(
-                  vim.api.nvim_get_runtime_file(
-                    string.format('queries/%s/%s.scm', 'lua', 'locals'),
-                    true
-                  )[1]
-                ),
-              },
-            },
-          }
-        end,
-      },
-    },
-    config = function()
-      -- A query list is an array or queries. You can have as many queries you
-      -- want per language, but each query can include many captures too.
     end,
   },
   {
