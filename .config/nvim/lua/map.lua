@@ -129,6 +129,7 @@ end
 kmp.option = function()
   n('<leader>oc', '<cmd>set cursorline! cursorcolumn!<cr>')
   n('<leader>of', '<cmd>set foldenable!<cr>')
+  n('<leader>or', '<cmd>retab<cr>')
   n('<leader>os', '<cmd>set spell!<cr>')
   n('<leader>ow', '<cmd>set wrap!<cr>')
 end

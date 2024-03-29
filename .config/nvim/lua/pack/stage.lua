@@ -6,9 +6,9 @@ return {
   -- { 'echasnovski/mini.nvim' },
   {
     '4e554c4c/darkman.nvim',
-    lazy = false,
+    -- lazy = false,
     build = 'go build -o bin/darkman.nvim',
-    opts = { colorscheme = { dark = 'tokyonight', light = 'github_light' } },
+    opts = { colorscheme = { dark = vim.g.colors_name, light = 'github_light' } },
   },
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -161,9 +161,7 @@ return {
       { '<leader>F', mode = 'n', '<cmd>Fugit2<cr>' },
     },
   },
-  {
-    'voldikss/vim-hello-word',
-  },
+  { 'voldikss/vim-hello-word' },
   { 'phanen/word.nvim' },
   { 'SidOfc/carbon.nvim', cmd = 'Carbon', opts = true },
   {
@@ -181,4 +179,19 @@ return {
   },
   { 'sbulav/nredir.nvim', cmd = 'Nredir' },
   { 'roginfarrer/fzf-lua-lazy.nvim', lazy = false },
+  { 'itchyny/vim-highlighturl', event = 'ColorScheme' },
+  {
+    'sontungexpt/url-open',
+    cond = false,
+    branch = 'mini',
+    event = 'VeryLazy',
+    cmd = 'URLOpenUnderCursor',
+    config = function()
+      local status_ok, url_open = pcall(require, 'url-open')
+      if not status_ok then
+        return
+      end
+      url_open.setup({})
+    end,
+  },
 }

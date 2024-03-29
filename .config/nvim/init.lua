@@ -31,17 +31,18 @@ g.cache_path = fn.stdpath('cache')
 g.lazy_path = fs.joinpath(g.data_path, 'lazy')
 g.docs_path = fs.joinpath(g.state_path, 'lazy', 'docs')
 g.color_path = fs.joinpath(g.cache_path, 'fzf-lua', 'pack', 'fzf-lua', 'opt')
+g.color_cache = vim.fs.joinpath(g.cache_path, 'colors_name')
 
 require 'opt'
 require 'map'
 require 'au'
 require 'pm'
 
--- g.colors_name = "vim"
-
+local fd = assert(io.open(vim.g.color_cache, 'r'))
+g.colors_name = fd:read('*a') or 'vim'
 for dir, type in vim.fs.dir(g.color_path) do
   if type == 'directory' then
     vim.opt.rtp:append(fs.joinpath(g.color_path, dir))
   end
 end
-pcall(vim.cmd.colorscheme, 'tokyonight')
+pcall(vim.cmd.colorscheme, g.colors_name)

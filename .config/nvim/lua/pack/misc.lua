@@ -277,7 +277,6 @@ misc.tool = {
 misc.ui = {
   { 'HiPhish/rainbow-delimiters.nvim', event = { 'BufReadPre', 'BufNewFile' } },
   -- NOTE: https://github.com/neovim/neovim/pull/27132
-  { 'itchyny/vim-highlighturl', event = 'ColorScheme' },
   {
     'Bekaboo/dropbar.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
