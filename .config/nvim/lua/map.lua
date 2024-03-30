@@ -152,14 +152,23 @@ kmp.misc = function()
 end
 
 kmp.tobj = function()
-  ox('iq', 'i"')
-  ox('aq', 'a"')
-  ox('in', 'iB')
-  ox('an', 'aB')
   ox('ih', ':<c-u>Gitsigns select_hunk<cr>')
+  local tobj = function(c, t)
+    ox('i' .. c, ([[<cmd>lua require("various-textobjs").%s("inner")<cr>]]):format(t))
+    ox('a' .. c, ([[<cmd>lua require("various-textobjs").%s("outer")<cr>]]):format(t))
+  end
+  tobj('c', 'multiCommentedLines')
+  tobj('g', 'entireBuffer')
+  tobj('i', 'indentation')
+  tobj('l', 'lineCharacterwise')
+  tobj('n', 'anyBracket')
+  tobj('q', 'anyQuote')
+  tobj('u', 'url')
+  n('<leader><c-/>', '<cmd>norm vac<c-/><cr>')
 end
 
 nx('<leader>so', '<cmd>so<cr>')
-vim.tbl_map(function(fn)
+
+for _, fn in pairs(kmp) do
   fn()
-end, kmp)
+end

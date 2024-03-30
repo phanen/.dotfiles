@@ -76,7 +76,7 @@ return {
     dependencies = 'nvim-lua/plenary.nvim',
     keys = {
       { '+gl', '<cmd>lua require("gitlinker").get_buf_range_url "n"<cr>', mode = 'n' },
-      { '+gl', '<cmd>lua require("gitlinker").get_buf_range_url "x"<cr>', mode = 'v' },
+      { '+gl', '<cmd>lua require("gitlinker").get_buf_range_url "v"<cr>', mode = 'x' },
     },
     opts = { mappings = nil },
   },

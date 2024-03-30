@@ -7,6 +7,9 @@ local fl = setmetatable({}, {
 return {
   {
     'phanen/fzf-lua-overlay',
+    init = function()
+      require('fzf-lua-overlay.providers.recentfiles').init()
+    end,
     -- stylua: ignore
     keys = {
       { '<c-b>',         fl.buffers,               mode = { 'n', 'x' } },
@@ -26,7 +29,7 @@ return {
       { '<leader><c-j>', fl.todo_comment,          mode = { 'n', 'x' } },
       { '<leader>e',     fl.find_notes,            mode = { 'n', 'x' } },
       { '<leader>fa',    fl.builtin,               mode = { 'n', 'x' } },
-      { '<leader>fc',    fl.awesome_colorschemes,   mode = { 'n', 'x' } },
+      { '<leader>fc',    fl.awesome_colorschemes,  mode = { 'n', 'x' } },
       { '<leader>f;',    fl.command_history,       mode = { 'n', 'x' } },
       { '<leader>fh',    fl.help_tags,             mode = { 'n', 'x' } },
       { '<leader>fj',    fl.live_grep_dots,        mode = { 'n', 'x' } },
@@ -34,6 +37,7 @@ return {
       { '<leader>/',     fl.blines,                mode = { 'n', 'x' } },
       { '<leader> ',     fl.resume,                mode = 'n' },
       { '<leader>;',     fl.spell_suggest,         mode = { 'n', 'x' } },
+      { '<leader>fo',    fl.recentfiles,           mode = { 'n', 'x' } },
       { '<leader>fs',    fl.lsp_document_symbols,  mode = { 'n', 'x' } },
       { '<leader>fw',    fl.lsp_workspace_symbols, mode = { 'n', 'x' } },
       { '<leader>gd',    fl.lsp_typedefs,          mode = { 'n', 'x' } },

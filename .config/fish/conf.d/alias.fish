@@ -16,8 +16,9 @@ alias ls "eza --color=auto"
 alias lt "eza --tree"
 alias tl tldr
 alias vn "nvim -u NONE"
+alias vm "v --cmd 'lua vim.go.loadplugins = false'"
 alias fn "fish --no-config"
-alias wh which -a
+alias wh "which -a"
 
 alias pi 'sudo pacman -S'
 alias pd 'sudo pacman -Rns'

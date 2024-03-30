@@ -170,4 +170,8 @@ return {
       }
     end,
   },
+  {
+    'chrisgrieser/nvim-various-textobjs',
+    opts = { useDefaultKeymaps = false },
+  },
 }

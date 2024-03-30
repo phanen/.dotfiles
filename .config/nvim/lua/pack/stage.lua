@@ -129,20 +129,6 @@ return {
       },
     },
   },
-  {
-    '9seconds/repolink.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    cmd = {
-      'RepoLink',
-    },
-
-    opts = {
-      -- your configuration goes here.
-      -- keep empty object if you are fine with defaults
-    },
-  },
   { 'liangxianzhe/floating-input.nvim', opts = {} },
   {
     'SuperBo/fugit2.nvim',
@@ -193,11 +179,6 @@ return {
       url_open.setup({})
     end,
   },
-  {
-    'chrisgrieser/nvim-various-textobjs',
-    lazy = false,
-    opts = { useDefaultKeymaps = true },
-  },
 
   {
     'nvim-lua/plenary.nvim',
@@ -216,11 +197,11 @@ return {
 
   --
   { 'sbulav/nredir.nvim', cmd = 'Nredir' },
-  {
-    'AckslD/messages.nvim',
-    cmd = 'Messages',
-    opts = {},
-  },
+  -- {
+  --   'AckslD/messages.nvim',
+  --   cmd = 'Messages',
+  --   opts = {},
+  -- },
   {
     'AndrewRadev/bufferize.vim',
   },
