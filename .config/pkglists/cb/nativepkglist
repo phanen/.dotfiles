@@ -110,7 +110,6 @@ graphviz
 grub
 gtk-vnc
 gtkwave
-gvim
 handlr-regex
 hddtemp
 helix
@@ -225,7 +224,6 @@ pacman-contrib
 pacutils
 pandoc-bin
 paru
-pass
 pdfarranger
 pdfgrep
 perl-cgi

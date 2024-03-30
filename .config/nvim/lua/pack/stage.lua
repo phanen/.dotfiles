@@ -177,8 +177,7 @@ return {
     keys = { { 'ga', '<plug>(EasyAlign)', mode = { 'n', 'x' } } },
     init = function() end,
   },
-  { 'sbulav/nredir.nvim', cmd = 'Nredir' },
-  { 'roginfarrer/fzf-lua-lazy.nvim', lazy = false },
+  { 'roginfarrer/fzf-lua-lazy.nvim' },
   { 'itchyny/vim-highlighturl', event = 'ColorScheme' },
   {
     'sontungexpt/url-open',
@@ -193,5 +192,36 @@ return {
       end
       url_open.setup({})
     end,
+  },
+  {
+    'chrisgrieser/nvim-various-textobjs',
+    lazy = false,
+    opts = { useDefaultKeymaps = true },
+  },
+
+  {
+    'nvim-lua/plenary.nvim',
+    -- stylua: ignore
+    keys = {
+      { '+ps', function() require('plenary.profile').start('profile.log', { flame = true }) end },
+      { '+pe', function() require('plenary.profile').stop() end },
+    },
+  },
+  {
+    'NStefan002/2048.nvim',
+    cmd = 'Play2048',
+    opts = {},
+  },
+  { 'chrisbra/csv.vim', ft = 'csv' },
+
+  --
+  { 'sbulav/nredir.nvim', cmd = 'Nredir' },
+  {
+    'AckslD/messages.nvim',
+    cmd = 'Messages',
+    opts = {},
+  },
+  {
+    'AndrewRadev/bufferize.vim',
   },
 }

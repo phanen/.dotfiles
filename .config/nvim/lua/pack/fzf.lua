@@ -1,8 +1,6 @@
 local fl = setmetatable({}, {
   __index = function(_, k)
-    return function()
-      require('fzf-lua-overlay')[k]()
-    end
+    return ([[<cmd>lua require('fzf-lua-overlay').%s()<cr>]]):format(k)
   end,
 })
 
@@ -42,7 +40,7 @@ return {
       { '<leader>l',     fl.find_dots,             mode = { 'n', 'x' } },
       { '+l',            fl.grep_dots,             mode = { 'n' } },
     },
-    dependencies = { url = 'https://gitlab.com/ibhagwan/fzf-lua' },
+    dependencies = { 'ibhagwan/fzf-lua' },
   },
   {
     'junegunn/fzf.vim',
@@ -50,7 +48,7 @@ return {
     dependencies = { 'junegunn/fzf' },
   },
   {
-    url = 'https://gitlab.com/ibhagwan/fzf-lua',
+    'ibhagwan/fzf-lua',
     cmd = { 'FzfLua' },
     opts = {
       previewers = {

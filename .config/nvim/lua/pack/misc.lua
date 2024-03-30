@@ -213,11 +213,7 @@ misc.tool = {
         function()
           vim.cmd.noh()
           require('hlslens').stop()
-          vim.api.nvim_feedkeys(
-            vim.api.nvim_replace_termcodes('<esc>', true, true, true),
-            'n',
-            false
-          )
+          vim.api.nvim_feedkeys(vim.keycode('<esc>'), 'n', false)
         end,
       },
     },

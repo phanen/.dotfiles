@@ -37,14 +37,6 @@ au({ 'BufLeave' }, {
   end,
 })
 
-au({ 'BufEnter' }, {
-  callback = function(ev)
-    if vim.fn.bufname() == 'nofile' then
-      map('n', 'q', '<cmd>q<cr>', { buffer = ev.buf })
-    end
-  end,
-})
-
 -- create directories when needed, when saving a file
 au('BufWritePre', {
   callback = function(event)
@@ -92,7 +84,7 @@ au('LspAttach', {
     bn('gD', vim.lsp.buf.declaration)
     bn('gI', vim.lsp.buf.implementation)
     bn('gs', vim.lsp.buf.signature_help)
-    bn('<leader>i', vim.lsp.buf.hover)
+    bn('_', vim.lsp.buf.hover)
     bn('<leader>rn', vim.lsp.buf.rename)
   end,
 })
@@ -150,7 +142,7 @@ au('User', {
 au('User', {
   pattern = { 'LazyInstall*', 'LazyUpdate*', 'LazySync*', 'LazyRestore*' },
   callback = function()
-    util.lazy_update_doc()
+    require('util').lazy_cache_docs()
   end,
 })
 

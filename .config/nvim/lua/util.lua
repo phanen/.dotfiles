@@ -1,3 +1,4 @@
+---@module 'util'
 local util = {}
 
 local getregion = function(mode)
@@ -64,14 +65,14 @@ util.q = function()
     end
   end
   if count == 0 then -- Fallback
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('q', true, true, true), 'n', false)
+    vim.api.nvim_feedkeys(vim.keycode('q'), 'n', false)
   end
 end
 
-util.lazy_update_doc = function()
-  local docs_path = vim.fs.joinpath(vim.g.docs_path, 'doc')
+util.lazy_cache_docs = function()
   local lazy_util = package.loaded['lazy.util']
   local lazy_config = package.loaded['lazy.core.config']
+  local docs_path = vim.fs.joinpath(vim.g.docs_path, 'doc')
   vim.fn.mkdir(docs_path, 'p')
   lazy_util.ls(docs_path, function(path, _, _)
     if type == 'file' then
@@ -94,6 +95,33 @@ util.lazy_update_doc = function()
     end
   end
   vim.cmd.helptags(docs_path)
+end
+
+util.toggle_qf = function()
+  local qf_win = vim
+    .iter(vim.fn.getwininfo())
+    :filter(function(win)
+      return win.quickfix == 1
+    end)
+    :totable()
+  if #qf_win == 0 then
+    vim.cmd.copen()
+  else
+    vim.cmd.cclose()
+  end
+end
+
+util.cd_gitroot = function()
+  local path = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
+  local root = vim.system({ 'git', '-C', path, 'rev-parse', '--show-toplevel' }):wait().stdout
+  if not root then
+    return
+  end
+  vim.fn.chdir(vim.trim(root))
+end
+
+util.yank_filename = function()
+  vim.fn.system(('echo %s | xsel -ib --trim'):format(vim.fn.expand '%:p'))
 end
 
 return util

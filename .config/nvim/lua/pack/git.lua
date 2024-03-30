@@ -50,7 +50,7 @@ return {
         n('<leader>hs', 'stage_hunk')
         n('<leader>hu', 'undo_stage_hunk')
         n('<leader>hr', 'reset_hunk')
-        n('<leader>hi', 'preview_hunk')
+        n('<leader>i', 'preview_hunk')
         n('<leader>gu', 'reset_buffer_index')
         n('<leader>hd', 'toggle_deleted<cr><cmd>Gitsigns toggle_word_diff')
       end,
