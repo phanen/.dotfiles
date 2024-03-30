@@ -103,19 +103,6 @@ return {
     end,
   },
   {
-    'smartpde/telescope-recent-files',
-    keys = {
-      {
-        '<leader>fo',
-        [[<cmd>lua require('telescope').extensions.recent_files.pick()<cr>]],
-        mode = { 'n', 'x' },
-      },
-    },
-    dependencies = {
-      { 'nvim-telescope/telescope.nvim' },
-    },
-  },
-  {
     'svermeulen/vim-subversive',
     keys = {
       {

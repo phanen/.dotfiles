@@ -2,6 +2,17 @@ local g, fs, fn = vim.g, vim.fs, vim.fn
 
 -- vim.go.loadplugins = false
 
+if vim.fn.has('nvim-0.10') == 0 then
+  ---@diagnostic disable: duplicate-set-field
+  vim.uv = vim.uv or vim.loop
+  function vim.fs.joinpath(...)
+    return (table.concat({ ... }, '/'):gsub('//+', '/'))
+  end
+  function vim.keycode(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  end
+end
+
 g.config_path = fn.stdpath('config')
 g.data_path = fn.stdpath('data')
 g.state_path = fn.stdpath('state')
@@ -21,16 +32,3 @@ _G.r = setmetatable({}, {
     return require(k)
   end,
 })
-
-if vim.fn.has('nvim-0.10') == 0 then
-  return
-end
-
----@diagnostic disable: duplicate-set-field
-vim.uv = vim.uv or vim.loop
-function vim.fs.joinpath(...)
-  return (table.concat({ ... }, '/'):gsub('//+', '/'))
-end
-function vim.keycode(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
