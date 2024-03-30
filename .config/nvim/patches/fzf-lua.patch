@@ -1,0 +1,13 @@
+diff --git a/lua/fzf-lua/core.lua b/lua/fzf-lua/core.lua
+index 616b7c4..fabfa71 100644
+--- a/lua/fzf-lua/core.lua
++++ b/lua/fzf-lua/core.lua
+@@ -357,7 +357,7 @@ M.fzf = function(contents, opts)
+         opts.winopts.preview.horizontal)
+       opts.keymap = opts.keymap or {}
+       opts.keymap.fzf = opts.keymap.fzf or {}
+-      opts.keymap.fzf["resize"] = string.format("transform(%s)", transformer)
++      -- opts.keymap.fzf["resize"] = string.format("transform(%s)", transformer)
+     end
+     if type(previewer.preview_window) == "function" then
+       -- do we need to override the preview_window args?

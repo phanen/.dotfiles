@@ -6,6 +6,11 @@ local fl = setmetatable({}, {
 
 return {
   {
+    'junegunn/fzf.vim',
+    cmd = { 'Files', 'RG', 'Rg' },
+    dependencies = { 'junegunn/fzf' },
+  },
+  {
     'phanen/fzf-lua-overlay',
     init = function()
       require('fzf-lua-overlay.providers.recentfiles').init()
@@ -20,6 +25,8 @@ return {
       { '<c-x><c-f>',    fl.complete_file,         mode = 'i' },
       { '<c-x><c-p>',    fl.complete_path,         mode = 'i' },
       { '+e',            fl.grep_notes,            mode = { 'n' } },
+      { "+fi",           fl.gitignore,             mode = { 'n', 'x' } },
+      { "+fl",           fl.license,               mode = { 'n', 'x' } },
       { '+fr',           fl.rtp,                   mode = { 'n', 'x' } },
       { '+fs',           fl.scriptnames,           mode = { 'n', 'x' } },
       { 'gd',            fl.lsp_definitions,       mode = { 'n', 'x' } },
@@ -30,6 +37,11 @@ return {
       { '<leader>e',     fl.find_notes,            mode = { 'n', 'x' } },
       { '<leader>fa',    fl.builtin,               mode = { 'n', 'x' } },
       { '<leader>fc',    fl.awesome_colorschemes,  mode = { 'n', 'x' } },
+      { "<leader>fdb",   fl.dap_breakpoints,       mode = { 'n', 'x' } },
+      { "<leader>fdc",   fl.dap_configurations,    mode = { 'n', 'x' } },
+      { "<leader>fde",   fl.dap_commands,          mode = { 'n', 'x' } },
+      { "<leader>fdf",   fl.dap_frames,            mode = { 'n', 'x' } },
+      { "<leader>fdv",   fl.dap_variables,         mode = { 'n', 'x' } },
       { '<leader>f;',    fl.command_history,       mode = { 'n', 'x' } },
       { '<leader>fh',    fl.help_tags,             mode = { 'n', 'x' } },
       { '<leader>fj',    fl.live_grep_dots,        mode = { 'n', 'x' } },
@@ -42,98 +54,93 @@ return {
       { '<leader>fw',    fl.lsp_workspace_symbols, mode = { 'n', 'x' } },
       { '<leader>gd',    fl.lsp_typedefs,          mode = { 'n', 'x' } },
       { '<leader>l',     fl.find_dots,             mode = { 'n', 'x' } },
-      { '+l',            fl.grep_dots,             mode = { 'n' } },
+      { '+l',            fl.grep_dots,             mode = { 'n', 'x' } },
     },
-    dependencies = { 'ibhagwan/fzf-lua' },
-  },
-  {
-    'junegunn/fzf.vim',
-    cmd = { 'Files', 'RG', 'Rg' },
-    dependencies = { 'junegunn/fzf' },
-  },
-  {
-    'ibhagwan/fzf-lua',
-    cmd = { 'FzfLua' },
-    opts = {
-      previewers = {
-        builtin = {
-          extensions = {
-            ['png'] = { 'viu', '-b' },
-            ['jpg'] = { 'ueberzug' },
+    opts = {},
+    dependencies = {
+      'ibhagwan/fzf-lua',
+      cmd = { 'FzfLua' },
+      opts = {
+        previewers = {
+          builtin = {
+            extensions = {
+              ['png'] = { 'viu', '-b' },
+              ['jpg'] = { 'ueberzug' },
+            },
+            ueberzug_scaler = 'cover',
           },
-          ueberzug_scaler = 'cover',
         },
-      },
-      winopts = { preview = { delay = 30 }, height = 0.6 },
-      fzf_opts = {
-        ['--history'] = vim.fn.stdpath 'state' .. '/telescope_history',
-      },
-      keymap = {
-        builtin = {
-          ['<c-\\>'] = 'toggle-preview',
-          ['<c-d>'] = 'preview-page-down',
+        winopts = { preview = { delay = 30 }, height = 0.6 },
+        fzf_opts = {
+          ['--history'] = vim.fn.stdpath 'state' .. '/telescope_history',
         },
-        fzf = {},
-      },
-      files = {
-        cwd_prompt = true,
-        git_icons = false,
-        winopts = { preview = { hidden = 'hidden' } },
-      },
-      grep = {
-        file_icons = false,
-        git_icons = false,
-        no_header_i = true,
-        actions = {
-          ['ctrl-r'] = function(...)
-            require('fzf-lua').actions.toggle_ignore(...)
-          end,
+        keymap = {
+          builtin = {
+            ['<c-\\>'] = 'toggle-preview',
+            ['<c-d>'] = 'preview-page-down',
+          },
+          fzf = {},
         },
-      },
-      actions = {
         files = {
-          ['default'] = function(...)
-            require('fzf-lua').actions.file_edit(...)
-          end,
-          ['ctrl-s'] = function(...)
-            require('fzf-lua').actions.file_edit_or_qf(...)
-          end,
-          ['ctrl-y'] = {
-            fn = function(selected, opts)
-              local file = require('fzf-lua').path.entry_to_file(selected[1], opts)
-              vim.fn.setreg('+', file.path)
+          cwd_prompt = true,
+          git_icons = false,
+          winopts = { preview = { hidden = 'hidden' } },
+        },
+        grep = {
+          file_icons = false,
+          git_icons = false,
+          no_header_i = true,
+          actions = {
+            ['ctrl-r'] = function(...)
+              require('fzf-lua').actions.toggle_ignore(...)
             end,
-            reload = true,
           },
-          ['ctrl-r'] = { -- TODO: no cursor
-            fn = function(selected, opts)
-              local file = require('fzf-lua').path.entry_to_file(selected[1], opts)
-              local oldpath = file.path
-              local oldname = vim.fs.basename(oldpath)
-              local newname = vim.fn.input('New name: ', oldname)
-              newname = vim.trim(newname)
-              if newname == '' or newname == oldname then
-                return
-              end
-              local cwd = opts.cwd or vim.fn.getcwd()
-              local newpath = ('%s/%s'):format(cwd, newname)
-              vim.uv.fs_rename(oldpath, newpath)
-              vim.notify(
-                ('%s has been renamed to %s'):format(oldpath, newpath),
-                vim.log.levels.INFO
-              )
+        },
+        actions = {
+          files = {
+            ['default'] = function(...)
+              require('fzf-lua').actions.file_edit(...)
             end,
-            reload = true,
-          },
-          ['ctrl-o'] = { -- call back?
-            fn = function(selected, opts)
-              for _, sel in ipairs(selected) do
-                local file = require('fzf-lua').path.entry_to_file(sel, opts)
-                vim.schedule_wrap(function()
-                  vim.cmd.e(file.path)
-                end)
-              end
+            ['ctrl-s'] = function(...)
+              require('fzf-lua').actions.file_edit_or_qf(...)
             end,
+            ['ctrl-y'] = {
+              fn = function(selected, opts)
+                local file = require('fzf-lua').path.entry_to_file(selected[1], opts)
+                vim.fn.setreg('+', file.path)
+              end,
+              reload = true,
+            },
+            ['ctrl-r'] = { -- TODO: no cursor
+              fn = function(selected, opts)
+                local file = require('fzf-lua').path.entry_to_file(selected[1], opts)
+                local oldpath = file.path
+                local oldname = vim.fs.basename(oldpath)
+                local newname = vim.fn.input('New name: ', oldname)
+                newname = vim.trim(newname)
+                if newname == '' or newname == oldname then
+                  return
+                end
+                local cwd = opts.cwd or vim.fn.getcwd()
+                local newpath = ('%s/%s'):format(cwd, newname)
+                vim.uv.fs_rename(oldpath, newpath)
+                vim.notify(
+                  ('%s has been renamed to %s'):format(oldpath, newpath),
+                  vim.log.levels.INFO
+                )
+              end,
+              reload = true,
+            },
+            ['ctrl-o'] = { -- call back?
+              fn = function(selected, opts)
+                for _, sel in ipairs(selected) do
+                  local file = require('fzf-lua').path.entry_to_file(sel, opts)
+                  vim.schedule_wrap(function()
+                    vim.cmd.e(file.path)
+                  end)
+                end
+              end,
+            },
           },
         },
       },

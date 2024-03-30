@@ -163,7 +163,7 @@ return {
       if not status_ok then
         return
       end
-      url_open.setup({})
+      url_open.setup {}
     end,
   },
 
@@ -181,7 +181,6 @@ return {
     opts = {},
   },
   { 'chrisbra/csv.vim', ft = 'csv' },
-
   --
   { 'sbulav/nredir.nvim', cmd = 'Nredir' },
   -- {
@@ -189,7 +188,23 @@ return {
   --   cmd = 'Messages',
   --   opts = {},
   -- },
+  { 'AndrewRadev/bufferize.vim' },
+  -- Lazy
+  { 'kilavila/nvim-gitignore' },
   {
-    'AndrewRadev/bufferize.vim',
+    '2kabhishek/tdo.nvim',
+    dependencies = 'nvim-telescope/telescope.nvim',
+    cmd = { 'Tdo', 'TdoEntry', 'TdoNote', 'TdoTodos', 'TdoToggle', 'TdoFind', 'TdoFiles' },
+    keys = { '[t', ']t' },
   },
+  {
+    'kungfusheep/randomword.nvim',
+    event = 'VeryLazy',
+    opts = true,
+  },
+  -- {
+  --   'kungfusheep/randomquote.nvim',
+  --   event = 'VimEnter',
+  --   opts = true,
+  -- },
 }
