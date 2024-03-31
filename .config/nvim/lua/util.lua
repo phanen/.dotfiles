@@ -121,7 +121,13 @@ util.cd_gitroot = function()
 end
 
 util.yank_filename = function()
-  vim.fn.system(('echo %s | xsel -ib --trim'):format(vim.fn.expand '%:p'))
+  vim.fn.setreg('+', vim.fn.expand '%:p')
+  -- vim.fn.system(('echo %s | xsel -ib --trim'):format(vim.fn.expand '%:p'))
+end
+
+util.yank_message = function()
+  local text = vim.fn.execute('1message')
+  vim.fn.setreg('+', vim.trim(text))
 end
 
 return util

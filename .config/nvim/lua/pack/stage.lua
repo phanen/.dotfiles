@@ -183,28 +183,38 @@ return {
   { 'chrisbra/csv.vim', ft = 'csv' },
   --
   { 'sbulav/nredir.nvim', cmd = 'Nredir' },
-  -- {
-  --   'AckslD/messages.nvim',
-  --   cmd = 'Messages',
-  --   opts = {},
-  -- },
-  { 'AndrewRadev/bufferize.vim' },
-  -- Lazy
-  { 'kilavila/nvim-gitignore' },
   {
-    '2kabhishek/tdo.nvim',
-    dependencies = 'nvim-telescope/telescope.nvim',
-    cmd = { 'Tdo', 'TdoEntry', 'TdoNote', 'TdoTodos', 'TdoToggle', 'TdoFind', 'TdoFiles' },
-    keys = { '[t', ']t' },
+    'tani/dmacro.nvim',
+    cond = false,
+    opts = { dmacro_key = '+.' },
   },
   {
-    'kungfusheep/randomword.nvim',
-    event = 'VeryLazy',
-    opts = true,
+    url = 'https://github.com/tani/pickup.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    opts = {},
   },
-  -- {
-  --   'kungfusheep/randomquote.nvim',
-  --   event = 'VimEnter',
-  --   opts = true,
-  -- },
+  {
+    url = 'https://github.com/tamton-aquib/keys.nvim',
+    cmd = 'KeysToggle',
+  },
+  {
+    url = 'https://github.com/Febri-i/snake.nvim',
+    cmd = 'SnakeStart',
+    opts = {},
+    dependencies = {
+      url = 'https://github.com/Febri-i/fscreen.nvim',
+    },
+  },
+  {
+    'NStefan002/speedtyper.nvim',
+    cmd = 'Speedtyper',
+    opts = {
+      -- your config
+    },
+  },
+  {
+    'Rawnly/gist.nvim',
+    cmd = { 'GistCreate', 'GistCreateFromFile', 'GistsList' },
+    config = true,
+  },
 }

@@ -136,6 +136,7 @@ kmp.misc = function()
   n('<leader>cf', '<cmd>cd %:h<cr>')
   n('<leader>cd', util.cd_gitroot)
   n('<leader>cn', util.yank_filename)
+  n('<leader>cm', util.yank_message)
   n('<leader>cx', '<cmd>!chmod +x %<cr>')
 
   map('t', '<c- >', '<c-\\><c-n>')
