@@ -37,12 +37,6 @@ misc.buf = {
 }
 
 misc.doc = {
-  {
-    'hotoo/pangu.vim',
-    keys = { { mode = 'x', '<leader>lj', ':Pangu<cr>' } },
-    cmd = 'Pangu',
-    ft = 'markdown',
-  },
   { 'jspringyc/vim-word', cmd = { 'WordCount', 'WordCountLine' } },
   { 'cissoid/vim-fullwidth-punct-convertor', cmd = 'FullwidthPunctConvert' },
   {

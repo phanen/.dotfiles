@@ -51,8 +51,8 @@ return {
           },
           swap = {
             enable = true,
-            swap_next = { ['<c-,>'] = '@parameter.inner' },
-            swap_previous = { ['<c-.>'] = '@parameter.inner' },
+            swap_next = { ['<leader>sj'] = '@parameter.inner' },
+            swap_previous = { ['<leader>sk'] = '@parameter.inner' },
           },
           move = {
             enable = false,

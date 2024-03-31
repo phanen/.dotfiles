@@ -3,7 +3,6 @@ _G.lazy_cfg = package.loaded['lazy.core.config']
 return {
   { 'rktjmp/lush.nvim' },
   { 'seandewar/bad-apple.nvim', cmd = 'BadApple' },
-  -- { 'echasnovski/mini.nvim' },
   {
     '4e554c4c/darkman.nvim',
     -- lazy = false,
@@ -104,17 +103,17 @@ return {
   },
   {
     'svermeulen/vim-subversive',
-    keys = {
-      {
-        mode = { 'n', 'x' },
-        '<localleader>s',
-        '<plug>(SubversiveSubstituteRange)',
-      },
-      {
-        '<localleader>S',
-        '<plug>(SubversiveSubstituteWordRange)',
-      },
-    },
+    -- keys = {
+    --   {
+    --     mode = { 'n', 'x' },
+    --     '<localleader>s',
+    --     '<plug>(SubversiveSubstituteRange)',
+    --   },
+    --   {
+    --     '<localleader>S',
+    --     '<plug>(SubversiveSubstituteWordRange)',
+    --   },
+    -- },
   },
   { 'liangxianzhe/floating-input.nvim', opts = {} },
   {
@@ -216,5 +215,55 @@ return {
     'Rawnly/gist.nvim',
     cmd = { 'GistCreate', 'GistCreateFromFile', 'GistsList' },
     config = true,
+  },
+  {
+    url = 'https://github.com/neovim/nvimdev.nvim',
+    cmd = { 'NvimTestRun', 'NvimTestClear' },
+    config = true,
+  },
+  {
+    url = 'https://github.com/noearc/pangu.nvim',
+    cmd = { 'Pangu' },
+    dependencies = {
+      url = 'https://github.com/noearc/jieba-lua',
+      init = function()
+        package.cpath = package.cpath .. ';' .. vim.fn.expand '~/.luarocks/lib/lua/5.1/?.lua;'
+      end,
+    },
+    config = true,
+  },
+  {
+    'hotoo/pangu.vim',
+    -- keys = { { mode = 'x', '<leader>lj', ':Pangu<cr>' } },
+    cmd = 'Pangu',
+    ft = 'markdown',
+  },
+  {
+    'andrewferrier/debugprint.nvim',
+    keys = { 'g?p' },
+    opts = {
+      keymaps = {
+        normal = {
+          plain_below = 'g?p',
+          plain_above = 'g?P',
+          variable_below = 'g?v',
+          variable_above = 'g?V',
+          variable_below_alwaysprompt = nil,
+          variable_above_alwaysprompt = nil,
+          textobj_below = 'g?o',
+          textobj_above = 'g?O',
+          toggle_comment_debug_prints = nil,
+          delete_debug_prints = nil,
+        },
+        visual = {
+          variable_below = 'g?v',
+          variable_above = 'g?V',
+        },
+      },
+      commands = {
+        toggle_comment_debug_prints = 'ToggleCommentDebugPrints',
+        delete_debug_prints = 'DeleteDebugPrints',
+      },
+    },
   },
 }
