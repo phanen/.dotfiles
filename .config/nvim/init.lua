@@ -5,6 +5,17 @@ vim.g.maplocalleader = '+'
 
 _G.map = vim.keymap.set
 
+vim.g.spec = {
+  { import = 'pack.cmp' },
+  { import = 'pack.edit' },
+  { import = 'pack.fzf' },
+  { import = 'pack.git' },
+  { import = 'pack.lsp' },
+  { import = 'pack.misc' },
+  { import = 'pack.ts' },
+  { import = 'pack.stage' },
+}
+
 require 'pat'
 require 'opt'
 require 'map'
