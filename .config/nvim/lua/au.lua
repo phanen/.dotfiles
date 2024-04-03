@@ -145,11 +145,3 @@ au('User', {
     require('util').lazy_cache_docs()
   end,
 })
-
-au('ColorScheme', {
-  callback = function()
-    local fd = assert(io.open(vim.g.color_cache, 'w+'))
-    fd:write(vim.g.colors_name)
-    fd:close()
-  end,
-})

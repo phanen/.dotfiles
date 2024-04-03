@@ -103,6 +103,8 @@ application/wps-office.wpt=wps-office-wps.desktop
 application/wps-office.wpss=wps-office-wps.desktop
 application/wps-office.wpso=wps-office-wps.desktop
 x-scheme-handler/clash=clash-verge.desktop
+x-scheme-handler/pixiv=pixiv-url.desktop
+x-scheme-handler/tg=org.telegram.desktop.desktop
 
 [Added Associations]
 x-scheme-handler/http=chrome.desktop;chrome.desktop;
@@ -126,3 +128,4 @@ application/wps-office.docx=wps-office-wps.desktop;
 application/wps-office.dotx=wps-office-wps.desktop;
 application/wps-office.wpss=wps-office-wps.desktop;
 application/wps-office.wpso=wps-office-wps.desktop;
+x-scheme-handler/tg=org.telegram.desktop.desktop;

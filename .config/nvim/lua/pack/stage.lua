@@ -1,6 +1,8 @@
 _G.lazy_cfg = package.loaded['lazy.core.config']
 
-return {
+local M = {
+  { 'fladson/vim-kitty', event = { 'BufReadPre kitty.conf' } },
+  { 'chrisbra/csv.vim', ft = 'csv' },
   { 'rktjmp/lush.nvim' },
   { 'seandewar/bad-apple.nvim', cmd = 'BadApple' },
   {
@@ -11,6 +13,7 @@ return {
   },
   {
     'lukas-reineke/indent-blankline.nvim',
+    -- cond = false,
     event = { 'BufRead', 'BufNewFile' },
     main = 'ibl',
     opts = {
@@ -26,12 +29,13 @@ return {
   { 'tpope/vim-rsi', cond = false },
   {
     'nvim-telescope/telescope.nvim',
+    cond = false,
     tag = '0.1.5',
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
       {
         'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'cmake',
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
         config = function()
           require('telescope').load_extension 'fzf'
         end,
@@ -149,7 +153,6 @@ return {
     keys = { { 'ga', '<plug>(EasyAlign)', mode = { 'n', 'x' } } },
     init = function() end,
   },
-  { 'roginfarrer/fzf-lua-lazy.nvim' },
   { 'itchyny/vim-highlighturl', event = 'ColorScheme' },
   {
     'sontungexpt/url-open',
@@ -165,7 +168,6 @@ return {
       url_open.setup {}
     end,
   },
-
   {
     'nvim-lua/plenary.nvim',
     -- stylua: ignore
@@ -179,14 +181,7 @@ return {
     cmd = 'Play2048',
     opts = {},
   },
-  { 'chrisbra/csv.vim', ft = 'csv' },
-  --
   { 'sbulav/nredir.nvim', cmd = 'Nredir' },
-  {
-    'tani/dmacro.nvim',
-    cond = false,
-    opts = { dmacro_key = '+.' },
-  },
   {
     url = 'https://github.com/tani/pickup.nvim',
     dependencies = { 'MunifTanjim/nui.nvim' },
@@ -207,9 +202,7 @@ return {
   {
     'NStefan002/speedtyper.nvim',
     cmd = 'Speedtyper',
-    opts = {
-      -- your config
-    },
+    opts = {},
   },
   {
     'Rawnly/gist.nvim',
@@ -240,30 +233,102 @@ return {
   },
   {
     'andrewferrier/debugprint.nvim',
-    keys = { 'g?p' },
-    opts = {
-      keymaps = {
-        normal = {
-          plain_below = 'g?p',
-          plain_above = 'g?P',
-          variable_below = 'g?v',
-          variable_above = 'g?V',
-          variable_below_alwaysprompt = nil,
-          variable_above_alwaysprompt = nil,
-          textobj_below = 'g?o',
-          textobj_above = 'g?O',
-          toggle_comment_debug_prints = nil,
-          delete_debug_prints = nil,
-        },
-        visual = {
-          variable_below = 'g?v',
-          variable_above = 'g?V',
-        },
-      },
-      commands = {
-        toggle_comment_debug_prints = 'ToggleCommentDebugPrints',
-        delete_debug_prints = 'DeleteDebugPrints',
+    -- stylua: ignore
+    keys = {
+      { '+dp', function() return require('debugprint').debugprint() end,                   expr = true  },
+      { '+dv', function() return require('debugprint').debugprint { variable = true } end,  expr = true  },
+      { '+do', function() return require('debugprint').debugprint { motion = true } end,   expr = true  },
+      { '+da', function() return require('debugprint').deleteprints() end,                 expr = true, mode = { 'n', 'x' }  },
+    },
+    opts = {},
+  },
+  {
+    url = 'https://github.com/flobilosaurus/theme_reloader.nvim',
+  },
+  {
+    'phanen/broker.nvim',
+    event = 'ColorScheme',
+  },
+  {
+    'blumaa/octopus.nvim',
+    lazy = false,
+    -- stylua: ignore
+    config = function()
+      vim.keymap.set('n', '<leader>on', function() require('octopus').spawn() end, {})
+      vim.keymap.set('n', '<leader>off', function() require('octopus').removeLastOctopus() end, {})
+      vim.keymap.set('n', '<leader>ofa', function() require('octopus').removeAllOctopuses() end, {})
+    end,
+  },
+  {
+    'shellRaining/hlchunk.nvim',
+    cond = false,
+    event = { 'BufRead', 'BufNewFile' },
+    opts = {},
+  },
+  { 'eandrju/cellular-automaton.nvim' },
+  {
+    'wet-sandwich/hyper.nvim',
+    keys = {
+      {
+        ' hy',
+        [[<cmd>lua require('hyper.view').show()<cr>]],
       },
     },
+    tag = '0.1.3',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    -- opts = {},
+  },
+  -- Using lazy.nvim:
+  { 'tamton-aquib/mpv.nvim', cmd = 'MpvToggle', opts = {} },
+  {
+    'vhyrro/luarocks.nvim',
+    priority = 1000,
+    config = true,
+  },
+  {
+    'rest-nvim/rest.nvim',
+    ft = 'http',
+    dependencies = { 'luarocks.nvim' },
+    config = function()
+      require('rest-nvim').setup()
+    end,
+  },
+  {
+    'mrcjkb/rustaceanvim',
+    ft = { 'rust' },
+    config = function()
+      vim.g.rustaceanvim = function()
+        return {
+          dap = {
+            adapter = {
+              type = 'server',
+              port = '${port}',
+              host = '127.0.0.1',
+              executable = {
+                command = 'codelldb',
+                args = {
+                  '--port',
+                  '${port}',
+                  '--settings',
+                  vim.json.encode { showDisassembly = 'never' },
+                },
+              },
+            },
+          },
+        }
+      end
+    end,
+  },
+  {
+    'potamides/pantran.nvim',
+    cmd = 'Pantran',
+    opts = {},
+  },
+  {
+    'nvim-orgmode/orgmode',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    ft = 'org',
+    opts = {},
   },
 }
+return M

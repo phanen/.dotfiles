@@ -44,7 +44,7 @@ return {
       { "<leader>fdv",   fl.dap_variables,         mode = { 'n', 'x' } },
       { '<leader>f;',    fl.command_history,       mode = { 'n', 'x' } },
       { '<leader>fh',    fl.help_tags,             mode = { 'n', 'x' } },
-      { '<leader>fj',    fl.live_grep_dots,        mode = { 'n', 'x' } },
+      { '<leader>fj',    fl.grep_dots,             mode = { 'n', 'x' } },
       { '<leader>fk',    fl.keymaps,               mode = { 'n', 'x' } },
       { '<leader>/',     fl.blines,                mode = { 'n', 'x' } },
       { '<leader> ',     fl.resume,                mode = 'n' },

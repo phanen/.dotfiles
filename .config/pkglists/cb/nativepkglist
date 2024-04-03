@@ -1,6 +1,4 @@
 acpi
-age
-aircrack-ng
 alacritty
 alsa-utils
 android-file-transfer
@@ -10,9 +8,6 @@ archiso
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
-asciinema
-atuin
-autossh
 awesome-terminal-fonts
 aws-cli-v2
 baidupcs-go
@@ -20,7 +15,6 @@ base
 base-devel
 bash-completion
 bat
-bazel
 bc
 bear
 beep
@@ -88,18 +82,14 @@ fd
 feh
 firefox
 fish
-fisher
 flameshot
 flashrom
-foliate
-fx
 fzf
 gcc12
 gdb
-ghc
 git
+git-lfs
 github-cli
-glab
 gnu-efi
 gnu-free-fonts
 gnu-netcat
@@ -185,7 +175,6 @@ mesa-utils
 meson
 metasploit
 minicom
-mold
 moreutils
 mosh
 mpc
@@ -225,6 +214,7 @@ pandoc-bin
 paru
 pdfarranger
 pdfgrep
+peek
 perf
 perl-cgi
 perl-image-exiftool
@@ -261,7 +251,6 @@ qemu-full
 qemu-user-static-binfmt
 rar
 rclone
-refind
 reflector
 reptyr
 resvg
@@ -280,7 +269,6 @@ riscv64-linux-gnu-glibc
 riscv64-unknown-elf-binutils-debug
 riscv64-unknown-elf-gcc
 rofi
-rp-pppoe
 rsync
 rtorrent
 rust-script
@@ -288,7 +276,6 @@ rustup
 scrcpy
 screen
 scrot
-selene
 setconf
 slock
 smartmontools
@@ -306,9 +293,9 @@ sxhkd
 sxiv
 syncthing
 tcpdump
-tdlib
 tdrop-git
 tealdeer
+telegram-desktop
 terminus-font
 tesseract-data-eng
 the_silver_searcher
@@ -317,7 +304,6 @@ tokei
 traceroute
 translate-shell
 tree
-trojan
 ttf-cascadia-code
 ttf-dejavu
 ttf-dejavu-nerd
@@ -334,21 +320,17 @@ uwufetch
 valgrind
 verilator
 vhs
-vi
 vim
 virt-manager
 virt-viewer
-vitetris
 viu
 vulkan-intel
 vulkan-tools
 w3m
 wezterm
 wget
-whois
 wl-clipboard
 wmctrl
-wofi
 wpa_supplicant
 xclip
 xdg-desktop-portal

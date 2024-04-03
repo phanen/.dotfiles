@@ -47,12 +47,6 @@ misc.doc = {
     end,
   },
   { 'kaarmu/typst.vim', ft = 'typst' },
-  {
-    'nvim-orgmode/orgmode',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    ft = 'org',
-    opts = {},
-  },
   { 'phanen/mder.nvim', ft = 'markdown', opts = {} },
   {
     -- TODO: https://github.com/3rd/image.nvim/issues/116
@@ -244,6 +238,7 @@ misc.ui = {
   { 'HiPhish/rainbow-delimiters.nvim', event = { 'BufReadPre', 'BufNewFile' } },
   {
     'Bekaboo/dropbar.nvim',
+    cond = false,
     event = { 'BufReadPre', 'BufNewFile' },
     opts = {
       general = {

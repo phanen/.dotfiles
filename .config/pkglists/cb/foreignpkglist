@@ -1,5 +1,6 @@
 cargo-clean-all
 codelldb
+dragon-drop
 google-chrome
 input-leap-git
 kanata
@@ -8,5 +9,4 @@ msgpack-tools
 picom-git
 python-paginate
 sysz
-telegram-desktop-dev-bin
 xautocfg
