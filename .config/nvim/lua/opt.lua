@@ -22,9 +22,9 @@ o.softtabstop    = 2 -- inserted tab
 o.shiftwidth     = 2 -- indent
 
 o.timeoutlen     = 100
-o.ttimeout       = false
+-- o.ttimeout       = false
 -- o.updatetime     = 1000 -- CursorHold
--- o.ttimeoutlen    = 0
+o.ttimeoutlen    = 0
 
 o.list = true
 opt.listchars = {

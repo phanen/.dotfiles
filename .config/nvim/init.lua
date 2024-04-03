@@ -16,6 +16,20 @@ vim.g.spec = {
   { import = 'pack.stage' },
 }
 
+vim.g.disabled_plugins = {
+  'matchit',
+  'matchparen',
+  'netrwPlugin',
+  'nvim',
+  'osc52',
+  'rplugin',
+  'shada',
+  'spellfile',
+  'tohtml',
+  'tutor',
+}
+
+-- vim.go.loadplugins = false
 require 'pat'
 require 'opt'
 require 'map'

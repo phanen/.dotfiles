@@ -1,7 +1,5 @@
 local g, fs, fn = vim.g, vim.fs, vim.fn
 
--- vim.go.loadplugins = false
-
 if vim.fn.has('nvim-0.10') == 0 then
   ---@diagnostic disable: duplicate-set-field
   vim.uv = vim.uv or vim.loop
@@ -23,8 +21,11 @@ g.docs_path = fs.joinpath(g.state_path, 'lazy', 'docs')
 g.color_path = fs.joinpath(g.cache_path, 'fzf-lua', 'pack', 'fzf-lua', 'opt')
 g.color_cache = vim.fs.joinpath(g.cache_path, 'colors_name')
 
+if not vim.uv.fs_stat(vim.g.color_cache) then
+  vim.fn.mkdir(vim.g.color_cache, 'p')
+end
 local fd = assert(io.open(vim.g.color_cache, 'r'))
-g.colors_name = fd:read('*a') or 'vim'
+vim.g.colors_name = fd:read('*a') or 'vim'
 fd:close()
 
 _G.r = setmetatable({}, {

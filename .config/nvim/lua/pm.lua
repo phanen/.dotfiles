@@ -14,18 +14,7 @@ require('lazy').setup {
   performance = {
     rtp = {
       reset = false,
-      disabled_plugins = {
-        'matchit',
-        'matchparen',
-        'netrwPlugin',
-        'nvim',
-        'osc52',
-        'rplugin',
-        'shada',
-        'spellfile',
-        'tohtml',
-        'tutor',
-      },
+      disabled_plugins = vim.g.disabled_plugins,
     },
   },
 }

@@ -216,6 +216,7 @@ local M = {
   },
   {
     url = 'https://github.com/noearc/pangu.nvim',
+    cond = false,
     cmd = { 'Pangu' },
     dependencies = {
       url = 'https://github.com/noearc/jieba-lua',
@@ -227,7 +228,7 @@ local M = {
   },
   {
     'hotoo/pangu.vim',
-    -- keys = { { mode = 'x', '<leader>lj', ':Pangu<cr>' } },
+    keys = { { mode = 'x', '<leader>rj', ':Pangu<cr>' } },
     cmd = 'Pangu',
     ft = 'markdown',
   },

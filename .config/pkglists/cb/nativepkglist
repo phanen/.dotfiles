@@ -23,10 +23,8 @@ bluez
 bluez-utils
 bochs
 boost
-bottom
 bpftrace
 bspwm
-catimg
 ccache
 certbot
 chafa
@@ -112,7 +110,6 @@ httping
 hyperfine
 hyperv
 i2c-tools
-i3-wm
 imagemagick
 inetutils
 inotify-tools
@@ -133,7 +130,6 @@ kakoune
 kdiskmark
 kitty
 kmonad-git
-kubo
 lazygit
 lib32-gcc-libs
 lib32-libglvnd
@@ -176,7 +172,6 @@ meson
 metasploit
 minicom
 moreutils
-mosh
 mpc
 mpd
 mpv

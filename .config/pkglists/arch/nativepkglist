@@ -42,7 +42,6 @@ devtools-archlinuxcn
 devtools-riscv64
 dhclient
 dhcpcd
-direnv
 dkms
 dmenu
 dnsmasq
@@ -81,6 +80,7 @@ firefox
 fish
 flameshot
 flex
+fx
 fzf
 gawk
 gcc
@@ -88,6 +88,7 @@ gdb
 gettext
 git
 github-cli
+gnome-font-viewer
 gnome-themes-extra
 gnu-free-fonts
 gnu-netcat
