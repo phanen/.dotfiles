@@ -238,7 +238,6 @@ misc.ui = {
   { 'HiPhish/rainbow-delimiters.nvim', event = { 'BufReadPre', 'BufNewFile' } },
   {
     'Bekaboo/dropbar.nvim',
-    cond = false,
     event = { 'BufReadPre', 'BufNewFile' },
     opts = {
       general = {

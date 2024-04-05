@@ -48,7 +48,12 @@ return {
       { '<c-/>', '<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>', mode = 'i' },
       { '<c-/>', '<Plug>(comment_toggle_linewise_visual)', mode = 'v' },
     },
-    opts = {},
+    opts = {
+      -- pre_hook = function(...)
+      -- require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(...)
+      -- end,
+    },
+    -- dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
   },
   {
     'altermo/ultimate-autopair.nvim',
