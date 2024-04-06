@@ -1,6 +1,8 @@
 -- stylua: ignore start
 local n = function(...) map('n', ...) end
 local x = function(...) map('x', ...) end
+local t = function(...) map('t', ...) end
+local i = function(...) map('i', ...) end
 local nx = function(...) map({ 'n', 'x' }, ...) end
 local ox = function(...) map({ 'o', 'x' }, ...) end
 local ic = function(...) map('!', ...) end
@@ -61,6 +63,16 @@ kmp.edit = function()
   -- ic('<c-k>', '<c-o>D')
   nx('-', '<cmd>TSJToggle<cr>')
   n('<c-h>', '<c-u>')
+end
+
+kmp.comment = function()
+  map({ 'n', 'x', 'i' }, '<c-_>', '<c-/>', { remap = true })
+  x('<c-/>', 'gc', { remap = true })
+  i('<c-/>', '<cmd>norm <c-/><cr>')
+  n('<c-/>', function()
+    return vim.v.count == 0 and 'gcl' or 'gcj'
+  end, { expr = true, remap = true })
+  n('<leader><c-/>', '<cmd>norm vac<c-/><cr>')
 end
 
 kmp.buf = function()
@@ -140,7 +152,7 @@ kmp.misc = function()
   n('<leader>cm', util.yank_message)
   n('<leader>cx', '<cmd>!chmod +x %<cr>')
 
-  map('t', '<c- >', '<c-\\><c-n>')
+  t('<c- >', '<c-\\><c-n>')
 
   -- diagnostics
   n('<leader>dk', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
@@ -154,9 +166,9 @@ end
 
 kmp.tobj = function()
   ox('ih', ':<c-u>Gitsigns select_hunk<cr>')
-  local tobj = function(c, t)
-    ox('i' .. c, ([[<cmd>lua require("various-textobjs").%s("inner", "inner")<cr>]]):format(t))
-    ox('a' .. c, ([[<cmd>lua require("various-textobjs").%s("outer", "outer")<cr>]]):format(t))
+  local tobj = function(c, func)
+    ox('i' .. c, ([[<cmd>lua require("various-textobjs").%s("inner", "inner")<cr>]]):format(func))
+    ox('a' .. c, ([[<cmd>lua require("various-textobjs").%s("outer", "outer")<cr>]]):format(func))
   end
   tobj('c', 'multiCommentedLines')
   tobj('g', 'entireBuffer')
@@ -165,10 +177,11 @@ kmp.tobj = function()
   tobj('n', 'anyBracket')
   tobj('q', 'anyQuote')
   tobj('u', 'url')
-  n('<leader><c-/>', '<cmd>norm vac<c-/><cr>')
 end
 
 nx('<leader>so', '<cmd>so<cr>')
+nx('<leader>ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
+nx('<leader>sl', '<cmd>so /tmp/Session.vim<cr>')
 
 for _, fn in pairs(kmp) do
   fn()

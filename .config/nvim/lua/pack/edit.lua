@@ -30,39 +30,14 @@ return {
     },
   },
   {
-    'numToStr/Comment.nvim',
-    keys = {
-      { 'gcc' },
-      { 'gc', mode = { 'n', 'x' } },
-      { '<leader>O', 'gcO', remap = true },
-      { '<leader>A', 'gcA', remap = true },
-      { '<c-_>', '<c-/>', remap = true, mode = { 'n', 'x', 'i' } },
-      {
-        '<c-/>',
-        function()
-          return vim.v.count == 0 and '<Plug>(comment_toggle_linewise_current)'
-            or '<Plug>(comment_toggle_linewise_count)'
-        end,
-        expr = true,
-      },
-      { '<c-/>', '<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>', mode = 'i' },
-      { '<c-/>', '<Plug>(comment_toggle_linewise_visual)', mode = 'v' },
-    },
-    opts = {
-      -- pre_hook = function(...)
-      -- require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(...)
-      -- end,
-    },
-    -- dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
-  },
-  {
     'altermo/ultimate-autopair.nvim',
     event = { 'InsertEnter', 'CmdlineEnter' },
-    cond = false,
+    -- cond = false,
     opts = { cmap = false },
   },
   {
     'windwp/nvim-autopairs',
+    cond = false,
     event = 'InsertEnter',
     dependencies = { 'hrsh7th/nvim-cmp' },
     opts = {},

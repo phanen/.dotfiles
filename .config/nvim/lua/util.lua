@@ -121,8 +121,9 @@ util.cd_gitroot = function()
 end
 
 util.yank_filename = function()
-  vim.fn.setreg('+', vim.fn.expand '%:p')
-  -- vim.fn.system(('echo %s | xsel -ib --trim'):format(vim.fn.expand '%:p'))
+  local path = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
+  path = (path:gsub(('^%s'):format(vim.env['HOME']), '~'))
+  vim.fn.setreg('+', path)
 end
 
 util.yank_message = function()

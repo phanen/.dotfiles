@@ -181,6 +181,8 @@ local M = {
     cmd = 'Play2048',
     opts = {},
   },
+  -- BUG: Nredir =vim.treesitter.get_parser
+  -- seems buf should be created after eval...
   { 'sbulav/nredir.nvim', cmd = 'Nredir' },
   {
     url = 'https://github.com/tani/pickup.nvim',
@@ -361,6 +363,51 @@ local M = {
     dependencies = 'nvim-treesitter/nvim-treesitter',
     ft = 'org',
     opts = {},
+  },
+  {
+    'numToStr/Comment.nvim',
+    cond = false,
+    -- cond = vim.fn.has('nvim-0.10') == 0,
+    keys = {
+      { 'gcc' },
+      { 'gc', mode = { 'n', 'x' } },
+      { '<leader>O', 'gcO', remap = true },
+      { '<leader>A', 'gcA', remap = true },
+      { '<c-_>', '<c-/>', remap = true, mode = { 'n', 'x', 'i' } },
+      {
+        '<c-/>',
+        function()
+          return vim.v.count == 0 and '<Plug>(comment_toggle_linewise_current)'
+            or '<Plug>(comment_toggle_linewise_count)'
+        end,
+        expr = true,
+      },
+      { '<c-/>', '<cmd>norm <Plug>(comment_toggle_linewise_current)<cr>', mode = 'i' },
+      { '<c-/>', '<Plug>(comment_toggle_linewise_visual)', mode = 'v' },
+    },
+    opts = {
+      -- pre_hook = function(...)
+      -- require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(...)
+      -- end,
+    },
+    -- dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
+  },
+  {
+    'lervag/vimtex',
+    lazy = false, -- :h :VimtexInverseSearch
+    ft = 'tex',
+    keys = {
+      { '<leader>vc', '<cmd>VimtexCompile<cr>' },
+      { '<leader>vl', '<cmd>VimtexClean<cr>' },
+      { '<leader>vs', '<cmd>VimtexCompileSS<cr>' },
+      { '<leader>vv', '<plug>(vimtex-view)' },
+    },
+    config = function()
+      vim.g.vimtex_view_method = 'sioyek'
+      vim.g.tex_flavor = 'latex'
+      vim.g.tex_conceal = 'abdmgs'
+      vim.g.vimtex_quickfix_mode = 0
+    end,
   },
 }
 return M
