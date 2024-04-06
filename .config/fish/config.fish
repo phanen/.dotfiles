@@ -2,8 +2,7 @@ set fisher_path $__fish_user_data_dir/fisher
 set -a fish_complete_path $fisher_path/completions
 set -a fish_function_path $fisher_path/functions
 
-test -f $fisher_path/conf.d/fifc.fish
-and source $fisher_path/conf.d/fifc.fish
+source $__fish_config_dir/fifc.fish
 
 status is-interactive; or exit
 
@@ -15,7 +14,6 @@ if not functions -q fisher
   mv $t $__fish_config_dir/fish_plugins
 end
 for file in $fisher_path/conf.d/*.fish
-  test $file = $fisher_path/conf.d/fifc.fish; and continue
   source $file
 end
 
@@ -25,18 +23,13 @@ function _em
   or eval $argv[2]
 end
 
-function ff --wrap "paru -G"
-  mkdir -p /tmp/tmp
-  cd /tmp/tmp
-  paru -G $argv
-end
-
 function _ea
   test -z "$(commandline)"
   and eval "$argv[1]; return"
   or eval $argv[2]
 end
 
+# NOTE: many plugins will hijack bindings, we always override what we want here...
 bind \ce k_ce
 bind \cf k_cf
 bind \cg k_cg
@@ -57,7 +50,7 @@ bind \er 'exec fish'
 bind \ew 'fish_key_reader -c'
 bind -k nul 'kitten @ action kitty_scrollback_nvim'
 bind \r k_enter
-bind \t 'SHELL=fish _fifc'
+bind \t '_fifc'
 bind \x1c "exec fish"
 
 # and fzf_configure_bindings --directory=\ef --processes=\ep --git_log=\eg --history=\cr
