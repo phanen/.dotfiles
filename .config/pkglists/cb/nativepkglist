@@ -4,7 +4,6 @@ alsa-utils
 android-file-transfer
 apr
 apr-util
-archiso
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
@@ -56,8 +55,6 @@ doxygen
 dummyhttp
 dunst
 dust
-e3
-eclipse-platform
 edk2-shell
 efibootmgr
 egl-wayland
@@ -83,7 +80,6 @@ fish
 flameshot
 flashrom
 fzf
-gcc12
 gdb
 git
 git-lfs
@@ -179,16 +175,13 @@ mysql
 namcap
 nano
 nasm
-ncmpcpp
 neovide
 neovim
 nerd-fonts-cascadia-code
 nerd-fonts-dejavu-sans-mono
 net-tools
-netease-cloud-music-gtk4
 nethack
 networkmanager
-newsboat
 ninja
 nmap
 notcurses
@@ -220,6 +213,7 @@ poedit
 poketex
 polybar
 prettier
+procs
 pulseaudio-alsa
 pulsemixer
 pwgen
@@ -233,12 +227,8 @@ python-pip
 python-pipx
 python-poetry
 python-ptrace
-python-pycryptodome
 python-pynvim
-python-pyquery
 python-pytest-snapshot
-python-qrcode
-python-sympy
 python-watchdog
 python2
 qemu-emulators-full
@@ -314,14 +304,10 @@ usbutils
 uwufetch
 valgrind
 verilator
-vhs
 vim
-virt-manager
-virt-viewer
 viu
 vsce
 vulkan-intel
-vulkan-tools
 w3m
 wezterm
 wget
