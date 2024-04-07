@@ -5,7 +5,16 @@ end
 
 vim.opt.rtp:prepend(path)
 require('lazy').setup {
-  spec = vim.g.spec,
+  spec = {
+    { import = 'pack.cmp' },
+    { import = 'pack.edit' },
+    { import = 'pack.fzf' },
+    { import = 'pack.git' },
+    { import = 'pack.lsp' },
+    { import = 'pack.misc' },
+    { import = 'pack.ts' },
+    { import = 'pack.stage' },
+  },
   lockfile = vim.fn.stdpath('data') .. '/lazy-lock.json',
   defaults = { lazy = true },
   change_detection = { enabled = false, notify = false },
@@ -14,10 +23,22 @@ require('lazy').setup {
   performance = {
     rtp = {
       reset = false,
-      disabled_plugins = vim.g.disabled_plugins,
+      disabled_plugins = {
+        'matchit',
+        'matchparen',
+        'netrwPlugin',
+        'nvim',
+        'osc52',
+        'rplugin',
+        'shada',
+        'spellfile',
+        'tohtml',
+        'tutor',
+      },
     },
   },
 }
 
--- preserve one more rtp for docs only
+--- preserve one more rtp for docs only
+--- btw, rtp will be rewrite by lazy.nvim
 vim.opt.rtp:append(vim.g.docs_path)

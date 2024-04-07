@@ -5,30 +5,6 @@ vim.g.maplocalleader = '+'
 
 _G.map = vim.keymap.set
 
-vim.g.spec = {
-  { import = 'pack.cmp' },
-  { import = 'pack.edit' },
-  { import = 'pack.fzf' },
-  { import = 'pack.git' },
-  { import = 'pack.lsp' },
-  { import = 'pack.misc' },
-  { import = 'pack.ts' },
-  { import = 'pack.stage' },
-}
-
-vim.g.disabled_plugins = {
-  'matchit',
-  'matchparen',
-  'netrwPlugin',
-  'nvim',
-  'osc52',
-  'rplugin',
-  'shada',
-  'spellfile',
-  'tohtml',
-  'tutor',
-}
-
 -- vim.go.loadplugins = false
 require 'pat'
 require 'opt'
