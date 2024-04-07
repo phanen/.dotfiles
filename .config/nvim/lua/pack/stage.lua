@@ -1,5 +1,3 @@
-_G.lazy_cfg = package.loaded['lazy.core.config']
-
 local M = {
   { 'fladson/vim-kitty', event = { 'BufReadPre kitty.conf' } },
   { 'chrisbra/csv.vim', ft = 'csv' },
@@ -244,13 +242,6 @@ local M = {
       { '+da', function() return require('debugprint').deleteprints() end,                 expr = true, mode = { 'n', 'x' }  },
     },
     opts = {},
-  },
-  {
-    url = 'https://github.com/flobilosaurus/theme_reloader.nvim',
-  },
-  {
-    'phanen/broker.nvim',
-    event = 'ColorScheme',
   },
   {
     'blumaa/octopus.nvim',

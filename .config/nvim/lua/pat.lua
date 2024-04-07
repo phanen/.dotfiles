@@ -19,14 +19,7 @@ g.cache_path = fn.stdpath('cache')
 g.lazy_path = fs.joinpath(g.data_path, 'lazy')
 g.docs_path = fs.joinpath(g.state_path, 'lazy', 'docs')
 g.color_path = fs.joinpath(g.cache_path, 'fzf-lua', 'pack', 'fzf-lua', 'opt')
-g.color_cache = vim.fs.joinpath(g.cache_path, 'colors_name')
-
-if not vim.uv.fs_stat(vim.g.color_cache) then
-  vim.fn.mkdir(vim.g.color_cache, 'p')
-end
-local fd = assert(io.open(vim.g.color_cache, 'r'))
-vim.g.colors_name = fd:read('*a') or 'vim'
-fd:close()
+g.color_cache = fs.joinpath(g.cache_path, 'colors_name')
 
 _G.r = setmetatable({}, {
   __index = function(_, k)
