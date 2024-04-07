@@ -1,13 +1,12 @@
-status is-interactive; or exit
-
 abbr -a c cargo
 abbr -a g git
 abbr -a h tokei
 abbr -a i ipython
-abbr -a j --function __make_or_just
+abbr -a j --function _make_or_just
 abbr -a k pkill
 abbr -a o cat
 abbr -a p python
+abbr -a v nvim
 abbr -a y paru
 
 abbr -a du dust
@@ -25,9 +24,9 @@ abbr -a vk VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim
 abbr -a ze zoxide edit
 
 abbr -a rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
-abbr -a rvp git diff --no-prefix --relative \| tail -n +3  \> riscv64.patch
+abbr -a rvp git diff --no-prefix --relative \| tail -n +3 \> riscv64.patch
 abbr -a rve sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
-abbr -a tp unset http_proxy https_proxy all_proxy;
+abbr -a tp unset http_proxy https_proxy all_proxy
 abbr -a pa xsel -ob \| patch -Np1 -i -
 
 abbr -a nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
@@ -36,12 +35,4 @@ abbr -a video ffmpeg -f x11grab -i \$DISPLAY -framerate 25 -c:v libx264 /tmp/tmp
 
 abbr lu v -l
 abbr cmd command
-abbr gi  gh repo create --source . --push
-
-function __make_or_just
-  if command -q just; and string match -iqr -- "justfile" (pwd)/*
-    echo "just"
-  else
-    echo "make"
-  end
-end
+abbr gi gh repo create --source . --push

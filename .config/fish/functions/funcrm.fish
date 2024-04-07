@@ -1,4 +1,4 @@
 function funcrm --wraps=funced
-  functions -e $argv
-  funcsave $argv
+    functions -e $argv
+    funcsave $argv
 end

@@ -289,6 +289,7 @@ tokei
 traceroute
 translate-shell
 tree
+tree-sitter-cli
 ttf-cascadia-code
 ttf-dejavu
 ttf-dejavu-nerd

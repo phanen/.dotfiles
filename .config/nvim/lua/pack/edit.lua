@@ -126,6 +126,7 @@ return {
         lua = { 'stylua' },
         python = { 'isort', 'black' },
         json = { 'prettier' },
+        fish = { 'fish_indent' },
       },
     },
   },

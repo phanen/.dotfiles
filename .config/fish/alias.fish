@@ -1,13 +1,11 @@
-status is-interactive; or exit
-
 function alias
-  set -l wraps --wraps (string escape -- $argv[2])
-  eval "function $argv[1] $wraps; $argv[2] \$argv; end"
+    set -l wraps --wraps (string escape -- $argv[2])
+    eval "function $argv[1] $wraps; $argv[2] \$argv; end"
 end
 
 alias f __zoxide_z
 alias l "eza -a1"
-alias s "systemctl"
+alias s systemctl
 alias t "type -a"
 
 alias df "command df -h"
@@ -39,39 +37,39 @@ alias pst 'pactree -slu'
 alias psr 'pactree -r -slu'
 
 function fe
-  v (functions --details $argv)
+    v (functions --details $argv)
 end
 
 function vw
-  if command -q $argv
-    v (command -v $argv)
-  else if functions -q $argv
-    fe $argv
-  end
+    if command -q $argv
+        v (command -v $argv)
+    else if functions -q $argv
+        fe $argv
+    end
 end
 
 function lw
-  if command -q $argv
-    exa -la (command -v $argv)
-  end
+    if command -q $argv
+        exa -la (command -v $argv)
+    end
 end
 
 function fw
-  if command -q $argv
-    file (command -v $argv)
-  end
+    if command -q $argv
+        file (command -v $argv)
+    end
 end
 
 function ldw
-  if command -q $argv
-    ldd (command -v $argv)
-  end
+    if command -q $argv
+        ldd (command -v $argv)
+    end
 end
 
 function po --wrap 'pacman -Qo'
-  pacman -Qo $argv || pacman -F $argv
+    pacman -Qo $argv || pacman -F $argv
 end
 
 function psi
-  pacman -Qi $argv || pacman -Si $argv
+    pacman -Qi $argv || pacman -Si $argv
 end
