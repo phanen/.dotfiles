@@ -6,7 +6,7 @@ abbr -a j --function _make_or_just
 abbr -a k pkill
 abbr -a o cat
 abbr -a p python
-abbr -a v nvim
+abbr -a s systemctl
 abbr -a y paru
 
 abbr -a du dust
@@ -36,3 +36,5 @@ abbr -a video ffmpeg -f x11grab -i \$DISPLAY -framerate 25 -c:v libx264 /tmp/tmp
 abbr lu v -l
 abbr cmd command
 abbr gi gh repo create --source . --push
+abbr gd lazygit -p '~'
+abbr gn lazygit -p '~/notes'

@@ -69,6 +69,29 @@ util.q = function()
   end
 end
 
+util.lazy_patch = function(info)
+  vim.g._lz_syncing = vim.g._lz_syncing or info.match == 'LazySyncPre'
+  if vim.g._lz_syncing and not info.match:find('^LazySync') then
+    return
+  end
+  if info.match == 'LazySync' then
+    vim.g._lz_syncing = nil
+  end
+  local patches_path = vim.fs.joinpath(vim.g.config_path, 'patches')
+  for patch_name in vim.fs.dir(patches_path) do
+    local patch_path = vim.fs.joinpath(patches_path, patch_name)
+    local plugin_path = vim.fs.joinpath(vim.g.lazy_path, (patch_name:gsub('%.patch$', '')))
+    if not vim.uv.fs_stat(plugin_path) then
+      return
+    end
+    vim.fn.system { 'git', '-C', plugin_path, 'restore', '.' }
+    if not info.match:find('Pre$') then
+      vim.notify('[packages] applying patch ' .. patch_name)
+      vim.fn.system { 'git', '-C', plugin_path, 'apply', '--ignore-space-change', patch_path }
+    end
+  end
+end
+
 util.lazy_cache_docs = function()
   local lazy_util = package.loaded['lazy.util']
   local lazy_config = package.loaded['lazy.core.config']

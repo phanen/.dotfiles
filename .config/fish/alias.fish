@@ -5,8 +5,8 @@ end
 
 alias f __zoxide_z
 alias l "eza -a1"
-alias s systemctl
 alias t "type -a"
+alias v nvim
 
 alias df "command df -h"
 alias la "eza -a"
