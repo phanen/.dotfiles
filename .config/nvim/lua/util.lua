@@ -141,6 +141,7 @@ end
 
 u.cd_gitroot_or_parent = function()
   local bufname = vim.api.nvim_buf_get_name(0)
+  bufname = vim.fn.resolve(bufname) -- follow symbolic link
   local root = u.gitroot(bufname)
   if not root then vim.fs.dirname(bufname) end
   vim.api.nvim_set_current_dir(root)

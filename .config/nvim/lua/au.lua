@@ -94,6 +94,6 @@ au('User', {
   pattern = { 'LazyInstall*', 'LazyUpdate*', 'LazySync*', 'LazyRestore*' },
   callback = function(...)
     require('util').lazy_patch(...)
-    require('util').lazy_cache_docs(...)
+    require('util').lazy_cache_docs()
   end,
 })

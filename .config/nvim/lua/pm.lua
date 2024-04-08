@@ -9,6 +9,12 @@ local extra_sepc = {
 }
 
 vim.opt.rtp:prepend(path)
+
+-- preserve a rtp for docs
+local docs_path = vim.fs.joinpath(vim.g.state_path, 'lazy', 'docs')
+vim.g.docs_path = docs_path
+vim.opt.rtp:append(docs_path)
+
 require('lazy').setup {
   spec = {
     { import = 'pack.cmp' },
@@ -29,7 +35,7 @@ require('lazy').setup {
   dev = { path = '~/b', patterns = { 'phanen' }, fallback = true },
   performance = {
     rtp = {
-      reset = false, -- if override rtp
+      reset = false, -- override rtp or not
       disabled_plugins = {
         'matchit',
         'matchparen',
@@ -45,11 +51,6 @@ require('lazy').setup {
     },
   },
 }
-
--- preserve a rtp for docs
-local docs_path = vim.fs.joinpath(vim.g.state_path, 'lazy', 'docs')
-vim.g.docs_path = docs_path
-vim.opt.rtp:append(docs_path)
 
 -- manage color by fzf-lua
 local color_path = vim.fs.joinpath(vim.g.cache_path, 'fzf-lua', 'pack', 'fzf-lua', 'opt')

@@ -5,7 +5,6 @@ return {
   { 'HiPhish/rainbow-delimiters.nvim', event = { 'BufReadPre', 'BufNewFile' } },
   { 'lilydjwg/fcitx.vim', event = 'InsertEnter' },
   { 'mikesmithgh/kitty-scrollback.nvim' },
-  { 'rktjmp/lush.nvim' },
   { 'tpope/vim-eunuch', cmd = { 'Move', 'Rename', 'Remove', 'Delete', 'Mkdir' } },
   { 'voldikss/vim-translator', cmd = 'Translate' },
   { -- FIXME: register _d, cannot set timeoutlen = 0

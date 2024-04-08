@@ -32,7 +32,9 @@ return {
   {
     'altermo/ultimate-autopair.nvim',
     event = { 'InsertEnter', 'CmdlineEnter' },
-    opts = { cmap = false },
+    opts = {
+      fastwarp = { map = '<c-s>', cmap = '<c-s>', faster = false },
+    },
   },
   {
     'mg979/vim-visual-multi',
@@ -49,7 +51,7 @@ return {
     end,
   },
   {
-    'andymass/vim-matchup', -- TODO: slow when use flash.nvim
+    'andymass/vim-matchup',
     event = 'BufReadPost',
     keys = { mode = { 'n', 'x', 'o' }, '%' },
     init = function() vim.o.matchpairs = '(:),{:},[:],<:>' end,
@@ -64,13 +66,12 @@ return {
     keys = {
       { '<c-s>', function() require('flash').jump() end, mode = { 'x', 'o' } },
       { 's', function() require('flash').jump() end },
-      { 'S', function() require('flash').treesitter() end, mode = { 'n', 'o' } },
     },
     opts = {
       modes = {
         search = { enabled = false },
         char = { enabled = false },
-        treesitter = { labels = 'asdfghjklqwertyuiopzxcvbnm', highlight = { backdrop = true } },
+        treesitter = { highlight = { backdrop = true } },
       },
     },
   },

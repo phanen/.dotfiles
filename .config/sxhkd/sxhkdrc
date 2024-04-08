@@ -53,9 +53,7 @@ super + p
 super + x
   xsel -ob | $HOME/.bin/scripts/url-bookmark.sh $XDG_CONFIG_HOME/newsboat/urls
 super + v
-  (rofi -dmenu) >> "$HOME/priv/$(date +%m-%d).md"
-super + b
-  cat "$HOME/notes/bookmark.md" | rofi -dmenu
+  (rofi -dmenu) >> "$HOME/notes/bookmark.txt"
 super + Tab
   darkman toggle
 super + ctrl + t

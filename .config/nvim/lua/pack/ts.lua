@@ -8,7 +8,10 @@ return {
     config = vim.schedule_wrap(function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
+          'bash',
           'c',
+          'cpp',
+          'fish',
           'go',
           'javascript',
           'lua',
