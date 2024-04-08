@@ -119,6 +119,13 @@ misc.tool = {
   { 'folke/lazy.nvim' },
   -- FIXME: register _d, cannot set timeoutlen = 0
   {
+    'phanen/broker.nvim',
+    event = 'ColorScheme',
+    init = function()
+      require('broker.entry').init()
+    end,
+  },
+  {
     'folke/which-key.nvim',
     event = 'VeryLazy',
     opts = { plugins = { spelling = { enabled = false } } },

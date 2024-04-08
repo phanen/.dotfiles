@@ -1,4 +1,4 @@
-local path = vim.fs.joinpath(vim.g.lazy_path, 'lazy.nvim')
+local path = vim.fs.joinpath(vim.g.data_path, 'lazy', 'lazy.nvim')
 if not vim.uv.fs_stat(path) then
   vim.fn.system { 'git', 'clone', '--branch=stable', 'https://github.com/folke/lazy.nvim', path }
 end
@@ -22,7 +22,7 @@ require('lazy').setup {
   dev = { path = '~/b', patterns = { 'phanen' }, fallback = true },
   performance = {
     rtp = {
-      reset = false,
+      reset = false, -- if override rtp
       disabled_plugins = {
         'matchit',
         'matchparen',
@@ -39,6 +39,16 @@ require('lazy').setup {
   },
 }
 
---- preserve one more rtp for docs only
---- btw, rtp will be rewrite by lazy.nvim
-vim.opt.rtp:append(vim.g.docs_path)
+-- preserve a rtp for docs
+local docs_path = vim.fs.joinpath(vim.g.state_path, 'lazy', 'docs')
+vim.g.docs_path = docs_path
+vim.opt.rtp:append(docs_path)
+
+-- manage color by fzf-lua
+local color_path = vim.fs.joinpath(vim.g.cache_path, 'fzf-lua', 'pack', 'fzf-lua', 'opt')
+vim.g.color_path = color_path
+for dir, type in vim.fs.dir(color_path) do
+  if type == 'directory' then
+    vim.opt.rtp:append(vim.fs.joinpath(color_path, dir))
+  end
+end

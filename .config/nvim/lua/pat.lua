@@ -1,4 +1,30 @@
-local g, fs, fn = vim.g, vim.fs, vim.fn
+-- stylua: ignore start
+vim.g.state_path  = vim.fn.stdpath('state') ---@type string
+vim.g.cache_path  = vim.fn.stdpath('cache') ---@type string
+vim.g.data_path   = vim.fn.stdpath('data') ---@type string
+-- stylua: ignore end
+
+local group = vim.api.nvim_create_augroup('Conf', { clear = true })
+
+_G.map = vim.keymap.set
+
+_G.au = function(ev, opts)
+  opts = opts or {}
+  opts.group = opts.group or group
+  vim.api.nvim_create_autocmd(ev, opts)
+end
+
+_G.r = setmetatable({}, {
+  __index = function(_, k)
+    return require(k)
+  end,
+})
+
+_G.u = setmetatable({}, {
+  __index = function(_, k)
+    return require('util.' .. k)
+  end,
+})
 
 if vim.fn.has('nvim-0.10') == 0 then
   ---@diagnostic disable: duplicate-set-field
@@ -10,19 +36,3 @@ if vim.fn.has('nvim-0.10') == 0 then
     return vim.api.nvim_replace_termcodes(str, true, true, true)
   end
 end
-
-g.config_path = fn.stdpath('config')
-g.data_path = fn.stdpath('data')
-g.state_path = fn.stdpath('state')
-g.cache_path = fn.stdpath('cache')
-
-g.lazy_path = fs.joinpath(g.data_path, 'lazy')
-g.docs_path = fs.joinpath(g.state_path, 'lazy', 'docs')
-g.color_path = fs.joinpath(g.cache_path, 'fzf-lua', 'pack', 'fzf-lua', 'opt')
-g.color_cache = fs.joinpath(g.cache_path, 'colors_name')
-
-_G.r = setmetatable({}, {
-  __index = function(_, k)
-    return require(k)
-  end,
-})

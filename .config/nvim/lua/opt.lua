@@ -1,5 +1,8 @@
 local o, opt, g = vim.o, vim.opt, vim.g
 
+g.mapleader = ' '
+g.maplocalleader = '+'
+
 -- stylua: ignore start
 o.clipboard      = 'unnamedplus'
 o.jumpoptions    = 'stack'

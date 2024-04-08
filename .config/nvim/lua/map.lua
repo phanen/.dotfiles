@@ -141,13 +141,17 @@ kmp.misc = function()
   n('<localleader>E', '<cmd>lua vim.treesitter.query.edit()<cr>')
   n('<leader>m', '<cmd>messages<cr>')
   n('<leader>M', '<cmd>messages clear<cr>')
-  nx('_', 'K')
-  nx('K', ':Translate<cr>')
   nx('<leader>L', ':Linediff<cr>')
+
   nx('<leader>E', ':EditCodeBlock<cr>')
 
+  nx('_', 'K')
+  nx('K', ':Translate<cr>')
+
+  n('<leader>.', '<cmd>Neogen<CR>')
+
   n('<leader>cf', '<cmd>cd %:h<cr>')
-  n('<leader>cd', util.cd_gitroot)
+  n('<leader>cd', util.cd_gitroot_or_parent)
   n('<leader>cn', util.yank_filename)
   n('<leader>cm', util.yank_message)
   n('<leader>cx', '<cmd>!chmod +x %<cr>')
@@ -160,8 +164,8 @@ kmp.misc = function()
   n('<leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>')
   n('<leader>ds', '<cmd>lua vim.diagnostic.setloclist()<cr>')
 
-  n('<localleader>fr', ':Rename ')
-  n('<localleader>fd', ':Delete ')
+  n('<localleader>rr', ':Rename ')
+  n('<localleader>rd', ':Delete ')
 end
 
 kmp.tobj = function()

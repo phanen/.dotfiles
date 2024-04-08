@@ -1,11 +1,3 @@
-local group = vim.api.nvim_create_augroup('Conf', { clear = true })
-
-local au = function(ev, opts)
-  opts = opts or {}
-  opts.group = opts.group or group
-  vim.api.nvim_create_autocmd(ev, opts)
-end
-
 au('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
@@ -21,11 +13,7 @@ au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
 })
 
 -- restore cursor position
-au({ 'BufReadPost' }, {
-  callback = function()
-    vim.api.nvim_exec2('silent! normal! g`"zv', { output = false })
-  end,
-})
+au({ 'BufReadPost' }, { command = [[silent! normal! g`"zv']] })
 
 -- https://www.reddit.com/r/neovim/comments/wjzjwe/how_to_set_no_name_buffer_to_scratch_buffer/
 au({ 'BufLeave' }, {
@@ -43,7 +31,7 @@ au('BufWritePre', {
     local file = vim.uv.fs_realpath(event.match) or event.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
     local backup = vim.fn.fnamemodify(file, ':p:~:h')
-    backup = backup:gsub('[/\\]', '%%')
+    backup = (backup:gsub('[/\\]', '%%'))
     vim.go.backupext = backup
   end,
 })

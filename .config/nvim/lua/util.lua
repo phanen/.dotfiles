@@ -1,5 +1,5 @@
 ---@module 'util'
-local util = {}
+local u = {}
 
 local getregion = function(mode)
   local sl, sc = vim.fn.line 'v', vim.fn.col 'v'
@@ -34,7 +34,7 @@ local getregion = function(mode)
 end
 
 -- get visual selected with no side effect
-util.getregion = function(mode)
+u.getregion = function(mode)
   mode = mode or vim.api.nvim_get_mode().mode
   if not vim.tbl_contains({ 'v', 'V', '\022' }, mode) then
     return {}
@@ -46,7 +46,7 @@ util.getregion = function(mode)
   return getregion(mode)
 end
 
-util.q = function()
+u.q = function()
   local count = 0
   local current_win = vim.api.nvim_get_current_win()
   -- Close current win only if it's a floating window
@@ -69,7 +69,7 @@ util.q = function()
   end
 end
 
-util.lazy_patch = function(info)
+u.lazy_patch = function(info)
   vim.g._lz_syncing = vim.g._lz_syncing or info.match == 'LazySyncPre'
   if vim.g._lz_syncing and not info.match:find('^LazySync') then
     return
@@ -77,22 +77,26 @@ util.lazy_patch = function(info)
   if info.match == 'LazySync' then
     vim.g._lz_syncing = nil
   end
-  local patches_path = vim.fs.joinpath(vim.g.config_path, 'patches')
+  local patches_path = vim.fs.joinpath(vim.fn.stdpath('config'), 'patches')
   for patch_name in vim.fs.dir(patches_path) do
-    local patch_path = vim.fs.joinpath(patches_path, patch_name)
-    local plugin_path = vim.fs.joinpath(vim.g.lazy_path, (patch_name:gsub('%.patch$', '')))
+    local lazy_root = require('lazy.core.config').options.root
+    local plugin_path = vim.fs.joinpath(lazy_root, (patch_name:gsub('%.patch$', '')))
     if not vim.uv.fs_stat(plugin_path) then
       return
     end
+    vim.notify('Restore begin: ' .. patch_name)
     vim.fn.system { 'git', '-C', plugin_path, 'restore', '.' }
+    vim.notify('Restore done:  ' .. patch_name)
     if not info.match:find('Pre$') then
-      vim.notify('[packages] applying patch ' .. patch_name)
+      local patch_path = vim.fs.joinpath(patches_path, patch_name)
+      vim.notify('Patch begin:    ' .. patch_name)
       vim.fn.system { 'git', '-C', plugin_path, 'apply', '--ignore-space-change', patch_path }
+      vim.notify('Patch done:     ' .. patch_name)
     end
   end
 end
 
-util.lazy_cache_docs = function()
+u.lazy_cache_docs = function()
   local lazy_util = package.loaded['lazy.util']
   local lazy_config = package.loaded['lazy.core.config']
   local docs_path = vim.fs.joinpath(vim.g.docs_path, 'doc')
@@ -120,7 +124,7 @@ util.lazy_cache_docs = function()
   vim.cmd.helptags(docs_path)
 end
 
-util.toggle_qf = function()
+u.toggle_qf = function()
   local qf_win = vim
     .iter(vim.fn.getwininfo())
     :filter(function(win)
@@ -134,24 +138,41 @@ util.toggle_qf = function()
   end
 end
 
-util.cd_gitroot = function()
-  local path = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
-  local root = vim.system({ 'git', '-C', path, 'rev-parse', '--show-toplevel' }):wait().stdout
-  if not root then
-    return
+u.gitroot = function(bufname)
+  bufname = bufname and bufname or vim.api.nvim_buf_get_name(0)
+  local path = vim.fs.dirname(bufname)
+  local root = vim.system { 'git', '-C', path, 'rev-parse', '--show-toplevel' }:wait().stdout
+  if root then
+    root = vim.trim(root)
+  else
+    for dir in vim.fs.parents(bufname) do
+      if vim.fn.isdirectory(dir .. '/.git') == 1 then
+        root = dir
+        break
+      end
+    end
   end
-  vim.fn.chdir(vim.trim(root))
+  return root
 end
 
-util.yank_filename = function()
+u.cd_gitroot_or_parent = function()
+  local bufname = vim.api.nvim_buf_get_name(0)
+  local root = u.gitroot(bufname)
+  if not root then
+    vim.fs.dirname(bufname)
+  end
+  vim.api.nvim_set_current_dir(root)
+end
+
+u.yank_filename = function()
   local path = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
   path = (path:gsub(('^%s'):format(vim.env['HOME']), '~'))
   vim.fn.setreg('+', path)
 end
 
-util.yank_message = function()
+u.yank_message = function()
   local text = vim.fn.execute('1message')
   vim.fn.setreg('+', vim.trim(text))
 end
 
-return util
+return u

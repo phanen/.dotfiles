@@ -124,7 +124,6 @@ return {
   {
     'danymat/neogen',
     cmd = 'Neogen',
-    keys = { { '<leader>.', '<cmd>Neogen<CR>' } },
     opts = { snippet_engine = 'luasnip' },
   },
   {
@@ -175,16 +174,5 @@ return {
     opts = {
       prompts = {},
     },
-  },
-  {
-    'jackMort/ChatGPT.nvim',
-    cond = vim.env.OPENAI_API_KEY ~= nil,
-    cmd = 'ChatGPT',
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-    },
-    opts = {},
   },
 }
