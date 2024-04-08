@@ -1,8 +1,8 @@
 -- stylua: ignore start
-vim.g.config_path = vim.fn.stdpath('config') ---@type string
-vim.g.state_path  = vim.fn.stdpath('state') ---@type string
-vim.g.cache_path  = vim.fn.stdpath('cache') ---@type string
-vim.g.data_path   = vim.fn.stdpath('data') ---@type string
+vim.g.config_path = vim.fn.stdpath('config') ---@as string
+vim.g.state_path  = vim.fn.stdpath('state') ---@as string
+vim.g.cache_path  = vim.fn.stdpath('cache') ---@as string
+vim.g.data_path   = vim.fn.stdpath('data') ---@as string
 -- stylua: ignore end
 
 local group = vim.api.nvim_create_augroup('Conf', { clear = true })

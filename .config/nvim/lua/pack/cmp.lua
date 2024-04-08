@@ -143,36 +143,4 @@ return {
       map('i', '<a-p>', '<cmd>lua require("copilot.suggestion").prev()<cr>')
     end,
   },
-  {
-
-    'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'canary',
-    cmd = { 'CopilotChatDocs', 'CopilotChatCommit' },
-    keys = {
-      {
-        '+fh',
-        function()
-          local actions = require('CopilotChat.actions')
-          require('CopilotChat.integrations.fzflua').pick(actions.help_actions())
-        end,
-        mode = { 'n', 'x' },
-      },
-      {
-        '+fa',
-        function()
-          local actions = require('CopilotChat.actions')
-          require('CopilotChat.integrations.fzflua').pick(actions.prompt_actions())
-        end,
-        mode = { 'n', 'x' },
-      },
-      { '<leader>wj', '<cmd>CopilotChatToggle<cr>' },
-    },
-    dependencies = {
-      { 'zbirenbaum/copilot.lua' },
-      { 'nvim-lua/plenary.nvim' },
-    },
-    opts = {
-      prompts = {},
-    },
-  },
 }
