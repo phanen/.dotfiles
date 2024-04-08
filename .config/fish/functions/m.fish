@@ -2,19 +2,25 @@
 function m
     set dirs ~ ~/notes ~/codes ~/stuffs ~/blog ~/b/stage.nvim
     switch $argv
+        # TODO: atomic logging...
+        # TODO: error handler...
         case p
             for d in $dirs
                 git -C $d pull &
             end
-        case P
+        case s
             for d in $dirs
-                git -C $d add .
-                git -C $d commit -m "chore: drink" &
-                git push &
+                begin
+                    git -C $d pull
+                    git -C $d add .
+                    git -C $d commit -m "chore: drink"
+                    git -C $d push
+                end &
             end
         case b
             echo not now
         case '*'
             echo sleep
     end
+    wait
 end

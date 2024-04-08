@@ -1,4 +1,3 @@
--- stylua: ignore start
 local n = function(...) map('n', ...) end
 local x = function(...) map('x', ...) end
 local t = function(...) map('t', ...) end
@@ -6,16 +5,13 @@ local i = function(...) map('i', ...) end
 local nx = function(...) map({ 'n', 'x' }, ...) end
 local ox = function(...) map({ 'o', 'x' }, ...) end
 local ic = function(...) map('!', ...) end
--- stylua: ignore end
 
 local kmp = {}
 
 -- TODO: lsp rename passthrough?
 ---@module "util"
 local util = setmetatable({}, {
-  __index = function(_, k)
-    return ([[<cmd>lua r.util.%s()<cr>]]):format(k)
-  end,
+  __index = function(_, k) return ([[<cmd>lua r.util.%s()<cr>]]):format(k) end,
 })
 
 kmp.edit = function()
@@ -69,9 +65,11 @@ kmp.comment = function()
   map({ 'n', 'x', 'i' }, '<c-_>', '<c-/>', { remap = true })
   x('<c-/>', 'gc', { remap = true })
   i('<c-/>', '<cmd>norm <c-/><cr>')
-  n('<c-/>', function()
-    return vim.v.count == 0 and 'gcl' or 'gcj'
-  end, { expr = true, remap = true })
+  n(
+    '<c-/>',
+    function() return vim.v.count == 0 and 'gcl' or 'gcj' end,
+    { expr = true, remap = true }
+  )
   n('<leader><c-/>', '<cmd>norm vac<c-/><cr>')
 end
 

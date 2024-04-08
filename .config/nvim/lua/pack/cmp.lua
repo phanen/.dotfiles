@@ -12,9 +12,7 @@ return {
       {
         'onsails/lspkind.nvim',
         opts = { preset = 'codicons', mode = 'symbol_text' },
-        config = function(_, opts)
-          require('lspkind').init(opts)
-        end,
+        config = function(_, opts) require('lspkind').init(opts) end,
       },
     },
     config = function()
@@ -82,9 +80,7 @@ return {
           ['<cr>'] = m(m.confirm { select = false }, { 'i', 'c' }),
         },
         snippet = {
-          expand = function(args)
-            ls.lsp_expand(args.body)
-          end,
+          expand = function(args) ls.lsp_expand(args.body) end,
         },
         sources = {
           { name = 'nvim_lsp' },
@@ -120,11 +116,6 @@ return {
       require('luasnip.loaders.from_vscode').lazy_load { paths = './snippets' }
       require('luasnip').filetype_extend('all', { '_' })
     end,
-  },
-  {
-    'danymat/neogen',
-    cmd = 'Neogen',
-    opts = { snippet_engine = 'luasnip' },
   },
   {
     'zbirenbaum/copilot.lua',

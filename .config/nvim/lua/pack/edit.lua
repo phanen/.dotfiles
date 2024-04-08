@@ -32,15 +32,7 @@ return {
   {
     'altermo/ultimate-autopair.nvim',
     event = { 'InsertEnter', 'CmdlineEnter' },
-    -- cond = false,
     opts = { cmap = false },
-  },
-  {
-    'windwp/nvim-autopairs',
-    cond = false,
-    event = 'InsertEnter',
-    dependencies = { 'hrsh7th/nvim-cmp' },
-    opts = {},
   },
   {
     'mg979/vim-visual-multi',
@@ -60,9 +52,7 @@ return {
     'andymass/vim-matchup', -- TODO: slow when use flash.nvim
     event = 'BufReadPost',
     keys = { mode = { 'n', 'x', 'o' }, '%' },
-    init = function()
-      vim.o.matchpairs = '(:),{:},[:],<:>'
-    end,
+    init = function() vim.o.matchpairs = '(:),{:},[:],<:>' end,
     config = function()
       vim.g.matchup_matchparen_enabled = 0
       vim.g.matchup_matchparen_deferred = 1
@@ -72,44 +62,9 @@ return {
   {
     'folke/flash.nvim',
     keys = {
-      {
-        's',
-        mode = { 'n' },
-        function()
-          require('flash').jump({
-            search = {
-              mode = function(str)
-                return '\\<' .. str
-              end,
-            },
-          })
-        end,
-        desc = 'Flash',
-      },
-      {
-        '<c-s>',
-        mode = { 'x', 'o' },
-        function()
-          require('flash').jump()
-        end,
-        desc = 'Flash',
-      },
-      {
-        'S',
-        mode = { 'n', 'o' },
-        function()
-          require('flash').treesitter()
-        end,
-        desc = 'Flash Treesitter',
-      },
-      {
-        'r',
-        mode = 'o',
-        function()
-          require('flash').remote()
-        end,
-        desc = 'Remote Flash',
-      },
+      { '<c-s>', function() require('flash').jump() end, mode = { 'x', 'o' } },
+      { 's', function() require('flash').jump() end },
+      { 'S', function() require('flash').treesitter() end, mode = { 'n', 'o' } },
     },
     opts = {
       modes = {
@@ -154,5 +109,28 @@ return {
   {
     'chrisgrieser/nvim-various-textobjs',
     opts = { useDefaultKeymaps = false },
+  },
+  {
+    'mbbill/undotree',
+    cmd = 'UndotreeToggle',
+    keys = { { '<leader>u', '<Cmd>UndotreeToggle<CR>', desc = 'undotree: toggle' } },
+    config = function()
+      vim.g.undotree_TreeNodeShape = '◦'
+      vim.g.undotree_SetFocusWhenToggle = 1
+    end,
+  },
+  {
+    'okuuva/auto-save.nvim',
+    event = { 'InsertLeave', 'TextChanged' },
+    opts = {
+      execution_message = { enabled = false },
+      debounce_delay = 125,
+      condition = function(bufnr)
+        local utils = require 'auto-save.utils.data'
+        if vim.fn.getbufvar(bufnr, '&buftype') ~= '' then return false end
+        if utils.not_in(vim.fn.getbufvar(bufnr, '&filetype'), { '' }) then return true end
+        return false
+      end,
+    },
   },
 }

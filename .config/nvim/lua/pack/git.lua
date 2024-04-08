@@ -42,9 +42,7 @@ return {
         changedelete = { text = '~' },
       },
       on_attach = function(_)
-        local n = function(lhs, rhs)
-          map('n', lhs, ('<cmd>Gitsigns %s<cr>'):format(rhs))
-        end
+        local n = function(lhs, rhs) map('n', lhs, ('<cmd>Gitsigns %s<cr>'):format(rhs)) end
         n('gj', 'next_hunk')
         n('gk', 'prev_hunk')
         n('<leader>hs', 'stage_hunk')
@@ -54,21 +52,6 @@ return {
         n('<leader>gu', 'reset_buffer_index')
         n('<leader>hd', 'toggle_deleted<cr><cmd>Gitsigns toggle_word_diff')
       end,
-    },
-  },
-  {
-    'TimUntersberger/neogit',
-    cmd = 'Neogit',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    keys = { { '<localleader>gn', '<cmd>Neogit<cr>' } },
-    opts = {
-      disable_hint = true,
-      disable_insert_on_commit = false,
-      signs = {
-        section = { '', '' },
-        item = { '▸', '▾' },
-        hunk = { '󰐕', '󰍴' },
-      },
     },
   },
   {

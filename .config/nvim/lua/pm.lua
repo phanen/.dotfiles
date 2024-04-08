@@ -12,11 +12,13 @@ vim.opt.rtp:prepend(path)
 require('lazy').setup {
   spec = {
     { import = 'pack.cmp' },
+    { import = 'pack.doc' },
     { import = 'pack.edit' },
     { import = 'pack.fzf' },
     { import = 'pack.git' },
     { import = 'pack.lsp' },
     { import = 'pack.misc' },
+    { import = 'pack.nav' },
     { import = 'pack.ts' },
     extra_sepc,
   },
@@ -53,7 +55,5 @@ vim.opt.rtp:append(docs_path)
 local color_path = vim.fs.joinpath(vim.g.cache_path, 'fzf-lua', 'pack', 'fzf-lua', 'opt')
 vim.g.color_path = color_path
 for dir, type in vim.fs.dir(color_path) do
-  if type == 'directory' then
-    vim.opt.rtp:append(vim.fs.joinpath(color_path, dir))
-  end
+  if type == 'directory' then vim.opt.rtp:append(vim.fs.joinpath(color_path, dir)) end
 end

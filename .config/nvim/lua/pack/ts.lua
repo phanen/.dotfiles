@@ -1,9 +1,7 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    build = function()
-      require('nvim-treesitter.install').update { with_sync = true }
-    end,
+    build = function() require('nvim-treesitter.install').update { with_sync = true } end,
     -- event = { 'BufReadPre', 'BufNewFile' },
     event = { 'Filetype' },
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
@@ -22,9 +20,7 @@ return {
         },
         highlight = {
           enable = true,
-          disable = function(_, bufnr)
-            return vim.api.nvim_buf_line_count(bufnr) > 10000
-          end,
+          disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
         },
         indent = { enable = true, disable = { 'python' } },
         incremental_selection = {
@@ -38,9 +34,7 @@ return {
         textobjects = {
           select = {
             enable = true,
-            disable = function(_, bufnr)
-              return vim.api.nvim_buf_line_count(bufnr) > 10000
-            end,
+            disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
             lookahead = true, -- automatically jump forward to textobj, similar to targets.vim
             keymaps = {
               ['aa'] = '@parameter.outer',

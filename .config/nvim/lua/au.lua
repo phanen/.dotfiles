@@ -1,7 +1,5 @@
 au('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+  callback = function() vim.highlight.on_yank() end,
 })
 
 -- credit to https://github.com/jeffkreeftmeijer/vim-numbertoggle
@@ -39,9 +37,7 @@ au('BufWritePre', {
 -- reload buffer on focus
 au({ 'FocusGained', 'BufEnter' }, {
   callback = function()
-    if vim.fn.getcmdwintype() == '' then
-      vim.cmd 'checktime'
-    end
+    if vim.fn.getcmdwintype() == '' then vim.cmd 'checktime' end
   end,
 })
 
@@ -58,17 +54,13 @@ au('Filetype', {
 au('Filetype', {
   pattern = { 'NvimTree', 'help', 'man', 'aerial', 'fugitive*' },
   callback = function(ev)
-    if vim.bo.bt ~= '' then
-      map('n', 'q', '<cmd>q<cr>', { buffer = ev.buf })
-    end
+    if vim.bo.bt ~= '' then map('n', 'q', '<cmd>q<cr>', { buffer = ev.buf }) end
   end,
 })
 
 au('LspAttach', {
   callback = function(ev)
-    local bn = function(lhs, rhs)
-      map('n', lhs, rhs, { buffer = ev.buf })
-    end
+    local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = ev.buf }) end
     bn('gD', vim.lsp.buf.declaration)
     bn('gI', vim.lsp.buf.implementation)
     bn('gs', vim.lsp.buf.signature_help)

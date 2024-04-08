@@ -26,9 +26,7 @@ return {
       end
       require('mason-lspconfig').setup {
         handlers = {
-          function(server)
-            lspconfig[server].setup { capabilities = capabilities }
-          end,
+          function(server) lspconfig[server].setup { capabilities = capabilities } end,
           lua_ls = function()
             lspconfig.lua_ls.setup {
               capabilities = capabilities,

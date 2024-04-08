@@ -36,13 +36,9 @@ end
 -- get visual selected with no side effect
 u.getregion = function(mode)
   mode = mode or vim.api.nvim_get_mode().mode
-  if not vim.tbl_contains({ 'v', 'V', '\022' }, mode) then
-    return {}
-  end
+  if not vim.tbl_contains({ 'v', 'V', '\022' }, mode) then return {} end
   local ok, lines = pcall(vim.fn.getregion, vim.fn.getpos '.', vim.fn.getpos 'v', { type = mode })
-  if ok then
-    return lines
-  end
+  if ok then return lines end
   return getregion(mode)
 end
 
@@ -71,19 +67,13 @@ end
 
 u.lazy_patch = function(info)
   vim.g._lz_syncing = vim.g._lz_syncing or info.match == 'LazySyncPre'
-  if vim.g._lz_syncing and not info.match:find('^LazySync') then
-    return
-  end
-  if info.match == 'LazySync' then
-    vim.g._lz_syncing = nil
-  end
+  if vim.g._lz_syncing and not info.match:find('^LazySync') then return end
+  if info.match == 'LazySync' then vim.g._lz_syncing = nil end
   local patches_path = vim.fs.joinpath(vim.fn.stdpath('config'), 'patches')
   for patch_name in vim.fs.dir(patches_path) do
     local lazy_root = require('lazy.core.config').options.root
     local plugin_path = vim.fs.joinpath(lazy_root, (patch_name:gsub('%.patch$', '')))
-    if not vim.uv.fs_stat(plugin_path) then
-      return
-    end
+    if not vim.uv.fs_stat(plugin_path) then return end
     vim.notify('Restore begin: ' .. patch_name)
     vim.fn.system { 'git', '-C', plugin_path, 'restore', '.' }
     vim.notify('Restore done:  ' .. patch_name)
@@ -102,17 +92,13 @@ u.lazy_cache_docs = function()
   local docs_path = vim.fs.joinpath(vim.g.docs_path, 'doc')
   vim.fn.mkdir(docs_path, 'p')
   lazy_util.ls(docs_path, function(path, _, _)
-    if type == 'file' then
-      vim.uv.fs_unlink(path)
-    end
+    if type == 'file' then vim.uv.fs_unlink(path) end
   end)
   for _, plugin in pairs(lazy_config.plugins) do
     local docs = vim.fs.joinpath(plugin.dir, 'doc')
     if lazy_util.file_exists(docs) then
       lazy_util.ls(docs, function(path, name, type)
-        if type ~= 'file' then
-          return
-        end
+        if type ~= 'file' then return end
         if name == 'tags' then
           vim.uv.fs_unlink(path)
         elseif name:sub(-4) == '.txt' then
@@ -127,9 +113,7 @@ end
 u.toggle_qf = function()
   local qf_win = vim
     .iter(vim.fn.getwininfo())
-    :filter(function(win)
-      return win.quickfix == 1
-    end)
+    :filter(function(win) return win.quickfix == 1 end)
     :totable()
   if #qf_win == 0 then
     vim.cmd.copen()
@@ -158,9 +142,7 @@ end
 u.cd_gitroot_or_parent = function()
   local bufname = vim.api.nvim_buf_get_name(0)
   local root = u.gitroot(bufname)
-  if not root then
-    vim.fs.dirname(bufname)
-  end
+  if not root then vim.fs.dirname(bufname) end
   vim.api.nvim_set_current_dir(root)
 end
 

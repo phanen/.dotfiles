@@ -1,7 +1,5 @@
 local fl = setmetatable({}, {
-  __index = function(_, k)
-    return ([[<cmd>lua require('fzf-lua-overlay').%s()<cr>]]):format(k)
-  end,
+  __index = function(_, k) return ([[<cmd>lua require('fzf-lua-overlay').%s()<cr>]]):format(k) end,
 })
 
 return {
@@ -12,9 +10,7 @@ return {
   },
   {
     'phanen/fzf-lua-overlay',
-    init = function()
-      require('fzf-lua-overlay.providers.recentfiles').init()
-    end,
+    init = function() require('fzf-lua-overlay.providers.recentfiles').init() end,
     -- stylua: ignore
     keys = {
       { '<c-b>',         fl.buffers,               mode = { 'n', 'x' } },
@@ -92,19 +88,13 @@ return {
           git_icons = false,
           no_header_i = true,
           actions = {
-            ['ctrl-r'] = function(...)
-              require('fzf-lua').actions.toggle_ignore(...)
-            end,
+            ['ctrl-r'] = function(...) require('fzf-lua').actions.toggle_ignore(...) end,
           },
         },
         actions = {
           files = {
-            ['default'] = function(...)
-              require('fzf-lua').actions.file_edit(...)
-            end,
-            ['ctrl-s'] = function(...)
-              require('fzf-lua').actions.file_edit_or_qf(...)
-            end,
+            ['default'] = function(...) require('fzf-lua').actions.file_edit(...) end,
+            ['ctrl-s'] = function(...) require('fzf-lua').actions.file_edit_or_qf(...) end,
             ['ctrl-y'] = {
               fn = function(selected, opts)
                 local file = require('fzf-lua').path.entry_to_file(selected[1], opts)
@@ -119,9 +109,7 @@ return {
                 local oldname = vim.fs.basename(oldpath)
                 local newname = vim.fn.input('New name: ', oldname)
                 newname = vim.trim(newname)
-                if newname == '' or newname == oldname then
-                  return
-                end
+                if newname == '' or newname == oldname then return end
                 local cwd = opts.cwd or vim.fn.getcwd()
                 local newpath = ('%s/%s'):format(cwd, newname)
                 vim.uv.fs_rename(oldpath, newpath)
@@ -136,9 +124,7 @@ return {
               fn = function(selected, opts)
                 for _, sel in ipairs(selected) do
                   local file = require('fzf-lua').path.entry_to_file(sel, opts)
-                  vim.schedule_wrap(function()
-                    vim.cmd.e(file.path)
-                  end)
+                  vim.schedule_wrap(function() vim.cmd.e(file.path) end)
                 end
               end,
             },
