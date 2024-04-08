@@ -1,4 +1,5 @@
 -- stylua: ignore start
+vim.g.config_path = vim.fn.stdpath('config') ---@type string
 vim.g.state_path  = vim.fn.stdpath('state') ---@type string
 vim.g.cache_path  = vim.fn.stdpath('cache') ---@type string
 vim.g.data_path   = vim.fn.stdpath('data') ---@type string

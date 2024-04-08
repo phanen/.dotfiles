@@ -3,6 +3,11 @@ if not vim.uv.fs_stat(path) then
   vim.fn.system { 'git', 'clone', '--branch=stable', 'https://github.com/folke/lazy.nvim', path }
 end
 
+local stage_path = vim.fs.joinpath(vim.g.config_path, 'lua', 'pack', 'stage.lua')
+local extra_sepc = {
+  vim.uv.fs_stat(stage_path) and { import = 'pack.stage' } or nil,
+}
+
 vim.opt.rtp:prepend(path)
 require('lazy').setup {
   spec = {
@@ -13,7 +18,7 @@ require('lazy').setup {
     { import = 'pack.lsp' },
     { import = 'pack.misc' },
     { import = 'pack.ts' },
-    { import = 'pack.stage' },
+    extra_sepc,
   },
   lockfile = vim.fn.stdpath('data') .. '/lazy-lock.json',
   defaults = { lazy = true },
