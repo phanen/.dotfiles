@@ -1,0 +1,10 @@
+[[manager.prepend_keymap]]
+on = ["m"]
+# run  = "plugin test"
+run = "plugin --sync test --args='hello world'"
+desc = "test"
+
+[[manager.prepend_keymap]]
+on = ["l"]
+run = "plugin --sync l"
+desc = "Enter the child directory, or open the file"

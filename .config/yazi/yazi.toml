@@ -1,0 +1,8 @@
+# https://github.com/sxyazi/yazi/blob/latest/yazi-config/preset/keymap.toml
+[manager]
+ratio = [3, 5, 10]
+
+[opener]
+edit = [
+  { run = 'nvr.sh "$@"', block = true, for = "unix" },
+]

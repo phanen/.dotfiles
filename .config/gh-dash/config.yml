@@ -1,7 +1,9 @@
 prSections:
-  - title: My Pull Requests
+  - title: Owner
+    filters: is:open owner:phanen
+  - title: Author
     filters: is:open author:@me
-  - title: Needs My Review
+  - title: Review-Requested
     filters: is:open review-requested:@me
   - title: Involved
     filters: is:open -author:@me involves:@me

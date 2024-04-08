@@ -1,3 +1,5 @@
+# /usr/share/doc/lazygit/Config.md
+
 git:
   paging:
     colorArg: always
@@ -27,3 +29,16 @@ customCommands:
       context: 'files'
       description: 'copy file content to clipboard'
       subprocess: true
+
+
+# TODO: fix hang when xdg-open use terminal as opener
+keybinding:
+  universal:
+    openFile: ''
+os: 
+  # TODO: cmd cannot used after ToggleTerm, as workaround, we invoke nvim twice here
+  edit: 'nvr.sh {{filename}}'
+  editAtLine: '[[ -z "$NVIM" ]] && { nvim +{{line}} {{filename}} &>/dev/tty; true; } || { nvim -u NONE --server $NVIM --remote-expr "execute(\"FloatermToggle\")" && nvim -u NONE --server $NVIM --remote-expr "execute(\"e {{filename}} | call cursor({{line}}, 0)\")"; }'
+  # https://github.com/jesseduffield/lazygit/issues/996
+  editAtLineAndWait: 'nvim +{{line}} {{filename}}'
+  editInTerminal: true

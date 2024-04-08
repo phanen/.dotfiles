@@ -34,7 +34,6 @@ abbr -a pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo b
 abbr -a video ffmpeg -f x11grab -i \$DISPLAY -framerate 25 -c:v libx264 /tmp/tmp/showcase.mp4
 
 abbr lu v -l
-abbr cmd command
 abbr gi gh repo create --source . --push
-abbr gd lazygit -p '~'
-abbr gn lazygit -p '~/notes'
+abbr gd command lazygit -p '~'
+abbr gn command lazygit -p '~/notes'
