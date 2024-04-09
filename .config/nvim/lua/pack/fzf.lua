@@ -95,6 +95,7 @@ return {
           files = {
             ['default'] = function(...) require('fzf-lua').actions.file_edit(...) end,
             ['ctrl-s'] = function(...) require('fzf-lua').actions.file_edit_or_qf(...) end,
+            ['ctrl-x'] = function(...) require('fzf-lua-overlay').actions.delete_files(...) end,
             ['ctrl-y'] = {
               fn = function(selected, opts)
                 local file = require('fzf-lua').path.entry_to_file(selected[1], opts)
@@ -103,27 +104,14 @@ return {
               reload = true,
             },
             ['ctrl-r'] = { -- TODO: no cursor
-              fn = function(selected, opts)
-                local file = require('fzf-lua').path.entry_to_file(selected[1], opts)
-                local oldpath = file.path
-                local oldname = vim.fs.basename(oldpath)
-                local newname = vim.fn.input('New name: ', oldname)
-                newname = vim.trim(newname)
-                if newname == '' or newname == oldname then return end
-                local cwd = opts.cwd or vim.fn.getcwd()
-                local newpath = ('%s/%s'):format(cwd, newname)
-                vim.uv.fs_rename(oldpath, newpath)
-                vim.notify(
-                  ('%s has been renamed to %s'):format(oldpath, newpath),
-                  vim.log.levels.INFO
-                )
-              end,
+              fn = function(...) require('fzf-lua-overlay').actions.file_rename(...) end,
               reload = true,
             },
             ['ctrl-o'] = { -- call back?
               fn = function(selected, opts)
                 for _, sel in ipairs(selected) do
                   local file = require('fzf-lua').path.entry_to_file(sel, opts)
+                  -- TODO: should be on_exit...
                   vim.schedule_wrap(function() vim.cmd.e(file.path) end)
                 end
               end,
