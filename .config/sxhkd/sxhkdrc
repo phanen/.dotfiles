@@ -8,11 +8,15 @@ super + ctrl + 1
   bspc quit
 super + {j, k}
   bspc node -f {next, prev}.local.!hidden.window
+  # [[ "$(xdotool getwindowfocus getwindowclassname)" = *tdrop* ]] && \
+  #   tdrop -y 0 -x 4 -h 97% -w 99% -mta -- kitty --name kitty --class tdrop-kitty ||\
+  #   bspc node -f {next, prev}.local.!hidden.window
 super + {w, o}
   bspc desktop -f next
+# { [[ "$(xdotool getwindowfocus getwindowclassname)" = *tdrop* ]] && tdrop -y 0 -x 4 -h 97% -w 99% -mta -- kitty --name kitty --class tdrop-kitty }; bspc desktop -f next
 # super + {f, e}
 #   wezterm cli activate-tab --tab-relative {+1, \-1}
-super + l
+super + h
   (bspc node -f biggest.window.local && \
     bspc node -f last.window.local && \
     bspc node -s biggest.window.local) || \
@@ -20,12 +24,11 @@ super + l
 
 super + ctrl + {j, k}
   bspc node -d {next, prev} --follow
+
 super + ctrl + shift + {j, k}
   bspc node -d {next, prev}
-super + shift + {j, k}
-  bspc desktop -s {next, prev} -f; bspc monitor -d 0 1 2
 
-super + {m, g}
+super + {g, l}
   bspc desktop -l next { , }
 
 super + ctrl + {h, l}
@@ -35,14 +38,11 @@ super + ctrl + {h, l}
 super + shift + f
   bspc node -t \~floating
 
+# TODO: auto hiden https://github.com/noctuid/tdrop/issues/18
 super + n
-  tdrop -y 3% -h 90% -x 4% -w 92% -mta kitty
-
-# super + n
-#   kitty
-#   echo "$(bspc query -N -n .window -d focused | grep -n $(bspc query -N -n) | cut -f1 -d:)/$(bspc query -N -n .window -d focused | wc -l)"
-# super + i
-# wezterm cli spawn
+  tdrop -n tdrop_kitty --post-create-hook "autohide-tdrop &" -y 0 -x 4 -h 97% -w 99% -mta -- kitty --name kitty --class tdrop_kitty
+super + r
+  telegram-desktop
 super + c
   kitty
 super + semicolon
@@ -51,10 +51,11 @@ super + p
   cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | xsel -ib
   # rofi -modi clipboard:~/.bin/cliphist-rofi-img.sh  -show clipboard -show-icons
 super + x
-  xsel -ob | $HOME/.bin/scripts/url-bookmark.sh $XDG_CONFIG_HOME/newsboat/urls
+  xsel -ob | ~/.bin/scripts/url-bookmark.sh ~/notes/rss.txt
+  # bspc node -f "$(xdotool search --onlyvisible google-chrome)"
 super + v
-  (rofi -dmenu) >> "$HOME/notes/bookmark.txt"
+  (rofi -dmenu) >> ~/notes/bookmark.txt
 super + Tab
   darkman toggle
-super + ctrl + t
-  sh $XDG_CONFIG_HOME/sxhkd/scripts/toggle-polybar.sh
+
+## TODO: hide/unhide

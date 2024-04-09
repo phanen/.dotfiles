@@ -56,25 +56,26 @@
 )
 
 (deflayer tabular
-  grv  @s+  @s-  @l+  @l-  @xl  @xr  @xn  @xi  @t!  0    -    =    bspc
-  tab  @fu  @fc  C--  r    t    y    u    C-+  C--  p  [    ]    \
-  caps a    s    d    C-+  g    bspc j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  grv  @s+  @s-  @l+  @l-  _    _    _    _    _    0    -    =    bspc
+  tab  @fu  @fc  C--  r    @tt  @gp  u    C-+  C--  @tp  [    ]    \
+  caps a    s    d    C-+  g    bspc j    k    @lk  ;    '    ret
+  lsft z    x    c    @tv  b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rctl
 )
 
 (defalias
-  s+ (cmd-button "sound-control +")
-  s- (cmd-button "sound-control -")
-  l+ (cmd-button "light-control +")
-  l- (cmd-button "light-control -")
-  xl (cmd-button "xrandr -o left")
-  xr (cmd-button "xrandr -o right")
-  xn (cmd-button "xrandr -o normal")
-  xi (cmd-button "xrandr -o inverted")
-  t! (cmd-button "toggle-touchpad.sh")
+  s+ (cmd-button "control.sh sound +")
+  s- (cmd-button "control.sh sound -")
+  l+ (cmd-button "control.sh light +")
+  l- (cmd-button "control.sh light -")
+  t! (cmd-button "toggler.sh touchpad")
   fc (cmd-button "flameshot gui")
   fu (cmd-button "flameshot gui -r | imgur.sh")
+  tv (cmd-button "toggle.sh video")
+  tt (cmd-button "toggle.sh touchpad")
+  tp (cmd-button "toggle.sh polybar")
+  gp (cmd-button "tr -dc \"a-zA-Z0-9_#@.-\" < /dev/random | head -c 14 | xclip -selection clipboard")
+  lk (cmd-button "slock")
 )
 
 (deflayer super

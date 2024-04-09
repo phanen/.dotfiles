@@ -8,6 +8,7 @@ abbr -a o cat
 abbr -a p python
 abbr -a s systemctl
 abbr -a y paru
+abbr -a n nvim -l
 
 abbr -a du dust
 abbr -a em emacs -nw
@@ -22,6 +23,7 @@ abbr -a ta tmux a || tmux
 abbr -a vj NVIM_APPNAME=nvim-test nvim
 abbr -a vk VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim
 abbr -a ze zoxide edit
+abbr sh bash
 
 abbr -a rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
 abbr -a rvp git diff --no-prefix --relative \| tail -n +3 \> riscv64.patch
@@ -33,7 +35,6 @@ abbr -a nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
 abbr -a pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub)'
 abbr -a video ffmpeg -f x11grab -i \$DISPLAY -framerate 25 -c:v libx264 /tmp/tmp/showcase.mp4
 
-abbr lu v -l
 abbr gi gh repo create --source . --push
 abbr gd command lazygit -p '~'
-abbr gn command lazygit -p '~/notes'
+

@@ -1,6 +1,6 @@
 # sc what you want
 function m
-    set dirs ~ ~/notes ~/codes ~/stuffs ~/blog ~/b/stage.nvim
+    set dirs ~/notes ~/codes ~/stuffs ~/blog ~/b/stage.nvim
     switch $argv
         # TODO: atomic logging...
         # TODO: error handler...

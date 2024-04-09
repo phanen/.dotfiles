@@ -82,6 +82,7 @@ flashrom
 fzf
 gdb
 git
+git-delta
 git-lfs
 github-cli
 gnu-efi
@@ -94,6 +95,7 @@ graphviz
 grub
 gtk-vnc
 gtkwave
+gum
 handlr-regex
 hddtemp
 helix
@@ -107,6 +109,7 @@ hyperfine
 hyperv
 i2c-tools
 imagemagick
+imv
 inetutils
 inotify-tools
 intel-media-driver
@@ -126,7 +129,9 @@ kakoune
 kdiskmark
 kitty
 kmonad-git
+lazydocker
 lazygit
+lazynpm
 lib32-gcc-libs
 lib32-libglvnd
 lib32-libpulse
@@ -258,6 +263,7 @@ rsync
 rtorrent
 rust-script
 rustup
+rxvt-unicode
 scrcpy
 screen
 scrot
@@ -369,7 +375,6 @@ xterm
 yarn
 yay
 yazi
-you-get
 yq
 zip
 zotero-bin

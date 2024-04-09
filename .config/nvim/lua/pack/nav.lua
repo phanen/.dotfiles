@@ -42,6 +42,7 @@ return {
         n('<leader><c-p>', function() require('dirstack').prev() end)
         n('<leader><c-n>', function() require('dirstack').next() end)
         n('f', files)
+        n('<c-e>', '')
       end,
     },
   },
@@ -58,7 +59,7 @@ return {
     keys = {
       { '<leader><c-p>', function() require('dirstack').prev() end },
       { '<leader><c-n>', function() require('dirstack').next() end },
-      { '<leader><c-g>', function() require('dirstack').info() end },
+      { '<leader><c-x>', function() require('dirstack').info() end },
     },
     opts = {},
   },
@@ -101,10 +102,7 @@ return {
     'akinsho/bufferline.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = 'nvim-tree/nvim-web-devicons',
-    keys = {
-      { 'H', '<cmd>BufferLineMovePrev<cr>' },
-      { 'L', '<cmd>BufferLineMoveNext<cr>' },
-    },
+    cmd = { 'BufferLineMovePrev', 'BufferLineMoveNext' },
     opts = {
       options = {
         show_buffer_close_icons = false,
@@ -118,35 +116,6 @@ return {
           { filetype = 'undotree', text = 'UNDOTREE', text_align = 'left' },
         },
       },
-    },
-  },
-  {
-    'Bekaboo/dropbar.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    opts = {
-      general = {
-        enable = function(buf, win)
-          return vim.bo[buf].ft == 'fugitiveblame'
-            or vim.fn.win_gettype(win) == ''
-              and vim.wo[win].winbar == ''
-              and (vim.bo[buf].bt == '')
-              and (pcall(vim.treesitter.get_parser, buf, vim.bo[buf].ft))
-        end,
-      },
-    },
-  },
-  {
-    'stevearc/aerial.nvim',
-    cmd = 'AerialToggle',
-    opts = {
-      keymaps = { ['<C-k>'] = false, ['<C-j>'] = false },
-      attach_mode = 'global',
-      icons = { -- fix indent
-        Collapsed = '',
-        markdown = { Interface = '󰪥' },
-      },
-      nav = { preview = true },
-      on_attach = function(_) package.loaded.aerial.tree_close_all() end,
     },
   },
 }

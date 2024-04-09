@@ -36,7 +36,10 @@ alias par 'pactree -r -lu'
 alias pst 'pactree -slu'
 alias psr 'pactree -r -slu'
 
-function fe
+alias sj 'gh copilot explain'
+abbr ge gh copilot suggest -t shell
+
+function fe --wrap functions
     v (functions --details $argv)
 end
 

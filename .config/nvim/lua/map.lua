@@ -39,7 +39,7 @@ kmp.edit = function()
   n('<a-l>', '>>')
   x('<a-h>', '<gv')
   x('<a-l>', '>gv')
-  n('<leader>p', '<cmd>%d _ | norm vP<cr>')
+  n('<leader>p', '<cmd>%d _ | norm VP<cr>')
   n('<leader>y', '<cmd>%y<cr>')
 
   ic('<c-f>', '<right>')
@@ -84,6 +84,8 @@ kmp.buf = function()
   n('<leader>bl', '<cmd>BufferLineCloseLeft<cr>')
   n('<leader>bi', '<cmd>buffers<cr>')
   n('<leader>bI', '<cmd>buffers!<cr>')
+  n('H', '<cmd>BufferLineMovePrev<cr>')
+  n('L', '<cmd>BufferLineMoveNext<cr>')
 end
 
 kmp.win = function()
@@ -153,6 +155,7 @@ kmp.misc = function()
   n('<leader>cn', util.yank_filename)
   n('<leader>cm', util.yank_message)
   n('<leader>cx', '<cmd>!chmod +x %<cr>')
+  n('<leader>cX', '<cmd>!chmod -x %<cr>')
 
   t('<c- >', '<c-\\><c-n>')
 
