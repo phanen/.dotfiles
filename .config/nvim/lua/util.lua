@@ -158,4 +158,12 @@ u.yank_message = function()
   vim.fn.setreg('+', vim.trim(text))
 end
 
+u.force_close_tabpage = function()
+  if #vim.api.nvim_list_tabpages() == 1 then
+    vim.cmd('quit!')
+  else
+    vim.cmd('tabclose')
+  end
+end
+
 return u

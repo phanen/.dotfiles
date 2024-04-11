@@ -10,7 +10,13 @@ return {
   { -- FIXME: register _d, cannot set timeoutlen = 0
     'folke/which-key.nvim',
     event = 'VeryLazy',
-    opts = { plugins = { spelling = { enabled = false } } },
+    opts = {
+      plugins = { spelling = { enabled = false } },
+      popup_mappings = {
+        scroll_down = '<a-d>',
+        scroll_up = '<a-u>',
+      },
+    },
   },
   {
     'phanen/broker.nvim',
@@ -23,22 +29,5 @@ return {
     cmd = 'Browse',
     keys = { { 'gl', '<cmd>Browse<cr>', mode = { 'n', 'x' } } },
     opts = {},
-  },
-  {
-    'akinsho/toggleterm.nvim',
-    keys = { '<c-\\>' },
-    opts = { open_mapping = '<c-\\>', direction = 'float', shell = '/bin/fish' },
-    config = function(_, opts)
-      require('toggleterm').setup(opts)
-      local Terminal = require('toggleterm.terminal').Terminal
-      local lazygit = Terminal:new({ cmd = 'lazygit', hidden = true })
-      function _lazygit_toggle() lazygit:toggle() end
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>gg',
-        '<cmd>lua _lazygit_toggle()<CR>',
-        { noremap = true, silent = true }
-      )
-    end,
   },
 }

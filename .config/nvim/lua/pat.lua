@@ -18,7 +18,7 @@ _G.r = setmetatable({}, {
 })
 
 _G.u = setmetatable({}, {
-  __index = function(_, k) return require('util.' .. k) end,
+  __index = function(_, k) return require('util')[k] end,
 })
 
 if vim.fn.has('nvim-0.10') == 0 then

@@ -14,3 +14,7 @@ bspc rule -a imv state=floating
 bspc rule -a sxiv state=floating center=true
 bspc rule -a mpv state=floating
 bspc rule -a SimpleScreenRecorder state=floating
+
+bspc rule -a scratchpad sticky=on state=floating hidden=on
+# check scratchpad already running
+[ "$(ps -x | grep -c 'scratchpad')" -eq "1" ] && kitty --class scratchpad &

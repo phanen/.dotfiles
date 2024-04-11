@@ -7,7 +7,12 @@ return {
     '3rd/image.nvim',
     cond = function() return (vim.uv.fs_stat(vim.fn.expand '~/.luarocks/share/lua/5.1/magick/')) end,
     ft = { 'markdown', 'org' },
-    opts = { integrations = { markdown = { only_render_image_at_cursor = true } } },
+    opts = {
+      -- integrations = {
+      --   markdown = { only_render_image_at_cursor = true },
+      -- },
+      window_overlap_clear_enabled = true,
+    },
     init = function()
       package.path = package.path .. ';' .. vim.fn.expand '~/.luarocks/share/lua/5.1/?/init.lua;'
       package.path = package.path .. ';' .. vim.fn.expand '~/.luarocks/share/lua/5.1/?.lua;'

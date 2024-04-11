@@ -79,10 +79,17 @@ return {
     'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {
+        fish = { 'fish_indent' },
+        json = { 'prettier' },
         lua = { 'stylua' },
         python = { 'isort', 'black' },
-        json = { 'prettier' },
-        fish = { 'fish_indent' },
+        sh = { 'shfmt' },
+      },
+      formatters = {
+        shfmt = {
+          command = 'shfmt',
+          args = { '-i', '2', '-filename', '$FILENAME' },
+        },
       },
     },
   },

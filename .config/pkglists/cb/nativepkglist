@@ -196,6 +196,7 @@ noto-fonts-emoji
 npm
 ntfs-3g
 nvm
+obs-studio
 ocaml
 openssh
 openvpn
@@ -213,6 +214,7 @@ perl-cgi
 perl-image-exiftool
 pipewire-pulse
 pkgstats
+plan9port
 pnpm
 poedit
 poketex
@@ -268,6 +270,8 @@ scrcpy
 screen
 scrot
 setconf
+shellcheck
+simplescreenrecorder
 slock
 smartmontools
 socat
@@ -284,12 +288,12 @@ sxhkd
 sxiv
 syncthing
 tcpdump
-tdrop-git
 tealdeer
 telegram-desktop
 terminus-font
 tesseract-data-eng
 the_silver_searcher
+tk
 tmux
 tokei
 traceroute
@@ -325,6 +329,7 @@ xclip
 xdg-desktop-portal
 xdg-desktop-portal-gtk
 xdo
+xdotool
 xf86-video-vesa
 xfconf
 xfsdump

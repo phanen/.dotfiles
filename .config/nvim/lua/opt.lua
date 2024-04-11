@@ -1,11 +1,11 @@
-local o, opt, g = vim.o, vim.opt, vim.g
+local o, g = vim.opt, vim.g
 
 g.mapleader = ' '
 g.maplocalleader = '+'
 
 -- stylua: ignore start
 o.clipboard      = 'unnamedplus'
-o.jumpoptions    = 'stack'
+o.jumpoptions    = 'view'
 o.number         = true
 o.relativenumber = true
 o.scrolloff      = 16
@@ -30,7 +30,7 @@ o.timeoutlen     = 100
 o.ttimeoutlen    = 0
 
 o.list = true
-opt.listchars = {
+o.listchars = {
   tab = '→ ',
   trail = '·',
 }

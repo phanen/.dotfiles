@@ -1,6 +1,21 @@
 #!/bin/sh
+
+# normal enter...
 if command -v ~/b/neovim/build/bin/nvim &>/dev/null; then
   VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim "$@"
 else
   /bin/nvim "$@"
 fi
+
+# rebirth if needed
+test $? != 123 && exit
+
+session_args="+so /tmp/reload.vim"
+while true; do
+  if command -v ~/b/neovim/build/bin/nvim &>/dev/null; then
+    VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim $session_args
+  else
+    /bin/nvim $session_args
+  fi
+  test $? != 123 && exit
+done

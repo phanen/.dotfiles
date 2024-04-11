@@ -58,7 +58,7 @@ kmp.edit = function()
   -- ic('<c-l>', '<c-o>dw')
   -- ic('<c-k>', '<c-o>D')
   nx('-', '<cmd>TSJToggle<cr>')
-  n('<c-h>', '<c-u>')
+  -- n('<c-h>', '<c-u>')
 end
 
 kmp.comment = function()
@@ -101,6 +101,10 @@ kmp.win = function()
   n('<c-j>', '<cmd>wincmd w<cr>')
   n('<c-k>', '<cmd>wincmd W<cr>')
 
+  -- reload current session to check whatever, with a new wrap starter .bin/nvim
+  n('<c-s><c-d>', '<cmd>mksession! /tmp/reload.vim | 123cq<cr>')
+
+  -- TODO: fail if insert
   n('q', util.q)
   n('<leader>q', util.toggle_qf)
   n('<leader>k', '<cmd>NvimTreeFindFileToggle<cr>')
@@ -110,7 +114,7 @@ kmp.win = function()
   n('<leader>wi', '<cmd>LspInfo<cr>')
   n('<leader>wu', '<cmd>NullLsInfo<cr>')
   n('<leader>wy', '<cmd>Mason<cr>')
-  n('<localleader>q', '<cmd>tabclose<cr>')
+  n('+q', util.force_close_tabpage)
 end
 
 kmp.fmt = function()
@@ -165,8 +169,8 @@ kmp.misc = function()
   n('<leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>')
   n('<leader>ds', '<cmd>lua vim.diagnostic.setloclist()<cr>')
 
-  n('<localleader>rr', ':Rename ')
-  n('<localleader>rd', ':Delete ')
+  n('+rr', function() return ':Rename ' .. vim.api.nvim_buf_get_name(0) end, { expr = true })
+  n('+rd', ':Delete')
 end
 
 kmp.tobj = function()
@@ -183,10 +187,9 @@ kmp.tobj = function()
   tobj('q', 'anyQuote')
   tobj('u', 'url')
 end
-
 nx('<leader>so', '<cmd>so<cr>')
-nx('<leader>ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
-nx('<leader>sl', '<cmd>so /tmp/Session.vim<cr>')
+n('<leader>ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
+n('<leader>sl', '<cmd>so /tmp/Session.vim<cr>')
 
 for _, fn in pairs(kmp) do
   fn()

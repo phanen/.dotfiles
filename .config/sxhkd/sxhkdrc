@@ -1,9 +1,12 @@
 # /usr/share/doc/bspwm/examples/sxhkdrc
 super + z
-  pkill -USR1 -x sxhkd; bspc wm -r; pkill polybar; polybar -r;
+  pkill -USR1 -x sxhkd; bspc wm -r; pkill polybar; polybar -r; notify-send 'reload wm config'
 # TODO: remove `bspc` ad-hoc stuffs
+# smarter super + q, for term, close tab, for other kill node
 super + q
   bspc node -c
+  # kitty @ close-tab
+  # close-tab-or-node.sh
 super + ctrl + 1
   bspc quit
 super + {j, k}
@@ -23,14 +26,13 @@ super + h
   (bspc node -f last.window.local && bspc node -s biggest.window.local)
 
 super + ctrl + {j, k}
-  bspc node -d {next, prev} --follow
-
+  bspc node -d {next, prev} -f
 super + ctrl + shift + {j, k}
   bspc node -d {next, prev}
 
 super + {g, l}
   bspc desktop -l next { , }
-
+  # bspc node -t ~fullscreen
 super + ctrl + {h, l}
   bspc node -z {left -20 0 || bspc node -z right -20 0, \
         right 20 0 || bspc node -z left 20 0}
@@ -39,10 +41,10 @@ super + shift + f
   bspc node -t \~floating
 
 # TODO: auto hiden https://github.com/noctuid/tdrop/issues/18
-super + n
-  tdrop -n tdrop_kitty --post-create-hook "autohide-tdrop &" -y 0 -x 4 -h 97% -w 99% -mta -- kitty --name kitty --class tdrop_kitty
+ super + n
+   tdrop -n tdrop_kitty --post-create-hook "autohide-tdrop &" -y 0 -x 4 -h 97% -w 99% -mta -- kitty --name kitty --class tdrop_kitty
 super + r
-  telegram-desktop
+  toggle-app.sh TelegramDesktop telegram-desktop; telegram-desktop;
 super + c
   kitty
 super + semicolon
@@ -57,5 +59,10 @@ super + v
   (rofi -dmenu) >> ~/notes/bookmark.txt
 super + Tab
   darkman toggle
-
-## TODO: hide/unhide
+super + n
+   wid="$(xdotool search --class tdrop_kitty)"; \
+   if [ -n "$wid" ]; then \
+       bspc node "$wid" -g hidden -f; \
+   else \
+       bspc rule -a '*' -o sticky=on state=floating && kitty --class "tdrop_kitty"; \
+   fi

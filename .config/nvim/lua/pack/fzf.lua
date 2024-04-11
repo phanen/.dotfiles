@@ -39,6 +39,7 @@ return {
       { "<leader>fdf",   fl.dap_frames,            mode = { 'n', 'x' } },
       { "<leader>fdv",   fl.dap_variables,         mode = { 'n', 'x' } },
       { '<leader>f;',    fl.command_history,       mode = { 'n', 'x' } },
+      { '<c-h>',         fl.help_tags,             mode = { 'n', 'x' } },
       { '<leader>fh',    fl.help_tags,             mode = { 'n', 'x' } },
       { '<leader>fi',    fl.git_status,            mode = { 'n', 'x' } },
       { '<leader>fj',    fl.grep_dots,             mode = { 'n', 'x' } },
@@ -70,6 +71,7 @@ return {
         winopts = { preview = { delay = 30 }, height = 0.6 },
         fzf_opts = {
           ['--history'] = vim.fn.stdpath 'state' .. '/telescope_history',
+          ['--info'] = 'inline',
         },
         keymap = {
           builtin = {

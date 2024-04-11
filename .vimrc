@@ -1,4 +1,5 @@
 " https://github.com/skwp/dotfiles/blob/master/vimrc
+let mapleader=' '
 set number relativenumber
 set fileencodings=utf8,ucs-bom,gbk,cp936,gb2312,gb18030
 set mouse=a
@@ -22,5 +23,5 @@ set undofile undodir=~/.vim/undo undolevels=9999 " undo options
 set lazyredraw                                   " enable lazyredraw
 set nocursorline                                 " disable cursorline
 set ttyfast                                      " enable fast terminal connection
-let mapleader=' '
+set jumpoptions=stack
 cnoreabbrev w!! w !sudo tee > /dev/null %|       " write file with sudo
