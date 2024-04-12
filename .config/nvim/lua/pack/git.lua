@@ -5,9 +5,9 @@ return {
     keys = {
       { '<leader>ga', '<cmd>G<cr>' },
       { '<leader>gb', '<cmd>G blame<cr>' },
-      -- { '<localleader>gd', '<cmd>Gvdiffsplit<cr>' },
-      { '<localleader>gr', '<cmd>Gr<cr>' },
-      { '<localleader>gs', '<cmd>Gwrite<cr>' },
+      -- { '+gd', '<cmd>Gvdiffsplit<cr>' },
+      { '+gr', '<cmd>Gr<cr>' },
+      { '+gs', '<cmd>Gwrite<cr>' },
     },
   },
   {
@@ -15,12 +15,13 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     cmd = 'DiffviewOpen',
     keys = {
-      { '<localleader>gd', ':DiffviewOpen<CR>', mode = { 'n', 'x' } },
-      { '<localleader>gh', ':DiffviewFileHistory<cr>', mode = { 'n', 'x' } },
+      { '+gd', ':DiffviewOpen<CR>', mode = { 'n', 'x' } },
+      { '+gh', ':DiffviewFileHistory %<cr>', mode = { 'n', 'x' } },
     },
     opts = {
       enhanced_diff_hl = true,
       -- default_args = { DiffviewFileHistory = { '%' } },
+      hooks = { diff_buf_win_enter = function(_, winid) vim.wo[winid].wrap = false end },
       keymaps = {
         view = { q = '<Cmd>DiffviewClose<CR>' },
         file_panel = { q = '<Cmd>DiffviewClose<CR>' },
@@ -31,7 +32,7 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
-    keys = { { '<localleader>gs', '<cmd>Gitsigns<cr>' } },
+    keys = { { '+gs', '<cmd>Gitsigns<cr>' } },
     dependencies = 'stevearc/dressing.nvim',
     opts = {
       signs = {
@@ -61,6 +62,7 @@ return {
       { '+gl', '<cmd>lua require("gitlinker").get_buf_range_url "n"<cr>', mode = 'n' },
       { '+gl', '<cmd>lua require("gitlinker").get_buf_range_url "v"<cr>', mode = 'x' },
     },
+    -- TODO: smart remote
     opts = { mappings = nil },
   },
 }

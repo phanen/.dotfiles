@@ -13,20 +13,10 @@ au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
 -- restore cursor position
 au({ 'BufReadPost' }, { command = [[silent! normal! g`"zv']] })
 
--- https://www.reddit.com/r/neovim/comments/wjzjwe/how_to_set_no_name_buffer_to_scratch_buffer/
-au({ 'BufLeave' }, {
-  callback = function()
-    if vim.fn.bufname() == '' and vim.fn.line '$' == 1 and vim.fn.getline(1) == '' then
-      vim.bo.buftype = 'nofile'
-      vim.bo.bufhidden = 'wipe'
-    end
-  end,
-})
-
 -- create directories when needed, when saving a file
 au('BufWritePre', {
-  callback = function(event)
-    local file = vim.uv.fs_realpath(event.match) or event.match
+  callback = function(args)
+    local file = vim.uv.fs_realpath(args.match) or args.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
     local backup = vim.fn.fnamemodify(file, ':p:~:h')
     backup = (backup:gsub('[/\\]', '%%'))
@@ -43,24 +33,26 @@ au({ 'FocusGained', 'BufEnter' }, {
 
 au('Filetype', {
   pattern = { 'toggleterm', 'help', 'man' },
-  callback = function(ev)
+  callback = function(args)
     if vim.bo.bt ~= '' then
-      map('n', 'u', '<c-u>', { buffer = ev.buf })
-      map('n', 'd', '<c-d>', { buffer = ev.buf })
+      map('n', 'u', '<c-u>', { buffer = args.buf })
+      map('n', 'd', '<c-d>', { buffer = args.buf })
     end
   end,
 })
 
+-- redirect buf open to other window
 au('Filetype', {
-  pattern = { 'NvimTree', 'help', 'man', 'aerial', 'fugitive*' },
-  callback = function(ev)
-    if vim.bo.bt ~= '' then map('n', 'q', '<cmd>q<cr>', { buffer = ev.buf }) end
+  pattern = { 'qf', 'NvimTree', 'help', 'man', 'aerial', 'fugitive*' },
+  callback = function(args)
+    if vim.bo.bt ~= '' then map('n', 'q', '<cmd>q<cr>', { buffer = args.buf }) end
+    -- TODO: winfixbuf not always work...
   end,
 })
 
 au('LspAttach', {
-  callback = function(ev)
-    local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = ev.buf }) end
+  callback = function(args)
+    local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = args.buf }) end
     bn('gD', vim.lsp.buf.declaration)
     bn('gI', vim.lsp.buf.implementation)
     bn('gs', vim.lsp.buf.signature_help)
@@ -96,4 +88,8 @@ au('User', {
     require('util').lazy_patch(...)
     require('util').lazy_cache_docs()
   end,
+})
+
+au('TermResponse', {
+  callback = function(args) vim.print(args) end,
 })

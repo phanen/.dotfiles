@@ -65,22 +65,38 @@ u.q = function()
   end
 end
 
+u._lazy_patch = function()
+  local patches_path = vim.fs.joinpath(vim.g.config_path, 'patches')
+  for patch_name in vim.fs.dir(patches_path) do
+    local lazy_root = require('lazy.core.config').options.root
+    local plug_path = vim.fs.joinpath(lazy_root, (patch_name:gsub('%.patch$', '')))
+    if not vim.uv.fs_stat(plug_path) then return end
+    vim.notify('Restore begin: ' .. patch_name)
+    vim.fn.system { 'git', '-C', plug_path, 'restore', '.' }
+    vim.notify('Restore done:  ' .. patch_name)
+    local patch_path = vim.fs.joinpath(patches_path, patch_name)
+    vim.notify('Patch begin:    ' .. patch_name)
+    vim.fn.system { 'git', '-C', plug_path, 'apply', '--ignore-space-change', patch_path }
+    vim.notify('Patch done:     ' .. patch_name)
+  end
+end
+
 u.lazy_patch = function(info)
   vim.g._lz_syncing = vim.g._lz_syncing or info.match == 'LazySyncPre'
   if vim.g._lz_syncing and not info.match:find('^LazySync') then return end
   if info.match == 'LazySync' then vim.g._lz_syncing = nil end
-  local patches_path = vim.fs.joinpath(vim.fn.stdpath('config'), 'patches')
+  local patches_path = vim.fs.joinpath(vim.g.config_path, 'patches')
   for patch_name in vim.fs.dir(patches_path) do
     local lazy_root = require('lazy.core.config').options.root
-    local plugin_path = vim.fs.joinpath(lazy_root, (patch_name:gsub('%.patch$', '')))
-    if not vim.uv.fs_stat(plugin_path) then return end
+    local plug_path = vim.fs.joinpath(lazy_root, (patch_name:gsub('%.patch$', '')))
+    if not vim.uv.fs_stat(plug_path) then return end
     vim.notify('Restore begin: ' .. patch_name)
-    vim.fn.system { 'git', '-C', plugin_path, 'restore', '.' }
+    vim.fn.system { 'git', '-C', plug_path, 'restore', '.' }
     vim.notify('Restore done:  ' .. patch_name)
     if not info.match:find('Pre$') then
       local patch_path = vim.fs.joinpath(patches_path, patch_name)
       vim.notify('Patch begin:    ' .. patch_name)
-      vim.fn.system { 'git', '-C', plugin_path, 'apply', '--ignore-space-change', patch_path }
+      vim.fn.system { 'git', '-C', plug_path, 'apply', '--ignore-space-change', patch_path }
       vim.notify('Patch done:     ' .. patch_name)
     end
   end

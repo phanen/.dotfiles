@@ -13,13 +13,9 @@ _G.au = function(ev, opts)
   vim.api.nvim_create_autocmd(ev, opts)
 end
 
-_G.r = setmetatable({}, {
-  __index = function(_, k) return require(k) end,
-})
+_G.r = setmetatable({}, { __index = function(_, k) return require(k) end })
 
-_G.u = setmetatable({}, {
-  __index = function(_, k) return require('util')[k] end,
-})
+_G.u = setmetatable({}, { __index = function(_, k) return require('util')[k] end })
 
 if vim.fn.has('nvim-0.10') == 0 then
   ---@diagnostic disable: duplicate-set-field

@@ -6,15 +6,13 @@ local nx = function(...) map({ 'n', 'x' }, ...) end
 local ox = function(...) map({ 'o', 'x' }, ...) end
 local ic = function(...) map('!', ...) end
 
-local kmp = {}
-
 -- TODO: lsp rename passthrough?
 ---@module "util"
 local util = setmetatable({}, {
   __index = function(_, k) return ([[<cmd>lua r.util.%s()<cr>]]):format(k) end,
 })
 
-kmp.edit = function()
+do -- edit
   nx('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
   nx('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
 
@@ -61,9 +59,10 @@ kmp.edit = function()
   -- n('<c-h>', '<c-u>')
 end
 
-kmp.comment = function()
+do -- comment
   map({ 'n', 'x', 'i' }, '<c-_>', '<c-/>', { remap = true })
   x('<c-/>', 'gc', { remap = true })
+  -- TODO: comment empty line?
   i('<c-/>', '<cmd>norm <c-/><cr>')
   n(
     '<c-/>',
@@ -73,9 +72,11 @@ kmp.comment = function()
   n('<leader><c-/>', '<cmd>norm vac<c-/><cr>')
 end
 
-kmp.buf = function()
-  n('<c-f>', '<cmd>BufferLineCycleNext<cr>')
-  n('<c-e>', '<cmd>BufferLineCyclePrev<cr>')
+do -- buf
+  -- n('<c-f>', '<cmd>BufferLineCycleNext<cr>')
+  -- n('<c-e>', '<cmd>BufferLineCyclePrev<cr>')
+  n('<c-f>', '<cmd>bn<cr>')
+  n('<c-e>', '<cmd>bp<cr>')
   -- TODO: bdelete last 2 tab (nvim-tree)
   -- TODO: Bdelete Man xx
   n('<c-w>', '<cmd>Bdelete!<cr>')
@@ -88,7 +89,7 @@ kmp.buf = function()
   n('L', '<cmd>BufferLineMoveNext<cr>')
 end
 
-kmp.win = function()
+do -- win
   n('<c-s><c-s>', '<cmd>wincmd q<cr>')
   n('<c-s>d', '<cmd>wincmd q<cr>')
   n('<c-s>_', '<cmd>wincmd _<cr>')
@@ -117,7 +118,7 @@ kmp.win = function()
   n('+q', util.force_close_tabpage)
 end
 
-kmp.fmt = function()
+do -- fmt
   n('<leader>rp', '<cmd>%FullwidthPunctConvert<cr>')
   x('<leader>rp', ':FullwidthPunctConvert<cr>')
   n('<leader>rs', ":%s/\\s*$//g<cr>''")
@@ -131,7 +132,7 @@ kmp.fmt = function()
   nx('gw', '<cmd>lua r.conform.format { lsp_fallback = true }<cr>')
 end
 
-kmp.option = function()
+do -- option
   n('<leader>oc', '<cmd>set cursorline! cursorcolumn!<cr>')
   n('<leader>of', '<cmd>set foldenable!<cr>')
   n('<leader>or', '<cmd>retab<cr>')
@@ -139,13 +140,15 @@ kmp.option = function()
   n('<leader>ow', '<cmd>set wrap!<cr>')
 end
 
-kmp.misc = function()
+do -- misc
   n('<leader>I', '<cmd>lua vim.show_pos()<cr>')
-  n('<localleader>I', '<cmd>lua vim.treesitter.inspect_tree()<cr>')
-  n('<localleader>E', '<cmd>lua vim.treesitter.query.edit()<cr>')
+  n('+I', '<cmd>lua vim.treesitter.inspect_tree()<cr>')
+  n('+E', '<cmd>lua vim.treesitter.query.edit()<cr>')
   n('<leader>m', '<cmd>messages<cr>')
   n('<leader>M', '<cmd>messages clear<cr>')
   nx('<leader>L', ':Linediff<cr>')
+
+  n('+L', '<cmd>lua u._lazy_patch()<cr>')
 
   nx('<leader>E', ':EditCodeBlock<cr>')
 
@@ -173,7 +176,7 @@ kmp.misc = function()
   n('+rd', ':Delete')
 end
 
-kmp.tobj = function()
+do -- tobj
   ox('ih', ':<c-u>Gitsigns select_hunk<cr>')
   local tobj = function(c, func)
     ox('i' .. c, ([[<cmd>lua require("various-textobjs").%s("inner", "inner")<cr>]]):format(func))
@@ -187,10 +190,7 @@ kmp.tobj = function()
   tobj('q', 'anyQuote')
   tobj('u', 'url')
 end
-nx('<leader>so', '<cmd>so<cr>')
+
+nx('<leader>so', ':so<cr>')
 n('<leader>ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
 n('<leader>sl', '<cmd>so /tmp/Session.vim<cr>')
-
-for _, fn in pairs(kmp) do
-  fn()
-end

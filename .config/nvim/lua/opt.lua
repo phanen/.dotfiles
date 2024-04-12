@@ -3,6 +3,7 @@ local o, g = vim.opt, vim.g
 g.mapleader = ' '
 g.maplocalleader = '+'
 
+o.laststatus = 1
 -- stylua: ignore start
 o.clipboard      = 'unnamedplus'
 o.jumpoptions    = 'view'
