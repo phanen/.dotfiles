@@ -83,7 +83,7 @@ return {
         },
         winopts = { preview = { delay = 30 }, height = 0.6 },
         fzf_opts = {
-          ['--history'] = vim.fn.stdpath 'state' .. '/telescope_history',
+          ['--history'] = vim.g.state_path .. '/telescope_history',
           ['--info'] = 'inline',
         },
         keymap = {
@@ -106,6 +106,19 @@ return {
             ['ctrl-r'] = function(...) require('fzf-lua').actions.toggle_ignore(...) end,
           },
         },
+        git = {
+          status = {
+            previewer = 'git_diff',
+            -- preview_pager = false,
+            -- stylua: ignore
+            actions = {
+              ["right"]  = false,
+              ["left"]   = false,
+              ['ctrl-s'] = { fn = function(...) require('fzf-lua').actions.git_stage_unstage(...) end, reload = true },
+              ['ctrl-x'] = { fn = function(...) require('fzf-lua').actions.git_reset(...) end, reload = true },
+            },
+          },
+        },
         actions = {
           files = {
             ['default'] = function(...) require('fzf-lua').actions.file_edit(...) end,
@@ -116,8 +129,7 @@ return {
               vim.fn.setreg('+', file.path)
             end,
             ['ctrl-r'] = function(...) require('fzf-lua-overlay.actions').rename_files(...) end,
-            ['ctrl-o'] = function(selected, opts)
-              -- TODO: canont reload here, should reopen buffer on window by winsize/winid
+            ['ctrl-o'] = function(selected, opts) -- TODO: canont reload here, should reopen buffer on window by winsize/winid
               for _, sel in ipairs(selected) do
                 local file = require('fzf-lua').path.entry_to_file(sel, opts)
                 vim.cmd.e(file.path)

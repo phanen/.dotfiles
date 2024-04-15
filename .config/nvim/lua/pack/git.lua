@@ -4,6 +4,7 @@ return {
     cmd = { 'G' },
     keys = {
       { '<leader>ga', '<cmd>G<cr>' },
+      { '<leader>gl', '<cmd>G commit<cr>' },
       { '<leader>gb', '<cmd>G blame<cr>' },
       -- { '+gd', '<cmd>Gvdiffsplit<cr>' },
       { '+gr', '<cmd>Gr<cr>' },

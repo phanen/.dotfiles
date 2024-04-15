@@ -6,6 +6,8 @@ local nx = function(...) map({ 'n', 'x' }, ...) end
 local ox = function(...) map({ 'o', 'x' }, ...) end
 local ic = function(...) map('!', ...) end
 
+-- TODO: inject a table local to file?
+
 -- TODO: lsp rename passthrough?
 ---@module "util"
 local util = setmetatable({}, {
@@ -24,10 +26,6 @@ do -- edit
   -- TODO: not sure what happened with c-s-v
   nx('p', 'P')
   nx('gp', 'p')
-  nx('d', '"_d')
-  nx('D', '"_D')
-  nx('c', '"_c')
-  nx('C', '"_C')
 
   n('<a-j>', '<cmd>move+<cr>')
   n('<a-k>', '<cmd>move-2<cr>')
@@ -57,6 +55,58 @@ do -- edit
   -- ic('<c-k>', '<c-o>D')
   nx('-', '<cmd>TSJToggle<cr>')
   -- n('<c-h>', '<c-u>')
+
+  nx('gw', '<cmd>lua r.conform.format { lsp_fallback = true }<cr>')
+
+  -- upstream these garbage...
+  n('<leader>rp', '<cmd>%FullwidthPunctConvert<cr>')
+  x('<leader>rp', ':FullwidthPunctConvert<cr>')
+  n('<leader>rs', ":%s/\\s*$//g<cr>''")
+  nx('<leader>rl', ":g/^$/d<cr>''")
+  x('<leader>r*', [[:s/^\([  ]*\)- \(.*\)/\1* \2/g]])
+  n('<leader>r*', [[:%s/^\([  ]*\)- \(.*\)/\1* \2/g]])
+  x('<leader>r ', [[:s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g<cr>]])
+  n('<leader>r ', [[:%s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g<cr>]])
+  x('<leader>ro', ':!sort<cr>')
+
+  -- textobj
+  ox('ih', ':<c-u>Gitsigns select_hunk<cr>')
+  local tobj = function(c, func)
+    ox('i' .. c, ([[<cmd>lua require("various-textobjs").%s("inner", "inner")<cr>]]):format(func))
+    ox('a' .. c, ([[<cmd>lua require("various-textobjs").%s("outer", "outer")<cr>]]):format(func))
+  end
+  tobj('c', 'multiCommentedLines')
+  tobj('g', 'entireBuffer')
+  tobj('i', 'indentation')
+  tobj('l', 'lineCharacterwise')
+  tobj('n', 'anyBracket')
+  tobj('q', 'anyQuote')
+  tobj('u', 'url')
+
+  -- n('giq', "<cmd>lua require('various-textobjs').anyQuote('inner', 'inner')<cr>c")
+  -- n('gaq', "<cmd>lua require('various-textobjs').anyQuote('outer', 'outer')<cr>c")
+
+  nx('d', '"_d')
+  nx('D', '"_D')
+  nx('c', '"_c')
+  nx('C', '"_C')
+
+  n('ge', 'G')
+  -- without jumps
+  nx('}', '<cmd>keepj norm! }<cr>')
+  nx('{', '<cmd>keepj norm! {<cr>')
+
+  -- expriment
+  -- work for builti, textobj
+  n('gi', '"_ci')
+  n('ga', '"_ca')
+
+  -- n('gaw', 'caw')
+  n('giq', 'ciq')
+  n('gaq', 'caq')
+  -- n('<leader>gi', 'gi')
+  -- n('gg', 'gg')
+  -- n('g', 'c')
 end
 
 do -- comment
@@ -91,9 +141,10 @@ end
 
 do -- win
   n('<c-s><c-s>', '<cmd>wincmd q<cr>')
-  n('<c-s>d', '<cmd>wincmd q<cr>')
   n('<c-s>_', '<cmd>wincmd _<cr>')
   n('<c-s>=', '<cmd>wincmd =<cr>')
+  n('<c-s>-', '<cmd>resize -5<cr>')
+  n('<c-s>+', '<cmd>resize +5<cr>')
   n('<c-s>|', '<cmd>wincmd |<cr>')
   n('<c-s>v', '<cmd>wincmd v<cr>')
   n('<c-s>s', '<cmd>wincmd s<cr>')
@@ -116,20 +167,6 @@ do -- win
   n('<leader>wu', '<cmd>NullLsInfo<cr>')
   n('<leader>wy', '<cmd>Mason<cr>')
   n('+q', util.force_close_tabpage)
-end
-
-do -- fmt
-  n('<leader>rp', '<cmd>%FullwidthPunctConvert<cr>')
-  x('<leader>rp', ':FullwidthPunctConvert<cr>')
-  n('<leader>rs', ":%s/\\s*$//g<cr>''")
-  nx('<leader>rl', ":g/^$/d<cr>''")
-  x('<leader>r*', [[:s/^\([  ]*\)- \(.*\)/\1* \2/g]])
-  n('<leader>r*', [[:%s/^\([  ]*\)- \(.*\)/\1* \2/g]])
-  x('<leader>r ', [[:s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g<cr>]])
-  n('<leader>r ', [[:%s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g<cr>]])
-  x('<leader>ro', ':!sort<cr>')
-
-  nx('gw', '<cmd>lua r.conform.format { lsp_fallback = true }<cr>')
 end
 
 do -- option
@@ -176,19 +213,17 @@ do -- misc
   n('+rd', ':Delete')
 end
 
-do -- tobj
-  ox('ih', ':<c-u>Gitsigns select_hunk<cr>')
-  local tobj = function(c, func)
-    ox('i' .. c, ([[<cmd>lua require("various-textobjs").%s("inner", "inner")<cr>]]):format(func))
-    ox('a' .. c, ([[<cmd>lua require("various-textobjs").%s("outer", "outer")<cr>]]):format(func))
+-- stylua: ignore
+do
+  local c = function(trig, cmd)
+    map('c', trig, function() return vim.fn.getcmdcompltype() == 'command' and cmd or trig end, { expr = true })
   end
-  tobj('c', 'multiCommentedLines')
-  tobj('g', 'entireBuffer')
-  tobj('i', 'indentation')
-  tobj('l', 'lineCharacterwise')
-  tobj('n', 'anyBracket')
-  tobj('q', 'anyQuote')
-  tobj('u', 'url')
+  -- abbr will be trigger only type scpace
+  -- local a = function(trig, cmd)
+  --   map('ca', trig, function() return vim.fn.getcmdcompltype() == 'command' and cmd or trig end, { expr = true })
+  -- end
+  c('S', '%s/')
+  c(':', 'lua ')
 end
 
 nx('<leader>so', ':so<cr>')

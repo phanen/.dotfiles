@@ -89,7 +89,3 @@ au('User', {
     require('util').lazy_cache_docs()
   end,
 })
-
-au('TermResponse', {
-  callback = function(args) vim.print(args) end,
-})

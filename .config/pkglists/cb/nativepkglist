@@ -31,6 +31,7 @@ clang
 clash
 clash-verge
 cliphist
+clipmenu
 clipnotify
 cmake
 code
@@ -198,6 +199,7 @@ ntfs-3g
 nvm
 obs-studio
 ocaml
+onefetch
 openssh
 openvpn
 os-prober
@@ -307,6 +309,7 @@ ttf-firacode-nerd
 ttf-nerd-fonts-symbols
 ttf-roboto-mono
 typescript
+typos
 typst
 ubuntu-keyring
 ueberzug

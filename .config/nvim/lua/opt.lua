@@ -30,10 +30,7 @@ o.timeoutlen     = 100
 -- o.updatetime     = 1000 -- CursorHold
 o.ttimeoutlen    = 0
 
-o.list = true
-o.listchars = {
-  tab = '→ ',
-  trail = '·',
-}
+-- o.list = true
+-- o.listchars = { tab = '→ ', trail = '·' }
 
 g.markdown_recommended_style = 0
