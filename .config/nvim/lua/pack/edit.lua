@@ -33,7 +33,7 @@ return {
     'altermo/ultimate-autopair.nvim',
     event = { 'InsertEnter', 'CmdlineEnter' },
     opts = {
-      fastwarp = { map = '<c-s>', cmap = '<c-s>', faster = false },
+      fastwarp = { map = '<c-s>', cmap = '<c-s>', faster = true },
     },
   },
   {

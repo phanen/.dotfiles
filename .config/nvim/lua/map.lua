@@ -161,7 +161,7 @@ do -- win
 
   -- TODO: fail if insert
   n('q', util.smart_quit)
-  n('<leader>q', util.toggle_qf)
+  n('<leader>q', util.qf_toggle)
   n('<leader>k', '<cmd>NvimTreeFindFileToggle<cr>')
   n('<leader>wo', '<cmd>AerialToggle<cr>')
   n('<leader>wl', '<cmd>Lazy<cr>')

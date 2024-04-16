@@ -11,11 +11,7 @@ local function hl_match(t)
 end
 
 return {
-  {
-    'junegunn/fzf.vim',
-    cmd = { 'Files', 'RG', 'Rg' },
-    dependencies = { 'junegunn/fzf' },
-  },
+  { 'junegunn/fzf.vim', cmd = { 'Files', 'RG', 'Rg' }, dependencies = { 'junegunn/fzf' } },
   {
     'phanen/fzf-lua-overlay',
     init = function() require('fzf-lua-overlay.providers.recentfiles').init() end,

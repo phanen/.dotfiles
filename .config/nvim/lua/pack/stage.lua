@@ -1,1 +1,1 @@
-/home/phan/b/stage.nvim/init.lua
+/home/phan/b/stage/stage.lua

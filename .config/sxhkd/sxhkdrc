@@ -66,3 +66,8 @@ super + n
    else \
        bspc rule -a '*' -o sticky=on state=floating && kitty --class "tdrop_kitty"; \
    fi
+super + apostrophe
+  ~/.bin/scripts/rofi-browse-repo.sh
+
+#  git -C ~/b clone ; \
+#  IFS="/" read -r -a segments <<<"$path"
