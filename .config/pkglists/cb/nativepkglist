@@ -30,6 +30,7 @@ chafa
 clang
 clash
 clash-verge
+clipcat
 cliphist
 clipmenu
 clipnotify
@@ -284,6 +285,7 @@ sshfs
 starship
 stow
 strace
+surfraw
 sway
 swaybg
 sxhkd

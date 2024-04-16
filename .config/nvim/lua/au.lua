@@ -41,15 +41,6 @@ au('Filetype', {
   end,
 })
 
--- redirect buf open to other window
-au('Filetype', {
-  pattern = { 'qf', 'NvimTree', 'help', 'man', 'aerial', 'fugitive*' },
-  callback = function(args)
-    if vim.bo.bt ~= '' then map('n', 'q', '<cmd>q<cr>', { buffer = args.buf }) end
-    -- TODO: winfixbuf not always work...
-  end,
-})
-
 au('LspAttach', {
   callback = function(args)
     local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = args.buf }) end

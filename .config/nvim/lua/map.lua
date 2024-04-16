@@ -154,10 +154,13 @@ do -- win
   n('<c-k>', '<cmd>wincmd W<cr>')
 
   -- reload current session to check whatever, with a new wrap starter .bin/nvim
+  -- dir may preserve!!! dirstack?
   n('<c-s><c-d>', '<cmd>mksession! /tmp/reload.vim | 123cq<cr>')
+  -- n('<leader>ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
+  -- n('<leader>sl', '<cmd>so /tmp/Session.vim<cr>')
 
   -- TODO: fail if insert
-  n('q', util.q)
+  n('q', util.smart_quit)
   n('<leader>q', util.toggle_qf)
   n('<leader>k', '<cmd>NvimTreeFindFileToggle<cr>')
   n('<leader>wo', '<cmd>AerialToggle<cr>')
@@ -195,7 +198,7 @@ do -- misc
   n('<leader>.', '<cmd>Neogen<CR>')
 
   n('<leader>cf', '<cmd>cd %:h<cr>')
-  n('<leader>cd', util.cd_gitroot_or_parent)
+  n('<leader>cd', util.smart_cd)
   n('<leader>cn', util.yank_filename)
   n('<leader>cm', util.yank_message)
   n('<leader>cx', '<cmd>!chmod +x %<cr>')
@@ -208,24 +211,10 @@ do -- misc
   n('<leader>dj', '<cmd>lua vim.diagnostic.goto_next()<cr>')
   n('<leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>')
   n('<leader>ds', '<cmd>lua vim.diagnostic.setloclist()<cr>')
+  n('<leader>dg', '<cmd>lua vim.diagnostic.setqflist()<cr>')
 
   n('+rr', function() return ':Rename ' .. vim.api.nvim_buf_get_name(0) end, { expr = true })
   n('+rd', ':Delete')
 end
 
--- stylua: ignore
-do
-  local c = function(trig, cmd)
-    map('c', trig, function() return vim.fn.getcmdcompltype() == 'command' and cmd or trig end, { expr = true })
-  end
-  -- abbr will be trigger only type scpace
-  -- local a = function(trig, cmd)
-  --   map('ca', trig, function() return vim.fn.getcmdcompltype() == 'command' and cmd or trig end, { expr = true })
-  -- end
-  c('S', '%s/')
-  c(':', 'lua ')
-end
-
 nx('<leader>so', ':so<cr>')
-n('<leader>ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
-n('<leader>sl', '<cmd>so /tmp/Session.vim<cr>')

@@ -42,25 +42,46 @@ u.getregion = function(mode)
   return getregion(mode)
 end
 
-u.q = function()
-  local count = 0
-  local current_win = vim.api.nvim_get_current_win()
-  -- Close current win only if it's a floating window
-  if vim.api.nvim_win_get_config(current_win).relative ~= '' then
-    vim.api.nvim_win_close(current_win, true)
-    return
+-- -- redirect buf open to other window
+-- au('Filetype', {
+--   pattern = { 'qf', 'NvimTree', 'help', 'man', 'aerial', 'fugitive*' },
+--   callback = function(args)
+--     -- if vim.bo.bt ~= '' then map('n', 'q', '<cmd>q<cr>', { buffer = args.buf }) end
+--     -- TODO: winfixbuf not always work...
+--   end,
+-- })
+
+-- UNKOWN: check ft here as workaround for autocmd not always work
+local ft_tbl = setmetatable({
+  ['qf'] = true,
+  ['NvimTree'] = true,
+  ['help'] = true,
+  ['man'] = true,
+  ['aerial'] = true,
+}, {
+  __index = function(_, k) return k:match('fugitive*') and true or false end,
+})
+
+u.smart_quit = function()
+  -- close floating window
+  local curwind = vim.api.nvim_get_current_win()
+  if vim.api.nvim_win_get_config(curwind).relative ~= '' or ft_tbl[vim.bo.ft] then
+    return vim.api.nvim_win_close(curwind, true)
   end
+
+  -- close all focusable floating windows
+  local count = 0
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.api.nvim_win_is_valid(win) then
-      local config = vim.api.nvim_win_get_config(win)
-      -- Close floating windows that can be focused
-      if config.relative ~= '' and config.focusable then
-        vim.api.nvim_win_close(win, false) -- do not force
+      local cfg = vim.api.nvim_win_get_config(win)
+      if cfg.relative ~= '' and cfg.focusable then -- unfocusable(e.g. fidget)
+        vim.api.nvim_win_close(win, false)
         count = count + 1
       end
     end
   end
-  if count == 0 then -- Fallback
+
+  if count == 0 then -- fallback
     vim.api.nvim_feedkeys(vim.keycode('q'), 'n', false)
   end
 end
@@ -127,14 +148,10 @@ u.lazy_cache_docs = function()
 end
 
 u.toggle_qf = function()
-  local qf_win = vim
-    .iter(vim.fn.getwininfo())
-    :filter(function(win) return win.quickfix == 1 end)
-    :totable()
-  if #qf_win == 0 then
-    vim.cmd.copen()
-  else
+  if vim.iter(vim.fn.getwininfo()):any(function(win) return win.quickfix == 1 end) then
     vim.cmd.cclose()
+  else
+    vim.cmd.copen()
   end
 end
 
@@ -155,30 +172,66 @@ u.gitroot = function(bufname)
   return root
 end
 
-u.cd_gitroot_or_parent = function()
-  local bufname = vim.api.nvim_buf_get_name(0)
-  bufname = vim.fn.resolve(bufname) -- follow symbolic link
-  local root = u.gitroot(bufname)
-  if not root then vim.fs.dirname(bufname) end
-  vim.api.nvim_set_current_dir(root)
+-- iterate window to find good bufname
+-- the buffer you are working on...
+u.smart_bufname = function()
+  -- current win should be check first...
+  local wins = vim.api.nvim_list_wins() -- nvim_tabpage_list_wins(0)
+  local curwinid = vim.api.nvim_get_current_win()
+  -- btw, nvim-tree/neo-tree has a bufname...
+  if vim.fn.win_gettype(curwinid) == '' then
+    local bufnr = vim.api.nvim_win_get_buf(curwinid)
+    if vim.bo[bufnr].bt ~= 'nofile' then
+      local bufname = vim.api.nvim_buf_get_name(bufnr)
+      if bufname ~= '' then return bufname end
+    end
+  end
+  for _, winid in pairs(wins) do
+    if winid ~= curwinid then
+      local wt = vim.fn.win_gettype(winid)
+      if wt == '' then
+        local bufnr = vim.api.nvim_win_get_buf(winid)
+        if vim.bo[bufnr].bt ~= 'nofile' then
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+          if bufname ~= '' then return bufname end
+        end
+      end
+    end
+  end
 end
+
+-- gitroot or parent of `working buffer`
+u.smart_root = function()
+  local bufname = vim.fn.resolve(u.smart_bufname()) -- follow symbolic link
+  local root = u.gitroot(bufname)
+
+  -- not in gitroot
+  -- or in homedir(repo), but ignored
+  local homedir = vim.env.HOME
+  if
+    not root
+    or root == homedir
+      and 0 == vim.system { 'git', '-C', homedir, 'check-ignore', '-q', bufname }:wait().code
+  then
+    return vim.fs.dirname(bufname)
+  end
+  return root
+end
+
+u.smart_cd = function() vim.api.nvim_set_current_dir(u.smart_root()) end
 
 u.yank_filename = function()
   local path = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
-  path = (path:gsub(('^%s'):format(vim.env['HOME']), '~'))
-  vim.fn.setreg('+', path)
+  vim.fn.setreg('+', (path:gsub(('^%s'):format(vim.env.HOME), '~')))
 end
 
-u.yank_message = function()
-  local text = vim.fn.execute('1message')
-  vim.fn.setreg('+', vim.trim(text))
-end
+u.yank_message = function() vim.fn.setreg('+', vim.trim(vim.fn.execute('1message'))) end
 
 u.force_close_tabpage = function()
   if #vim.api.nvim_list_tabpages() == 1 then
     vim.cmd('quit!')
   else
-    vim.cmd('tabclose')
+    vim.cmd('tabclose!')
   end
 end
 
