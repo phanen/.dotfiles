@@ -8,7 +8,7 @@ shopt -s autocd checkwinsize
 
 run-help() {
   cmd=$(echo $READLINE_LINE | xargs)
-  help "$cmd" 2>/dev/null || man "$cmd";
+  help "$cmd" 2>/dev/null || man "$cmd"
 }
 
 bind '"\eq": "\C-e >/dev/null 2>&1 &"'

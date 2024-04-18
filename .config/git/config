@@ -12,7 +12,7 @@
 	htt = !git remote set-url origin $(git remote get-url origin | sed -E 's,^git@([^:]*):/*(.*)$,https://\\1/\\2,')
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
-	who = shortlog -sn
+	who = shortlog -sne
 	amend = commit --amend --all --no-edit
 
 [user]

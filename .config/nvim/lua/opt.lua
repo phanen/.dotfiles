@@ -3,7 +3,7 @@ local o, g = vim.opt, vim.g
 g.mapleader = ' '
 g.maplocalleader = '+'
 
-o.laststatus = 1
+-- o.laststatus = 1
 -- stylua: ignore start
 o.clipboard      = 'unnamedplus'
 o.jumpoptions    = 'stack'
@@ -24,13 +24,5 @@ o.expandtab      = true -- use space
 o.tabstop        = 2 -- tab width
 o.softtabstop    = 2 -- inserted tab
 o.shiftwidth     = 2 -- indent
-
--- o.timeoutlen     = 100
--- o.ttimeout       = false
--- o.updatetime     = 1000 -- CursorHold
-o.ttimeoutlen    = 0
-
--- o.list = true
--- o.listchars = { tab = '→ ', trail = '·' }
 
 g.markdown_recommended_style = 0

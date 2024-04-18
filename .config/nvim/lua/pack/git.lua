@@ -33,9 +33,11 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
-    keys = { { '+gs', '<cmd>Gitsigns<cr>' } },
+    keys = { { '<leader>gs', '<cmd>Gitsigns<cr>' } },
     dependencies = 'stevearc/dressing.nvim',
     opts = {
+      -- attach_to_untracked = true,
+      preview_config = { border = vim.g.border },
       signs = {
         add = { text = '+' },
         change = { text = '~' },

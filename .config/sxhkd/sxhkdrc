@@ -71,3 +71,6 @@ super + apostrophe
 
 #  git -C ~/b clone ; \
 #  IFS="/" read -r -a segments <<<"$path"
+
+super + ctrl + c
+  xsel -ob >> ~/list.txt

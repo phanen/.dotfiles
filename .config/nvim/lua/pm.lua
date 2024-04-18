@@ -24,6 +24,7 @@ require('lazy').setup {
     { import = 'pack.lsp' },
     { import = 'pack.misc' },
     { import = 'pack.nav' },
+    { import = 'pack.term' },
     { import = 'pack.ts' },
     extra_sepc,
   },
@@ -32,6 +33,7 @@ require('lazy').setup {
   change_detection = { enabled = false, notify = false },
   git = { filter = false }, -- blame it
   dev = { path = '~/b', patterns = { 'phanen' }, fallback = true },
+  ui = { border = vim.g.border, backdrop = 100 },
   performance = {
     rtp = {
       reset = false, -- override rtp or not

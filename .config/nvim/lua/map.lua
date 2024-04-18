@@ -6,9 +6,6 @@ local nx = function(...) map({ 'n', 'x' }, ...) end
 local ox = function(...) map({ 'o', 'x' }, ...) end
 local ic = function(...) map('!', ...) end
 
--- TODO: inject a table local to file?
-
--- TODO: lsp rename passthrough?
 ---@module "util"
 local util = setmetatable({}, {
   __index = function(_, k) return ([[<cmd>lua r.util.%s()<cr>]]):format(k) end,
@@ -24,6 +21,7 @@ do -- first
 end
 
 do -- motion
+  map('', ' ', '<nop>')
   nx('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
   nx('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
 
@@ -79,20 +77,23 @@ do -- textobj
   tobj('g', 'entireBuffer')
   tobj('i', 'indentation')
   tobj('l', 'lineCharacterwise')
-  tobj('n', 'anyBracket')
+  -- tobj('n', 'anyBracket')
   tobj('q', 'anyQuote')
   tobj('u', 'url')
+  ox('in', 'iB')
+  ox('an', 'aB')
 end
 
 do
   nx('gw', '<cmd>lua r.conform.format { lsp_fallback = true }<cr>')
   local s = function(lhs, pattern)
-    n(lhs, (':%%%s<cr>``'):format(pattern))
+    n(lhs, ('<cmd>%%%s<cr>``'):format(pattern))
     x(lhs, (':%s<cr>``'):format(pattern))
   end
   -- formatter
-  s('<leader>rj', [[Pangu]]) -- TODO: not change cursor pos
   s('<leader>rp', [[FullwidthPunctConvert]])
+  -- x('<leader>rp', ':FullwidthPunctConvert<cr>') -- TODO: not change cursor pos
+  n('<leader>rj', ':Pangu<cr>') -- TODO: not change cursor pos
   x('<leader>ro', ':!sort<cr>')
   s('<leader>rs', [[s/\s*$//g<cr>``]])
   s('<leader>rl', [[g/^$/d]])
@@ -114,16 +115,17 @@ do -- comment
 end
 
 do -- buf
-  n('<c-f>', '<cmd>bn<cr>')
   n('<c-e>', '<cmd>bp<cr>')
+  n('<c-f>', '<cmd>bn<cr>')
+  n('<c-h>', '<c-^>')
   n('<c-w>', '<cmd>Bdelete!<cr>')
-  n('<leader>bo', '<cmd>BufferLineCloseOthers<cr>')
-  n('<leader>br', '<cmd>BufferLineCloseRight<cr>')
-  n('<leader>bl', '<cmd>BufferLineCloseLeft<cr>')
-  n('<leader>bi', '<cmd>buffers<cr>')
-  n('<leader>bI', '<cmd>buffers!<cr>')
   n('H', '<cmd>BufferLineMovePrev<cr>')
   n('L', '<cmd>BufferLineMoveNext<cr>')
+  n('<leader>bi', '<cmd>buffers<cr>')
+  n('<leader>bI', '<cmd>buffers!<cr>')
+  n('<leader>bl', '<cmd>BufferLineCloseLeft<cr>')
+  n('<leader>bo', '<cmd>BufferLineCloseOthers<cr>')
+  n('<leader>br', '<cmd>BufferLineCloseRight<cr>')
 end
 
 do -- win
@@ -146,6 +148,7 @@ do -- win
   n('q', util.smart_quit)
 
   n('<leader>wo', '<cmd>AerialToggle!<cr>')
+  -- n('<leader>wo', '<cmd>Outline<cr>')
   n('<leader>wi', '<cmd>LspInfo<cr>')
   n('<leader>wl', '<cmd>Lazy<cr>')
   n('<leader>wy', '<cmd>Mason<cr>')
@@ -161,10 +164,10 @@ end
 do -- misc
   n('+E', '<cmd>lua vim.treesitter.query.edit()<cr>')
   n('+I', '<cmd>lua vim.treesitter.inspect_tree()<cr>')
-  n('+L', '<cmd>lua u._lazy_patch()<cr>')
+  n('+L', '<cmd>lua u._lazy_patch()<cr><cmd>lua u.lazy_cache_docs()<cr>')
   n('<leader>I', '<cmd>lua vim.show_pos()<cr>')
-  n('<leader>M', '<cmd>messages clear<cr>')
-  n('<leader>m', '<cmd>messages<cr>')
+  n('<leader>mk', '<cmd>messages clear<cr>')
+  n('<leader>ml', '<cmd>messages<cr>')
   nx('<leader>E', ':EditCodeBlock<cr>')
   nx('<leader>L', ':Linediff<cr>')
 
@@ -190,5 +193,4 @@ do -- misc
 
   n('+rd', ':Delete')
   n('+rr', function() return ':Rename ' .. vim.api.nvim_buf_get_name(0) end, { expr = true })
-  n('gi', '"_ci')
 end

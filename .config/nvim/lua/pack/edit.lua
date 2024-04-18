@@ -76,24 +76,6 @@ return {
     },
   },
   {
-    'stevearc/conform.nvim',
-    opts = {
-      formatters_by_ft = {
-        fish = { 'fish_indent' },
-        json = { 'prettier' },
-        lua = { 'stylua' },
-        python = { 'isort', 'black' },
-        sh = { 'shfmt' },
-      },
-      formatters = {
-        shfmt = {
-          command = 'shfmt',
-          args = { '-i', '2', '-filename', '$FILENAME' },
-        },
-      },
-    },
-  },
-  {
     'monaqa/dial.nvim',
     keys = {
       { '<c-a>', '<plug>(dial-increment)', mode = { 'n', 'x' } },
@@ -121,10 +103,15 @@ return {
   {
     'mbbill/undotree',
     cmd = 'UndotreeToggle',
-    keys = { { '<leader>u', '<Cmd>UndotreeToggle<CR>', desc = 'undotree: toggle' } },
+    keys = { { '+u', '<Cmd>UndotreeToggle<CR>' } },
     config = function()
-      vim.g.undotree_TreeNodeShape = '◦'
+      vim.g.undotree_DiffAutoOpen = 0
+      vim.g.undotree_HelpLine = 0
       vim.g.undotree_SetFocusWhenToggle = 1
+      -- vim.g.undotree_ShortIndicators = 1
+      vim.g.undotree_SplitWidth = math.min(math.floor(vim.go.columns), 25)
+      vim.g.undotree_TreeNodeShape = '◦'
+      vim.g.undotree_WindowLayout = 2
     end,
   },
   {

@@ -3,6 +3,8 @@ vim.g.state_path = vim.fn.stdpath('state') ---@as string
 vim.g.cache_path = vim.fn.stdpath('cache') ---@as string
 vim.g.data_path = vim.fn.stdpath('data') ---@as string
 
+vim.g.border = 'rounded'
+
 local group = vim.api.nvim_create_augroup('Conf', { clear = true })
 
 _G.map = vim.keymap.set

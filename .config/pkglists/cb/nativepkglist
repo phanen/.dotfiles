@@ -40,11 +40,13 @@ cpio
 cronie
 darkman
 debootstrap
+deno
 devtools-archlinuxcn
 devtools-cn-git
 devtools-riscv64
 dhclient
 dhcpcd
+difftastic
 dkms
 dmenu
 dnsmasq-china-list-git
@@ -209,6 +211,7 @@ pacman-contrib
 pacutils
 pandoc-bin
 paru
+pass
 pdfarranger
 pdfgrep
 peek
@@ -322,6 +325,7 @@ valgrind
 verilator
 vim
 viu
+vivid
 vsce
 vulkan-intel
 w3m

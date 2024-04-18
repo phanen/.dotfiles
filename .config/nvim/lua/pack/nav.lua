@@ -1,5 +1,115 @@
 return {
   {
+    -- https://github.com/akinsho/bufferline.nvim/issues/196
+    'akinsho/bufferline.nvim',
+    cond = true,
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    cmd = { 'BufferLineMovePrev', 'BufferLineMoveNext' },
+    opts = {
+      options = {
+        tab_size = 10,
+        enforce_regular_tabs = false,
+        show_buffer_close_icons = false,
+        hover = { enabled = false },
+        offsets = {
+          {
+            filetype = 'NvimTree',
+            text = function() return (vim.fn.getcwd():gsub(('^%s'):format(vim.env.HOME), '~')) end,
+            text_align = 'left',
+          },
+          { filetype = 'undotree', text = 'UNDOTREE', text_align = 'left' },
+        },
+      },
+    },
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    init = function() vim.opt.laststatus = 0 end,
+    opts = {
+      options = {
+        icons_enabled = true,
+        theme = 'auto',
+        always_divide_middle = true,
+        component_separators = { left = '', right = '' },
+        -- globalstatus = true,
+        section_separators = { left = '', right = '' },
+      },
+      sections = {
+        lualine_a = {
+          {
+            function() return vim.bo.modified and ' ' or '󰄳 ' end,
+            separator = { left = '' },
+            padding = 0,
+          },
+          { 'location', padding = 0 },
+        },
+        lualine_b = {
+          {
+            'progress',
+            padding = { left = 1, right = 0 },
+          },
+        },
+        lualine_c = {
+          { 'filename', file_status = true, path = 3 },
+          -- function() return vim.bo.readonly and ' ' or '' end,
+          {
+            'diff',
+            padding = { left = 1, right = 0.5 },
+            source = function() return vim.b.gitsigns_status_dict end,
+          },
+        },
+        lualine_x = {
+          function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            local clients = vim
+              .iter(vim.lsp.get_clients())
+              :filter(function(client) return client.attached_buffers[bufnr] end)
+              -- :filter(function(client) return client.name ~= 'copilot' end)
+              :map(
+                function(client) return ' ' .. client.name end
+              )
+              :totable()
+            local info = table.concat(clients, ' ')
+            if info == '' then
+              return 'No LSP server'
+            else
+              return info
+            end
+          end,
+        },
+        lualine_y = {
+          { 'encoding', padding = 0 },
+          'fileformat',
+          'diagnostics',
+        },
+        lualine_z = {
+          {
+            'branch',
+            icon = '',
+            padding = { left = 0, right = 0 },
+            separator = { left = '', right = '' },
+          },
+        },
+      },
+      extensions = {
+        'aerial',
+        'fugitive',
+        'lazy',
+        'man',
+        'mason',
+        -- 'neo-tree',
+        -- 'nvim-dap-ui',
+        'nvim-tree',
+        'quickfix',
+        'toggleterm',
+        'trouble',
+      },
+    },
+    dependencies = { { 'parsifa1/nvim-web-devicons' } },
+  },
+  {
     'kwkarlwang/bufjump.nvim',
     keys = {
       { '<leader><c-o>', "<cmd>lua require('bufjump').backward()<cr>" },

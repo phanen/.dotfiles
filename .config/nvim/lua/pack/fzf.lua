@@ -3,23 +3,15 @@ local fl = setmetatable({}, {
   __index = function(_, k) return ([[<cmd>lua _fl.%s()<cr>]]):format(k) end,
 })
 
-local function hl_match(t)
-  for _, h in ipairs(t) do
-    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = h, link = false })
-    if ok and type(hl) == 'table' and (hl.fg or hl.bg) then return h end
-  end
-end
-
 return {
-  { 'junegunn/fzf.vim', cmd = { 'Files', 'RG', 'Rg' }, dependencies = { 'junegunn/fzf' } },
   {
     'phanen/fzf-lua-overlay',
+    cond = not vim.g.vscode,
     init = function() require('fzf-lua-overlay.providers.recentfiles').init() end,
     -- stylua: ignore
     keys = {
       { '<c-b>',         fl.buffers,               mode = { 'n', 'x' } },
       { '+<c-f>',        fl.lazy,                  mode = { 'n', 'x' } },
-      { '<c-h>',         fl.help_tags,             mode = { 'n', 'x' } },
       { '<c-l>',         fl.files,                 mode = { 'n', 'x' } },
       { '<c-n>',         fl.live_grep_native,      mode = { 'n', 'x' } },
       { '<c-x><c-b>',    fl.complete_bline,        mode = 'i' },
@@ -38,7 +30,6 @@ return {
       { '<leader>e',     fl.find_notes,            mode = { 'n', 'x' } },
       { '<leader>fa',    fl.builtin,               mode = { 'n', 'x' } },
       { '<leader>fc',    fl.awesome_colorschemes,  mode = { 'n', 'x' } },
-      { '<leader>fc',    fl.awesome_colorschemes,  mode = { 'n', 'x' } },
       { "<leader>fdb",   fl.dap_breakpoints,       mode = { 'n', 'x' } },
       { "<leader>fdc",   fl.dap_configurations,    mode = { 'n', 'x' } },
       { "<leader>fde",   fl.dap_commands,          mode = { 'n', 'x' } },
@@ -47,16 +38,17 @@ return {
       { '<leader>f;',    fl.command_history,       mode = { 'n', 'x' } },
       { '<leader>fh',    fl.help_tags,             mode = { 'n', 'x' } },
       { '<leader>fi',    fl.git_status,            mode = { 'n', 'x' } },
-      { '<leader>fj',    fl.grep_dots,             mode = { 'n', 'x' } },
       { '<leader>fk',    fl.keymaps,               mode = { 'n', 'x' } },
       { '<leader>/',     fl.blines,                mode = { 'n', 'x' } },
       { '<leader> ',     fl.resume,                mode = 'n' },
       { '<leader>;',     fl.spell_suggest,         mode = { 'n', 'x' } },
+      { '<leader>fm',    fl.marks,                 mode = { 'n' } },
       { '<leader>fo',    fl.recentfiles,           mode = { 'n', 'x' } },
       { '<leader>fs',    fl.lsp_document_symbols,  mode = { 'n', 'x' } },
       { '<leader>fw',    fl.lsp_workspace_symbols, mode = { 'n', 'x' } },
       { '<leader>gd',    fl.lsp_typedefs,          mode = { 'n', 'x' } },
       { '<leader>l',     fl.find_dots,             mode = { 'n', 'x' } },
+      { '<leader>t',     fl.todos,                 mode = { 'n', 'x' } },
       { '+l',            fl.grep_dots,             mode = { 'n', 'x' } },
     },
     opts = {},

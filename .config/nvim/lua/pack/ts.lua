@@ -2,8 +2,8 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = function() require('nvim-treesitter.install').update { with_sync = true } end,
-    -- event = { 'BufReadPre', 'BufNewFile' },
-    event = { 'Filetype' },
+    event = { 'BufReadPre', 'BufNewFile' },
+    -- event = { 'Filetype' },
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     config = vim.schedule_wrap(function()
       require('nvim-treesitter.configs').setup {
@@ -11,8 +11,10 @@ return {
           'bash',
           'c',
           'cpp',
+          'css',
           'fish',
           'go',
+          'html',
           'javascript',
           'lua',
           'markdown',

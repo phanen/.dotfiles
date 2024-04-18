@@ -19,29 +19,11 @@ return {
       local cmp = require 'cmp'
       local ls = require 'luasnip'
       local m = cmp.mapping
-      local formatting = {
-        fields = { 'kind', 'abbr', 'menu' },
-        format = require('lspkind').cmp_format {
-          mode = 'symbol',
-          maxwidth = math.min(50, math.floor(vim.o.columns * 0.5)),
-          ellipsis_char = '…',
-          before = function(_, vim_item)
-            local MIN_MENU_WIDTH = 25
-            local label, length = vim_item.abbr, vim.api.nvim_strwidth(vim_item.abbr)
-            if length < MIN_MENU_WIDTH then
-              vim_item.abbr = label .. string.rep(' ', MIN_MENU_WIDTH - length)
-            end
-            return vim_item
-          end,
-          menu = {
-            buffer = '[buf]',
-            nvim_lsp = '[lsp]',
-            path = '[path]',
-            luasnip = '[snip]',
-          },
-        },
-      }
       cmp.setup {
+        window = {
+          -- completion = { border = vim.g.border },
+          -- documentation = { border = vim.g.border },
+        },
         sorting = {
           comparators = {
             cmp.config.compare.offset,
@@ -55,6 +37,7 @@ return {
         },
         -- stylua: ignore
         mapping = {
+          -- TODO: doc scroll
           ['<c-\\>'] = m(function() if cmp.visible() then cmp.abort() else cmp.complete() end end, { 'i', 'c' }),
           ['<tab>'] = m {
             i = function(fb)
@@ -88,7 +71,28 @@ return {
           { name = 'path' },
           { name = 'buffer', options = { get_bufnrs = vim.api.nvim_list_bufs } },
         },
-        formatting = formatting,
+        formatting = {
+          fields = { 'kind', 'abbr', 'menu' },
+          format = require('lspkind').cmp_format {
+            mode = 'symbol',
+            maxwidth = math.min(50, math.floor(vim.o.columns * 0.5)),
+            ellipsis_char = '…',
+            before = function(_, vim_item)
+              local MIN_MENU_WIDTH = 25
+              local label, length = vim_item.abbr, vim.api.nvim_strwidth(vim_item.abbr)
+              if length < MIN_MENU_WIDTH then
+                vim_item.abbr = label .. string.rep(' ', MIN_MENU_WIDTH - length)
+              end
+              return vim_item
+            end,
+            menu = {
+              buffer = '[buf]',
+              nvim_lsp = '[lsp]',
+              path = '[path]',
+              luasnip = '[snip]',
+            },
+          },
+        },
         performance = {
           -- NOTE: no total limit, use it as workaround
           max_view_entries = 12,

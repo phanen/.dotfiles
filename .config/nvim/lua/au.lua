@@ -56,6 +56,9 @@ au('LspAttach', {
 au('VimResized', {
   callback = function()
     if vim.o.columns < 100 then
+      -- if openned
+      -- vim.cmd.NvimTreeClose()
+      -- vim.cmd.AerialClose()
       vim.cmd.wincmd('|')
     else
       vim.cmd.wincmd('=')

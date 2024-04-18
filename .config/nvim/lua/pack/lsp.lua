@@ -11,8 +11,17 @@ return {
     'williamboman/mason-lspconfig.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      { 'williamboman/mason.nvim', build = ':MasonUpdate', cmd = 'Mason', opts = {} },
-      { 'neovim/nvim-lspconfig', cmd = { 'LspInfo', 'LspInstall', 'LspUninstall' } },
+      {
+        'williamboman/mason.nvim',
+        build = ':MasonUpdate',
+        cmd = 'Mason',
+        opts = { ui = { height = 0.85, border = vim.g.border } },
+      },
+      {
+        'neovim/nvim-lspconfig',
+        cmd = { 'LspInfo', 'LspInstall', 'LspUninstall' },
+        config = function() require('lspconfig.ui.windows').default_options.border = vim.g.border end,
+      },
     },
     config = function()
       local lspconfig = require 'lspconfig'
@@ -27,6 +36,13 @@ return {
           function(server) lspconfig[server].setup { capabilities = capabilities } end,
           lua_ls = function()
             lspconfig.lua_ls.setup {
+              -- on_attach = function(client)
+              -- disable treesitter highlight if has semantic highlight
+              -- vim.print(client)
+              -- if client.server_capabilities.semanticTokensProvider then
+              --   vim.cmd.TSDisable('highlight')
+              -- end
+              -- end,
               capabilities = capabilities,
               settings = {
                 Lua = {
@@ -77,8 +93,45 @@ return {
             }
           end,
           rust_analyzer = function() end,
+          volar = function()
+            lspconfig.volar.setup {
+              on_attach = function(client, bufnr)
+                client.server_capabilities.documentFormattingProvider = false
+              end,
+              capabilities = capabilities,
+            }
+          end,
         },
       }
     end,
+  },
+  {
+    'stevearc/conform.nvim',
+    opts = {
+      formatters_by_ft = {
+        fish = { 'fish_indent' },
+        lua = { 'stylua' },
+        python = { 'isort', 'black' },
+        sh = { 'shfmt' },
+
+        css = { 'prettier' },
+        html = { 'prettier' },
+        javascript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        json = { 'prettier' },
+        less = { 'prettier' },
+        scss = { 'prettier' },
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
+        vue = { 'prettier' },
+        yaml = { 'prettier' },
+      },
+      formatters = {
+        shfmt = {
+          command = 'shfmt',
+          args = { '-i', '2', '-filename', '$FILENAME' },
+        },
+      },
+    },
   },
 }

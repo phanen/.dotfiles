@@ -51,4 +51,3 @@ alias rve="sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U"
 
 alias nvp="git diff | tee ~/.config/nvim/patches/\$(basename \$(pwd)).patch"
 # vim:ft=sh
-

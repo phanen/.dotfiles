@@ -1,8 +1,8 @@
 diff --git a/autoload/translator/util.vim b/autoload/translator/util.vim
-index f55bdf6..5b67009 100644
+index f55bdf6..ee5e9b9 100644
 --- a/autoload/translator/util.vim
 +++ b/autoload/translator/util.vim
-@@ -100,6 +100,11 @@ function! translator#util#text_proc(text) abort
+@@ -100,6 +100,12 @@ function! translator#util#text_proc(text) abort
    let text = substitute(text, "\n\r", ' ', 'g')
    let text = substitute(text, '\v^\s+', '', '')
    let text = substitute(text, '\v\s+$', '', '')
@@ -11,6 +11,7 @@ index f55bdf6..5b67009 100644
 +  let text = substitute(text, '\\\\', '', 'g')
 +  let text = substitute(text, '---', '', 'g')
 +  let text = substitute(text, '--', '', 'g')
++  let text = substitute(text, '#', '', 'g')
    let text = escape(text, '"')
    let text = printf('"%s"', text)
    return text

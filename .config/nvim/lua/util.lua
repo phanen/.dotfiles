@@ -184,20 +184,15 @@ au('Filetype', {
 })
 
 u.gitroot = function(bufname)
-  bufname = bufname and bufname or vim.api.nvim_buf_get_name(0)
   local path = vim.fs.dirname(bufname)
-  local root = vim.system { 'git', '-C', path, 'rev-parse', '--show-toplevel' }:wait().stdout
-  if root then
-    root = vim.trim(root)
+  local obj = vim.system { 'git', '-C', path, 'rev-parse', '--show-toplevel' }:wait()
+  if obj.code == 0 then
+    return vim.trim(obj.stdout)
   else
     for dir in vim.fs.parents(bufname) do
-      if vim.fn.isdirectory(dir .. '/.git') == 1 then
-        root = dir
-        break
-      end
+      if vim.fn.isdirectory(dir .. '/.git') == 1 then return dir end
     end
   end
-  return root
 end
 
 -- iterate window to find good bufname
@@ -254,6 +249,30 @@ u.yank_filename = function()
 end
 
 u.yank_message = function() vim.fn.setreg('+', vim.trim(vim.fn.execute('1message'))) end
+
+u.pipe_message = function()
+  -- open a float window
+  -- vim.api
+  local width = 50
+  local height = 10
+  local bufnr = vim.api.nvim_create_buf(false, false)
+  local ui = vim.api.nvim_list_uis()[1]
+  local opts = {
+    relative = 'editor',
+    width = width,
+    height = height,
+    col = (ui.width / 2) - (width / 2),
+    row = (ui.height / 2) - (height / 2),
+    border = vim.g.border,
+    anchor = 'NW',
+    style = 'minimal',
+  }
+  local win = vim.api.nvim_open_win(bufnr, 1, opts)
+  -- TODO: finish it
+  -- https://www.statox.fr/posts/2021/03/breaking_habits_floating_window/#:~:text=Spawning%20a%20floating%20window%20🔗&text=We%20begin%20by%20creating%20the,get%20the%20currently%20attached%20UIs%2e
+  -- it's totaly the same usecase
+  vim.api.nvim_win_set_option(win, 'winhl', 'Normal:ErrorFloat')
+end
 
 u.force_close_tabpage = function()
   if #vim.api.nvim_list_tabpages() == 1 then
