@@ -1,8 +1,9 @@
+-- https://github.com/ibhagwan/smartyank.nvim
 au('TextYankPost', {
-  callback = function() vim.highlight.on_yank() end,
+  callback = function(ev) vim.highlight.on_yank() end,
 })
 
--- credit to https://github.com/jeffkreeftmeijer/vim-numbertoggle
+-- https://github.com/jeffkreeftmeijer/vim-numbertoggle
 au({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
   command = [[if &nu && mode() != 'i' | set rnu | endif]],
 })

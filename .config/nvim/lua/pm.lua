@@ -18,7 +18,6 @@ vim.opt.rtp:append(docs_path)
 require('lazy').setup {
   spec = {
     { import = 'pack.cmp' },
-    { import = 'pack.doc' },
     { import = 'pack.edit' },
     { import = 'pack.fzf' },
     { import = 'pack.git' },

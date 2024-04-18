@@ -6,7 +6,7 @@ g.maplocalleader = '+'
 o.laststatus = 1
 -- stylua: ignore start
 o.clipboard      = 'unnamedplus'
-o.jumpoptions    = 'view'
+o.jumpoptions    = 'stack'
 o.number         = true
 o.relativenumber = true
 o.scrolloff      = 16
@@ -25,7 +25,7 @@ o.tabstop        = 2 -- tab width
 o.softtabstop    = 2 -- inserted tab
 o.shiftwidth     = 2 -- indent
 
-o.timeoutlen     = 100
+-- o.timeoutlen     = 100
 -- o.ttimeout       = false
 -- o.updatetime     = 1000 -- CursorHold
 o.ttimeoutlen    = 0
