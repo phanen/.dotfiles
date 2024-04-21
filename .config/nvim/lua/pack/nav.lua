@@ -110,6 +110,28 @@ return {
     dependencies = { { 'parsifa1/nvim-web-devicons' } },
   },
   {
+    'stevearc/aerial.nvim',
+    cond = true,
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+      -- 'hrsh7th/nvim-cmp', Hack to ensure that lspkind-nvim is loaded
+    },
+    cmd = { 'AerialToggle' },
+    opts = {
+      -- backends = { 'lsp', 'treesitter', 'markdown' },
+      backends = { 'treesitter', 'lsp', 'markdown' },
+      keymaps = { ['<C-k>'] = false, ['<C-j>'] = false, ['l'] = 'actions.tree_toggle' },
+      attach_mode = 'global',
+      icons = { -- fix indent
+        Collapsed = '',
+        markdown = { Interface = '󰪥' },
+      },
+      nav = { preview = true },
+      on_attach = function(_) package.loaded.aerial.tree_close_all() end,
+    },
+  },
+  {
     'kwkarlwang/bufjump.nvim',
     keys = {
       { '<leader><c-o>', "<cmd>lua require('bufjump').backward()<cr>" },

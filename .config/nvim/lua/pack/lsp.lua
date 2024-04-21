@@ -75,6 +75,21 @@ return {
               ),
             }
           end,
+          -- pyright = function()
+          --   lspconfig.pyright.setup {
+          --     cmd = { 'pyright-langserver', '--stdio' },
+          --     capabilities = capabilities,
+          --     settings = {
+          --       python = {
+          --         analysis = {
+          --           autoSearchPaths = true,
+          --           useLibraryCodeForTypes = true,
+          --           diagnosticMode = 'openFilesOnly',
+          --         },
+          --       },
+          --     },
+          --   }
+          -- end,
           gopls = function()
             lspconfig.gopls.setup {
               settings = {
@@ -95,7 +110,7 @@ return {
           rust_analyzer = function() end,
           volar = function()
             lspconfig.volar.setup {
-              on_attach = function(client, bufnr)
+              on_attach = function(client, _)
                 client.server_capabilities.documentFormattingProvider = false
               end,
               capabilities = capabilities,
@@ -109,6 +124,7 @@ return {
     'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {
+        bib = { 'bibtex-tidy' },
         fish = { 'fish_indent' },
         lua = { 'stylua' },
         python = { 'isort', 'black' },
