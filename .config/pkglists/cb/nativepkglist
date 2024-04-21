@@ -1,5 +1,4 @@
 acpi
-alacritty
 alsa-utils
 android-file-transfer
 apr
@@ -8,7 +7,6 @@ archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
 awesome-terminal-fonts
-aws-cli-v2
 baidupcs-go
 base
 base-devel
@@ -64,6 +62,7 @@ efibootmgr
 egl-wayland
 eglexternalplatform
 entr
+evince
 evtest
 expac
 extra-cmake-modules-git
@@ -83,6 +82,7 @@ firefox
 fish
 flameshot
 flashrom
+font-manager
 fzf
 gdb
 git
@@ -331,6 +331,7 @@ traceroute
 translate-shell
 tree
 tree-sitter-cli
+ttf-agave-nerd
 ttf-cascadia-code
 ttf-dejavu
 ttf-dejavu-nerd
@@ -353,7 +354,6 @@ vivid
 vsce
 vulkan-intel
 w3m
-wezterm
 wget
 wl-clipboard
 wmctrl

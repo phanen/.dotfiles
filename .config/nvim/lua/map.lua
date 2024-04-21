@@ -159,6 +159,7 @@ do
   n('<leader>or', '<cmd>retab<cr>')
   n('<leader>os', '<cmd>set spell!<cr>')
   n('<leader>ow', '<cmd>set wrap!<cr>')
+  n('<leader>ol', '<cmd>set columns=80<cr>')
 end
 
 do -- misc

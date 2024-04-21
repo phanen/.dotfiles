@@ -36,6 +36,8 @@ alias par 'pactree -r -lu'
 alias pst 'pactree -slu'
 alias psr 'pactree -r -slu'
 
+alias dm 'v (fd .  ~/dot -d 1 | fzf)'
+
 alias sj 'gh copilot explain'
 abbr ge gh copilot suggest -t shell
 

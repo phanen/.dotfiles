@@ -75,21 +75,21 @@ return {
               ),
             }
           end,
-          -- pyright = function()
-          --   lspconfig.pyright.setup {
-          --     cmd = { 'pyright-langserver', '--stdio' },
-          --     capabilities = capabilities,
-          --     settings = {
-          --       python = {
-          --         analysis = {
-          --           autoSearchPaths = true,
-          --           useLibraryCodeForTypes = true,
-          --           diagnosticMode = 'openFilesOnly',
-          --         },
-          --       },
-          --     },
-          --   }
-          -- end,
+          pyright = function()
+            lspconfig.pyright.setup {
+              cmd = { 'pyright-langserver', '--stdio' },
+              capabilities = capabilities,
+              settings = {
+                python = {
+                  analysis = {
+                    autoSearchPaths = true,
+                    useLibraryCodeForTypes = true,
+                    diagnosticMode = 'openFilesOnly',
+                  },
+                },
+              },
+            }
+          end,
           gopls = function()
             lspconfig.gopls.setup {
               settings = {
