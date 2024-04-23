@@ -1,4 +1,5 @@
 acpi
+alacritty
 alsa-utils
 android-file-transfer
 apr
@@ -6,7 +7,7 @@ apr-util
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
-awesome-terminal-fonts
+atuin
 baidupcs-go
 base
 base-devel
@@ -62,7 +63,6 @@ efibootmgr
 egl-wayland
 eglexternalplatform
 entr
-evince
 evtest
 expac
 extra-cmake-modules-git
@@ -88,15 +88,15 @@ gdb
 git
 git-delta
 git-lfs
+git-repair
 github-cli
 gnu-efi
-gnu-free-fonts
 gnu-netcat
 go
+goldendict-git
 gopass
 gperf
 gpg-tui
-graphviz
 grub
 gtk-vnc
 gtkwave
@@ -119,7 +119,6 @@ inetutils
 inotify-tools
 intel-media-driver
 intel-ucode
-intellij-idea-community-edition
 iptables-nft
 ipython
 iverilog
@@ -186,9 +185,8 @@ namcap
 nano
 nasm
 neovide
-neovim
-nerd-fonts-cascadia-code
-nerd-fonts-dejavu-sans-mono
+neovim-git
+neovim-qt
 net-tools
 nethack
 networkmanager
@@ -290,7 +288,6 @@ starship
 stow
 strace
 surfraw
-sway
 swaybg
 sxhkd
 sxiv
@@ -331,13 +328,8 @@ traceroute
 translate-shell
 tree
 tree-sitter-cli
-ttf-agave-nerd
 ttf-cascadia-code
-ttf-dejavu
-ttf-dejavu-nerd
-ttf-firacode-nerd
 ttf-nerd-fonts-symbols
-ttf-roboto-mono
 typescript
 typos
 typst
@@ -369,11 +361,7 @@ xfsdump
 xmake
 xorg-bdftopcf
 xorg-docs
-xorg-font-util
-xorg-fonts-100dpi
-xorg-fonts-75dpi
 xorg-iceauth
-xorg-mkfontscale
 xorg-server
 xorg-server-devel
 xorg-server-xephyr
@@ -409,10 +397,8 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xsel
-xterm
 yarn
 yay
-yazi
 yq
 zip
 zotero-bin

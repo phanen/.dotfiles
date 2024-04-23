@@ -52,10 +52,6 @@ TERM = "alacritty"
 builtin_box_drawing = false
 size = 16
 
-[font.normal]
-family = "CaskaydiaCove Nerd Font"
-style = "Regular"
-
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"

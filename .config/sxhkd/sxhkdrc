@@ -42,11 +42,11 @@ super + shift + f
 
 # TODO: auto hiden https://github.com/noctuid/tdrop/issues/18
  super + n
-   tdrop -n tdrop_kitty --post-create-hook "autohide-tdrop &" -y 0 -x 4 -h 97% -w 99% -mta -- kitty --name kitty --class tdrop_kitty
+   tdrop -n tdrop_kitty --post-create-hook "autohide-tdrop &" -y 0 -x 4 -h 97% -w 99% -mta -- kitty -1 --name kitty --class tdrop_kitty
 super + r
   toggle-app.sh TelegramDesktop telegram-desktop; telegram-desktop;
 super + c
-  kitty
+  kitty -1
 super + semicolon
   rofi -show drun -matching fuzzy
 super + p

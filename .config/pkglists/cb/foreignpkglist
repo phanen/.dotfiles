@@ -1,4 +1,3 @@
-aws-cli-v2
 cargo-clean-all
 codelldb
 dragon-drop
@@ -18,6 +17,5 @@ ttf-ms-win11-auto-sea
 ttf-ms-win11-auto-thai
 ttf-ms-win11-auto-zh_cn
 ttf-ms-win11-auto-zh_tw
-ttf-wps-fonts
 xautocfg
 you-get

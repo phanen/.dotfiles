@@ -15,7 +15,7 @@
     selected:       #3e8fb0;
 }
 * {
-    font: "CaskaydiaCove Nerd Font 15";
+    font: "monospace 17";
 }
 
 /*****----- Main Window -----*****/

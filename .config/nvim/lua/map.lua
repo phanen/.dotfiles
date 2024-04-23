@@ -15,8 +15,8 @@ do -- first
   -- reload current session to check whatever, with a new wrap starter .bin/nvim
   -- TODO: more thing need to be preserved, `SessionWritePost`
   n('<c-s><c-d>', '<cmd>mksession! /tmp/reload.vim | 123cq<cr>')
-  -- n('<leader>ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
-  -- n('<leader>sl', '<cmd>so /tmp/Session.vim<cr>')
+  n('<leader>ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
+  n('<leader>sl', '<cmd>so /tmp/Session.vim<cr>')
   nx('<leader>so', ':so<cr>')
 end
 
@@ -115,8 +115,8 @@ do -- comment
 end
 
 do -- buf
-  n('<c-e>', '<cmd>bp<cr>')
-  n('<c-f>', '<cmd>bn<cr>')
+  n('<c-e>', '<cmd>BufferLineCyclePrev<cr>')
+  n('<c-f>', '<cmd>BufferLineCycleNext<cr>')
   n('<c-h>', '<c-^>')
   n('<c-w>', '<cmd>Bdelete!<cr>')
   n('H', '<cmd>BufferLineMovePrev<cr>')
@@ -186,8 +186,8 @@ do -- misc
   t('<c- >', '<c-\\><c-n>')
 
   -- diagnostics
-  n('<leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>')
-  n('<leader>dg', '<cmd>lua vim.diagnostic.setqflist()<cr>')
+  n('<leader>di', '<cmd>lua vim.diagnostic.open_float()<cr>')
+  n('<leader>do', '<cmd>lua vim.diagnostic.setqflist()<cr>')
   n('<leader>dj', '<cmd>lua vim.diagnostic.goto_next()<cr>')
   n('<leader>dk', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
   n('<leader>ds', '<cmd>lua vim.diagnostic.setloclist()<cr>')

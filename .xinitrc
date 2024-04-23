@@ -11,15 +11,15 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 [ -f "$usermodmap" ] && xmodmap "$usermodmap"
 
 # start some nice programs
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
-  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
     [ -x "$f" ] && . "$f"
   done
   unset f
 fi
 
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
-  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
     [ -x "$f" ] && . "$f"
   done
   unset f
@@ -38,9 +38,9 @@ xrandr --auto
 ~/.bin/xrate-refresh.sh
 
 case $1 in
-    i3     ) exec i3;;
-    kde    ) DESKTOP_SESSION=plasma exec startplasma-x11;;
-    xfce   ) exec startxfce4;;
-    leftwm ) exec dbus-launch leftwm;;
-    *      ) exec ${1:-bspwm};;
+i3) exec i3 ;;
+kde) DESKTOP_SESSION=plasma exec startplasma-x11 ;;
+xfce) exec startxfce4 ;;
+leftwm) exec dbus-launch leftwm ;;
+*) exec ${1:-bspwm} ;;
 esac

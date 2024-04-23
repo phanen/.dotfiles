@@ -12,7 +12,7 @@ end
 
 local M = {
   font = wezterm.font_with_fallback {
-    'CaskaydiaCove Nerd Font',
+    'monospace',
     'Noto Sans CJK SC',
   },
   font_size = 17,

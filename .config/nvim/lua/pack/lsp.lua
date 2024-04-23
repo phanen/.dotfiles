@@ -59,6 +59,9 @@ return {
                       add_comma = 'comma',
                     },
                   },
+                  diagnostics = {
+                    disable = { 'missing-fields', 'incomplete-signature-doc' },
+                  },
                   runtime = { version = 'LuaJIT' },
                 },
               },
@@ -75,21 +78,22 @@ return {
               ),
             }
           end,
-          pyright = function()
-            lspconfig.pyright.setup {
-              cmd = { 'pyright-langserver', '--stdio' },
-              capabilities = capabilities,
-              settings = {
-                python = {
-                  analysis = {
-                    autoSearchPaths = true,
-                    useLibraryCodeForTypes = true,
-                    diagnosticMode = 'openFilesOnly',
-                  },
-                },
-              },
-            }
-          end,
+          -- FIXME: weird hang
+          -- pyright = function()
+          --   lspconfig.pyright.setup {
+          --     cmd = { 'pyright-langserver', '--stdio' },
+          --     capabilities = capabilities,
+          --     settings = {
+          --       python = {
+          --         analysis = {
+          --           autoSearchPaths = true,
+          --           useLibraryCodeForTypes = true,
+          --           diagnosticMode = 'openFilesOnly',
+          --         },
+          --       },
+          --     },
+          --   }
+          -- end,
           gopls = function()
             lspconfig.gopls.setup {
               settings = {
@@ -129,6 +133,7 @@ return {
         lua = { 'stylua' },
         python = { 'isort', 'black' },
         sh = { 'shfmt' },
+        xml = { 'xmlformat' },
 
         css = { 'prettier' },
         html = { 'prettier' },

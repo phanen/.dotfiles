@@ -39,8 +39,8 @@ return {
       { '<leader>fh',    fl.help_tags,             mode = { 'n', 'x' } },
       { '<leader>fi',    fl.git_status,            mode = { 'n', 'x' } },
       { '<leader>fk',    fl.keymaps,               mode = { 'n', 'x' } },
-      { '<leader>/',     fl.blines,                mode = { 'n', 'x' } },
       { '<leader> ',     fl.resume,                mode = 'n' },
+      { '<leader>/',     fl.search_history,        mode = { 'n', 'x' } },
       { '<leader>;',     fl.spell_suggest,         mode = { 'n', 'x' } },
       { '<leader>fm',    fl.marks,                 mode = { 'n' } },
       { '<leader>fo',    fl.recentfiles,           mode = { 'n', 'x' } },
@@ -78,6 +78,7 @@ return {
           builtin = {
             ['<c-\\>'] = 'toggle-preview',
             ['<c-d>'] = 'preview-page-down',
+            ['<c-u>'] = 'preview-page-up',
           },
           fzf = {},
         },
@@ -90,6 +91,8 @@ return {
           file_icons = false,
           git_icons = false,
           no_header_i = true,
+          -- de-dup followed?
+          rg_opts = '-L --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
           actions = {
             ['ctrl-r'] = function(...) require('fzf-lua').actions.toggle_ignore(...) end,
           },
