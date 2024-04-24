@@ -4,7 +4,7 @@ ctrl_light() {
   cur_brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
   max_brightness=$(cat /sys/class/backlight/intel_backlight/max_brightness)
 
-  step="0.01"
+  step="0.05"
   step=$(printf "%.0f" "$(echo "$step * $max_brightness" | bc -l)")
 
   case "$1" in
@@ -20,7 +20,7 @@ ctrl_light() {
     ;;
   esac
 
-  if [ "$new_brightness" -gt 0 ]; then
+  if [ "$new_brightness" -le 0 ]; then
     new_brightness="0"
   fi
   if [ "$new_brightness" -gt "$max_brightness" ]; then

@@ -4,7 +4,7 @@ function alias
 end
 
 alias f __zoxide_z
-alias l "eza -a1"
+alias l "eza -1"
 alias t "type -a"
 alias v nvim
 
@@ -13,9 +13,6 @@ alias la "eza -a"
 alias ls "eza --color=auto"
 alias lt "eza --tree"
 alias tl tldr
-alias vn "nvim -u NONE"
-alias vm "v --cmd 'lua vim.go.loadplugins = false'"
-alias fn "fish --no-config"
 alias wh "which -a"
 
 alias pi 'sudo pacman -S'
@@ -37,9 +34,6 @@ alias pst 'pactree -slu'
 alias psr 'pactree -r -slu'
 
 alias dm 'v (fd .  ~/dot -d 1 | fzf)'
-
-alias sj 'gh copilot explain'
-abbr ge gh copilot suggest -t shell
 
 function fe --wrap functions
     v (functions --details $argv)

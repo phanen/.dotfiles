@@ -1,5 +1,4 @@
 #!/bin/sh
-notify-send woeifj
 w=$(echo "0.985 * $(xrandr | awk '/\*/ {print $1}' | cut -d 'x' -f1) / 1" | bc)
 h=$(echo "0.95 * $(xrandr | awk '/\*/ {print $1}' | cut -d 'x' -f2) / 1" | bc)
 c=$(echo "0.002 * $(xrandr | awk '/\*/ {print $1}' | cut -d 'x' -f1) / 1" | bc)

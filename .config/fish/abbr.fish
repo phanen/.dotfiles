@@ -1,40 +1,45 @@
-abbr -a c cargo
-abbr -a g git
-abbr -a h tokei
-abbr -a i ipython
-abbr -a j --function _make_or_just
-abbr -a k pkill
-abbr -a o cat
-abbr -a p python
-abbr -a s systemctl
-abbr -a y paru
-abbr -a n nvim -l
+abbr c cargo
+abbr g git
+abbr h tokei
+abbr i ipython
+abbr j --function _make_or_just
+abbr k pkill
+abbr n nvim -l
+abbr o cat
+abbr p python
+abbr s systemctl
+abbr y paru
 
-abbr -a du dust
-abbr -a em emacs -nw
-abbr -a fs funcsave
-abbr -a gb gh browse
-abbr -a gr git remote -v
-abbr -a hf hyperfine --warmup 5
-abbr -a lg lazygit
-abbr -a mx chmod +x
-abbr -a rx chmod -x
-abbr -a ta tmux a || tmux
-abbr -a vj NVIM_APPNAME=nvim-test nvim
-abbr -a vk VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim
-abbr -a ze zoxide edit
+abbr du dust
+abbr em emacs -nw
+abbr fl fc-list \| rg
+abbr fm fc-match
+abbr fn fish --no-config
+abbr fs funcsave
+abbr gb gh browse
+abbr gr git remote -v
+abbr hf hyperfine --warmup 5
+abbr lg lazygit
+abbr mx chmod +x
 abbr sh bash
+abbr ta tmux a || tmux
+abbr vj NVIM_APPNAME=nvim-test nvim
+abbr vk VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim
+abbr vm v --cmd 'lua vim.go.loadplugins = false'
+abbr vn nvim -u NONE
+abbr ze zoxide edit
 
-abbr -a rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
-abbr -a rvp git diff --no-prefix --relative \| tail -n +3 \> riscv64.patch
-abbr -a rve sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
-abbr -a tp unset http_proxy https_proxy all_proxy
-abbr -a pa xsel -ob \| patch -Np1 -i -
+abbr pa xsel -ob \| patch -Np1 -i -
+abbr rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
+abbr rve sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
+abbr rvp git diff --no-prefix --relative \| tail -n +3 \> riscv64.patch
+abbr tp unset http_proxy https_proxy all_proxy
+abbr pdi 'pd (comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub) | fzf)'
 
-abbr -a nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
-abbr -a pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub)'
-abbr -a video ffmpeg -f x11grab -i \$DISPLAY -framerate 25 -c:v libx264 /tmp/tmp/showcase.mp4
+abbr nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
+abbr pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub)'
+abbr video ffmpeg -f x11grab -i \$DISPLAY -framerate 25 -c:v libx264 /tmp/tmp/showcase.mp4
 
 abbr gi gh repo create --source . --push
-abbr gd command lazygit -p '~'
-
+abbr ge gh copilot explain
+abbr gs gh copilot suggest -t shell

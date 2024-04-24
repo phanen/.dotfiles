@@ -11,6 +11,7 @@ status is-interactive; and begin
     not functions -q fisher; and _fisher_bootstrap
     source $__fish_config_dir/abbr.fish
     source $__fish_config_dir/alias.fish
-    # NOTE: many plugins will hijack bindings, we always override what we want here...
+    # many plugins will hijack bindings, we always override what we want here...
     source $__fish_config_dir/bind.fish
+    #eval "$(atuin init fish)"
 end
