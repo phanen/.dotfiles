@@ -4,7 +4,6 @@ return {
   { 'folke/lazy.nvim' },
   { 'HiPhish/rainbow-delimiters.nvim', event = { 'BufReadPre', 'BufNewFile' } },
   { 'lilydjwg/fcitx.vim', event = 'InsertEnter' },
-  { 'mikesmithgh/kitty-scrollback.nvim' },
   { 'tpope/vim-eunuch', cmd = { 'Move', 'Rename', 'Remove', 'Delete', 'Mkdir' } },
   { 'voldikss/vim-translator', cmd = 'Translate' },
   {

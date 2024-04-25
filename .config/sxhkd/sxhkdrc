@@ -40,9 +40,6 @@ super + ctrl + {h, l}
 super + shift + f
   bspc node -t \~floating
 
-# TODO: auto hiden https://github.com/noctuid/tdrop/issues/18
- super + n
-   tdrop -n tdrop_kitty --post-create-hook "autohide-tdrop &" -y 0 -x 4 -h 97% -w 99% -mta -- kitty -1 --name kitty --class tdrop_kitty
 super + r
   toggle-app.sh TelegramDesktop telegram-desktop; telegram-desktop;
 super + c
@@ -63,5 +60,7 @@ super + Tab
   darkman toggle
 super + n
   scratchpad.sh
+#TODO: auto hiden https://github.com/noctuid/tdrop/issues/18
+  #tdrop -n tdrop_kitty --post-create-hook "autohide-tdrop &" -y 0 -x 4 -h 97% -w 99% -mta -- kitty -1 --name kitty --class tdrop_kitty
 super + apostrophe
   ~/.bin/scripts/rofi-browse-repo.sh

@@ -1,23 +1,24 @@
 ---@diagnostic disable: undefined-global
--- TODO: https://gist.github.com/galaxia4Eva/9e91c4f275554b4bd844b6feece16b3d
 vim.loader.enable()
 vim.g.mapleader = ' '
-vim.o.clipboard = 'unnamedplus'
-vim.o.laststatus = 0
-vim.o.cmdheight = 0
-vim.o.scrolloff = 999
 
-vim.o.virtualedit = 'all' -- all or onemore for correct position
-vim.o.termguicolors = true -- highlight
-vim.opt.shortmess:append 'I' -- no intro message
-vim.o.ruler = false
-vim.o.scrollback = 100000
-vim.o.showmode = false
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.opt.fillchars = { eob = ' ' }
-vim.o.wrap = false
-vim.o.report = 999999 -- arbitrary large number to hide yank messages
+local o = vim.opt
+o.clipboard = 'unnamedplus'
+o.cmdheight = 0
+o.fillchars = { eob = ' ' }
+o.laststatus = 0
+o.report = 999999 -- arbitrary large number to hide yank messages
+o.ruler = false
+o.scrollback = 100000
+o.scrolloff = 999
+o.shortmess:append 'I' -- no intro message
+o.showmode = false
+o.termguicolors = true -- highlight
+o.virtualedit = 'all' -- all or onemore for correct position
+o.wrap = false
+
+o.ignorecase = true
+o.smartcase = true
 
 local m = vim.keymap.set
 local root = vim.fn.stdpath 'data' .. '/lazy'
@@ -27,8 +28,6 @@ local plug = function(basename)
   return function(opts) require(packname).setup(opts) end
 end
 
--- TODO: avoid screen blink (or avoid redraw??)
--- TODO: hot update to neovim...
 plug 'kitty-scrollback.nvim' {
   custom = function(_)
     return {
@@ -50,29 +49,28 @@ plug 'kitty-scrollback.nvim' {
 
 plug 'flash.nvim' { modes = { search = { enabled = false } } }
 m({ 'n', 'x', 'o' }, 's', function() require('flash').jump() end)
-m({ 'n', 'x', 'o' }, '_', function() require('flash').jump() end)
+m({ 'n', 'x', 'o' }, 's', function() require('flash').jump() end)
 
-m('!', '<c-f>', '<right>')
-m('!', '<c-b>', '<left>')
-m('!', '<c-p>', '<up>')
-m('!', '<c-n>', '<down>')
-m('!', '<c-a>', '<home>')
-m('!', '<c-e>', '<end>')
+m('c', '<c-f>', '<right>')
+m('c', '<c-b>', '<left>')
+m('c', '<c-p>', '<up>')
+m('c', '<c-n>', '<down>')
+m('c', '<c-a>', '<home>')
+m('c', '<c-e>', '<end>')
 
 -- avoid going back to term mode(paste_window)
 m('n', 'i', '<Plug>(KsbCloseOrQuitAll)')
+m('n', 'a', '<Plug>(KsbCloseOrQuitAll)')
 m('n', 'q', '<Plug>(KsbCloseOrQuitAll)')
 m('n', 'a', '<Plug>(KsbCloseOrQuitAll)')
 m('n', '<c-c>', 'y')
 m('n', 'u', '<c-u>')
 m('n', 'd', '<c-d>')
 m({ 'n', 'o', 'x' }, 'ga', 'G')
--- fake a shell integration
+
 m(
   'n',
   '<leader><leader>',
-  function()
-    return '/' .. vim.fn.getenv 'USER' .. '@' .. vim.fn.system { 'hostnamectl', 'hostname' }
-  end,
+  function() return '/' .. vim.env.USER .. '@' .. vim.fn.system { 'hostnamectl', 'hostname' } end,
   { expr = true }
 )
