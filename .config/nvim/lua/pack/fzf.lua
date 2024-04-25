@@ -1,13 +1,13 @@
-_G._fl = setmetatable({}, { __index = function(_, k) return require('fzf-lua-overlay')[k] end })
+_G.f = setmetatable({}, { __index = function(_, k) return require('fzf-lua-overlay')[k] end })
 local fl = setmetatable({}, {
-  __index = function(_, k) return ([[<cmd>lua _fl.%s()<cr>]]):format(k) end,
+  __index = function(_, k) return ([[<cmd>lua f.%s()<cr>]]):format(k) end,
 })
 
 return {
   {
     'phanen/fzf-lua-overlay',
     cond = not vim.g.vscode,
-    init = function() require('fzf-lua-overlay.providers.recentfiles').init() end,
+    init = function() require('fzf-lua-overlay').init() end,
     -- stylua: ignore
     keys = {
       { '<c-b>',         fl.buffers,               mode = { 'n', 'x' } },
@@ -52,81 +52,86 @@ return {
       { '+l',            fl.grep_dots,             mode = { 'n', 'x' } },
     },
     opts = {},
-    dependencies = {
-      'ibhagwan/fzf-lua',
-      cmd = { 'FzfLua' },
-      opts = {
-        'default-title',
-        previewers = {
-          builtin = {
-            extensions = {
-              ['png'] = { 'viu', '-b' },
-              ['jpg'] = { 'ueberzug' },
-              ['jpeg'] = { 'ueberzug' },
-              ['gif'] = { 'ueberzug' },
-              ['svg'] = { 'ueberzug' },
-            },
-            ueberzug_scaler = 'cover',
+  },
+  {
+    'ibhagwan/fzf-lua',
+    cmd = { 'FzfLua' },
+    opts = {
+      'default-title',
+      previewers = {
+        builtin = {
+          extensions = {
+            ['png'] = { 'viu', '-b' },
+            ['jpg'] = { 'ueberzug' },
+            ['jpeg'] = { 'ueberzug' },
+            ['gif'] = { 'ueberzug' },
+            ['svg'] = { 'ueberzug' },
           },
+          ueberzug_scaler = 'cover',
         },
-        winopts = { preview = { delay = 30 }, height = 0.6 },
-        fzf_opts = {
-          ['--history'] = vim.g.state_path .. '/telescope_history',
-          ['--info'] = 'inline',
+      },
+      winopts = { preview = { delay = 30 }, height = 0.6 },
+      fzf_opts = {
+        ['--history'] = vim.g.state_path .. '/telescope_history',
+        ['--info'] = 'inline',
+      },
+      keymap = {
+        builtin = {
+          ['<c-\\>'] = 'toggle-preview',
+          ['<c-d>'] = 'preview-page-down',
+          ['<c-u>'] = 'preview-page-up',
         },
-        keymap = {
-          builtin = {
-            ['<c-\\>'] = 'toggle-preview',
-            ['<c-d>'] = 'preview-page-down',
-            ['<c-u>'] = 'preview-page-up',
-          },
-          fzf = {},
-        },
-        files = {
-          cwd_prompt = true,
-          git_icons = false,
-          winopts = { preview = { hidden = 'hidden' } },
-        },
-        grep = {
-          file_icons = false,
-          git_icons = false,
-          no_header_i = true,
-          -- de-dup followed?
-          rg_opts = '-L --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
-          actions = {
-            ['ctrl-r'] = function(...) require('fzf-lua').actions.toggle_ignore(...) end,
-          },
-        },
-        git = {
-          status = {
-            previewer = 'git_diff',
-            -- preview_pager = false,
-            -- stylua: ignore
-            actions = {
-              ["right"]  = false,
-              ["left"]   = false,
-              ['ctrl-s'] = { fn = function(...) require('fzf-lua').actions.git_stage_unstage(...) end, reload = true },
-              ['ctrl-x'] = { fn = function(...) require('fzf-lua').actions.git_reset(...) end, reload = true },
-            },
-          },
-        },
+        fzf = {},
+      },
+      files = {
+        cwd_prompt = true,
+        git_icons = false,
+        winopts = { preview = { hidden = 'hidden' } },
+      },
+      grep = {
+        file_icons = false,
+        git_icons = false,
+        no_header_i = true,
+        -- de-dup followed?
+        rg_opts = '-L --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
         actions = {
-          files = {
-            ['default'] = function(...) require('fzf-lua').actions.file_edit(...) end,
-            ['ctrl-s'] = function(...) require('fzf-lua').actions.file_edit_or_qf(...) end,
-            ['ctrl-x'] = function(...) require('fzf-lua-overlay.actions').delete_files(...) end,
-            ['ctrl-y'] = function(selected, opts)
-              local file = require('fzf-lua').path.entry_to_file(selected[1], opts)
-              vim.fn.setreg('+', file.path)
-            end,
-            ['ctrl-r'] = function(...) require('fzf-lua-overlay.actions').rename_files(...) end,
-            ['ctrl-o'] = function(selected, opts) -- TODO: canont reload here, should reopen buffer on window by winsize/winid
-              for _, sel in ipairs(selected) do
-                local file = require('fzf-lua').path.entry_to_file(sel, opts)
-                vim.cmd.e(file.path)
-              end
-            end,
+          ['ctrl-r'] = function(...) require('fzf-lua').actions.toggle_ignore(...) end,
+        },
+      },
+      lsp = {
+        definitions = { sync = false, jump_to_single_result = true, includeDeclaration = false },
+        references = { sync = false, ignore_current_line = true, jump_to_single_result = true },
+        typedefs = { sync = false, jump_to_single_result = true },
+      },
+      git = {
+        status = {
+          previewer = 'git_diff',
+          -- preview_pager = false,
+          -- stylua: ignore
+          actions = {
+            ["right"]  = false,
+            ["left"]   = false,
+            ['ctrl-s'] = { fn = function(...) require('fzf-lua').actions.git_stage_unstage(...) end, reload = true },
+            ['ctrl-x'] = { fn = function(...) require('fzf-lua').actions.git_reset(...) end, reload = true },
           },
+        },
+      },
+      actions = {
+        files = {
+          ['default'] = function(...) require('fzf-lua').actions.file_edit(...) end,
+          ['ctrl-s'] = function(...) require('fzf-lua').actions.file_edit_or_qf(...) end,
+          ['ctrl-x'] = function(...) require('fzf-lua-overlay.actions').delete_files(...) end,
+          ['ctrl-y'] = function(selected, opts)
+            local file = require('fzf-lua').path.entry_to_file(selected[1], opts)
+            vim.fn.setreg('+', file.path)
+          end,
+          ['ctrl-r'] = function(...) require('fzf-lua-overlay.actions').rename_files(...) end,
+          ['ctrl-o'] = function(selected, opts) -- TODO: canont reload here, should reopen buffer on window by winsize/winid
+            for _, sel in ipairs(selected) do
+              local file = require('fzf-lua').path.entry_to_file(sel, opts)
+              vim.cmd.e(file.path)
+            end
+          end,
         },
       },
     },
