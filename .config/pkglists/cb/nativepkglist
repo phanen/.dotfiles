@@ -58,6 +58,7 @@ dust
 efibootmgr
 eglexternalplatform
 entr
+evince
 evtest
 expac
 extra-cmake-modules-git
@@ -87,6 +88,7 @@ github-cli
 gnu-efi
 gnu-netcat
 go
+go-musicfox
 goldendict-git
 gopass
 gperf
@@ -206,13 +208,11 @@ pacutils
 pandoc-bin
 paru
 pass
-pdfarranger
 pdfgrep
 peek
 perf
 perl-cgi
 perl-image-exiftool
-picom
 pipewire-pulse
 pkgstats
 plan9port
@@ -231,6 +231,8 @@ python-awesomeversion
 python-certifi
 python-markdown
 python-markdown-it-py
+python-matplotlib
+python-pandas
 python-pip
 python-pipx
 python-poetry
@@ -267,6 +269,7 @@ rtorrent
 rust-script
 rustup
 rxvt-unicode
+sad
 scrcpy
 screen
 scrot
@@ -385,6 +388,7 @@ xorg-xwud
 xsel
 yarn
 yay
+yazi
 yq
 zip
 zotero-bin

@@ -253,8 +253,8 @@ u.yank_message = function() vim.fn.setreg('+', vim.trim(vim.fn.execute('1message
 u.pipe_message = function()
   -- open a float window
   -- vim.api
-  local width = 50
-  local height = 10
+  local width = 100
+  local height = 40
   local bufnr = vim.api.nvim_create_buf(false, false)
   local ui = vim.api.nvim_list_uis()[1]
   local opts = {
@@ -267,11 +267,10 @@ u.pipe_message = function()
     anchor = 'NW',
     style = 'minimal',
   }
-  local win = vim.api.nvim_open_win(bufnr, 1, opts)
+  local win = vim.api.nvim_open_win(bufnr, true, opts)
   -- TODO: finish it
-  -- https://www.statox.fr/posts/2021/03/breaking_habits_floating_window/#:~:text=Spawning%20a%20floating%20window%20🔗&text=We%20begin%20by%20creating%20the,get%20the%20currently%20attached%20UIs%2e
-  -- it's totaly the same usecase
-  vim.api.nvim_win_set_option(win, 'winhl', 'Normal:ErrorFloat')
+  -- https://www.statox.fr/posts/2021/03/breaking_habits_floating_window/#:~:text=Spawning%20a%20floating%20window%20🔗
+  vim.wo[win].winhl = 'Normal:ErrorFloat'
 end
 
 u.force_close_tabpage = function()

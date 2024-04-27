@@ -17,7 +17,7 @@ alias wh "which -a"
 
 alias pi 'sudo pacman -S'
 alias pd 'sudo pacman -Rns'
-alias pdi 'sudo pacman -S --asdeps'
+alias pid 'sudo pacman -S --asdeps'
 alias pao 'pacman -Qo'
 alias pfo 'pacman -F'
 alias pai 'pacman -Qi'

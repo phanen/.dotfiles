@@ -99,7 +99,6 @@ return {
         },
       }
       cmp.setup.cmdline('/', { sources = { { name = 'buffer' } } })
-      cmp.setup.cmdline('?', { sources = { { name = 'buffer' } } })
       cmp.setup.cmdline(':', {
         sources = {
           { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },

@@ -44,9 +44,8 @@ return {
         n('h', api.node.navigate.parent)
         n('l', api.node.open.edit)
         n('o', api.tree.change_root_to_node)
-        n('f', find_files)
+        n('<c-f>', find_files)
         n('<c-e>', '')
-        n('<c-f>', '')
         n('gj', api.node.navigate.git.next)
         n('gk', api.node.navigate.git.prev)
       end,

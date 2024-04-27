@@ -12,6 +12,7 @@ abbr y paru
 
 abbr du dust
 abbr em emacs -nw
+abbr fa fish_add_path -ag
 abbr fl fc-list \| rg
 abbr fm fc-match
 abbr fn fish --no-config
@@ -34,7 +35,7 @@ abbr rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
 abbr rve sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
 abbr rvp git diff --no-prefix --relative \| tail -n +3 \> riscv64.patch
 abbr tp unset http_proxy https_proxy all_proxy
-abbr pdi 'pd (comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub) | fzf)'
+abbr pdz 'pd (comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub) | fzf)'
 
 abbr nvp git diff \| tee ~/.config/nvim/patches/\(basename \(pwd\)\).patch
 abbr pc 'comm -23 (pacman -Qqt | sort | psub) (begin pacman -Qqg xorg; echo base; end | sort -u | psub)'

@@ -77,6 +77,7 @@ return {
   },
   {
     'monaqa/dial.nvim',
+    cond = true,
     keys = {
       { '<c-a>', '<plug>(dial-increment)', mode = { 'n', 'x' } },
       { '<c-x>', '<plug>(dial-decrement)', mode = { 'n', 'x' } },
