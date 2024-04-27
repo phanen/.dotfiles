@@ -24,6 +24,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
   o.termguicolors = true
   o.virtualedit = 'all' -- all or onemore for correct position
   o.wrap = false
+  -- o.modeline = false
 
   vim.opt.ignorecase = true
   vim.opt.smartcase = true
@@ -78,23 +79,24 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
   vim.api.nvim_create_autocmd('VimEnter', {
     pattern = '*',
     once = true,
-    callback = function(ev)
+    callback = function(args)
       local current_win = vim.fn.win_getid()
-      for _, line in ipairs(vim.api.nvim_buf_get_lines(ev.buf, 0, -2, false)) do
+      for _, line in ipairs(vim.api.nvim_buf_get_lines(args.buf, 0, -2, false)) do
         vim.api.nvim_chan_send(term_io, line)
         vim.api.nvim_chan_send(term_io, '\r\n')
       end
-      for _, line in ipairs(vim.api.nvim_buf_get_lines(ev.buf, -2, -1, false)) do
+      for _, line in ipairs(vim.api.nvim_buf_get_lines(args.buf, -2, -1, false)) do
         vim.api.nvim_chan_send(term_io, line)
       end
 
       vim.api.nvim_win_set_buf(current_win, term_bufnr)
-      vim.api.nvim_buf_delete(ev.buf, { force = true })
+      vim.api.nvim_buf_delete(args.buf, { force = true })
       vim.schedule(setCursor)
     end,
   })
 
-  local root = vim.fn.expand '~/.local/share/nvim/lazy'
+  local root = vim.env.XDG_DATA_HOME .. '/nvim/lazy'
+
   local plug = function(basename)
     vim.opt.rtp:prepend(root .. '/' .. basename)
     local packname = vim.fn.trim(basename, '.nvim')

@@ -94,7 +94,7 @@ return {
         git_icons = false,
         no_header_i = true,
         -- de-dup followed?
-        rg_opts = '-L --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
+        rg_opts = '-L --no-messages --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
         actions = {
           ['ctrl-r'] = function(...) require('fzf-lua').actions.toggle_ignore(...) end,
         },

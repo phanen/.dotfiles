@@ -3,7 +3,7 @@
 
 [global]
 width = (300, 500)
-origin = top-right
+origin = bottom-right
 offset = 0x0
 
 font = monospace 16

@@ -58,7 +58,7 @@
 (deflayer tabular
   grv  @s+  @s-  @l+  @l-  _    _    _    _    _    0    -    =    bspc
   tab  @fu  @fc  C--  r    @tt  @gp  u    C-+  C--  @tp  [    ]    \
-  caps a    s    d    C-+  g    bspc j    k    @lk  ;    '    ret
+  caps a    s    d    C-+  g    bspc C-S-    k    @lk  ;    '    ret
   lsft z    x    c    @tv  b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rctl
 )
@@ -81,8 +81,8 @@
 (deflayer super
   M-grv  M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  M--  M-=  M-bspc
   M-tab  M-q  M-w  M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
-  M-@ec  M-a  C-F1 C-F2 M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
-  ;; M-@ec  M-a  M-s M-d M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
+  ;; M-@ec  M-a  C-F1 C-F2 M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
+  M-@ec  M-a  M-s  M-d  M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
   M-@gs  M-z  M-x  M-c  M-v  M-b  M-n  M-m  M-,  M-.  M-/  rsft
   M-lctl M-@ec M-lalt           @sm            M-ralt M-rctl
 )

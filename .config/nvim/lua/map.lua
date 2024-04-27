@@ -47,7 +47,7 @@ do -- motion
   ic('<c-a>', '<home>')
   ic('<c-e>', '<end>')
   ic('<c-a>', '<cmd>lua require("readline").dwim_beginning_of_line()<cr>')
-  ic('<c-e>', '<cmd>lua require("readline").dwim_end_of_line()<cr>')
+  -- ic('<c-e>', '<cmd>lua require("readline").dwim_end_of_line()<cr>')
   -- ic('<a-m>', 'v:lua.require("readline").back_to_indentation()', { expr = true })
   -- ic('<c-w>', '<cmd>lua require("readline").backward_kill_word()<cr>')
   ic('<c-j>', '<cmd>lua require("readline").forward_word()<cr>')
@@ -156,6 +156,7 @@ do -- win
   n('<leader>wi', '<cmd>LspInfo<cr>')
   n('<leader>wl', '<cmd>Lazy<cr>')
   n('<leader>wy', '<cmd>Mason<cr>')
+  n('<leader>wh', '<cmd>ConformInfo<cr>')
 end
 
 do

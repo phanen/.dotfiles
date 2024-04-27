@@ -87,6 +87,7 @@ gcc
 gdb
 gettext
 git
+git-delta
 github-cli
 gnome-font-viewer
 gnome-themes-extra
@@ -104,6 +105,7 @@ gvim
 gzip
 haveged
 hdf5
+help2man
 hexer
 hexyl
 hostapd
@@ -266,7 +268,7 @@ traceroute
 translate-shell
 tree
 tree-sitter-git
-ttf-cascadia-code-nerd
+ttf-cascadia-code
 ttf-dejavu-nerd
 ttf-nerd-fonts-symbols
 typst
@@ -332,7 +334,6 @@ xsel
 xterm
 yarn
 yazi
-you-get
 yq
 zip
 zotero-bin
