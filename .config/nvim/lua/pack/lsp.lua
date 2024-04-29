@@ -15,7 +15,10 @@ return {
         'williamboman/mason.nvim',
         build = ':MasonUpdate',
         cmd = 'Mason',
-        opts = { ui = { height = 0.85, border = vim.g.border } },
+        opts = {
+          PATH = 'append',
+          ui = { height = 0.85, border = vim.g.border },
+        },
       },
       {
         'neovim/nvim-lspconfig',

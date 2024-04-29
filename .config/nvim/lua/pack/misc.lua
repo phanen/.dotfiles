@@ -1,9 +1,8 @@
 return {
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
   { 'folke/lazy.nvim' },
-  { 'HiPhish/rainbow-delimiters.nvim', event = { 'BufReadPre', 'BufNewFile' } },
   { 'lilydjwg/fcitx.vim', event = 'InsertEnter' },
-  { 'tpope/vim-eunuch', cmd = { 'Move', 'Rename', 'Remove', 'Delete', 'Mkdir' } },
+  { 'tpope/vim-eunuch', cmd = { 'Rename', 'Delete' } },
   { 'voldikss/vim-translator', cmd = 'Translate' },
   {
     'phanen/broker.nvim',
