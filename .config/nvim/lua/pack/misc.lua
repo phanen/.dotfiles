@@ -5,13 +5,7 @@ return {
   { 'tpope/vim-eunuch', cmd = { 'Rename', 'Delete' } },
   { 'voldikss/vim-translator', cmd = 'Translate' },
   {
-    'phanen/broker.nvim',
-    event = 'ColorScheme',
-    init = function() require('broker.entry').init() end,
-  },
-  {
-    'sportshead/gx.nvim',
-    branch = 'git-handler',
+    'chrishrb/gx.nvim',
     cmd = 'Browse',
     keys = { { 'gl', '<cmd>Browse<cr>', mode = { 'n', 'x' } } },
     opts = {},
