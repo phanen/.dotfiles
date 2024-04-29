@@ -4,15 +4,13 @@ return {
     'kylechui/nvim-surround',
     keys = {
       'ys',
-      'yss',
-      'yS',
       'cs',
       'ds',
       { 's', mode = 'x' },
       { '`', '<Plug>(nvim-surround-visual)`', mode = 'x' },
     },
     opts = {
-      keymaps = { visual = 's' },
+      keymaps = { insert = false, visual = 's' },
       surrounds = {
         ['j'] = {
           add = { '**', '**' },
@@ -40,8 +38,8 @@ return {
     'mg979/vim-visual-multi',
     keys = {
       { '<leader>n', mode = { 'n', 'x' } },
-      { '\\\\A', mode = { 'n', 'x' } },
-      { '\\\\/', mode = { 'n', 'x' } },
+      { [[\\A]], mode = { 'n', 'x' } },
+      { [[\\/]], mode = { 'n', 'x' } },
     },
     init = function()
       vim.g.VM_maps = {
@@ -53,7 +51,7 @@ return {
   {
     'andymass/vim-matchup',
     event = 'BufReadPost',
-    keys = { mode = { 'n', 'x', 'o' }, '%' },
+    keys = { '%', mode = { 'n', 'x', 'o' } },
     init = function() vim.o.matchpairs = '(:),{:},[:],<:>' end,
     config = function()
       vim.g.matchup_matchparen_enabled = 0
@@ -77,13 +75,11 @@ return {
   },
   {
     'monaqa/dial.nvim',
-    cond = true,
     keys = {
       { '<c-a>', '<plug>(dial-increment)', mode = { 'n', 'x' } },
       { '<c-x>', '<plug>(dial-decrement)', mode = { 'n', 'x' } },
-      { 'g<c-a>', 'g<plug>(dial-increment)', mode = { 'n', 'x' } },
-      { 'g<c-x>', 'g<plug>(dial-decrement)', mode = { 'n', 'x' } },
-      { '<c-a>', '<plug>(dial-increment)', mode = { 'n', 'x' } },
+      { 'g<c-a>', 'g<plug>(dial-increment)', remap = true, mode = { 'n', 'x' } },
+      { 'g<c-x>', 'g<plug>(dial-decrement)', remap = true, mode = { 'n', 'v' } },
     },
     config = function()
       local augend = require 'dial.augend'
@@ -91,7 +87,6 @@ return {
         default = {
           augend.integer.alias.decimal,
           augend.integer.alias.hex,
-          augend.date.alias['%Y/%m/%d'],
           augend.constant.alias.bool,
         },
       }

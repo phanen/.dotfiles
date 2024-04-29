@@ -1,6 +1,6 @@
 function lazygit --wrap lazygit
     # HACK: no idea now, poor cli of lazygit
-    git rev-parse --show-toplevel 1>/dev/null
+    git rev-parse --is-inside-work-tree 1>/dev/null
     or return
 
     #set -q KITTY_INSTALLATION_DIR 

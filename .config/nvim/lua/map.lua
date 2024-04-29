@@ -1,7 +1,5 @@
 local n = function(...) map('n', ...) end
 local x = function(...) map('x', ...) end
-local t = function(...) map('t', ...) end
-local i = function(...) map('i', ...) end
 local nx = function(...) map({ 'n', 'x' }, ...) end
 local ox = function(...) map({ 'o', 'x' }, ...) end
 local ic = function(...) map('!', ...) end
@@ -109,7 +107,7 @@ do -- comment
   map({ 'n', 'x', 'i' }, '<c-_>', '<c-/>', { remap = true })
   x('<c-/>', 'gc', { remap = true })
   -- TODO: comment empty line?
-  i('<c-/>', '<cmd>norm <c-/><cr>')
+  map('i', '<c-/>', '<cmd>norm <c-/><cr>')
   n(
     '<c-/>',
     function() return vim.v.count == 0 and 'gcl' or 'gcj' end,
@@ -175,9 +173,19 @@ do -- misc
   nx('<leader>E', ':EditCodeBlock<cr>')
   nx('<leader>L', ':Linediff<cr>')
 
-  n('<leader>m;', 'g<')
+  -- n('<leader>m;', 'g<')
   n('<leader>mk', '<cmd>messages clear<cr>')
-  n('<leader>ml', '<cmd>messages<cr>')
+  n('<leader>ml', '<cmd>1messages<cr>')
+  -- TODO: message is chunked, and ... paged, terrible
+  -- so we use a explicit "redir" wrapper now
+  vim.api.nvim_create_user_command('R', function(opt) u.pipe_cmd(opt.args) end, {
+    nargs = 1,
+    complete = 'command',
+  })
+  n('<leader>me', '<cmd>R messages<cr>')
+  -- command! -nargs=1 -complete=command Redir lua u.pipe_cmd(<q-args>)()
+  -- command! -nargs=1 RedirT silent call <SID>redir('tabnew', <f-args>)
+  n('<leader>ma', function() u.pipe_cmd('messages') end)
 
   n('-', '<cmd>TSJToggle<cr>')
   nx('_', 'K')
@@ -185,12 +193,12 @@ do -- misc
 
   n('<leader>cd', util.smart_cd)
   n('<leader>cf', '<cmd>cd %:h<cr>')
-  n('<leader>cm', util.yank_message)
   n('<leader>cn', util.yank_filename)
   n('<leader>cx', '<cmd>!chmod +x %<cr>')
   n('<leader>cX', '<cmd>!chmod -x %<cr>')
 
-  t('<c- >', '<c-\\><c-n>')
+  map('t', '<c- >', '<c-\\><c-n>')
+  map({ 't', 'n' }, '<c-\\>', '<cmd>execute "ToggleTerm". v:count<cr>')
 
   -- diagnostics
   n('<leader>di', '<cmd>lua vim.diagnostic.open_float()<cr>')
@@ -202,3 +210,21 @@ do -- misc
   n('+rd', ':Delete')
   n('+rr', function() return ':Rename ' .. vim.api.nvim_buf_get_name(0) end, { expr = true })
 end
+
+n('gn', function()
+  -- vim.cmd.ToggleTerm()
+  require('toggleterm').toggle(1)
+  require('toggleterm').toggle(2)
+  -- require('toggleterm').toggle()
+  -- vim.cmd.ToggleTerm()
+  -- vim.cmd.ToggleTerm()
+end)
+
+n('gp', function()
+  -- vim.cmd.ToggleTerm()
+  require('toggleterm').toggle(2)
+  require('toggleterm').toggle(1)
+  -- require('toggleterm').toggle()
+  -- vim.cmd.ToggleTerm()
+  -- vim.cmd.ToggleTerm()
+end)
