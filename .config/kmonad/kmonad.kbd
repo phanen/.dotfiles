@@ -58,7 +58,8 @@
 (deflayer tabular
   grv  @s+  @s-  @l+  @l-  _    _    _    _    _    0    -    =    bspc
   tab  @fu  @fc  C--  r    @tt  @gp  u    C-+  C--  @tp  [    ]    \
-  caps a    s    d    C-+  g    bspc C-S-    k    @lk  ;    '    ret
+  ;; use for qwerty for now
+  caps a    s    d    C-+  g    bspc C-S-right C-S-left    @lk  ;    '    ret
   lsft z    x    c    @tv  b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rctl
 )
