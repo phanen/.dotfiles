@@ -122,7 +122,7 @@ do -- buf
   n('<c-e>', '<cmd>BufferLineCyclePrev<cr>')
   n('<c-f>', '<cmd>BufferLineCycleNext<cr>')
   n('<c-h>', '<c-^>')
-  n('<c-w>', '<cmd>Bdelete!<cr>')
+  n('<c-w>', u.bufdelete)
   n('H', '<cmd>BufferLineMovePrev<cr>')
   n('L', '<cmd>BufferLineMoveNext<cr>')
   n('<leader>bi', '<cmd>buffers<cr>')
@@ -155,7 +155,7 @@ do -- win
   -- n('<leader>wo', '<cmd>Outline<cr>')
   n('<leader>wi', '<cmd>LspInfo<cr>')
   n('<leader>wl', '<cmd>Lazy<cr>')
-  n('<leader>wy', '<cmd>Mason<cr>')
+  n('<leader>wm', '<cmd>Mason<cr>')
   n('<leader>wh', '<cmd>ConformInfo<cr>')
 end
 

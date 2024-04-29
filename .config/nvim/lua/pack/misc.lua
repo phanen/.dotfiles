@@ -1,6 +1,5 @@
 return {
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
-  { 'famiu/bufdelete.nvim', cmd = 'Bdelete' },
   { 'folke/lazy.nvim' },
   { 'HiPhish/rainbow-delimiters.nvim', event = { 'BufReadPre', 'BufNewFile' } },
   { 'lilydjwg/fcitx.vim', event = 'InsertEnter' },

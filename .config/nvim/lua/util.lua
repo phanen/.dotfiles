@@ -281,4 +281,16 @@ u.force_close_tabpage = function()
   end
 end
 
+-- Delete the current Buffer while maintaining the window layout
+u.bufdelete = function()
+  if vim.fn.filereadable(vim.fn.expand('%p')) == 0 and vim.bo.modified then
+    local choice =
+      vim.fn.input('The file is not saved, whether to force delete? Press enter or input [y/n]:')
+    if choice == 'y' or string.len(choice) == 0 then vim.cmd('bd!') end
+    return
+  end
+  local force = not vim.bo.buflisted or vim.bo.buftype == 'nofile'
+  vim.cmd(force and 'bd!' or string.format('bp | bd! %s', vim.api.nvim_get_current_buf()))
+end
+
 return u
