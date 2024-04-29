@@ -3,43 +3,44 @@
 git:
   paging:
     colorArg: always
-    pager: delta --dark --paging=never
+    # delta won't detect theme in lazygit https://github.com/jesseduffield/lazygit/pull/3420
+    # pager: delta --paging=never --detect-dark-light=auto
+    pager: delta --paging=never --dark
     # useConfig: true
 promptToReturnFromSubprocess: false
 
 customCommands:
-    # https://github.com/jesseduffield/lazygit/pull/3104
-    # TODO: menu bind
-    - key: 'y'
-      prompts:
-        - type: 'menu'
-          title: 'yank diff'
-          options:
-            - name: 'apply'
-              value: 'xsel -ob | git apply -'
-            - name: 'unstage diff'
-              value: 'git diff | xsel -ib'
-            - name: 'staged diff'
-              value: 'git diff --staged | xsel -ib'
-            - name: 'all diff'
-              value: 'git diff HEAD | xsel -ib'
-      command: "{{index .PromptResponses 0}}"
-      context: 'localBranches'
-    - key: 'y'
-      command: 'cat {{ .SelectedPath }} | xsel -ib'
-      context: 'files'
-      description: 'copy file content to clipboard'
-      subprocess: true
-
+  # https://github.com/jesseduffield/lazygit/pull/3104
+  # TODO: menu bind
+  - key: "y"
+    prompts:
+      - type: "menu"
+        title: "yank diff"
+        options:
+          - name: "apply"
+            value: "xsel -ob | git apply -"
+          - name: "unstage diff"
+            value: "git diff | xsel -ib"
+          - name: "staged diff"
+            value: "git diff --staged | xsel -ib"
+          - name: "all diff"
+            value: "git diff HEAD | xsel -ib"
+    command: "{{index .PromptResponses 0}}"
+    context: "localBranches"
+  - key: "y"
+    command: "cat {{ .SelectedPath }} | xsel -ib"
+    context: "files"
+    description: "copy file content to clipboard"
+    subprocess: true
 
 # TODO: fix hang when xdg-open use terminal as opener
 keybinding:
   universal:
-    openFile: ''
-os: 
+    openFile: ""
+os:
   # TODO: cmd cannot used after ToggleTerm, as workaround, we invoke nvim twice here
-  edit: 'nvr.sh {{filename}}'
+  edit: "nvr.sh {{filename}}"
   editAtLine: '[[ -z "$NVIM" ]] && { nvim +{{line}} {{filename}} &>/dev/tty; true; } || { nvim -u NONE --server $NVIM --remote-expr "execute(\"FloatermToggle\")" && nvim -u NONE --server $NVIM --remote-expr "execute(\"e {{filename}} | call cursor({{line}}, 0)\")"; }'
   # https://github.com/jesseduffield/lazygit/issues/996
-  editAtLineAndWait: 'nvim +{{line}} {{filename}}'
+  editAtLineAndWait: "nvim +{{line}} {{filename}}"
   editInTerminal: true
