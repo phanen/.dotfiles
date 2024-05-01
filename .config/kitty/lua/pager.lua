@@ -46,7 +46,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
   m('n', 'q', '<cmd>q<cr>')
   m('n', 'i', '<cmd>q<cr>')
   m('n', 'a', '<cmd>q<cr>')
-  m('n', '<esc>', '<cmd>q<cr>')
+  -- m('n', '<esc>', '<cmd>q<cr>')
   m('n', ' m', '<cmd>messages<cr>')
 
   m('n', '$', 'g_')

@@ -211,21 +211,3 @@ do -- misc
   n('+rd', ':Delete!')
   n('+rr', function() return ':Rename ' .. vim.api.nvim_buf_get_name(0) end, { expr = true })
 end
-
-n('gn', function()
-  -- vim.cmd.ToggleTerm()
-  require('toggleterm').toggle(1)
-  require('toggleterm').toggle(2)
-  -- require('toggleterm').toggle()
-  -- vim.cmd.ToggleTerm()
-  -- vim.cmd.ToggleTerm()
-end)
-
-n('gp', function()
-  -- vim.cmd.ToggleTerm()
-  require('toggleterm').toggle(2)
-  require('toggleterm').toggle(1)
-  -- require('toggleterm').toggle()
-  -- vim.cmd.ToggleTerm()
-  -- vim.cmd.ToggleTerm()
-end)

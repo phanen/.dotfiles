@@ -7,6 +7,8 @@ apr-util
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
+aurpublish
+aurutils
 baidupcs-go
 base
 base-devel
@@ -14,7 +16,6 @@ bash-completion
 bat
 bc
 bear
-beep
 bluez
 bluez-utils
 bochs
@@ -97,7 +98,6 @@ grub
 gtk-vnc
 gtkwave
 gum
-handlr-regex
 hddtemp
 helix
 hexer
@@ -183,9 +183,7 @@ nano
 nasm
 neovide
 neovim-git
-neovim-qt
 net-tools
-nethack
 networkmanager
 ninja
 nmap
@@ -200,7 +198,6 @@ obs-studio
 ocaml
 onefetch
 openssh
-openvpn
 os-prober
 pacman
 pacman-contrib
@@ -213,6 +210,7 @@ peek
 perf
 perl-cgi
 perl-image-exiftool
+perl-rename
 pipewire-pulse
 pkgstats
 plan9port
@@ -238,9 +236,7 @@ python-pipx
 python-poetry
 python-ptrace
 python-pynvim
-python-pytest-snapshot
 python-watchdog
-python2
 qemu-emulators-full
 qemu-full
 qemu-user-static-binfmt
@@ -316,7 +312,6 @@ texlive-plaingeneric
 texlive-pstricks
 texlive-publishers
 texlive-xetex
-the_silver_searcher
 tk
 tmux
 tokei
@@ -327,12 +322,11 @@ tree-sitter-cli
 ttf-cascadia-code
 ttf-lxgw-wenkai
 ttf-nerd-fonts-symbols
+typos
 typst
-ubuntu-keyring
 ueberzug
 unzip
 usbutils
-uwufetch
 vim
 viu
 vivid
@@ -362,7 +356,6 @@ xorg-sessreg
 xorg-smproxy
 xorg-x11perf
 xorg-xbacklight
-xorg-xclock
 xorg-xcmsdb
 xorg-xcursorgen
 xorg-xdpyinfo
@@ -373,7 +366,6 @@ xorg-xhost
 xorg-xinit
 xorg-xinput
 xorg-xkbevd
-xorg-xkbprint
 xorg-xkbutils
 xorg-xkill
 xorg-xlsatoms

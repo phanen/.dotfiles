@@ -4,5 +4,5 @@ ratio = [3, 5, 10]
 
 [opener]
 edit = [
-  { run = 'nvr.sh "$@"', block = true, for = "unix" },
+  { run = '[[ -z "$NVIM" ]] && { nvim "$@" &>/dev/tty; true; } || { nvim -u NONE --server $NVIM --remote-expr "execute(\"ToggleTerm | e "$@"\")"; }', block = true, for = "unix" },
 ]

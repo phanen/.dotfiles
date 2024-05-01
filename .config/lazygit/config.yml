@@ -38,9 +38,8 @@ keybinding:
   universal:
     openFile: ""
 os:
-  # TODO: cmd cannot used after ToggleTerm, as workaround, we invoke nvim twice here
-  edit: "nvr.sh {{filename}}"
-  editAtLine: '[[ -z "$NVIM" ]] && { nvim +{{line}} {{filename}} &>/dev/tty; true; } || { nvim -u NONE --server $NVIM --remote-expr "execute(\"FloatermToggle\")" && nvim -u NONE --server $NVIM --remote-expr "execute(\"e {{filename}} | call cursor({{line}}, 0)\")"; }'
+  edit: '[[ -z "$NVIM" ]] && { nvim {{filename}} &>/dev/tty; true; } || { nvim -u NONE --server $NVIM --remote-expr "execute(\"ToggleTerm | e {{filename}}\")"; }'
+  editAtLine: '[[ -z "$NVIM" ]] && { nvim +{{line}} {{filename}} &>/dev/tty; true; } || { nvim -u NONE --server $NVIM --remote-expr "execute(\"ToggleTerm | e {{filename}} | call cursor({{line}}, 0)\")"; }'
   # https://github.com/jesseduffield/lazygit/issues/996
   editAtLineAndWait: "nvim +{{line}} {{filename}}"
   editInTerminal: true
