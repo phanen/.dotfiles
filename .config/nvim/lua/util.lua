@@ -70,6 +70,7 @@ u.smart_quit = function()
   end
 
   -- close all focusable floating windows
+  -- :fclose! ?
   local count = 0
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.api.nvim_win_is_valid(win) then
@@ -248,16 +249,14 @@ u.yank_filename = function()
   vim.fn.setreg('+', (path:gsub(('^%s'):format(vim.env.HOME), '~')))
 end
 
-u.yank_message = function() vim.fn.setreg('+', vim.trim(vim.fn.execute('1message'))) end
+u.yank_last_message = function() vim.fn.setreg('+', vim.trim(vim.fn.execute('1message'))) end
 
-u.pipe_message = function()
-  -- open a float window
-  -- vim.api
-  local width = 100
-  local height = 40
-  local bufnr = vim.api.nvim_create_buf(false, false)
+u.pipe_cmd = function(cmd)
   local ui = vim.api.nvim_list_uis()[1]
-  local opts = {
+  local width = ui.width - 20
+  local height = ui.height - 10
+  local bufnr = vim.api.nvim_create_buf(false, false)
+  local win = vim.api.nvim_open_win(bufnr, true, {
     relative = 'editor',
     width = width,
     height = height,
@@ -266,11 +265,22 @@ u.pipe_message = function()
     border = vim.g.border,
     anchor = 'NW',
     style = 'minimal',
-  }
-  local win = vim.api.nvim_open_win(bufnr, true, opts)
-  -- TODO: finish it
-  -- https://www.statox.fr/posts/2021/03/breaking_habits_floating_window/#:~:text=Spawning%20a%20floating%20window%20🔗
+  })
   vim.wo[win].winhl = 'Normal:ErrorFloat'
+
+  cmd = vim.trim(cmd)
+  if not cmd or cmd == '' then return end
+
+  local lines
+  if cmd:sub(1, 1) == '!' then
+    lines = vim
+      .iter(vim.fn.systemlist(cmd:sub(2)))
+      :map(function(line) return (line:gsub('[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]', '')) end)
+      :totable()
+  else
+    lines = vim.split(vim.fn.execute(cmd), '\n')
+  end
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
 end
 
 u.force_close_tabpage = function()
@@ -281,7 +291,7 @@ u.force_close_tabpage = function()
   end
 end
 
--- Delete the current Buffer while maintaining the window layout
+-- delete the current buffer while maintaining the window layout
 u.bufdelete = function()
   if vim.fn.filereadable(vim.fn.expand('%p')) == 0 and vim.bo.modified then
     local choice =

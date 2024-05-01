@@ -175,7 +175,8 @@ do -- misc
 
   -- n('<leader>m;', 'g<')
   n('<leader>mk', '<cmd>messages clear<cr>')
-  n('<leader>ml', '<cmd>1messages<cr>')
+  -- n('<leader>ml', '<cmd>1messages<cr>')
+  n('<leader>ml', '<cmd>messages<cr>')
   -- TODO: message is chunked, and ... paged, terrible
   -- so we use a explicit "redir" wrapper now
   vim.api.nvim_create_user_command('R', function(opt) u.pipe_cmd(opt.args) end, {
@@ -198,7 +199,7 @@ do -- misc
   n('<leader>cX', '<cmd>!chmod -x %<cr>')
 
   map('t', '<c- >', '<c-\\><c-n>')
-  map({ 't', 'n' }, '<c-\\>', '<cmd>execute "ToggleTerm". v:count<cr>')
+  map({ 't', 'n' }, '<c-\\>', '<cmd>execute v:count . "ToggleTerm"<cr>')
 
   -- diagnostics
   n('<leader>di', '<cmd>lua vim.diagnostic.open_float()<cr>')
@@ -207,7 +208,7 @@ do -- misc
   n('<leader>dk', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
   n('<leader>ds', '<cmd>lua vim.diagnostic.setloclist()<cr>')
 
-  n('+rd', ':Delete')
+  n('+rd', ':Delete!')
   n('+rr', function() return ':Rename ' .. vim.api.nvim_buf_get_name(0) end, { expr = true })
 end
 

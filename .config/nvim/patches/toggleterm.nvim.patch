@@ -1,0 +1,33 @@
+diff --git a/lua/toggleterm.lua b/lua/toggleterm.lua
+index ffe1dd0..cb16dfd 100644
+--- a/lua/toggleterm.lua
++++ b/lua/toggleterm.lua
+@@ -423,7 +423,7 @@ local function setup_commands()
+   command(
+     "ToggleTerm",
+     function(opts) M.toggle_command(opts.args, opts.count) end,
+-    { count = true, complete = commandline.toggle_term_complete, nargs = "*" }
++    { count = true, complete = commandline.toggle_term_complete, nargs = "*", bar = true }
+   )
+ 
+   command("ToggleTermToggleAll", function(opts) M.toggle_all(opts.bang) end, { bang = true })
+diff --git a/lua/toggleterm/terminal.lua b/lua/toggleterm/terminal.lua
+index 904eb34..db6302e 100644
+--- a/lua/toggleterm/terminal.lua
++++ b/lua/toggleterm/terminal.lua
+@@ -260,6 +260,7 @@ function Terminal:__restore_mode() self:set_mode(self.__state.mode) end
+ --- Set the terminal's mode
+ ---@param m Mode
+ function Terminal:set_mode(m)
++  -- print("resume", m)
+   if m == mode.INSERT then
+     vim.cmd("startinsert")
+   elseif m == mode.NORMAL then
+@@ -271,6 +272,7 @@ end
+ 
+ function Terminal:persist_mode()
+   local raw_mode = api.nvim_get_mode().mode
++  -- print("save", raw_mode)
+   local m = "?"
+   if raw_mode:match("nt") then -- nt is normal mode in the terminal
+     m = mode.NORMAL
