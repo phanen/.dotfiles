@@ -16,7 +16,7 @@ return {
         build = ':MasonUpdate',
         cmd = 'Mason',
         opts = {
-          PATH = 'append',
+          -- PATH = 'append',
           ui = { height = 0.85, border = vim.g.border },
         },
       },

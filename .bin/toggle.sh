@@ -2,7 +2,7 @@
 
 toggle_touchpad() {
   # for chromebook c1030
-  TOUCHPAD_IS_ENABLE=$(xinput list-props 'Elan Touchpad' | ag 'Device Enable' | awk '{print $NF}')
+  TOUCHPAD_IS_ENABLE=$(xinput list-props 'Elan Touchpad' | rg 'Device Enable' | awk '{print $NF}')
   if [ "$TOUCHPAD_IS_ENABLE" = 1 ]; then
     xinput disable 'Elan Touchpad'
     notify-send "Touchpad disabled"

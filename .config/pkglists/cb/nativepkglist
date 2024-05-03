@@ -86,6 +86,7 @@ git-delta
 git-lfs
 git-repair
 github-cli
+gitoxide
 gnu-efi
 gnu-netcat
 go

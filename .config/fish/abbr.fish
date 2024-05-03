@@ -44,3 +44,5 @@ abbr video ffmpeg -f x11grab -i \$DISPLAY -framerate 25 -c:v libx264 /tmp/tmp/sh
 abbr gi gh repo create --source . --push
 abbr ge gh copilot explain
 abbr gs gh copilot suggest -t shell
+
+abbr grm git rm --cached

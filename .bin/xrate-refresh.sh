@@ -4,9 +4,9 @@
 (
 	set -e
     PID=$(pgrep bspwm | head -1)
-    eval "$(sed 's:\x0:\n:g' /proc/$PID/environ | ag 'DISPLAY=' | head -1)"
+    eval "$(sed 's:\x0:\n:g' /proc/$PID/environ | rg 'DISPLAY=' | head -1)"
     # TODO: use udev rule local to user?
-    eval "$(sed 's:\x0:\n:g' /proc/$PID/environ | ag 'USER=' | head -1)"
+    eval "$(sed 's:\x0:\n:g' /proc/$PID/environ | rg 'USER=' | head -1)"
     XAUTHORITY="/home/$USER/.Xauthority"
     DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY xset r rate 140 100
 ) &
