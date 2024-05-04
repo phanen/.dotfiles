@@ -4,7 +4,10 @@ return {
     build = function() require('nvim-treesitter.install').update { with_sync = true } end,
     event = { 'BufReadPre', 'BufNewFile' },
     -- event = { 'Filetype' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      { 'windwp/nvim-ts-autotag', event = 'InsertEnter', opts = {} },
+    },
     config = vim.schedule_wrap(function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
@@ -58,6 +61,13 @@ return {
             enable = false,
             set_jumps = true, -- whether to set jumps in the jumplist
           },
+        },
+        autotag = {
+          enable = true,
+          enable_rename = true,
+          enable_close = true,
+          enable_close_on_slash = true,
+          filetypes = { 'javascript', 'html', 'xml' },
         },
       }
     end),
