@@ -32,7 +32,33 @@ return {
     event = { 'InsertEnter', 'CmdlineEnter' },
     opts = {
       fastwarp = { map = '<c-s>', cmap = '<c-s>', faster = true },
+      bs = {
+        -- support for <c-w> https://github.com/altermo/ultimate-autopair.nvim/issues/54
+        map = { '<bs>', '<c-h>' },
+        cmap = { '<bs>', '<c-h>' },
+      },
     },
+    config = function(_, opts)
+      -- https://github.com/altermo/ultimate-autopair.nvim/issues/82
+      local ua = require 'ultimate-autopair'
+      ua.init({
+        ua.extend_default(opts),
+        {
+          profile = 'map',
+          p = -1,
+          {
+            'i',
+            ' ',
+            function() return vim.api.nvim_replace_termcodes(' <C-g>u', true, true, true) end,
+          },
+          {
+            'i',
+            '-',
+            function() return vim.api.nvim_replace_termcodes('-<C-g>u', true, true, true) end,
+          },
+        },
+      })
+    end,
   },
   {
     'mg979/vim-visual-multi',
@@ -51,12 +77,17 @@ return {
   {
     'andymass/vim-matchup',
     event = 'BufReadPost',
-    keys = { '%', mode = { 'n', 'x', 'o' } },
-    init = function() vim.o.matchpairs = '(:),{:},[:],<:>' end,
+    keys = {
+      { '%', mode = { 'n', 'x', 'o' } },
+      { 'ds%', '"_<plug>(matchup-ds%)', mode = { 'n' } },
+      { 'cs%', '"_<plug>(matchup-cs%)', mode = { 'n' } },
+    },
+    init = function() vim.g.matchup_surround_enabled = 1 end,
     config = function()
       vim.g.matchup_matchparen_enabled = 0
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_offscreen = {}
+      vim.g.matchup_delim_stopline = 5000
     end,
   },
   {

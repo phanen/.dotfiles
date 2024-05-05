@@ -12,7 +12,7 @@ local util = setmetatable({}, {
 do -- first
   -- reload current session to check whatever, with a new wrap starter .bin/nvim
   -- TODO: more thing need to be preserved, `SessionWritePost`
-  n('<c-s><c-d>', '<cmd>mksession! /tmp/reload.vim | 123cq<cr>')
+  n('<c-s><c-d>', '<cmd>mksession! /tmp/reload.vim | 123cq!<cr>')
   n('<leader>ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
   n('<leader>sl', '<cmd>so /tmp/Session.vim<cr>')
   nx('<leader>so', ':so<cr>')
@@ -28,6 +28,12 @@ do -- motion
 
   nx('$', 'g_')
   x('.', ':normal .<cr>')
+
+  -- https://github.com/neovim/neovim/discussions/24285
+  -- stationary
+  vim.cmd [[
+    nnoremap <silent> z*  ms:<c-u>let @/='\V\<'.escape(expand('<cword>'), '/\').'\>'<bar>call histadd('/',@/)<bar>set hlsearch<cr>
+  ]]
 
   n('<a-j>', '<cmd>move+<cr>')
   n('<a-k>', '<cmd>move-2<cr>')
@@ -58,10 +64,13 @@ do -- yank
   n('<leader>p', '<cmd>%d _ | norm VP<cr>')
   n('<leader>y', '<cmd>%y<cr>')
 
+  -- FIXME: this makes register unusable
   for _, k in pairs({ 'd', 'D', 'c', 'C' }) do
     nx(k, '"_' .. k)
     nx('+' .. k, k)
   end
+  -- NOTE: 2dl ???
+  -- n('x', "v:count == 0 ? 'x' : 'x'", { expr = true })
 
   n('<leader>j', '<cmd>t .<cr>')
   x('<leader>j', '"gy\'>"gp')
@@ -155,6 +164,8 @@ do -- win
   n('<leader>wl', '<cmd>Lazy<cr>')
   n('<leader>wm', '<cmd>Mason<cr>')
   n('<leader>wh', '<cmd>ConformInfo<cr>')
+
+  n('<leader>Q', '<cmd>quitall!<cr>')
 end
 
 do
@@ -168,7 +179,8 @@ end
 do -- misc
   n('+E', '<cmd>lua vim.treesitter.query.edit()<cr>')
   n('+I', '<cmd>lua vim.treesitter.inspect_tree()<cr>')
-  n('+L', '<cmd>lua u._lazy_patch()<cr><cmd>lua u.lazy_cache_docs()<cr>')
+  -- you know the trick
+  -- n('+L', '<cmd>lua u._lazy_patch()<cr><cmd>lua u.lazy_cache_docs()<cr>')
   n('<leader>I', '<cmd>lua vim.show_pos()<cr>')
   nx('<leader>E', ':EditCodeBlock<cr>')
   nx('<leader>L', ':Linediff<cr>')
@@ -179,6 +191,7 @@ do -- misc
   n('<leader>ml', '<cmd>messages<cr>')
   -- TODO: message is chunked, and ... paged, terrible
   -- so we use a explicit "redir" wrapper now
+  -- TODO: toggle it
   vim.api.nvim_create_user_command('R', function(opt) u.pipe_cmd(opt.args) end, {
     nargs = 1,
     complete = 'command',
@@ -194,7 +207,11 @@ do -- misc
 
   n('<leader>cd', util.smart_cd)
   n('<leader>cf', '<cmd>cd %:h<cr>')
-  n('<leader>cn', util.yank_filename)
+  n('<leader>cy', util.yank_filename)
+  -- https://github.com/search?q=cgn+lang:vim
+  n('<leader>c*', [[<cmd>let @/='\<'.expand('<cword>').'\>'<cr>"_cgn]])
+  x('<leader>c*', [[sy:let @/=@s<cr>cgn]])
+
   n('<leader>cx', '<cmd>!chmod +x %<cr>')
   n('<leader>cX', '<cmd>!chmod -x %<cr>')
 
@@ -210,4 +227,17 @@ do -- misc
 
   n('+rd', ':Delete!')
   n('+rr', function() return ':Rename ' .. vim.api.nvim_buf_get_name(0) end, { expr = true })
+
+  n('i', function()
+    if vim.v.count > 0 then return 'i' end
+    if #vim.api.nvim_get_current_line() == 0 then
+      return [["_cc]]
+    else
+      return 'i'
+    end
+  end, { expr = true })
+
+  for _, char in ipairs({ ' ', '-', '_', ':', '.', '/' }) do
+    map('i', char, char .. '<c-g>u')
+  end
 end

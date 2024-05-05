@@ -7,6 +7,7 @@ g.maplocalleader = '+'
 -- stylua: ignore start
 o.clipboard      = 'unnamedplus'
 o.jumpoptions    = 'stack'
+o.matchpairs     = '(:),{:},[:],<:>'
 o.number         = true
 o.relativenumber = true
 o.scrolloff      = 16
