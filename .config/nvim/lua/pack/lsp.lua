@@ -133,7 +133,7 @@ return {
     opts = {
       formatters_by_ft = {
         bib = { 'bibtex-tidy' },
-        fish = { 'fish_indent' },
+        fish = { 'fish_indent', '--only-indent' },
         lua = { 'stylua' },
         python = { 'isort', 'black' },
         sh = { 'shfmt' },

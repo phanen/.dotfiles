@@ -184,6 +184,8 @@ return {
     keys = {
       { '<leader><c-o>', "<cmd>lua require('bufjump').backward()<cr>" },
       { '<leader><c-i>', "<cmd>lua require('bufjump').forward()<cr>" },
+      { '<a-o>', "<cmd>lua require('bufjump').backward_same_buf()<cr>" },
+      { '<a-i>', "<cmd>lua require('bufjump').forward_same_buf()<cr>" },
     },
   },
   {

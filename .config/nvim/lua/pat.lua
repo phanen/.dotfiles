@@ -25,7 +25,7 @@ if vim.fn.has('nvim-0.10') == 0 then
   vim.uv = vim.uv or vim.loop
   function vim.fs.joinpath(...) return (table.concat({ ... }, '/'):gsub('//+', '/')) end
   function vim.keycode(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
+else
+  vim.keymap.del('n', '<c-w>d')
+  vim.keymap.del('n', '<c-w><c-d>')
 end
-
-vim.keymap.del('n', '<c-w>d')
-vim.keymap.del('n', '<c-w><c-d>')

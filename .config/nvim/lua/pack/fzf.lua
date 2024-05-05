@@ -85,6 +85,7 @@ return {
         fzf = {},
       },
       files = {
+        -- formatter = 'path.filename_first',
         cwd_prompt = true,
         git_icons = false,
         winopts = { preview = { hidden = 'hidden' } },
@@ -99,6 +100,7 @@ return {
           ['ctrl-r'] = function(...) require('fzf-lua').actions.toggle_ignore(...) end,
         },
       },
+      buffers = { formatter = 'path.filename_first' },
       lsp = {
         jump_to_single_result = true,
         includeDeclaration = false,
