@@ -10,7 +10,7 @@ return {
         local Terminal = require('toggleterm.terminal').Terminal
         local bufname = vim.api.nvim_buf_get_name(0)
         bufname = vim.fn.resolve(bufname)
-        local root = u.gitroot(bufname)
+        local root = require('lib.util').gitroot(bufname)
         if not _TERM_LIST then _TERM_LIST = {} end
         local term = _TERM_LIST[root]
         if not term then

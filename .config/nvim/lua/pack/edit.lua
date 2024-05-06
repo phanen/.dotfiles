@@ -32,31 +32,20 @@ return {
     event = { 'InsertEnter', 'CmdlineEnter' },
     opts = {
       fastwarp = { map = '<c-s>', cmap = '<c-s>', faster = true },
-      bs = {
-        -- support for <c-w> https://github.com/altermo/ultimate-autopair.nvim/issues/54
-        map = { '<bs>', '<c-h>' },
-        cmap = { '<bs>', '<c-h>' },
-      },
+      -- support for <c-w> https://github.com/altermo/ultimate-autopair.nvim/issues/54
+      -- bs = { map = { '<bs>', '<c-h>' }, cmap = { '<bs>', '<c-h>' } },
     },
     config = function(_, opts)
       -- https://github.com/altermo/ultimate-autopair.nvim/issues/82
       local ua = require 'ultimate-autopair'
       ua.init({
         ua.extend_default(opts),
-        {
-          profile = 'map',
-          p = -1,
-          {
-            'i',
-            ' ',
-            function() return vim.api.nvim_replace_termcodes(' <C-g>u', true, true, true) end,
-          },
-          {
-            'i',
-            '-',
-            function() return vim.api.nvim_replace_termcodes('-<C-g>u', true, true, true) end,
-          },
-        },
+        -- {
+        --   profile = 'map',
+        --   p = -1,
+        --   { 'i', ' ', function() return vim.keycode(' <C-g>u') end },
+        --   { 'i', '-', function() return vim.keycode('-<C-g>u') end },
+        -- },
       })
     end,
   },

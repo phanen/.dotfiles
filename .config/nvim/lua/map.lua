@@ -5,9 +5,14 @@ local ox = function(...) map({ 'o', 'x' }, ...) end
 local ic = function(...) map('!', ...) end
 
 ---@module "util"
-local util = setmetatable({}, {
-  __index = function(_, k) return ([[<cmd>lua r.util.%s()<cr>]]):format(k) end,
+local m = setmetatable({}, {
+  __index = function(_, path)
+    return setmetatable({}, {
+      __index = function(_, k) return ([[<cmd>lua r['%s'].%s()<cr>]]):format(path, k) end,
+    })
+  end,
 })
+_G.m = m
 
 do -- first
   -- reload current session to check whatever, with a new wrap starter .bin/nvim
@@ -48,16 +53,14 @@ do -- motion
   ic('<c-b>', '<left>')
   ic('<c-p>', '<up>')
   ic('<c-n>', '<down>')
-  ic('<c-a>', '<home>')
+  -- ic('<c-a>', '<home>')
+  -- ic('<c-a>', m.readline.back_to_indentation)
   ic('<c-e>', '<end>')
-  ic('<c-a>', '<cmd>lua require("readline").dwim_beginning_of_line()<cr>')
-  -- ic('<c-e>', '<cmd>lua require("readline").dwim_end_of_line()<cr>')
-  -- ic('<a-m>', 'v:lua.require("readline").back_to_indentation()', { expr = true })
-  -- ic('<c-w>', '<cmd>lua require("readline").backward_kill_word()<cr>')
-  ic('<c-j>', '<cmd>lua require("readline").forward_word()<cr>')
-  ic('<c-o>', '<cmd>lua require("readline").backward_word()<cr>')
-  ic('<c-l>', '<cmd>lua require("readline").kill_word()<cr>')
-  ic('<c-k>', '<cmd>lua require("readline").kill_line()<cr>')
+  ic('<c-a>', m.readline.dwim_beginning_of_line)
+  ic('<c-j>', m.readline.forward_word)
+  ic('<c-o>', m.readline.backward_word)
+  ic('<c-l>', m.readline.kill_word)
+  ic('<c-k>', m.readline.kill_line)
 end
 
 do -- yank
@@ -66,11 +69,12 @@ do -- yank
 
   -- FIXME: this makes register unusable
   for _, k in pairs({ 'd', 'D', 'c', 'C' }) do
-    nx(k, '"_' .. k)
-    nx('+' .. k, k)
+    -- nx(k, '"_' .. k)
+    -- nx('+' .. k, k)
+    nx(k, ([[v:count == 0 ? '"_%s' : '%s']]):format(k, k), { expr = true })
   end
-  -- NOTE: 2dl ???
-  -- n('x', "v:count == 0 ? 'x' : 'x'", { expr = true })
+  -- NOTE: dl???
+  n('x', [[v:count == 0 ? '"_x' : 'x']], { expr = true })
 
   n('<leader>j', '<cmd>t .<cr>')
   x('<leader>j', '"gy\'>"gp')
@@ -129,7 +133,7 @@ do -- buf
   n('<c-e>', '<cmd>BufferLineCyclePrev<cr>')
   n('<c-f>', '<cmd>BufferLineCycleNext<cr>')
   n('<c-h>', '<c-^>')
-  n('<c-w>', u.bufdelete)
+  n('<c-w>', m['lib.buf'].delete)
   n('H', '<cmd>BufferLineMovePrev<cr>')
   n('L', '<cmd>BufferLineMoveNext<cr>')
   n('<leader>bi', '<cmd>buffers<cr>')
@@ -137,6 +141,11 @@ do -- buf
   n('<leader>bl', '<cmd>BufferLineCloseLeft<cr>')
   n('<leader>bo', '<cmd>BufferLineCloseOthers<cr>')
   n('<leader>br', '<cmd>BufferLineCloseRight<cr>')
+
+  n('<leader><c-o>', m['lib.buf'].backward)
+  n('<leader><c-i>', m['lib.buf'].forward)
+  n('<a-o>', m['lib.buf'].backward_same_buf)
+  n('<a-i>', m['lib.buf'].forward_same_buf)
 end
 
 do -- win
@@ -154,9 +163,9 @@ do -- win
   n('<c-s>v', '<cmd>wincmd v<cr>')
 
   n('<leader>k', '<cmd>NvimTreeFindFileToggle<cr>')
-  n('<leader>q', util.qf_toggle)
-  n('+q', util.force_close_tabpage)
-  n('q', util.smart_quit)
+  n('<leader>q', m['lib.util'].qf_toggle)
+  n('+q', m['lib.util'].force_close_tabpage)
+  n('q', m['lib.util'].smart_quit)
 
   n('<leader>wo', '<cmd>AerialToggle!<cr>')
   -- n('<leader>wo', '<cmd>Outline<cr>')
@@ -180,7 +189,7 @@ do -- misc
   n('+E', '<cmd>lua vim.treesitter.query.edit()<cr>')
   n('+I', '<cmd>lua vim.treesitter.inspect_tree()<cr>')
   -- you know the trick
-  -- n('+L', '<cmd>lua u._lazy_patch()<cr><cmd>lua u.lazy_cache_docs()<cr>')
+  n('+L', m['lib.lazy'].lazy_chore_update)
   n('<leader>I', '<cmd>lua vim.show_pos()<cr>')
   nx('<leader>E', ':EditCodeBlock<cr>')
   nx('<leader>L', ':Linediff<cr>')
@@ -192,22 +201,22 @@ do -- misc
   -- TODO: message is chunked, and ... paged, terrible
   -- so we use a explicit "redir" wrapper now
   -- TODO: toggle it
-  vim.api.nvim_create_user_command('R', function(opt) u.pipe_cmd(opt.args) end, {
+  vim.api.nvim_create_user_command('R', function(opt) require('lib.util').pipe_cmd(opt.args) end, {
     nargs = 1,
     complete = 'command',
   })
   n('<leader>me', '<cmd>R messages<cr>')
-  -- command! -nargs=1 -complete=command Redir lua u.pipe_cmd(<q-args>)()
+  -- command! -nargs=1 -complete=command Redir lua require('lib.util').pipe_cmd(<q-args>)()
   -- command! -nargs=1 RedirT silent call <SID>redir('tabnew', <f-args>)
-  n('<leader>ma', function() u.pipe_cmd('messages') end)
+  n('<leader>ma', function() require('lib.util').pipe_cmd('messages') end)
 
   n('-', '<cmd>TSJToggle<cr>')
   nx('_', 'K')
   nx('K', ':Translate<cr>')
 
-  n('<leader>cd', util.smart_cd)
+  n('<leader>cd', require('lib.util').smart_cd)
   n('<leader>cf', '<cmd>cd %:h<cr>')
-  n('<leader>cy', util.yank_filename)
+  n('<leader>cy', require('lib.util').yank_filename)
   -- https://github.com/search?q=cgn+lang:vim
   n('<leader>c*', [[<cmd>let @/='\<'.expand('<cword>').'\>'<cr>"_cgn]])
   x('<leader>c*', [[sy:let @/=@s<cr>cgn]])
@@ -238,6 +247,6 @@ do -- misc
   end, { expr = true })
 
   for _, char in ipairs({ ' ', '-', '_', ':', '.', '/' }) do
-    map('i', char, char .. '<c-g>u')
+    map('i', char, function() return char .. '<c-g>u' end, { expr = true })
   end
 end

@@ -28,7 +28,7 @@ au('BufWritePre', {
 -- reload buffer on focus
 au({ 'FocusGained', 'BufEnter' }, {
   callback = function()
-    if vim.fn.getcmdwintype() == '' then vim.cmd 'checktime' end
+    if vim.fn.getcmdwintype() == '' then vim.cmd.checktime() end
   end,
 })
 
@@ -80,7 +80,14 @@ au('Filetype', {
 au('User', {
   pattern = { 'LazyInstall*', 'LazyUpdate*', 'LazySync*', 'LazyRestore*' },
   callback = function(...)
-    require('util').lazy_patch(...)
-    require('util').lazy_cache_docs()
+    require('lib.lazy').lazy_patch_callback(...)
+    require('lib.lazy').lazy_cache_docs()
+  end,
+})
+
+au('Filetype', {
+  pattern = 'qf',
+  callback = function(ev)
+    map('n', 'dd', '<cmd>lua require("lib.qf").qf_delete()<cr>', { buffer = true })
   end,
 })
