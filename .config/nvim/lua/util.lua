@@ -267,6 +267,8 @@ u.pipe_cmd = function(cmd)
     style = 'minimal',
   })
   vim.wo[win].winhl = 'Normal:ErrorFloat'
+  vim.wo[win].nu = true
+  vim.wo[win].rnu = true
 
   cmd = vim.trim(cmd)
   if not cmd or cmd == '' then return end
