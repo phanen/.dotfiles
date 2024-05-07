@@ -20,6 +20,8 @@ do -- first
   n('<c-s><c-d>', '<cmd>mksession! /tmp/reload.vim | 123cq!<cr>')
   n('<leader>ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
   n('<leader>sl', '<cmd>so /tmp/Session.vim<cr>')
+
+  -- TODO: in visual mode and non-lua filetype, guess if code is written in lua or vimscript
   nx('<leader>so', ':so<cr>')
 end
 
@@ -132,7 +134,8 @@ end
 do -- buf
   n('<c-e>', '<cmd>BufferLineCyclePrev<cr>')
   n('<c-f>', '<cmd>BufferLineCycleNext<cr>')
-  n('<c-h>', '<c-^>')
+  -- n('<c-h>', '<c-^>')
+  n('<c-h>', '"_ciw')
   n('<c-w>', m['lib.buf'].delete)
   n('H', '<cmd>BufferLineMovePrev<cr>')
   n('L', '<cmd>BufferLineMoveNext<cr>')
@@ -163,7 +166,7 @@ do -- win
   n('<c-s>v', '<cmd>wincmd v<cr>')
 
   n('<leader>k', '<cmd>NvimTreeFindFileToggle<cr>')
-  n('<leader>q', m['lib.util'].qf_toggle)
+  n('<leader>q', m['lib.qf'].qf_toggle)
   n('+q', m['lib.util'].force_close_tabpage)
   n('q', m['lib.util'].smart_quit)
 
@@ -249,4 +252,19 @@ do -- misc
   for _, char in ipairs({ ' ', '-', '_', ':', '.', '/' }) do
     map('i', char, function() return char .. '<c-g>u' end, { expr = true })
   end
+end
+
+do -- markdown
+  au('Filetype', {
+    pattern = { 'markdown', 'typst' },
+    callback = function()
+      nx('<c- >', function() require('mder.line').toggle_lines() end, { buffer = true })
+      x('<c-e>', function() require('mder.codeblock').codeblock() end, { buffer = true })
+      n('o', function() require('mder.autolist').listdn() end, { buffer = true })
+      n('O', function() require('mder.autolist').listup() end, { buffer = true })
+      nx(' zi', function() require('mder.link').img_link() end, { buffer = true })
+      nx(' zj', function() require('mder.link').raw_link() end, { buffer = true })
+
+    end,
+  })
 end

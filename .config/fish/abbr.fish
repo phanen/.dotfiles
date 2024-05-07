@@ -46,3 +46,5 @@ abbr ge gh copilot explain
 abbr gs gh copilot suggest -t shell
 
 abbr grm git rm --cached
+
+abbr ghg git rev-list --all \| GIT_PAGER=cat xargs git grep

@@ -60,7 +60,7 @@
   tab  @fu  @fc  C--  r    @tt  @gp  u    C-+  C--  @tp  [    ]    \
   ;; use for qwerty for now
   caps a    s    d    C-+  g    bspc C-S-right C-S-left    @lk  ;    '    ret
-  lsft z    x    c    @tv  b    n    m    ,    .    /    rsft
+  lsft z    x    @cc    @tv  b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rctl
 )
 
@@ -77,6 +77,7 @@
   tp (cmd-button "toggle.sh polybar")
   gp (cmd-button "tr -dc \"a-zA-Z0-9_#@.-\" < /dev/random | head -c 14 | xclip -selection clipboard")
   lk (cmd-button "slock")
+  cc (cmd-button "pkill -x clash; clash &")
 )
 
 (deflayer super
