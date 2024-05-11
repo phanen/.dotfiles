@@ -40,12 +40,12 @@ return {
       local ua = require 'ultimate-autopair'
       ua.init({
         ua.extend_default(opts),
-        -- {
-        --   profile = 'map',
-        --   p = -1,
-        --   { 'i', ' ', function() return vim.keycode(' <C-g>u') end },
-        --   { 'i', '-', function() return vim.keycode('-<C-g>u') end },
-        -- },
+        {
+          profile = 'map',
+          p = -1,
+          { 'i', ' ', function() return vim.keycode(' <C-g>u') end },
+          { 'i', '-', function() return vim.keycode('-<C-g>u') end },
+        },
       })
     end,
   },

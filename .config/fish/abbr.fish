@@ -1,4 +1,5 @@
 abbr c cargo
+abbr d docker
 abbr g git
 abbr h tokei
 abbr i ipython

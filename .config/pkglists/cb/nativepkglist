@@ -86,12 +86,12 @@ git
 git-delta
 git-lfs
 git-repair
+git-subrepo-git
 github-cli
 gitoxide
 gnu-efi
 gnu-netcat
 go
-go-musicfox
 goldendict-git
 gopass
 gperf
@@ -111,6 +111,7 @@ httping
 hwloc
 hyperfine
 hyperv
+hyprland
 i2c-tools
 imagemagick
 imv
@@ -207,6 +208,7 @@ pacutils
 pandoc-bin
 paru
 pass
+patchelf
 pdfgrep
 peek
 perf
@@ -282,6 +284,7 @@ sshfs
 stow
 strace
 surfraw
+sway
 sxhkd
 sxiv
 syncthing
@@ -332,6 +335,7 @@ vim
 viu
 vivid
 vulkan-intel
+weston
 wezterm
 wget
 wl-clipboard
