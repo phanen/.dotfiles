@@ -25,8 +25,8 @@ au('BufWritePre', {
   end,
 })
 
--- reload buffer on focus
-au({ 'FocusGained', 'BufEnter' }, {
+-- reload buffer
+au({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
   callback = function()
     if vim.fn.getcmdwintype() == '' then vim.cmd.checktime() end
   end,
@@ -39,17 +39,6 @@ au('Filetype', {
       map('n', 'u', '<c-u>', { buffer = args.buf })
       map('n', 'd', '<c-d>', { buffer = args.buf })
     end
-  end,
-})
-
-au('LspAttach', {
-  callback = function(args)
-    local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = args.buf }) end
-    bn('gD', vim.lsp.buf.declaration)
-    bn('gI', vim.lsp.buf.implementation)
-    bn('gs', vim.lsp.buf.signature_help)
-    bn('_', vim.lsp.buf.hover)
-    bn('<leader>rn', vim.lsp.buf.rename)
   end,
 })
 

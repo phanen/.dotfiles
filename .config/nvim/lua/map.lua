@@ -8,7 +8,7 @@ local ic = function(...) map('!', ...) end
 local m = setmetatable({}, {
   __index = function(_, path)
     return setmetatable({}, {
-      __index = function(_, k) return ([[<cmd>lua r['%s'].%s()<cr>]]):format(path, k) end,
+      __index = function(_, k) return ([[<cmd>lua r('%s').%s()<cr>]]):format(path, k) end,
     })
   end,
 })
@@ -102,7 +102,7 @@ do -- textobj
 end
 
 do
-  nx('gw', '<cmd>lua r.conform.format { lsp_fallback = true }<cr>')
+  nx('gw', [[<cmd>lua r('conform').format { lsp_fallback = true }<cr>]])
   local s = function(lhs, pattern)
     n(lhs, ('<cmd>%%%s<cr>``'):format(pattern))
     x(lhs, (':%s<cr>``'):format(pattern))
@@ -269,3 +269,19 @@ do -- markdown
 end
 
 -- keymap('s', [[<BS>]], [[<BS>i]])
+n('gD', vim.lsp.buf.declaration)
+n('gI', vim.lsp.buf.implementation)
+n('gs', vim.lsp.buf.signature_help)
+n('_', vim.lsp.buf.hover)
+n('<leader>rn', vim.lsp.buf.rename)
+
+-- au('LspAttach', {
+--   callback = function(args)
+--     local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = args.buf }) end
+--     bn('gD', vim.lsp.buf.declaration)
+--     bn('gI', vim.lsp.buf.implementation)
+--     bn('gs', vim.lsp.buf.signature_help)
+--     bn('_', vim.lsp.buf.hover)
+--     bn('<leader>rn', vim.lsp.buf.rename)
+--   end,
+-- })

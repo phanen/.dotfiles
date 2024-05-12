@@ -85,7 +85,6 @@ gdb
 git
 git-delta
 git-lfs
-git-repair
 git-subrepo-git
 github-cli
 gitoxide
@@ -198,6 +197,7 @@ npm
 ntfs-3g
 nvm
 obs-studio
+obsidian
 ocaml
 onefetch
 openssh
@@ -273,7 +273,6 @@ scrcpy
 screen
 scrot
 setconf
-shellcheck
 simplescreenrecorder
 slock
 smartmontools
@@ -316,6 +315,7 @@ texlive-plaingeneric
 texlive-pstricks
 texlive-publishers
 texlive-xetex
+thunderbird
 tk
 tmux
 tokei
