@@ -99,6 +99,7 @@ grub
 gtk-vnc
 gtkwave
 gum
+gvim
 hddtemp
 helix
 hexer
@@ -331,7 +332,6 @@ typst
 ueberzug
 unzip
 usbutils
-vim
 viu
 vivid
 vulkan-intel
