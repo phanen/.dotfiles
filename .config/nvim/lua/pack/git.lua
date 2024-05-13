@@ -14,7 +14,6 @@ return {
   {
     'sindrets/diffview.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    cmd = 'DiffviewOpen',
     keys = {
       { '+gd', ':DiffviewOpen<CR>', mode = { 'n', 'x' } },
       { '+gh', ':DiffviewFileHistory %<cr>', mode = { 'n', 'x' } },
@@ -36,7 +35,8 @@ return {
     keys = { { '<leader>gs', '<cmd>Gitsigns<cr>' } },
     dependencies = 'stevearc/dressing.nvim',
     opts = {
-      -- attach_to_untracked = true,
+      -- used in diffview
+      attach_to_untracked = true,
       preview_config = { border = vim.g.border },
       signs = {
         add = { text = '+' },
@@ -45,10 +45,24 @@ return {
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
-      on_attach = function(_)
+      on_attach = function(bufnr)
+        local gs = package.loaded.gitsigns
+
+        map('n', 'gj', function()
+          if vim.wo.diff then return ']c' end
+          vim.schedule(gs.next_hunk)
+          return '<ignore>'
+        end, { expr = true })
+        -- should not buf map, unkown
+        -- end, { expr = true, buffer = bufnr })
+
+        map('n', 'gk', function()
+          if vim.wo.diff then return '[c' end
+          vim.schedule(gs.prev_hunk)
+          return '<ignore>'
+        end, { expr = true })
+
         local n = function(lhs, rhs) map('n', lhs, ('<cmd>Gitsigns %s<cr>'):format(rhs)) end
-        n('gj', 'next_hunk')
-        n('gk', 'prev_hunk')
         n('<leader>hs', 'stage_hunk')
         n('<leader>hu', 'undo_stage_hunk')
         n('<leader>hr', 'reset_hunk')

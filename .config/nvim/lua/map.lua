@@ -269,19 +269,3 @@ do -- markdown
 end
 
 -- keymap('s', [[<BS>]], [[<BS>i]])
-n('gD', vim.lsp.buf.declaration)
-n('gI', vim.lsp.buf.implementation)
-n('gs', vim.lsp.buf.signature_help)
-n('_', vim.lsp.buf.hover)
-n('<leader>rn', vim.lsp.buf.rename)
-
--- au('LspAttach', {
---   callback = function(args)
---     local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = args.buf }) end
---     bn('gD', vim.lsp.buf.declaration)
---     bn('gI', vim.lsp.buf.implementation)
---     bn('gs', vim.lsp.buf.signature_help)
---     bn('_', vim.lsp.buf.hover)
---     bn('<leader>rn', vim.lsp.buf.rename)
---   end,
--- })

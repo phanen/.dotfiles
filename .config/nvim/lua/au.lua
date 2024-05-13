@@ -80,3 +80,14 @@ au('Filetype', {
     map('n', 'dd', '<cmd>lua require("lib.qf").qf_delete()<cr>', { buffer = true })
   end,
 })
+
+au('LspAttach', {
+  callback = function(args)
+    local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = args.buf }) end
+    bn('gD', vim.lsp.buf.declaration)
+    bn('gI', vim.lsp.buf.implementation)
+    bn('gs', vim.lsp.buf.signature_help)
+    bn('_', vim.lsp.buf.hover)
+    bn('<leader>rn', vim.lsp.buf.rename)
+  end,
+})
