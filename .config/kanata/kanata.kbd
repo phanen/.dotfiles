@@ -2,9 +2,7 @@
 ;; /usr/share/doc/kmonad-git/quick-reference.md
 
 (defcfg
-  output (uinput-sink "kmonad")
-  fallthrough true
-  allow-cmd true
+  danger-enable-cmd yes
 )
 
 (defsrc
@@ -16,7 +14,7 @@
 )
 
 (deflayer qwerty
-  _    _    _    3    4    5    6    7    8    9    0    .    =    bspc
+  bspc _    _    3    4    5    6    7    8    9    0    .    =    bspc
   @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
   @ec  a    s    d    f    g    h    j    k    l    @;s  @'s  ret
   @gs  @za  x    c    v    b    n    m    ,    .    /    \
@@ -50,7 +48,7 @@
 (deflayer symbol
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   ~    !    ^    #    $    _    _    &    *    +    |    _    _    _
-  @ec  [    ]    \(   \)   @    %    \_   -    =    _    _    _
+  @ec  [    ]    S-9  S-0  %    \_   -    =    _    _    _
   grv  |    \    {    }  #(- P5 >) {    }    _    .    /    \
   _    _    _              _              _    _
 )
@@ -60,7 +58,7 @@
   tab  @fu  @fc  C--  r    @tt  @gp  u    C-+  C--  @tp  [    ]    \
   ;; use for qwerty for now
   caps a    s    d    C-+  g    bspc C-S-right C-S-left    @lk  ;    '    ret
-  lsft z    x    @cc    @tv  b    n    m    ,    .    /    rsft
+  lsft z    x    c    @tv  b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rctl
 )
 
@@ -77,7 +75,6 @@
   tp (cmd-button "toggle.sh polybar")
   gp (cmd-button "tr -dc \"a-zA-Z0-9_#@.-\" < /dev/random | head -c 14 | xclip -selection clipboard")
   lk (cmd-button "slock")
-  cc (cmd-button "pkill -x clash; clash &")
 )
 
 (deflayer super

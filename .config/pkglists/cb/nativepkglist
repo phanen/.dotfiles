@@ -82,6 +82,8 @@ fish
 flameshot
 flashrom
 font-manager
+fuzzel
+fx
 fzf
 gdb
 gdu
@@ -94,6 +96,7 @@ gitoxide
 gnu-efi
 gnu-netcat
 go
+go-musicfox-git
 goldendict-git
 gopass
 gperf
@@ -294,6 +297,8 @@ stow
 strace
 surfraw
 sway
+sway-contrib
+swaybg
 sxhkd
 sxiv
 syncthing

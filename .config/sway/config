@@ -1,9 +1,19 @@
 # /etc/sway/config
 
+# include ~/.config/sway/config.d/base.conf
+# include ~/.config/sway/config.d/color.conf
+# include ~/.config/sway/config.d/bind.conf
+# include ~/.config/sway/config.d/startup.conf
+# include ~/.config/sway/config.d/bar.conf
+# include ~/.config/sway/config.d/sway.conf
+# include ~/.config/sway/config.d/input.conf
+# include ~/.config/sway/config.d/local/*.conf
+# include ~/.config/sway/config.d/appearance.conf
+
 set $s Mod4
-set $term alacritty
+set $term kitty -1
 set $menu rofi -show drun -matching fuzzy | xargs swaymsg exec --
-set $clip clipman pick --tool=rofi
+set $clip cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy
 
 # swaymsg -t get_outputs
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
@@ -13,25 +23,31 @@ input "1267:172:Elan_Touchpad" {
     natural_scroll enabled
     middle_emulation enabled
 }
-input "4661:22137:KMonad" {
-    repeat_delay 145
-    repeat_rate 85
+input "4661:22137:kmonad" {
+    repeat_delay 140
+    repeat_rate 100
 }
+
+# bindsym $mod+bracketright nop top_next
+# bindsym $mod+bracketleft nop top_prev
+
+
+exec_always pkill wl-paste; wl-paste --watch cliphist store
 
 bindsym $s+z reload
 bindsym $s+Ctrl+q exec swaymsg exit
 bindsym $s+q kill
-bindsym $s+n exec $term
+bindsym $s+c exec $term
 bindsym $s+semicolon exec $menu
 bindsym $s+p exec $clip
 
-bindsym $s+d splith
-bindsym $s+s splitv
+bindsym $s+h splith
+bindsym $s+v splitv
 
 bindsym $s+j focus next
 bindsym $s+k focus prev
-bindsym $s+f workspace next
-bindsym $s+e workspace prev
+bindsym $s+w workspace next
+# bindsym $s+e workspace prev
 
 bindsym $s+1 workspace number 1
 bindsym $s+2 workspace number 2
@@ -39,24 +55,23 @@ bindsym $s+3 workspace number 3
 bindsym $s+Shift+1 move container to workspace number 1
 bindsym $s+Shift+2 move container to workspace number 2
 bindsym $s+Shift+3 move container to workspace number 3
-# bindsym $s+b splith
+
 # bindsym $s+s layout stacking
 # bindsym $s+e layout toggle split
 
 # Make the current focus fullscreen
-bindsym $s+m fullscreen
+# bindsym $s+m fullscreen
 bindsym $s+Shift+f floating toggle
 bindsym $s+space focus mode_toggle
 bindsym $s+a focus parent
-# bindsym $s+s scratchpad show
+bindsym $s+n scratchpad show
 bindsym $s+Shift+s move scratchpad
 
+bindsym $s+m focus mode_toggle
+
+# TODO: resizing
 bindsym $s+Ctrl+h resize grow width 10px
 bindsym $s+Ctrl+l resize shrink width 10px
-
-bindsym $s+c floating toggle
-bindsym $s+v focus mode_toggle
-bindsym $s+b floating toggle
 
 bar {
     position top
