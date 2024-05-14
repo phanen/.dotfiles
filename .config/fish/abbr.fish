@@ -49,3 +49,6 @@ abbr gs gh copilot suggest -t shell
 abbr grm git rm --cached
 
 abbr ghg git rev-list --all \| GIT_PAGER=cat xargs git grep
+
+abbr pv python -m virtualenv venv
+abbr pe . ./venv/bin/activate.fish
