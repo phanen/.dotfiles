@@ -3,9 +3,9 @@ if not vim.uv.fs_stat(path) then
   vim.fn.system { 'git', 'clone', '--branch=stable', 'https://github.com/folke/lazy.nvim', path }
 end
 
-local stage_path = vim.fs.joinpath(vim.g.config_path, 'lua', 'pack', 'stage.lua')
+local stage_path = vim.fs.joinpath(vim.g.config_path, 'lua', 'plugs', 'stage.lua')
 local extra_sepc = {
-  vim.uv.fs_stat(stage_path) and { import = 'pack.stage' } or nil,
+  vim.uv.fs_stat(stage_path) and { import = 'plugs.stage' } or nil,
 }
 
 vim.opt.rtp:prepend(path)
@@ -17,15 +17,28 @@ vim.opt.rtp:append(docs_path)
 
 require('lazy').setup {
   spec = {
-    { import = 'pack.cmp' },
-    { import = 'pack.edit' },
-    { import = 'pack.fzf' },
-    { import = 'pack.git' },
-    { import = 'pack.lsp' },
-    { import = 'pack.misc' },
-    { import = 'pack.nav' },
-    { import = 'pack.term' },
-    { import = 'pack.ts' },
+    { import = 'plugs.cmp' },
+    { import = 'plugs.edit' },
+    { import = 'plugs.fzf' },
+    { import = 'plugs.git' },
+    { import = 'plugs.lsp' },
+    { import = 'plugs.nav' },
+    { import = 'plugs.term' },
+    { import = 'plugs.ts' },
+    {
+      { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
+      { 'folke/lazy.nvim' },
+      -- buggy in wayalnd
+      { 'lilydjwg/fcitx.vim', cond = not vim.env.WAYLAND_DISPLAY, event = 'InsertEnter' },
+      { 'tpope/vim-eunuch', cmd = { 'Rename', 'Delete' } },
+      { 'voldikss/vim-translator', cmd = 'Translate' },
+      {
+        'chrishrb/gx.nvim',
+        cmd = 'Browse',
+        keys = { { 'gl', '<cmd>Browse<cr>', mode = { 'n', 'x' } } },
+        opts = {},
+      },
+    },
     extra_sepc,
   },
   lockfile = vim.fn.stdpath('data') .. '/lazy-lock.json',

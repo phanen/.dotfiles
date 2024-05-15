@@ -1,6 +1,5 @@
-_G.f = setmetatable({}, { __index = function(_, k) return require('fzf-lua-overlay')[k] end })
 local fl = setmetatable({}, {
-  __index = function(_, k) return ([[<cmd>lua f.%s()<cr>]]):format(k) end,
+  __index = function(_, k) return ([[<cmd>lua require('fzf-lua-overlay').%s()<cr>]]):format(k) end,
 })
 
 return {
