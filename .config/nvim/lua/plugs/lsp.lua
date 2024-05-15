@@ -8,24 +8,22 @@ return {
     },
   },
   {
+    'williamboman/mason.nvim',
+    build = ':MasonUpdate',
+    cmd = 'Mason',
+    opts = {
+      -- PATH = 'append',
+      ui = { height = 0.85, border = vim.g.border },
+    },
+  },
+  {
+    'neovim/nvim-lspconfig',
+    cmd = { 'LspInfo', 'LspInstall', 'LspUninstall' },
+    config = function() require('lspconfig.ui.windows').default_options.border = vim.g.border end,
+  },
+  {
     'williamboman/mason-lspconfig.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      {
-        'williamboman/mason.nvim',
-        build = ':MasonUpdate',
-        cmd = 'Mason',
-        opts = {
-          -- PATH = 'append',
-          ui = { height = 0.85, border = vim.g.border },
-        },
-      },
-      {
-        'neovim/nvim-lspconfig',
-        cmd = { 'LspInfo', 'LspInstall', 'LspUninstall' },
-        config = function() require('lspconfig.ui.windows').default_options.border = vim.g.border end,
-      },
-    },
     config = function()
       local lspconfig = require 'lspconfig'
       local ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')

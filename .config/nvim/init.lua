@@ -1,12 +1,18 @@
 vim.loader.enable()
 
-vim.go.loadplugins = true
+-- vim.go.loadplugins = true
 
-require 'pat'
+require 'set'
 require 'opt'
-require 'map'
+if vim.g.vscode then return require('mod.vscode') end
 require 'au'
+require 'ft'
+require 'map'
+require 'cmd'
 require 'pm'
-if vim.g.vscode then require 'mod.vscode' end
+-- require 'mod.fastmove'
+require 'mod.textobj'
+
+-- require 'mod.bench'
 
 pcall(vim.cmd.colorscheme, vim.g.colors_name)

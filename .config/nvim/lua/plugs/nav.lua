@@ -54,6 +54,7 @@ return {
   {
     -- https://github.com/akinsho/bufferline.nvim/issues/196
     'akinsho/bufferline.nvim',
+    -- version = '*',
     cond = true,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = 'nvim-tree/nvim-web-devicons',

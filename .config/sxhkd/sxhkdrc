@@ -52,8 +52,6 @@ super + p
 super + x
   ~/.bin/scripts/bookmark-it.sh
   # bspc node -f "$(xdotool search --onlyvisible google-chrome)"
-super + v
-  (rofi -dmenu) | telegram-send
 super + 1
   (rofi -dmenu) >> ~/notes/bookmark.txt
 super + Tab

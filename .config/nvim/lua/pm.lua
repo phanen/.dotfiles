@@ -3,9 +3,9 @@ if not vim.uv.fs_stat(path) then
   vim.fn.system { 'git', 'clone', '--branch=stable', 'https://github.com/folke/lazy.nvim', path }
 end
 
-local stage_path = vim.fs.joinpath(vim.g.config_path, 'lua', 'plugs', 'stage.lua')
+local stage_path = vim.fs.joinpath(vim.g.config_path, 'lua', 'plugs', 'extra.lua')
 local extra_sepc = {
-  vim.uv.fs_stat(stage_path) and { import = 'plugs.stage' } or nil,
+  vim.uv.fs_stat(stage_path) and { import = 'plugs.extra' } or nil,
 }
 
 vim.opt.rtp:prepend(path)
@@ -42,7 +42,18 @@ require('lazy').setup {
     extra_sepc,
   },
   lockfile = vim.fn.stdpath('data') .. '/lazy-lock.json',
-  defaults = { lazy = true },
+  defaults = {
+    lazy = true,
+    -- version = '*',
+    cond = function(p)
+      -- vscode plugins by list
+      return not vim.g.vscode
+        or ({
+          ['flash.nvim'] = true,
+          ['readline.nvim'] = true,
+        })[p.name]
+    end,
+  },
   change_detection = { enabled = false, notify = false },
   git = { filter = false }, -- blame it
   dev = { path = '~/b', patterns = { 'phanen' }, fallback = true },

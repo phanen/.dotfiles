@@ -1,6 +1,6 @@
 -- https://github.com/ibhagwan/smartyank.nvim
 au('TextYankPost', {
-  callback = function(ev) vim.highlight.on_yank() end,
+  callback = function() vim.highlight.on_yank() end,
 })
 
 -- https://github.com/jeffkreeftmeijer/vim-numbertoggle
@@ -32,16 +32,6 @@ au({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
   end,
 })
 
-au('Filetype', {
-  pattern = { 'toggleterm', 'help', 'man' },
-  callback = function(args)
-    if vim.bo.bt ~= '' then
-      map('n', 'u', '<c-u>', { buffer = args.buf })
-      map('n', 'd', '<c-d>', { buffer = args.buf })
-    end
-  end,
-})
-
 au('VimResized', {
   callback = function()
     if vim.o.columns < 100 then
@@ -55,29 +45,11 @@ au('VimResized', {
   end,
 })
 
--- fish_indent
-au('Filetype', {
-  pattern = { 'fish' },
-  callback = function()
-    vim.bo.shiftwidth = 4
-    vim.bo.tabstop = 4
-    vim.bo.softtabstop = 4
-    vim.bo.expandtab = true
-  end,
-})
-
 au('User', {
   pattern = { 'LazyInstall*', 'LazyUpdate*', 'LazySync*', 'LazyRestore*' },
   callback = function(...)
     require('lib.lazy').lazy_patch_callback(...)
     require('lib.lazy').lazy_cache_docs()
-  end,
-})
-
-au('Filetype', {
-  pattern = 'qf',
-  callback = function(ev)
-    map('n', 'dd', '<cmd>lua require("lib.qf").qf_delete()<cr>', { buffer = true })
   end,
 })
 
@@ -91,3 +63,16 @@ au('LspAttach', {
     bn('<leader>rn', vim.lsp.buf.rename)
   end,
 })
+
+-- local stack = {}
+-- au('CmdlineEnter', {
+--   once = true,
+--   callback = function()
+--     map('c', ' ', function() return ' ' end, { expr = true })
+--     -- cmape('')
+--   end,
+-- })
+--
+-- au('CmdlineChanged', {
+--   callback = function(args) vim.print(args, vim.fn.getcmdline()) end,
+-- })

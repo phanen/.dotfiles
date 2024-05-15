@@ -74,7 +74,7 @@ return {
   },
   {
     'ruifm/gitlinker.nvim',
-    dependencies = 'nvim-lua/plenary.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
       { '+gl', '<cmd>lua require("gitlinker").get_buf_range_url "n"<cr>', mode = 'n' },
       { '+gl', '<cmd>lua require("gitlinker").get_buf_range_url "v"<cr>', mode = 'x' },

@@ -79,7 +79,10 @@ findutils
 firefox
 fish
 flameshot
+flatpak
 flex
+frpc
+frps
 fx
 fzf
 gawk
@@ -174,6 +177,7 @@ networkmanager
 ninja
 nmap
 nodejs
+noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 npm
@@ -253,6 +257,7 @@ starship
 stow
 strace
 sudo
+sx
 sxhkd
 syncthing
 tcpdump
@@ -278,6 +283,7 @@ usbutils
 verilator
 virt-manager
 virt-viewer
+virtualbox
 wakeonlan
 weston
 wget

@@ -1,19 +1,19 @@
 local M = {}
 
 local jumpbackward = function(num)
-  vim.api.nvim_feedkeys(vim.keycode(tostring(num) .. '<c-o>'), 'n', false)
+  api.nvim_feedkeys(vim.keycode(tostring(num) .. '<c-o>'), 'n', false)
 end
 
 local jumpforward = function(num)
-  vim.api.nvim_feedkeys(vim.keycode(tostring(num) .. '<c-i>'), 'n', false)
+  api.nvim_feedkeys(vim.keycode(tostring(num) .. '<c-i>'), 'n', false)
 end
 
 ---@param stop_cond fun(from_bufnr: number, to_bufnr: number):boolean
 M.backward_cond = function(stop_cond)
-  local jumplist, to_pos = unpack(vim.fn.getjumplist())
+  local jumplist, to_pos = unpack(fn.getjumplist())
   if #jumplist == 0 or to_pos == 0 then return end
 
-  local from_bufnr = vim.fn.bufnr()
+  local from_bufnr = fn.bufnr()
   local from_pos = to_pos + 1
   repeat
     local to_bufnr = jumplist[to_pos].bufnr
@@ -27,28 +27,24 @@ end
 
 M.backward = function()
   M.backward_cond(
-    function(from_bufnr, to_bufnr)
-      return from_bufnr ~= to_bufnr and vim.api.nvim_buf_is_valid(to_bufnr)
-    end
+    function(from_bufnr, to_bufnr) return from_bufnr ~= to_bufnr and api.nvim_buf_is_valid(to_bufnr) end
   )
 end
 
 M.backward_same_buf = function()
   M.backward_cond(
-    function(from_bufnr, to_bufnr)
-      return from_bufnr == to_bufnr and vim.api.nvim_buf_is_valid(to_bufnr)
-    end
+    function(from_bufnr, to_bufnr) return from_bufnr == to_bufnr and api.nvim_buf_is_valid(to_bufnr) end
   )
 end
 
 ---@param stop_cond fun(from_bufnr: number, to_bufnr: number):boolean
 M.forward_cond = function(stop_cond)
-  local getjumplist = vim.fn.getjumplist()
+  local getjumplist = fn.getjumplist()
   local jumplist, from_pos = getjumplist[1], getjumplist[2] + 1
   local max_pos = #jumplist
   if max_pos == 0 or from_pos >= max_pos then return end
 
-  local from_bufnr = vim.fn.bufnr()
+  local from_bufnr = fn.bufnr()
   local to_pos = from_pos + 1
   repeat
     local to_bufnr = jumplist[to_pos].bufnr
@@ -62,29 +58,25 @@ end
 
 M.forward = function()
   M.forward_cond(
-    function(from_bufnr, to_bufnr)
-      return from_bufnr ~= to_bufnr and vim.api.nvim_buf_is_valid(to_bufnr)
-    end
+    function(from_bufnr, to_bufnr) return from_bufnr ~= to_bufnr and api.nvim_buf_is_valid(to_bufnr) end
   )
 end
 
 M.forward_same_buf = function()
   M.forward_cond(
-    function(from_bufnr, to_bufnr)
-      return from_bufnr == to_bufnr and vim.api.nvim_buf_is_valid(to_bufnr)
-    end
+    function(from_bufnr, to_bufnr) return from_bufnr == to_bufnr and api.nvim_buf_is_valid(to_bufnr) end
   )
 end
 
 M.delete = function()
-  if vim.fn.filereadable(vim.fn.expand('%p')) == 0 and vim.bo.modified then
+  if fn.filereadable(fn.expand('%p')) == 0 and vim.bo.modified then
     local choice =
-      vim.fn.input('The file is not saved, whether to force delete? Press enter or input [y/n]:')
+      fn.input('The file is not saved, whether to force delete? Press enter or input [y/n]:')
     if choice == 'y' or string.len(choice) == 0 then vim.cmd('bd!') end
     return
   end
   local force = not vim.bo.buflisted or vim.bo.buftype == 'nofile'
-  vim.cmd(force and 'bd!' or string.format('bp | bd! %s', vim.api.nvim_get_current_buf()))
+  vim.cmd(force and 'bd!' or string.format('bp | bd! %s', api.nvim_get_current_buf()))
 end
 
 return M

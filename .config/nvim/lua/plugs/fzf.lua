@@ -2,6 +2,7 @@ local fl = setmetatable({}, {
   __index = function(_, k) return ([[<cmd>lua require('fzf-lua-overlay').%s()<cr>]]):format(k) end,
 })
 
+-- local fl = 'fzf-lua-overlay'
 return {
   {
     'phanen/fzf-lua-overlay',
