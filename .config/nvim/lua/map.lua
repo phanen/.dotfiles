@@ -254,18 +254,4 @@ do -- misc
   end
 end
 
-do -- markdown
-  au('Filetype', {
-    pattern = { 'markdown', 'typst' },
-    callback = function()
-      nx('<c- >', function() require('mder.line').toggle_lines() end, { buffer = true })
-      x('<c-e>', function() require('mder.codeblock').surround() end, { buffer = true })
-      n('o', function() require('mder.autolist').listdn() end, { buffer = true })
-      n('O', function() require('mder.autolist').listup() end, { buffer = true })
-      nx(' zi', function() require('mder.link').toggle_img() end, { buffer = true })
-      nx(' zj', function() require('mder.link').toggle_arrow() end, { buffer = true })
-    end,
-  })
-end
-
 -- keymap('s', [[<BS>]], [[<BS>i]])
