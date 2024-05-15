@@ -3,7 +3,7 @@
 !.bashrc
 !.bin
 !.config/
-!.env
+!.environ
 !.gitignore
 !.gitmodules
 !init.sh
