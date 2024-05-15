@@ -3,7 +3,10 @@ function k_ce
     if test -z "$(string trim -- $line)"
         # TODO: _fzf_search_directory
         # set -l ent (fd . -d 1 -I -H | fzf)
-        set -l ent (fd . -H | fzf)
+        set fzf fzf \
+            --bind "ctrl-g:reload(fd . -d 1 -I -H)"
+
+        set -l ent (fd . -H | $fzf)
         if test -n "$ent"
             if test -d "$ent"
                 __zoxide_z "$ent"

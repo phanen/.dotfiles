@@ -8,6 +8,7 @@ archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2
 ast-grep
+atuin
 aurpublish
 aurutils
 baidupcs-go
@@ -82,6 +83,7 @@ flashrom
 font-manager
 fzf
 gdb
+gdu
 git
 git-delta
 git-lfs
@@ -180,7 +182,6 @@ moreutils
 mpc
 mpd
 mpv
-mysql
 namcap
 nano
 nasm
@@ -275,12 +276,14 @@ screen
 scrot
 setconf
 simplescreenrecorder
+skim
 slock
 smartmontools
 sof-firmware
 speedtest-cli
 spice-vdagent
 sshfs
+starship
 stow
 strace
 surfraw
@@ -316,7 +319,6 @@ texlive-plaingeneric
 texlive-pstricks
 texlive-publishers
 texlive-xetex
-thunderbird
 tk
 tmux
 tokei

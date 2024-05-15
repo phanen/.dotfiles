@@ -20,4 +20,5 @@ bind -x '"\ek": "clear"'
 bind '"\el": "\C-e | bat"'
 
 eval "$(zoxide init bash)"
+eval "$(atuin init bash)"
 stty stop undef

@@ -128,3 +128,4 @@ abbrev-alias spx='--preserve-env=http_proxy,https_proxy,all_proxy'
 . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 stty stop undef
+eval "$(atuin init zsh)"
