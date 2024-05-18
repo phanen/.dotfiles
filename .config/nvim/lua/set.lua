@@ -31,7 +31,21 @@ end
 _G.r = require
 -- _G.r = setmetatable({}, { __index = function(_, k) return require(k) end })
 
-_G.req = function(_path)
+-- TODO: error handler
+---@module "util"
+_G.m = setmetatable({}, {
+  __index = function(_, path)
+    return setmetatable({}, {
+      __index = function(_, k)
+        -- benchmark
+        -- return ([[<cmd>lua r('%s').%s()<cr>]]):format(path, k)
+        return function(v) return r(path)[k](v) end
+      end,
+    })
+  end,
+})
+
+_G.r = function(_path)
   return setmetatable({}, {
     __index = function(_, k) return require(_path)[k] end,
   })
@@ -40,6 +54,12 @@ end
 _G.api = vim.api
 _G.fn = vim.fn
 _G.uv = vim.uv or vim.loop
+
+-- stylua: ignore start
+_G.n = function(...) map('n', ...) end
+_G.x = function(...) map('x', ...) end
+_G.nx = function(...) map({ 'n', 'x' }, ...) end
+_G.ic = function(...) map('!', ...) end
 
 -- _G.lsp = vim.lsp
 -- _G.ts = vim.ts
@@ -52,4 +72,15 @@ if vim.fn.has('nvim-0.10') == 0 then
 else
   vim.keymap.del('n', '<c-w>d')
   vim.keymap.del('n', '<c-w><c-d>')
+end
+
+vim.tbl_add_reverse_lookup = function(o)
+  for _, k in ipairs(vim.tbl_keys(o)) do
+    local v = o[k]
+    if o[v] then
+      error(string.format('The reverse lookup found an existing value for %q while processing key %q', tostring(v), tostring(k)))
+    end
+    o[v] = k
+  end
+  return o
 end

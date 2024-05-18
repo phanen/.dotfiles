@@ -1,23 +1,3 @@
--- stylua: ignore start
-_G.n = function(...) map('n', ...) end
-_G.x = function(...) map('x', ...) end
-_G.nx = function(...) map({ 'n', 'x' }, ...) end
-_G.ic = function(...) map('!', ...) end
-
--- TODO: error handler
----@module "util"
-_G.m = setmetatable({}, {
-  __index = function(_, path)
-    return setmetatable({}, {
-      __index = function(_, k)
-        -- benchmark
-        -- return ([[<cmd>lua r('%s').%s()<cr>]]):format(path, k)
-        return function(v) return r(path)[k](v) end
-      end,
-    })
-  end,
-})
-
 -- reload current session to check whatever, with a new wrap starter .bin/nvim
 -- TODO: more thing need to be preserved, `SessionWritePost`
 n('<c-s><c-d>', '<cmd>mksession! /tmp/reload.vim | 123cq!<cr>')
@@ -63,7 +43,7 @@ ic('<c-l>', m.readline.kill_word)
 ic('<c-k>', m.readline.kill_line)
 
 for _, motion in ipairs({ 'h', 'j', 'k', 'l', 'w', 'b', 'e', 'W', 'B', 'E', '<c-d>', '<c-u>' }) do
-  --nx({ 'n', 'x' }, motion, m['lib.fastmove'].move(motion), { expr = true })
+  nx(motion, m['lib.fastmove'].move(motion), { expr = true })
 end
 
 -- yank
@@ -108,8 +88,9 @@ n(' <c-/>', '<cmd>norm vac<c-/><cr>')
 n('<c-e>', '<cmd>BufferLineCyclePrev<cr>')
 n('<c-f>', '<cmd>BufferLineCycleNext<cr>')
 -- n('<c-h>', '<c-^>')
-n('<c-h>', '"_ciw')
-n('<c-w>', m['lib.buf'].delete)
+-- tobj bug
+n('<c-h>', '"_ci')
+n('<c-w>', r('lib.buf').delete)
 n('H', '<cmd>BufferLineMovePrev<cr>')
 n('L', '<cmd>BufferLineMoveNext<cr>')
 n(' bi', '<cmd>buffers<cr>')
@@ -118,10 +99,10 @@ n(' bl', '<cmd>BufferLineCloseLeft<cr>')
 n(' bo', '<cmd>BufferLineCloseOthers<cr>')
 n(' br', '<cmd>BufferLineCloseRight<cr>')
 
-n(' <c-o>', m['lib.buf'].backward)
-n(' <c-i>', m['lib.buf'].forward)
-n('<a-o>', m['lib.buf'].backward_same_buf)
-n('<a-i>', m['lib.buf'].forward_same_buf)
+n(' <c-o>', r('lib.buf').backward)
+n(' <c-i>', r('lib.buf').forward)
+n('<a-o>', r('lib.buf').backward_same_buf)
+n('<a-i>', r('lib.buf').forward_same_buf)
 
 -- win
 n('<c-j>', '<cmd>wincmd w<cr>')
@@ -138,9 +119,9 @@ n('<c-s>s', '<cmd>wincmd s<cr>')
 n('<c-s>v', '<cmd>wincmd v<cr>')
 
 n(' k', '<cmd>NvimTreeFindFileToggle<cr>')
-n(' q', m['lib.qf'].qf_toggle)
-n('+q', m['lib.util'].force_close_tabpage)
-n('q', m['lib.util'].smart_quit)
+n(' q', r('lib.qf').qf_toggle)
+n('+q', r('lib.util').force_close_tabpage)
+n('q', r('lib.util').smart_quit)
 
 n(' wo', '<cmd>AerialToggle!<cr>')
 -- n(' wo', '<cmd>Outline<cr>')
@@ -167,7 +148,7 @@ n(' ol', '<cmd>set columns=80<cr>')
 n('+E', '<cmd>lua vim.treesitter.query.edit()<cr>')
 n('+I', '<cmd>lua vim.treesitter.inspect_tree()<cr>')
 -- you know the trick
-n('+L', m['lib.lazy'].lazy_chore_update)
+n('+L', r('lib.lazy').lazy_chore_update)
 n(' I', '<cmd>lua vim.show_pos()<cr>')
 nx(' E', ':EditCodeBlock<cr>')
 nx(' L', ':Linediff<cr>')
@@ -192,9 +173,9 @@ n('-', '<cmd>TSJToggle<cr>')
 nx('_', 'K')
 nx('K', ':Translate<cr>')
 
-n(' cd', require('lib.util').smart_cd)
+n(' cd', r('lib.util').smart_cd)
 n(' cf', '<cmd>cd %:h<cr>')
-n(' cy', require('lib.util').yank_filename)
+n(' cy', r('lib.util').yank_filename)
 -- https://github.com/search?q=cgn+lang:vim
 n(' c*', [[<cmd>let @/='\<'.expand('<cword>').'\>'<cr>"_cgn]])
 x(' c*', [[sy:let @/=@s<cr>cgn]])

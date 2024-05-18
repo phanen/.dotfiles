@@ -126,6 +126,7 @@ ipython
 iverilog
 iw
 jack2
+jadx
 jdk11-openjdk
 jdk8-openjdk
 jpegoptim
@@ -161,6 +162,7 @@ linux-zen-headers
 lld
 lldb
 llvm
+lolcat
 lostfiles
 lsb-release
 lshw
@@ -229,6 +231,7 @@ pulseaudio-alsa
 pulsemixer
 pwgen
 pwru
+pyenv
 python
 python-awesomeversion
 python-certifi
@@ -245,6 +248,7 @@ python-watchdog
 qemu-emulators-full
 qemu-full
 qemu-user-static-binfmt
+qutebrowser
 rar
 rclone
 reflector
@@ -278,6 +282,7 @@ setconf
 simplescreenrecorder
 skim
 slock
+smali
 smartmontools
 sof-firmware
 speedtest-cli
@@ -295,6 +300,7 @@ tcpdump
 tealdeer
 telegram-desktop
 terminus-font
+termshark
 tesseract-data-eng
 texlive-basic
 texlive-bibtexextra
@@ -340,6 +346,7 @@ vulkan-intel
 weston
 wezterm
 wget
+wireshark-qt
 wl-clipboard
 wmctrl
 wpa_supplicant
