@@ -1,3 +1,5 @@
+-- TODO: dsi dsa not work?
+
 -- motion
 map('', ' ', '<nop>')
 -- try fast-move

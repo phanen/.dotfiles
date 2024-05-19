@@ -114,7 +114,12 @@ return {
   },
   {
     'chrisgrieser/nvim-various-textobjs',
-    opts = { useDefaultKeymaps = false },
+    opts = {
+      lookForwardSmall = 10,
+      lookForwardBig = 30,
+      useDefaultKeymaps = false,
+      notifyNotFound = false,
+    },
   },
   {
     'mbbill/undotree',
