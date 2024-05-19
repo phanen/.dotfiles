@@ -16,60 +16,82 @@ return {
       },
     },
     config = function()
-      local cmp = require 'cmp'
+      local c = require 'cmp'
       local ls = require 'luasnip'
-      local m = cmp.mapping
-      cmp.setup {
-        window = {
-          -- completion = { border = vim.g.border },
-          -- documentation = { border = vim.g.border },
-        },
+      local m = c.mapping
+      local wopts = {
+        winblend = 1,
+        winhighlight = 'Normal:Normal',
+        border = vim.g.border,
+      }
+      c.setup {
+        window = { completion = wopts, documentation = wopts },
         sorting = {
           comparators = {
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
-            cmp.config.compare.recently_used,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
+            c.config.compare.offset,
+            c.config.compare.exact,
+            c.config.compare.recently_used,
+            c.config.compare.kind,
+            c.config.compare.sort_text,
+            c.config.compare.length,
+            c.config.compare.order,
           },
         },
-        -- stylua: ignore
         mapping = {
-          -- TODO: doc scroll
-          ['<c-\\>'] = m(function() if cmp.visible() then cmp.abort() else cmp.complete() end end, { 'i', 'c' }),
-          ['<tab>'] = m {
-            i = function(fb)
-              if cmp.visible() and cmp.get_selected_entry() then return cmp.confirm() end
-              if ls.jumpable(1) then return ls.jump(1) end
-              if ls.expandable() then return ls.expand() end
-              return fb()
-            end,
-            c = m.select_next_item(),
-            s = function(fb) if ls.jumpable() then ls.jump(1) else fb() end end,
-          },
-          ['<c-k>'] = m(m.select_prev_item(), { 'i', 'c' }),
-          ['<c-j>'] = m(m.select_next_item(), { 'i', 'c' }),
-          ['<c-p>'] = m {
-            i = function(fb) if ls.jumpable() then ls.jump(-1) else fb() end end,
+          ['<c-d>'] = m(m.scroll_docs(4), { 'i', 'c' }),
+          ['<c-u>'] = m(m.scroll_docs(-4), { 'i', 'c' }),
+          ['<c-\\>'] = m(
+            function() return c.visible() and c.abort() or c.complete() end,
+            { 'i', 'c' }
+          ),
+          ['<c-k>'] = m {
+            i = m.select_prev_item(),
+            c = m.select_prev_item(),
             s = function() ls.jump(-1) end,
           },
-          ['<c-n>'] = m {
-            i = function(fb) if ls.jumpable() then ls.jump(1) else fb() end end,
+          ['<c-j>'] = m {
+            i = m.select_next_item(),
+            c = m.select_next_item(),
             s = function() ls.jump(1) end,
           },
-          ['<c-o>'] = m(function(fb) if cmp.visible() then cmp.abort() end fb() end, { 'i', 'c' }),
-          ['<cr>'] = m(m.confirm { select = false }, { 'i', 'c' }),
+          ['<c-i>'] = m {
+            i = function(fb)
+              if c.visible() and c.get_selected_entry() then return c.confirm() end
+              if ls.jumpable(1) then return ls.jump(1) end
+              return ls.expandable() and ls.expand() or fb()
+            end,
+            c = m.confirm { select = true },
+            s = function(fb) return ls.jumpable() and ls.jump(1) or fb() end,
+          },
+          ['<c-o>'] = m {
+            i = function(fb)
+              if ls.jumpable() then return ls.jump(-1) end
+              if c.visible() then c.abort() end
+              return fb()
+            end,
+            c = function(fb)
+              if c.visible() then c.abort() end
+              return fb()
+            end,
+            s = function() ls.jump(-1) end,
+          },
+          ['<c-p>'] = m {
+            i = function(fb) return ls.jumpable() and ls.jump(-1) or fb() end,
+            s = function() return ls.jump(-1) end,
+          },
+          ['<c-n>'] = m {
+            i = function(fb) return ls.jumpable() and ls.jump(1) or fb() end,
+            s = function() return ls.jump(1) end,
+          },
+          ['<cr>'] = m(m.confirm(), { 'i', 'c' }),
+          ['<c-l>'] = m(m.complete_common_string(), { 'i', 'c' }),
         },
-        snippet = {
-          expand = function(args) ls.lsp_expand(args.body) end,
-        },
+        snippet = { expand = function(args) ls.lsp_expand(args.body) end },
         sources = {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
-          { name = 'buffer', options = { get_bufnrs = vim.api.nvim_list_bufs } },
+          { name = 'buffer' },
         },
         formatting = {
           fields = { 'kind', 'abbr', 'menu' },
@@ -77,13 +99,11 @@ return {
             mode = 'symbol',
             maxwidth = math.min(50, math.floor(vim.o.columns * 0.5)),
             ellipsis_char = '…',
-            before = function(_, vim_item)
-              local MIN_MENU_WIDTH = 25
-              local label, length = vim_item.abbr, vim.api.nvim_strwidth(vim_item.abbr)
-              if length < MIN_MENU_WIDTH then
-                vim_item.abbr = label .. string.rep(' ', MIN_MENU_WIDTH - length)
-              end
-              return vim_item
+            before = function(_, item)
+              local min_width = 10
+              local length = vim.api.nvim_strwidth(item.abbr)
+              item.abbr = item.abbr .. (' '):rep(math.max(0, min_width - length))
+              return item
             end,
             menu = {
               buffer = '[buf]',
@@ -98,8 +118,8 @@ return {
           max_view_entries = 12,
         },
       }
-      cmp.setup.cmdline('/', { sources = { { name = 'buffer' } } })
-      cmp.setup.cmdline(':', {
+      c.setup.cmdline('/', { sources = { { name = 'buffer' } } })
+      c.setup.cmdline(':', {
         sources = {
           { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },
           { name = 'path' },
