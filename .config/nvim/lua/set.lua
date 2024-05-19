@@ -59,7 +59,6 @@ _G.uv = vim.uv or vim.loop
 _G.n = function(...) map('n', ...) end
 _G.x = function(...) map('x', ...) end
 _G.nx = function(...) map({ 'n', 'x' }, ...) end
-_G.ic = function(...) map('!', ...) end
 
 -- _G.lsp = vim.lsp
 -- _G.ts = vim.ts

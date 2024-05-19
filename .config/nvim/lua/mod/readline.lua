@@ -1,0 +1,13 @@
+_G.ic = function(...) map('!', ...) end
+ic('<c-f>', '<right>')
+ic('<c-b>', '<left>')
+ic('<c-p>', '<up>')
+ic('<c-n>', '<down>')
+-- ic('<c-a>', '<home>')
+-- ic('<c-a>', m.readline.back_to_indentation)
+ic('<c-e>', '<end>')
+ic('<c-a>', m.readline.dwim_beginning_of_line)
+ic('<c-j>', m.readline.forward_word)
+ic('<c-o>', m.readline.backward_word)
+ic('<c-l>', m.readline.kill_word)
+ic('<c-k>', m.readline.kill_line)

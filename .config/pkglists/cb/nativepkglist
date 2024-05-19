@@ -60,6 +60,7 @@ dunst
 dust
 efibootmgr
 eglexternalplatform
+emacs
 entr
 evince
 evtest
@@ -188,7 +189,7 @@ namcap
 nano
 nasm
 neovide
-neovim
+neovim-git
 net-tools
 networkmanager
 ninja

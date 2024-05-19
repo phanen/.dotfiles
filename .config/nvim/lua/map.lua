@@ -1,11 +1,3 @@
--- reload current session to check whatever, with a new wrap starter .bin/nvim
--- TODO: more thing need to be preserved, `SessionWritePost`
-n('<c-s><c-d>', '<cmd>mksession! /tmp/reload.vim | 123cq!<cr>')
-n(' ss', '<cmd>mksession! /tmp/Session.vim<cr><cmd>q!<cr>')
-n(' sl', '<cmd>so /tmp/Session.vim<cr>')
--- TODO: in visual mode and non-lua filetype, guess if code is written in lua or vimscript
-nx(' so', ':so<cr>')
-
 -- motion
 map('', ' ', '<nop>')
 -- try fast-move
@@ -29,23 +21,6 @@ n('<a-l>', '>>')
 x('<a-h>', '<gv')
 x('<a-l>', '>gv')
 
-ic('<c-f>', '<right>')
-ic('<c-b>', '<left>')
-ic('<c-p>', '<up>')
-ic('<c-n>', '<down>')
--- ic('<c-a>', '<home>')
--- ic('<c-a>', m.readline.back_to_indentation)
-ic('<c-e>', '<end>')
-ic('<c-a>', m.readline.dwim_beginning_of_line)
-ic('<c-j>', m.readline.forward_word)
-ic('<c-o>', m.readline.backward_word)
-ic('<c-l>', m.readline.kill_word)
-ic('<c-k>', m.readline.kill_line)
-
-for _, motion in ipairs({ 'h', 'j', 'k', 'l', 'w', 'b', 'e', 'W', 'B', 'E', '<c-d>', '<c-u>' }) do
-  nx(motion, m['lib.fastmove'].move(motion), { expr = true })
-end
-
 -- yank
 n(' p', '<cmd>%d _ | norm VP<cr>')
 n(' y', '<cmd>%y<cr>')
@@ -61,20 +36,6 @@ n(' j', '<cmd>t .<cr>')
 x(' j', '"gy\'>"gp')
 n('gy', '`[v`]')
 
-nx('gw', [[<cmd>lua r('conform').format { lsp_fallback = true }<cr>]])
-local s = function(lhs, pattern)
-  n(lhs, ('<cmd>%%%s<cr>``'):format(pattern))
-  x(lhs, (':%s<cr>``'):format(pattern))
-end
--- formatter
-s(' rp', [[FullwidthPunctConvert]])
--- x(' rp', ':FullwidthPunctConvert<cr>') -- TODO: not change cursor pos
-n(' rj', ':Pangu<cr>') -- TODO: not change cursor pos
-x(' ro', ':!sort<cr>')
-s(' rs', [[s/\s*$//g<cr>``]])
-s(' rl', [[g/^$/d]])
-s(' r*', [[s/^\([  ]*\)- \(.*\)/\1* \2/g]])
-s(' r ', [[s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g]])
 
 -- comment
 map({ 'n', 'x', 'i' }, '<c-_>', '<c-/>', { remap = true })
@@ -88,8 +49,6 @@ n(' <c-/>', '<cmd>norm vac<c-/><cr>')
 n('<c-e>', '<cmd>BufferLineCyclePrev<cr>')
 n('<c-f>', '<cmd>BufferLineCycleNext<cr>')
 -- n('<c-h>', '<c-^>')
--- tobj bug
-n('<c-h>', '"_ci')
 n('<c-w>', r('lib.buf').delete)
 n('H', '<cmd>BufferLineMovePrev<cr>')
 n('L', '<cmd>BufferLineMoveNext<cr>')
@@ -209,3 +168,9 @@ end, { expr = true })
 for _, char in ipairs({ ' ', '-', '_', ':', '.', '/' }) do
   map('i', char, function() return char .. '<c-g>u' end, { expr = true })
 end
+
+-- TODO: on autocmd, KeymapAdd?
+-- vim.defer_fn(function()
+--   local maps = vim.api.nvim_get_keymap('o')
+--   vim.iter(maps):filter(function(map) return map.lhs:match('^i') end)
+-- end, 100)

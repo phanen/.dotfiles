@@ -70,8 +70,17 @@ M.move = function(direction)
     local move_chars = get_move(direction)
     if vim.fn.reg_recording() ~= '' or vim.fn.reg_executing() ~= '' then return move_chars end
     local step = get_step(direction)
+    if vim.v.count > 0 then
+      -- return move_chars
+      return direction
+    end
+
     return step .. move_chars
   end
+end
+
+for _, motion in ipairs({ 'h', 'j', 'k', 'l', 'w', 'b', 'e', 'W', 'B', 'E', '<c-d>', '<c-u>' }) do
+  nx(motion, m['lib.fastmove'].move(motion), { expr = true })
 end
 
 return M
