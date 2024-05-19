@@ -89,6 +89,9 @@ return {
         cwd_prompt = true,
         git_icons = false,
         winopts = { preview = { hidden = 'hidden' } },
+        actions = {
+          ['ctrl-n'] = function(...) require('fzf-lua-overlay.actions').file_create_open(...) end,
+        },
       },
       grep = {
         file_icons = false,
@@ -98,6 +101,7 @@ return {
         rg_opts = '-L --no-messages --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
         actions = {
           ['ctrl-r'] = function(...) require('fzf-lua').actions.toggle_ignore(...) end,
+          ['ctrl-n'] = function() end,
         },
       },
       buffers = { formatter = 'path.filename_first' },
@@ -122,37 +126,28 @@ return {
       actions = {
         files = {
           ['default'] = function(...) require('fzf-lua').actions.file_edit(...) end,
-          ['ctrl-n'] = function(...) require('fzf-lua-overlay.actions').file_create_open(...) end,
           ['ctrl-s'] = function(...) require('fzf-lua').actions.file_edit_or_qf(...) end,
           ['ctrl-x'] = {
             fn = function(...) require('fzf-lua-overlay.actions').file_delete(...) end,
             reload = true,
           },
-          ['ctrl-y'] = {
-            fn = function(selected, opts)
-              local paths = vim.tbl_map(
-                function(v) return require('fzf-lua').path.entry_to_file(v, opts).path end,
-                selected
-              )
-              vim.fn.setreg('+', table.concat(paths, ' '))
-            end,
-            exec_silent = true,
-          },
-          ['ctrl-r'] = {
-            -- TODO: cursor missed
+          ['ctrl-r'] = { -- TODO: cursor missed
             fn = function(...) require('fzf-lua-overlay.actions').file_rename(...) end,
             reload = true,
           },
           ['ctrl-o'] = {
-            -- TODO: canont reload here, should reopen buffer on window by winsize/winid
+            fn = function(...) require('fzf-lua-overlay.actions').file_edit_bg(...) end,
+            reload = true,
+          },
+          ['ctrl-y'] = {
             fn = function(selected, opts)
-              for _, sel in ipairs(selected) do
-                local file = require('fzf-lua').path.entry_to_file(sel, opts)
-                vim.cmd.e(file.path)
-              end
+              local paths = vim
+                .iter(selected)
+                :map(function(v) return require('fzf-lua').path.entry_to_file(v, opts).path end)
+                :totable()
+              vim.fn.setreg('+', table.concat(paths, ' '))
             end,
             -- exec_silent = true,
-            -- reload = true,
           },
           ['ctrl-l'] = {
             fn = function()
