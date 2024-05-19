@@ -1,14 +1,14 @@
 local M = {}
 
 local getregion = function(mode)
-  local sl, sc = vim.fn.line 'v', vim.fn.col 'v'
-  local el, ec = vim.fn.line '.', vim.fn.col '.'
+  local sl, sc = fn.line 'v', fn.col 'v'
+  local el, ec = fn.line '.', fn.col '.'
   if sl > el then
     sl, sc, el, ec = el, ec, sl, sc
   elseif sl == el and sc > ec then
     sc, ec = ec, sc
   end
-  local lines = vim.api.nvim_buf_get_lines(0, sl - 1, el, false)
+  local lines = api.nvim_buf_get_lines(0, sl - 1, el, false)
   if mode == 'v' then
     if #lines == 1 then
       lines[1] = lines[1]:sub(sc, ec)
@@ -34,9 +34,9 @@ end
 
 -- get visual selected with no side effect
 M.getregion = function(mode)
-  mode = mode or vim.api.nvim_get_mode().mode
+  mode = mode or api.nvim_get_mode().mode
   if not vim.tbl_contains({ 'v', 'V', '\022' }, mode) then return {} end
-  local ok, lines = pcall(vim.fn.getregion, vim.fn.getpos '.', vim.fn.getpos 'v', { type = mode })
+  local ok, lines = pcall(fn.getregion, fn.getpos '.', fn.getpos 'v', { type = mode })
   if ok then return lines end
   return getregion(mode)
 end

@@ -16,8 +16,8 @@ au({ 'BufReadPost' }, { command = [[silent! normal! g`"zv']] })
 
 -- create directories when needed, when saving a file
 au('BufWritePre', {
-  callback = function(args)
-    local file = vim.uv.fs_realpath(args.match) or args.match
+  callback = function(ev)
+    local file = vim.uv.fs_realpath(ev.match) or ev.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
     local backup = vim.fn.fnamemodify(file, ':p:~:h')
     backup = (backup:gsub('[/\\]', '%%'))
@@ -54,8 +54,8 @@ au('User', {
 })
 
 au('LspAttach', {
-  callback = function(args)
-    local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = args.buf }) end
+  callback = function(ev)
+    local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = ev.buf }) end
     bn('gD', vim.lsp.buf.declaration)
     bn('gI', vim.lsp.buf.implementation)
     bn('gs', vim.lsp.buf.signature_help)
@@ -74,5 +74,5 @@ au('LspAttach', {
 -- })
 --
 -- au('CmdlineChanged', {
---   callback = function(args) vim.print(args, vim.fn.getcmdline()) end,
+--   callback = function(ev) vim.print(ev, vim.fn.getcmdline()) end,
 -- })

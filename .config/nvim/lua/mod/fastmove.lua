@@ -80,7 +80,7 @@ M.move = function(direction)
 end
 
 for _, motion in ipairs({ 'h', 'j', 'k', 'l', 'w', 'b', 'e', 'W', 'B', 'E', '<c-d>', '<c-u>' }) do
-  nx(motion, m['lib.fastmove'].move(motion), { expr = true })
+  nx(motion, require('lib.fastmove').move(motion), { expr = true })
 end
 
 return M

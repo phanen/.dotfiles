@@ -65,7 +65,7 @@ return {
           },
           ['<c-o>'] = m {
             i = function(fb)
-              if ls.jumpable() then return ls.jump(-1) end
+              -- if ls.jumpable() then return ls.jump(-1) end
               if c.visible() then c.abort() end
               return fb()
             end,

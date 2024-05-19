@@ -26,13 +26,27 @@ set ttyfast                                      " enable fast terminal connecti
 set jumpoptions=stack
 cnoreabbrev w!! w !sudo tee > /dev/null %|       " write file with sudo
 
+
+"" cursor shape
+"let &t_SI = "\e[6 q"
+"let &t_EI = "\e[2 q"
+"
+"" reset the cursor on start (for older versions of vim, usually not required)
+"augroup myCmds
+"au!
+"autocmd VimEnter * silent !echo -ne "\e[2 q"
+"augroup END
+"
+"cnoremap <c-p> <up>
+"cnoremap <c-n> <down>
+
 "https://gist.github.com/xiyaowong/7e8fa86ecef639ae6f23aca3862e211e
 nnoremap j gj
 nnoremap gj j
 nnoremap k gk
 nnoremap gk k
 
-inoremap <C-l> <end>
+inoremap <c-e> <end>
 
 " Indent/Dedent
 xnoremap < <gv
@@ -142,38 +156,37 @@ endif
 " ---------
 " - vsvim -
 " ---------
-set backspace=indent,eol,start
 
-imap <C-s> :vsc File.SaveAll<cr>
-nmap <C-s> :vsc File.SaveAll<cr>
-nmap <leader>s :vsc File.SaveAll<cr>
-nmap <leader>f :vsc Edit.FormatDocument<cr>
-
-nmap [b :vsc Window.PreviousTab<CR>
-nmap ]b :vsc Window.NextTab<CR>
-
-nmap [g :vsc View.NextError<CR>
-nmap ]g :vsc View.PreviousError<CR>
-
-nmap <A-p> :vsc View.QuickActions<CR>
-imap <A-i> :vsc Edit.CompleteWord<CR>
-imap <A-u> :vsc Edit.ParameterInfo<CR>
-
-nmap <C-o> :vsc View.NavigateBackward<CR>
-nmap <C-t> :vsc View.NavigateForward<CR>
-
-nmap K :vsc Edit.QuickInfo<cr>
-nmap gd :vsc Edit.GoToDefinition<CR>
-nmap gi :vsc Edit.GoToImplementation<CR>
-nmap gr :vsc Edit.FindAllReferences<CR>
-
-nmap <leader>n :vsc Refactor.Rename<cr>
-xmap <leader>n :vsc Refactor.Rename<cr>
-
-nmap <leader>a :vsc View.QuickActionsForPosition<cr>
-xmap <leader>a :vsc View.QuickActionsForPosition<cr>
-
-nmap gc :vsc Edit.ToggleLineComment<CR>
-xmap gc :vsc Edit.ToggleLineComment<CR>
-
-nmap <space>fw :vsc Edit.GoToAll<CR>
+"imap <C-s> :vsc File.SaveAll<cr>
+"nmap <C-s> :vsc File.SaveAll<cr>
+"nmap <leader>s :vsc File.SaveAll<cr>
+"nmap <leader>f :vsc Edit.FormatDocument<cr>
+"
+"nmap [b :vsc Window.PreviousTab<CR>
+"nmap ]b :vsc Window.NextTab<CR>
+"
+"nmap [g :vsc View.NextError<CR>
+"nmap ]g :vsc View.PreviousError<CR>
+"
+"nmap <A-p> :vsc View.QuickActions<CR>
+"imap <A-i> :vsc Edit.CompleteWord<CR>
+"imap <A-u> :vsc Edit.ParameterInfo<CR>
+"
+"nmap <C-o> :vsc View.NavigateBackward<CR>
+"nmap <C-t> :vsc View.NavigateForward<CR>
+"
+"nmap K :vsc Edit.QuickInfo<cr>
+"nmap gd :vsc Edit.GoToDefinition<CR>
+"nmap gi :vsc Edit.GoToImplementation<CR>
+"nmap gr :vsc Edit.FindAllReferences<CR>
+"
+"nmap <leader>n :vsc Refactor.Rename<cr>
+"xmap <leader>n :vsc Refactor.Rename<cr>
+"
+"nmap <leader>a :vsc View.QuickActionsForPosition<cr>
+"xmap <leader>a :vsc View.QuickActionsForPosition<cr>
+"
+"nmap gc :vsc Edit.ToggleLineComment<CR>
+"xmap gc :vsc Edit.ToggleLineComment<CR>
+"
+"nmap <space>fw :vsc Edit.GoToAll<CR>

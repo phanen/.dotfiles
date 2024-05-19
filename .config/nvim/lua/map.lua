@@ -3,8 +3,10 @@ map('', ' ', '<nop>')
 -- try fast-move
 -- nx('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
 -- nx('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
-nx('}', '<cmd>keepj norm! }k<cr>')
-nx('{', '<cmd>keepj norm! {j<cr>')
+-- FIXME: this not work on last line
+-- nx('}', '<cmd>keepj norm! }k<cr>')
+-- nx('{', '<cmd>keepj norm! {j<cr>')
+
 nx('$', 'g_')
 x('.', ':norm .<cr>')
 -- https://github.com/neovim/neovim/discussions/24285
@@ -36,14 +38,13 @@ n(' j', '<cmd>t .<cr>')
 x(' j', '"gy\'>"gp')
 n('gy', '`[v`]')
 
-
 -- comment
 map({ 'n', 'x', 'i' }, '<c-_>', '<c-/>', { remap = true })
 x('<c-/>', 'gc', { remap = true })
 -- TODO: comment empty line?
 map('i', '<c-/>', '<cmd>norm <c-/><cr>')
 n('<c-/>', function() return vim.v.count == 0 and 'gcl' or 'gcj' end, { expr = true, remap = true })
-n(' <c-/>', '<cmd>norm vac<c-/><cr>')
+n(' <c-/>', '<cmd>norm vic<c-/><cr>')
 
 -- buf
 n('<c-e>', '<cmd>BufferLineCyclePrev<cr>')

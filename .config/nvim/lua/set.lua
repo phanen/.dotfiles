@@ -3,8 +3,8 @@ vim.g.state_path = vim.fn.stdpath('state') ---@as string
 vim.g.cache_path = vim.fn.stdpath('cache') ---@as string
 vim.g.data_path = vim.fn.stdpath('data') ---@as string
 
-vim.g.border = 'rounded'
--- { '┏', '━', '┓', '┃', '┛', '━', '┗', '┃' }
+-- vim.g.border = 'rounded'
+vim.g.border = { '┏', '━', '┓', '┃', '┛', '━', '┗', '┃' }
 
 -- experiemental
 _G.cfg = {
@@ -21,15 +21,17 @@ _G.cfg = {
 local group = vim.api.nvim_create_augroup('Conf', { clear = true })
 
 _G.map = vim.keymap.set
+
 _G.cmd = vim.api.nvim_create_user_command
+
 _G.au = function(ev, opts)
   opts = opts or {}
   opts.group = opts.group or group
   vim.api.nvim_create_autocmd(ev, opts)
 end
 
-_G.r = require
--- _G.r = setmetatable({}, { __index = function(_, k) return require(k) end })
+-- _G.r = require
+_G.r = setmetatable({}, { __index = function(_, k) return require(k) end })
 
 -- TODO: error handler
 ---@module "util"
@@ -54,6 +56,10 @@ end
 _G.api = vim.api
 _G.fn = vim.fn
 _G.uv = vim.uv or vim.loop
+
+_G.u = setmetatable({}, {
+  __index = function(_, k) return require('lib.' .. k) end,
+})
 
 -- stylua: ignore start
 _G.n = function(...) map('n', ...) end
