@@ -27,3 +27,6 @@ o.softtabstop    = 2 -- inserted tab
 o.shiftwidth     = 2 -- indent
 
 g.markdown_recommended_style = 0
+
+o.foldexpr       = 'nvim_treesitter#foldexpr()'
+-- o.autowriteall   = true

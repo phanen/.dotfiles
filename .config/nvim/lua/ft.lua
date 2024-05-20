@@ -7,22 +7,31 @@ au('Filetype', {
 
 au('Filetype', {
   pattern = { 'toggleterm', 'help', 'man' },
-  callback = function(args)
+  callback = function(ev)
     if vim.bo.bt ~= '' then
-      map('n', 'u', '<c-u>', { buffer = args.buf })
-      map('n', 'd', '<c-d>', { buffer = args.buf })
+      map('n', 'u', '<c-u>', { buffer = ev.buf })
+      map('n', 'd', '<c-d>', { buffer = ev.buf })
     end
+  end,
+})
+
+au('Filetype', {
+  pattern = { 'man' },
+  callback = function(ev)
+    -- TODO: BufRead trigger man plugin (set buf)
+    vim.bo[ev.buf].bufhidden = 'hide'
+    vim.bo[ev.buf].buftype = ''
   end,
 })
 
 -- fish_indent
 au('Filetype', {
   pattern = { 'fish' },
-  callback = function(args)
-    local buf = args.buf
-    vim.bo[args.buf].shiftwidth = 4
-    vim.bo[args.buf].tabstop = 4
-    vim.bo[args.buf].softtabstop = 4
-    vim.bo[args.buf].expandtab = true
+  callback = function(ev)
+    local buf = ev.buf
+    vim.bo[ev.buf].shiftwidth = 4
+    vim.bo[ev.buf].tabstop = 4
+    vim.bo[ev.buf].softtabstop = 4
+    vim.bo[ev.buf].expandtab = true
   end,
 })

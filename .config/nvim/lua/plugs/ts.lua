@@ -1,4 +1,20 @@
 return {
+  -- TODO: upstream is still working
+  {
+    'windwp/nvim-ts-autotag',
+    -- event = 'InsertEnter',
+    Filetype = { 'markdown' },
+    opts = {
+      opts = {
+        enable_close = true, -- Auto close tags
+        enable_rename = true, -- Auto rename pairs of tags
+        enable_close_on_slash = false, -- Auto close on trailing </
+      },
+    },
+    -- per_filetype = {
+    --   ['html'] = { enable_close = false },
+    -- },
+  },
   {
     'nvim-treesitter/nvim-treesitter',
     build = function() require('nvim-treesitter.install').update { with_sync = true } end,
@@ -6,7 +22,6 @@ return {
     -- event = { 'Filetype' },
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
-      { 'windwp/nvim-ts-autotag', event = 'InsertEnter', opts = {} },
     },
     config = vim.schedule_wrap(function()
       require('nvim-treesitter.configs').setup {
@@ -62,13 +77,6 @@ return {
             enable = false,
             set_jumps = true, -- whether to set jumps in the jumplist
           },
-        },
-        autotag = {
-          enable = true,
-          enable_rename = true,
-          enable_close = true,
-          enable_close_on_slash = true,
-          filetypes = { 'javascript', 'html', 'xml' },
         },
       }
     end),

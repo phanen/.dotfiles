@@ -54,6 +54,7 @@ _G.r = function(_path)
 end
 
 _G.api = vim.api
+_G.a = vim.api
 _G.fn = vim.fn
 _G.uv = vim.uv or vim.loop
 
@@ -89,3 +90,5 @@ vim.tbl_add_reverse_lookup = function(o)
   end
   return o
 end
+
+_G.tu = r('nvim-treesitter.ts_utils')

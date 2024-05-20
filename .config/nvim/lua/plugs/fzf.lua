@@ -16,9 +16,9 @@ return {
       { ' <c-j>',     fl.todo_comment,          mode = { 'n', 'x' } },
       { '<c-l>',      fl.files,                 mode = { 'n', 'x' } },
       { '<c-n>',      fl.live_grep_native,      mode = { 'n', 'x' } },
-      { '<c-x><c-l>', fl.complete_line,        mode = 'i' },
       { '<c-x><c-b>', fl.complete_bline,        mode = 'i' },
       { '<c-x><c-f>', fl.complete_file,         mode = 'i' },
+      { '<c-x><c-l>', fl.complete_line,         mode = 'i' },
       { '<c-x><c-p>', fl.complete_path,         mode = 'i' },
       { ' e',         fl.find_notes,            mode = { 'n', 'x' } },
       { '+e',         fl.grep_notes,            mode = { 'n' } },
@@ -41,6 +41,8 @@ return {
       { ' ;',         fl.spell_suggest,         mode = { 'n', 'x' } },
       { ' fm',        fl.marks,                 mode = { 'n' } },
       { ' fo',        fl.recentfiles,           mode = { 'n', 'x' } },
+      { 'fp',         fl.loclist,               mode = { 'n', 'x' } },
+      { 'fq',         fl.quickfix,              mode = { 'n', 'x' } },
       { '+fr',        fl.rtp,                   mode = { 'n', 'x' } },
       { ' fs',        fl.lsp_document_symbols,  mode = { 'n', 'x' } },
       { '+fs',        fl.scriptnames,           mode = { 'n', 'x' } },
@@ -129,8 +131,8 @@ return {
       actions = {
         files = {
           ['default'] = function(...) require('fzf-lua').actions.file_edit(...) end,
-          -- ['ctrl-s'] = function(...) require('fzf-lua').actions.file_edit_or_qf(...) end,
-          ['ctrl-s'] = function(...) require('fzf-lua').actions.file_sel_to_ll(...) end,
+          ['ctrl-s'] = function(...) require('fzf-lua').actions.file_edit_or_qf(...) end,
+          -- ['ctrl-s'] = function(...) require('fzf-lua').actions.file_sel_to_ll(...) end,
           ['ctrl-x'] = {
             fn = function(...) require('fzf-lua-overlay.actions').file_delete(...) end,
             reload = true,

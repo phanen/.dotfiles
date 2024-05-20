@@ -140,8 +140,16 @@ au('FileType', {
   callback = function(ev)
     -- ox('i<c-e>', function() linewise(md_codeblock()) end, { buffer = ev.buf })
     -- ox('a<c-e>', function() linewise(md_codeblock(true)) end, { buffer = ev.buf })
-    ox('iq', '<cmd>lua require("various-textobjs").mdFencedCodeBlock("inner")<cr>')
-    ox('aq', '<cmd>lua require("various-textobjs").mdFencedCodeBlock("outer")<cr>')
+    ox(
+      'i<c-e>',
+      '<cmd>lua require("various-textobjs").mdFencedCodeBlock("inner")<cr>',
+      { buffer = ev.buf }
+    )
+    ox(
+      'a<c-e>',
+      '<cmd>lua require("various-textobjs").mdFencedCodeBlock("outer")<cr>',
+      { buffer = ev.buf }
+    )
   end,
 })
 
