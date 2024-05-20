@@ -62,7 +62,6 @@ _G.u = setmetatable({}, {
   __index = function(_, k) return require('lib.' .. k) end,
 })
 
--- stylua: ignore start
 _G.n = function(...) map('n', ...) end
 _G.x = function(...) map('x', ...) end
 _G.nx = function(...) map({ 'n', 'x' }, ...) end
@@ -84,11 +83,20 @@ vim.tbl_add_reverse_lookup = function(o)
   for _, k in ipairs(vim.tbl_keys(o)) do
     local v = o[k]
     if o[v] then
-      error(string.format('The reverse lookup found an existing value for %q while processing key %q', tostring(v), tostring(k)))
+      error(
+        string.format(
+          'The reverse lookup found an existing value for %q while processing key %q',
+          tostring(v),
+          tostring(k)
+        )
+      )
     end
     o[v] = k
   end
   return o
 end
 
-_G.tu = r('nvim-treesitter.ts_utils')
+_G.tu = r 'nvim-treesitter.ts_utils'
+_G.tc = r 'nvim-treesitter.configs'
+_G.ts = vim.treesitter
+-- require'nvim-treesitter.install'.commands.TSInstall.run('bash')
