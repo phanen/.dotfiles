@@ -70,6 +70,9 @@ return {
           },
           ueberzug_scaler = 'cover',
         },
+        man = { -- use man-db
+          cmd = 'man %s | col -bx',
+        },
       },
       winopts = { preview = { delay = 30 }, height = 0.6 },
       fzf_opts = {
@@ -126,7 +129,8 @@ return {
       actions = {
         files = {
           ['default'] = function(...) require('fzf-lua').actions.file_edit(...) end,
-          ['ctrl-s'] = function(...) require('fzf-lua').actions.file_edit_or_qf(...) end,
+          -- ['ctrl-s'] = function(...) require('fzf-lua').actions.file_edit_or_qf(...) end,
+          ['ctrl-s'] = function(...) require('fzf-lua').actions.file_sel_to_ll(...) end,
           ['ctrl-x'] = {
             fn = function(...) require('fzf-lua-overlay.actions').file_delete(...) end,
             reload = true,
