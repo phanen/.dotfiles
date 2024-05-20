@@ -79,6 +79,10 @@ n('<c-s>H', '<cmd>wincmd H<cr>')
 n('<c-s>J', '<cmd>wincmd J<cr>')
 n('<c-s>s', '<cmd>wincmd s<cr>')
 n('<c-s>v', '<cmd>wincmd v<cr>')
+for c in ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'):gmatch '.' do
+  n('<c-s>' .. c, '<cmd>wincmd ' .. c .. '<cr>')
+end
+n('<c-s>gf', '<cmd>wincmd gf<cr>')
 
 n(' k', '<cmd>NvimTreeFindFileToggle<cr>')
 n(' q', r('lib.qf').qf_toggle)

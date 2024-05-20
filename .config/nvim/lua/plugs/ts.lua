@@ -61,6 +61,7 @@ return {
             enable = true,
             disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
             lookahead = true, -- automatically jump forward to textobj, similar to targets.vim
+            set_jumps = true, -- whether to set jumps in the jumplist
             keymaps = {
               ['aa'] = '@parameter.outer',
               ['ia'] = '@parameter.inner',
@@ -74,8 +75,24 @@ return {
             swap_previous = { ['<leader>sk'] = '@parameter.inner' },
           },
           move = {
-            enable = false,
+            enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+              [']f'] = '@function.outer',
+              [']m'] = '@class.outer',
+            },
+            goto_next_end = {
+              [']F'] = '@function.outer',
+              [']M'] = '@class.outer',
+            },
+            goto_previous_start = {
+              ['[f'] = '@function.outer',
+              ['[m'] = '@class.outer',
+            },
+            goto_previous_end = {
+              ['[F'] = '@function.outer',
+              ['[M'] = '@class.outer',
+            },
           },
         },
       }
