@@ -1,4 +1,6 @@
 -- https://github.com/ibhagwan/smartyank.nvim
+-- since there's no way to hook yank action(e.g. TextYankPre), "_d is always needed
+-- usually "_d or usually d ???
 au('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()

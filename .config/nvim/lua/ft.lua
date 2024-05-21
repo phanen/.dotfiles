@@ -28,10 +28,19 @@ au('Filetype', {
 au('Filetype', {
   pattern = { 'fish' },
   callback = function(ev)
-    local buf = ev.buf
-    vim.bo[ev.buf].shiftwidth = 4
-    vim.bo[ev.buf].tabstop = 4
-    vim.bo[ev.buf].softtabstop = 4
-    vim.bo[ev.buf].expandtab = true
+    local nr = ev.buf
+    vim.bo[nr].shiftwidth = 4
+    vim.bo[nr].tabstop = 4
+    vim.bo[nr].softtabstop = 4
+    vim.bo[nr].expandtab = true
+  end,
+})
+
+-- anyway, we should not
+au('Filetype', {
+  pattern = { 'go' },
+  callback = function(ev)
+    local nr = ev.buf
+    vim.bo[nr].expandtab = false
   end,
 })

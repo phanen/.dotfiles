@@ -2,68 +2,66 @@
 -- TODO: this still break on empty
 -- TODO: try mini.indnetation
 
-vim.o.list = true
+local o = vim.o
 
--- Set the char for the indent line
-vim.g.indentline_char = '|'
+-- stylua: ignore start
+o.expandtab      = true -- use space (`:retab!` to swap space and tabs)
+o.shiftwidth     = 0    -- (auto)indent's width (follow `ts`)
+o.softtabstop    = 0    -- inserted tab's width (follow `sw`)
+o.tabstop        = 2    -- tab's (shown) width, also for spaces count in `:retab`
+-- stylua: ignore end
 
--- By default I am using space style indentation and 2 spaces for it
-vim.o.listchars = 'trail:•,extends:#,nbsp:.,precedes:❮,extends:❯,tab:› ,leadmultispace:'
-  .. vim.g.indentline_char
+local indentline = '|'
+o.list = true
+o.listchars = 'trail:•,extends:#,nbsp:.,precedes:❮,extends:❯,tab:› ,leadmultispace:'
+  .. indentline
   .. '  '
 
--- I am using tab and leadmultispace in listchars to display the indent line. The chars for tab and
--- leadmultispace should be updated based on whether the indentation has been changed.
--- * If using space as indentation: set tab to a special character for denotation and leadmultispace
--- to the indent line character followed by multiple spaces whose amounts depends on the number of
--- spaces to use in each step of indent.
--- * If using tab as indentation: set leadmultispace to a special character for denotation and tab
--- to the indent line character.
-
-local listchars_update = function(items)
-  local listchars = vim.api.nvim_get_option_value('listchars', {})
+local set_lsc = function(items)
+  local lsc = vim.o.listchars
   for item, val in pairs(items) do
-    if listchars:match(item) then
-      listchars = listchars:gsub('(' .. item .. ':)[^,]*', '%1' .. val)
+    if lsc:match(item) then
+      lsc = lsc:gsub('(' .. item .. ':)[^,]*', '%1' .. val)
     else
-      listchars = listchars .. ',' .. item .. ':' .. val
+      lsc = lsc .. ',' .. item .. ':' .. val
     end
   end
-  return listchars
+  return lsc
 end
 
-local function update(is_local)
+local update = function()
   local new_listchars = ''
-  if vim.api.nvim_get_option_value('expandtab', {}) then
-    local spaces = vim.api.nvim_get_option_value('shiftwidth', {})
-    -- When shiftwidth is 0, vim will use tabstop value
-    if spaces == 0 then spaces = vim.api.nvim_get_option_value('tabstop', {}) end
-    new_listchars = listchars_update({
-      tab = '› ',
-      leadmultispace = vim.g.indentline_char .. string.rep(' ', spaces - 1),
-    })
+
+  -- TODO: vim.o or vim.bo (vim.wo???)
+  if vim.o.expandtab then
+    local sw = vim.o.shiftwidth
+    if sw == 0 then sw = vim.o.tabstop end
+    new_listchars = set_lsc({ tab = '› ', leadmultispace = indentline .. (' '):rep(sw - 1) })
   else
-    new_listchars = listchars_update({
-      tab = vim.g.indentline_char .. ' ',
-      leadmultispace = '␣',
-    })
+    new_listchars = set_lsc({ tab = indentline .. ' ', leadmultispace = '␣' })
   end
+
+  -- seems empty is also global
+
+  -- UNKOWN: cannot use it here
+  -- vim.bo.listchars = new_listchars
+  -- list is local
+  -- but listchar is global-local?
   local opts = {}
-  if is_local then opts.scope = 'local' end
+  if vim.v.option_type == 'local' then opts.scope = 'local' end
   vim.api.nvim_set_option_value('listchars', new_listchars, opts)
+  -- vim.wo.listchars = new_listchars
 end
 
-ag('indent_line', { clear = true })
+local group = ag('indent_line', { clear = true })
+
 au({ 'OptionSet' }, {
-  group = 'indent_line',
+  group = group,
   pattern = { 'shiftwidth', 'expandtab', 'tabstop' },
-  callback = function() update(vim.v.option_type == 'local') end,
+  callback = function(ev) update(ev.buf) end,
 })
 
--- OptionSet is not triggered on startup
--- This may be not needed. The listchars has been set properly in options.vim and it will be sourced
--- on startup.
-au({ 'VimEnter' }, {
-  group = 'indent_line',
-  callback = function() update(false) end,
+au('BufEnter', {
+  group = group,
+  callback = function(ev) update(ev.buf) end,
 })

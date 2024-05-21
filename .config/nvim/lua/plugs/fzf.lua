@@ -10,6 +10,10 @@ return {
     init = function() require('fzf-lua-overlay').init() end,
     -- stylua: ignore
     keys = {
+      -- not work for passthrough
+      -- { '  ',         '<cmd>FzfLua resume<cr>', mode = 'n' },
+      { '  ',         fl.resume, mode = 'n' },
+
       { '<c-b>',      fl.buffers,               mode = { 'n', 'x' } },
       { '+<c-f>',     fl.lazy,                  mode = { 'n', 'x' } },
       { ' <c-f>',     fl.zoxide,                mode = { 'n', 'x' } },
@@ -36,7 +40,6 @@ return {
       { ' fj',        fl.tagstack,              mode = { 'n', 'x' } },
       { ' fk',        fl.keymaps,               mode = { 'n', 'x' } },
       { '+fl',        fl.license,               mode = { 'n', 'x' } },
-      { '  ',         fl.resume,                mode = 'n' },
       { ' /',         fl.search_history,        mode = { 'n', 'x' } },
       { ' ;',         fl.spell_suggest,         mode = { 'n', 'x' } },
       { ' fm',        fl.marks,                 mode = { 'n' } },
@@ -141,6 +144,7 @@ return {
             fn = function(...) require('fzf-lua-overlay.actions').file_rename(...) end,
             reload = true,
           },
+          -- TODO: not work well in rg
           ['ctrl-o'] = {
             fn = function(...) require('fzf-lua-overlay.actions').file_edit_bg(...) end,
             reload = true,

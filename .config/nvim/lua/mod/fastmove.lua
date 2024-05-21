@@ -66,6 +66,8 @@ end
 local move = function(direction)
   return function()
     local move_chars = get_move(direction)
+    -- this key is used as macro
+    -- TODO: macro fallback, never consider it...
     if vim.fn.reg_recording() ~= '' or vim.fn.reg_executing() ~= '' then return move_chars end
     local step = get_step(direction)
     if vim.v.count > 0 then

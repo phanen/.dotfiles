@@ -2,6 +2,7 @@
 
 -- motion
 map('', ' ', '<nop>')
+
 -- try fast-move
 -- nx('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
 -- nx('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
@@ -26,7 +27,6 @@ n(
   [[ms<cmd>let @/='\V\<'.escape(expand('<cword>'), '/\').'\>' | call histadd('/',@/) | set hlsearch<cr>]]
 )
 
-
 -- FIXME: cause diagnostics error, not well for lsp
 n('<a-j>', '<cmd>move+<cr>')
 n('<a-k>', '<cmd>move-2<cr>')
@@ -47,7 +47,7 @@ for _, k in pairs({ 'd', 'D', 'c', 'C' }) do
   nx(k, ([[v:count == 0 ? '"_%s' : '%s']]):format(k, k), { expr = true })
 end
 -- NOTE: dl???
-n('x', [[v:count == 0 ? '"_x' : 'x']], { expr = true })
+-- n('x', [[v:count == 0 ? '"_x' : 'x']], { expr = true })
 n(' j', '<cmd>t .<cr>')
 x(' j', '"gy\'>"gp')
 n('gy', '`[v`]')
@@ -156,6 +156,7 @@ n(' cd', r('lib.util').smart_cd)
 n(' cf', '<cmd>cd %:h<cr>')
 n(' cy', r('lib.util').yank_filename)
 -- https://github.com/search?q=cgn+lang:vim
+--
 n(' c*', [[<cmd>let @/='\<'.expand('<cword>').'\>'<cr>"_cgn]])
 x(' c*', [[sy:let @/=@s<cr>cgn]])
 

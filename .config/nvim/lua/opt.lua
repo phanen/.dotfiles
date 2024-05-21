@@ -1,10 +1,11 @@
-local o, g = vim.opt, vim.g
+local o, g = vim.o, vim.g
 
 -- don't use ftplugin style
 g.markdown_recommended_style = 0
 
 -- default enabeld in neovim
 -- o.hidden         = true
+
 -- stylua: ignore start
 -- o.fileencodings  = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
 -- o.laststatus = 1
@@ -28,23 +29,25 @@ o.whichwrap      = 'b,s,h,l'
 o.ignorecase     = true
 o.smartcase      = true
 
-o.expandtab      = true -- use space (`:retab!` to swap space and tabs)
-o.shiftwidth     = 0    -- (auto)indent's width (follow `ts`)
-o.softtabstop    = 0    -- inserted tab's width (follow `sw`)
-o.tabstop        = 2    -- tab's (shown) width, also for spaces count in `:retab`
-
 -- (not sure) for gui, maybe we need fallback to xsel/xclip/wl-copy
 o.clipboard = 'unnamedplus'
 -- TODO: paste from extenal
 -- FIXME: osc paste error on this function
+
 if vim.env.SSH_TTY then
   vim.g.clipboard = {
-    copy = { ['+'] = function(lines) require('vim.ui.clipboard.osc52').copy('+')(lines) end },
-    paste = { ['+'] = function() require('vim.ui.clipboard.osc52').paste('+')() end },
-    -- paste = { ['+'] = function(...) end, }, -- make it reconized
+    copy = {
+      ['+'] = function(lines)
+        local content = table.concat(lines, '\n')
+        local encoded = vim.base64.encode(content)
+        vim.api.nvim_chan_send(2, string.format('\027]52;c;%s\027\\', encoded))
+      end,
+    },
+    paste = {
+      ['+'] = function() require('vim.ui.clipboard.osc52').paste('+')() end,
+    },
   }
 end
-
 
 o.foldexpr       = 'nvim_treesitter#foldexpr()'
 -- o.autowriteall   = true
