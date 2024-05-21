@@ -8,7 +8,8 @@ end
 
 status is-interactive; and begin
     # limit: fisher cannot used in `non-interactive` shell
-    not functions -q fisher; and _fisher_bootstrap
+    # we now not vendor fisher
+    #not functions -q fisher; and _fisher_bootstrap
     source $__fish_config_dir/abbr.fish
     source $__fish_config_dir/alias.fish
     # many plugins will hijack bindings, we always override what we want here...
