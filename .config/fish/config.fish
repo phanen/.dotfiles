@@ -14,5 +14,5 @@ status is-interactive; and begin
     # many plugins will hijack bindings, we always override what we want here...
     source $__fish_config_dir/bind.fish
     #eval "$(atuin init fish)"
-    source $__fish_config_dir/atuin.fish
+    #eval "$(zoxide init fish)"
 end

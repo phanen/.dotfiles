@@ -1,4 +1,5 @@
-# (not sure) hope this will shadow
+status is-interactive; or return
+
 set -gx ATUIN_SESSION (atuin uuid)
 set --erase ATUIN_HISTORY_ID
 

@@ -1,4 +1,5 @@
 function _atuin_search
+    # generated from autin init, ignore vi-keybinding
     # if no argv, then fallback to ATUIN_QUERY
     set -l ATUIN_H "$(ATUIN_SHELL_FISH=t ATUIN_LOG=error ATUIN_QUERY=(commandline -b) atuin search --keymap-mode=emacs $argv -i 3>&1 1>&2 2>&3 | string collect)"
     if test -n "$ATUIN_H"
