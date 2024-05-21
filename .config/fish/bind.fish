@@ -22,6 +22,7 @@ bind \t _fifc
 bind \x1c "exec fish"
 
 bind \cr _atuin_search
-bind -k up _atuin_bind_up
-bind \eOA _atuin_bind_up
-bind \e\[A _atuin_bind_up
+# TODO: so what is _bind_up
+#bind -k up _atuin_bind_up
+#bind \eOA _atuin_bind_up
+#bind \e\[A _atuin_bind_up
