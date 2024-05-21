@@ -24,6 +24,7 @@ require('lazy').setup {
     { import = 'plugs.lsp' },
     { import = 'plugs.nav' },
     { import = 'plugs.term' },
+    { import = 'plugs.tree' },
     { import = 'plugs.ts' },
     {
       { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },

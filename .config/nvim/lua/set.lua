@@ -18,11 +18,13 @@ _G.cfg = {
   ui = { border = 'rounded' },
 }
 
-local group = vim.api.nvim_create_augroup('Conf', { clear = true })
-
 _G.map = vim.keymap.set
 
 _G.cmd = vim.api.nvim_create_user_command
+
+_G.ag = vim.api.nvim_create_augroup
+
+local group = ag('Conf', { clear = true })
 
 _G.au = function(ev, opts)
   opts = opts or {}

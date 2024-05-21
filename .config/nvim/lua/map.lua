@@ -5,9 +5,18 @@ map('', ' ', '<nop>')
 -- try fast-move
 -- nx('k', 'v:count == 0 ? "gk" : "k"', { expr = true })
 -- nx('j', 'v:count == 0 ? "gj" : "j"', { expr = true })
--- FIXME: this not work on last line
--- nx('}', '<cmd>keepj norm! }k<cr>')
+
+-- FIXME: if in the start/end, go to next start/end
+-- FIXME: if in the first line/ last line
 -- nx('{', '<cmd>keepj norm! {j<cr>')
+-- nx(
+--   '}',
+--   function()
+--     return vim.fn.line('.') == vim.fn.line('$') and '<cmd>keepj norm! }<cr>'
+--       or '<cmd>keepj norm! }k<cr>'
+--   end,
+--   { expr = true }
+-- )
 
 nx('$', 'g_')
 x('.', ':norm .<cr>')
@@ -16,6 +25,9 @@ n(
   'z*',
   [[ms<cmd>let @/='\V\<'.escape(expand('<cword>'), '/\').'\>' | call histadd('/',@/) | set hlsearch<cr>]]
 )
+
+
+-- FIXME: cause diagnostics error, not well for lsp
 n('<a-j>', '<cmd>move+<cr>')
 n('<a-k>', '<cmd>move-2<cr>')
 x('<a-j>', ":move '>+<cr>gv")
@@ -182,3 +194,8 @@ end
 --   local maps = vim.api.nvim_get_keymap('o')
 --   vim.iter(maps):filter(function(map) return map.lhs:match('^i') end)
 -- end, 100)
+
+-- vim.cmd [[
+-- inoremap <c-x><c-o> <cmd>lua require('cmp').complete()<cr>
+-- cnoremap <c-x><c-o> <cmd>lua require('cmp').complete()<cr>
+-- ]]

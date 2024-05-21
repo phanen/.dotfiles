@@ -48,7 +48,7 @@ return {
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
-        map('n', 'gj', function()
+        nx('gj', function()
           if vim.wo.diff then return ']c' end
           vim.schedule(gs.next_hunk)
           return '<ignore>'
@@ -56,7 +56,7 @@ return {
         -- should not buf map, unkown
         -- end, { expr = true, buffer = bufnr })
 
-        map('n', 'gk', function()
+        nx('gk', function()
           if vim.wo.diff then return '[c' end
           vim.schedule(gs.prev_hunk)
           return '<ignore>'

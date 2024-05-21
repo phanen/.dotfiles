@@ -102,10 +102,15 @@ end
 -- https://stackoverflow.com/questions/19195160/push-a-location-to-the-jumplist
 local linewise = function(s, e)
   if not s or not e then return end
-  vim.cmd.normal { 'm`', bang = true }
+  -- vim.cmd.normal { 'm`', bang = true }
   fn.cursor(s, 0)
-  if not fn.mode():find('V') then api.nvim_feedkeys('V', 'x', true) end
-  api.nvim_feedkeys('o', 'x', false)
+
+  if not fn.mode():find('V') then
+    vim.cmd.normal { 'V', bang = true }
+    -- api.nvim_feedkeys('V', 'x', true)
+  end
+  -- api.nvim_feedkeys('o', 'x', false)
+  vim.cmd.normal { 'o', bang = true }
   fn.cursor(e, 0)
 end
 

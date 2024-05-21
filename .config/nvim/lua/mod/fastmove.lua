@@ -1,7 +1,5 @@
 -- https://github.com/xiyaowong/fast-cursor-move.nvim
 
-local M = {}
-
 local limit = 150
 local threshold_tbls = setmetatable({}, {
   __index = function(t, k)
@@ -65,7 +63,7 @@ local function get_move(direction)
   end
 end
 
-M.move = function(direction)
+local move = function(direction)
   return function()
     local move_chars = get_move(direction)
     if vim.fn.reg_recording() ~= '' or vim.fn.reg_executing() ~= '' then return move_chars end
@@ -80,7 +78,5 @@ M.move = function(direction)
 end
 
 for _, motion in ipairs({ 'h', 'j', 'k', 'l', 'w', 'b', 'e', 'W', 'B', 'E', '<c-d>', '<c-u>' }) do
-  nx(motion, require('lib.fastmove').move(motion), { expr = true })
+  nx(motion, move(motion), { expr = true })
 end
-
-return M
