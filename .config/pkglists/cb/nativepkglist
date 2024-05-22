@@ -36,6 +36,7 @@ clipmenu
 clipnotify
 cmake
 code
+cpanminus
 cpio
 cronie
 darkman
@@ -220,6 +221,7 @@ pdfgrep
 peek
 perf
 perl-cgi
+perl-file-homedir
 perl-image-exiftool
 perl-rename
 pipewire-pulse

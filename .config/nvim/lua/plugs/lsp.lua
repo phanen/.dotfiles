@@ -130,12 +130,16 @@ return {
     cmd = 'ConformInfo',
     opts = {
       formatters_by_ft = {
-        bib = { 'bibtex-tidy' },
         fish = { 'fish_indent', '--only-indent' },
         lua = { 'stylua' },
         python = { 'isort', 'black' },
         sh = { 'shfmt' },
         xml = { 'xmlformat' },
+
+        -- note: for arch, need `perl-unicode-linebreak` as extra dependency
+        -- TODO: force a `:retab` for formatter use tab only...
+        tex = { 'latexindent', '--GCString' },
+        bib = { 'bibtex-tidy' },
 
         css = { 'prettier' },
         html = { 'prettier' },
