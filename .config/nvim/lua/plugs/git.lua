@@ -3,12 +3,15 @@ return {
     'tpope/vim-fugitive',
     cmd = { 'G' },
     keys = {
-      { ' gA', '<cmd>G commit<cr>' },
       { ' ga', '<cmd>G commit --amend --no-edit<cr>' },
-      { ' gb', '<cmd>G blame<cr>' },
-      -- { '+gd', '<cmd>Gvdiffsplit<cr>' },
       { ' gr', '<cmd>Gr<cr>' },
+      -- { '+gd', '<cmd>Gvdiffsplit<cr>' },
+
+      { ' gb', '<cmd>G blame<cr>' },
+      { ' gg', '<cmd>G<cr>' },
+      { ' gp', '<cmd>Gwrite<cr>' },
       { ' gs', '<cmd>Gwrite<cr>' },
+      { ' gw', '<cmd>G commit<cr>' },
     },
   },
   {
@@ -72,7 +75,7 @@ return {
       end,
     },
   },
-  {
+  { -- TODO: use self-host ssh remote...
     'ruifm/gitlinker.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
@@ -81,5 +84,42 @@ return {
     },
     -- TODO: smart remote
     opts = { mappings = nil },
+  },
+  -- TODO: this produce many [no name] buf...
+  {
+    'TimUntersberger/neogit',
+    cmd = 'Neogit',
+    keys = {
+      {
+        '<leader>gn',
+        function() require('neogit').open({ cwd = require('lib.util').smart_root() }) end,
+      },
+    },
+    opts = {
+      disable_hint = true,
+      disable_insert_on_commit = false,
+      signs = { section = { '', '' }, item = { '▸', '▾' }, hunk = { '󰐕', '󰍴' } },
+      integrations = {
+        fzf_lua = true,
+      },
+    },
+  },
+  {
+    'rbong/vim-flog',
+    cmd = { 'Flog', 'Flogsplit' },
+    dependencies = { 'tpope/vim-fugitive' },
+  },
+  {
+    'SuperBo/fugit2.nvim',
+    cond = false,
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'nvim-lua/plenary.nvim',
+      { 'chrisgrieser/nvim-tinygit', dependencies = { 'stevearc/dressing.nvim' } },
+    },
+    cmd = { 'Fugit2', 'Fugit2Graph' },
+    keys = { { '<leader>F', '<cmd>Fugit2<cr>' } },
+    opts = {},
   },
 }

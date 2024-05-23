@@ -22,21 +22,22 @@ local treesitter_setup = function()
     },
     highlight = {
       enable = true,
-      disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
+      disable = function(_, bnr) return api.nvim_buf_line_count(bnr) > 10000 end,
     },
     indent = { enable = true, disable = { 'python' } },
     incremental_selection = {
-      enable = true,
+      enable = false,
       keymaps = {
         init_selection = '<cr>',
         node_incremental = '<cr>',
         node_decremental = '<s-cr>',
+        scope_incremental = '<s-k>',
       },
     },
     textobjects = {
       select = {
         enable = true,
-        disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
+        disable = function(_, bnr) return api.nvim_buf_line_count(bnr) > 10000 end,
         lookahead = true, -- automatically jump forward to textobj, similar to targets.vim
         set_jumps = true, -- whether to set jumps in the jumplist
         keymaps = {
@@ -72,7 +73,7 @@ local treesitter_setup = function()
             [']f'] = '@function.outer',
             [']r'] = '@function.outer',
             [']s'] = '@class.outer',
-            [']j'] = '@conditional.outer',
+            -- [']j'] = '@conditional.outer',
             [']k'] = '@loop.outer',
           },
           goto_next_end = {
@@ -80,7 +81,7 @@ local treesitter_setup = function()
             [']F'] = '@function.outer',
             [']R'] = '@function.outer',
             [']S'] = '@class.outer',
-            [']J'] = '@conditional.outer',
+            -- [']J'] = '@conditional.outer',
             [']K'] = '@loop.outer',
           },
           goto_previous_start = {
@@ -88,7 +89,7 @@ local treesitter_setup = function()
             ['[f'] = '@function.outer',
             ['[r'] = '@function.outer',
             ['[s'] = '@class.outer',
-            ['[j'] = '@conditional.outer',
+            -- ['[j'] = '@conditional.outer',
             ['[k'] = '@loop.outer',
           },
           goto_previous_end = {
@@ -96,7 +97,7 @@ local treesitter_setup = function()
             ['[F'] = '@function.outer',
             ['[R'] = '@function.outer',
             ['[S'] = '@class.outer',
-            ['[J'] = '@conditional.outer',
+            -- ['[J'] = '@conditional.outer',
             ['[K'] = '@loop.outer',
           },
         },
@@ -211,8 +212,8 @@ return {
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
-    config = vim.schedule_wrap(treesitter_setup),
-    -- config = treesitter_setup,
+    -- config = vim.schedule_wrap(treesitter_setup),
+    config = treesitter_setup,
   },
   {
     'Wansmer/treesj',

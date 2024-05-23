@@ -1,20 +1,24 @@
-local is_blank = function(lnum)
+-- TODO: restore pos after `yix`
+
+local is_blank = function(lnr)
   local pattern = '^%s*$'
-  local line = api.nvim_buf_get_lines(0, lnum - 1, lnum, true)[1]
+  local line = api.nvim_buf_get_lines(0, lnr - 1, lnr, true)[1]
   return line:find(pattern) ~= nil
 end
 
-local is_comment = function(lnum)
+local not_blank = function(lnr) return not is_blank(lnr) end
+
+local is_comment = function(lnr)
   local pattern = '^%s*' .. vim.pesc(vim.bo.commentstring):gsub(' ?%%%%s ?', '.*') .. '%s*$'
-  local line = api.nvim_buf_get_lines(0, lnum - 1, lnum, true)[1]
+  local line = api.nvim_buf_get_lines(0, lnr - 1, lnr, true)[1]
   return line:find(pattern) ~= nil
 end
 
----@param match fun(lnum: integer)
+---@param match fun(lnr: integer)
 ---@param n integer?
 ---@return integer|nil, integer|nil # todo: stupid
-local get_matched_lines = function(match, n)
-  if not n then n = math.huge end
+local get_matched_lines = function(match, n, include_pre, include_after)
+  if not n or n < 0 then n = math.huge end
   local start, last = fn.line('.'), fn.line('$')
   local cur = start
   while not match(cur) do
@@ -28,7 +32,9 @@ local get_matched_lines = function(match, n)
   while next <= last and match(next) do
     next = next + 1
   end
-  return prev + 1, next - 1
+  local p = include_pre and 0 or 1
+  local q = include_after and 0 or 1
+  return prev + p, next - q
 end
 
 ---@param outer boolean?
@@ -143,41 +149,25 @@ ox('ih', ':<c-u>Gitsigns select_hunk<cr>')
 au('FileType', {
   pattern = 'markdown',
   callback = function(ev)
-    -- ox('i<c-e>', function() linewise(md_codeblock()) end, { buffer = ev.buf })
-    -- ox('a<c-e>', function() linewise(md_codeblock(true)) end, { buffer = ev.buf })
-    ox(
-      'i<c-e>',
-      '<cmd>lua require("various-textobjs").mdFencedCodeBlock("inner")<cr>',
-      { buffer = ev.buf }
-    )
-    ox(
-      'a<c-e>',
-      '<cmd>lua require("various-textobjs").mdFencedCodeBlock("outer")<cr>',
-      { buffer = ev.buf }
-    )
+    ox('i<c-e>', function() linewise(md_codeblock()) end, { buffer = ev.buf })
+    ox('a<c-e>', function() linewise(md_codeblock(true)) end, { buffer = ev.buf })
   end,
 })
 
-ox('ii', function()
-  if api.nvim_get_current_line():match('%s*') then
-    linewise(indentation(false, false, true))
-  else
-    if fn.indent('.') == 0 then
-      linewise(1, fn.line('$'))
-    else
-      linewise(indentation(true, true, false))
-    end
+-- wrapper, make it looks better
+local indent = function(include_border, include_blank)
+  return function()
+    if fn.indent('.') == 0 then return linewise(get_matched_lines(not_blank)) end
+    return linewise(indentation(include_border, include_border, include_blank))
   end
-end)
+end
 
-ox('ai', function()
-  if api.nvim_get_current_line():match('%s*') then
-    linewise(indentation(true, true, true))
-  else
-    if fn.indent('.') == 0 then
-      linewise(1, fn.line('$'))
-    else
-      linewise(indentation(true, true, false))
-    end
-  end
-end)
+-- TODO: make it extendable?
+-- unkown behavior
+-- ox('ii', indent(false, true), { expr = true })
+ox('ii', indent(false, false))
+ox('iI', indent(false, true))
+ox('ai', indent(true, false))
+ox('aI', indent(true, true))
+
+ox('zz', function() vim.cmd.normal { 'a', bang = true } end, { expr = true })

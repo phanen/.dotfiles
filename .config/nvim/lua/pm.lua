@@ -39,6 +39,7 @@ require('lazy').setup {
         keys = { { 'gl', '<cmd>Browse<cr>', mode = { 'n', 'x' } } },
         opts = {},
       },
+      { 'rktjmp/hotpot.nvim', lazy = true },
     },
     extra_sepc,
   },

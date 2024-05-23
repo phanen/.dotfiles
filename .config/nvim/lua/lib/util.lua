@@ -16,6 +16,9 @@ local ft_tbl = setmetatable({
   ['help'] = true,
   ['man'] = true,
   ['aerial'] = true,
+  ['gitcommit'] = true,
+  ['git'] = true,
+  ['floggraph'] = true,
 }, {
   __index = function(_, k) return k:match('fugitive*') and true or false end,
 })

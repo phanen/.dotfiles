@@ -4,6 +4,7 @@ local fl = setmetatable({}, {
 
 -- local fl = 'fzf-lua-overlay'
 return {
+  -- FIXME: fzf-lua fzf window colide with toggleterm <c-;>
   {
     'phanen/fzf-lua-overlay',
     cond = not vim.g.vscode,
@@ -51,10 +52,10 @@ return {
       { '+fs',        fl.scriptnames,           mode = { 'n', 'x' } },
       { ' fw',        fl.lsp_workspace_symbols, mode = { 'n', 'x' } },
       { 'gd',         fl.lsp_definitions,       mode = { 'n', 'x' } },
-      { 'gb',         fl.lsp_definitions,       mode = { 'n', 'x' } },
-      { 'gt',         fl.lsp_definitions,       mode = { 'n', 'x' } },
+      { 'gb',         fl.lsp_declarations,      mode = { 'n', 'x' } },
+      { 'gm',         fl.lsp_typedefs,           mode = { 'n', 'x' } },
       { 'gh',         fl.lsp_code_actions,      mode = { 'n', 'x' } },
-      { 'gf',         fl.lsp_references,        mode = { 'n', 'x' } },
+      { 'gr',         fl.lsp_references,        mode = { 'n', 'x' } },
       { ' l',         fl.find_dots,             mode = { 'n', 'x' } },
       { '+l',         fl.grep_dots,             mode = { 'n', 'x' } },
     },
