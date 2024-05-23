@@ -1,4 +1,5 @@
 local treesitter_setup = function()
+  require('nvim-next.integrations').treesitter_textobjects()
   require('nvim-treesitter.configs').setup {
     ensure_installed = {
       'bash',
@@ -43,6 +44,15 @@ local treesitter_setup = function()
           ['ia'] = '@parameter.inner',
           ['af'] = '@function.outer',
           ['if'] = '@function.inner',
+
+          ['ar'] = '@return.outer',
+          ['ir'] = '@return.outer',
+          ['as'] = '@class.outer',
+          ['is'] = '@class.inner',
+          ['aj'] = '@conditional.outer',
+          ['ij'] = '@conditional.inner',
+          ['ak'] = '@loop.outer',
+          ['ik'] = '@loop.inner',
         },
       },
       swap = {
@@ -50,31 +60,52 @@ local treesitter_setup = function()
         swap_next = { ['<leader>sj'] = '@parameter.inner' },
         swap_previous = { ['<leader>sk'] = '@parameter.inner' },
       },
-      move = {
-        enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
-        goto_next_start = {
-          -- [']f'] = '@function.outer',
-          [']m'] = '@class.outer',
-        },
-        goto_next_end = {
-          [']F'] = '@function.outer',
-          [']M'] = '@class.outer',
-        },
-        goto_previous_start = {
-          -- ['[f'] = '@function.outer',
-          ['[m'] = '@class.outer',
-        },
-        goto_previous_end = {
-          ['[F'] = '@function.outer',
-          ['[M'] = '@class.outer',
+    },
+    nvim_next = {
+      enable = true,
+      textobjects = {
+        move = {
+          enable = true,
+          set_jumps = true,
+          goto_next_start = {
+            [']a'] = '@parameter.outer',
+            [']f'] = '@function.outer',
+            [']r'] = '@function.outer',
+            [']s'] = '@class.outer',
+            [']j'] = '@conditional.outer',
+            [']k'] = '@loop.outer',
+          },
+          goto_next_end = {
+            [']A'] = '@parameter.outer',
+            [']F'] = '@function.outer',
+            [']R'] = '@function.outer',
+            [']S'] = '@class.outer',
+            [']J'] = '@conditional.outer',
+            [']K'] = '@loop.outer',
+          },
+          goto_previous_start = {
+            ['[a'] = '@parameter.outer',
+            ['[f'] = '@function.outer',
+            ['[r'] = '@function.outer',
+            ['[s'] = '@class.outer',
+            ['[j'] = '@conditional.outer',
+            ['[k'] = '@loop.outer',
+          },
+          goto_previous_end = {
+            ['[A'] = '@parameter.outer',
+            ['[F'] = '@function.outer',
+            ['[R'] = '@function.outer',
+            ['[S'] = '@class.outer',
+            ['[J'] = '@conditional.outer',
+            ['[K'] = '@loop.outer',
+          },
         },
       },
     },
   }
 
   -- FIXME: cannot jump to last function name
-  local function goto_function(direction)
+  local goto_function = function(direction)
     local ts = vim.treesitter
     local queries = require('nvim-treesitter.query')
     -- local filetype = vim.api.nvim_buf_get_option(0, 'ft')
@@ -149,10 +180,10 @@ local treesitter_setup = function()
     end
   end
 
-  local function goto_prev_function() goto_function('prev') end
-  local function goto_next_function() goto_function('next') end
-  n('[f', goto_prev_function)
-  n(']f', goto_next_function)
+  -- local function goto_prev_function() goto_function('prev') end
+  -- local function goto_next_function() goto_function('next') end
+  -- n('[f', goto_prev_function)
+  -- n(']f', goto_next_function)
 end
 
 return {
@@ -188,5 +219,21 @@ return {
     dependencies = { 'nvim-treesitter' },
     cmd = { 'TSJToggle' },
     opts = { use_default_keymaps = false, notify = false },
+  },
+  {
+    'ghostbuster91/nvim-next',
+    keys = { '[d', ']d', ']q', '[q' },
+    config = function()
+      local next = require 'nvim-next'
+      local b = require 'nvim-next.builtins'
+      local i = require 'nvim-next.integrations'
+      next.setup { default_mappings = { repeat_style = 'original' }, items = { b.f, b.t } }
+      local diag = i.diagnostic()
+      local nqf = i.quickfix()
+      n('[d', diag.goto_prev())
+      n(']d', diag.goto_next())
+      n('[q', nqf.cprevious)
+      n(']q', nqf.cnext)
+    end,
   },
 }
