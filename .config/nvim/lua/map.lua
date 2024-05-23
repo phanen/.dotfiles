@@ -81,24 +81,40 @@ n('<a-i>', r('lib.buf').forward_same_buf)
 -- win
 n('<c-j>', '<cmd>wincmd w<cr>')
 n('<c-k>', '<cmd>wincmd W<cr>')
+
+-- TODO: make resize repeatable
+n('<c-s>', function()
+  api.nvim_feedkeys(vim.keycode '<c-w>', 'n', true)
+  local char = fn.getcharstr()
+  api.nvim_feedkeys(char, 'n', true)
+  -- thiss work, but not trigger pending
+  -- but use <c-g> trigger a pending
+  -- if char ~= 'g' then return end
+  -- weird
+  -- api.nvim_feedkeys(fn.getcharstr(), 'n', true)
+end, { expr = true })
+
+-- smart shrink/expand
+n('<c-s><', '<cmd>wincmd 10<<cr>')
+n('<c-s>>', '<cmd>wincmd 10><cr>')
+
+-- n('<c-s>g', function()
+--   api.nvim_feedkeys(vim.keycode '<c-w><c-g>', 'n', true)
+--   -- api.nvim_feedkeys(vim.keycode '<c-w>g', 'n', true)
+--   -- api.nvim_feedkeys('g', 'n', true)
+--   -- api.nvim_feedkeys(vim.keycode '<c-g><c-g>', 'n', true)
+--   api.nvim_feedkeys(fn.getcharstr(), 'n', true)
+-- end)
+-- a.md
+
 n('<c-s>+', '<cmd>resize +5<cr>')
 n('<c-s>-', '<cmd>resize -5<cr>')
-n('<c-s>=', '<cmd>wincmd =<cr>')
-n('<c-s>_', '<cmd>wincmd _<cr>')
-n('<c-s>|', '<cmd>wincmd |<cr>')
 n('<c-s><c-s>', '<cmd>wincmd q<cr>')
-n('<c-s>H', '<cmd>wincmd H<cr>')
-n('<c-s>J', '<cmd>wincmd J<cr>')
-n('<c-s>s', '<cmd>wincmd s<cr>')
-n('<c-s>v', '<cmd>wincmd v<cr>')
-for c in ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'):gmatch '.' do
-  n('<c-s>' .. c, '<cmd>wincmd ' .. c .. '<cr>')
-end
-n('<c-s>gf', '<cmd>wincmd gf<cr>')
-
+-- n('<c-s>gf', '<cmd>wincmd gf<cr>')
 n(' k', '<cmd>NvimTreeFindFileToggle<cr>')
 n(' q', r('lib.qf').qf_toggle)
 n('+q', r('lib.util').force_close_tabpage)
+-- n('q', r('lib.util').smart_quit)
 n('q', r('lib.util').smart_quit)
 
 n(' wo', '<cmd>AerialToggle!<cr>')
@@ -198,6 +214,10 @@ n(' gJ', function()
   n('J', 'gJ')
   n('gJ', 'J')
 end)
+
+-- x('>', ':ri<cr>')
+x('<', ':le<cr>')
+-- or just use 'x[p'
 
 -- TODO: on autocmd, KeymapAdd?
 -- vim.defer_fn(function()
