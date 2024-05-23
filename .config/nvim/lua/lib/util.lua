@@ -22,26 +22,26 @@ local ft_tbl = setmetatable({
 
 M.smart_quit = function()
   -- close floating window
-  local curwind = vim.api.nvim_get_current_win()
-  if vim.api.nvim_win_get_config(curwind).relative ~= '' or ft_tbl[vim.bo.ft] then
-    return vim.api.nvim_win_close(curwind, true)
+  local curwind = api.nvim_get_current_win()
+  if api.nvim_win_get_config(curwind).relative ~= '' or ft_tbl[vim.bo.ft] then
+    return api.nvim_win_close(curwind, true)
   end
 
   -- close all focusable floating windows
   -- :fclose! ?
   local count = 0
-  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-    if vim.api.nvim_win_is_valid(win) then
-      local cfg = vim.api.nvim_win_get_config(win)
+  for _, win in ipairs(api.nvim_tabpage_list_wins(0)) do
+    if api.nvim_win_is_valid(win) then
+      local cfg = api.nvim_win_get_config(win)
       if cfg.relative ~= '' and cfg.focusable then -- unfocusable(e.g. fidget)
-        vim.api.nvim_win_close(win, false)
+        api.nvim_win_close(win, false)
         count = count + 1
       end
     end
   end
 
   if count == 0 then -- fallback
-    vim.api.nvim_feedkeys(vim.keycode('q'), 'n', false)
+    api.nvim_feedkeys(vim.keycode('q'), 'n', false)
   end
 end
 
@@ -52,7 +52,7 @@ M.gitroot = function(bufname)
     return vim.trim(obj.stdout)
   else
     for dir in vim.fs.parents(bufname) do
-      if vim.fn.isdirectory(dir .. '/.git') == 1 then return dir end
+      if fn.isdirectory(dir .. '/.git') == 1 then return dir end
     end
   end
 end
@@ -61,23 +61,23 @@ end
 -- the buffer you are working on...
 M.smart_bufname = function()
   -- current win should be check first...
-  local wins = vim.api.nvim_list_wins() -- nvim_tabpage_list_wins(0)
-  local curwinid = vim.api.nvim_get_current_win()
+  local wins = api.nvim_list_wins() -- nvim_tabpage_list_wins(0)
+  local curwinid = api.nvim_get_current_win()
   -- btw, nvim-tree/neo-tree has a bufname...
-  if vim.fn.win_gettype(curwinid) == '' then
-    local bufnr = vim.api.nvim_win_get_buf(curwinid)
+  if fn.win_gettype(curwinid) == '' then
+    local bufnr = api.nvim_win_get_buf(curwinid)
     if vim.bo[bufnr].bt ~= 'nofile' then
-      local bufname = vim.api.nvim_buf_get_name(bufnr)
+      local bufname = api.nvim_buf_get_name(bufnr)
       if bufname ~= '' then return bufname end
     end
   end
   for _, winid in pairs(wins) do
     if winid ~= curwinid then
-      local wt = vim.fn.win_gettype(winid)
+      local wt = fn.win_gettype(winid)
       if wt == '' then
-        local bufnr = vim.api.nvim_win_get_buf(winid)
+        local bufnr = api.nvim_win_get_buf(winid)
         if vim.bo[bufnr].bt ~= 'nofile' then
-          local bufname = vim.api.nvim_buf_get_name(bufnr)
+          local bufname = api.nvim_buf_get_name(bufnr)
           if bufname ~= '' then return bufname end
         end
       end
@@ -87,7 +87,7 @@ end
 
 -- gitroot or parent of `working buffer`
 M.smart_root = function()
-  local bufname = vim.fn.resolve(M.smart_bufname()) -- follow symbolic link
+  local bufname = fn.resolve(M.smart_bufname()) -- follow symbolic link
   local root = M.gitroot(bufname)
 
   -- not in gitroot
@@ -103,21 +103,33 @@ M.smart_root = function()
   return root
 end
 
-M.smart_cd = function() vim.api.nvim_set_current_dir(M.smart_root()) end
+M.smart_cd = function() api.nvim_set_current_dir(M.smart_root()) end
 
 M.yank_filename = function()
-  local path = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
-  vim.fn.setreg('+', (path:gsub(('^%s'):format(vim.env.HOME), '~')))
+  local path = vim.fs.normalize(api.nvim_buf_get_name(0))
+  fn.setreg('+', (path:gsub(('^%s'):format(vim.env.HOME), '~')))
 end
 
-M.yank_last_message = function() vim.fn.setreg('+', vim.trim(vim.fn.execute('1message'))) end
+M.yank_last_message = function() fn.setreg('+', vim.trim(fn.execute('1message'))) end
 
 M.force_close_tabpage = function()
-  if #vim.api.nvim_list_tabpages() == 1 then
+  if #api.nvim_list_tabpages() == 1 then
     vim.cmd('quit!')
   else
     vim.cmd('tabclose!')
   end
+end
+
+M.blank_above = function()
+  local repeated = fn['repeat']({ '' }, vim.v.count1)
+  local lnum = fn.line('.') - 1
+  api.nvim_buf_set_lines(0, lnum, lnum, true, repeated)
+end
+
+M.blank_below = function()
+  local repeated = fn['repeat']({ '' }, vim.v.count1)
+  local lnum = fn.line('.')
+  api.nvim_buf_set_lines(0, lnum, lnum, true, repeated)
 end
 
 return M

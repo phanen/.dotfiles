@@ -190,6 +190,9 @@ for _, char in ipairs({ ' ', '-', '_', ':', '.', '/' }) do
   map('i', char, function() return char .. '<c-g>u' end, { expr = true })
 end
 
+n('[ ', r('lib.util').blank_above)
+n('] ', r('lib.util').blank_below)
+
 -- TODO: on autocmd, KeymapAdd?
 -- vim.defer_fn(function()
 --   local maps = vim.api.nvim_get_keymap('o')

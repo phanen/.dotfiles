@@ -3,9 +3,6 @@ local o, g = vim.o, vim.g
 -- don't use ftplugin style
 g.markdown_recommended_style = 0
 
--- default enabeld in neovim
--- o.hidden         = true
-
 -- stylua: ignore start
 -- o.fileencodings  = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
 -- o.laststatus = 1
@@ -25,6 +22,7 @@ o.splitright     = true
 o.termguicolors  = true
 o.undofile       = true
 o.whichwrap      = 'b,s,h,l'
+o.virtualedit    = 'block' -- contain the longest line
 
 o.ignorecase     = true
 o.smartcase      = true

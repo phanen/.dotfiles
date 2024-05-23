@@ -3,12 +3,12 @@ return {
     'tpope/vim-fugitive',
     cmd = { 'G' },
     keys = {
-      { '<leader>ga', '<cmd>G<cr>' },
-      { '<leader>gl', '<cmd>G commit<cr>' },
-      { '<leader>gb', '<cmd>G blame<cr>' },
+      { ' gA', '<cmd>G commit<cr>' },
+      { ' ga', '<cmd>G commit --amend --no-edit<cr>' },
+      { ' gb', '<cmd>G blame<cr>' },
       -- { '+gd', '<cmd>Gvdiffsplit<cr>' },
-      { '+gr', '<cmd>Gr<cr>' },
-      { '+gs', '<cmd>Gwrite<cr>' },
+      { ' gr', '<cmd>Gr<cr>' },
+      { ' gs', '<cmd>Gwrite<cr>' },
     },
   },
   {
@@ -32,7 +32,7 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
-    keys = { { '<leader>gs', '<cmd>Gitsigns<cr>' } },
+    cmd = 'Gitsigns',
     dependencies = 'stevearc/dressing.nvim',
     opts = {
       -- used in diffview

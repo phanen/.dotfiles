@@ -1,17 +1,30 @@
 au('Filetype', {
   pattern = 'qf',
   callback = function()
-    map('n', 'dd', '<cmd>lua require("lib.qf").qf_delete()<cr>', { buffer = true })
+    n('dd', '<cmd>lua require("lib.qf").qf_delete()<cr>', { buffer = true })
+    x('d', '<cmd>lua require("lib.qf").qf_delete()<cr>', { buffer = true })
   end,
 })
 
 au('Filetype', {
-  pattern = { 'toggleterm', 'help', 'man' },
+  pattern = { 'help', 'man' },
   callback = function(ev)
     if vim.bo.bt ~= '' then
       map('n', 'u', '<c-u>', { buffer = ev.buf })
       map('n', 'd', '<c-d>', { buffer = ev.buf })
     end
+  end,
+})
+
+au('Filetype', {
+  pattern = { 'toggleterm' },
+  callback = function(ev)
+    -- workaround, mis touch
+    map('n', '<c-o>', '<nop>', { buffer = ev.buf })
+    map('n', '<c-i>', '<nop>', { buffer = ev.buf })
+
+    -- workaround, insert at bottom not work
+    map('n', 'i', 'A', { buffer = ev.buf })
   end,
 })
 
