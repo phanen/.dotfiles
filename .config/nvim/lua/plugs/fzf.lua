@@ -131,6 +131,14 @@ return {
           },
         },
       },
+      helptags = {
+        actions = {
+          ['ctrl-o'] = {
+            fn = function(...) require('fzf-lua-overlay.actions').file_edit_bg(...) end,
+            reload = true,
+          },
+        },
+      },
       actions = {
         files = {
           ['default'] = function(...) require('fzf-lua').actions.file_edit(...) end,

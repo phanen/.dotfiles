@@ -92,6 +92,7 @@ gcc
 gdb
 gettext
 git
+git-cliff
 git-delta
 github-cli
 gnome-font-viewer
@@ -307,6 +308,7 @@ ttf-dejavu-nerd
 ttf-nerd-fonts-symbols
 typst
 ubuntu-keyring
+uncrustify
 unzip
 upx
 usbutils

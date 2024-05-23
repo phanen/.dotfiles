@@ -58,7 +58,7 @@ M.lazy_cache_docs = function()
       end)
     end
   end
-  vim.cmd.helptags(docs_path)
+  pcall(vim.cmd.helptags, docs_path)
 end
 
 -- used by keymap

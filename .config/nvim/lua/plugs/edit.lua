@@ -1,6 +1,14 @@
 return {
   { 'phanen/readline.nvim', branch = 'fix-dir-structure' },
   {
+    'folke/ts-comments.nvim',
+    opts = {},
+    event = 'VeryLazy',
+    enabled = vim.fn.has('nvim-0.10.0') == 1,
+    -- or we can use hook:
+    -- { 'JoosepAlviste/nvim-ts-context-commentstring' },
+  },
+  {
     'kylechui/nvim-surround',
     keys = {
       'ys',
