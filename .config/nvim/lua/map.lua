@@ -138,6 +138,7 @@ n(' os', '<cmd>set spell!<cr>')
 n(' ow', '<cmd>set wrap!<cr>')
 n(' ol', '<cmd>set columns=80<cr>')
 n(' oL', '<cmd>if &laststatus == 0 | set laststatus=2 | else | set laststatus=0 | endif<cr>')
+n(' oi', '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>')
 
 -- misc
 n('+E', '<cmd>lua vim.treesitter.query.edit()<cr>')

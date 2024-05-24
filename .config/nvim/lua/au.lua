@@ -65,7 +65,7 @@ au('User', {
 au('LspAttach', {
   group = ag('lsp_attach', { clear = true }),
   callback = function(ev)
-    -- vim.lsp.inlay_hint.enable()
+    vim.lsp.inlay_hint.enable()
 
     local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = ev.buf }) end
     bn('gD', vim.lsp.buf.declaration)
