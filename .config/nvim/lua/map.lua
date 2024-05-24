@@ -41,16 +41,17 @@ x('<a-l>', '>gv')
 n(' p', '<cmd>%d _ | norm VP<cr>')
 n(' y', '<cmd>%y<cr>')
 -- FIXME: this makes register unusable
--- for _, k in pairs({ 'd', 'D', 'c', 'C' }) do
---   -- nx(k, '"_' .. k)
---   -- nx('+' .. k, k)
---   nx(k, ([[v:count == 0 ? '"_%s' : '%s']]):format(k, k), { expr = true })
--- end
+for _, k in pairs({ 'd', 'D', 'c', 'C' }) do
+  nx(k, '"k' .. k)
+  -- nx('+' .. k, k)
+  -- nx(k, ([[v:count == 0 ? '"_%s' : '%s']]):format(k, k), { expr = true })
+end
 -- NOTE: dl???
--- n('x', [[v:count == 0 ? '"_x' : 'x']], { expr = true })
+n('x', [[v:count == 0 ? '"_x' : 'x']], { expr = true })
 n(' j', '<cmd>t .<cr>')
 x(' j', '"gy\'>"gp')
 n('gy', '`[v`]')
+nx('<c-p>', '"kP')
 
 -- comment
 map({ 'n', 'x', 'i' }, '<c-_>', '<c-/>', { remap = true })
@@ -116,7 +117,6 @@ n(' q', r('lib.qf').qf_toggle)
 n('+q', r('lib.util').force_close_tabpage)
 -- n('q', r('lib.util').smart_quit)
 n('q', r('lib.util').smart_quit)
-
 n(' wo', '<cmd>AerialToggle!<cr>')
 -- n(' wo', '<cmd>Outline<cr>')
 n(' wi', '<cmd>LspInfo<cr>')

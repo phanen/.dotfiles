@@ -24,6 +24,9 @@ local ft_tbl = setmetatable({
 })
 
 M.smart_quit = function()
+  -- TODO: not sure what to do with these cases
+  -- if fn.reg_recorded() ~= '' or fn.reg_executing() ~= '' then return '<ignore>' end
+
   -- close floating window
   local curwind = api.nvim_get_current_win()
   if api.nvim_win_get_config(curwind).relative ~= '' or ft_tbl[vim.bo.ft] then

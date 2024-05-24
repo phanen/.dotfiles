@@ -18,29 +18,29 @@ o.listchars = 'trail:•,extends:#,nbsp:.,precedes:❮,extends:❯,tab:› ,lead
   .. '  '
 
 -- update vim options by lua table
-local update_option = function(lsc, tbl)
+local update_option = function(lcs, tbl)
   for k, v in pairs(tbl) do
-    if lsc:match(k) then
-      lsc = lsc:gsub('(' .. k .. ':)[^,]*', '%1' .. v)
+    if lcs:match(k) then
+      lcs = lcs:gsub('(' .. k .. ':)[^,]*', '%1' .. v)
     else
-      lsc = lsc .. ',' .. k .. ':' .. v
+      lcs = lcs .. ',' .. k .. ':' .. v
     end
   end
-  return lsc
+  return lcs
 end
 
 local update_idl = function(is_local)
-  local lsc = vim.o.listchars
+  local lcs = vim.o.listchars
   if vim.o.et then
     local sw = vim.o.sw == 0 and vim.o.ts or vim.o.sw
-    lsc = update_option(lsc, { tab = '› ', leadmultispace = idl .. (' '):rep(sw - 1) })
+    lcs = update_option(lcs, { tab = '› ', leadmultispace = idl .. (' '):rep(sw - 1) })
   else
-    lsc = update_option(lsc, { tab = idl .. ' ', leadmultispace = '␣' })
+    lcs = update_option(lcs, { tab = idl .. ' ', leadmultispace = '␣' })
   end
 
   local opts = {}
   if is_local then opts.scope = 'local' end
-  api.nvim_set_option_value('listchars', lsc, opts)
+  api.nvim_set_option_value('listchars', lcs, opts)
 end
 
 local group = ag('indent_line', { clear = true })

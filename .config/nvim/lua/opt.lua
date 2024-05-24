@@ -49,3 +49,8 @@ end
 
 o.foldexpr       = 'nvim_treesitter#foldexpr()'
 -- o.autowriteall   = true
+
+o.lazyredraw = true
+
+-- useless
+o.ruler = false

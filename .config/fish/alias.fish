@@ -13,6 +13,7 @@ alias la "eza -a"
 alias ls "eza --color=auto"
 alias lt "eza --tree"
 alias tl tldr
+alias vi vim
 alias wh "which -a"
 
 alias pi 'sudo pacman -S'
