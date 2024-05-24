@@ -47,3 +47,18 @@ function s:JumpOtherListedBuffer(dir)
 endfunction
 nnoremap <silent> [J :call <SID>JumpOtherListedBuffer(-1)<CR>
 nnoremap <silent> ]J :call <SID>JumpOtherListedBuffer(1)<CR>
+
+
+fu Eatchar(pat)
+  let c = nr2char(getchar(0))
+  return (c =~ a:pat) ? '' : c
+endf
+
+aug vimrc
+  au! |" Remove all vimrc autocommands
+  au BufNewFile,BufRead *.c,*.cpp,*.java
+    \   iabbr <silent> if if ()<Left><C-R>=Eatchar('\s')<CR>
+    \ | iabbr <silent> while while ()<Left><C-R>=Eatchar('\s')<CR>
+  au BufNewFile,BufRead *.md,*.txt
+    \   iabbr <silent> --- ----------------------------------------<C-R>=Eatchar('\s')<CR>
+aug END

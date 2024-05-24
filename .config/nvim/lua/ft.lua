@@ -57,3 +57,11 @@ au('Filetype', {
     vim.bo[nr].expandtab = false
   end,
 })
+
+au('Filetype', {
+  pattern = { 'lua', 'vim' },
+  callback = function()
+    -- TODO: for lua(non-vim?), default 'K' is manual
+    n('K', 'K')
+  end,
+})

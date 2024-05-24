@@ -3,6 +3,16 @@
 
 let mapleader=' '
 
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+" pacman -S vimrc-git
+set runtimepath+=/usr/share/vimrc/
+"source /usr/share/vimrc/vimrcs/basic.vim
+"source /usr/share/vimrc/vimrcs/filetypes.vim
+"source /usr/share/vimrc/vimrcs/plugins_config.vim
+"source /usr/share/vimrc/vimrcs/extended.vim
+
 filetype plugin indent on
 if &t_Co > 2 || has("gui_running")
   syntax on
@@ -14,6 +24,10 @@ nn <c-s><c-d> <cmd>mksession! /tmp/reload-vim.vim <bar> cq!123<cr>
 nn <c-s><c-s> <cmd>q!<cr>
 nn <leader>so <cmd>so<cr>
 nn <leader><c-e> <cmd>e $MYVIMRC<cr>
+nn <leader>pu <cmd>PlugUpdate<cr>
+
+" use vim9 plugins
+source ~/.vim/vim9.vim
 
 " nvim default options {{{
 se ai
@@ -78,7 +92,7 @@ com DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p |
 " options {{{
 se nu rnu
 se cb=unnamedplus
-se term=xterm-256color
+se term=xterm-256color " TODO: <m-x> not work
 se mouse=a
 se et sw=2 st=2 ts=2
 se ic scs
@@ -89,11 +103,16 @@ se udf udir=~/.vim/undo ul=9999
 se lz
 se jop=stack
 
+se matchpairs+=<:>
+se ww=b,s,h,l
+se ve=block
+se showbreak='↪ '
+se splitright
+
 "se fencs=utf8,ucs-bom,gbk,cp936,gb2312,gb18030
-
-
-let &t_SI .= "\e[=1c"
-let &t_EI .= "\e[=2c"
+" cursor shape (may not work, depend on terminal)
+"let &t_SI = "\e[6 q"
+"let &t_EI = "\e[2 q"
 " }}}
 
 " autocmd {{{
@@ -107,6 +126,8 @@ aug vimStartup
    \ |   execute "normal! g`\""
    \ | endif
 "au InsertEnter,InsertLeave * se cul!
+"TODO: a vimscript formatter?
+  au FocusGained,BufEnter,CursorHold checktime
 aug END
 " }}}
 
@@ -131,20 +152,20 @@ nn gk k
 xn <a-h> <gv
 xn <a-l> >gv
 
-nn <c-h> <c-w><c-h>
+nn <c-k> <c-w><c-k>
 nn <c-j> <c-w><c-j>
 
 nn d "kd
 nn D "kD
 nn c "kc
 nn C "kC
-nn <c-p> "kp
+nn <c-p> "kP
 
 xn d "kd
 xn D "kD
 xn c "kc
 xn C "kC
-xn <c-p> "kp
+xn <c-p> "kP
 
 ino <c-u> <c-g>u<c-u>
 ino <c-w> <c-g>u<c-w>
@@ -155,5 +176,7 @@ vm <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vm <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 " }}}
 
-" TODO: session seems buggy?
-" vim:fdm=marker
+
+
+"" TODO: session seems buggy?
+"" vim:fdm=marker

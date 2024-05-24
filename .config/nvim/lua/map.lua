@@ -40,7 +40,7 @@ x('<a-l>', '>gv')
 -- yank
 n(' p', '<cmd>%d _ | norm VP<cr>')
 n(' y', '<cmd>%y<cr>')
--- FIXME: this makes register unusable
+-- TODO: we need ignore blank delete
 for _, k in pairs({ 'd', 'D', 'c', 'C' }) do
   nx(k, '"k' .. k)
   -- nx('+' .. k, k)
@@ -230,3 +230,9 @@ x('<', ':le<cr>')
 -- inoremap <c-x><c-o> <cmd>lua require('cmp').complete()<cr>
 -- cnoremap <c-x><c-o> <cmd>lua require('cmp').complete()<cr>
 -- ]]
+--
+--
+n('<leader>vb', '<cmd>ls<cr>', { desc = 'Show (listed) [b]uffers (:ls)' })
+n('<leader>vB', '<cmd>ls!<cr>', { desc = 'Show all [b]uffers (:ls!)' })
+n('<leader>vl', '<cmd>set buflisted<cr>', { desc = '[L]ist current buffer in buffer list' })
+n('<leader>vu', '<cmd>set nobuflisted<cr>', { desc = '[U]nlist current buffer' })
