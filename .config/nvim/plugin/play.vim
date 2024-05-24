@@ -16,8 +16,8 @@
 aug play
   au!
   " au ModeChanged * echo getpos("'<")
-  au ModeChanged * call writefile(getpos("'<"), "/home/phanium/b/neovim/event.log", "a")
-  " au ModeChanged * silent! echo getpos("'<")
+  " au ModeChanged * call writefile(getpos("'<"), "/home/phanium/b/neovim/event.log", "a")
+  " " au ModeChanged * silent! echo getpos("'<")
   "au ModeChanged * echo getpos("'>")
 aug END
 

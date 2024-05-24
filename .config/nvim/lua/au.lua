@@ -40,7 +40,6 @@ au({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
 })
 
 au('VimResized', {
-  group = ag('lazy_nvim_hook', { clear = true }),
   callback = function()
     if vim.o.columns < 100 then
       -- if openned
