@@ -224,6 +224,8 @@ perl-cgi
 perl-file-homedir
 perl-image-exiftool
 perl-rename
+perl-unicode-linebreak
+perl-yaml-tiny
 pipewire-pulse
 pkgstats
 pnpm
@@ -283,6 +285,7 @@ sad
 scrcpy
 screen
 scrot
+sd
 setconf
 simplescreenrecorder
 skim
@@ -332,6 +335,8 @@ texlive-plaingeneric
 texlive-pstricks
 texlive-publishers
 texlive-xetex
+texstudio
+texworks
 tk
 tmux
 tokei
