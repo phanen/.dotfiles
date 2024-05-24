@@ -1,0 +1,10 @@
+/*
+!after
+!.gitignore
+!plugin/
+!vim9.vim
+!vimrc
+
+!autoload
+autoload/*
+!autoload/comment.vim

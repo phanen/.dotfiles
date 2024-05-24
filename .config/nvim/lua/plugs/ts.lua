@@ -18,6 +18,7 @@ local treesitter_setup = function()
       'query',
       'rust',
       'typescript',
+      'vim',
       'vimdoc',
     },
     highlight = {
@@ -26,7 +27,7 @@ local treesitter_setup = function()
     },
     indent = { enable = true, disable = { 'python' } },
     incremental_selection = {
-      enable = false,
+      enable = true,
       keymaps = {
         init_selection = '<cr>',
         node_incremental = '<cr>',
