@@ -16,4 +16,6 @@ status is-interactive; and begin
     source $__fish_config_dir/bind.fish
     #eval "$(atuin init fish)"
     #eval "$(zoxide init fish)"
+    # starship init fish | source
+    # eval "$(starship init fish --print-full-init)"
 end

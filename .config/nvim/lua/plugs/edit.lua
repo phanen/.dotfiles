@@ -4,7 +4,7 @@ return {
     'folke/ts-comments.nvim',
     opts = {},
     event = 'VeryLazy',
-    enabled = vim.fn.has('nvim-0.10.0') == 1,
+    enabled = fn.has('nvim-0.10.0') == 1,
     -- or we can use hook:
     -- { 'JoosepAlviste/nvim-ts-context-commentstring' },
   },
@@ -145,16 +145,46 @@ return {
   },
   {
     'okuuva/auto-save.nvim',
+    cond = true,
     event = { 'InsertLeave', 'TextChanged' },
     opts = {
       execution_message = { enabled = false },
       debounce_delay = 125,
       condition = function(bufnr)
         local utils = require 'auto-save.utils.data'
-        if vim.fn.getbufvar(bufnr, '&buftype') ~= '' then return false end
-        if utils.not_in(vim.fn.getbufvar(bufnr, '&filetype'), { '' }) then return true end
+        if fn.getbufvar(bufnr, '&buftype') ~= '' then return false end
+        if utils.not_in(fn.getbufvar(bufnr, '&filetype'), { '' }) then return true end
         return false
       end,
+    },
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    -- event = 'InsertEnter',
+    ft = { 'markdown', 'xml', 'html' },
+    opts = {
+      opts = {
+        enable_close = true, -- Auto close tags
+        enable_rename = true, -- Auto rename pairs of tags
+        enable_close_on_slash = false, -- Auto close on trailing </
+      },
+    },
+    -- per_filetype = {
+    --   ['html'] = { enable_close = false },
+    -- },
+  },
+
+  {
+    'mizlan/iswap.nvim',
+    cmd = {
+      'ISwap',
+      'ISwapWith',
+      'ISwapNode',
+      'ISwapNodeWith',
+      'ISwapWithLeft',
+      'ISwapWithRight',
+      'ISwapNodeWithLeft',
+      'ISwapNodeWithRight',
     },
   },
 }

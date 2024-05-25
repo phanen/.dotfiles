@@ -9,7 +9,7 @@ local M = {}
 --   end,
 -- })
 
--- UNKOWN: check ft here as workaround for autocmd not always work
+-- unknow: check ft here as workaround for autocmd not always work
 local ft_tbl = setmetatable({
   ['qf'] = true,
   ['NvimTree'] = true,
@@ -98,7 +98,7 @@ M.smart_root = function()
 
   -- not in gitroot
   -- or in homedir(repo), but ignored
-  local homedir = vim.env.HOME
+  local homedir = env.HOME
   if
     not root
     or root == homedir
@@ -113,10 +113,8 @@ M.smart_cd = function() api.nvim_set_current_dir(M.smart_root()) end
 
 M.yank_filename = function()
   local path = vim.fs.normalize(api.nvim_buf_get_name(0))
-  fn.setreg('+', (path:gsub(('^%s'):format(vim.env.HOME), '~')))
+  fn.setreg('+', (path:gsub(('^%s'):format(env.HOME), '~')))
 end
-
-M.yank_last_message = function() fn.setreg('+', vim.trim(fn.execute('1message'))) end
 
 M.force_close_tabpage = function()
   if #api.nvim_list_tabpages() == 1 then

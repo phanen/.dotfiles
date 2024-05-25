@@ -8,13 +8,13 @@ au('FileType', {
   callback = function()
     local file_root = require('lib.util').smart_root()
     -- error-prone, but work and short...
-    local nvim_root = vim.fs.joinpath(vim.env.HOME, 'b/neovim')
+    local nvim_root = vim.fs.joinpath(env.HOME, 'b/neovim')
     if file_root ~= nvim_root then return end
 
     -- arch upstream ood now, perfer bundled
     local uncrustify_path = vim.fs.joinpath(nvim_root, 'build/usr/bin/uncrustify')
-    if not vim.fn.executable(uncrustify_path) then
-      if vim.fn.executable('uncrustify') then return end
+    if not fn.executable(uncrustify_path) then
+      if fn.executable('uncrustify') then return end
       uncrustify_path = 'uncrustify'
     end
 

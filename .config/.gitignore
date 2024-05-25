@@ -1,4 +1,6 @@
 /*
+!.gitignore
+
 !alacritty
 !atuin
 !bspwm
@@ -22,6 +24,7 @@
 !nvim
 !pkglists
 !polybar
+!river
 !rofi
 !stylua.toml
 !sway

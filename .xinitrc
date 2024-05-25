@@ -37,6 +37,15 @@ xrandr --auto
 # xrandr -o right
 ~/.bin/xrate-refresh.sh
 
+# avoid firefox tearing in external monitor
+nvidia-settings --assign CurrentMetaMode="$(xrandr | sed -nr '/(\S+) connected (primary )?([0-9]+x[0-9]+)(\+\S+).*/{ s//\1: \3 \4 { ForceFullCompositionPipeline = On }, /; H}; ${ g; s/\n//g; s/, $//; p }')" &
+
+# TODO: idw how to make xorg.conf ignore, but it really work well now...
+# https://superuser.com/questions/626482/permanently-disable-second-screen
+# xrandr --output eDP-1-2 --off
+# autorandr --load docked # use systemd
+autorandr --change docked
+
 case $1 in
 i3) exec i3 ;;
 kde) DESKTOP_SESSION=plasma exec startplasma-x11 ;;

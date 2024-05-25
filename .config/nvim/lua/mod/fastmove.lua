@@ -22,7 +22,7 @@ local get_step = (function()
       move_count = 0
       prev_direction = direction
     else
-      local time = vim.uv.hrtime()
+      local time = uv.hrtime()
       local elapsed = (time - prev_time) / 1e6
       if elapsed > limit then
         move_count = 0
@@ -37,14 +37,14 @@ local get_step = (function()
     for idx, count in ipairs(threshold) do
       if move_count < count then
         if direction == '<c-d>' or direction == '<c-u>' then
-          idx = vim.fn.round(idx * vim.o.lines)
+          idx = fn.round(idx * vim.o.lines)
         end
         return idx
       end
     end
     local count = #threshold
     if direction == '<c-d>' or direction == '<c-u>' then
-      count = vim.fn.round(count * vim.o.lines)
+      count = fn.round(count * vim.o.lines)
     end
     return count
   end
@@ -68,7 +68,7 @@ local move = function(direction)
     local move_chars = get_move(direction)
     -- this key is used as macro
     -- TODO: macro fallback, never consider it...
-    if vim.fn.reg_recording() ~= '' or vim.fn.reg_executing() ~= '' then return move_chars end
+    if fn.reg_recording() ~= '' or fn.reg_executing() ~= '' then return move_chars end
     local step = get_step(direction)
     if vim.v.count > 0 then
       -- return move_chars
@@ -79,6 +79,7 @@ local move = function(direction)
   end
 end
 
-for _, motion in ipairs({ 'h', 'j', 'k', 'l', 'w', 'b', 'e', 'W', 'B', 'E', '<c-d>', '<c-u>' }) do
+-- for _, motion in ipairs{ 'h', 'j', 'k', 'l', 'w', 'b', 'e', 'W', 'B', 'E', '<c-d>', '<c-u>' } do
+for _, motion in ipairs { 'h', 'j', 'k', '<c-d>', '<c-u>' } do -- TODO: fold not expand
   nx(motion, move(motion), { expr = true })
 end

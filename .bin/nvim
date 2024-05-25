@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO: reattch to neovide after restart
+
 # normal enter...
 if command -v ~/b/neovim/build/bin/nvim 1>/dev/null 2>/dev/null; then
   VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim "$@"

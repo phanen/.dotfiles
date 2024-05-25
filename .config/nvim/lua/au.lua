@@ -1,89 +1,422 @@
--- https://github.com/ibhagwan/smartyank.nvim
--- since there's no way to hook yank action(e.g. TextYankPre), "_d is always needed
--- usually "_d or usually d ???
-au('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-    -- require('vim.ui.clipboard.osc52').copy('+')({ vim.fn.getreg('"') })
-    -- require('vim.ui.clipboard.osc52').copy('*')
-  end,
+augroup('YankHighlight', {
+  'TextYankPost',
+  {
+    desc = 'Highlight the selection on yank',
+    callback = function()
+      -- https://github.com/ibhagwan/smartyank.nvim
+      -- since there's no way to hook yank action(e.g. TextYankPre), "_d is always needed
+      -- usually "_d or usually d ???
+
+      vim.highlight.on_yank { higroup = 'Visual', timeout = 100 }
+      -- require('vim.ui.clipboard.osc52').copy('+')({ fn.getreg('"') })
+      -- require('vim.ui.clipboard.osc52').copy('*')
+    end,
+  },
 })
 
 -- https://github.com/jeffkreeftmeijer/vim-numbertoggle
-au({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
-  command = [[if &nu && mode() != 'i' | set rnu | endif]],
+augroup('NumberToggle', {
+  { 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' },
+  { command = [[if &nu && mode() != 'i' | set rnu | endif]] },
+}, {
+  { 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' },
+  { command = [[if &nu | set nornu | endif]] },
 })
 
-au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
-  command = [[if &nu | set nornu | endif]],
+-- create directories when needed
+augroup('AutoMkdir', {
+  'BufWritePre',
+  {
+    callback = function(ev)
+      local file = uv.fs_realpath(ev.match) or ev.match
+      fn.mkdir(fn.fnamemodify(file, ':p:h'), 'p')
+      local backup = fn.fnamemodify(file, ':p:~:h')
+      backup = (backup:gsub('[/\\]', '%%'))
+      vim.go.backupext = backup
+    end,
+  },
 })
 
--- restore cursor position
-au({ 'BufReadPost' }, { command = [[silent! normal! g`"zv']] })
-
--- create directories when needed, when saving a file
-au('BufWritePre', {
-  callback = function(ev)
-    local file = vim.uv.fs_realpath(ev.match) or ev.match
-    vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
-    local backup = vim.fn.fnamemodify(file, ':p:~:h')
-    backup = (backup:gsub('[/\\]', '%%'))
-    vim.go.backupext = backup
-  end,
+-- auto reload buffer (external write)
+augroup('AutoReLoadBuffer', {
+  { 'FocusGained', 'BufEnter', 'CursorHold' },
+  { command = [[if getcmdwintype() == '' | checktime | endif]] },
 })
 
--- reload buffer
-au({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
-  callback = function()
-    if vim.fn.getcmdwintype() == '' then vim.cmd.checktime() end
-  end,
+-- auto adjust window size
+augroup('AutoResizeWin', {
+  'VimResized',
+  {
+    callback = function()
+      if vim.o.columns < 100 then
+        -- if openned
+        -- vim.cmd.NvimTreeClose()
+        -- vim.cmd.AerialClose()
+        vim.cmd.wincmd('|')
+      else
+        vim.cmd.wincmd('=')
+      end
+    end,
+  },
 })
 
-au('VimResized', {
-  callback = function()
-    if vim.o.columns < 100 then
-      -- if openned
-      -- vim.cmd.NvimTreeClose()
-      -- vim.cmd.AerialClose()
-      vim.cmd.wincmd('|')
-    else
-      vim.cmd.wincmd('=')
-    end
-  end,
-})
-
-au('User', {
-  pattern = { 'LazyInstall*', 'LazyUpdate*', 'LazySync*', 'LazyRestore*' },
-  group = ag('lazy_nvim_hook', { clear = true }),
-  callback = function(...)
-    require('lib.lazy').lazy_patch_callback(...)
-    require('lib.lazy').lazy_cache_docs()
-  end,
-})
-
-au('LspAttach', {
-  group = ag('lsp_attach', { clear = true }),
-  callback = function(ev)
-    vim.lsp.inlay_hint.enable()
-
-    local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = ev.buf }) end
-    bn('gD', vim.lsp.buf.declaration)
-    bn('gI', vim.lsp.buf.implementation)
-    bn('gs', vim.lsp.buf.signature_help)
-    bn('_', vim.lsp.buf.hover)
-    bn('<leader>rn', vim.lsp.buf.rename)
-  end,
-})
-
--- local stack = {}
--- au('CmdlineEnter', {
---   once = true,
---   callback = function()
---     map('c', ' ', function() return ' ' end, { expr = true })
---     -- cmape('')
---   end,
+-- augroup('KeepWinRatio', {
+--   { 'VimResized', 'TabEnter' },
+--   {
+--     desc = 'Keep window ratio after resizing nvim',
+--     callback = function()
+--       vim.cmd.wincmd('=')
+--       require('lib.win').restratio(api.nvim_tabpage_list_wins(0))
+--     end,
+--   },
+-- }, {
+--   { 'TermOpen', 'WinResized', 'WinNew' },
+--   {
+--     desc = 'Record window ratio',
+--     callback = function()
+--       -- Don't record ratio if window resizing is caused by vim resizing
+--       -- (changes in &lines or &columns)
+--       local lines, columns = vim.go.lines, vim.go.columns
+--       local _lines, _columns = vim.g._lines, vim.g._columns
+--       if _lines and lines ~= _lines or _columns and columns ~= _columns then
+--         vim.g._lines = lines
+--         vim.g._columns = columns
+--         return
+--       end
+--       if true then return end
+--       require('lib.win').saveratio(vim.v.event.windows)
+--     end,
+--   },
 -- })
---
--- au('CmdlineChanged', {
---   callback = function(ev) vim.print(ev, vim.fn.getcmdline()) end,
+
+augroup('LazyPatch', {
+  'User',
+  {
+    pattern = { 'LazyInstall*', 'LazyUpdate*', 'LazySync*', 'LazyRestore*' },
+    callback = function(...)
+      require('lib.lazy').lazy_patch_callback(...)
+      require('lib.lazy').lazy_cache_docs()
+    end,
+  },
+})
+
+-- TODO: set a short query timeout...
+augroup('Lsp', {
+  'LspAttach',
+  {
+    callback = function(ev)
+      -- vim.lsp.inlay_hint.enable()
+      local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = ev.buf }) end
+      bn('gD', vim.lsp.buf.declaration)
+      bn('gI', vim.lsp.buf.implementation)
+      bn('gs', vim.lsp.buf.signature_help)
+      bn('_', vim.lsp.buf.hover)
+      bn('<leader>rn', vim.lsp.buf.rename)
+
+      -- vim.keymap.set({ 'n', 'x' }, 'g/', vim.lsp.buf.references)
+      -- vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.implementation)
+    end,
+  },
+})
+
+augroup('BigFileSettings', {
+  'BufReadPre',
+  {
+    desc = 'Set settings for large files',
+    callback = function(ev)
+      vim.b.bigfile = false
+      local stat = uv.fs_stat(ev.match)
+      if stat and stat.size > 524288 then
+        vim.b.bigfile = true
+        vim.opt_local.spell = false
+        vim.opt_local.swapfile = false
+        vim.opt_local.undofile = false
+        vim.opt_local.breakindent = false
+        vim.opt_local.colorcolumn = ''
+        vim.opt_local.statuscolumn = ''
+        vim.opt_local.signcolumn = 'no'
+        vim.opt_local.foldcolumn = '0'
+        vim.opt_local.winbar = ''
+        vim.opt_local.syntax = ''
+        au('BufReadPost', {
+          once = true,
+          buffer = ev.buf,
+          callback = function()
+            vim.opt_local.syntax = ''
+            return true
+          end,
+        })
+      end
+    end,
+  },
+})
+
+-- Workaround for nvim treating whole Chinese sentence as a single word
+-- Ideally something like https://github.com/neovim/neovim/pull/14029
+-- will be merged to nvim, also see
+-- https://github.com/neovim/neovim/issues/13967
+-- augroup('CJKFileSettings', {
+--   'BufEnter',
+--   {
+--     desc = 'Settings for CJK files',
+--     callback = function(ev)
+--       local lnum_nonblank = math.max(0, fn.nextnonblank(1) - 1)
+--       local lines = api.nvim_buf_get_lines(ev.buf, lnum_nonblank, lnum_nonblank + 64, false)
+--       for _, line in ipairs(lines) do
+--         if line:match('[\128-\255]') then
+--           vim.opt_local.linebreak = false
+--           return
+--         end
+--       end
+--     end,
+--   },
 -- })
+
+-- auto save
+-- TODO: support debounce_delay?
+vim.g.disable_Autosave = true
+augroup('Autosave', {
+  { 'BufLeave', 'WinLeave', 'FocusLost', 'InsertLeave', 'TextChanged' },
+  {
+    nested = true,
+    desc = 'Autosave on focus change',
+    callback = function(ev)
+      if
+        vim.bo[ev.buf].bt == ''
+        and vim.bo[ev.buf].ft ~= ''
+        and (vim.uv.fs_stat(ev.file) or {}).type == 'file'
+      then
+        vim.cmd.update { mods = { emsg_silent = true } }
+      end
+    end,
+  },
+})
+
+-- augroup('WinCloseJmp', {
+--   'WinClosed',
+--   {
+--     nested = true,
+--     desc = 'Jump to last accessed window on closing the current one',
+--     command = "if expand('<amatch>') == win_getid() | wincmd p | endif",
+--   },
+-- })
+
+augroup('LastPosJump', {
+  'BufReadPost',
+  { -- NOTE: if `nvim +{num}`?
+    command = [[call lastplace#jump()]],
+    --  command = [[silent! normal! g`"zv']] ,
+  },
+})
+
+augroup('AutoCwd', {
+  {
+    'BufWinEnter',
+    'FileChangedShellPost',
+  },
+  {
+    pattern = '*',
+    desc = 'Automatically change local current directory',
+    callback = function(ev)
+      if ev.file == '' or vim.bo[ev.buf].bt ~= '' then return end
+      local buf = ev.buf
+      local win = api.nvim_get_current_win()
+      vim.schedule(function()
+        if
+          not api.nvim_buf_is_valid(buf)
+          or not api.nvim_win_is_valid(win)
+          or not api.nvim_win_get_buf(win) == buf
+        then
+          return
+        end
+        api.nvim_win_call(win, function()
+          local current_dir = fn.getcwd(0)
+          local target_dir = require('lib').fs.proj_dir(ev.file) or vim.fs.dirname(ev.file)
+          local stat = target_dir and uv.fs_stat(target_dir)
+          -- note: DirChanged autocmds may update winbar unexpectedly
+          if stat and stat.type == 'directory' and current_dir ~= target_dir then
+            pcall(vim.cmd.lcd, target_dir)
+          end
+        end)
+      end)
+    end,
+  },
+})
+
+augroup('PromptBufKeymaps', {
+  'BufEnter',
+  {
+    desc = 'Undo automatic <C-w> remap in prompt buffers',
+    callback = function(ev)
+      if vim.bo[ev.buf].buftype == 'prompt' then
+        vim.keymap.set('i', '<C-w>', '<C-S-W>', { buffer = ev.buf })
+      end
+    end,
+  },
+})
+
+augroup('QuickFixAutoOpen', {
+  'QuickFixCmdPost',
+  {
+    desc = 'Open quickfix window if there are results',
+    callback = function(ev)
+      if #fn.getqflist() > 1 then
+        vim.schedule(vim.cmd[ev.match:find('^l') and 'lwindow' or 'cwindow'])
+      end
+    end,
+  },
+})
+
+-- show cursor line and cursor column only in current window
+augroup('AutoHlCursorLine', {
+  'WinEnter',
+  {
+    desc = 'Show cursorline and cursorcolumn in current window',
+    callback = function()
+      if vim.w._cul and not vim.wo.cul then
+        vim.wo.cul = true
+        vim.w._cul = nil
+      end
+      if vim.w._cuc and not vim.wo.cuc then
+        vim.wo.cuc = true
+        vim.w._cuc = nil
+      end
+      local prev_win = fn.win_getid(fn.winnr('#'))
+      if prev_win ~= 0 then
+        local w = vim.w[prev_win]
+        local wo = vim.wo[prev_win]
+        w._cul = wo.cul
+        w._cuc = wo.cuc
+        wo.cul = false
+        wo.cuc = false
+      end
+    end,
+  },
+})
+
+augroup('FixCmdLineIskeyword', {
+  'CmdLineEnter',
+  {
+    desc = 'Have consistent &iskeyword and &lisp in Ex command-line mode',
+    pattern = '[^/?]',
+    callback = function(ev)
+      -- Don't set &iskeyword and &lisp settings in search command-line
+      -- ('/' and '?'), if we are searching in a lisp file, we want to
+      -- have the same behavior as in insert mode
+      vim.g._isk_lisp_buf = ev.buf
+      vim.g._isk_save = vim.bo[ev.buf].isk
+      vim.g._lisp_save = vim.bo[ev.buf].lisp
+      vim.cmd.setlocal('isk&')
+      vim.cmd.setlocal('lisp&')
+    end,
+  },
+}, {
+  'CmdLineLeave',
+  {
+    desc = 'Restore &iskeyword after leaving command-line mode',
+    pattern = '[^/?]',
+    callback = function()
+      if
+        vim.g._isk_lisp_buf
+        and api.nvim_buf_is_valid(vim.g._isk_lisp_buf)
+        and vim.g._isk_save ~= vim.b[vim.g._isk_lisp_buf].isk
+      then
+        vim.bo[vim.g._isk_lisp_buf].isk = vim.g._isk_save
+        vim.bo[vim.g._isk_lisp_buf].lisp = vim.g._lisp_save
+        vim.g._isk_save = nil
+        vim.g._lisp_save = nil
+        vim.g._isk_lisp_buf = nil
+      end
+    end,
+  },
+})
+
+augroup('SpecialBufHl', {
+  { 'BufWinEnter', 'BufNew', 'FileType', 'TermOpen' },
+  {
+    desc = 'Set background color for special buffers',
+    callback = function(ev)
+      if vim.bo[ev.buf].bt == '' then return end
+      -- Current window isn't necessarily the window of the buffer that
+      -- triggered the event, use `bufwinid()` to get the first window of
+      -- the triggering buffer. We can also use `win_findbuf()` to get all
+      -- windows that display the triggering buffer, but it is slower and using
+      -- `bufwinid()` is enough for our purpose.
+      local winid = fn.bufwinid(ev.buf)
+      if winid == -1 then return end
+      api.nvim_win_call(winid, function()
+        local wintype = fn.win_gettype()
+        if wintype == 'popup' or wintype == 'autocmd' then return end
+        vim.opt_local.winhl:append({
+          Normal = 'NormalSpecial',
+          EndOfBuffer = 'NormalSpecial',
+        })
+      end)
+    end,
+  },
+}, {
+  { 'UIEnter', 'ColorScheme', 'OptionSet' },
+  {
+    desc = 'Set special buffer normal hl',
+    callback = function(ev)
+      if ev.event == 'OptionSet' and ev.match ~= 'background' then return end
+      if true then return end
+      local hl = require('lib.hl')
+      local blended = hl.blend('Normal', 'CursorLine')
+      hl.set_default(0, 'NormalSpecial', blended)
+    end,
+  },
+})
+
+augroup('DeleteNoName', {
+  'BufHidden',
+  {
+    desc = 'Delete [No Name] buffers',
+    callback = function(ev)
+      if ev.file == '' and vim.bo[ev.buf].buftype == '' and not vim.bo[ev.buf].modified then
+        vim.schedule(function() pcall(api.nvim_buf_delete, ev.buf, {}) end)
+      end
+    end,
+  },
+})
+
+-- `q:`
+au('CmdwinEnter', {
+  desc = 'cmdwin enter',
+  pattern = '*',
+  callback = function()
+    vim.wo.signcolumn = 'no'
+    vim.wo.foldcolumn = '0'
+  end,
+})
+
+-- FIXME: when close diffview
+augroup('ToggleWhenDiff', {
+  'OptionSet',
+  {
+    desc = 'turn off inlayhint/diagnostics when diff option toggle',
+    pattern = 'diff',
+    callback = function(ev)
+      if vim.v.option_new then
+        local clients = vim.lsp.get_clients {
+          bufnr = ev.buf,
+          method = lsp.protocol.Methods.textDocument_inlayHint,
+        }
+        if #clients > 0 and vim.lsp.inlay_hint.is_enabled { bufnr = ev.buf } then
+          vim.lsp.inlay_hint.enable(false, { bufnr = ev.buf })
+        end
+
+        vim.diagnostic.config { signs = false }
+      else
+        local clients = vim.lsp.get_clients {
+          bufnr = ev.buf,
+          method = lsp.protocol.Methods.textDocument_inlayHint,
+        }
+        if #clients > 0 and not vim.lsp.inlay_hint.is_enabled { bufnr = ev.buf } then
+          vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+        end
+        vim.diagnostic.config { signs = true }
+      end
+    end,
+  },
+})

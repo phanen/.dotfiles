@@ -1,3 +1,6 @@
+-- kwkarlwang/bufjump.nvim
+-- famiu/bufdelete.nvim
+
 local M = {}
 
 local jumpbackward = function(num)
@@ -70,13 +73,14 @@ end
 
 M.delete = function()
   if fn.filereadable(fn.expand('%p')) == 0 and vim.bo.modified then
-    local choice =
-      fn.input('The file is not saved, whether to force delete? Press enter or input [y/n]:')
+    local choice = fn.input('File is not saved, force delete? [y/N]')
     if choice == 'y' or string.len(choice) == 0 then vim.cmd('bd!') end
     return
   end
+
   local force = not vim.bo.buflisted or vim.bo.buftype == 'nofile'
-  vim.cmd(force and 'bd!' or string.format('bp | bd! %s', api.nvim_get_current_buf()))
+  local buf = api.nvim_get_current_buf()
+  vim.cmd(force and 'sil! bd!' or ('sil! bp | sil! bd! %s'):format(buf))
 end
 
 return M

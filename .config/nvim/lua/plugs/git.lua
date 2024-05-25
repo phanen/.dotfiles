@@ -3,13 +3,13 @@ return {
     'tpope/vim-fugitive',
     cmd = { 'G' },
     keys = {
-      { ' ga', '<cmd>G commit --amend --no-edit<cr>' },
+      { ' ga', '<cmd>silent G commit --amend --no-edit<cr>' },
       { ' gr', '<cmd>Gr<cr>' },
       -- { '+gd', '<cmd>Gvdiffsplit<cr>' },
 
       { ' gb', '<cmd>G blame<cr>' },
       { ' gg', '<cmd>G<cr>' },
-      { ' gp', '<cmd>Gwrite<cr>' },
+      { ' gP', '<cmd>G push<cr>' },
       { ' gs', '<cmd>Gwrite<cr>' },
       { ' gw', '<cmd>G commit<cr>' },
     },
@@ -18,8 +18,8 @@ return {
     'sindrets/diffview.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
-      { '+gd', ':DiffviewOpen<CR>', mode = { 'n', 'x' } },
-      { '+gh', ':DiffviewFileHistory %<cr>', mode = { 'n', 'x' } },
+      { ' gd', ':DiffviewOpen<CR>', mode = { 'n', 'x' } },
+      { ' gh', ':DiffviewFileHistory %<cr>', mode = { 'n', 'x' } },
     },
     opts = {
       enhanced_diff_hl = true,
@@ -34,10 +34,12 @@ return {
   },
   {
     'lewis6991/gitsigns.nvim',
+    cond = true,
     event = { 'BufReadPre', 'BufNewFile' },
     cmd = 'Gitsigns',
     dependencies = 'stevearc/dressing.nvim',
     opts = {
+      -- signcolumn = false,
       -- used in diffview
       attach_to_untracked = true,
       preview_config = { border = vim.g.border },
@@ -56,7 +58,7 @@ return {
           vim.schedule(gs.next_hunk)
           return '<ignore>'
         end, { expr = true })
-        -- should not buf map, unkown
+        -- should not buf map, unknow
         -- end, { expr = true, buffer = bufnr })
 
         nx('gk', function()
@@ -66,23 +68,27 @@ return {
         end, { expr = true })
 
         local n = function(lhs, rhs) map('n', lhs, ('<cmd>Gitsigns %s<cr>'):format(rhs)) end
-        n('<leader>hs', 'stage_hunk')
-        n('<leader>hu', 'undo_stage_hunk')
-        n('<leader>hr', 'reset_hunk')
-        n('<leader>i', 'preview_hunk')
-        n('<leader>gu', 'reset_buffer_index')
-        n('<leader>hd', 'toggle_deleted<cr><cmd>Gitsigns toggle_word_diff')
+        n(' hs', 'stage_hunk')
+        n(' hu', 'undo_stage_hunk')
+        n(' hr', 'reset_hunk')
+        n(' i', 'preview_hunk')
+        n(' gu', 'reset_buffer_index')
+        n(' hd', 'toggle_deleted<cr><cmd>Gitsigns toggle_word_diff')
+        n('+gb', 'blame')
       end,
     },
   },
   { -- TODO: use self-host ssh remote...
     'ruifm/gitlinker.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    -- FIXME: compat
     keys = {
-      { '+gl', '<cmd>lua require("gitlinker").get_buf_range_url "n"<cr>', mode = 'n' },
-      { '+gl', '<cmd>lua require("gitlinker").get_buf_range_url "v"<cr>', mode = 'x' },
+      { ' gl', '<cmd>lua require("gitlinker").get_buf_range_url "n"<cr>', mode = 'n' },
+      { ' gl', '<cmd>lua require("gitlinker").get_buf_range_url "v"<cr>', mode = 'x' },
     },
     -- TODO: smart remote
+    -- PERF: or since we always rebase patch on the top (see upd-nvim), blame remote branch work fine
+    -- this also apply to lazygit
     opts = { mappings = nil },
   },
   -- TODO: this produce many [no name] buf...
@@ -90,10 +96,7 @@ return {
     'TimUntersberger/neogit',
     cmd = 'Neogit',
     keys = {
-      {
-        '<leader>gn',
-        function() require('neogit').open({ cwd = require('lib.util').smart_root() }) end,
-      },
+      { ' gn', function() require('neogit').open({ cwd = require('lib.util').smart_root() }) end },
     },
     opts = {
       disable_hint = true,
@@ -107,6 +110,7 @@ return {
   {
     'rbong/vim-flog',
     cmd = { 'Flog', 'Flogsplit' },
+    keys = { { ' gf', '<cmd>Flog<cr>' } },
     dependencies = { 'tpope/vim-fugitive' },
   },
   {

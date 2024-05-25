@@ -1,3 +1,6 @@
+-- double check whatever
+if g.vscode == nil then return end
+
 local n = function(...) map('n', ...) end
 -- use some vscode builtin
 local vc = function(cmd) return "<cmd>lua require('vscode-neovim').call('" .. cmd .. "')<cr>" end

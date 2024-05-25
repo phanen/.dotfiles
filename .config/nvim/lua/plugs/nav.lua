@@ -22,6 +22,7 @@ return {
   },
   {
     'nvim-lualine/lualine.nvim',
+    cond = false,
     event = { 'BufReadPre', 'BufNewFile' },
     init = function() vim.opt.laststatus = 0 end,
     opts = {
@@ -59,7 +60,7 @@ return {
         },
         lualine_x = {
           function()
-            local bufnr = vim.api.nvim_get_current_buf()
+            local bufnr = api.nvim_get_current_buf()
             local clients = vim
               .iter(vim.lsp.get_clients())
               :filter(function(client) return client.attached_buffers[bufnr] end)
@@ -107,28 +108,6 @@ return {
     dependencies = { { 'parsifa1/nvim-web-devicons' } },
   },
   {
-    'stevearc/aerial.nvim',
-    cond = true,
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'nvim-tree/nvim-web-devicons',
-      -- 'hrsh7th/nvim-cmp', Hack to ensure that lspkind-nvim is loaded
-    },
-    cmd = { 'AerialToggle' },
-    opts = {
-      -- backends = { 'lsp', 'treesitter', 'markdown' },
-      backends = { 'treesitter', 'lsp', 'markdown' },
-      keymaps = { ['<C-k>'] = false, ['<C-j>'] = false, ['l'] = 'actions.tree_toggle' },
-      attach_mode = 'global',
-      icons = { -- fix indent
-        Collapsed = '',
-        markdown = { Interface = '󰪥' },
-      },
-      nav = { preview = true },
-      on_attach = function(_) package.loaded.aerial.tree_close_all() end,
-    },
-  },
-  {
     'phanen/dirstack.nvim',
     event = 'DirchangedPre',
     keys = {
@@ -144,8 +123,8 @@ return {
     opts = {
       preview = {
         should_preview_cb = function(bufnr, _)
-          local bufname = vim.api.nvim_buf_get_name(bufnr)
-          local fsize = vim.fn.getfsize(bufname)
+          local bufname = api.nvim_buf_get_name(bufnr)
+          local fsize = fn.getfsize(bufname)
           if bufname:match '^fugitive://' then return false end
           if fsize > 100 * 1024 then return false end
           return true
@@ -167,7 +146,7 @@ return {
         function()
           vim.cmd.noh()
           require('hlslens').stop()
-          vim.api.nvim_feedkeys(vim.keycode('<esc>'), 'n', false)
+          api.nvim_feedkeys(vim.keycode('<esc>'), 'n', false)
         end,
       },
     },

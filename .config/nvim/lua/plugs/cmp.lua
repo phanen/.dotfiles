@@ -1,6 +1,7 @@
 return {
   {
     'hrsh7th/nvim-cmp',
+    -- cond = false,
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
@@ -101,7 +102,7 @@ return {
             ellipsis_char = '…',
             before = function(_, item)
               local min_width = 10
-              local length = vim.api.nvim_strwidth(item.abbr)
+              local length = api.nvim_strwidth(item.abbr)
               item.abbr = item.abbr .. (' '):rep(math.max(0, min_width - length))
               return item
             end,
@@ -118,7 +119,8 @@ return {
           max_view_entries = 12,
         },
       }
-      c.setup.cmdline('/', { sources = { { name = 'buffer' } } })
+      -- FIXME: search up/down
+      -- c.setup.cmdline('/', { sources = { { name = 'buffer' } } })
       c.setup.cmdline(':', {
         sources = {
           { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },
@@ -130,6 +132,7 @@ return {
   },
   {
     'L3MON4D3/LuaSnip',
+    -- cond = false,
     event = 'InsertEnter',
     build = 'make install_jsregexp',
     dependencies = { 'rafamadriz/friendly-snippets' },
@@ -142,7 +145,7 @@ return {
   },
   {
     'zbirenbaum/copilot.lua',
-    cond = vim.fn.argv()[1] ~= 'leetcode.nvim',
+    cond = fn.argv()[1] ~= 'leetcode.nvim',
     cmd = 'Copilot',
     event = 'InsertEnter',
     dependencies = { 'hrsh7th/nvim-cmp' },

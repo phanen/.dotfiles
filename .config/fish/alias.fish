@@ -66,7 +66,7 @@ function ldw
     end
 end
 
-function po --wrap 'pacman -Qo'
+function po
     pacman -Qo $argv || pacman -F $argv
 end
 

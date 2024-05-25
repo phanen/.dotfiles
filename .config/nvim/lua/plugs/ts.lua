@@ -23,7 +23,12 @@ local treesitter_setup = function()
     },
     highlight = {
       enable = true,
-      disable = function(_, bnr) return api.nvim_buf_line_count(bnr) > 10000 end,
+      -- FIXME: this is a bug, no doubt
+      -- hook get_parser as a workaround now
+      disable = function(_, bnr)
+        if vim.bo[bnr].ft == 'tex' then return true end
+        return api.nvim_buf_line_count(bnr) > 10000
+      end,
     },
     indent = { enable = true, disable = { 'python' } },
     incremental_selection = {
@@ -32,7 +37,7 @@ local treesitter_setup = function()
         init_selection = '<cr>',
         node_incremental = '<cr>',
         node_decremental = '<s-cr>',
-        scope_incremental = '<s-k>',
+        scope_incremental = '<s-tab>',
       },
     },
     textobjects = {
@@ -110,7 +115,7 @@ local treesitter_setup = function()
   local goto_function = function(direction)
     local ts = vim.treesitter
     local queries = require('nvim-treesitter.query')
-    -- local filetype = vim.api.nvim_buf_get_option(0, 'ft')
+    -- local filetype = api.nvim_buf_get_option(0, 'ft')
     -- FIXME: correct bufnr
     local filetype = vim.bo.ft
     local lang = require('nvim-treesitter.parsers').ft_to_lang(filetype)
@@ -148,7 +153,7 @@ local treesitter_setup = function()
     if #matches > 0 then
       local closest_function = nil
       local closest_distance = nil
-      local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+      local row, col = unpack(api.nvim_win_get_cursor(0))
 
       for _, function_name_node in ipairs(matches) do
         local start_row, start_col, _, _ = function_name_node:range()
@@ -177,34 +182,33 @@ local treesitter_setup = function()
 
       if closest_function then
         local start_row, start_col, _, _ = closest_function:range()
-        vim.api.nvim_win_set_cursor(0, { start_row + 1, start_col })
+        api.nvim_win_set_cursor(0, { start_row + 1, start_col })
       end
     end
   end
 
-  -- local function goto_prev_function() goto_function('prev') end
-  -- local function goto_next_function() goto_function('next') end
+  -- local goto_prev_function = function() goto_function('prev') end
+  -- local goto_next_function = function() goto_function('next') end
   -- n('[f', goto_prev_function)
   -- n(']f', goto_next_function)
+
+  -- local edit = require('mod.ts.rename')
+  -- n(' rn', edit.smart_rename)
+
+  local nav = require('mod.ts.nav')
+  nav.map_object_pair_move('f', '@function.outer', true)
+  nav.map_object_pair_move('F', '@function.outer', false)
+
+  local usage = require('mod.ts.usage')
+  n(']v', usage.goto_next)
+  n('[v', usage.goto_prev)
+
+  local move = require('mod.ts.pair')
+  move.setkeymap('d', { next = ']d', prev = '[d' })
+  -- move.setkeymap('c', { next = ']c', prev = '[c' })
 end
 
 return {
-  -- TODO: upstream is still working
-  {
-    'windwp/nvim-ts-autotag',
-    -- event = 'InsertEnter',
-    Filetype = { 'markdown', 'xml', 'html' },
-    opts = {
-      opts = {
-        enable_close = true, -- Auto close tags
-        enable_rename = true, -- Auto rename pairs of tags
-        enable_close_on_slash = false, -- Auto close on trailing </
-      },
-    },
-    -- per_filetype = {
-    --   ['html'] = { enable_close = false },
-    -- },
-  },
   {
     'nvim-treesitter/nvim-treesitter',
     build = function() require('nvim-treesitter.install').update { with_sync = true } end,

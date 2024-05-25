@@ -4,13 +4,6 @@
 
 local o = vim.o
 
--- stylua: ignore start
-o.expandtab      = true -- use space (`:retab!` to swap space and tabs)
-o.shiftwidth     = 0    -- (auto)indent's width (follow `ts`)
-o.softtabstop    = 0    -- inserted tab's width (follow `sw`)
-o.tabstop        = 2    -- tab's (shown) width, also for spaces count in `:retab`
--- stylua: ignore end
-
 local idl = '|'
 o.list = true
 o.listchars = 'trail:•,extends:#,nbsp:.,precedes:❮,extends:❯,tab:› ,leadmultispace:'
@@ -45,7 +38,7 @@ end
 
 local group = ag('indent_line', { clear = true })
 
-au({ 'OptionSet' }, {
+au('OptionSet', {
   group = group,
   pattern = { 'shiftwidth', 'expandtab', 'tabstop' },
   callback = function() update_idl(vim.v.option_type == 'local') end,

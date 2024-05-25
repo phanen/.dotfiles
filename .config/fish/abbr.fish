@@ -52,3 +52,7 @@ abbr ghg git rev-list --all \| GIT_PAGER=cat xargs git grep
 
 abbr pv python -m virtualenv venv
 abbr pe . ./venv/bin/activate.fish
+
+
+# TODO(upstream): subcommand completion
+abbr sdr systemctl daemon-reload

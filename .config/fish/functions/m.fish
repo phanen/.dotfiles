@@ -1,6 +1,6 @@
 # sc what you want
 function m
-    set dirs ~/notes ~/codes ~/stuffs ~/blog ~/extra
+    set dirs ~/notes ~/codes ~/stuffs ~/blog
     switch $argv
         # TODO: atomic logging...
         # TODO: error handler...

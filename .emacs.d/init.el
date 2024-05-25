@@ -283,6 +283,7 @@
 
 (use-package telega
   ;:load-path  "~/b/telega.el"
+  :ensure t
   :commands (telega)
   :init
   (define-key global-map (kbd "C-c t") telega-prefix-map)
@@ -294,6 +295,7 @@
     :username "" :password ""))))
   :defer t)
 
+(setq telega-server-libs-prefix "/usr/")
 
 ;https://idiocy.org/emacs-fonts-and-fontsets.html
 (set-face-attribute 'default nil :font "Cascadia Mono 20")

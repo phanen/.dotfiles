@@ -50,4 +50,5 @@ alias rvp="git diff --no-prefix --relative | tail -n +3  > riscv64.patch"
 alias rve="sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U"
 
 alias nvp="git diff | tee ~/.config/nvim/patches/\$(basename \$(pwd)).patch"
-# vim:ft=sh
+
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git-flow/git-flow.plugin.zsh

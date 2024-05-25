@@ -1,13 +1,14 @@
-Xft.dpi: 96
+Xft.dpi: 192
 Xft.autohint: 0
-Xft.lcdfilter: lcddefault
-Xft.hintstyle: hintfull
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
 Xft.hinting: 1
+Xft.antialias: 1
 Xft.rgba: rgb
 
 xterm*utf8: 1
-xterm*faceName: FiraCode Nerd Font Mono:size=10
-xterm*faceNameDoublesize: NanumGothicCoding:size=9
+xterm*faceName: FiraCode Nerd Font Mono:size=15
+xterm*faceNameDoublesize: NanumGothicCoding:size=12
 xterm*background: black
 xterm*foreground: white
 xterm*utf8Title: true

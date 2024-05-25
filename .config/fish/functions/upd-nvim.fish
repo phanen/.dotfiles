@@ -23,7 +23,9 @@ function upd-nvim
     end
 
     if set -q _flag_pull; or set -q _flag_sync
+        git checkout master
         git pull upstream master:master
+        git checkout patch
         git rebase master patch
         if set -q _flag_sync
             git push origin patch -f

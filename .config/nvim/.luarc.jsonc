@@ -11,5 +11,5 @@
     ]
   },
   "diagnostics.disable": ["missing-fields"],
-  "diagnostics.globals": ["map", "au"],
+  //"diagnostics.globals": ["map", "au"],
 }

@@ -2,6 +2,8 @@
 vim.loader.enable()
 vim.g.mapleader = ' '
 
+local fn = vim.fn
+
 local o = vim.opt
 o.clipboard = 'unnamedplus'
 o.cmdheight = 0
@@ -21,10 +23,10 @@ o.ignorecase = true
 o.smartcase = true
 
 local m = vim.keymap.set
-local root = vim.fn.stdpath 'data' .. '/lazy'
+local root = fn.stdpath 'data' .. '/lazy'
 local plug = function(basename)
   vim.opt.rtp:prepend(root .. '/' .. basename)
-  local packname = vim.fn.trim(basename, '.nvim')
+  local packname = fn.trim(basename, '.nvim')
   return function(opts) require(packname).setup(opts) end
 end
 
@@ -71,6 +73,6 @@ m({ 'n', 'o', 'x' }, 'ga', 'G')
 m(
   'n',
   '<leader><leader>',
-  function() return '/' .. vim.env.USER .. '@' .. vim.fn.system { 'hostnamectl', 'hostname' } end,
+  function() return '/' .. vim.env.USER .. '@' .. fn.system { 'hostnamectl', 'hostname' } end,
   { expr = true }
 )

@@ -1,0 +1,9 @@
+/*
+!.gitignore
+
+# damn...
+!firefox
+firefox/*
+!firefox/profile
+firefox/profile/*
+!firefox/profile/chrome/

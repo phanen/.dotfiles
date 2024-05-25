@@ -1,0 +1,12 @@
+-- TODO: cmd undo
+-- au('CmdlineEnter', {
+--   once = true,
+--   callback = function()
+--     map('c', ' ', function() return ' ' end, { expr = true })
+--     -- cmape('')
+--   end,
+-- })
+
+-- au('CmdlineChanged', {
+--   callback = function(ev) vim.print(ev, fn.getcmdline()) end,
+-- })
