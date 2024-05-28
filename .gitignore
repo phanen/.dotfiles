@@ -3,6 +3,7 @@
 !.bashrc
 !.bin
 !.config/
+!.emacs.d/
 !.environ
 !.gitignore
 !.gitmodules
@@ -10,7 +11,7 @@
 !.inputrc
 !.profile
 !.shellrc
-!.vim
+!.vim/
 !.xinitrc
 !.Xresources
 !.zprofile
