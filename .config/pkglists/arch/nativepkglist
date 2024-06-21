@@ -37,7 +37,6 @@ bspwm
 ccache
 cgdb
 clang
-clash
 clash-verge
 cliphist
 clipnotify
@@ -147,7 +146,6 @@ kakoune
 kexec-tools
 kismet
 kitty
-kmonad-git
 lazygit
 lib32-gcc-libs
 lib32-nvidia-utils
@@ -181,6 +179,7 @@ man-db
 man-pages
 mesa-utils
 minicom
+mold
 moreutils
 mpv
 namcap

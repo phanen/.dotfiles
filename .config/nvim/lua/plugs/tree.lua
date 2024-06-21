@@ -12,7 +12,15 @@ return {
       {
         'stevearc/dressing.nvim',
         opts = {
-          input = { mappings = { i = { ['<c-p>'] = 'HistoryPrev', ['<c-n>'] = 'HistoryNext' } } },
+          input = {
+            mappings = {
+              i = {
+                ['<c-p>'] = 'HistoryPrev',
+                ['<c-n>'] = 'HistoryNext',
+                ['<Esc>'] = 'Close',
+              },
+            },
+          },
         },
       },
     },

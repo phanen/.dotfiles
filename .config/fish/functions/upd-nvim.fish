@@ -34,8 +34,8 @@ function upd-nvim
         set -q _flag_force; or return
     end
 
-    set -lx CC clang
-    set -lx CXX clang++
+    # set -lx CC clang
+    # set -lx CXX clang++
     set -lx CMAKE_GENERATOR Ninja
     set -l cmake_build_type RelWithDebInfo
     set -q _flag_type; and set cmake_build_type $_flag_type
@@ -47,17 +47,27 @@ function upd-nvim
     end
 
     # https://aur.archlinux.org/packages/neovim-git?O=10
+    # https://gist.github.com/MawKKe/b8af6c1555f1c7aa4c2760350ed97fff
     if set -q _flag_dep
         cmake -Scmake.deps -B.deps \
+            -DCMAKE_C_COMPILER=clang \
             -DUSE_BUNDLED=OFF \
-            -DUSE_BUNDLED_TS_PARSERS=ON
-        cmake --build .deps
+            -DUSE_BUNDLED_TS_PARSERS=ON \
+            --fresh
+        # -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold" \
+        # -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold"
+        cmake --build .deps --clean-first
         set -q _flag_force; or return
     end
 
     cmake -S. -Bbuild \
-        -DCMAKE_BUILD_TYPE=$cmake_build_type
-    cmake --build build
+        -DCMAKE_BUILD_TYPE=$cmake_build_type \
+        -DCMAKE_C_COMPILER=clang \
+        -DENABLE_LTO=ON \
+        --fresh
+    # -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold" \
+    # -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold"
+    cmake --build build --clean-first # --verbose
 
     v -es '+helptags $VIMRUNTIME/doc' +q
 end

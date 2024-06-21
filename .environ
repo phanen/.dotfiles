@@ -1,3 +1,4 @@
+# vim:ft=sh
 # PATH is exported in /etc/profile
 
 PATH=$HOME/.bin:$PATH
@@ -26,6 +27,8 @@ export LESS_TERMCAP_se=$(printf '\e[0m')     # leave standout mode
 export LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode - yellow
 export LESS_TERMCAP_ue=$(printf '\e[0m')     # leave underline mode
 export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode - cyan
+# ignore case, long prompt, exit if it fits on one screen, allow colors for ls and grep colors
+export LESS="-iMFXR"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"

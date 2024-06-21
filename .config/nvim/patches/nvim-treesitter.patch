@@ -1,0 +1,12 @@
+diff --git a/lua/nvim-treesitter/ts_utils.lua b/lua/nvim-treesitter/ts_utils.lua
+index 655c6288..0edaacf9 100644
+--- a/lua/nvim-treesitter/ts_utils.lua
++++ b/lua/nvim-treesitter/ts_utils.lua
+@@ -276,6 +276,7 @@ end
+ -- @param selection_mode One of "charwise" (default) or "v", "linewise" or "V",
+ --   "blockwise" or "<C-v>" (as a string with 5 characters or a single character)
+ function M.update_selection(buf, node, selection_mode)
++  utils.set_jump()
+   local start_row, start_col, end_row, end_col = M.get_vim_range({ ts.get_node_range(node) }, buf)
+ 
+   local v_table = { charwise = "v", linewise = "V", blockwise = "<C-v>" }

@@ -23,6 +23,7 @@ abbr gr git remote -v
 abbr hf hyperfine --warmup 5
 abbr lg lazygit
 abbr mx chmod +x
+abbr sc sysctl
 abbr sh bash
 abbr ta tmux a || tmux
 abbr vj NVIM_APPNAME=nvim-test nvim

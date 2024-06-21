@@ -374,6 +374,7 @@ augroup('DeleteNoName', {
     desc = 'Delete [No Name] buffers',
     callback = function(ev)
       if ev.file == '' and vim.bo[ev.buf].buftype == '' and not vim.bo[ev.buf].modified then
+        -- FIXME: no ft? esc
         vim.schedule(function() pcall(api.nvim_buf_delete, ev.buf, {}) end)
       end
     end,

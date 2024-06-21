@@ -8,7 +8,7 @@ g.markdown_recommended_style = 0
 
 -- stylua: ignore start
 -- o.fileencodings  = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
-o.fileencodings  = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
+-- o.fileencodings  = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
 -- o.laststatus = 1
 
 -- good indent
@@ -24,7 +24,10 @@ o.relativenumber = true
 -- good operation
 o.jumpoptions = 'stack'
 o.matchpairs = '(:),{:},[:],<:>'
-o.scrolloff = 16
+-- PERF: a height based one
+-- PERF: possible to optionaly scroll (e.g. mouse point)
+-- o.scrolloff = 16
+o.scrolloff = 20
 o.showbreak = '↪ '
 o.splitright = true
 -- TODO: $$?

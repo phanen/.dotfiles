@@ -5,6 +5,11 @@ return {
   { 'kmonad/kmonad-vim', ft = 'kbd' },
   -- { 'kovetskiy/sxhkd-vim', event = 'BufReadPre sxhkdrc' }, -- buggy
   { 'baskerville/vim-sxhkdrc', event = 'BufReadPre sxhkdrc' },
+
+  {
+    'NoahTheDuke/vim-just',
+    ft = { 'just' },
+  },
   { 'Fymyte/rasi.vim', ft = 'rasi' },
   {
     'iamcco/markdown-preview.nvim',
@@ -99,29 +104,24 @@ return {
     config = function()
       require('crates').setup()
       local crates = require 'crates'
-      local opts = { silent = true }
 
-      n('+ct', crates.toggle, opts)
-      n('+cr', crates.reload, opts)
-
-      n('+cv', crates.show_versions_popup, opts)
-      n('+cf', crates.show_features_popup, opts)
-      n('+cd', crates.show_dependencies_popup, opts)
-
-      -- n('+cu', crates.update_crate, opts)
-      -- vim.keymap.set('v', '+cu', crates.update_crates, opts)
-      -- n('+ca', crates.update_all_crates, opts)
-      -- n('+cU', crates.upgrade_crate, opts)
-      -- vim.keymap.set('v', '+cU', crates.upgrade_crates, opts)
-      -- n('+cA', crates.upgrade_all_crates, opts)
-
-      n('+cx', crates.expand_plain_crate_to_inline_table, opts)
-      n('+cX', crates.extract_crate_into_table, opts)
-
-      n('+cH', crates.open_homepage, opts)
-      n('+cR', crates.open_repository, opts)
-      n('+cD', crates.open_documentation, opts)
-      n('+cC', crates.open_crates_io, opts)
+      n('+ct', crates.toggle)
+      n('+cr', crates.reload)
+      n('+cv', crates.show_versions_popup)
+      n('+cf', crates.show_features_popup)
+      n('+cd', crates.show_dependencies_popup)
+      -- n('+cu', crates.update_crate)
+      -- vim.keymap.set('v', '+cu', crates.update_crates)
+      -- n('+ca', crates.update_all_crates)
+      -- n('+cU', crates.upgrade_crate)
+      -- vim.keymap.set('v', '+cU', crates.upgrade_crates)
+      -- n('+cA', crates.upgrade_all_crates)
+      n('+cx', crates.expand_plain_crate_to_inline_table)
+      n('+cX', crates.extract_crate_into_table)
+      n('+cH', crates.open_homepage)
+      n('+cR', crates.open_repository)
+      n('+cD', crates.open_documentation)
+      n('+cC', crates.open_crates_io)
     end,
   },
   {
