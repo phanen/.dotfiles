@@ -72,29 +72,20 @@ return {
 
   -- http
   {
-    {
-      'vhyrro/luarocks.nvim',
-      priority = 1000,
-      cond = false,
-      config = true,
+    'rest-nvim/rest.nvim',
+    cond = false,
+    ft = 'http',
+    main = 'rest-nvim',
+  },
+  {
+    'wet-sandwich/hyper.nvim',
+    cond = false,
+    keys = {
+      { ' hy', [[<cmd>lua require('hyper.view').show()<cr>]] },
     },
-    {
-      'rest-nvim/rest.nvim',
-      cond = false,
-      ft = 'http',
-      dependencies = { 'luarocks.nvim' },
-      config = function() require('rest-nvim').setup() end,
-    },
-    {
-      'wet-sandwich/hyper.nvim',
-      cond = false,
-      keys = {
-        { ' hy', [[<cmd>lua require('hyper.view').show()<cr>]] },
-      },
-      tag = '0.1.3',
-      dependencies = { 'nvim-lua/plenary.nvim' },
-      -- opts = {},
-    },
+    tag = '0.1.3',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    -- opts = {},
   },
 
   -- rust

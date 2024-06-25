@@ -89,6 +89,11 @@ g.disable_intro = true
 
 g.disable_AutoCwd = true
 
+-- seems resolved(?): https://github.com/ibhagwan/fzf-lua/discussions/1296
+g.disable_cache_docs = false
+
+g.disable_Autosave = true
+
 local get_parser = vim.treesitter.get_parser
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.treesitter.get_parser = function(bufnr, lang, opts)

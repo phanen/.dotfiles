@@ -10,7 +10,6 @@ if HOOK then
     if not ok then _r('lib.log').warn("require '%s':\n %s\n\n", modname, info) end
   end
 end
-
 -- vim.go.loadplugins = true
 
 require 'set'
@@ -22,7 +21,7 @@ require 'au'
 require 'ft'
 -- vim.schedule(function() require 'map' end)
 require 'map'
-require 'cmd'
+-- require 'cmd'
 require 'pm'
 
 pcall(vim.cmd.colorscheme, vim.g.colors_name)

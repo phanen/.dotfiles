@@ -114,7 +114,6 @@ return {
         end,
         toggle_or_open = function(state)
           local node = state.tree:get_node()
-          vim.print(node)
           if node.type == 'directory' then
             if state.name == 'filesystem' then
               require('neo-tree.sources.filesystem.commands').toggle_node(state)

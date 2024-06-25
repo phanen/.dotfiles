@@ -174,7 +174,6 @@ augroup('BigFileSettings', {
 
 -- auto save
 -- TODO: support debounce_delay?
-vim.g.disable_Autosave = true
 augroup('Autosave', {
   { 'BufLeave', 'WinLeave', 'FocusLost', 'InsertLeave', 'TextChanged' },
   {

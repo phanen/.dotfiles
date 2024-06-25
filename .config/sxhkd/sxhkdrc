@@ -9,8 +9,8 @@ super + q
   # close-tab-or-node.sh
 super + ctrl + 1
   bspc quit
-super + {j, k}
-  bspc node -f {next, prev}.local.!hidden.window
+super + {j, k, s, d}
+  bspc node -f {next, prev, prev, next}.local.!hidden.window
   # [[ "$(xdotool getwindowfocus getwindowclassname)" = *tdrop* ]] && \
   #   tdrop -y 0 -x 4 -h 97% -w 99% -mta -- kitty --name kitty --class tdrop-kitty ||\
   #   bspc node -f {next, prev}.local.!hidden.window

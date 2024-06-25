@@ -5,17 +5,14 @@ if not uv.fs_stat(path) then
   fn.system { 'git', 'clone', '--branch=stable', 'https://github.com/folke/lazy.nvim', path }
 end
 
-local stage_path = vim.fs.joinpath(g.config_path, 'lua', 'plugs', 'extra.lua')
-local extra_sepc = {
-  uv.fs_stat(stage_path) and { import = 'plugs.extra' } or nil,
-}
-
 vim.opt.rtp:prepend(path)
 
--- preserve a rtp for docs
-local docs_path = vim.fs.joinpath(g.state_path, 'lazy', 'docs')
-g.docs_path = docs_path
-vim.opt.rtp:append(docs_path)
+if not g.disable_cache_docs then
+  -- preserve a rtp for docs (note: before setup of lazy.nvim)
+  local docs_path = vim.fs.joinpath(g.state_path, 'lazy', 'docs')
+  g.docs_path = docs_path
+  vim.opt.rtp:append(docs_path)
+end
 
 require('lazy').setup {
   spec = {
@@ -80,7 +77,6 @@ require('lazy').setup {
       },
       { 'jghauser/kitty-runner.nvim', lazy = false, cond = false, opts = {} },
     },
-    extra_sepc,
   },
   lockfile = g.data_path .. '/lazy-lock.json',
   defaults = {
@@ -178,7 +174,3 @@ g.color_path = color_path
 for dir, type in vim.fs.dir(color_path) do
   if type == 'directory' then vim.opt.rtp:append(vim.fs.joinpath(color_path, dir)) end
 end
-
--- _load('FileType', 'plugin/rplugin.vim', 'loaded_remote_plugins')
--- seems ported to lua now
--- _load('FileType', 'provider/python3.vim', 'loaded_python3_provider')

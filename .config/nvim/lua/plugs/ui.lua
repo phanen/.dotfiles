@@ -62,14 +62,6 @@ return {
       { '<leader>mk', function() require('noice').cmd('dismiss') end },
     },
   },
-  {
-    'folke/trouble.nvim',
-    cond = false,
-    cmd = 'TroubleToggle',
-    -- event = "VeryLazy",
-    keys = { { '<leader>q', '<Cmd>TroubleToggle<CR>' } },
-    opts = {},
-  },
 
   -- crash on '/'
   {

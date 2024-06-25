@@ -62,14 +62,14 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
 S-grv S-1  S-6  S-3  S-4   _    _   S-7  S-8   +    S-\  _    _    _
   @ec  [    ]   S-9  S-0  S-2  S-5  S--   -    =    _    _    _
-  grv S-\   \   S-[  S-] C-S-h S-[  S-]   _    .    /    \
-  _    _    _             @ar             _    _
+  grv S-\   \   S-[  S-]  @ar  S-[  S-]   _    .    /    \
+  _    _    _             spc             _    _
 )
 
 (deflayer tabular
   grv @s+  @s-  @l+  @l-  _    _    _    _    _    0    -    =    bspc ;;sysrq
-  tab  _ C-bspc C--   r   @tt  @gp  u    C-+  C--  @tp  [    ]    \
-  caps a    s    d   C-+   g bspc C-S-right C-S-left    @lk  ;  '    ret
+  tab  _ C-bspc C--  ret  @tt  @gp  u    C-+  C--  @tp  [    ]    \
+  caps a    s    d   C-S-=   g bspc C-S-right C-S-left    @lk  ;  '    ret
   lsft z    x    @fu @tv   b    n    m    ,    .    /    rsft
   lctl lmet lalt          @fc             ralt rctl
 )
@@ -85,7 +85,7 @@ S-grv S-1  S-6  S-3  S-4   _    _   S-7  S-8   +    S-\  _    _    _
   tv (cmd bash -c "toggle.sh video")
   tt (cmd bash -c "toggle.sh touchpad")
   tp (cmd bash -c "toggle.sh polybar")
-  gp (cmd bash -c "tr -dc \"a-zA-Z0-9_#@.-\" < /dev/random | head -c 14 | xclip -selection clipboard")
+  gp (cmd bash -c "tr -dc 'a-zA-Z0-9_#@.-' < /dev/random | head -c 20 | xsel -ib")
   lk (cmd bash -c "slock")
 )
 
@@ -99,14 +99,14 @@ S-grv S-1  S-6  S-3  S-4   _    _   S-7  S-8   +    S-\  _    _    _
 )
 
 (defalias
-  za   (multi f24 (tap-hold-release 200 200 z lalt))
+  za   (multi f24 (tap-hold-release 0 200 z lalt))
   ;s   (multi f24 (tap-hold-press 200 200 ; (layer-toggle symbol)))
   ;; FIXME: tap tap dead lock?
   's   (multi f24 (tap-hold-press 0 200 ' (multi lctl lsft)))
-  gs   (multi f24 (tap-hold-press 200 200 grv (multi lsft (layer-toggle shift))))
+  gs   (multi f24 (tap-hold-press 0 200 grv (multi lsft (layer-toggle shift))))
   ;; FIXME: same
   ec   (multi f24 (tap-hold-press 0 200 esc (multi lctrl (layer-toggle qwerty) (layer-toggle control))))
-  sm   (multi f24 (tap-hold-press 0 200 spc (layer-toggle super)))
+  sm   (multi f24 (tap-hold-release 0 200 spc (layer-toggle super)))
   tb   (multi f24 (tap-hold-press 0 200 tab (layer-toggle tabular)))
   mec  (multi lmeta @ec)
   mgs  (multi lmeta @gs)

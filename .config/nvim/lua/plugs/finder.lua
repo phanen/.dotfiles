@@ -44,7 +44,7 @@ return {
   },
   {
     'nvim-telescope/telescope.nvim',
-    cond = false,
+    cond = true,
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
       {

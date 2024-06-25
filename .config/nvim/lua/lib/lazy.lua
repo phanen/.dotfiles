@@ -1,5 +1,6 @@
 local M = {}
 
+-- FIXME(unkown): write lazy.lua in lazy.nvim root??
 M.lazy_patch = function()
   local patches_path = vim.fs.joinpath(vim.g.config_path, 'patches')
   for patch_name in vim.fs.dir(patches_path) do
@@ -40,6 +41,17 @@ end
 M.lazy_cache_docs = function()
   local lazy_util = package.loaded['lazy.util']
   local lazy_config = package.loaded['lazy.core.config']
+  if g.disable_cache_docs then
+    return (function()
+      for _, plugin in pairs(lazy_config.plugins) do
+        local docs = vim.fs.joinpath(plugin.dir, 'doc')
+        if lazy_util.file_exists(docs) then
+          vim.print(docs)
+          pcall(vim.cmd.helptags, docs)
+        end
+      end
+    end)()
+  end
   local docs_path = vim.fs.joinpath(vim.g.docs_path, 'doc')
   fn.mkdir(docs_path, 'p')
   lazy_util.ls(docs_path, function(path, _, _)
@@ -49,7 +61,7 @@ M.lazy_cache_docs = function()
     local docs = vim.fs.joinpath(plugin.dir, 'doc')
     if lazy_util.file_exists(docs) then
       lazy_util.ls(docs, function(path, name, type)
-        if type ~= 'file' then return end
+        if type ~= 'file' then return true end
         if name == 'tags' then
           uv.fs_unlink(path)
         elseif name:sub(-4) == '.txt' then

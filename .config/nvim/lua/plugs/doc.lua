@@ -4,7 +4,7 @@ return {
   { 'cissoid/vim-fullwidth-punct-convertor', cmd = 'FullwidthPunctConvert' },
   { 'phanen/mder.nvim', ft = 'markdown' },
   {
-    -- TODO: https://github.com/3rd/image.nvim/issues/116
+    -- TODO(upstream): https://github.com/3rd/image.nvim/issues/116
     '3rd/image.nvim',
     -- cond = function() return (uv.fs_stat(fn.expand '~/.luarocks/share/lua/5.1/magick/')) end,
     cond = false,
@@ -35,13 +35,6 @@ return {
     'nvim-neorg/neorg',
     cond = false,
     lazy = false,
-    dependencies = {
-      {
-        'vhyrro/luarocks.nvim',
-        priority = 1000,
-        config = true,
-      },
-    },
     version = '*', -- Pin Neorg to the latest stable release
     config = true,
   },

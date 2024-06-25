@@ -1,5 +1,19 @@
 return {
   {
+    'folke/trouble.nvim',
+    cond = false,
+    cmd = { 'Trouble' },
+    keys = {
+      { ' xx', '<cmd>Trouble diagnostics toggle<cr>' },
+      { ' xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>' },
+      { ' cs', '<cmd>Trouble symbols toggle focus=false<cr>', desc = 'Symbols (Trouble)' },
+      { ' cl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>' },
+      { ' xL', '<cmd>Trouble loclist toggle<cr>' },
+      { ' xQ', '<cmd>Trouble qflist toggle<cr>' },
+    },
+    opts = {},
+  },
+  {
     'stevearc/aerial.nvim',
     cond = true,
     dependencies = {
@@ -21,7 +35,6 @@ return {
       on_attach = function(_) package.loaded.aerial.tree_close_all() end,
     },
   },
-
   {
     'Bekaboo/dropbar.nvim',
     cond = false,
@@ -101,7 +114,7 @@ return {
       mode = 'topline',
     },
     keys = {
-      { '<leader>tc', '<Cmd>TSContextToggle<CR>', desc = 'Treesitter Context' },
+      { ' tc', '<Cmd>TSContextToggle<CR>', desc = 'Treesitter Context' },
     },
   },
 }
