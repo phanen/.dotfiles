@@ -28,6 +28,7 @@ bc
 bear
 binutils
 bison
+bitwarden
 bluez
 bluez-utils
 boost
@@ -221,6 +222,7 @@ pkgfile
 pkgstats
 pnpm
 polybar
+postgresql
 pragha
 prettier
 pulseaudio-alsa
@@ -332,6 +334,7 @@ unzip
 upower
 upx
 usbutils
+vaultwarden
 vdpauinfo
 verilator
 vimb

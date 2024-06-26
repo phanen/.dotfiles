@@ -93,3 +93,8 @@ au('Filetype', {
     ox('a<c-e>', r('lib.textobj').codeblock_i, { buffer = ev.buf })
   end,
 })
+
+au('Filetype', {
+  pattern = 'gitcommit',
+  callback = function() vim.cmd.startinsert() end,
+})

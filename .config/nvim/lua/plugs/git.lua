@@ -54,18 +54,16 @@ return {
         local gs = package.loaded.gitsigns
 
         nx('gj', function()
-          if vim.wo.diff then return ']c' end
-          vim.schedule(gs.next_hunk)
-          return '<ignore>'
-        end, { expr = true })
-        -- should not buf map, unknow
+          if vim.wo.diff then return vim.cmd.normal { '[c', bang = true } end
+          gs.nav_hunk('prev', { target = 'all' })
+        end)
+        -- note: should not buf map, unknown
         -- end, { expr = true, buffer = bufnr })
 
         nx('gk', function()
-          if vim.wo.diff then return '[c' end
-          vim.schedule(gs.prev_hunk)
-          return '<ignore>'
-        end, { expr = true })
+          if vim.wo.diff then vim.cmd.normal { ']c', bang = true } end
+          gs.nav_hunk('next', { target = 'all' })
+        end)
 
         local n = function(lhs, rhs) map('n', lhs, ('<cmd>Gitsigns %s<cr>'):format(rhs)) end
         n(' hs', 'stage_hunk')
@@ -115,7 +113,7 @@ return {
   },
   {
     'SuperBo/fugit2.nvim',
-    cond = false,
+    cond = true,
     dependencies = {
       'MunifTanjim/nui.nvim',
       'nvim-tree/nvim-web-devicons',
