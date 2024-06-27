@@ -17,7 +17,8 @@ enter_accept = false
 ## use ctrl instead of alt as shortcuts
 ctrl_n_shortcuts = true
 
-sync_address = "http://192.168.31.55:18888"
+
+sync_address = "http://ali:18888"
 sync_frequency = "10m"
 # style = "compact"
 # search_mode = "fulltext"

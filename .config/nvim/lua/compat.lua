@@ -33,4 +33,5 @@ end
 if not g.has_10 then
   vim.fs.joinpath = function(...) return (table.concat({ ... }, '/'):gsub('//+', '/')) end
   vim.keycode = function(str) return api.nvim_replace_termcodes(str, true, true, true) end
+  -- no vim.iter, just drop it, use flake
 end
