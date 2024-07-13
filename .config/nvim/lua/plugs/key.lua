@@ -1,7 +1,28 @@
 return {
   {
-    'anuvyklack/hydra.nvim',
+    'folke/which-key.nvim',
+    cond = true,
+    event = 'VeryLazy',
+    opts = {
+      -- preset = 'helix',  -- FIXME(upstream): bug in preset, when vertical split, (so specify in win)
+      -- note:
+      -- 1. <c-s> feedkey need register...
+      -- 2. "_d/c still pend (since we have `ds` `c*`), workaround: maybe "undo" some map??
+      delay = 200,
+      plugins = { spelling = { enabled = false } },
+      win = { -- `scrolloff` matter here
+        width = 1,
+        height = { min = 4, max = 25 },
+        border = vim.g.border,
+        -- title = false,
+      },
+      keys = { scroll_down = '<a-d>', scroll_up = '<a-u>' },
+      icons = { rules = false },
+      show_help = false,
+      show_keys = true, -- FIXME(upstream): not work...
+    },
   },
+  { 'anuvyklack/hydra.nvim' },
   {
     'mrjones2014/legendary.nvim',
     cond = false,
@@ -16,19 +37,6 @@ return {
       { '<localleader>p', '<cmd>Legendary<cr>', desc = 'Legendary' },
     },
     opts = {},
-  },
-  { -- FIXME: register _d, cannot set timeoutlen = 0
-    'folke/which-key.nvim',
-    cond = false,
-    event = 'VeryLazy',
-    opts = {
-      plugins = { spelling = { enabled = false } },
-      popup_mappings = {
-        scroll_down = '<a-d>',
-        scroll_up = '<a-u>',
-      },
-      window = { border = vim.g.border },
-    },
   },
   {
     'echasnovski/mini.clue',

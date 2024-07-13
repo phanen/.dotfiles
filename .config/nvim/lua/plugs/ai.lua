@@ -123,12 +123,8 @@ return {
       map('i', '<a-d>', '<cmd>Copilot<cr>')
     end,
   },
-  -- 没 api key, gpt 都不能用
-  -- https://github.com/Robitx/gp.nvim/pull/93
   {
     'robitx/gp.nvim',
-    cond = false,
-    branch = 'copilot',
     cmd = {
       'GpChatNew',
       'GpAgent',
@@ -178,12 +174,12 @@ return {
     opts = {},
     keys = {
         -- stylua: ignore start
-        { mode = "i", "<A-g>", function() require("neocodeium").accept() end },
-        { mode = "i", "<A-w>", function() require("neocodeium").accept_word() end },
-        { mode = "i", "<A-a>", function() require("neocodeium").accept_line() end },
-        { mode = "i", "<A-n>", function() require("neocodeium").cycle_or_complete() end },
-        { mode = "i", "<A-N>", function() require("neocodeium").cycle_or_complete(-1) end },
-        { mode = "i", "<A-c>", function() require("neocodeium").clear() end },
+        { mode = "i", "<a-g>", function() require("neocodeium").accept() end },
+        { mode = "i", "<a-w>", function() require("neocodeium").accept_word() end },
+        { mode = "i", "<a-a>", function() require("neocodeium").accept_line() end },
+        { mode = "i", "<a-n>", function() require("neocodeium").cycle_or_complete() end },
+        { mode = "i", "<a-N>", function() require("neocodeium").cycle_or_complete(-1) end },
+        { mode = "i", "<a-c>", function() require("neocodeium").clear() end },
       -- stylua: ignore end
     },
   },
