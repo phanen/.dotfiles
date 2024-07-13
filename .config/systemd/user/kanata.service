@@ -1,0 +1,15 @@
+# https://github.com/jtroo/kanata/discussions/130
+[Unit]
+Description=Kanata keyboard remapper
+Documentation=https://github.com/jtroo/kanata
+
+[Service]
+Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
+Environment=DISPLAY=:0
+#Environment=HOME=/home/phanium/
+Type=simple
+ExecStart=/usr/local/bin/kanata --cfg /etc/kanata.kbd
+Restart=no
+
+[Install]
+WantedBy=default.target

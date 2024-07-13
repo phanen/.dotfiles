@@ -39,8 +39,9 @@ M.lazy_patch_callback = function(info)
 end
 
 M.lazy_cache_docs = function()
-  local lazy_util = package.loaded['lazy.util']
-  local lazy_config = package.loaded['lazy.core.config']
+  -- note: seems not loaded when LazyInstall
+  local lazy_util = require('lazy.util')
+  local lazy_config = require('lazy.core.config')
   if g.disable_cache_docs then
     return (function()
       for _, plugin in pairs(lazy_config.plugins) do

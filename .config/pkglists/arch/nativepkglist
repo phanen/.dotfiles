@@ -5,6 +5,7 @@ acpi
 aircrack-ng
 alacritty
 alsa-utils
+android-file-transfer
 apr
 apr-util
 archlinux-artwork
@@ -25,6 +26,7 @@ base
 base-devel
 bash-completion
 bat
+bazel
 bc
 bear
 binutils
@@ -35,12 +37,12 @@ boost
 bottom
 bpftrace
 bspwm
+btrfs-progs
 cabextract
 ccache
 cdrtools
 cgdb
 chntpw
-chrome-remote-desktop
 clang
 clash-meta
 cliphist
@@ -63,12 +65,12 @@ dog
 dosfstools
 downgrade
 doxygen
+dpkg
 dunst
 dust
 efibootmgr
 egl-wayland
 eglexternalplatform
-emacs
 evtest
 expac
 eza
@@ -115,6 +117,7 @@ groff
 grub
 gsmartcontrol
 gtk-vnc
+gvfs-mtp
 gvim
 gzip
 hashcat
@@ -160,6 +163,7 @@ libnotify
 libsixel
 libtool
 libtree
+libva-intel-driver
 libva-utils
 libxft
 libxinerama
@@ -187,6 +191,7 @@ minicom
 mold
 moreutils
 mpv
+mtpfs
 namcap
 nekoray
 neovide
@@ -235,6 +240,7 @@ pwgen
 python
 python-certifi
 python-dbus-next
+python-gpustat
 python-markdown
 python-markdown-it-py
 python-pip
@@ -251,6 +257,7 @@ rar
 rclone
 refind
 reflector
+repo
 reptyr
 ripgrep
 riscv32-elf-binutils
@@ -365,6 +372,7 @@ xdo
 xdotool
 xf86-video-vesa
 xfsdump
+xh
 xmake
 xorg-bdftopcf
 xorg-docs

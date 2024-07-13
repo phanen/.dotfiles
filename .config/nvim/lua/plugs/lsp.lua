@@ -276,7 +276,7 @@ return {
 
   { 'folke/neodev.nvim', cond = false, ft = 'lua', opts = {} }, -- buggy
   -- { 'folke/lazydev.nvim', ft = 'lua', opts = true },
-  
+
   -- { 'Bilal2453/luvit-meta', lazy = true },
   -- { -- optional completion source for require statements and module annotations
   --   'hrsh7th/nvim-cmp',

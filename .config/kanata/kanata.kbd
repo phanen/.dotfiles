@@ -67,9 +67,9 @@ S-grv S-1  S-6  S-3  S-4   _    _   S-7  S-8   +    S-\  _    _    _
 )
 
 (deflayer tabular
-  grv @s+  @s-  @l+  @l-  _    _    _    _    _    0    -    =    bspc ;;sysrq
-  tab  _ C-bspc C--  ret  @tt  @gp  u    C-+  C--  @tp  [    ]    \
-  caps a    s    d   C-S-=   g bspc C-S-right C-S-left    @lk  ;  '    ret
+  grv @s+  @s-  @l+  @l-  @lk  _    _    _    _    0    -    =    bspc ;;sysrq
+  _  ret C-bspc C-- ret   @tt  @gp  u    C-+  C--  @tp  [    ]    \
+  caps a    s    d   C-S-=   g bspc C-S-right C-S-left  C-S-l  ;  '    ret
   lsft z    x    @fu @tv   b    n    m    ,    .    /    rsft
   lctl lmet lalt          @fc             ralt rctl
 )
