@@ -140,19 +140,10 @@ return {
     },
     opts = {
       toggle_target = 'popup',
+      openai_api_key = 'fakeapi',
       providers = {
-        openai = {
-          endpoint = 'https://api.openai.com/v1/chat/completions',
-          -- secret = os.getenv("OPENAI_API_KEY"),
-        },
-        copilot = {
-          endpoint = 'https://api.githubcopilot.com/chat/completions',
-          secret = {
-            'bash',
-            '-c',
-            "cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\".*//'",
-          },
-        },
+        openai = { disable = true },
+        copilot = { enable = true },
       },
     },
   },

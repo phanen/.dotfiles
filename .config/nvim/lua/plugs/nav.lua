@@ -62,13 +62,13 @@ return {
           function()
             local bufnr = api.nvim_get_current_buf()
             local clients = vim
-              .iter(vim.lsp.get_clients())
-              :filter(function(client) return client.attached_buffers[bufnr] end)
-              -- :filter(function(client) return client.name ~= 'copilot' end)
-              :map(
-                function(client) return ' ' .. client.name end
-              )
-              :totable()
+                .iter(vim.lsp.get_clients())
+                :filter(function(client) return client.attached_buffers[bufnr] end)
+                -- :filter(function(client) return client.name ~= 'copilot' end)
+                :map(
+                  function(client) return ' ' .. client.name end
+                )
+                :totable()
             local info = table.concat(clients, ' ')
             if info == '' then
               return 'No LSP server'
@@ -111,9 +111,9 @@ return {
     'phanen/dirstack.nvim',
     event = 'DirchangedPre',
     keys = {
-      { '<leader><c-p>', "<cmd>lua require('dirstack').prev()<cr>" },
-      { '<leader><c-n>', "<cmd>lua require('dirstack').next()<cr>" },
-      { '<leader><c-l>', "<cmd>lua require('dirstack').hist()<cr>" },
+      { ' <c-p>', "<cmd>lua require('dirstack').prev()<cr>" },
+      { ' <c-n>', "<cmd>lua require('dirstack').next()<cr>" },
+      { ' <c-l>', "<cmd>lua require('dirstack').hist()<cr>" },
     },
     opts = {},
   },
@@ -135,10 +135,10 @@ return {
   {
     'kevinhwang91/nvim-hlslens',
     keys = {
-      { 'n', [[<cmd>execute('normal! ' . v:count1 . 'n') | lua require('hlslens').start()<cr>zz]] },
-      { 'N', [[<cmd>execute('normal! ' . v:count1 . 'N') | lua require('hlslens').start()<cr>zz]] },
-      { '*', [[*<cmd>lua require('hlslens').start()<cr>]], { remap = true } },
-      { '#', [[#<cmd>lua require('hlslens').start()<cr>]] },
+      { 'n',  [[<cmd>execute('normal! ' . v:count1 . 'n') | lua require('hlslens').start()<cr>zz]] },
+      { 'N',  [[<cmd>execute('normal! ' . v:count1 . 'N') | lua require('hlslens').start()<cr>zz]] },
+      { '*',  [[*<cmd>lua require('hlslens').start()<cr>]],                                        { remap = true } },
+      { '#',  [[#<cmd>lua require('hlslens').start()<cr>]] },
       { 'g*', [[g*<cmd>lua require('hlslens').start()<cr>]] },
       { 'g#', [[g#<cmd>lua require('hlslens').start()<cr>]] },
       {

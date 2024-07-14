@@ -37,23 +37,13 @@ return {
   },
   {
     'Bekaboo/dropbar.nvim',
-    cond = false,
+    cond = not g.vendor_bar,
     -- cond = fn.has('nvim-0.10') == 1,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { -- fzf support
       -- 'nvim-telescope/telescope-fzf-native.nvim',
     },
-    opts = {
-      general = {
-        enable = function(buf, win)
-          return vim.bo[buf].ft == 'fugitiveblame'
-            or fn.win_gettype(win) == ''
-              and vim.wo[win].winbar == ''
-              and (vim.bo[buf].bt == '')
-              and (pcall(vim.treesitter.get_parser, buf, vim.bo[buf].ft))
-        end,
-      },
-    },
+    opts = { general = { enable = require('mod.winbar.config').opts.enable } },
   },
   -- lsp only..
   {

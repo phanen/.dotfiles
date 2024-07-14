@@ -2,10 +2,8 @@ _G._winbar = {}
 
 local hlgroups = require('mod.winbar.hlgroups')
 local bar = require('mod.winbar.bar')
-local config = require('mod.winbar.config')
+local cfg = require('mod.winbar.config')
 local u = require('mod.winbar.utils')
-
-_G.u = u
 
 ---on_click callbacks for each winbar symbol
 ---@type table<string, table<string, function>>
@@ -27,7 +25,7 @@ _G._winbar.bars = setmetatable({}, {
   __index = function(self, buf)
     self[buf] = setmetatable({}, {
       __index = function(this, win)
-        local sources = config.eval(config.opts.bar.sources, buf, win) --[[@as winbar_source_t]]
+        local sources = cfg.eval(cfg.opts.bar.sources, buf, win) --[[@as winbar_source_t]]
         this[win] = bar.winbar_t:new { sources = sources }
         return this[win]
       end,
@@ -53,23 +51,12 @@ local au = function(ev, opts)
 end
 
 local attach = function(buf, win)
-  if
-    fn.win_gettype(win) == ''
-    and vim.wo[win].winbar == ''
-    and vim.bo[buf].bt == ''
-    and (
-      vim.bo[buf].ft == 'markdown'
-      or vim.bo[buf].ft == 'fugitiveblame' -- workaround for align
-      or u.treesitter.is_active(buf)
-    )
-  then
-    vim.wo.winbar = '%{%v:lua._winbar.get_winbar()%}'
-  end
+  if cfg.eval(cfg.opts.enable, buf, win) then vim.wo.winbar = '%{%v:lua._winbar.get_winbar()%}' end
 end
 
 ---@param opts winbar_configs_t?
 local setup = function(opts)
-  config.set(opts)
+  cfg.set(opts)
   hlgroups.init()
 
   -- for _, win in ipairs(api.nvim_list_wins()) do

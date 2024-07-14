@@ -70,19 +70,21 @@ au('TermOpen', {
   callback = function(ev) require('mod.term').setup(ev.buf) end,
 })
 
-au({
-  'BufReadPost',
-  'BufWritePost',
-  'BufNewFile',
-  'BufEnter',
-}, {
-  once = true,
-  -- nested = true, -- ???
-  group = ag('WinBarSetup', { clear = true }),
-  callback = function()
-    if vim.g.loaded_winbar then return end
-    vim.g.loaded_winbar = true
-    local winbar = require('mod.winbar')
-    winbar.setup()
-  end,
-})
+if g.vendor_bar then
+  au({
+    'BufReadPost',
+    'BufWritePost',
+    'BufNewFile',
+    'BufEnter',
+  }, {
+    once = true,
+    -- nested = true, -- ???
+    group = ag('WinBarSetup', { clear = true }),
+    callback = function()
+      if vim.g.loaded_winbar then return end
+      vim.g.loaded_winbar = true
+      local winbar = require('mod.winbar')
+      winbar.setup()
+    end,
+  })
+end

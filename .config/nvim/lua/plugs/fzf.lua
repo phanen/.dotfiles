@@ -123,6 +123,7 @@ return {
         no_header_i = true,
       },
       grep = {
+        debug = false,
         file_icons = false,
         git_icons = false,
         -- no_header = true,
@@ -158,8 +159,15 @@ return {
         actions = {
           ['ctrl-o'] = {
             fn = function(...) require('fzf-lua-overlay.actions').file_edit_bg(...) end,
-            reload = true,
+            -- using `reload = true` will fallback to `resume`
+            resume = true,
           },
+        },
+      },
+      oldfiles = {
+        ['ctrl-o'] = {
+          fn = function(...) require('fzf-lua-overlay.actions').file_edit_bg(...) end,
+          resume = true,
         },
       },
       actions = {
@@ -167,6 +175,14 @@ return {
           ['default'] = function(...) require('fzf-lua').actions.file_edit(...) end,
           ['ctrl-s'] = function(...) require('fzf-lua').actions.file_edit_or_qf(...) end,
           -- ['ctrl-s'] = function(...) require('fzf-lua').actions.file_sel_to_ll(...) end,
+          ['alt-q'] = {
+            fn = function(...) require 'fzf-lua'.actions.file_sel_to_qf(...) end,
+            prefix = 'select-all',
+          },
+          ['alt-s'] = {
+            fn = function(sel) print('no items:', #sel) end,
+            prefix = 'transform([ $FZF_SELECT_COUNT -eq 0 ] && echo select-all)',
+          },
           ['ctrl-x'] = {
             fn = function(...) require('fzf-lua-overlay.actions').file_delete(...) end,
             reload = true,
@@ -175,7 +191,7 @@ return {
             fn = function(...) require('fzf-lua-overlay.actions').file_rename(...) end,
             reload = true,
           },
-          -- TODO: not work well in rg
+          -- -- TODO: not work well in rg
           ['ctrl-o'] = {
             fn = function(...) require('fzf-lua-overlay.actions').file_edit_bg(...) end,
             reload = true,
@@ -236,10 +252,10 @@ return {
       local fzf_ls_cmd = {
         function(info)
           local suffix = string.format('%s %s', info.bang and '!' or '', info.args)
-          return fzf.buffers({
+          return fzf.buffers {
             prompt = vim.trim(info.name .. suffix) .. '> ',
             ls_cmd = 'ls' .. suffix,
-          })
+          }
         end,
         {
           bang = true,
@@ -270,23 +286,23 @@ return {
           if #info.fargs == 1 and info.fargs[1] ~= 'clear' then
             local hlgroup = info.fargs[1]
             if fn.hlexists(hlgroup) == 1 then
-              vim.cmd.hi({
+              vim.cmd.hi {
                 args = { hlgroup },
                 bang = info.bang,
-              })
+              }
             else
-              fzf.highlights({
+              fzf.highlights {
                 fzf_opts = {
                   ['--query'] = hlgroup,
                 },
-              })
+              }
             end
             return
           end
-          vim.cmd.hi({
+          vim.cmd.hi {
             args = info.fargs,
             bang = info.bang,
-          })
+          }
         end,
         {
           bang = true,
@@ -306,11 +322,11 @@ return {
             ),
             ' | '
           )
-          fzf.registers({
+          fzf.registers {
             fzf_opts = {
               ['--query'] = query ~= '' and query or nil,
             },
-          })
+          }
         end,
         {
           nargs = '*',
@@ -325,17 +341,17 @@ return {
       local fzf_au_cmd = {
         function(info)
           if #info.fargs <= 1 and not info.bang then
-            fzf.autocmds({
+            fzf.autocmds {
               fzf_opts = {
                 ['--query'] = info.fargs[1] ~= '' and info.fargs[1] or nil,
               },
-            })
+            }
             return
           end
-          vim.cmd.autocmd({
+          vim.cmd.autocmd {
             args = info.fargs,
             bang = info.bang,
-          })
+          }
         end,
         {
           bang = true,
@@ -400,6 +416,119 @@ return {
       cmd('Jumps', fzf.jumps, {})
       cmd('Tabs', fzf.tabs, {})
       cmd('Helptags', unpack(fzf_display_cmd))
+    end,
+  },
+
+  {
+    'tani/pickup.nvim',
+    cond = false,
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    opts = {},
+  },
+  { -- https://github.com/junegunn/fzf.vim/issues/837
+    'junegunn/fzf.vim',
+    -- cond = not vim.g.vscode,
+    cond = false,
+    cmd = { 'Files', 'RG', 'Rg' },
+    keys = {
+      { ' <c-l>', '<cmd>Files<cr>', mode = { 'n', 'x' } },
+      { ' <c-k>', '<cmd>Rg<cr>', mode = { 'n', 'x' } },
+      -- { '<leader><c-j>', '<cmd>RgD -path=~/notes -pattern=<cr>', mode = { 'n', 'x' } },
+    },
+    config = function()
+      vim.cmd [[
+    function! RgDir(isFullScreen, args)
+    let l:restArgs = [a:args]
+
+    let l:restArgs = split(l:restArgs[0], '-pattern=', 1)
+    let l:pattern = join(l:restArgs[1:], '')
+
+    let l:restArgs = split(l:restArgs[0], '-path=', 1)
+    " Since 8.0.1630 vim has a built-in trim() function
+    let l:path = trim(l:restArgs[1])
+
+    call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. shellescape(l:pattern), 1, {'dir': l:path}, a:isFullScreen)
+    endfunction
+
+    " the path param should not have `-pattern=`
+    command! -bang -nargs=+ -complete=dir RgD call RgDir(<bang>0, <q-args>)
+    ]]
+    end,
+    dependencies = { 'junegunn/fzf' },
+  },
+  {
+    'leisiji/fzf_utils',
+    cond = false,
+    cmd = 'FzfCommand',
+    opts = {},
+  },
+  {
+    'nvim-telescope/telescope.nvim',
+    cond = true,
+    dependencies = {
+      { 'nvim-lua/plenary.nvim' },
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+        config = function() require('telescope').load_extension 'fzf' end,
+      },
+    },
+    cmd = 'Telescope',
+    keys = { { '<leader>fb', '<cmd>Telescope builtin<cr>' } },
+    config = function()
+      local ta = require 'telescope.actions'
+      local tas = require 'telescope.actions.state'
+      local tal = require 'telescope.actions.layout'
+      require('telescope').setup {
+        defaults = {
+          sorting_strategy = 'ascending',
+          preview = { hide_on_startup = true },
+          layout_config = {
+            horizontal = { height = 0.65, preview_width = 0.55 },
+            prompt_position = 'top',
+          },
+          file_ignore_patterns = { 'LICENSE', '*-lock.json' },
+          mappings = {
+            i = {
+              ['<c-n>'] = ta.cycle_history_next,
+              ['<c-p>'] = ta.cycle_history_prev,
+              ['<c-u>'] = false,
+              ['<c-d>'] = ta.preview_scrolling_down,
+              ['<c-v>'] = false,
+              ['<c-\\>'] = tal.toggle_preview,
+              ['<esc>'] = ta.close,
+              ['<c-j>'] = ta.move_selection_next,
+              ['<c-k>'] = ta.move_selection_previous,
+              ['<a-m>'] = tal.toggle_mirror,
+              ['<a-p>'] = tal.cycle_layout_prev,
+              ['<a-n>'] = tal.cycle_layout_next,
+              ['<c-l>'] = function(_)
+                local entry = tas.get_selected_entry()
+                if entry == nil then return true end
+                local prompt_text = entry.text or entry[1]
+                fn.setreg('+', prompt_text)
+                api.nvim_paste(prompt_text, true, 1)
+                return true
+              end,
+              ['<c-o>'] = function(bufnr)
+                ta.select_default(bufnr)
+                require('telescope.builtin').resume()
+              end,
+              ['<c-s>'] = ta.add_selected_to_qflist,
+              ['<cr>'] = function(bufnr)
+                local picker = tas.get_current_picker(bufnr)
+                local multi = picker:get_multi_selection()
+                if not vim.tbl_isempty(multi) then
+                  ta.close(bufnr)
+                  vim.iter(multi):each(function(v) vim.cmd.e(v.path) end)
+                else
+                  ta.select_default(bufnr)
+                end
+              end,
+            },
+          },
+        },
+      }
     end,
   },
 }

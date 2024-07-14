@@ -1,8 +1,4 @@
 local M = {}
-local u = require('mod.winbar.utils')
-
----@return winbar_t?
-M.get_current_winbar = function() return u.bar.get { win = api.nvim_get_current_win() } end
 
 ---Goto the start of context
 ---If `count` is 0, goto the start of current context, or the start at

@@ -1,7 +1,5 @@
-# https://github.com/jtroo/kanata/discussions/130
 [Unit]
-Description=Kanata keyboard remapper
-Documentation=https://github.com/jtroo/kanata
+Description=cliphist daemon
 
 [Service]
 # maybe useful for cmd (not sure)
@@ -9,7 +7,7 @@ Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
 Environment=DISPLAY=:0
 Environment=HOME=/home/phan/
 Type=simple
-ExecStart=/usr/local/bin/kanata --cfg /home/phan/.config/kanata/kanata.kbd
+ExecStart=/home/phan/.bin/clipnotify.sh
 Restart=no
 
 [Install]

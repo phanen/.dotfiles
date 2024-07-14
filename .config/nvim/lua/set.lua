@@ -18,7 +18,7 @@ _G.ag = api.nvim_create_augroup
 _G.augroup = function(group, ...)
   if g['disable_' .. group] then return end
   local id = ag(group, { clear = true })
-  for _, a in ipairs({ ... }) do
+  for _, a in ipairs { ... } do
     a[2].group = id
     au(unpack(a))
   end
@@ -94,15 +94,17 @@ g.disable_cache_docs = false
 
 g.disable_Autosave = true
 
+g.vendor_bar = false
+
 local get_parser = vim.treesitter.get_parser
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.treesitter.get_parser = function(bufnr, lang, opts)
   if bufnr == nil or bufnr == 0 then bufnr = api.nvim_get_current_buf() end
   if
-    (function()
-      if vim.bo[bufnr].ft == 'tex' then return true end
-      return api.nvim_buf_line_count(bufnr) > 100000
-    end)()
+      (function()
+        if vim.bo[bufnr].ft == 'tex' then return true end
+        return api.nvim_buf_line_count(bufnr) > 100000
+      end)()
   then
     error('skip treesitter for large buf')
   end

@@ -1,7 +1,7 @@
 return {
   {
     'folke/which-key.nvim',
-    cond = true,
+    cond = false,
     event = 'VeryLazy',
     opts = {
       -- preset = 'helix',  -- FIXME(upstream): bug in preset, when vertical split, (so specify in win)

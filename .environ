@@ -12,11 +12,12 @@ append_path() {
 }
 append_path $HOME/.local/bin
 append_path $HOME/.cargo/bin
-append_path $HOME/.local/share/nvim/mason/bin/
+append_path $HOME/.local/share/nvim/mason/bin
+append_path $HOME/.nimble/bin
 
 export EDITOR=nvim
 export VISUAL=nvim
-export BROWSER=google-chrome-stable
+export BROWSER=firefox
 export MANPAGER='nvim +Man!'
 export MANWIDTH=80
 
@@ -49,8 +50,7 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 export SDL_IM_MODULE=fcitx
-# export GLFW_IM_MODULE=ibus
-export GLFW_IM_MODULE=fcitx
+export GLFW_IM_MODULE=ibus
 
 # always use posix shell to exec script
 export SXHKD_SHELL='/usr/bin/sh'

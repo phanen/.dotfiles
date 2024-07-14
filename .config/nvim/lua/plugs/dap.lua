@@ -32,7 +32,7 @@ return {
       dap.adapters.cppdbg = {
         id = 'cppdbg',
         type = 'executable',
-        command = '/home/phanium/.local/share/nvim/mason/bin/OpenDebugAD7',
+        command = '/home/phan/.local/share/nvim/mason/bin/OpenDebugAD7',
       }
 
       -- lldb from aur has lldb-vscode
@@ -47,7 +47,7 @@ return {
         type = 'server',
         port = '${port}',
         executable = {
-          command = '/home/phanium/.local/share/nvim/mason/bin/codelldb',
+          command = '/home/phan/.local/share/nvim/mason/bin/codelldb',
           args = { '--port', '${port}' },
 
           -- On windows you may have to uncomment this:
