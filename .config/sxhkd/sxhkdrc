@@ -1,6 +1,6 @@
 # /usr/share/doc/bspwm/examples/sxhkdrc
 super + z
-  pkill -USR1 -x sxhkd; bspc wm -r; pkill polybar; polybar -r; notify-send 'reload wm config'
+  pkill -USR1 -x sxhkd; bspc wm -r; systemctl restart --user kanata; pkill polybar; polybar -r; notify-send 'reload wm config'
 # TODO: remove `bspc` ad-hoc stuffs
 # smarter super + q, for term, close tab, for other kill node
 super + q

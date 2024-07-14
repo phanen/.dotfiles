@@ -22,7 +22,7 @@ o.number = true
 o.relativenumber = true
 
 -- good operation
-o.jumpoptions = 'stack'
+o.jumpoptions = 'stack,unload'
 o.matchpairs = '(:),{:},[:],<:>'
 -- PERF: a height based one
 -- PERF: possible to optionaly scroll (e.g. mouse point)

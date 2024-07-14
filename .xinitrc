@@ -26,25 +26,25 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 fcitx5 -d &
+# systemctl start --user xdg-desktop-autostart.target
 polybar -r &
-picom &
-dunst &
+# picom &
+# dunst &
 sxhkd -a Tab &
 # input-leaps --disable-crypto --config ~/.config/InputLeap/server.conf &
-while clipnotify; do xclip -o -selection c | cliphist store; done &
 # input-leapc --disable-crypto --server arch
-xrandr --auto
+# xrandr --auto
 # xrandr -o right
+
 ~/.bin/xrate-refresh.sh
 
 # avoid firefox tearing in external monitor
-nvidia-settings --assign CurrentMetaMode="$(xrandr | sed -nr '/(\S+) connected (primary )?([0-9]+x[0-9]+)(\+\S+).*/{ s//\1: \3 \4 { ForceFullCompositionPipeline = On }, /; H}; ${ g; s/\n//g; s/, $//; p }')" &
+# nvidia-settings --assign CurrentMetaMode="$(xrandr | sed -nr '/(\S+) connected (primary )?([0-9]+x[0-9]+)(\+\S+).*/{ s//\1: \3 \4 { ForceFullCompositionPipeline = On }, /; H}; ${ g; s/\n//g; s/, $//; p }')" &
 
 # TODO: idw how to make xorg.conf ignore, but it really work well now...
 # https://superuser.com/questions/626482/permanently-disable-second-screen
 # xrandr --output eDP-1-2 --off
-# autorandr --load docked # use systemd
-autorandr --change docked
+# autorandr --change docked
 
 case $1 in
 i3) exec i3 ;;

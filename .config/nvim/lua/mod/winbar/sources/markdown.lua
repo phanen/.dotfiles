@@ -30,7 +30,7 @@ end
 ---@field symbols markdown_heading_symbol_t[]
 local markdown_heading_symbols_parsed_list_t = {}
 markdown_heading_symbols_parsed_list_t.__index =
-  markdown_heading_symbols_parsed_list_t
+    markdown_heading_symbols_parsed_list_t
 
 ---Create a new markdown heading symbols parsed object
 ---@param opts markdown_heading_symbols_parsed_list_t?
@@ -49,7 +49,7 @@ local markdown_heading_buf_symbols = {}
 setmetatable(markdown_heading_buf_symbols, {
   __index = function(_, k)
     markdown_heading_buf_symbols[k] =
-      markdown_heading_symbols_parsed_list_t:new()
+        markdown_heading_symbols_parsed_list_t:new()
     return markdown_heading_buf_symbols[k]
   end,
 })
@@ -78,7 +78,7 @@ local function parse_buf(buf, lnum_end, incremental)
   for idx, line in ipairs(lines) do
     if line:match('^```') then
       symbols_parsed['end'].in_codeblock =
-        not symbols_parsed['end'].in_codeblock
+          not symbols_parsed['end'].in_codeblock
     end
     if not symbols_parsed['end'].in_codeblock then
       local _, _, heading_notation, heading_str = line:find('^(#+)%s+(.*)')
@@ -86,11 +86,11 @@ local function parse_buf(buf, lnum_end, incremental)
       if level >= 1 and level <= 6 then
         table.insert(
           symbols_parsed.symbols,
-          markdown_heading_symbol_t:new({
+          markdown_heading_symbol_t:new {
             name = heading_str,
             level = #heading_notation,
             lnum = idx + lnum_start,
-          })
+          }
         )
       end
     end
@@ -206,8 +206,8 @@ end
 ---@return nil
 local function attach(buf)
   if
-    vim.b[buf].winbar_markdown_heading_parser_attached
-    or not api.nvim_buf_is_valid(buf)
+      vim.b[buf].winbar_markdown_heading_parser_attached
+      or not api.nvim_buf_is_valid(buf)
   then
     return
   end
@@ -280,7 +280,7 @@ end
 ---@param cursor integer[] cursor position
 ---@return winbar_symbol_t[] symbols winbar symbols
 local function get_symbols(buf, win, cursor)
-  if vim.b.bigfile or vim.bo[buf].filetype ~= 'markdown' then
+  if vim.b.bigfile or vim.bo[buf].filetype ~= 'markdown' or g.vscode then
     return {}
   end
   if not initialized then

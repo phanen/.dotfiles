@@ -3,10 +3,10 @@ abbr d docker
 abbr g git
 abbr h tokei
 abbr i ipython
-abbr j --function _make_or_just
+abbr j -f _make_or_just
 abbr k pkill
 abbr n nvim -l
-abbr o cat
+abbr o bat
 abbr p python
 abbr s systemctl
 abbr y paru
@@ -24,6 +24,7 @@ abbr hf hyperfine --warmup 5
 abbr lg lazygit
 abbr mx chmod +x
 abbr sc sysctl
+abbr sf sysz
 abbr sh bash
 abbr ta tmux a || tmux
 abbr vj NVIM_APPNAME=nvim-test nvim
@@ -56,5 +57,19 @@ abbr pe . ./venv/bin/activate.fish
 
 abbr ii curl -sL http://ipinfo.io
 
-# TODO(upstream): subcommand completion
-abbr sdr systemctl daemon-reload
+abbr kt kitty +kitten transfer
+
+if set -q FISH_LATEST
+    # FIXME: collision with normal case...
+    # sadly... that's not what we want
+    # abbr -c systemctl a start
+    # abbr -c systemctl o stop
+    # abbr -c systemctl s status
+    # abbr -c systemctl dr daemon-reload
+end
+
+# TODO: to be more useful, first we need a k-v abstract anyway...
+abbr -p anywhere s -f abbr_s
+
+abbr list 'string join \n'
+abbr grep rg

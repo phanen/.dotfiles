@@ -19,6 +19,8 @@ au('Filetype', {
 au('Filetype', {
   pattern = { 'toggleterm' },
   callback = function(ev)
+    -- make % usable
+    vim.cmd [[se ft=bash]]
     -- workaround, mis touch
     map('n', '<c-o>', '<nop>', { buffer = ev.buf })
     map('n', '<c-i>', '<nop>', { buffer = ev.buf })

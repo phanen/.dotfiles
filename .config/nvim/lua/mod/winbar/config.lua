@@ -4,6 +4,13 @@ local M = {}
 
 ---@class winbar_configs_t
 M.opts = {
+  enable = function(buf, win)
+    return vim.bo[buf].ft == 'fugitiveblame'
+      or fn.win_gettype(win) == ''
+        and vim.wo[win].winbar == ''
+        and (vim.bo[buf].bt == '')
+        and (pcall(vim.treesitter.get_parser, buf, vim.bo[buf].ft))
+  end,
   update_interval = 32, -- cancel the previous update request
   icons = {
     kinds = {
@@ -61,10 +68,10 @@ M.opts = {
           }
         or {
           sources.path,
-          u.source.fallback({
+          u.source.fallback {
             sources.lsp,
             sources.treesitter,
-          }),
+          },
         }
     end,
     padding = { left = 1, right = 0 },
@@ -98,7 +105,7 @@ M.opts = {
         local menu = u.menu.get_current()
         if not menu then return end
         local mouse = fn.getmousepos()
-        local clicked_menu = u.menu.get({ win = mouse.winid })
+        local clicked_menu = u.menu.get { win = mouse.winid }
         -- If clicked on a menu, invoke the corresponding click action,
         -- else close all menus and set the cursor to the clicked window
         if clicked_menu then
@@ -144,7 +151,7 @@ M.opts = {
           return menu.prev_menu._win_configs.width + (menu.prev_menu.scrollbar and 1 or 0)
         end
         local mouse = fn.getmousepos()
-        local bar = u.bar.get({ win = menu.prev_win })
+        local bar = u.bar.get { win = menu.prev_win }
         if not bar then return mouse.wincol end
         local _, range = bar:get_component_at(math.max(0, mouse.wincol - 1))
         return range and range.start or mouse.wincol

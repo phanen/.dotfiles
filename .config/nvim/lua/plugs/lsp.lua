@@ -222,7 +222,7 @@ return {
       formatters_by_ft = {
         fish = { 'fish_indent', '--only-indent' },
         lua = { 'stylua' },
-        python = { 'isort', 'black' },
+        python = { 'ruff' },
         sh = { 'shfmt' },
         xml = { 'xmlformat' },
 
@@ -235,7 +235,8 @@ return {
         html = { 'prettier' },
         javascript = { 'prettier' },
         javascriptreact = { 'prettier' },
-        json = { 'prettier' },
+        -- json = { 'prettier' }, -- not work?
+        json = { 'clang-format' },
         less = { 'prettier' },
         scss = { 'prettier' },
         typescript = { 'prettier' },
@@ -275,8 +276,7 @@ return {
   },
 
   { 'folke/neodev.nvim', cond = false, ft = 'lua', opts = {} }, -- buggy
-  -- { 'folke/lazydev.nvim', ft = 'lua', opts = true },
-
+  { 'folke/lazydev.nvim', ft = 'lua', opts = true },
   -- { 'Bilal2453/luvit-meta', lazy = true },
   -- { -- optional completion source for require statements and module annotations
   --   'hrsh7th/nvim-cmp',
@@ -288,4 +288,21 @@ return {
   --     })
   --   end,
   -- },
+  {
+    'mfussenegger/nvim-lint',
+    cond = false,
+    config = function()
+      require('lint').linters_by_ft = {
+        python = { 'pylint' },
+      }
+      au({
+        'BufReadPost',
+        'BufWritePost',
+        'InsertLeave',
+      }, {
+        desc = 'Lint',
+        callback = function() require('lint').try_lint() end,
+      })
+    end,
+  },
 }

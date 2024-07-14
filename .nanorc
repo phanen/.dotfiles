@@ -1,0 +1,89 @@
+include /usr/share/nano/*.nanorc
+include "/usr/share/nano/extra/*.nanorc"
+include /usr/share/nano-syntax-highlighting/*.nanorc
+
+set autoindent
+set linenumbers
+set tabstospaces
+set trimblanks
+set tabsize 2
+set softwrap
+set cutfromcursor
+
+# CTRL + f = next character
+unbind ^f main
+bind   ^f right main
+
+# CTRL + b = previous character
+unbind ^b main
+bind   ^b left main
+
+# META + v = screen up
+unbind M-v main
+bind   M-v pageup main
+
+# CTRL + y = yank
+unbind ^y main
+bind   ^y paste main
+
+# CTRL + o = newline
+unbind ^o main
+bind   ^o enter main
+
+# META + f = next word
+unbind M-f main
+bind   M-f nextword main
+
+# META + b = previous word
+unbind M-b main
+bind   M-b prevword main
+
+# CTRL + u = undo
+unbind ^u main
+bind   ^u undo main
+
+# META + u = redo
+unbind M-u main
+bind   M-u redo main
+
+# CTRL + h = help
+unbind ^h main
+bind   ^h help main
+
+# CTRL + SPC = mark
+unbind ^Space main
+bind   ^Space mark main
+
+# CTRL + w = cut mark
+unbind ^w main
+bind   ^w cut main
+
+# META + w = copy mark
+unbind M-w main
+bind   M-w copy main
+
+# META + < = first line
+unbind M-< main
+bind   M-< firstline main
+
+# META + > = last line
+unbind M-> main
+bind   M-> lastline main
+
+# META + p = previous buffer
+unbind M-p main
+bind   M-p prevbuf main
+
+# META + n = next buffer
+unbind M-n main
+bind   M-n nextbuf main
+
+# META + d = remove word
+unbind M-d main
+bind   M-d chopwordright main
+
+# Let's avoid some accidents
+unbind M-t main
+
+bind ^H chopwordleft main
+
