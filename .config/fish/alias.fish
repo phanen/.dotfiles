@@ -83,7 +83,7 @@ function ldw --wrap command
     end
 end
 
-function po --wrap 'pacman -Q'
+function po --wrap 'ls'
     pacman -Qo $argv || pacman -F $argv
 end
 

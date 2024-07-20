@@ -2,28 +2,14 @@ return {
   {
     'cshuaimin/ssr.nvim',
     cond = false,
-    keys = {
-      {
-        '<localleader>r',
-        function() require('ssr').open() end,
-        mode = { 'n', 'x' },
-      },
-    },
+    keys = { { '+r', function() require('ssr').open() end, mode = { 'n', 'x' } } },
   },
   {
     'gbprod/substitute.nvim',
     cond = false,
     keys = {
-      {
-        '<localleader>s',
-        function() require('substitute.exchange').operator() end,
-        mode = 'n',
-      },
-      {
-        '<localleader>s',
-        function() require('substitute.exchange').visual() end,
-        mode = 'x',
-      },
+      { '+s', function() require('substitute.exchange').operator() end, mode = 'n' },
+      { '+s', function() require('substitute.exchange').visual() end, mode = 'x' },
     },
     config = true,
   },

@@ -70,4 +70,11 @@ function upd-nvim
     cmake --build build --clean-first # --verbose
 
     v -es '+helptags $VIMRUNTIME/doc' +q
+
+    # lua5.1 https://github.com/ibhagwan/fzf-lua/issues/1346
+    # cmake -S cmake.deps -B .deps -G Ninja -D CMAKE_BUILD_TYPE=Release -D USE_BUNDLED_LUA=ON
+    # cmake --build .deps
+    # cmake -B build -G Ninja -D PREFER_LUA=ON -D CMAKE_BUILD_TYPE=Release
+    # cmake --build build
+    # cmake --install build --prefix your/installation/path
 end

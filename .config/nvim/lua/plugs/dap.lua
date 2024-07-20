@@ -4,19 +4,19 @@ return {
     cond = false,
     keys = {
       {
-        '<localleader>dL',
+        '+dL',
         function() require('dap').set_breakpoint(nil, nil, fn.input 'log: ') end,
       },
-      { '<localleader>db', function() require('dap').toggle_breakpoint() end, desc = 'dap: break' },
-      { '<localleader>dB', function() require('dap').set_breakpoint(fn.input 'bc: ') end },
-      { '<localleader>dc', function() require('dap').continue() end },
-      { '<localleader>duc', function() require('dapui').close() end },
-      { '<localleader>dut', function() require('dapui').toggle() end },
-      { '<localleader>dt', function() require('dap').repl.toggle() end },
-      { '<localleader>de', function() require('dap').step_out() end },
-      { '<localleader>di', function() require('dap').step_into() end },
-      { '<localleader>do', function() require('dap').step_over() end },
-      { '<localleader>dl', function() require('dap').run_last() end },
+      { '+db', function() require('dap').toggle_breakpoint() end, desc = 'dap: break' },
+      { '+dB', function() require('dap').set_breakpoint(fn.input 'bc: ') end },
+      { '+dc', function() require('dap').continue() end },
+      { '+duc', function() require('dapui').close() end },
+      { '+dut', function() require('dapui').toggle() end },
+      { '+dt', function() require('dap').repl.toggle() end },
+      { '+de', function() require('dap').step_out() end },
+      { '+di', function() require('dap').step_into() end },
+      { '+do', function() require('dap').step_over() end },
+      { '+dl', function() require('dap').run_last() end },
     },
     config = function()
       local dap = require 'dap' -- NOTE: must be loaded before the signs can be tweaked
@@ -66,9 +66,7 @@ return {
           name = 'cppdbg launch',
           type = 'cppdbg',
           request = 'launch',
-          program = function()
-            return fn.input('Path to executable: ', fn.getcwd() .. '/', 'file')
-          end,
+          program = function() return fn.input('Path to executable: ', fn.getcwd() .. '/', 'file') end,
           cwd = '${workspaceFolder}',
           stopAtEntry = true,
           setupCommands = {
@@ -87,17 +85,13 @@ return {
           miDebuggerServerAddress = 'localhost:1234',
           miDebuggerPath = '/usr/bin/gdb',
           cwd = '${workspaceFolder}',
-          program = function()
-            return fn.input('Path to executable: ', fn.getcwd() .. '/a.out')
-          end,
+          program = function() return fn.input('Path to executable: ', fn.getcwd() .. '/a.out') end,
         },
         {
           name = 'codelldb launch',
           type = 'codelldb',
           request = 'launch',
-          program = function()
-            return fn.input('Path to executable: ', fn.getcwd() .. '/a.out')
-          end,
+          program = function() return fn.input('Path to executable: ', fn.getcwd() .. '/a.out') end,
           cwd = '${workspaceFolder}',
           stopOnEntry = false,
           -- args = {},
@@ -107,9 +101,7 @@ return {
           name = 'manual codelldb launch',
           type = 'codelldb',
           request = 'launch',
-          program = function()
-            return fn.input('Path to executable: ', fn.getcwd() .. '/a.out')
-          end,
+          program = function() return fn.input('Path to executable: ', fn.getcwd() .. '/a.out') end,
           cwd = '${workspaceFolder}',
           stopOnEntry = false,
           -- args = {},
@@ -152,15 +144,6 @@ return {
     opts = {
       automatic_installation = true,
       ensure_installed = { 'codelldb' },
-    },
-  },
-  {
-    'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim',
-    cond = false,
-    config = function() require('toggle_lsp_diagnostics').init() end,
-    keys = {
-      { '<leader>tf', '<Plug>(toggle-lsp-diag-off)' },
-      { '<leader>to', '<Plug>(toggle-lsp-diag-on)' },
     },
   },
   {
