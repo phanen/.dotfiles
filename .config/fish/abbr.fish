@@ -24,7 +24,6 @@ abbr hf hyperfine --warmup 5
 abbr lg lazygit
 abbr mx chmod +x
 abbr sc sysctl
-abbr sf sysz
 abbr sh bash
 abbr ta tmux a || tmux
 abbr vj NVIM_APPNAME=nvim-test nvim
@@ -68,8 +67,28 @@ if set -q FISH_LATEST
     # abbr -c systemctl dr daemon-reload
 end
 
+function abbr_s
+    set -l proc (commandline -p)
+    if string match -q -r systemctl $proc
+        echo status
+    else
+        echo systemctl
+    end
+end
+
+function abbr_-
+    set -l proc (commandline -p)
+    if string match -q -r man $proc
+        echo -l -
+    else
+        echo -
+    end
+end
+
 # TODO: to be more useful, first we need a k-v abstract anyway...
-abbr -p anywhere s -f abbr_s
+abbr -p anywhere -f abbr_s -- s
+abbr -p anywhere -f abbr_- -- -
 
 abbr list 'string join \n'
 abbr grep rg
+abbr ju journalctl -eu

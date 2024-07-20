@@ -1,25 +1,30 @@
 return {
   {
     'folke/which-key.nvim',
-    cond = false,
+    cond = true,
     event = 'VeryLazy',
+    keys = {
+      {
+        '<leader>?',
+        function() require('which-key').show({ global = false }) end,
+        desc = 'Buffer Local Keymaps (which-key)',
+      },
+    },
+    -- note:
+    -- 1. <c-s> feedkey need register...
+    -- 2. "_d/c still pend (since we have `ds` `c*`), workaround: maybe "undo" some map??
     opts = {
-      -- preset = 'helix',  -- FIXME(upstream): bug in preset, when vertical split, (so specify in win)
-      -- note:
-      -- 1. <c-s> feedkey need register...
-      -- 2. "_d/c still pend (since we have `ds` `c*`), workaround: maybe "undo" some map??
+      preset = 'helix',
       delay = 200,
       plugins = { spelling = { enabled = false } },
       win = { -- `scrolloff` matter here
-        width = 1,
-        height = { min = 4, max = 25 },
         border = vim.g.border,
-        -- title = false,
+        title = false,
       },
       keys = { scroll_down = '<a-d>', scroll_up = '<a-u>' },
       icons = { rules = false },
       show_help = false,
-      show_keys = true, -- FIXME(upstream): not work...
+      show_keys = false, -- also need `win.title = false`
     },
   },
   { 'anuvyklack/hydra.nvim' },
@@ -33,8 +38,8 @@ return {
     },
     cmd = { 'Legendary', 'LegendaryRepeat' },
     keys = {
-      { '<leader>;', '<cmd>LegendaryRepeat<cr>', desc = 'Legendary repeat last' },
-      { '<localleader>p', '<cmd>Legendary<cr>', desc = 'Legendary' },
+      { ' ;', '<cmd>LegendaryRepeat<cr>', desc = 'Legendary repeat last' },
+      { '+p', '<cmd>Legendary<cr>', desc = 'Legendary' },
     },
     opts = {},
   },

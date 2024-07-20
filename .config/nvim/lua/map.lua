@@ -229,6 +229,7 @@ n(' dk', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 n(' ds', '<cmd>lua vim.diagnostic.setloclist()<cr>')
 n(' dj', '<cmd>lua vim.diagnostic.jump{count = 1}<cr>')
 n(' dk', '<cmd>lua vim.diagnostic.jump{count = -1}<cr>')
+n(' dt', function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end)
 
 n('+rd', ':Delete!')
 n('+rr', function() return ':Rename ' .. api.nvim_buf_get_name(0) end, { expr = true })

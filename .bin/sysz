@@ -60,7 +60,9 @@ CMD:
 
 ARGS are passed to the systemctl command for each selected unit.
 
-$(_sysz_keys)
+$(
+    _sysz_keys
+  )
 
 History:
   $PROG is stored in $SYSZ_HISTORY
@@ -432,7 +434,7 @@ while :; do
       --scroll-off=12 \
       --height=80% |
     readarray -t PICKS
-      # --bind 'focus:change-prompt(Units: )' \
+  # --bind 'focus:change-prompt(Units: )' \
 
   KEY=${PICKS[0]}
   [[ $VERBOSE = true ]] && echo "KEY: $KEY" >&2

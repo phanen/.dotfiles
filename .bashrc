@@ -11,14 +11,26 @@ run-help() {
   help "$cmd" 2>/dev/null || man "$cmd"
 }
 
-bind '"\eq": "\C-e >/dev/null 2>&1 &"'
-bind '"\es": "\C-asudo \C-e"'
-bind -m vi-insert -x '"\eh": run-help'
-bind -m emacs -x '"\eh": run-help'
-bind '"\ej": "\C-e 2>&1 | rg "'
-bind -x '"\ek": "clear"'
-bind '"\el": "\C-e | bat"'
+# bind '"\eq": "\C-e >/dev/null 2>&1 &"'
+# bind '"\es": "\C-asudo \C-e"'
+# bind -m vi-insert -x '"\eh": run-help'
+# bind -m emacs -x '"\eh": run-help'
+# bind '"\ej": "\C-e 2>&1 | rg "'
+# bind -x '"\ek": "clear"'
+# bind '"\el": "\C-e | bat"'
 
 eval "$(zoxide init bash)"
 eval "$(atuin init bash)"
 stty stop undef
+
+
+# . /usr/share/fzf/key-bindings.bash
+. ~/.local/share/blesh/ble.sh
+ble-import -d integration/fzf-completion
+ble-import -d integration/fzf-key-bindings
+ble-import contrib/prompt-git
+bleopt prompt_rps1='\q{contrib/git-info}'
+
+#
+# _ble_contrib_fzf_git_config=key-binding:sabbrev:arpeggio
+# ble-import -d integration/fzf-git
