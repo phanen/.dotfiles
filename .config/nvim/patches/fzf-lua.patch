@@ -1,13 +1,15 @@
 diff --git a/lua/fzf-lua/core.lua b/lua/fzf-lua/core.lua
-index 616b7c4..fabfa71 100644
+index 7279156..d1c9dfb 100644
 --- a/lua/fzf-lua/core.lua
 +++ b/lua/fzf-lua/core.lua
-@@ -357,7 +357,7 @@ M.fzf = function(contents, opts)
-         opts.winopts.preview.horizontal)
-       opts.keymap = opts.keymap or {}
-       opts.keymap.fzf = opts.keymap.fzf or {}
--      opts.keymap.fzf["resize"] = string.format("transform(%s)", transformer)
-+      -- opts.keymap.fzf["resize"] = string.format("transform(%s)", transformer)
+@@ -1060,10 +1060,6 @@ M.convert_reload_actions = function(reload_cmd, opts)
+       end
      end
-     if type(previewer.preview_window) == "function" then
-       -- do we need to override the preview_window args?
+   end
+-  if has_reload and reload_cmd and type(reload_cmd) ~= "string" then
+-    utils.warn(
+-      "actions with `reload` are only supported with string commands, using resume fallback")
+-  end
+   if fallback then
+     -- for fallback, conversion to "old-style" actions is sufficient
+     return opts
