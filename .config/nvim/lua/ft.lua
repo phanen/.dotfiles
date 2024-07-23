@@ -36,6 +36,17 @@ au('Filetype', {
     -- TODO: BufRead trigger man plugin (set buf)
     vim.bo[ev.buf].bufhidden = 'hide'
     vim.bo[ev.buf].buftype = ''
+
+    -- we preset g:no_man_maps = 0
+    vim.cmd [[
+      nnoremap <silent> <buffer> gO            :lua require'man'.show_toc()<CR>
+      nnoremap <silent> <buffer> <2-LeftMouse> :Man<CR>
+      if get(g:, 'pager')
+        nnoremap <silent> <buffer> <nowait> q :lclose<CR><C-W>q
+      else
+        nnoremap <silent> <buffer> <nowait> q :lclose<CR><C-W>c
+      endif
+    ]]
   end,
 })
 

@@ -6,6 +6,8 @@ local o, g = vim.o, vim.g
 -- don't use ftplugin style
 g.markdown_recommended_style = 0
 
+g.no_man_maps = 0
+
 -- stylua: ignore start
 -- o.fileencodings  = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
 -- o.fileencodings  = "ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1"
