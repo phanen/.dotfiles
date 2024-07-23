@@ -27,20 +27,21 @@ M.smart_quit = function()
   -- TODO: not sure what to do with these cases
   -- if fn.reg_recorded() ~= '' or fn.reg_executing() ~= '' then return '<ignore>' end
 
-  -- close floating window
+  local wclose = function(...) pcall(api.nvim_win_close, ...) end
+
+  -- close current window if floating
   local curwind = api.nvim_get_current_win()
   if api.nvim_win_get_config(curwind).relative ~= '' or ft_tbl[vim.bo.ft] then
-    return api.nvim_win_close(curwind, true)
+    return wclose(curwind, true)
   end
 
-  -- close all focusable floating windows
-  -- :fclose! ?
+  -- close all focusable floating windows (:fclose! ?)
   local count = 0
   for _, win in ipairs(api.nvim_tabpage_list_wins(0)) do
     if api.nvim_win_is_valid(win) then
       local cfg = api.nvim_win_get_config(win)
-      if cfg.relative ~= '' and cfg.focusable then -- unfocusable(e.g. fidget)
-        api.nvim_win_close(win, false)
+      if cfg.relative ~= '' and cfg.focusable then -- skip unfocusable(e.g. fidget)
+        wclose(win, false)
         count = count + 1
       end
     end
