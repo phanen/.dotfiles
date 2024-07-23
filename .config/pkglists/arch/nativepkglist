@@ -225,6 +225,7 @@ nvidia-settings
 nvidia-utils
 nvtop
 ocaml
+ocaml-findlib
 onefetch
 openssh
 os-prober
@@ -244,7 +245,6 @@ pkgfile
 pnpm
 polybar
 postgresql
-pragha
 prettier
 pulseaudio-alsa
 pulsemixer
@@ -287,7 +287,6 @@ riscv64-unknown-elf-binutils-debug
 riscv64-unknown-elf-gcc
 rofi
 rofi-rbw
-rp-pppoe
 rsync
 rtorrent
 ruby
@@ -405,7 +404,6 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xsel
-xterm
 yarn
 yazi
 yq

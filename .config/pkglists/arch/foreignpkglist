@@ -9,7 +9,7 @@ hw-probe
 localsend-bin
 mit-scheme
 osu-lazer-bin
-pppconfig
+python-pystemd
 rar
 sunshine-bin
 systemd-cron
