@@ -181,10 +181,10 @@ return {
             ['ctrl-s'] = f.actions.file_edit_or_qf,
             -- ['ctrl-s'] = fzf.actions.file_sel_to_ll,
             ['alt-q'] = { fn = f.actions.file_sel_to_qf, prefix = 'select-all' },
-            ['alt-s'] = {
-              fn = function(sel) print('no items:', #sel) end,
-              prefix = 'transform([ $FZF_SELECT_COUNT -eq 0 ] && echo select-all)',
-            },
+            -- ['alt-s'] = {
+            --   fn = function(sel) print('no items:', #sel) end,
+            --   prefix = 'transform([ $FZF_SELECT_COUNT -eq 0 ] && echo select-all)',
+            -- },
             ['ctrl-x'] = { fn = a.file_delete, reload = true },
             ['ctrl-r'] = { fn = a.file_rename, reload = true }, -- TODO: cursor missed
             ['ctrl-o'] = { fn = a.file_edit_bg, reload = true }, -- TODO: not work well in rg
