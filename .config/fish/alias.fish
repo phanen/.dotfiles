@@ -3,7 +3,11 @@ function alias
     eval "function $argv[1] $wraps; $argv[2] \$argv; end"
 end
 
-test $TERM = xterm-kitty && alias ssh "kitty +kitten ssh"
+test $TERM = xterm-kitty
+and function ssh --wrap 'ssh'
+    # fix error: completion reached maximum recursion depth, possible cycle?
+    kitty +kitten ssh $argv
+end
 
 alias f __zoxide_z
 alias l "eza -lh"
