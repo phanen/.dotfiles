@@ -8,11 +8,12 @@ end
 
 status is-interactive; and begin
     string match -rq '(?<FISH_SEMVER>\d+\.\d+\.\d+)-?(?<FISH_GITVER>.*)' $FISH_VERSION
+    # bug? FISH_GITVER is always set here
 
     # semver $FISH_VERSION -r ">=3.7.1" -p
     if ver_test $FISH_SEMVER -ge 3.8.0
         or begin
-            ver_test $FISH_SEMVER -eq 3.7.1 and set -q $FISH_GITVER
+            ver_test $FISH_SEMVER -eq 3.7.1; and test -n $FISH_GITVER
         end
         set FISH_LATEST
     end >/dev/null

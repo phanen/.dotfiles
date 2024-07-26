@@ -112,7 +112,6 @@ git-cliff
 git-delta
 github-cli
 gitui
-gnome-themes-extra
 gnu-free-fonts
 gnu-netcat
 go
@@ -209,7 +208,6 @@ musl
 namcap
 neovim-git
 net-tools
-networkmanager
 nim
 ninja
 nmap
@@ -264,8 +262,7 @@ python-psutil
 python-pynvim
 python-pyquery
 python-pyxdg
-qemu-emulators-full
-qemu-full
+qemu-system-x86
 rbw
 rclone
 reflector
@@ -291,6 +288,7 @@ rsync
 rtorrent
 ruby
 rustup
+sad
 scrcpy
 sd
 sed
@@ -331,7 +329,6 @@ tree-sitter-cli
 tree-sitter-git
 treedec
 ttf-cascadia-code
-ttf-dejavu-nerd
 ttf-nerd-fonts-symbols
 typst
 ubuntu-keyring
