@@ -4,7 +4,7 @@ function alias
 end
 
 test $TERM = xterm-kitty
-and function ssh --wrap 'ssh'
+and function ssh --wrap ssh
     # fix error: completion reached maximum recursion depth, possible cycle?
     kitty +kitten ssh $argv
 end
@@ -46,19 +46,20 @@ alias dm 'v (fd .  ~/dot -d 1 | fzf)'
 
 alias tree 'exa --tree'
 
-function eff
-    test -z $argv
-end
 function pi --wrap pacman -S
     if test -z $argv
-        sudo pacman -U (echo ~/.cache/paru/clone/*/*.pkg.tar.zst | fzf)
+        sudo pacman -U (string join \n ~/.cache/paru/clone/*/*.pkg.tar.zst | fzf)
     else
         sudo pacman -S $argv
     end
 end
 
 function fe --wrap functions
-    v (functions --details $argv)
+    set -l res (functions --details $argv)
+
+    string match $res n/a
+    and v ~/.config/fish/functions/$argv.fish
+    or v $res
 end
 
 function vw
@@ -87,7 +88,7 @@ function ldw --wrap command
     end
 end
 
-function po --wrap 'ls'
+function po --wrap ls
     pacman -Qo $argv || pacman -F $argv
 end
 
