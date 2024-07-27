@@ -1,5 +1,8 @@
 -- double check whatever
-if g.vscode == nil then return end
+if not g.vscode then return end
+
+g.mapleader = ' '
+g.maplocalleader = '+'
 
 local n = function(...) map('n', ...) end
 -- use some vscode builtin
@@ -21,3 +24,5 @@ n('ghb', vc('gitlens.toggleFileBlame'), { desc = 'Toggle file blame' })
 n('ghr', vc('git.clean'), { desc = 'Git discard changes' })
 n('<leader>gc', vc('git.commit'), { desc = 'Git commit' })
 n('<leader>gg', vc('workbench.view.scm'), { desc = 'Show source control' })
+
+-- fn['vscode#setup']()

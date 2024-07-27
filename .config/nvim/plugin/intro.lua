@@ -1,3 +1,5 @@
+if g.vscode then return end
+
 if g.disable_intro then return end
 if fn.argc() > 0 or not vim.g.has_ui then return end
 

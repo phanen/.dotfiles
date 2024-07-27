@@ -1,3 +1,5 @@
+if g.vscode then return end
+
 g.netrw_banner = 0
 g.netrw_cursor = 5
 g.netrw_keepdir = 0

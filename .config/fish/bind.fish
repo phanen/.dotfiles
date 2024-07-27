@@ -6,10 +6,11 @@ if set -q FISH_LATEST
     bind ctrl-h '_empty_then "echo;tokei;commandline -f repaint" "_autopair_backspace"'
     bind ctrl-i _fifc
     bind ctrl-j nextd-or-forward-word
+    # TODO: if at the beginning of word, also kill space...
     bind ctrl-l '_empty_trim_then "cl;commandline -f repaint" "commandline -f kill-bigword"'
     bind ctrl-o prevd-or-backward-word
     bind ctrl-q '_empty_trim_then "lazygit;commandline -f repaint" fish_clipboard_copy'
-    bind ctrl-r k_cr
+    bind ctrl-r atuin_search
     bind ctrl-s k_cs
     bind ctrl-t k_ct
     bind ctrl-u '_empty_then "htop;commandline -f repaint" "commandline -f backward-kill-line"'
@@ -33,7 +34,7 @@ else
     bind \cl '_empty_trim_then "cl;commandline -f repaint" "commandline -f kill-bigword"'
     bind \co prevd-or-backward-word
     bind \cq '_empty_trim_then "lazygit;commandline -f repaint" fish_clipboard_copy'
-    bind \cr k_cr
+    bind \cr atuin_search
     bind \cs k_cs
     bind \ct k_ct
     bind \cu '_empty_then "htop;commandline -f repaint" "commandline -f backward-kill-line"'
@@ -48,9 +49,4 @@ else
     bind \r k_enter
     bind \t _fifc
     bind \x1c "exec fish"
-
-    # TODO: so what is _bind_up
-    #bind -k up _atuin_bind_up
-    #bind \eOA _atuin_bind_up
-    #bind \e\[A _atuin_bind_up
 end

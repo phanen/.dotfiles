@@ -17,6 +17,10 @@ bspc rule -a sxiv state=floating center=true
 bspc rule -a mpv state=floating
 bspc rule -a SimpleScreenRecorder state=floating
 
+bspc rule -a Nightly state=tiled
+bspc rule -a Firefox state=tiled
+bspc rule -a firefox state=tiled
+
 # when disable internal monitor, also remove its desktop
 # https://github.com/baskerville/bspwm/issues/1106
 bspc config remove_disabled_monitors true

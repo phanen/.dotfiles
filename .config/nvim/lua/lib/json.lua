@@ -1,5 +1,4 @@
 local M = {}
-local u = require('lib')
 
 ---Read json contents as lua table
 ---@param path string
@@ -18,9 +17,7 @@ end
 ---@return boolean success
 M.write = function(path, tbl)
   local ok, str = pcall(vim.json.encode, tbl)
-  if not ok then
-    return false
-  end
+  if not ok then return false end
   return u.fs.write_file(path, str)
 end
 

@@ -1,5 +1,6 @@
 return {
   {
+    -- TODO: re-blame on file switch
     'tpope/vim-fugitive',
     cmd = { 'G' },
     keys = {
@@ -55,46 +56,68 @@ return {
 
         nx('gj', function()
           if vim.wo.diff then return vim.cmd.normal { '[c', bang = true } end
-          gs.nav_hunk('prev', { target = 'all' })
+          gs.nav_hunk('next', { target = 'all' })
         end)
         -- note: should not buf map, unknown
         -- end, { expr = true, buffer = bufnr })
 
         nx('gk', function()
           if vim.wo.diff then vim.cmd.normal { ']c', bang = true } end
-          gs.nav_hunk('next', { target = 'all' })
+          gs.nav_hunk('prev', { target = 'all' })
         end)
 
-        local n = function(lhs, rhs) map('n', lhs, ('<cmd>Gitsigns %s<cr>'):format(rhs)) end
-        n(' hs', 'stage_hunk')
-        n(' hu', 'undo_stage_hunk')
-        n(' hr', 'reset_hunk')
-        n(' i', 'preview_hunk')
-        n(' gu', 'reset_buffer_index')
-        n(' hd', 'toggle_deleted<cr><cmd>Gitsigns toggle_word_diff')
-        n('+gb', 'blame')
+        -- TODO: currying
+        -- TODO: icmd mode, ncmd mode
+        local CmdMap = {
+          new = function(self, main_cmd)
+            local o = { main_cmd = main_cmd, __index = self }
+            return setmetatable(o, o)
+          end,
+          reset = function(self, cmd) self.main_cmd = cmd end,
+          map = function(self, group)
+            for _, obj in pairs(group) do
+              local lhs, cmds = obj[1], obj[2]
+              local rhs
+              if type(cmds) == 'string' then
+                rhs = ('<cmd>%s %s<cr>'):format(self.main_cmd, cmds)
+              elseif type(cmds) == 'table' then
+                cmds = vim
+                  .iter(cmds)
+                  :map(function(_, cmd) return ('<cmd>%s %s<cr>'):format(self.main_cmd, cmd) end)
+                  :totable()
+                rhs = table.concat(cmds)
+              end
+              map.n(lhs, rhs)
+            end
+          end,
+        }
+
+        CmdMap:new('Gitsigns'):map({
+          { ' hs', 'stage_hunk' },
+          { ' hu', 'undo_stage_hunk' },
+          { ' hr', 'reset_hunk' },
+          { ' i', 'preview_hunk' },
+          { ' gu', 'reset_buffer_index' },
+          { ' hd', { 'toggle_deleted', 'toggle_word_diff' } },
+          { '+gb', 'blame' },
+        })
+        -- PERF: find then select_hunk
+        map.ox('ih', ':<c-u>Gitsigns select_hunk<cr>')
       end,
     },
   },
-  { -- TODO: use self-host ssh remote...
-    'ruifm/gitlinker.nvim',
+  {
+    'phanen/gitlinker.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    -- FIXME: compat
-    keys = {
-      { ' gl', '<cmd>lua require("gitlinker").get_buf_range_url "n"<cr>', mode = 'n' },
-      { ' gl', '<cmd>lua require("gitlinker").get_buf_range_url "v"<cr>', mode = 'x' },
-    },
-    -- TODO: smart remote
-    -- PERF: or since we always rebase patch on the top (see upd-nvim), blame remote branch work fine
-    -- this also apply to lazygit
-    opts = { mappings = nil },
+    keys = { { ' gl', '<cmd>lua require("gitlinker").get_permalink()<cr>', mode = { 'n', 'x' } } },
+    opts = { remote = u.git.smart_remote_url },
   },
   -- TODO: this produce many [no name] buf...
   {
     'TimUntersberger/neogit',
     cmd = 'Neogit',
     keys = {
-      { ' gn', function() require('neogit').open({ cwd = require('lib.util').smart_root() }) end },
+      { ' gn', function() require('neogit').open { cwd = u.smart.root() } end },
     },
     opts = {
       disable_hint = true,

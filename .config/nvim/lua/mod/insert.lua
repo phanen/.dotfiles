@@ -149,9 +149,9 @@ local unix_line_discard = function()
   return fn.mode() == 'c' and '<c-u>' or '<c-g>u<c-u>'
 end
 
-local ic = function(...) map('!', ...) end
-local i = function(...) map('i', ...) end
-local c = function(...) map('c', ...) end
+local ic = map.ic
+local i = map.i
+local c = map.c
 
 local setup_cmap = function()
   local u = require('lib.keymap')
@@ -204,6 +204,7 @@ M.setup = function()
 
   -- TODO: kill next line
   -- ic('<c-l>', require('readline').kill_word)
+  -- FIXME: not work well for unicode
   ic('<c-l>', kill_word, { expr = true })
 
   ic('<c-k>', require('readline').kill_line)

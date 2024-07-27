@@ -1,5 +1,4 @@
 local ffi = require('ffi')
-local u = require('lib')
 
 ---Wrapper around `utils.stl.hl()` that forces apply hlgroup even in tty
 ---@param str? string sign symbol

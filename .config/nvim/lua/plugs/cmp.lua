@@ -144,6 +144,7 @@ return {
     end,
   },
   {
+    -- TODO: not prompt edit in the middle of line
     'zbirenbaum/copilot.lua',
     cond = fn.argv()[1] ~= 'leetcode.nvim',
     cmd = 'Copilot',

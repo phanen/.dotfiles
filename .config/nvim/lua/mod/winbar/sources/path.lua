@@ -1,4 +1,4 @@
-local config = require('mod.winbar.config')
+local cfg = require('mod.winbar.config')
 local bar = require('mod.winbar.bar')
 
 ---Get icon and icon highlight group of a path
@@ -6,7 +6,7 @@ local bar = require('mod.winbar.bar')
 ---@return string icon
 ---@return string? icon_hl
 local get_icon = function(path)
-  local icon_kind_opts = config.opts.icons.kinds
+  local icon_kind_opts = cfg.opts.icons.kinds
   local icon = icon_kind_opts.symbols.File
   local icon_hl = 'WinBarIconKindFile'
   local stat = uv.fs_stat(path)
@@ -34,7 +34,7 @@ end
 ---@param win integer window handler
 ---@return winbar_symbol_t
 local function convert(path, buf, win)
-  local path_opts = config.opts.sources.path
+  local path_opts = cfg.opts.sources.path
   local icon, icon_hl = get_icon(path)
   return bar.winbar_symbol_t:new(setmetatable({
     buf = buf,
@@ -78,10 +78,10 @@ end
 ---@param _ integer[] cursor position, ignored
 ---@return winbar_symbol_t[] winbar symbols
 local get_symbols = function(buf, win, _)
-  local path_opts = config.opts.sources.path
+  local path_opts = cfg.opts.sources.path
   local symbols = {} ---@type winbar_symbol_t[]
   local current_path = vim.fs.normalize(api.nvim_buf_get_name(buf))
-  local path = config.eval(path_opts.relative_to, buf, win) --[[@as string]]
+  local path = u.eval(path_opts.relative_to, buf, win) --[[@as string]]
   local root = vim.fs.normalize(path)
   while
     current_path

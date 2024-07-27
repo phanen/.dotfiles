@@ -1,3 +1,6 @@
+if 1 | finish | endif
+if exists('g:vscode') | finish | endif
+
 " function! IcecreamInitialize()
 " python << EOF
 " class StrawberryIcecream:

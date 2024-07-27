@@ -95,7 +95,7 @@ return {
               ['jpg'] = { 'ueberzug' },
               ['jpeg'] = { 'ueberzug' },
               ['gif'] = { 'ueberzug' },
-              ['svg'] = { 'ueberzug' },
+              ['svg'] = { 'chafa', '{file}' },
             },
             ueberzug_scaler = 'cover',
           },
@@ -110,10 +110,12 @@ return {
         },
         keymap = {
           builtin = {
+            ['<Esc>'] = 'hide',
             ['<c-\\>'] = 'toggle-preview',
             ['<c-d>'] = 'preview-page-down',
             ['<c-u>'] = 'preview-page-up',
           },
+          -- FIXME(libvterm): not work well with c-\\ in terminal
           fzf = {},
         },
         files = {
@@ -161,6 +163,8 @@ return {
           },
         },
         helptags = {
+          winopts = { preview = { hidden = 'hidden' } },
+
           actions = {
             ['ctrl-o'] = {
               fn = a.file_edit_bg,

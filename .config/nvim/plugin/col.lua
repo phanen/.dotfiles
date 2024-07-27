@@ -1,3 +1,4 @@
+if g.vscode then return end
 local hl = require('lib.hl')
 
 local C_NORMAL, C_CC, C_ERROR

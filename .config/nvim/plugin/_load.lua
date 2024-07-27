@@ -1,10 +1,7 @@
 -- TODO: ideally, it should be reloadable...
 
 -- vscode-neovim
-if g.vscode then
-  require('mod.vscode')
-  return fn['mod#vscode#setup']()
-end
+if g.vscode then return end
 
 require 'mod.fastmove'
 require 'mod.insert'
@@ -83,8 +80,7 @@ if g.vendor_bar then
     callback = function()
       if vim.g.loaded_winbar then return end
       vim.g.loaded_winbar = true
-      local winbar = require('mod.winbar')
-      winbar.setup()
+      -- require('mod.winbar').setup()
     end,
   })
 end

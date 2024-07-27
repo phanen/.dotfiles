@@ -1,12 +1,12 @@
 -- formatter
-nx('gw', [[<cmd>lua r('conform').format { lsp_fallback = true }<cr>]])
+nx('gw', [[<cmd>lua require('conform').format { lsp_fallback = true }<cr>]])
 
 -- TODO: maybe need a project manager
 -- neovim project local formatter
 au('FileType', {
   pattern = 'c',
   callback = function()
-    local file_root = require('lib.util').smart_root()
+    local file_root = u.smart.root()
     -- error-prone, but work and short...
     local nvim_root = vim.fs.joinpath(env.HOME, 'b/neovim')
     if file_root ~= nvim_root then return end

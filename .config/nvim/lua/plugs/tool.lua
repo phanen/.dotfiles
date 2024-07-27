@@ -4,6 +4,8 @@ return {
   { 'sbulav/nredir.nvim', cmd = 'Nredir' },
   { 'suliveevil/vim-redir-output', cmd = 'RedirV' },
 
+  -- HelpfulVersion matchaddpos()
+  { 'tweekmonster/helpful.vim', cmd = 'HelpfulVersion' },
   -------------------------------------------------------------------
   { 'mikesmithgh/kitty-scrollback.nvim', cond = false },
 

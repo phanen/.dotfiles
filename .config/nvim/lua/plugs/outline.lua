@@ -24,7 +24,7 @@ return {
     cmd = { 'AerialToggle' },
     opts = {
       -- backends = { 'lsp', 'treesitter', 'markdown' },
-      backends = { 'treesitter', 'lsp', 'markdown' },
+      backends = { 'treesitter', 'lsp', 'markdown', 'asciidoc', 'man' },
       keymaps = { ['<C-k>'] = false, ['<C-j>'] = false, ['l'] = 'actions.tree_toggle' },
       attach_mode = 'global',
       icons = { -- fix indent

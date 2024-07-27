@@ -85,7 +85,6 @@ n('<c-e>', '<cmd>BufferLineCyclePrev<cr>')
 n('<c-f>', '<cmd>BufferLineCycleNext<cr>')
 
 -- n('<c-h>', '<c-^>')
-n('<c-w>', r('lib.buf').delete)
 n('H', '<cmd>BufferLineMovePrev<cr>')
 n('L', '<cmd>BufferLineMoveNext<cr>')
 n(' bi', '<cmd>buffers<cr>')
@@ -94,10 +93,11 @@ n(' bl', '<cmd>BufferLineCloseLeft<cr>')
 n(' bo', '<cmd>BufferLineCloseOthers<cr>')
 n(' br', '<cmd>BufferLineCloseRight<cr>')
 
-n(' <c-o>', r('lib.buf').backward)
-n(' <c-i>', r('lib.buf').forward)
-n('<a-o>', r('lib.buf').backward_same_buf)
-n('<a-i>', r('lib.buf').forward_same_buf)
+n('<c-w>', u.buf.delete)
+n(' <c-o>', u.buf.backward)
+n(' <c-i>', u.buf.forward)
+n('<a-o>', u.buf.backward_same_buf)
+n('<a-i>', u.buf.forward_same_buf)
 
 -- win
 n('<c-j>', '<cmd>wincmd w<cr>')
@@ -137,9 +137,9 @@ n('<c-s>-', '<cmd>resize -5<cr>')
 n('<c-s><c-s>', '<cmd>wincmd q<cr>')
 -- n('<c-s>gf', '<cmd>wincmd gf<cr>')
 n(' k', '<cmd>NvimTreeFindFileToggle<cr>')
-n(' q', r('lib.qf').qf_toggle)
-n('+q', r('lib.util').force_close_tabpage)
-n('q', r('lib.util').smart_quit)
+n(' q', u.qf.qf_toggle)
+n('+q', u.util.force_close_tabpage)
+n('q', u.smart.quit)
 n(' wo', '<cmd>AerialToggle!<cr>')
 -- n(' wo', '<cmd>Outline<cr>')
 n(' wi', '<cmd>LspInfo<cr>')
@@ -193,7 +193,7 @@ n(' ow', '<cmd>se wrap!<cr>')
 n('+E', '<cmd>lua vim.treesitter.query.edit()<cr>')
 n('+I', '<cmd>lua vim.treesitter.inspect_tree()<cr>')
 -- you know the trick
-n('+L', r('lib.lazy').lazy_chore_update)
+n('+L', u.lazy.lazy_chore_update)
 n(' I', '<cmd>lua vim.show_pos()<cr>')
 -- TODO: kill buffer when close
 nx(' E', ':EditCodeBlock<cr>')
@@ -206,9 +206,9 @@ n('-', '<cmd>TSJToggle<cr>')
 nx('_', 'K')
 nx('K', ':Translate<cr>')
 
-n(' cd', r('lib.util').smart_cd)
+n(' cd', u.smart.cd)
 n(' cf', '<cmd>cd %:h<cr>')
-n(' cy', r('lib.util').yank_filename)
+n(' cy', u.util.yank_filename)
 
 -- https://github.com/search?q=cgn+lang:vim
 n(' c*', [[<cmd>let @/='\<'.expand('<cword>').'\>'<cr>"_cgn]])
@@ -247,8 +247,8 @@ for _, char in ipairs({ ' ', '-', '_', ':', '.', '/' }) do
   map('i', char, function() return char .. '<c-g>u' end, { expr = true })
 end
 
-n('[ ', r('lib.util').blank_above)
-n('] ', r('lib.util').blank_below)
+n('[ ', u.util.blank_above)
+n('] ', u.util.blank_below)
 
 n(' gJ', function()
   -- persist?
@@ -271,8 +271,6 @@ x('<', ':le<cr>')
 -- inoremap <c-x><c-o> <cmd>lua require('cmp').complete()<cr>
 -- cnoremap <c-x><c-o> <cmd>lua require('cmp').complete()<cr>
 -- ]]
---
---
 
 -- Only clear highlights and message area and don't redraw if search
 -- highlighting is on to avoid flickering
@@ -310,13 +308,13 @@ ox('iu', '<cmd>lua require("various-textobjs").url()<cr>')
 
 ox('id', '<cmd>lua require("various-textobjs").diagnostic("wrap")<cr>')
 
-ox('ig', r('lib.textobj').buffer)
+ox('ig', u.textobj.buffer)
 -- x('ag', ':<c-u>sil! keepj norm! ggVG<cr>', { silent = true, remap = true })
 -- x('ig', ':<c-u>sil! keepj norm! ggVG<cr>', { silent = true, remap = true })
 -- o('ag', '<cmd>sil! norm m`Vaf<cr><cmd>sil! norm! ``<cr>', { silent = true, remap = true })
 -- o('ig', '<cmd>sil! norm m`Vif<cr><cmd>sil! norm! ``<cr>', { silent = true, remap = true })
 
-ox('ic', r('lib.textobj').comment)
+ox('ic', u.textobj.comment)
 
 x(
   'iz',
@@ -331,13 +329,10 @@ x(
 o('iz', '<cmd>sil! norm Viz<cr>', { silent = true, remap = true })
 o('az', '<cmd>sil! norm Vaz<cr>', { silent = true, remap = true })
 
--- PERF: find then select_hunk
-ox('ih', ':<c-u>Gitsigns select_hunk<cr>')
-
-ox('ii', r('lib.textobj').indent_i)
-ox('iI', r('lib.textobj').indent_I)
-ox('ai', r('lib.textobj').indent_a)
-ox('aI', r('lib.textobj').indent_A)
+ox('ii', u.textobj.indent_i)
+ox('iI', u.textobj.indent_I)
+ox('ai', u.textobj.indent_a)
+ox('aI', u.textobj.indent_A)
 
 -- didn't work
 -- ox('zz', function() vim.cmd.normal { 'a', bang = true } end, { expr = true })
@@ -351,11 +346,15 @@ nx(' -', '<cmd>e%:p:h<cr>')
 
 o('g{', '<Cmd>sil! norm Vg{<CR>', { remap = true })
 o('g}', '<Cmd>sil! norm Vg}<CR>', { remap = true })
-nx('g{', r('lib.misc').goto_paragraph_firstline, { remap = true })
-nx('g}', r('lib.misc').goto_paragraph_lastline, { remap = true })
+nx('g{', u.misc.goto_paragraph_firstline, { remap = true })
+nx('g}', u.misc.goto_paragraph_lastline, { remap = true })
 
-n('<leader>cc', '<cmd>try | cclose | lclose | catch | endtry <cr>')
-n('<leader>bb', '<c-^>')
+n(' cc', '<cmd>try | cclose | lclose | catch | endtry <cr>')
+n(' bb', '<c-^>')
+n(' go', u.git.browse)
 
 -- Fzf keymaps
 n(' ff', '<cmd>FZF<cr>')
+
+n('<c-g>n', '<cmd>cnext<cr>')
+n('<c-g>p', '<cmd>cprev<cr>')

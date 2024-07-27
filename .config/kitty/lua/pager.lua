@@ -20,6 +20,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
   o.report = 999999 -- arbitrary large number to hide yank messages
   o.ruler = false
   -- o.scrollback = INPUT_LINE_NUMBER + CURSOR_LINE
+  o.scrolloff = 20
   o.scrollback = 99999
   o.shortmess:append 'I' -- no intro message
   o.showcmd = false

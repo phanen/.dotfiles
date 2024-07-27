@@ -3,7 +3,8 @@
 
 # better to manager bookmark via browser, but that's really suck
 # maybe we could filter it
-PROJ_DIR=$(zoxide query -l | rofi -dmenu)
+PROJ_DIR=$(realpath ~/.local/share/nvim/lazy/* ~/dot/* ~/b/* | sort | uniq | rofi -dmenu)
+
 # PROJ_DIR="$(zoxide query -l |  ~/b/path-git-format/target/debug/path-git-format --filter -f '{path}' | rofi -dmenu)"
 [ -z "$PROJ_DIR" ] || [ ! -e "$PROJ_DIR"/.git ] && exit 0
 

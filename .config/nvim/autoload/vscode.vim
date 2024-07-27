@@ -48,7 +48,7 @@ function! s:manageEditorWidth(...)
     endfor
 endfunction
 
-function! mod#vscode#setup() abort
+function! vscode#setup() abort
     " Use VSCode syntax highlighting
     syntax off
 
