@@ -1,5 +1,5 @@
 local u = require('mod.winbar.utils')
-local icons = u.static.icons
+local icons = u.static.icons()
 local M = {}
 
 ---@class winbar_configs_t
@@ -285,15 +285,5 @@ M.opts = {
 
 ---@param opts winbar_configs_t?
 M.set = function(opts) M.opts = vim.tbl_deep_extend('force', M.opts, opts or {}) end
-
--- FIXME: not complete annotation
----Evaluate a dynamic option value (with type T|fun(...): T)
----@generic T
----@param opts T|fun(...): T
----@return T
-M.eval = function(opts, ...)
-  if vim.is_callable(opts) then return opts(...) end
-  return opts
-end
 
 return M

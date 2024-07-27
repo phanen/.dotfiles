@@ -50,7 +50,7 @@ TERM = "alacritty"
 
 [font]
 builtin_box_drawing = false
-size = 16
+size = 15
 
 [[keyboard.bindings]]
 action = "Paste"

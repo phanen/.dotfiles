@@ -19,7 +19,9 @@ function mt:flatten()
   return result
 end
 
-return setmetatable(
-  vim.g.no_nf and require('lib.static.icons._icons_no_nf') or require('lib.static.icons._icons'),
-  mt
-)
+local m = vim.g.no_nf and require('lib.static.icons._icons_no_nf')
+  or require('lib.static.icons._icons')
+
+function mt:__call() return m end
+
+return setmetatable(m, mt)

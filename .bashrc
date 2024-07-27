@@ -4,6 +4,8 @@
 . ~/.shellrc
 
 PS1='[\u@\h \W]\$ '
+
+# autocd accept expansion e.g. `*` (seems dangerous)
 shopt -s autocd checkwinsize
 
 run-help() {
@@ -22,7 +24,6 @@ run-help() {
 eval "$(zoxide init bash)"
 eval "$(atuin init bash)"
 stty stop undef
-
 
 # . /usr/share/fzf/key-bindings.bash
 . ~/.local/share/blesh/ble.sh

@@ -38,8 +38,10 @@ au('Filetype', {
     vim.bo[ev.buf].buftype = ''
 
     -- we preset g:no_man_maps = 0
+    -- FIXME: `o` just delete list...
     vim.cmd [[
       nnoremap <silent> <buffer> gO            :lua require'man'.show_toc()<CR>
+      nnoremap <silent> <buffer> go            :lua require'man'.show_toc()<CR>
       nnoremap <silent> <buffer> <2-LeftMouse> :Man<CR>
       if get(g:, 'pager')
         nnoremap <silent> <buffer> <nowait> q :lclose<CR><C-W>q
@@ -94,16 +96,14 @@ au('Filetype', {
   pattern = { 'markdown', 'typst' },
   group = ag('MarkUp', { clear = true }),
   callback = function(ev)
-    nx('<c- >', r('mder.line').toggle_lines, { buffer = ev.buf })
-    x('<c-e>', r('mder.codeblock').surround, { buffer = ev.buf })
-    n('o', r('mder.autolist').listdn, { buffer = ev.buf })
-    n('O', r('mder.autolist').listup, { buffer = ev.buf })
-
-    local ox = function(...) map({ 'o', 'x' }, ...) end
+    map.nx('<c- >', u.r('mder.line').toggle_lines, { buffer = ev.buf })
+    map.x('<c-e>', u.r('mder.codeblock').surround, { buffer = ev.buf })
+    map.n('o', u.r('mder.autolist').listdn, { buffer = ev.buf })
+    map.n('O', u.r('mder.autolist').listup, { buffer = ev.buf })
     -- PERF(error-handler): hard to find debug...
     -- nx('i<c-e>', nil, { buffer = ev.buf })
-    ox('i<c-e>', r('lib.textobj').codeblock_i, { buffer = ev.buf })
-    ox('a<c-e>', r('lib.textobj').codeblock_i, { buffer = ev.buf })
+    map.ox('i<c-e>', u.textobj.codeblock_i, { buffer = ev.buf })
+    map.ox('a<c-e>', u.textobj.codeblock_i, { buffer = ev.buf })
   end,
 })
 

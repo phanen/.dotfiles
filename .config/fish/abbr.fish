@@ -1,16 +1,31 @@
+# sudo? maybe use alt-s...
 abbr c cargo
 abbr d docker
+abbr e nvim
 abbr g git
 abbr h tokei
 abbr i ipython
 abbr j -f _make_or_just
 abbr k pkill
+abbr l eza -lh
 abbr n nvim -l
 abbr o bat
 abbr p python
 abbr s systemctl
+abbr t type -a
 abbr y paru
 
+abbr fr funcrm
+abbr fed funced
+abbr type type -a
+abbr tree "command tree"
+
+abbr tree "command eza --tree"
+
+
+abbr dm '$EDITOR (fd .  ~/dot -d 1 | fzf)'
+
+abbr df df -h
 abbr du dust
 abbr em emacs -nw
 abbr fa fish_add_path -ag
@@ -20,16 +35,23 @@ abbr fn fish --no-config
 abbr fs funcsave
 abbr gb gh browse
 abbr gr git remote -v
-abbr hf hyperfine --warmup 5
+abbr hf hyperfine -w 5
+abbr la eza -a
 abbr lg lazygit
+abbr ll eza -1
+abbr ls eza
+abbr lt eza --tree
 abbr mx chmod +x
 abbr sc sysctl
 abbr sh bash
 abbr ta tmux a || tmux
+abbr tl tldr
+abbr vi vim
 abbr vj NVIM_APPNAME=nvim-test nvim
 abbr vk VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim
-abbr vm v --cmd 'lua vim.go.loadplugins = false'
+abbr vm nvim --cmd \'lua vim.go.loadplugins = false\'
 abbr vn nvim -u NONE
+abbr wh which -a
 abbr ze zoxide edit
 
 abbr pa xsel -ob \| patch -Np1 -i -
@@ -78,10 +100,18 @@ end
 
 function abbr_-
     set -l proc (commandline -p)
-    if string match -q -r man $proc
+    if string match -q -r man -- $proc
         echo -l -
     else
-        echo -
+        echo \-
+    end
+end
+
+function abbr_e
+    if command -q nvim >/dev/null
+        echo nvim
+    else
+        echo vi
     end
 end
 
@@ -90,5 +120,23 @@ abbr -p anywhere -f abbr_s -- s
 abbr -p anywhere -f abbr_- -- -
 
 abbr list 'string join \n'
-abbr grep rg
 abbr ju journalctl -eu
+
+# abbr pi sudo pacman -S
+# abbr pd sudo pacman -Rns
+# abbr pdd sudo pacman -Rd
+# abbr pid sudo pacman -S --asdeps
+# abbr pao pacman -Qo
+# abbr pfo pacman -F
+# abbr pai pacman -Qi
+# abbr pal pacman -Ql
+# abbr pfl pacman -Fl
+# abbr pas pacman -Qs
+# abbr pss pacman -Ss
+# abbr yss paru -Ss
+# abbr ysi paru -Si
+# abbr yi paru -S
+# abbr pat pactree -lu
+# abbr par pactree -r -lu
+# abbr pst pactree -slu
+# abbr psr pactree -r -slu

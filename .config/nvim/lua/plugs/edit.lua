@@ -36,6 +36,7 @@ return {
     },
   },
   {
+    -- TODO: slow on large file (treesitter?)
     'altermo/ultimate-autopair.nvim',
     event = { 'InsertEnter', 'CmdlineEnter' },
     opts = {

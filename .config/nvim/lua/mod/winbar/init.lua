@@ -25,7 +25,7 @@ _G._winbar.bars = setmetatable({}, {
   __index = function(self, buf)
     self[buf] = setmetatable({}, {
       __index = function(this, win)
-        local sources = cfg.eval(cfg.opts.bar.sources, buf, win) --[[@as winbar_source_t]]
+        local sources = u.eval(cfg.opts.bar.sources, buf, win) --[[@as winbar_source_t]]
         this[win] = bar.winbar_t:new { sources = sources }
         return this[win]
       end,
@@ -51,7 +51,7 @@ local au = function(ev, opts)
 end
 
 local attach = function(buf, win)
-  if cfg.eval(cfg.opts.enable, buf, win) then vim.wo.winbar = '%{%v:lua._winbar.get_winbar()%}' end
+  if u.eval(cfg.opts.enable, buf, win) then vim.wo.winbar = '%{%v:lua._winbar.get_winbar()%}' end
 end
 
 ---@param opts winbar_configs_t?
@@ -159,7 +159,7 @@ local setup = function(opts)
   -- FIXME: unkown? order?
   au('ColorScheme', { group = ag('WinBarHlClearBg', {}), callback = clear_winbar_bg })
 
-  local wapi = r('mod.winbar.api')
+  local wapi = u.r('mod.winbar.api')
   n(' ;', wapi.pick)
   n('[C', wapi.goto_context_start)
   n(']C', wapi.select_next_context)

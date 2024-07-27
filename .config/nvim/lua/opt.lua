@@ -1,3 +1,8 @@
+-- options flavour
+-- * xx-expr
+-- * xx-func
+-- * xx-prg
+
 local o, g = vim.o, vim.g
 
 -- vim.opt.shm = 'I'
@@ -137,3 +142,9 @@ vim.o.diffopt = opt_tbl2str {
   'algorithm:minimal',
   -- "linematch:60", -- https://github.com/neovim/neovim/pull/14537
 }
+
+if vim.fn.executable('rg') == 1 then
+  -- ignore
+  vim.o.grepprg = 'rg --vimgrep -.'
+  -- vim.o.grepformat = '%f:%l:%c:%m'
+end

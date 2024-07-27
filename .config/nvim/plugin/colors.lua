@@ -1,3 +1,5 @@
+if g.vscode then return end
+
 -- Colorschemes other than the default colorscheme looks bad when the terminal
 -- does not support truecolor
 
@@ -15,7 +17,6 @@ for dir, type in vim.fs.dir(color_path) do
   if type == 'directory' then vim.opt.rtp:append(vim.fs.joinpath(color_path, dir)) end
 end
 
-local u = require('lib')
 local colors_file = vim.fs.joinpath(g.state_path, 'colors.json')
 
 -- 1. Restore dark/light background and colorscheme from json so that nvim

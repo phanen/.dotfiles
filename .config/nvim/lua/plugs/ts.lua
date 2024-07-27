@@ -11,6 +11,7 @@ local treesitter_setup = function()
       'html',
       'java',
       'javascript',
+      'kotlin',
       'lua',
       'markdown',
       'markdown_inline',
@@ -20,6 +21,7 @@ local treesitter_setup = function()
       'typescript',
       'vim',
       'vimdoc',
+      'xml',
     },
     highlight = {
       enable = true,
@@ -192,8 +194,8 @@ local treesitter_setup = function()
   -- n('[f', goto_prev_function)
   -- n(']f', goto_next_function)
 
-  -- local edit = require('mod.ts.rename')
-  -- n(' rn', edit.smart_rename)
+  local edit = require('mod.ts.rename')
+  n(' rm', edit.smart_rename)
 
   local nav = require('mod.ts.nav')
   nav.map_object_pair_move('f', '@function.outer', true)

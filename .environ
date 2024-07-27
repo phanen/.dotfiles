@@ -17,7 +17,8 @@ append_path $HOME/.nimble/bin
 
 export EDITOR=nvim
 export VISUAL=nvim
-export BROWSER=firefox
+# export BROWSER=firefox
+export BROWSER=firefox-nightly
 export MANPAGER='nvim +Man!'
 export MANWIDTH=80
 
@@ -86,6 +87,7 @@ export FZF_DEFAULT_OPTS="
   --prompt='~ ' --pointer='▶' --marker='✓'
   --multi
   --bind=';:toggle-preview'
+  --bind='ctrl-/:toggle-preview'
   --bind='ctrl-d:preview-page-down'
   --bind='ctrl-u:preview-page-up'
   --bind='ctrl-q:unix-line-discard'
@@ -97,6 +99,8 @@ export FZF_DEFAULT_OPTS="
   --info=inline
   --history=$XDG_DATA_HOME/fzfhistory
 "
+
+export ANDROID_HOME=$HOME/android/
 
 case $(tty) in
 *tty*) setfont ter-d28b ;;

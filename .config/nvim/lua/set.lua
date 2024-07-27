@@ -1,14 +1,148 @@
+-- TODO: module path
+-- https://stackoverflow.com/questions/60283272/how-to-get-the-exact-path-to-the-script-that-was-loaded-in-lua
+DEBUG = 1
+
+local eval = function(f_or_v, ...)
+  if vim.is_callable(f_or_v) then return f_or_v(...) end
+  return f_or_v
+end
+
+-- lazy require:
+--    require a module -> create a metatable under mt_reg
+--    wrap the origin module's functions and values
+--    the cost is `call_stack_level++` for every access on average
+--    which is accpetable for most cases
+
+-- module should have been loaded if we run `{u,_G}.mod.x(...)`
+-- g_ver: hot update module
+--   if mod is unloaded: reference on mod.key -> wrapped
+--   mod is as global
+--   __call:
+-- k_ver: hot update module.curtain_key one by one
+--   if key is "unused": reference on mod.key -> wrapped
+--   mod is as local
+--   __call:
+
+-- zen:
+-- concurency -> no
+-- require -> loaded
+
+-- TODO: usable in most case
+_G.lazy_reg = {}
+local lazy_require = function(path)
+  -- break consistancy
+  local loaded = package.loaded[path]
+  if loaded then return loaded end
+
+  local lazy_loaded = lazy_reg[path]
+  if lazy_loaded then return lazy_loaded end
+
+  local lazy_mod = setmetatable({}, {
+    __index = function(_, k)
+      -- if hot updated (occurred after this key's reference)
+      -- local mod = rawget(self, k)
+      -- if mod then return mod end
+      return function(...) -- all mod.key is updated after `require`
+        lazy_reg[path] = nil -- then use package.loaded
+        return eval(require(path)[k], ...)
+      end
+    end,
+
+    -- cannot determine if mod/mod.key callable ahead of time
+    -- if mod is callable: passthrough it...
+    -- if mod.key is callable:
+    __call = function(_, ...)
+      lazy_reg[path] = nil
+      return eval(require(path), ...)
+    end,
+  })
+  lazy_reg[path] = lazy_mod
+  return lazy_mod
+end
+
+local r = lazy_require
+
+-- https://github.com/neovim/neovim/pull/27216
+-- TODO: 似乎结果上差距不大, 但是明显在 map 那边都加载了
+-- _G.u = setmetatable({
+--   upd = function(old, new) vim.tbl_deep_extend('force', old or {}, new or {}) end,
+--   r = r,
+--   eval = eval,
+--   tu = r 'nvim-treesitter.ts_utils',
+--   tc = r 'nvim-treesitter.configs',
+--   ts = r 'vim.treesitter',
+--
+--   -- defered modules
+--   buf = nil, ---@module 'lib.buf'
+--   smart = nil, ---@module 'lib.smart'
+--   qf = nil, ---@module 'lib.qf'
+--   misc = nil, ---@module 'lib.misc'
+--   util = nil, ---@module 'lib.util'
+--   git = nil, ---@module 'lib.git'
+--   textobj = nil, ---@module 'lib.textobj'
+-- }, {
+--   __index = function(t, k)
+--     t[k] = require('lib.' .. k)
+--     return t[k]
+--   end,
+-- })
+
+_G.u = setmetatable({
+  -- top functions
+  upd = function(old, new) vim.tbl_deep_extend('force', old or {}, new or {}) end,
+  r = r,
+  eval = eval,
+  tu = r 'nvim-treesitter.ts_utils',
+  tc = r 'nvim-treesitter.configs',
+  ts = r 'vim.treesitter',
+
+  -- defered modules
+  buf = nil, ---@module 'lib.buf'
+  smart = nil, ---@module 'lib.smart'
+  qf = nil, ---@module 'lib.qf'
+  misc = nil, ---@module 'lib.misc'
+  util = nil, ---@module 'lib.util'
+  git = nil, ---@module 'lib.git'
+  textobj = nil, ---@module 'lib.textobj'
+}, {
+  __index = function(_, k) return lazy_require('lib.' .. k) end,
+})
+
 _G.api = vim.api
 _G.fn = vim.fn
 _G.uv = vim.uv or vim.loop
+_G.fs = vim.fs
 
 _G.g = vim.g
 _G.a = vim.api
 _G.env = vim.env
 
+-- TOD: curry...
+_G.map = setmetatable({}, {
+  ---map.n map.nx
+  ---@param v string
+  __index = function(t, v)
+    t[v] = function(...) vim.keymap.set(vim.split(v, ''), ...) end
+    return t[v]
+  end,
+  __call = function(_, ...) return vim.keymap.set(...) end,
+})
+
+-- TODO: deprecate map by map.xx
+_G.n = map.n
+_G.x = map.x
+_G.nx = map.nx
+
+-- require'nvim-treesitter.install'.commands.TSInstall.run('bash')
+_G.lsp = vim.lsp
+
 -- _G.o = vim.opt
 
-_G.map = vim.keymap.set
+-- make it simple...
+_G.ferr = function(msg, ...) vim.api.nvim_err_writeln(msg:format(...)) end
+_G.fwarn = function(msg, ...) vim.api.nvim_echo({ { msg:format(...), 'WarningMsg' } }, true, {}) end
+_G.finff = function(msg, ...) vim.api.nvim_echo({ { msg:format(...), 'MoreMsg' } }, true, {}) end
+
 _G.cmd = api.nvim_create_user_command
 _G.ag = api.nvim_create_augroup
 
@@ -27,31 +161,12 @@ end
 
 -- TODO: this allow reload... at least
 -- _G.au = api.nvim_create_autocmd
-local group = ag('Conf', { clear = true })
+local grp = ag('Conf', { clear = true })
 _G.au = function(ev, opts)
   opts = opts or {}
-  opts.group = opts.group or group -- we cannot use clear here
+  opts.group = opts.group or grp -- we cannot use clear here
   api.nvim_create_autocmd(ev, opts)
 end
-
-_G.r = function(path)
-  return setmetatable({}, {
-    __index = function(_, k)
-      return function(...) require(path)[k](...) end
-    end,
-  })
-end
-
--- _G.u = setmetatable({}, { __index = function(_, k) return require('lib.' .. k) end })
-_G.n = function(...) map('n', ...) end
-_G.x = function(...) map('x', ...) end
-_G.nx = function(...) map({ 'n', 'x' }, ...) end
-
-_G.tu = r 'nvim-treesitter.ts_utils'
-_G.tc = r 'nvim-treesitter.configs'
-_G.ts = r 'vim.treesitter'
--- require'nvim-treesitter.install'.commands.TSInstall.run('bash')
-_G.lsp = vim.lsp
 
 g.config_path = fn.stdpath('config') ---@as string
 g.state_path = fn.stdpath('state') ---@as string
@@ -94,19 +209,4 @@ g.disable_cache_docs = false
 
 g.disable_Autosave = true
 
-g.vendor_bar = false
-
-local get_parser = vim.treesitter.get_parser
----@diagnostic disable-next-line: duplicate-set-field
-vim.treesitter.get_parser = function(bufnr, lang, opts)
-  if bufnr == nil or bufnr == 0 then bufnr = api.nvim_get_current_buf() end
-  if
-      (function()
-        if vim.bo[bufnr].ft == 'tex' then return true end
-        return api.nvim_buf_line_count(bufnr) > 100000
-      end)()
-  then
-    error('skip treesitter for large buf')
-  end
-  return get_parser(bufnr, lang, opts)
-end
+g.vendor_bar = true

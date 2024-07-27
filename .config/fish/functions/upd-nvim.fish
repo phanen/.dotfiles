@@ -8,10 +8,17 @@ function upd-nvim
         s/sync \
         t/type= \
         -- $argv
-    or return
+    or return 1
+
+    # try to do all possible error handle...
 
     set -l src ~/b/neovim
-    mkdir -p $src; and cd $src; or return
+    if ! [ -e $src -o -d $src ]
+        printf (_ "no such direcotry: %s\n") $src
+        return 1
+    end
+
+    cd $src
 
     if set -q _flag_bootstrap
         git clone https://github.com/phanen/neovim $src
@@ -19,6 +26,7 @@ function upd-nvim
         git fetch
         git branch patch origin/patch
         git checkout patch
+        git branch --set-upstream-to=upstream/master
         set -q _flag_force; or return
     end
 
@@ -38,7 +46,7 @@ function upd-nvim
     # set -lx CXX clang++
     set -lx CMAKE_GENERATOR Ninja
     set -l cmake_build_type RelWithDebInfo
-    set -q _flag_type; and set cmake_build_type $_flag_type
+    set -q _flag_type && set cmake_build_type $_flag_type
 
     if set -q _flag_host
         kitten ssh arch "fish -ic \"upd-nvim -t $cmake_build_type\""
@@ -69,7 +77,7 @@ function upd-nvim
     # -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold"
     cmake --build build --clean-first # --verbose
 
-    v -es '+helptags $VIMRUNTIME/doc' +q
+    nvim -es '+helptags $VIMRUNTIME/doc' +q
 
     # lua5.1 https://github.com/ibhagwan/fzf-lua/issues/1346
     # cmake -S cmake.deps -B .deps -G Ninja -D CMAKE_BUILD_TYPE=Release -D USE_BUNDLED_LUA=ON

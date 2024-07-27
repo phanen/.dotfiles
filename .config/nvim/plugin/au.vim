@@ -1,3 +1,5 @@
+if exists('g:vscode') | finish | endif
+
 if exists("g:loaded_play_au") || &cp | finish | endif
 let g:loaded_play_au = 1
 

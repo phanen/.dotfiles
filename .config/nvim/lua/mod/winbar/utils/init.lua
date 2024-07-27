@@ -1,5 +1,3 @@
-local u = require('lib')
-
 return setmetatable({}, {
   __index = function(self, key)
     local ok, local_util = pcall(require, 'mod.winbar.utils.' .. key)

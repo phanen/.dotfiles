@@ -1,4 +1,4 @@
-function e
+function ee
     # https://www.reddit.com/r/bash/comments/13rqfjd/detecting_chinese_characters_using_grep
     # https://github.com/soimort/translate-shell/issues/298
     # https://github.com/fish-shell/fish-shell/issues/3847

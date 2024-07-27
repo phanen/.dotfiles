@@ -19,3 +19,11 @@
 !.emacs.d/
 !.mozilla/
 !.vim/
+
+!.cargo/
+.cargo/*
+!.cargo/config
+
+!.ssh/
+.ssh/*
+!.ssh/config

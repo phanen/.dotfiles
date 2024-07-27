@@ -1,5 +1,4 @@
 local M = {}
-local u = require('lib')
 local groupid = ag('StatusLine', {})
 
 local diag_signs_default_text = { 'E', 'W', 'I', 'H' }
@@ -200,7 +199,7 @@ if vim.g.no_nf then
     '[   =]',
   }
 else
-  spinner_icon_done = vim.trim(u.static.icons.Ok)
+  spinner_icon_done = vim.trim(u.static.icons().Ok)
   spinner_icons = {
     '⠋',
     '⠙',

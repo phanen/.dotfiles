@@ -1,7 +1,7 @@
 local M = {}
 
 M.set_fzf_lua_default_hlgroups = function()
-  local hl = require('lib').hl
+  local hl = u.hl
   local hl_norm = hl.get(0, { name = 'Normal', link = false })
   local hl_speical = hl.get(0, { name = 'Special', link = false })
   hl.set(0, 'FzfLuaBufFlagAlt', {})

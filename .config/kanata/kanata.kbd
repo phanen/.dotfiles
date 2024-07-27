@@ -1,5 +1,6 @@
 ;; vim:ft=clojure
 ;; /usr/share/doc/kmonad-git/quick-reference.md
+;; ~/b/kanata/build/kanata.kbd
 
 (defcfg
   danger-enable-cmd yes
@@ -18,7 +19,7 @@
   lctl lmet lalt           spc            ralt rctl
 )
 
-(deflayer qwerty
+(deflayer qwelayer
   lrld _    _    3    4    5    6    7    8    9    0    _    _    bspc
   @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
   @ec  a    s    d    f    g    h    j    k    l    @;s  @'s  ret
@@ -47,7 +48,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    \    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    @gs
   _    _    _              _              _    _
 )
 
@@ -58,20 +59,40 @@
 
 )
 
+(defalias
+  ~ S-grv
+  ! S-1
+  ^ S-6
+  # S-3
+  $ S-4
+  & S-7
+  * S-8
+  ;; + S-\
+  | S-\
+)
+
 (deflayer symbol
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-S-grv S-1  S-6  S-3  S-4   _    _   S-7  S-8   +    S-\  _    _    _
+  @~   @!   @^   @#   @$   _    _    @&   @*   +    @|   _    _    _
   @ec  [    ]   S-9  S-0  S-2  S-5  S--   -    =    _    _    _
   grv S-\   \   S-[  S-]  @ar  S-[  S-]   _    .    /    \
   _    _    _             spc             _    _
 )
 
-(deflayer tabular
+(deflayer tablayer
   grv @s+  @s-  @l+  @l-  @lk  _    _    _    _    0    -    =    bspc ;;sysrq
   _  ret C-bspc C-- ret   @tt  @gp  u    C-+  C--  @tp  [    ]    \
   caps a    s    d   C-S-=   g bspc C-S-right C-S-left  C-S-l  ;  '    ret
   lsft z    x    @fu @tv   b    n    m    ,    .    /    rsft
   lctl lmet lalt          @fc             ralt rctl
+)
+
+(deflayer testlayer
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rctl
 )
 
 (defalias
@@ -89,7 +110,7 @@ S-grv S-1  S-6  S-3  S-4   _    _   S-7  S-8   +    S-\  _    _    _
   lk (cmd bash -c "slock")
 )
 
-(deflayer super
+(deflayer superlayer
   M-grv M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  M--  M-=  M-bspc
   M-tab M-q  M-w  M-e  M-r  M-t  M-y  M-u  M-i  M-o  M-p  M-[  M-]  \
   ;; @mec  M-a  C-F1 C-F2 M-f  M-g  M-h  M-j  M-k  M-l  M-;  M-'  M-ret
@@ -98,16 +119,24 @@ S-grv S-1  S-6  S-3  S-4   _    _   S-7  S-8   +    S-\  _    _    _
   M-lctl @mec M-lalt           @sm            M-ralt M-rctl
 )
 
+;; tap-hold 200 200 a @num
+;; 1. tap timeout: after
+;; 2. hold timeout: >200ms -> hold
+;; 3. tap action
+;; 4. hold action
+
 (defalias
+  ;; release -> trigger tap on release prev after release cur
+  ;; press -> trigger tap on release prev after press cur
   za   (multi f24 (tap-hold-release 0 200 z lalt))
   ;s   (multi f24 (tap-hold-press 200 200 ; (layer-toggle symbol)))
   ;; FIXME: tap tap dead lock?
-  's   (multi f24 (tap-hold-press 0 200 ' (multi lctl lsft)))
+  's   (multi f24 (tap-hold-release 0 200 ' (multi lctl lsft)))
   gs   (multi f24 (tap-hold-press 0 200 grv (multi lsft (layer-toggle shift))))
   ;; FIXME: same
-  ec   (multi f24 (tap-hold-press 0 200 esc (multi lctrl (layer-toggle qwerty) (layer-toggle control))))
-  sm   (multi f24 (tap-hold-release 0 200 spc (layer-toggle super)))
-  tb   (multi f24 (tap-hold-press 0 200 tab (layer-toggle tabular)))
+  ec   (multi f24 (tap-hold-press 0 200 esc (multi lctrl (layer-toggle qwelayer) (layer-toggle control))))
+  sm   (multi f24 (tap-hold-release 0 200 spc (layer-toggle superlayer)))
+  tb   (multi f24 (tap-hold-press 0 200 tab (layer-toggle tablayer)))
   mec  (multi lmeta @ec)
   mgs  (multi lmeta @gs)
 )

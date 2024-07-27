@@ -6,7 +6,7 @@ function k_cs
     end
     if string match -r '^gib (.+)' $line &>/dev/null
         eval $line
-        and nvim +args\ % PKGBUILD riscv64.patch
+        and $EDITOR +args\ % PKGBUILD riscv64.patch
         commandline -r ""
         commandline -f repaint
         return

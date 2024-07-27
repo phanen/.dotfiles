@@ -101,6 +101,12 @@ augroup('LazyPatch', {
 })
 
 -- TODO: set a short query timeout...
+-- check nvim's lsp preset `:h lsp-config`
+-- * tagfunc <c-]>
+-- * omnifunc c-x c-o, buggy, no idea if there's really someone use omnifunc...
+-- * formatexpr gq
+-- * https://github.com/neovim/neovim//blob/6ad025ac88f968dbeaea05e95cf40d64782793e0/runtime/lua/vim/lsp.lua#L330
+-- * https://github.com/neovim/neovim//blob/6ad025ac88f968dbeaea05e95cf40d64782793e0/src/nvim/insexpand.c#L1103
 augroup('Lsp', {
   'LspAttach',
   {
@@ -112,7 +118,6 @@ augroup('Lsp', {
       bn('gs', vim.lsp.buf.signature_help)
       bn('_', vim.lsp.buf.hover)
       bn('<leader>rn', vim.lsp.buf.rename)
-
       -- vim.keymap.set({ 'n', 'x' }, 'g/', vim.lsp.buf.references)
       -- vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.implementation)
     end,
@@ -205,6 +210,7 @@ augroup('LastPosJump', {
   { -- NOTE: if `nvim +{num}`?
     command = [[call lastplace#jump()]],
     --  command = [[silent! normal! g`"zv']] ,
+    -- function() vim.api.nvim_exec2('silent! normal! g`"zv', { output = false }) end
   },
 })
 
@@ -230,7 +236,7 @@ augroup('AutoCwd', {
         end
         api.nvim_win_call(win, function()
           local current_dir = fn.getcwd(0)
-          local target_dir = require('lib').fs.proj_dir(ev.file) or vim.fs.dirname(ev.file)
+          local target_dir = u.fs.proj_dir(ev.file) or vim.fs.dirname(ev.file)
           local stat = target_dir and uv.fs_stat(target_dir)
           -- note: DirChanged autocmds may update winbar unexpectedly
           if stat and stat.type == 'directory' and current_dir ~= target_dir then
@@ -367,6 +373,7 @@ augroup('SpecialBufHl', {
   },
 })
 
+-- FIXME: handle fugitive buffer
 augroup('DeleteNoName', {
   'BufHidden',
   {
@@ -419,4 +426,15 @@ augroup('ToggleWhenDiff', {
       end
     end,
   },
+})
+
+-- ???
+au('FileChangedShellPost', {
+  group = ag('RefreshGitBranchCache', {}),
+  callback = function(info) vim.b[info.buf].git_branch = nil end,
+})
+
+au({ 'BufWrite', 'FileChangedShellPost' }, {
+  group = ag('RefreshGitDiffCache', {}),
+  callback = function(info) vim.b[info.buf].git_diffstat = nil end,
 })

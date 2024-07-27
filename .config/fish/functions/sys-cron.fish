@@ -1,4 +1,4 @@
-https://github.com/systemd/systemd/issues/25770
+# https://github.com/systemd/systemd/issues/25770
 function sys-cron
     # systemd-cron wakeup '*-*-* 9:30' lt-wakeup
     set unit $argv[1]

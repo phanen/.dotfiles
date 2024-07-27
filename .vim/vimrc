@@ -28,7 +28,6 @@ nn <leader>so <cmd>so<cr>
 nn <leader><c-e> <cmd>e $MYVIMRC<cr>
 nn <leader>pu <cmd>PlugUpdate<cr>
 
-
 com DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
 " nvim default options {{{
