@@ -195,7 +195,7 @@ function _G._stc()
     local wo = vim.wo[win]
     local fcs = vim.opt_local.fillchars:get()
     local buf = api.nvim_win_get_buf(win)
-    local wininfo = vim.fn.getwininfo(win)[1]
+    local wininfo = fn.getwininfo(win)[1]
     data.display_tick = display_tick
     data.buf = buf
     data.cur = api.nvim_win_get_cursor(win)
@@ -258,7 +258,7 @@ local setup = function()
     if
       vim.bo.bt == ''
       and vim.wo.stc == ''
-      and vim.fn.win_gettype() == ''
+      and fn.win_gettype() == ''
       and not vim.b.bigfile
     then
       vim.opt_local.stc = '%!v:lua._stc()'

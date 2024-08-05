@@ -1,5 +1,4 @@
 return {
-  { 'phanen/readline.nvim', branch = 'fix-dir-structure' },
   {
     'folke/ts-comments.nvim',
     opts = {},

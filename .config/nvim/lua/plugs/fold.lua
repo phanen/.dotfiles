@@ -9,7 +9,7 @@ return {
       local set_foldcolumn_for_file = ag('set_foldcolumn_for_file', {
         clear = true,
       })
-      au({ 'BufRead', 'BufNewFile' }, {
+      autocmd({ 'BufRead', 'BufNewFile' }, {
         group = set_foldcolumn_for_file,
         callback = function()
           if vim.bo.buftype == '' then
@@ -19,7 +19,7 @@ return {
           end
         end,
       })
-      au('OptionSet', {
+      autocmd('OptionSet', {
         group = set_foldcolumn_for_file,
         pattern = 'buftype',
         callback = function()
@@ -38,9 +38,9 @@ return {
     config = function(_, opts)
       local ufo = require 'ufo'
       ufo.setup(opts)
-      au('LspAttach', {
+      autocmd('LspAttach', {
         callback = function(args)
-          n('_', function()
+          map.n('_', function()
             local winid = ufo.peekFoldedLinesUnderCursor()
             if not winid then vim.lsp.buf.hover() end
           end, { buffer = args.buf })

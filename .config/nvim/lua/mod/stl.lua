@@ -146,7 +146,7 @@ M.info = function()
   return vim.tbl_isempty(info) and '' or string.format('(%s) ', table.concat(info, ', '))
 end
 
-au('DiagnosticChanged', {
+autocmd('DiagnosticChanged', {
   group = groupid,
   desc = 'Update diagnostics cache for the status line.',
   callback = function(info)
@@ -218,7 +218,7 @@ end
 ---@type table<integer, { name: string, timestamp: integer, type: 'begin'|'report'|'end' }>
 local server_info_in_progress = {}
 
-au('LspProgress', {
+autocmd('LspProgress', {
   desc = 'Update LSP progress info for the status line.',
   group = groupid,
   callback = function(info)
@@ -374,7 +374,7 @@ local function set_default_hlgroups()
 end
 set_default_hlgroups()
 
-au('ColorScheme', {
+autocmd('ColorScheme', {
   group = groupid,
   callback = set_default_hlgroups,
 })

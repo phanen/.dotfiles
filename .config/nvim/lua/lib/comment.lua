@@ -1,7 +1,7 @@
 local M = {}
 
 -- https://github.com/neovim/neovim/discussions/28995
-M.comment_above_or_below = function(lnum)
+local comment_above_or_below = function(lnum)
   local row = fn.line '.'
   local comment_row = row + lnum
   local l_cms, r_cms = string.match(vim.bo.commentstring, '(.*)%%s(.*)')
@@ -15,5 +15,8 @@ M.comment_above_or_below = function(lnum)
   api.nvim_win_set_cursor(0, { comment_row + 1, #api.nvim_get_current_line() - #r_cms - 1 })
   api.nvim_feedkeys('a', 'ni', true)
 end
+
+M.comment_below = comment_above_or_below(0)
+M.comment_above = comment_above_or_below(0)
 
 return M

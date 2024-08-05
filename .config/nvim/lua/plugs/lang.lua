@@ -6,10 +6,7 @@ return {
   -- { 'kovetskiy/sxhkd-vim', event = 'BufReadPre sxhkdrc' }, -- buggy
   { 'baskerville/vim-sxhkdrc', event = 'BufReadPre sxhkdrc' },
 
-  {
-    'NoahTheDuke/vim-just',
-    ft = { 'just' },
-  },
+  { 'NoahTheDuke/vim-just', ft = { 'just' } },
   { 'Fymyte/rasi.vim', ft = 'rasi' },
   {
     'iamcco/markdown-preview.nvim',
@@ -17,7 +14,6 @@ return {
     ft = { 'markdown' },
     build = function() fn['mkdp#util#install']() end,
   },
-  { 'mrjones2014/lua-gf.nvim', cond = true, ft = 'lua' },
   {
     'mfussenegger/nvim-jdtls',
     ft = 'java',
@@ -65,7 +61,7 @@ return {
         },
       }
 
-      au('FileType', {
+      autocmd('FileType', {
         pattern = 'java',
         desc = 'Attach jdtls',
         callback = function()
@@ -102,23 +98,23 @@ return {
       require('crates').setup()
       local crates = require 'crates'
 
-      n('+ct', crates.toggle)
-      n('+cr', crates.reload)
-      n('+cv', crates.show_versions_popup)
-      n('+cf', crates.show_features_popup)
-      n('+cd', crates.show_dependencies_popup)
+      map.n('+ct', crates.toggle)
+      map.n('+cr', crates.reload)
+      map.n('+cv', crates.show_versions_popup)
+      map.n('+cf', crates.show_features_popup)
+      map.n('+cd', crates.show_dependencies_popup)
       -- n('+cu', crates.update_crate)
       -- vim.keymap.set('v', '+cu', crates.update_crates)
       -- n('+ca', crates.update_all_crates)
       -- n('+cU', crates.upgrade_crate)
       -- vim.keymap.set('v', '+cU', crates.upgrade_crates)
       -- n('+cA', crates.upgrade_all_crates)
-      n('+cx', crates.expand_plain_crate_to_inline_table)
-      n('+cX', crates.extract_crate_into_table)
-      n('+cH', crates.open_homepage)
-      n('+cR', crates.open_repository)
-      n('+cD', crates.open_documentation)
-      n('+cC', crates.open_crates_io)
+      map.n('+cx', crates.expand_plain_crate_to_inline_table)
+      map.n('+cX', crates.extract_crate_into_table)
+      map.n('+cH', crates.open_homepage)
+      map.n('+cR', crates.open_repository)
+      map.n('+cD', crates.open_documentation)
+      map.n('+cC', crates.open_crates_io)
     end,
   },
   {
@@ -146,10 +142,5 @@ return {
         }
       end
     end,
-  },
-  {
-    'psliwka/vim-dirtytalk',
-    build = ':DirtytalkUpdate',
-    config = function() vim.opt.spelllang = { 'en', 'programming' } end,
   },
 }

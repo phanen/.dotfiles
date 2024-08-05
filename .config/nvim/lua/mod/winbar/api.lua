@@ -1,5 +1,9 @@
 local M = {}
 
+local get_current_winbar = function()
+  return require('mod.winbar.utils').bar.get { win = api.nvim_get_current_win() }
+end
+
 ---Goto the start of context
 ---If `count` is 0, goto the start of current context, or the start at
 ---prev context if cursor is already at the start of current context;
@@ -7,7 +11,7 @@ local M = {}
 ---@param count integer? default vim.v.count
 M.goto_context_start = function(count)
   count = count or vim.v.count
-  local bar = M.get_current_winbar()
+  local bar = get_current_winbar()
   if not bar or not bar.components or vim.tbl_isempty(bar.components) then return end
   local current_sym = bar.components[#bar.components]
   if not current_sym.range then return end
@@ -30,7 +34,7 @@ end
 
 ---Open the menu of current context to select the next context
 M.select_next_context = function()
-  local bar = M.get_current_winbar()
+  local bar = get_current_winbar()
   if not bar or not bar.components or vim.tbl_isempty(bar.components) then return end
   bar:pick_mode_wrap(function() bar.components[#bar.components]:on_click() end)
 end
@@ -38,7 +42,7 @@ end
 ---Pick a component from current winbar
 ---@param idx integer?
 M.pick = function(idx)
-  local bar = M.get_current_winbar()
+  local bar = get_current_winbar()
   if bar then bar:pick(idx) end
 end
 

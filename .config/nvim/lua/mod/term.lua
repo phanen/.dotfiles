@@ -23,13 +23,13 @@ M.setup = function(bufnr)
   term_set_local_keymaps_and_opts(bufnr)
 
   local gid = ag('Term', {})
-  au('TermOpen', {
+  autocmd('TermOpen', {
     group = gid,
     desc = 'Set terminal keymaps and options, open term in split.',
     callback = function(ev) term_set_local_keymaps_and_opts(ev.buf) end,
   })
 
-  au('TermEnter', {
+  autocmd('TermEnter', {
     group = gid,
     desc = 'Disable mousemoveevent in terminal mode.',
     callback = function()
@@ -38,7 +38,7 @@ M.setup = function(bufnr)
     end,
   })
 
-  au('TermLeave', {
+  autocmd('TermLeave', {
     group = gid,
     desc = 'Restore mousemoveevent after leaving terminal mode.',
     callback = function()
@@ -50,7 +50,7 @@ M.setup = function(bufnr)
   })
 
   -- FIXME: still not persistant, since `startinsert` delay
-  au('ModeChanged', {
+  autocmd('ModeChanged', {
     group = gid,
     desc = 'Record mode in terminal buffer.',
     callback = function(ev)
@@ -58,7 +58,7 @@ M.setup = function(bufnr)
     end,
   })
 
-  au({ 'BufWinEnter', 'WinEnter' }, {
+  autocmd({ 'BufWinEnter', 'WinEnter' }, {
     group = gid,
     desc = 'Recover inseart mode when entering terminal buffer.',
     callback = function(ev)

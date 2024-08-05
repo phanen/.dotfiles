@@ -85,6 +85,7 @@ export FZF_DEFAULT_OPTS="
   --layout=reverse
   --height=45%
   --prompt='~ ' --pointer='▶' --marker='✓'
+  --scroll-off=10
   --multi
   --bind=';:toggle-preview'
   --bind='ctrl-/:toggle-preview'

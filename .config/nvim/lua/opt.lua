@@ -53,7 +53,12 @@ o.undofile = true
 
 o.cursorlineopt = 'number'
 o.cursorline = true
+
+-- highlight 'textwidth'
 o.colorcolumn = '+1'
+vim.cmd[[
+hi ColorColumn ctermbg=lightgrey guibg=Error
+]]
 
 o.signcolumn = 'yes:1'
 
@@ -117,7 +122,7 @@ o.pumheight = 14
 if g.lazy_shada then
   local shada = o.shada
   o.shada = ''
-  au('User', {
+  autocmd('User', {
     group = ag('LazyShada', { clear = true }),
     pattern = 'VeryLazy',
     callback = function()
@@ -143,8 +148,12 @@ vim.o.diffopt = opt_tbl2str {
   -- "linematch:60", -- https://github.com/neovim/neovim/pull/14537
 }
 
-if vim.fn.executable('rg') == 1 then
+if fn.executable('rg') == 1 then
   -- ignore
   vim.o.grepprg = 'rg --vimgrep -.'
   -- vim.o.grepformat = '%f:%l:%c:%m'
 end
+
+-- statusline
+-- TODO: opt_global? go o?
+vim.o.statusline = [[%!v:lua.require'mod.stl'.get()]]

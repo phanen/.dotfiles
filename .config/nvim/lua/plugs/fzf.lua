@@ -1,16 +1,13 @@
--- local f = setmetatable({}, {
---   __index = function(_, k) return ([[<cmd>lua require('fzf-lua-overlay').%s()<cr>]]):format(k) end,
--- })
-
 return {
   -- FIXME: fzf-lua fzf window colide with toggleterm <c-;>
   {
     'phanen/fzf-lua-overlay',
+    main = 'flo',
     cond = not vim.g.vscode,
-    init = function() require('fzf-lua-overlay').init() end,
+    init = function() require('flo').init() end,
     -- stylua: ignore
     keys = function()
-      local f = require('fzf-lua-overlay')
+      local f = require('flo')
       return {
         { '<c-b>',      f.buffers,               mode = { 'n', 'x' } },
         { '+<c-f>',     f.lazy,                  mode = { 'n', 'x' } },
@@ -25,8 +22,11 @@ return {
         { ' e',         f.find_notes,            mode = { 'n', 'x' } },
         { '+e',         f.grep_notes,            mode = { 'n', 'x' } },
         { ' fa',        f.builtin,               mode = { 'n', 'x' } },
+        { 'f<c-e>',     f.grep_notes,            mode = { 'n', 'x' } },
         { ' fc',        f.awesome_colorschemes,  mode = { 'n', 'x' } },
+        { 'f<c-l>',     f.grep_dots,             mode = { 'n', 'x' } },
         { 'f<c-o>',     f.recentfiles,           mode = { 'n', 'x' } },
+        { 'f<c-s>',     f.commands,              mode = { 'n', 'x' } },
         { ' fdb',       f.dap_breakpoints,       mode = { 'n', 'x' } },
         { ' fdc',       f.dap_configurations,    mode = { 'n', 'x' } },
         { ' fde',       f.dap_commands,          mode = { 'n', 'x' } },
@@ -49,7 +49,6 @@ return {
         { ' fs',        f.lsp_document_symbols,  mode = { 'n', 'x' } },
         { '+fs',        f.scriptnames,           mode = { 'n', 'x' } },
         { ' ;',         f.spell_suggest,         mode = { 'n', 'x' } },
-        { 'z=',         f.spell_suggest,         mode = { 'n', 'x' } },
         { ' fw',        f.lsp_workspace_symbols, mode = { 'n', 'x' } },
         { 'g<c-d>',     f.lsp_declarations,      mode = { 'n', 'x' } },
         { 'g<c-i>',     f.lsp_implementations,   mode = { 'n', 'x' } },
@@ -59,33 +58,18 @@ return {
         { 'gr',         f.lsp_references,        mode = { 'n', 'x' } },
         { ' l',         f.find_dots,             mode = { 'n', 'x' } },
         { '+l',         f.grep_dots,             mode = { 'n', 'x' } },
+        { 'z=',         f.spell_suggest,         mode = { 'n', 'x' } },
       }
     end,
     opts = {},
+    -- dependencies = 'ibhagwan/fzf-lua',
   },
   {
     'ibhagwan/fzf-lua',
-    cmd = {
-      'Args',
-      'Autocmd',
-      'Buffers',
-      'Changes',
-      'Display',
-      'F',
-      'Files',
-      'FzfLua',
-      'Highlight',
-      'Jumps',
-      'Ls',
-      'Marks',
-      'Oldfiles',
-      'Registers',
-      'Tabs',
-      'Tags',
-    },
+    cmd = 'FzfLua *',
     config = function()
       local f = require('fzf-lua')
-      local a = require('fzf-lua-overlay.actions')
+      local a = require('flo.actions')
       f.setup {
         'default-title',
         previewers = {
@@ -103,14 +87,23 @@ return {
             cmd = 'man %s | col -bx',
           },
         },
-        winopts = { preview = { delay = 30 }, height = 0.6 },
+        winopts = {
+          height = 0.6,
+          border = g.border,
+          backdrop = 90,
+          preview = { delay = 40 },
+        },
         fzf_opts = {
           ['--history'] = vim.g.state_path .. '/telescope_history',
           ['--info'] = 'inline', -- easy to see count
+          ['--border'] = 'none',
         },
         keymap = {
           builtin = {
-            ['<Esc>'] = 'hide',
+            -- FIXME(upstream): twice, v:null
+            -- vim.keymap.set("t", "<esc>", [[<cmd>lua require('fzf-lua.win').hide()<cr>)]], { nowait = true, buffer = self.fzf_bufnr })
+            ['<esc>'] = 'hide',
+            -- TODO: bind origin esc to another key e.g. <a-esc>
             ['<c-\\>'] = 'toggle-preview',
             ['<c-d>'] = 'preview-page-down',
             ['<c-u>'] = 'preview-page-up',
@@ -118,8 +111,17 @@ return {
           -- FIXME(libvterm): not work well with c-\\ in terminal
           fzf = {},
         },
+        awesome_colorschemes = {
+          prompt = 'LiveColors> ',
+          winopts = { row = 0.3, col = 0.5, width = 0.3, backdrop = false },
+          max_threads = 5,
+          dbfile = 'data/colorschemes.json',
+        },
+        -- TODO: exclude current buffer
         files = {
+          -- this work as require path: `_fmt = M.globals["formatters." .. opts.formatter]`
           -- formatter = 'path.filename_first',
+          -- formatter = 'path.dirname_first',
           cwd_prompt = true,
           git_icons = false,
           winopts = { preview = { hidden = 'hidden' } },
@@ -128,6 +130,14 @@ return {
           },
           -- no_header = true,
           no_header_i = true,
+        },
+        oldfiles = { -- also use this config for recentfiles
+          path_shorten = 4,
+          previewer = 'builtin', -- need it to make recentfiles previewable
+          actions = {
+            ['default'] = f.actions.file_edit,
+            ['ctrl-o'] = { fn = a.file_edit_bg, resume = true },
+          },
         },
         grep = {
           debug = false,
@@ -144,10 +154,21 @@ return {
           },
         },
         buffers = { formatter = 'path.filename_first' },
+        commands = {
+          sort_lastused = true,
+          include_builtin = true,
+        },
         lsp = {
+          -- async = true,
+          async_or_timeout = 5000,
           jump_to_single_result = true,
           includeDeclaration = false,
           ignore_current_line = true,
+          unique_line_items = true,
+          code_actions = {
+            -- previewer = fn.executable('delta') == 1 and 'codeaction_native' or 'codeaction',
+            previewer = 'codeaction', -- no highlgiht?
+          },
         },
         git = {
           status = {
@@ -173,16 +194,11 @@ return {
             },
           },
         },
-        oldfiles = {
-          ['ctrl-o'] = {
-            fn = a.file_edit_bg,
-            resume = true,
-          },
-        },
         actions = {
           files = {
             ['default'] = f.actions.file_edit,
-            ['ctrl-s'] = f.actions.file_edit_or_qf,
+            -- ['ctrl-s'] = f.actions.file_edit_or_qf,
+            ['ctrl-s'] = f.actions.file_sel_to_qf,
             -- ['ctrl-s'] = fzf.actions.file_sel_to_ll,
             ['alt-q'] = { fn = f.actions.file_sel_to_qf, prefix = 'select-all' },
             -- ['alt-s'] = {
@@ -234,181 +250,10 @@ return {
           -- ['gutter'] = { 'bg', 'NormalFloat' },
         },
       }
-      require('lib.colors').set_fzf_lua_default_hlgroups()
-
-      au('ColorScheme', {
-        group = ag('FzfLuaSetDefaultHlgroups', {}),
-        callback = require('lib.colors').set_fzf_lua_default_hlgroups,
-      })
-
-      local fzf_ls_cmd = {
-        function(info)
-          local suffix = string.format('%s %s', info.bang and '!' or '', info.args)
-          return f.buffers {
-            prompt = vim.trim(info.name .. suffix) .. '> ',
-            ls_cmd = 'ls' .. suffix,
-          }
-        end,
-        {
-          bang = true,
-          nargs = '?',
-          complete = function()
-            return { '+', '-', '=', 'a', 'u', 'h', 'x', '%', '#', 'R', 'F', 't' }
-          end,
-        },
-      }
-
-      ---Generate a completion function for user command that wraps a builtin command
-      ---@param user_cmd string user command pattern
-      ---@param builtin_cmd string builtin command
-      ---@return fun(_, cmdline: string, cursorpos: integer): string[]
-      local complfn = function(user_cmd, builtin_cmd)
-        return function(_, cmdline, cursorpos)
-          local cmdline_before = cmdline:sub(1, cursorpos):gsub(user_cmd, builtin_cmd, 1)
-          return fn.getcompletion(cmdline_before, 'cmdline')
-        end
-      end
-
-      local fzf_hi_cmd = {
-        function(info)
-          if vim.tbl_isempty(info.fargs) then
-            f.highlights()
-            return
-          end
-          if #info.fargs == 1 and info.fargs[1] ~= 'clear' then
-            local hlgroup = info.fargs[1]
-            if fn.hlexists(hlgroup) == 1 then
-              vim.cmd.hi {
-                args = { hlgroup },
-                bang = info.bang,
-              }
-            else
-              f.highlights {
-                fzf_opts = {
-                  ['--query'] = hlgroup,
-                },
-              }
-            end
-            return
-          end
-          vim.cmd.hi {
-            args = info.fargs,
-            bang = info.bang,
-          }
-        end,
-        {
-          bang = true,
-          nargs = '*',
-          complete = complfn('Highlight', 'hi'),
-        },
-      }
-
-      local fzf_reg_cmd = {
-        function(info)
-          local query = table.concat(
-            vim.tbl_map(
-              function(reg) return string.format('^[%s]', reg:upper()) end,
-              vim.split(info.args, '', {
-                trimempty = true,
-              })
-            ),
-            ' | '
-          )
-          f.registers {
-            fzf_opts = {
-              ['--query'] = query ~= '' and query or nil,
-            },
-          }
-        end,
-        {
-          nargs = '*',
-          complete = complfn('Registers', 'registers'),
-        },
-      }
-
-      local fzf_display_cmd = vim.tbl_deep_extend('force', fzf_reg_cmd, {
-        [2] = { complete = complfn('Display', 'display') },
-      })
-
-      local fzf_au_cmd = {
-        function(info)
-          if #info.fargs <= 1 and not info.bang then
-            f.autocmds {
-              fzf_opts = {
-                ['--query'] = info.fargs[1] ~= '' and info.fargs[1] or nil,
-              },
-            }
-            return
-          end
-          vim.cmd.autocmd {
-            args = info.fargs,
-            bang = info.bang,
-          }
-        end,
-        {
-          bang = true,
-          nargs = '*',
-          complete = complfn('Autocmd', 'autocmd'),
-        },
-      }
-
-      local fzf_marks_cmd = {
-        function(info)
-          local query = table.concat(
-            vim.tbl_map(
-              function(mark) return '^' .. mark end,
-              vim.split(info.args, '', {
-                trimempty = true,
-              })
-            ),
-            ' | '
-          )
-          f.marks {
-            fzf_opts = {
-              ['--query'] = query ~= '' and query or nil,
-            },
-          }
-        end,
-        {
-          nargs = '*',
-          complete = complfn('Marks', 'marks'),
-        },
-      }
-
-      local fzf_args_cmd = {
-        function(info)
-          if not info.bang and vim.tbl_isempty(info.fargs) then
-            f.args()
-            return
-          end
-          vim.cmd.args {
-            args = info.fargs,
-            bang = info.bang,
-          }
-        end,
-        {
-          bang = true,
-          nargs = '*',
-          complete = complfn('Args', 'args'),
-        },
-      }
-
-      cmd('Ls', unpack(fzf_ls_cmd))
-      cmd('Args', unpack(fzf_args_cmd))
-      cmd('Autocmd', unpack(fzf_au_cmd))
-      cmd('Marks', unpack(fzf_marks_cmd))
-      cmd('Highlight', unpack(fzf_hi_cmd))
-      cmd('Registers', unpack(fzf_reg_cmd))
-      cmd('Display', unpack(fzf_display_cmd))
-      cmd('Oldfiles', f.oldfiles, {})
-      cmd('Changes', f.changes, {})
-      cmd('Tags', f.tagstack, {})
-      cmd('Jumps', f.jumps, {})
-      cmd('Tabs', f.tabs, {})
-      cmd('Helptags', unpack(fzf_display_cmd))
     end,
   },
-
+  { 'vijaymarupudi/nvim-fzf-commands' },
+  { 'vijaymarupudi/nvim-fzf', main = 'fzf' },
   {
     'tani/pickup.nvim',
     cond = false,
@@ -418,10 +263,15 @@ return {
   { -- https://github.com/junegunn/fzf.vim/issues/837
     'junegunn/fzf.vim',
     -- cond = not vim.g.vscode,
-    cond = false,
-    cmd = { 'Files', 'RG', 'Rg' },
+    cond = true,
+    cmd = {
+      'Files',
+      'RG',
+      'Rg',
+      'Commands',
+    },
     keys = {
-      { ' <c-l>', '<cmd>Files<cr>', mode = { 'n', 'x' } },
+      -- { ' <c-l>', '<cmd>Files<cr>', mode = { 'n', 'x' } },
       { ' <c-k>', '<cmd>Rg<cr>', mode = { 'n', 'x' } },
       -- { '<leader><c-j>', '<cmd>RgD -path=~/notes -pattern=<cr>', mode = { 'n', 'x' } },
     },

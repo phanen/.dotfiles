@@ -2,7 +2,6 @@ return {
   -- TODO: replace g c-g
   { 'jspringyc/vim-word', cmd = { 'WordCount', 'WordCountLine' } },
   { 'cissoid/vim-fullwidth-punct-convertor', cmd = 'FullwidthPunctConvert' },
-  { 'phanen/mder.nvim', ft = 'markdown' },
   {
     -- TODO(upstream): https://github.com/3rd/image.nvim/issues/116
     '3rd/image.nvim',
@@ -51,7 +50,11 @@ return {
       vim.cmd [[nnoremap +p :lua require("nabla").popup()<cr> " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`]]
     end,
   },
-  { 'HakonHarnes/img-clip.nvim', keys = { { '+p', '<cmd>PasteImage<cr>' } }, opts = {} },
+  {
+    'HakonHarnes/img-clip.nvim',
+    keys = { { '+p', '<cmd>PasteImage<cr>' } },
+    opts = {},
+  },
   {
     'lervag/vimtex',
     -- lazy = false, -- :h :VimtexInverseSearch

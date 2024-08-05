@@ -18,7 +18,6 @@ return {
     cond = true,
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
-      'nvim-tree/nvim-web-devicons',
       -- 'hrsh7th/nvim-cmp', Hack to ensure that lspkind-nvim is loaded
     },
     cmd = { 'AerialToggle' },
@@ -34,16 +33,6 @@ return {
       nav = { preview = true },
       on_attach = function(_) package.loaded.aerial.tree_close_all() end,
     },
-  },
-  {
-    'Bekaboo/dropbar.nvim',
-    cond = not g.vendor_bar,
-    -- cond = fn.has('nvim-0.10') == 1,
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { -- fzf support
-      -- 'nvim-telescope/telescope-fzf-native.nvim',
-    },
-    opts = { general = { enable = require('mod.winbar.config').opts.enable } },
   },
   -- lsp only..
   {

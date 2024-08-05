@@ -1,5 +1,5 @@
 diff --git a/lua/toggleterm.lua b/lua/toggleterm.lua
-index ffe1dd0..cb16dfd 100644
+index 09310dc..7ee32aa 100644
 --- a/lua/toggleterm.lua
 +++ b/lua/toggleterm.lua
 @@ -423,7 +423,7 @@ local function setup_commands()
@@ -12,7 +12,7 @@ index ffe1dd0..cb16dfd 100644
  
    command("ToggleTermToggleAll", function(opts) M.toggle_all(opts.bang) end, { bang = true })
 diff --git a/lua/toggleterm/terminal.lua b/lua/toggleterm/terminal.lua
-index 904eb34..db6302e 100644
+index 91d58f6..c0d7886 100644
 --- a/lua/toggleterm/terminal.lua
 +++ b/lua/toggleterm/terminal.lua
 @@ -260,6 +260,7 @@ function Terminal:__restore_mode() self:set_mode(self.__state.mode) end
@@ -21,7 +21,7 @@ index 904eb34..db6302e 100644
  function Terminal:set_mode(m)
 +  -- print("resume", m)
    if m == mode.INSERT then
-     vim.cmd("startinsert")
+     vim.schedule(function() vim.cmd("startinsert") end)
    elseif m == mode.NORMAL then
 @@ -271,6 +272,7 @@ end
  

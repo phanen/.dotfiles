@@ -133,10 +133,10 @@ return {
     },
     -- stylua: ignore
     keys = {
-      { '<c-g>c', ':GpChatNew popup<cr>', mode = { 'n', 'x' } },
-      { '<c-g>k', ':GpChatToggle <cr>',   mode = { 'n', 'x' } },
-      { '<c-g>f', ':GpChatFinder<cr>',    mode = { 'n', 'x' } },
-      { '<c-g>p', ':GpChatPaste<cr>',     mode = { 'n', 'x' } },
+      { '+gc', ':GpChatNew popup<cr>', mode = { 'n', 'x' } },
+      { '+gk', ':GpChatToggle <cr>',   mode = { 'n', 'x' } },
+      { '+gf', ':GpChatFinder<cr>',    mode = { 'n', 'x' } },
+      { '+gp', ':GpChatPaste<cr>',     mode = { 'n', 'x' } },
     },
     opts = {
       toggle_target = 'popup',

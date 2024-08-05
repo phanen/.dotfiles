@@ -86,7 +86,7 @@ local jupytext_convert = function(buf)
   end
 
   vim.bo[buf].ft = 'markdown'
-  au({ 'BufWriteCmd', 'FileWriteCmd' }, {
+  autocmd({ 'BufWriteCmd', 'FileWriteCmd' }, {
     group = ag('JupyText' .. buf, {}),
     buffer = buf,
     callback = function(info)
@@ -133,7 +133,7 @@ local function setup(buf)
 
   if api.nvim_buf_get_name(buf):match('%.ipynb$') then jupytext_convert(buf) end
 
-  au('BufReadCmd', {
+  autocmd('BufReadCmd', {
     group = ag('JupyText', {}),
     pattern = '*.ipynb',
     callback = function(info) jupytext_convert(info.buf) end,

@@ -91,13 +91,13 @@ M.setup = function()
   input_mode_enter_callback(current_buf)
 
   local groupid = ag('IMSwitch', {})
-  au('ModeChanged', {
+  autocmd('ModeChanged', {
     desc = 'Try re-activate input method when entering input modes.',
     group = groupid,
     pattern = '*:[ictRss\x13]*',
     callback = function(info) input_mode_enter_callback(info.buf) end,
   })
-  au('ModeChanged', {
+  autocmd('ModeChanged', {
     desc = 'Deactivate input method when leaving input modes.',
     group = groupid,
     pattern = '[ictRss\x13]*:*',

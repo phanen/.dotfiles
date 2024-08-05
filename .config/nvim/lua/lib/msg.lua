@@ -1,3 +1,6 @@
+-- { 'sbulav/nredir.nvim', cmd = 'Nredir' },
+-- { 'suliveevil/vim-redir-output', cmd = 'RedirV' },
+
 local M = {}
 
 M.pipe_cmd = function(cmd)

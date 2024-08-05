@@ -1,9 +1,13 @@
+local n = map.n
+local x = map.x
+
 -- formatter
-nx('gw', [[<cmd>lua require('conform').format { lsp_fallback = true }<cr>]])
+n('gw', [[<cmd>lua require('conform').format { lsp_fallback = true }<cr>]])
+x('gw', [[:lua require('conform').format { lsp_fallback = true }<cr>]])
 
 -- TODO: maybe need a project manager
 -- neovim project local formatter
-au('FileType', {
+autocmd('FileType', {
   pattern = 'c',
   callback = function()
     local file_root = u.smart.root()
@@ -26,9 +30,10 @@ au('FileType', {
 })
 
 local s = function(lhs, pattern)
-  n(lhs, ('<cmd>%%%s<cr>``'):format(pattern))
-  x(lhs, (':%s<cr>``'):format(pattern))
+  map.n(lhs, ('<cmd>%%%s<cr>``'):format(pattern))
+  map.x(lhs, (':%s<cr>``'):format(pattern))
 end
+
 s(' rp', [[FullwidthPunctConvert]])
 -- x(' rp', ':FullwidthPunctConvert<cr>') -- TODO: not change cursor pos
 n(' rj', ':Pangu<cr>') -- TODO: not change cursor pos

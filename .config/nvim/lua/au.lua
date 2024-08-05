@@ -1,3 +1,14 @@
+-- ftplugin, but for common part
+autocmd('Filetype', {
+  pattern = { 'help', 'man' },
+  callback = function(ev)
+    if vim.bo.bt ~= '' then
+      map.n('u', '<c-u>', { buffer = ev.buf })
+      map.n('d', '<c-d>', { buffer = ev.buf })
+    end
+  end,
+})
+
 augroup('YankHighlight', {
   'TextYankPost',
   {
@@ -16,10 +27,10 @@ augroup('YankHighlight', {
 
 -- https://github.com/jeffkreeftmeijer/vim-numbertoggle
 augroup('NumberToggle', {
-  { 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' },
+  { 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter', 'CmdlineEnter' },
   { command = [[if &nu && mode() != 'i' | set rnu | endif]] },
 }, {
-  { 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' },
+  { 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave', 'CmdlineLeave' },
   { command = [[if &nu | set nornu | endif]] },
 })
 
@@ -66,7 +77,7 @@ augroup('AutoResizeWin', {
 --     desc = 'Keep window ratio after resizing nvim',
 --     callback = function()
 --       vim.cmd.wincmd('=')
---       require('lib.win').restratio(api.nvim_tabpage_list_wins(0))
+--       u.win.restratio(api.nvim_tabpage_list_wins(0))
 --     end,
 --   },
 -- }, {
@@ -84,7 +95,7 @@ augroup('AutoResizeWin', {
 --         return
 --       end
 --       if true then return end
---       require('lib.win').saveratio(vim.v.event.windows)
+--       u.win.saveratio(vim.v.event.windows)
 --     end,
 --   },
 -- })
@@ -93,9 +104,13 @@ augroup('LazyPatch', {
   'User',
   {
     pattern = { 'LazyInstall*', 'LazyUpdate*', 'LazySync*', 'LazyRestore*' },
-    callback = function(...)
-      require('lib.lazy').lazy_patch_callback(...)
-      require('lib.lazy').lazy_cache_docs()
+    callback = function(ev)
+      g._lz_syncing = g._lz_syncing or ev.match == 'LazySyncPre'
+      if g._lz_syncing and not ev.match:find('^LazySync') then return end
+      if ev.match == 'LazySync' then g._lz_syncing = nil end
+      local should_patch = not ev.match:find('Pre$')
+      u.lazy.lazy_patch(should_patch)
+      u.lazy.lazy_cache_docs()
     end,
   },
 })
@@ -111,15 +126,15 @@ augroup('Lsp', {
   'LspAttach',
   {
     callback = function(ev)
-      -- vim.lsp.inlay_hint.enable()
+      -- lsp.inlay_hint.enable()
       local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = ev.buf }) end
-      bn('gD', vim.lsp.buf.declaration)
-      bn('gI', vim.lsp.buf.implementation)
-      bn('gs', vim.lsp.buf.signature_help)
-      bn('_', vim.lsp.buf.hover)
-      bn('<leader>rn', vim.lsp.buf.rename)
-      -- vim.keymap.set({ 'n', 'x' }, 'g/', vim.lsp.buf.references)
-      -- vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.implementation)
+      bn('gD', lsp.buf.declaration)
+      bn('gI', lsp.buf.implementation)
+      bn('gs', lsp.buf.signature_help)
+      bn('_', lsp.buf.hover)
+      bn('<leader>rn', lsp.buf.rename)
+      -- vim.keymap.set({ 'n', 'x' }, 'g/', lsp.buf.references)
+      -- vim.keymap.set({ 'n', 'x' }, 'g.', lsp.buf.implementation)
     end,
   },
 })
@@ -143,7 +158,7 @@ augroup('BigFileSettings', {
         vim.opt_local.foldcolumn = '0'
         vim.opt_local.winbar = ''
         vim.opt_local.syntax = ''
-        au('BufReadPost', {
+        autocmd('BufReadPost', {
           once = true,
           buffer = ev.buf,
           callback = function()
@@ -366,7 +381,7 @@ augroup('SpecialBufHl', {
     callback = function(ev)
       if ev.event == 'OptionSet' and ev.match ~= 'background' then return end
       if true then return end
-      local hl = require('lib.hl')
+      local hl = u.hl
       local blended = hl.blend('Normal', 'CursorLine')
       hl.set_default(0, 'NormalSpecial', blended)
     end,
@@ -388,7 +403,7 @@ augroup('DeleteNoName', {
 })
 
 -- `q:`
-au('CmdwinEnter', {
+autocmd('CmdwinEnter', {
   desc = 'cmdwin enter',
   pattern = '*',
   callback = function()
@@ -405,22 +420,21 @@ augroup('ToggleWhenDiff', {
     pattern = 'diff',
     callback = function(ev)
       if vim.v.option_new then
-        local clients = vim.lsp.get_clients {
+        local clients = lsp.get_clients {
           bufnr = ev.buf,
           method = lsp.protocol.Methods.textDocument_inlayHint,
         }
-        if #clients > 0 and vim.lsp.inlay_hint.is_enabled { bufnr = ev.buf } then
-          vim.lsp.inlay_hint.enable(false, { bufnr = ev.buf })
+        if #clients > 0 and lsp.inlay_hint.is_enabled { bufnr = ev.buf } then
+          lsp.inlay_hint.enable(false, { bufnr = ev.buf })
         end
-
         vim.diagnostic.config { signs = false }
       else
-        local clients = vim.lsp.get_clients {
+        local clients = lsp.get_clients {
           bufnr = ev.buf,
           method = lsp.protocol.Methods.textDocument_inlayHint,
         }
-        if #clients > 0 and not vim.lsp.inlay_hint.is_enabled { bufnr = ev.buf } then
-          vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+        if #clients > 0 and not lsp.inlay_hint.is_enabled { bufnr = ev.buf } then
+          lsp.inlay_hint.enable(true, { bufnr = ev.buf })
         end
         vim.diagnostic.config { signs = true }
       end
@@ -429,12 +443,12 @@ augroup('ToggleWhenDiff', {
 })
 
 -- ???
-au('FileChangedShellPost', {
+autocmd('FileChangedShellPost', {
   group = ag('RefreshGitBranchCache', {}),
   callback = function(info) vim.b[info.buf].git_branch = nil end,
 })
 
-au({ 'BufWrite', 'FileChangedShellPost' }, {
+autocmd({ 'BufWrite', 'FileChangedShellPost' }, {
   group = ag('RefreshGitDiffCache', {}),
   callback = function(info) vim.b[info.buf].git_diffstat = nil end,
 })

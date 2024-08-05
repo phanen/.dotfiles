@@ -7,26 +7,10 @@ return {
     event = 'CmdlineEnter',
     cmd = { 'NvimTreeFindFileToggle' },
     keys = { 'gf', { '<leader>k', '<cmd>NvimTreeFindFileToggle<cr>' } },
-    dependencies = {
-      { 'nvim-tree/nvim-web-devicons' },
-      {
-        'stevearc/dressing.nvim',
-        opts = {
-          input = {
-            mappings = {
-              i = {
-                ['<c-p>'] = 'HistoryPrev',
-                ['<c-n>'] = 'HistoryNext',
-                ['<Esc>'] = 'Close',
-              },
-            },
-          },
-        },
-      },
-    },
     opts = {
       sync_root_with_cwd = true,
       actions = { change_dir = { enable = true, global = true } },
+      select_prompts = false,
       view = {
         -- width = math.min(math.floor(vim.go.columns), 25),
         width = {
@@ -62,14 +46,28 @@ return {
   },
 
   {
+    'mikavilpas/yazi.nvim',
+    keys = {
+      { ' -', '<cmd>Yazi<cr>' },
+      { ' +', '<cmd>Yazi toggle<cr>', desc = 'Resume the last yazi session' },
+      { ' cw', '<cmd>Yazi cwd<cr>' },
+    },
+    opts = {
+      open_for_directories = false, -- hijack netrw for dir
+      use_ya_for_events_reading = true,
+      use_yazi_client_id_flag = true,
+      keymaps = { show_help = '<f1>' },
+    },
+  },
+
+  {
     'nvim-neo-tree/neo-tree.nvim',
-    -- 没有 git source 和 文件 source 的混合模式, homedir 显示不太好 (nvim-tree 那种..)
     cond = false,
     keys = { { '<leader>k', '<cmd>Neotree action=focus reveal=true<cr>' } },
     branch = 'main',
     dependencies = { 'nvim-lua/plenary.nvim', 'MunifTanjim/nui.nvim' },
     init = function()
-      au('BufEnter', {
+      autocmd('BufEnter', {
         callback = function(args)
           local stats = uv.fs_stat(args.file)
           if not stats or stats.type ~= 'directory' then return end
@@ -132,23 +130,17 @@ return {
       },
     },
   },
-  { 'SidOfc/carbon.nvim', cond = false, cmd = 'Carbon', opts = true },
-  {
-    'SR-Mystar/yazi.nvim',
-    cond = false,
-    cmd = 'Yazi',
-    opts = {},
-    keys = { { '<leader>gy', '<cmd>Yazi<cr>' } },
-  },
+
   {
     'stevearc/oil.nvim',
     cond = false,
     cmd = 'Oil',
+    keys = { { ' %', '<cmd>Oil<cr>' } },
     init = function() -- Load oil on startup only when editing a directory
       vim.g.loaded_fzf_file_explorer = 1
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
-      au('BufWinEnter', {
+      autocmd('BufWinEnter', {
         nested = true,
         callback = function(info)
           local path = info.file
@@ -284,7 +276,7 @@ return {
           api.nvim_set_current_win(oil_win)
         end
         -- Set keymap for opening the file from preview buffer
-        n('<CR>', function()
+        map.n('<CR>', function()
           vim.cmd.edit(fpath)
           end_preview(oil_win)
         end, { buffer = preview_buf })
@@ -338,7 +330,7 @@ return {
       end
 
       local groupid_preview = ag('OilPreview', {})
-      au({ 'CursorMoved', 'WinScrolled' }, {
+      autocmd({ 'CursorMoved', 'WinScrolled' }, {
         desc = 'Update floating preview window when cursor moves or window scrolls.',
         group = groupid_preview,
         pattern = 'oil:///*',
@@ -356,14 +348,14 @@ return {
           end, preview_debounce)
         end,
       })
-      au('BufEnter', {
+      autocmd('BufEnter', {
         desc = 'Close preview window when leaving oil buffers.',
         group = groupid_preview,
         callback = function(info)
           if vim.bo[info.buf].filetype ~= 'oil' then end_preview() end
         end,
       })
-      au('WinClosed', {
+      autocmd('WinClosed', {
         desc = 'Close preview window when closing oil windows.',
         group = groupid_preview,
         callback = function(info)
@@ -531,7 +523,7 @@ return {
       })
 
       local groupid = ag('OilSyncCwd', {})
-      au({ 'BufEnter', 'TextChanged' }, {
+      autocmd({ 'BufEnter', 'TextChanged' }, {
         desc = 'Set cwd to follow directory shown in oil buffers.',
         group = groupid,
         pattern = 'oil:///*',
@@ -543,7 +535,7 @@ return {
           end
         end,
       })
-      au('DirChanged', {
+      autocmd('DirChanged', {
         desc = 'Let oil buffers follow cwd.',
         group = groupid,
         callback = function(info)
@@ -557,7 +549,7 @@ return {
         end,
       })
 
-      au('BufEnter', {
+      autocmd('BufEnter', {
         desc = 'Set last cursor position in oil buffers when editing parent dir.',
         group = ag('OilSetLastCursor', {}),
         pattern = 'oil:///*',

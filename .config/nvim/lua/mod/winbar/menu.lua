@@ -351,7 +351,7 @@ function winbar_menu_t:make_buf()
   -- Default modes: normal
   for key, mapping in pairs(config.opts.menu.keymaps) do
     if type(mapping) == 'function' or type(mapping) == 'string' then
-      n(key, mapping, { buffer = self.buf })
+      map.n(key, mapping, { buffer = self.buf })
     elseif type(mapping) == 'table' then
       for mode, rhs in pairs(mapping) do
         vim.keymap.set(mode, key, rhs, { buffer = self.buf })
@@ -360,7 +360,7 @@ function winbar_menu_t:make_buf()
   end
 
   -- Set buffer-local autocmds
-  au('WinClosed', {
+  autocmd('WinClosed', {
     nested = true,
     group = groupid,
     buffer = self.buf,
@@ -370,7 +370,7 @@ function winbar_menu_t:make_buf()
       self:close()
     end,
   })
-  au('CursorMoved', {
+  autocmd('CursorMoved', {
     group = groupid,
     buffer = self.buf,
     callback = function()
@@ -388,12 +388,12 @@ function winbar_menu_t:make_buf()
       self:update_scrollbar()
     end,
   })
-  au('WinScrolled', {
+  autocmd('WinScrolled', {
     group = groupid,
     buffer = self.buf,
     callback = function() self:update_scrollbar() end,
   })
-  au('BufLeave', {
+  autocmd('BufLeave', {
     group = groupid,
     buffer = self.buf,
     callback = function() self:update_hover_hl() end,

@@ -1,8 +1,8 @@
 diff --git a/lua/fzf-lua/core.lua b/lua/fzf-lua/core.lua
-index 7279156..d1c9dfb 100644
+index e408d7c..d017075 100644
 --- a/lua/fzf-lua/core.lua
 +++ b/lua/fzf-lua/core.lua
-@@ -1060,10 +1060,6 @@ M.convert_reload_actions = function(reload_cmd, opts)
+@@ -1090,10 +1090,6 @@ M.convert_reload_actions = function(reload_cmd, opts)
        end
      end
    end

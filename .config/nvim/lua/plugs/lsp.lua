@@ -65,7 +65,7 @@ return {
               --   end
               --
               --   ---Is the completion menu open?
-              --   local function pumvisible() return tonumber(vim.fn.pumvisible()) ~= 0 end
+              --   local function pumvisible() return tonumber(fn.pumvisible()) ~= 0 end
               --
               --   -- Enable completion and configure keybindings.
               --   if client.supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
@@ -285,6 +285,11 @@ return {
     'folke/lazydev.nvim',
     ft = 'lua',
     opts = {
+      -- FIXME: not work
+      library = {
+        -- { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        { 'luvit-meta/library' },
+      },
       enabled = function(root_dir)
         -- NOTE: in this way we also don't lazy load .dotfile now (since we've used global notations in `set.lua`)
         return not uv.fs_stat(root_dir .. '/.luarc.jsonc')
@@ -292,7 +297,7 @@ return {
       end,
     },
   },
-  -- { 'Bilal2453/luvit-meta', lazy = true },
+  { 'Bilal2453/luvit-meta', lazy = true },
   -- { -- optional completion source for require statements and module annotations
   --   'hrsh7th/nvim-cmp',
   --   opts = function(_, opts)
@@ -310,7 +315,7 @@ return {
       require('lint').linters_by_ft = {
         python = { 'pylint' },
       }
-      au({
+      autocmd({
         'BufReadPost',
         'BufWritePost',
         'InsertLeave',

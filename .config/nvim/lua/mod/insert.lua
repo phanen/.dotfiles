@@ -154,7 +154,7 @@ local i = map.i
 local c = map.c
 
 local setup_cmap = function()
-  local u = require('lib.keymap')
+  local u = u.keymap
   u.cmap(':', 'lua ')
   u.cabbr('man', 'Man')
   u.cabbr('ht', 'hor te')
@@ -218,7 +218,7 @@ M.setup = function()
   -- ic('<c-y>', 'pumvisible() ? "<c-y>" : "<c-r>-"', { expr = true, replace_keycodes = false })
 
   -- ic('<c-t>', swap_char, { expr = true })
-  -- ic('<c-d>', '<del>')
+  ic('<c-d>', '<del>')
 
   -- backup
   -- c('<c-_>', '<c-f>')
@@ -236,6 +236,9 @@ M.setup = function()
   i('<c-g><c-l>', '<c-x><c-l>')
   i('<c-g>+', '<esc>[szg`]a')
   i('<c-g>=', '<c-g>u<esc>[s1z=`]a<c-g>u')
+
+  -- TODO
+  -- map['!a']
 
   -- abbr
   map('!a', 'ture', 'true')
@@ -258,6 +261,11 @@ M.setup = function()
   -- ic('<S-Tab>', function() require('mod.tabout').jump(-1) end)
 
   -- TODO: expandtab???
+
+  for _, char in ipairs({ ' ', '-', '_', ':', '.', '/' }) do
+    -- i(char, function() return char .. '<c-g>u' end, { expr = true })
+    i(char, char .. '<c-g>u')
+  end
 end
 
 return M

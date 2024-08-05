@@ -1,20 +1,5 @@
--- if use notify
--- local recording = function()
---   local reg = fn.reg_recording()
---   if reg ~= '' then return 'recording @' .. reg end
---   reg = fn.reg_recorded()
---   if reg ~= '' then return 'recorded @' .. reg end
---   return ''
--- end
-
--- {
---   'mode',
---   fmt = function(str) return str:sub(1, 1) end,
---   separator = { left = '', right = '' },
---   padding = { left = 0, right = 0 },
--- },
-
 return {
+  -- tabline
   {
     'romgrk/barbar.nvim',
     init = function() vim.g.barbar_auto_setup = false end,
@@ -37,7 +22,6 @@ return {
     cond = false,
     -- init = function() vim.o.showtabline = 2 end,
     event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = 'nvim-tree/nvim-web-devicons',
     config = true,
   },
   {
@@ -62,6 +46,96 @@ return {
       { '<leader>5', function() require('harpoon'):list():select(5) end },
     },
   },
+  {
+    'nvim-lualine/lualine.nvim',
+    enabled = false,
+    event = { 'BufReadPre', 'BufNewFile' },
+    init = function() vim.opt.laststatus = 0 end,
+    opts = {
+      options = {
+        icons_enabled = true,
+        theme = 'auto',
+        always_divide_middle = true,
+        component_separators = { left = '', right = '' },
+        -- globalstatus = true,
+        section_separators = { left = '', right = '' },
+      },
+      sections = {
+        lualine_a = {
+          {
+            function() return vim.bo.modified and ' ' or '󰄳 ' end,
+            separator = { left = '' },
+            padding = 0,
+          },
+          { 'location', padding = 0 },
+        },
+        lualine_b = {
+          {
+            'progress',
+            padding = { left = 1, right = 0 },
+          },
+        },
+        lualine_c = {
+          { 'filename', file_status = true, path = 3 },
+          -- function() return vim.bo.readonly and ' ' or '' end,
+          {
+            'diff',
+            padding = { left = 1, right = 0.5 },
+            source = function() return vim.b.gitsigns_status_dict end,
+          },
+        },
+        lualine_x = {
+          function()
+            local bufnr = api.nvim_get_current_buf()
+            local clients = vim
+              .iter(vim.lsp.get_clients())
+              :filter(function(client) return client.attached_buffers[bufnr] end)
+              -- :filter(function(client) return client.name ~= 'copilot' end)
+              :map(
+                function(client) return ' ' .. client.name end
+              )
+              :totable()
+            local info = table.concat(clients, ' ')
+            if info == '' then
+              return 'No LSP server'
+            else
+              return info
+            end
+          end,
+        },
+        lualine_y = {
+          { 'encoding', padding = 0 },
+          'fileformat',
+          'diagnostics',
+        },
+        lualine_z = {
+          {
+            'branch',
+            icon = '',
+            padding = { left = 0, right = 0 },
+            separator = { left = '', right = '' },
+          },
+        },
+      },
+      extensions = {
+        'aerial',
+        'fugitive',
+        'lazy',
+        'man',
+        'mason',
+        -- 'neo-tree',
+        -- 'nvim-dap-ui',
+        'nvim-tree',
+        'quickfix',
+        'toggleterm',
+        'trouble',
+      },
+    },
+    dependencies = {
+      { 'parsifa1/nvim-web-devicons' },
+    },
+  },
+
   -- indent line
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -75,7 +149,7 @@ return {
     cond = false,
     event = { 'BufRead', 'BufNewFile' },
     opts = {
-      chunk = { enable = false },
+      chunk = { enable = true },
       indent = { enable = true, use_treesitter = false },
       line_num = { enable = false },
       blank = { enable = false, chars = { '․' } },

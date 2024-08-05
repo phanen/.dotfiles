@@ -10,5 +10,9 @@ function k_enter
         commandline -r "git clone $line"
         return
     end
+
+    # https://www.reddit.com/r/fishshell/
+    # tput cup $COLUMNS 30
+
     commandline -f execute
 end

@@ -1,6 +1,6 @@
-local M = {}
+local Fs = {}
 
-M.root_patterns = {
+Fs.root_patterns = {
   '.git/',
   '.svn/',
   '.bzr/',
@@ -20,9 +20,9 @@ M.root_patterns = {
 ---@param path string?
 ---@param patterns string[]? root patterns
 ---@return string? nil if not found
-M.proj_dir = function(path, patterns)
+Fs.proj_dir = function(path, patterns)
   if not path or path == '' then return nil end
-  patterns = patterns or M.root_patterns
+  patterns = patterns or Fs.root_patterns
   local stat = uv.fs_stat(path)
   if not stat then return end
   local dirpath = stat.type == 'directory' and path or vim.fs.dirname(path)
@@ -42,7 +42,7 @@ end
 ---read file contents
 ---@param path string
 ---@return string?
-M.read_file = function(path)
+Fs.read_file = function(path)
   local file = io.open(path, 'r')
   if not file then return nil end
   local content = file:read('*a')
@@ -53,7 +53,7 @@ end
 ---write string into file
 ---@param path string
 ---@return boolean success
-M.write_file = function(path, str)
+Fs.write_file = function(path, str)
   local file = io.open(path, 'w')
   if not file then return false end
   file:write(str)
@@ -62,21 +62,29 @@ M.write_file = function(path, str)
 end
 
 -- require('lazy.core.util').ls
-M.ls = function(path, fn)
+Fs.ls = function(path, fn)
   local handle = uv.fs_scandir(path)
   while handle do
     local name, type = uv.fs_scandir_next(handle)
     if not name then break end
-    local fname = vim.fs.joinpath(path, name)
+    local fname = fs.joinpath(path, name)
     -- HACK: type is not always returned
     -- https://github.com/folke/lazy.nvim/issues/306
     if fn(fname, name, type or uv.fs_stat(fname).type) == false then break end
   end
 end
 
+-- path normalized, get lazily by coroutine...
+Fs.ls2 = function(path, fn)
+  for name, type in fs.dir(path) do
+    local fname = fs.joinpath(path, name)
+    if fn(fname, name, type or uv.fs_stat(fname).type) == false then break end
+  end
+end
+
 ------@param _fn fun(string: string)
 ---local walk_mod = function(_fn)
----  local path = env.MYVIMRC or require('lib.debug').script_path()
+---  local path = env.MYVIMRC or u.debug.script_path()
 ---  local mod_path = vim.fs.dirname(path) .. '/lua/mod/'
 ---  local b = {
 ---    ['vscode'] = true,
@@ -90,4 +98,4 @@ end
 ---
 ----- walk_mod(print)
 
-return M
+return Fs

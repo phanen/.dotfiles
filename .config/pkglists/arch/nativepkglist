@@ -10,6 +10,7 @@ archlinux-keyring
 archlinuxcn-keyring
 archlinuxcn-mirrorlist-git
 aria2-fast
+ast-grep
 atuin
 aurpublish
 autoconf
@@ -93,6 +94,7 @@ flameshot
 flex
 frpc
 frps
+fuzzel
 fx
 fzf
 gawk
@@ -129,6 +131,7 @@ hexer
 hexyl
 hostapd
 htop
+httpie
 httping
 hyperfine
 hyperv
@@ -270,6 +273,7 @@ qemu-system-x86
 rbw
 rclone
 reflector
+repgrep
 repo
 reptyr
 ripgrep
@@ -299,6 +303,7 @@ sd
 sdkmanager
 sed
 setconf
+simde
 sing-box
 sing-geoip-db
 sing-geoip-rule-set
@@ -354,6 +359,7 @@ vimrc-git
 viu
 w3m
 wakeonlan
+weston
 wget
 which
 wimlib
