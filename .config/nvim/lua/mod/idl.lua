@@ -38,13 +38,13 @@ end
 
 local group = ag('indent_line', { clear = true })
 
-au('OptionSet', {
+autocmd('OptionSet', {
   group = group,
   pattern = { 'shiftwidth', 'expandtab', 'tabstop' },
   callback = function() update_idl(vim.v.option_type == 'local') end,
 })
 
-au('BufEnter', {
+autocmd('BufEnter', {
   group = group,
   callback = function() update_idl(true) end,
 })

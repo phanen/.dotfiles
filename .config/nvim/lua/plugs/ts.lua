@@ -195,15 +195,15 @@ local treesitter_setup = function()
   -- n(']f', goto_next_function)
 
   local edit = require('mod.ts.rename')
-  n(' rm', edit.smart_rename)
+  map.n(' rm', edit.smart_rename)
 
   local nav = require('mod.ts.nav')
   nav.map_object_pair_move('f', '@function.outer', true)
   nav.map_object_pair_move('F', '@function.outer', false)
 
   local usage = require('mod.ts.usage')
-  n(']v', usage.goto_next)
-  n('[v', usage.goto_prev)
+  map.n(']v', usage.goto_next)
+  map.n('[v', usage.goto_prev)
 
   local move = require('mod.ts.pair')
   move.setkeymap('d', { next = ']d', prev = '[d' })
@@ -238,10 +238,10 @@ return {
       next.setup { default_mappings = { repeat_style = 'original' }, items = { b.f, b.t } }
       local diag = i.diagnostic()
       local nqf = i.quickfix()
-      n('[d', diag.goto_prev())
-      n(']d', diag.goto_next())
-      n('[q', nqf.cprevious)
-      n(']q', nqf.cnext)
+      map.n('[d', diag.goto_prev())
+      map.n(']d', diag.goto_next())
+      map.n('[q', nqf.cprevious)
+      map.n(']q', nqf.cnext)
     end,
   },
 }

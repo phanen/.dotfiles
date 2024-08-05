@@ -276,7 +276,7 @@ local attach = function(buf)
     )[1]
     update_symbols(buf, client)
   end
-  vim.b[buf].winbar_lsp_attached = au({ 'TextChanged', 'TextChangedI' }, {
+  vim.b[buf].winbar_lsp_attached = autocmd({ 'TextChanged', 'TextChangedI' }, {
     group = groupid,
     buffer = buf,
     callback = _update,
@@ -309,7 +309,7 @@ local init = function()
     )
     if not vim.tbl_isempty(clients) then attach(buf) end
   end
-  au({ 'LspAttach' }, {
+  autocmd({ 'LspAttach' }, {
     desc = 'Attach LSP symbol getter to buffer when an LS that supports documentSymbol attaches.',
     group = groupid,
     callback = function(info)
@@ -317,7 +317,7 @@ local init = function()
       if client and client.supports_method('textDocument/documentSymbol') then attach(info.buf) end
     end,
   })
-  au({ 'LspDetach' }, {
+  autocmd({ 'LspDetach' }, {
     desc = 'Detach LSP symbol getter from buffer when no LS supporting documentSymbol is attached.',
     group = groupid,
     callback = function(info)
@@ -336,7 +336,7 @@ local init = function()
       end
     end,
   })
-  au({ 'BufDelete', 'BufUnload', 'BufWipeOut' }, {
+  autocmd({ 'BufDelete', 'BufUnload', 'BufWipeOut' }, {
     desc = 'Detach LSP symbol getter from buffer on buffer delete/unload/wipeout.',
     group = groupid,
     callback = function(info) detach(info.buf) end,

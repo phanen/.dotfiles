@@ -1,38 +1,36 @@
 -- https://github.com/neovim/neovim/pull/24044
 vim.loader.enable()
 
-_G.HOOK = false
-
-if HOOK then
-  local r = require
-  require = function(modname)
-    local ok, info = pcall(r, modname)
-    if not ok then r('lib.log').warn("require '%s':\n %s\n\n", modname, info) end
-  end
-end
+-- TODO: module path
+-- https://stackoverflow.com/questions/60283272/how-to-get-the-exact-path-to-the-script-that-was-loaded-in-lua
+DEBUG = 1
 
 -- vim.go.loadplugins = true
 
-require 'set'
-require 'override'
-
-if g.vscode then
+if vim.g.vscode then
   require 'opt'
   require 'map'
   require 'mod.vscode'
   return
 end
 
-require 'mod.session'
-require 'compat'
-
+require 'G'
+require 'g'
+require 'patch'
 require 'opt'
 require 'au'
-require 'ft'
--- vim.schedule(function() require 'map' end)
 require 'map'
-
 require 'cmd'
+-- note: lazy.nvim will override `require`
 require 'pm'
 
-pcall(vim.cmd.colorscheme, vim.g.colors_name)
+-- modules not explictly lazy-loaded
+require 'mod.comment'
+require 'mod.diagnostic'
+require 'mod.fastmove'
+require 'mod.fmt'
+require 'mod.idl'
+require 'mod.msg'
+require 'mod.runner'
+require 'mod.colors'
+-- pcall(vim.cmd.colorscheme, vim.g.colors_name)

@@ -195,11 +195,11 @@ M.select = function(items, opts, on_choice)
     -- Press a number to go to the corresponding item
     for i = 1, math.min(9, num_items) do
       local i_str = tostring(i)
-      n(i_str, function() vim.cmd(i_str) end, { buffer = smenu.buf })
+      map.n(i_str, function() vim.cmd(i_str) end, { buffer = smenu.buf })
     end
     -- Press Meta + letter to go to the corresponding item
     for i = 1, math.min(len_pivots, num_items - 9) do
-      n(
+      map.n(
         string.format('<M-%s>', pivots:sub(i, i)),
         function() vim.cmd(tostring(i + 9)) end,
         { buffer = smenu.buf }

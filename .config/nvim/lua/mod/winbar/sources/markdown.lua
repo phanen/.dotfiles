@@ -215,7 +215,7 @@ local function attach(buf)
     local cursor = api.nvim_win_get_cursor(0)
     parse_buf(buf, cursor[1])
   end
-  vim.b[buf].winbar_markdown_heading_parser_attached = au(
+  vim.b[buf].winbar_markdown_heading_parser_attached = autocmd(
     { 'TextChanged', 'TextChangedI' },
     {
       desc = 'Update markdown heading symbols on buffer change.',
@@ -252,7 +252,7 @@ local function init()
       attach(buf)
     end
   end
-  au({ 'FileType' }, {
+  autocmd({ 'FileType' }, {
     desc = 'Attach markdown heading parser to markdown buffers.',
     group = groupid,
     callback = function(info)
@@ -263,7 +263,7 @@ local function init()
       end
     end,
   })
-  au({ 'BufDelete', 'BufUnload', 'BufWipeOut' }, {
+  autocmd({ 'BufDelete', 'BufUnload', 'BufWipeOut' }, {
     desc = 'Detach markdown heading parser from buffer on buffer delete/unload/wipeout.',
     group = groupid,
     callback = function(info)

@@ -1,7 +1,7 @@
 local M = {}
 
 M.yank_filename = function()
-  -- TODO: vim.fs.normalize vim.fn.expand
+  -- TODO: fs.normalize fn.expand
   local path = fs.normalize(api.nvim_buf_get_name(0))
   fn.setreg('+', (path:gsub(('^%s'):format(env.HOME), '~')))
 end

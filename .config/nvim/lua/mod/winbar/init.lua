@@ -158,11 +158,6 @@ local setup = function(opts)
   clear_winbar_bg()
   -- FIXME: unkown? order?
   au('ColorScheme', { group = ag('WinBarHlClearBg', {}), callback = clear_winbar_bg })
-
-  local wapi = u.r('mod.winbar.api')
-  n(' ;', wapi.pick)
-  n('[C', wapi.goto_context_start)
-  n(']C', wapi.select_next_context)
 end
 
 return { setup = setup }

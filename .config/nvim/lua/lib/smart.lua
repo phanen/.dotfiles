@@ -100,7 +100,7 @@ M.find_best_winbuf = function()
   return {
     winid = curwinid,
     bufnr = curbufnr,
-    bufname = curbufnr,
+    bufname = curbufname,
   }
 end
 
@@ -116,12 +116,12 @@ M.winid = function() return M.find_best_winbuf().winid end
 ---@return string
 M.root = function()
   local bufname = M.bufname()
-  local realpath = fn.resolve(bufname)
+  bufname = fn.resolve(bufname)
   local root = u.git.root { bufname = bufname }
   local home = env.HOME
   if
     not root
-    or root == home and u.git { 'check-ignore', '-q', realpath, cwd = home }:wait().code == 0
+    or root == home and u.git { 'check-ignore', '-q', bufname, cwd = home }:wait().code == 0
   then
     return fs.dirname(bufname)
   end

@@ -32,7 +32,6 @@ return {
     'mrjones2014/legendary.nvim',
     cond = false,
     dependencies = {
-      'stevearc/dressing.nvim',
       -- used for frecency sort
       'kkharji/sqlite.lua',
     },

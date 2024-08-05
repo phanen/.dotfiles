@@ -17,7 +17,7 @@ local get_icon = function(path)
     icon_hl = 'WinBarIconKindFolder'
   end
   if icon_kind_opts.use_devicons then
-    local devicons_ok, devicons = pcall(require, 'nvim-web-devicons')
+    -- local devicons_ok, devicons = pcall(require, 'nvim-web-devicons')
     if devicons_ok and stat and stat.type ~= 'directory' then
       local devicon, devicon_hl =
         devicons.get_icon(vim.fs.basename(path), fn.fnamemodify(path, ':e'), { default = true })

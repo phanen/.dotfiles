@@ -54,6 +54,7 @@ abbr vn nvim -u NONE
 abbr wh which -a
 abbr ze zoxide edit
 
+
 abbr pa xsel -ob \| patch -Np1 -i -
 abbr rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
 abbr rve sudo systemd-nspawn -D ~/plct/archriscv/ --machine archriscv -a -U
@@ -72,6 +73,8 @@ abbr gs gh copilot suggest -t shell
 abbr grm git rm --cached
 
 abbr ghg git rev-list --all \| GIT_PAGER=cat xargs git grep
+
+abbr ch gh repo checkout
 
 abbr pv python -m virtualenv venv
 abbr pe . ./venv/bin/activate.fish

@@ -7,7 +7,6 @@ return {
       { ' ga', '<cmd>silent G commit --amend --no-edit<cr>' },
       { ' gr', '<cmd>Gr<cr>' },
       -- { '+gd', '<cmd>Gvdiffsplit<cr>' },
-
       { ' gb', '<cmd>G blame<cr>' },
       { ' gg', '<cmd>G<cr>' },
       { ' gP', '<cmd>G push<cr>' },
@@ -19,7 +18,7 @@ return {
     'sindrets/diffview.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
-      { ' gd', ':DiffviewOpen<CR>', mode = { 'n', 'x' } },
+      { ' gd', ':DiffviewOpen<cr>', mode = { 'n', 'x' } },
       { ' gh', ':DiffviewFileHistory %<cr>', mode = { 'n', 'x' } },
     },
     opts = {
@@ -27,9 +26,9 @@ return {
       -- default_args = { DiffviewFileHistory = { '%' } },
       hooks = { diff_buf_win_enter = function(_, winid) vim.wo[winid].wrap = false end },
       keymaps = {
-        view = { q = '<Cmd>DiffviewClose<CR>' },
-        file_panel = { q = '<Cmd>DiffviewClose<CR>' },
-        file_history_panel = { q = '<Cmd>DiffviewClose<CR>' },
+        view = { q = '<cmd>DiffviewClose<cr>' },
+        file_panel = { q = '<cmd>DiffviewClose<cr>' },
+        file_history_panel = { q = '<cmd>DiffviewClose<CR>' },
       },
     },
   },
@@ -38,61 +37,80 @@ return {
     cond = true,
     event = { 'BufReadPre', 'BufNewFile' },
     cmd = 'Gitsigns',
-    dependencies = 'stevearc/dressing.nvim',
     opts = {
       -- signcolumn = false,
       -- used in diffview
       attach_to_untracked = true,
       preview_config = { border = vim.g.border },
       signs = {
+        -- add = { text = '+' },
+        -- TODO: better icons, fixed color
+        -- FIXME: collide with warning
+        -- https://github.com/search?q=%27%EF%81%95%27+lang%3Alua&type=code
+        add = { text = '' },
+        -- change = { text = '󰤌' },
+        -- change = { text = '' },
+        -- change = { text = '' },
+        change = { text = '' },
+        delete = { text = '' },
+        topdelete = { text = '‾' },
+        -- changedelete = { text = '' },
+        -- changedelete = { text = '' },
+        untracked = { text = '┆' },
+      },
+      signs_staged = {
         add = { text = '+' },
+        -- add = { text = '' },
         change = { text = '~' },
         delete = { text = '_' },
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
+        untracked = { text = '┆' },
       },
+
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
-        nx('gj', function()
-          if vim.wo.diff then return vim.cmd.normal { '[c', bang = true } end
+        map.nx('gj', function()
+          if vim.wo.diff then vim.cmd.normal { '[c', bang = true } end
           gs.nav_hunk('next', { target = 'all' })
-        end)
-        -- note: should not buf map, unknown
-        -- end, { expr = true, buffer = bufnr })
+        end, { buffer = bufnr })
 
-        nx('gk', function()
+        map.nx('gk', function()
           if vim.wo.diff then vim.cmd.normal { ']c', bang = true } end
           gs.nav_hunk('prev', { target = 'all' })
-        end)
+        end, { buffer = bufnr })
 
         -- TODO: currying
         -- TODO: icmd mode, ncmd mode
-        local CmdMap = {
-          new = function(self, main_cmd)
-            local o = { main_cmd = main_cmd, __index = self }
+        local _ = ({
+          new = function(self, main_cmd, bufnr)
+            local o = {
+              main_cmd = main_cmd,
+              bufnr = bufnr,
+              __index = self,
+            }
             return setmetatable(o, o)
           end,
-          reset = function(self, cmd) self.main_cmd = cmd end,
           map = function(self, group)
-            for _, obj in pairs(group) do
-              local lhs, cmds = obj[1], obj[2]
-              local rhs
-              if type(cmds) == 'string' then
-                rhs = ('<cmd>%s %s<cr>'):format(self.main_cmd, cmds)
-              elseif type(cmds) == 'table' then
-                cmds = vim
-                  .iter(cmds)
-                  :map(function(_, cmd) return ('<cmd>%s %s<cr>'):format(self.main_cmd, cmd) end)
-                  :totable()
-                rhs = table.concat(cmds)
+            if self.main_cmd then
+              for _, obj in pairs(group) do
+                local lhs, cmds = obj[1], obj[2]
+                local rhs = '<cmd>%s %s<cr>'
+                if type(cmds) == 'string' then
+                  rhs = rhs:format(self.main_cmd, cmds)
+                elseif type(cmds) == 'table' then
+                  cmds = vim
+                    .iter(cmds)
+                    :map(function(subcmd) return rhs:format(self.main_cmd, subcmd) end)
+                    :totable()
+                  rhs = table.concat(cmds)
+                end
+                map.n(lhs, rhs, { buffer = bufnr })
               end
-              map.n(lhs, rhs)
             end
           end,
-        }
-
-        CmdMap:new('Gitsigns'):map({
+        }):new('Gitsigns', bufnr):map({
           { ' hs', 'stage_hunk' },
           { ' hu', 'undo_stage_hunk' },
           { ' hr', 'reset_hunk' },
@@ -101,16 +119,11 @@ return {
           { ' hd', { 'toggle_deleted', 'toggle_word_diff' } },
           { '+gb', 'blame' },
         })
+
         -- PERF: find then select_hunk
         map.ox('ih', ':<c-u>Gitsigns select_hunk<cr>')
       end,
     },
-  },
-  {
-    'phanen/gitlinker.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    keys = { { ' gl', '<cmd>lua require("gitlinker").get_permalink()<cr>', mode = { 'n', 'x' } } },
-    opts = { remote = u.git.smart_remote_url },
   },
   -- TODO: this produce many [no name] buf...
   {
@@ -136,15 +149,17 @@ return {
   },
   {
     'SuperBo/fugit2.nvim',
-    cond = true,
+    cond = false,
     dependencies = {
       'MunifTanjim/nui.nvim',
-      'nvim-tree/nvim-web-devicons',
       'nvim-lua/plenary.nvim',
       { 'chrisgrieser/nvim-tinygit', dependencies = { 'stevearc/dressing.nvim' } },
     },
     cmd = { 'Fugit2', 'Fugit2Graph' },
-    keys = { { '<leader>F', '<cmd>Fugit2<cr>' } },
-    opts = {},
+    keys = { { ' F', '<cmd>Fugit2<cr>' } },
+    opts = {
+      width = 100,
+      external_diffview = true,
+    },
   },
 }

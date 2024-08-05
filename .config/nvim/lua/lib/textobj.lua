@@ -1,3 +1,4 @@
+-- 'chrisgrieser/nvim-various-textobjs'
 local M = {}
 
 local is_blank = function(lnr)
@@ -145,10 +146,10 @@ local indent = function(with_border, with_blank)
 end
 
 M.fold = function(motion)
-  local lnum = vim.fn.line('.') --[[@as integer]]
-  local sel_start = vim.fn.line('v')
-  local lev = vim.fn.foldlevel(lnum)
-  local levp = vim.fn.foldlevel(lnum - 1)
+  local lnum = fn.line('.') --[[@as integer]]
+  local sel_start = fn.line('v')
+  local lev = fn.foldlevel(lnum)
+  local levp = fn.foldlevel(lnum - 1)
   -- Multi-line selection with cursor on top of selection
   if sel_start > lnum then
     return (lev == 0 and 'zk' or lev > levp and levp > 0 and 'k' or '')
@@ -164,7 +165,7 @@ end
 ---@return nil
 function M.goto_paragraph_firstline()
   local chunk_size = 10
-  local linenr = vim.fn.line('.')
+  local linenr = fn.line('.')
   local count = vim.v.count1
 
   -- If current line is the first line of paragraph, move one line
@@ -200,7 +201,7 @@ end
 ---@return nil
 function M.goto_paragraph_lastline()
   local chunk_size = 10
-  local linenr = vim.fn.line('.')
+  local linenr = fn.line('.')
   local buf_line_count = vim.api.nvim_buf_line_count(0)
   local count = vim.v.count1
 
@@ -233,7 +234,8 @@ function M.goto_paragraph_lastline()
 end
 
 M.buffer = buffer
-M.codeblock = codeblock
+M.codeblock_i = codeblock(false)
+M.codeblock_a = codeblock(true)
 M.comment = comment
 M.indent = indent
 M.indent_i = indent(false, false)

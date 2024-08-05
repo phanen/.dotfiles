@@ -1,72 +1,55 @@
 local M = {}
 
--- FIXME(unkown): write lazy.lua in lazy.nvim root??
-M.lazy_patch = function()
-  local patches_path = vim.fs.joinpath(vim.g.config_path, 'patches')
-  for patch_name in vim.fs.dir(patches_path) do
-    local lazy_root = require('lazy.core.config').options.root
-    local plug_path = vim.fs.joinpath(lazy_root, (patch_name:gsub('%.patch$', '')))
-    if not uv.fs_stat(plug_path) then return end
-    vim.notify('Restore begin: ' .. patch_name)
-    fn.system { 'git', '-C', plug_path, 'restore', '.' }
-    vim.notify('Restore done:  ' .. patch_name)
-    local patch_path = vim.fs.joinpath(patches_path, patch_name)
-    vim.notify('Patch begin:    ' .. patch_name)
-    fn.system { 'git', '-C', plug_path, 'apply', '--ignore-space-change', patch_path }
-    vim.notify('Patch done:     ' .. patch_name)
-  end
-end
+local lazy_config = require('lazy.core.config')
+local patch_dir = fs.joinpath(g.config_path, 'patches')
 
-M.lazy_patch_callback = function(info)
-  vim.g._lz_syncing = vim.g._lz_syncing or info.match == 'LazySyncPre'
-  if vim.g._lz_syncing and not info.match:find('^LazySync') then return end
-  if info.match == 'LazySync' then vim.g._lz_syncing = nil end
-  local patches_path = vim.fs.joinpath(vim.g.config_path, 'patches')
-  for patch_name in vim.fs.dir(patches_path) do
-    local lazy_root = require('lazy.core.config').options.root
-    local plug_path = vim.fs.joinpath(lazy_root, (patch_name:gsub('%.patch$', '')))
+local hl_echo = function(msg, hl) return api.nvim_echo({ { msg, hl } }, true, {}) end
+
+-- FIXME(unkown): write lazy.lua in lazy.nvim root??
+---@param should_patch boolean
+M.lazy_patch = function(should_patch)
+  u.fs.ls(patch_dir, function(path, name, _)
+    local plug_path = fs.joinpath(lazy_config.options.root, (name:gsub('%.patch$', '')))
     if not uv.fs_stat(plug_path) then return end
-    vim.notify('Restore begin: ' .. patch_name)
-    fn.system { 'git', '-C', plug_path, 'restore', '.' }
-    vim.notify('Restore done:  ' .. patch_name)
-    if not info.match:find('Pre$') then
-      local patch_path = vim.fs.joinpath(patches_path, patch_name)
-      vim.notify('Patch begin:    ' .. patch_name)
-      fn.system { 'git', '-C', plug_path, 'apply', '--ignore-space-change', patch_path }
-      vim.notify('Patch done:     ' .. patch_name)
+    u.git { 'restore', '.', cwd = plug_path }:wait()
+    if should_patch then
+      local obj = u.git { 'apply', '--ignore-space-change', path, cwd = plug_path }:wait()
+      if obj.code == 0 then
+        hl_echo('Patched: ' .. name, 'DevIconVimrc')
+      else
+        hl_echo('Failed:  ' .. name, 'Error')
+      end
     end
-  end
+  end)
 end
 
 M.lazy_cache_docs = function()
   -- note: seems not loaded when LazyInstall
-  local lazy_util = require('lazy.util')
-  local lazy_config = require('lazy.core.config')
   if g.disable_cache_docs then
     return (function()
       for _, plugin in pairs(lazy_config.plugins) do
-        local docs = vim.fs.joinpath(plugin.dir, 'doc')
-        if lazy_util.file_exists(docs) then
+        local docs = fs.joinpath(plugin.dir, 'doc')
+        if uv.fs_stat(docs) then
           vim.print(docs)
           pcall(vim.cmd.helptags, docs)
         end
       end
     end)()
   end
-  local docs_path = vim.fs.joinpath(vim.g.docs_path, 'doc')
+  local docs_path = fs.joinpath(g.docs_path, 'doc')
   fn.mkdir(docs_path, 'p')
-  lazy_util.ls(docs_path, function(path, _, _)
+  u.fs.ls(docs_path, function(path, _, _)
     if type == 'file' then uv.fs_unlink(path) end
   end)
   for _, plugin in pairs(lazy_config.plugins) do
-    local docs = vim.fs.joinpath(plugin.dir, 'doc')
-    if lazy_util.file_exists(docs) then
-      lazy_util.ls(docs, function(path, name, type)
+    local docs = fs.joinpath(plugin.dir, 'doc')
+    if uv.fs_stat(docs) then
+      u.fs.ls(docs, function(path, name, type)
         if type ~= 'file' then return true end
         if name == 'tags' then
           uv.fs_unlink(path)
         elseif name:sub(-4) == '.txt' then
-          uv.fs_copyfile(path, vim.fs.joinpath(docs_path, name))
+          uv.fs_copyfile(path, fs.joinpath(docs_path, name))
         end
       end)
     end
@@ -76,7 +59,7 @@ end
 
 -- used by keymap
 M.lazy_chore_update = function()
-  M.lazy_patch()
+  M.lazy_patch(true)
   M.lazy_cache_docs()
 end
 

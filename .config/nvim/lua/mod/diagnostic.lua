@@ -1,0 +1,8 @@
+map.n(' di', '<cmd>lua vim.diagnostic.open_float()<cr>')
+map.n(' do', '<cmd>lua vim.diagnostic.setqflist()<cr>')
+map.n(' dj', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+map.n(' dk', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+map.n(' ds', '<cmd>lua vim.diagnostic.setloclist()<cr>')
+map.n(' dj', '<cmd>lua vim.diagnostic.jump{count = 1}<cr>')
+map.n(' dk', '<cmd>lua vim.diagnostic.jump{count = -1}<cr>')
+map.n(' dt', function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end)

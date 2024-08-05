@@ -1,12 +1,3 @@
--- n(' sr', function()
---   local bufname = fn.bufname('%')
---   if bufname:find('crunner_') then
---     vim.cmd('RunClose')
---   else
---     vim.cmd('RunCode')
---   end
--- end, { desc = 'Toggle Code Runner' })
-
 return {
   {
     'skywind3000/asyncrun.vim',

@@ -81,5 +81,5 @@ end
 
 -- for _, motion in ipairs{ 'h', 'j', 'k', 'l', 'w', 'b', 'e', 'W', 'B', 'E', '<c-d>', '<c-u>' } do
 for _, motion in ipairs { 'h', 'j', 'k', '<c-d>', '<c-u>' } do -- TODO: fold not expand
-  nx(motion, move(motion), { expr = true })
+  map.nx(motion, move(motion), { expr = true })
 end

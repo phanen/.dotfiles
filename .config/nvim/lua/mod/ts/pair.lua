@@ -13,7 +13,7 @@ local set_pair_move_func = function(opts)
     vim.cmd.normal('zz')
     vim.cmd.redraw()
 
-    local ok, keynum = pcall(vim.fn.getchar)
+    local ok, keynum = pcall(fn.getchar)
     if not ok then break end
     local key = string.char(keynum)
 

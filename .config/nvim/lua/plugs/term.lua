@@ -1,6 +1,7 @@
 local toggle_lazygit = function()
   local Terminal = require('toggleterm.terminal').Terminal
   local root = u.git.root { follow_symlinks = true }
+  if not root then return u.log.warn('not in git repo') end
   if not _TERM_LIST then _TERM_LIST = {} end
   local term = _TERM_LIST[root]
   if not term then
@@ -29,6 +30,12 @@ return {
     keys = {
       { '<leader><c-\\>', toggle_lazygit },
       { '<leader><c-`>', toggle_lazygit },
+      -- https://github.com/akinsho/toggleterm.nvim/pull/596
+      -- FIXME(upstream): this cannot fix...
+      -- insert mode preserved (but not normal mode)
+      -- limited by api.nvim_get_mode().mode cannot refelct the "real" mode (by feedkey(i) or vim.cmd.startinsert)
+      { '<a-1>', '<cmd>1 ToggleTerm<cr>', mode = { 'n', 't' }, desc = 'Toggle terminal 1' },
+      { '<a-2>', '<cmd>2 ToggleTerm<cr>', mode = { 'n', 't' }, desc = 'Toggle terminal 2' },
       -- not work '<leader><esc>'
     },
     opts = {
@@ -58,6 +65,7 @@ return {
   },
   {
     'willothy/flatten.nvim',
+    -- FIXME: swapfile
     ft = { 'toggleterm', 'terminal', 'neo-term' },
     cond = true,
     lazy = false,
@@ -84,7 +92,7 @@ return {
               api.nvim_set_current_win(winnr)
             end
             if ft == 'gitcommit' or ft == 'gitrebase' then
-              au('BufWritePost', {
+              autocmd('BufWritePost', {
                 buffer = bufnr,
                 once = true,
                 callback = vim.schedule_wrap(function() api.nvim_buf_delete(bufnr, {}) end),

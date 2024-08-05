@@ -92,7 +92,7 @@ end
 ---Initialize highlight groups for winbar
 local init = function()
   set_hlgroups()
-  au('ColorScheme', {
+  autocmd('ColorScheme', {
     group = ag('WinBarHlGroups', {}),
     callback = set_hlgroups,
   })

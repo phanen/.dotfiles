@@ -2,6 +2,26 @@ return {
   { 'skywind3000/vim-quickui', cond = false },
 
   {
+    'stevearc/dressing.nvim',
+    opts = {
+      input = {
+        mappings = {
+          i = {
+            ['<c-p>'] = 'HistoryPrev',
+            ['<c-n>'] = 'HistoryNext',
+            ['<Esc>'] = 'Close',
+          },
+        },
+      },
+      select = {
+        -- FIXME: <esc> break fzf_lua, so we register manually
+        enabled = false,
+        backend = { 'fzf_lua' },
+      },
+    },
+  },
+
+  {
     'folke/noice.nvim',
     cond = false,
     event = 'VeryLazy',
