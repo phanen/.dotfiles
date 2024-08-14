@@ -65,3 +65,11 @@ n(' sl', '<cmd>so /tmp/Session.vim<cr>')
 nx(' so', ':so<cr>')
 
 n(' t', ':e /tmp/tmp/')
+
+-- fastmove
+nx('h', u.faster.h, { expr = true })
+nx('l', u.faster.l, { expr = true })
+nx('j', u.faster.j, { expr = true })
+nx('k', u.faster.k, { expr = true })
+nx('<c-d>', u.faster['<c-d>'], { expr = true })
+nx('<c-u>', u.faster['<c-u>'], { expr = true })

@@ -133,14 +133,14 @@ return {
     },
     -- stylua: ignore
     keys = {
-      { '+gc', ':GpChatNew popup<cr>', mode = { 'n', 'x' } },
-      { '+gk', ':GpChatToggle <cr>',   mode = { 'n', 'x' } },
-      { '+gf', ':GpChatFinder<cr>',    mode = { 'n', 'x' } },
-      { '+gp', ':GpChatPaste<cr>',     mode = { 'n', 'x' } },
+      { ' wn', ':GpChatNew<cr>', mode = { 'n', 'x' } },
+      { ' wk', ':GpChatToggle <cr>',   mode = { 'n', 'x' } },
+      { ' wf', ':GpChatFinder<cr>',    mode = { 'n', 'x' } },
+      { ' wp', ':GpChatPaste<cr>',     mode = { 'n', 'x' } },
     },
     opts = {
-      toggle_target = 'popup',
-      openai_api_key = 'fakeapi',
+      -- toggle_target = 'popup',
+      -- openai_api_key = 'fakeapi',
       providers = {
         openai = { disable = true },
         copilot = { enable = true },

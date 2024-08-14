@@ -96,4 +96,10 @@ return {
   },
   { 'phanen/readline.nvim', branch = 'fix-dir-structure' },
   { 'phanen/mder.nvim', ft = 'markdown' },
+
+  {
+    dir = 'mod/vt',
+    main = 'mod.vt',
+    keys = { { ' <c-b>', function() require('mod.vt').convert() end } },
+  },
 }

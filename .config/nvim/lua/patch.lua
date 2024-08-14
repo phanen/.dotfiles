@@ -56,6 +56,9 @@ end
 
 vim.ui.select = u.lazy_req('fzf-lua.providers.ui_select').ui_select
 
+vim.ui.input = require('mod.x.ui_input').input
+-- vim.text = u.lazy_req('mod.x.text')
+
 if false then
   vim.validate = function(...) end
   vim.deprecate = function() end

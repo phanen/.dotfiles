@@ -1,5 +1,4 @@
 local config = require('mod.winbar.config')
-local u = require('mod.winbar.utils')
 
 ---@class winbar_symbol_t
 local winbar_symbol_t = {}

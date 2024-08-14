@@ -1,3 +1,4 @@
+---@module 'lib.stl'
 local M = {}
 
 ---Get string representation of a string with highlight
