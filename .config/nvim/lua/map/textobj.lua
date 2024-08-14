@@ -33,6 +33,8 @@ ox('ig', u.textobj.buffer)
 -- o('ig', '<cmd>sil! norm m`Vif<cr><cmd>sil! norm! ``<cr>', { silent = true, remap = true })
 
 ox('ic', u.textobj.comment)
+-- TODO: line before
+ox('ac', u.textobj.comment)
 
 x(
   'iz',

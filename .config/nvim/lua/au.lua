@@ -127,14 +127,21 @@ augroup('Lsp', {
   {
     callback = function(ev)
       -- lsp.inlay_hint.enable()
-      local bn = function(lhs, rhs) map('n', lhs, rhs, { buffer = ev.buf }) end
+      local bn = function(lhs, rhs, opts)
+        opts = opts or {}
+        opts.buffer = ev.buf
+        map.n(lhs, rhs, opts)
+      end
       bn('gD', lsp.buf.declaration)
       bn('gI', lsp.buf.implementation)
       bn('gs', lsp.buf.signature_help)
       bn('_', lsp.buf.hover)
-      bn('<leader>rn', lsp.buf.rename)
+      bn(' rn', lsp.buf.rename)
+
       -- vim.keymap.set({ 'n', 'x' }, 'g/', lsp.buf.references)
       -- vim.keymap.set({ 'n', 'x' }, 'g.', lsp.buf.implementation)
+
+      bn(' rn', function() return ':IncRename ' .. vim.fn.expand('<cword>') end, { expr = true })
     end,
   },
 })

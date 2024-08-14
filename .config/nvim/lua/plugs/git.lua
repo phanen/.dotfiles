@@ -122,6 +122,7 @@ return {
 
         -- PERF: find then select_hunk
         map.ox('ih', ':<c-u>Gitsigns select_hunk<cr>')
+        map.ox('ah', ':<c-u>Gitsigns select_hunk<cr>')
       end,
     },
   },

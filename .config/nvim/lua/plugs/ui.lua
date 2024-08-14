@@ -3,6 +3,7 @@ return {
 
   {
     'stevearc/dressing.nvim',
+    cond = false,
     opts = {
       input = {
         mappings = {

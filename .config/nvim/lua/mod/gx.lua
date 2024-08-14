@@ -152,10 +152,11 @@ local get_text = function(mode)
   mode = mode or api.nvim_get_mode().mode
 
   local text = nil
-  if mode == 'n' or mode == 'nt' then
+  -- if mode == 'n' or mode == 'nt' then
+  if mode:match('n') then
     -- text = vim.api.nvim_get_current_line()
     text = fn.expand('<cWORD>')
-  elseif vim.tbl_contains({ 'v', 'V', '\022' }, mode) then
+  elseif mode:match('[vV\022]') then
     text = table
       .concat(fn.getregion(fn.getpos('.'), fn.getpos('v'), { type = fn.mode() }), '\n')
       :gsub('\n', '')

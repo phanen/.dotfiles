@@ -27,7 +27,6 @@ require 'pm'
 -- modules not explictly lazy-loaded
 require 'mod.comment'
 require 'mod.diagnostic'
-require 'mod.fastmove'
 require 'mod.fmt'
 require 'mod.idl'
 require 'mod.msg'

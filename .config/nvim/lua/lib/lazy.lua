@@ -15,6 +15,7 @@ M.lazy_patch = function(should_patch)
     if should_patch then
       local obj = u.git { 'apply', '--ignore-space-change', path, cwd = plug_path }:wait()
       if obj.code == 0 then
+        -- TODO: if devicon not loaded, this hlgroup not work
         hl_echo('Patched: ' .. name, 'DevIconVimrc')
       else
         hl_echo('Failed:  ' .. name, 'Error')

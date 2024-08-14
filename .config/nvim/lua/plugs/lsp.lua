@@ -230,6 +230,7 @@ return {
         python = { 'ruff' },
         sh = { 'shfmt' },
         xml = { 'xmlformat' },
+        toml = { 'taplo' },
 
         -- note: for arch, need `perl-unicode-linebreak` as extra dependency
         -- TODO: force a `:retab` for formatter use tab only...
@@ -266,17 +267,6 @@ return {
     opts = {
       hint_prefix = '🧐 ',
       handler_opts = { boarder = 'rounded' },
-    },
-  },
-
-  -- lsp-rename, but verbose show
-  {
-    'smjonas/inc-rename.nvim',
-    cond = false,
-    cmd = 'IncRename',
-    opts = {
-      -- input_buffer_type = "dressing",
-      post_hook = function() fn.histdel('cmd', '^IncRename ') end,
     },
   },
 

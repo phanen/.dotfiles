@@ -11,7 +11,7 @@ M.qf_delete = function()
   local qflist = fn.getqflist()
   local lnum = fn.line '.'
   local mode = api.nvim_get_mode().mode
-  if mode:match('[vV]') then
+  if mode:match('[vV\022]') then
     api.nvim_feedkeys(vim.keycode('<esc>'), 'n', false)
     local first_lnum = fn.line "'<"
     local last_lnum = fn.line "'>"

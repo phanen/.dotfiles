@@ -153,7 +153,3 @@ if fn.executable('rg') == 1 then
   vim.o.grepprg = 'rg --vimgrep -.'
   -- vim.o.grepformat = '%f:%l:%c:%m'
 end
-
--- statusline
--- TODO: opt_global? go o?
-vim.o.statusline = [[%!v:lua.require'mod.stl'.get()]]

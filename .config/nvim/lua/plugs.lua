@@ -22,6 +22,17 @@ return {
   -- },
   { 'nvim-neorocks/lz.n', mod = true },
   { 'stevearc/dressing.nvim', lazy = false },
+
+  -- lsp-rename, but verbose show
+  {
+    'smjonas/inc-rename.nvim',
+    cond = true,
+    cmd = 'IncRename',
+    opts = {
+      -- input_buffer_type = "dressing",
+      -- post_hook = function() fn.histdel('cmd', '^IncRename ') end,
+    },
+  },
   -- TODO:
   -- https://github.com/liangxianzhe/floating-input.nvim
   {
