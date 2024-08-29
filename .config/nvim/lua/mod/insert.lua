@@ -264,7 +264,10 @@ M.setup = function()
 
   for _, char in ipairs({ ' ', '-', '_', ':', '.', '/' }) do
     -- i(char, function() return char .. '<c-g>u' end, { expr = true })
-    i(char, char .. '<c-g>u')
+    i(char, function()
+      if fn.reg_executing() ~= '' or fn.reg_recording() ~= '' then return char end
+      return char .. '<c-g>u'
+    end, { expr = true })
   end
 end
 

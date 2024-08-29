@@ -3,7 +3,6 @@ vim.loader.enable()
 
 -- TODO: module path
 -- https://stackoverflow.com/questions/60283272/how-to-get-the-exact-path-to-the-script-that-was-loaded-in-lua
-DEBUG = 1
 
 -- vim.go.loadplugins = true
 
@@ -28,4 +27,5 @@ require 'pm'
 require 'mod.idl'
 require 'mod.runner'
 require 'mod.colors'
+
 -- pcall(vim.cmd.colorscheme, vim.g.colors_name)

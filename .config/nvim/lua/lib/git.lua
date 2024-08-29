@@ -11,22 +11,7 @@ end
 ---@param cmd table
 ---@param cwd string?
 ---@return vim.SystemObj
-local exec = function(cmd, cwd)
-  local obj = vim.system({ 'git', unpack(cmd) }, { cwd = cwd })
-  if __DEBUG then
-    ---@diagnostic disable-next-line: inject-field
-    obj.cwd = cwd
-    local save_wait = obj.wait
-    obj.wait = function(m)
-      local _obj = save_wait(m)
-      ---@diagnostic disable-next-line: inject-field
-      _obj.cmd, _obj.cwd = cmd, cwd
-      -- if _obj.code ~= 0 then die(cmd) end
-      return _obj
-    end
-  end
-  return obj
-end
+local exec = function(cmd, cwd) return vim.system({ 'git', unpack(cmd) }, { cwd = cwd }) end
 
 --- @class git_args_t
 --- @field cmd table? unused now

@@ -1,5 +1,5 @@
 local M = {}
-local groupid = ag('StatusLine', {})
+local groupid = ag('StatusLine', { clear = true })
 
 local diag_signs_default_text = { 'E', 'W', 'I', 'H' }
 
@@ -143,7 +143,9 @@ M.info = function()
   if ft_text[vim.bo.ft] and not vim.b.bigfile then add_section(M.wordcount()) end
   add_section(M.branch())
   add_section(M.gitdiff())
-  return vim.tbl_isempty(info) and '' or string.format('(%s) ', table.concat(info, ', '))
+  local ret = vim.tbl_isempty(info) and '' or string.format('(%s) ', table.concat(info, ', '))
+  -- vim.print(ret)
+  return ret
 end
 
 autocmd('DiagnosticChanged', {
@@ -312,7 +314,7 @@ local components = {
 }
 -- stylua: ignore end
 
-local stl = table.concat({
+local stl = table.concat {
   components.mode,
   components.fname,
   components.info,
@@ -321,26 +323,25 @@ local stl = table.concat({
   components.lsp_progress,
   components.diag,
   components.pos,
-})
+}
 
-local stl_nc = table.concat({
+local stl_nc = table.concat {
   components.padding,
   components.fname,
   components.align,
   components.truncate,
   components.pos,
-})
+}
 
 ---Get statusline string
 ---@return string
 M.get = function() return vim.g.statusline_winid == api.nvim_get_current_win() and stl or stl_nc end
 
--- au({ 'FileChangedShellPost', 'DiagnosticChanged', 'LspProgress' }, {
---   group = groupid,
---   -- TODO: fix it
---   -- command = 'redrawstatus',
---   command = 'sil! redrawstatus',
--- })
+autocmd({ 'FileChangedShellPost', 'DiagnosticChanged', 'LspProgress' }, {
+  group = groupid,
+  command = 'redrawstatus',
+  -- command = 'sil! redrawstatus',
+})
 
 ---Set default highlight groups for statusline components
 ---@return  nil
@@ -372,6 +373,7 @@ local function set_default_hlgroups()
     reverse = true,
   })
 end
+
 set_default_hlgroups()
 
 autocmd('ColorScheme', {
