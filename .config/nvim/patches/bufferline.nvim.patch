@@ -1,0 +1,14 @@
+diff --git a/lua/bufferline/commands.lua b/lua/bufferline/commands.lua
+index 55a0715..d0f400f 100644
+--- a/lua/bufferline/commands.lua
++++ b/lua/bufferline/commands.lua
+@@ -22,7 +22,8 @@ local function open_element(id)
+   if config:is_tabline() and api.nvim_tabpage_is_valid(id) then
+     api.nvim_set_current_tabpage(id)
+   elseif api.nvim_buf_is_valid(id) then
+-    api.nvim_set_current_buf(id)
++    -- enable `swapfile = true`
++    vim.cmd.edit(api.nvim_buf_get_name(id))
+   end
+ end
+ 

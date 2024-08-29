@@ -4,10 +4,11 @@ return {
     'phanen/fzf-lua-overlay',
     main = 'flo',
     cond = not vim.g.vscode,
+    -- TODO: split source
     init = function() require('flo').init() end,
     -- stylua: ignore
     keys = function()
-      local f = require('flo')
+      local f = u.lazy_req('flo')
       return {
         { '<c-b>',      f.buffers,               mode = { 'n', 'x' } },
         { '+<c-f>',     f.lazy,                  mode = { 'n', 'x' } },
@@ -41,14 +42,13 @@ return {
         { '+fl',        f.license,               mode = { 'n', 'x' } },
         { ' fm',        f.marks,                 mode = { 'n', 'x' } },
         { ' fo',        f.recentfiles,           mode = { 'n', 'x' } },
-        { ' fp',         f.loclist,               mode = { 'n', 'x' } },
-        { ' fq',         f.quickfix,              mode = { 'n', 'x' } },
+        { ' fp',        f.loclist,               mode = { 'n', 'x' } },
+        { ' fq',        f.quickfix,              mode = { 'n', 'x' } },
         { '  ',         f.resume,                mode = { 'n', 'x' } },
         { '+fr',        f.rtp,                   mode = { 'n', 'x' } },
         { ' /',         f.search_history,        mode = { 'n', 'x' } },
         { ' fs',        f.lsp_document_symbols,  mode = { 'n', 'x' } },
         { '+fs',        f.scriptnames,           mode = { 'n', 'x' } },
-        { ' ;',         f.spell_suggest,         mode = { 'n', 'x' } },
         { ' fw',        f.lsp_workspace_symbols, mode = { 'n', 'x' } },
         { 'g<c-d>',     f.lsp_declarations,      mode = { 'n', 'x' } },
         { 'g<c-i>',     f.lsp_implementations,   mode = { 'n', 'x' } },
@@ -58,6 +58,7 @@ return {
         { 'gr',         f.lsp_references,        mode = { 'n', 'x' } },
         { ' l',         f.find_dots,             mode = { 'n', 'x' } },
         { '+l',         f.grep_dots,             mode = { 'n', 'x' } },
+        { 'U',          f.undo,                  mode = { 'n', 'x' } },
         { 'z=',         f.spell_suggest,         mode = { 'n', 'x' } },
       }
     end,
@@ -113,7 +114,12 @@ return {
         },
         awesome_colorschemes = {
           prompt = 'LiveColors> ',
-          winopts = { row = 0.3, col = 0.5, width = 0.3, backdrop = false },
+          winopts = {
+            row = 0.3,
+            col = 0.5,
+            width = 0.3,
+            backdrop = false,
+          },
           max_threads = 5,
           dbfile = 'data/colorschemes.json',
         },
@@ -162,25 +168,25 @@ return {
           -- async = true,
           async_or_timeout = 5000,
           jump_to_single_result = true,
+          -- iwefj
           includeDeclaration = false,
           ignore_current_line = true,
           unique_line_items = true,
           code_actions = {
-            -- previewer = fn.executable('delta') == 1 and 'codeaction_native' or 'codeaction',
-            previewer = 'codeaction', -- no highlgiht?
+            previewer = fn.executable('delta') == 1 and 'codeaction_native' or 'codeaction',
+            -- previewer = 'codeaction', -- no highlgiht?
           },
         },
         git = {
           status = {
             previewer = 'git_diff',
-          -- preview_pager = false,
-          -- stylua: ignore
-          actions = {
-            ["right"]  = false,
-            ["left"]   = false,
-            ['ctrl-s'] = { fn = f.actions.git_stage_unstage, reload = true },
-            ['ctrl-x'] = { fn = f.actions.git_reset, reload = true },
-          },
+            -- preview_pager = false,
+            actions = {
+              ['right'] = false,
+              ['left'] = false,
+              ['ctrl-s'] = { fn = f.actions.git_stage_unstage, reload = true },
+              ['ctrl-x'] = { fn = f.actions.git_reset, reload = true },
+            },
           },
         },
         helptags = {
@@ -192,6 +198,12 @@ return {
               -- using `reload = true` will fallback to `resume`
               resume = true,
             },
+          },
+        },
+        spell_suggest = {
+          winopts = {
+            border = 'none',
+            backdrop = false,
           },
         },
         actions = {
@@ -206,7 +218,7 @@ return {
             --   prefix = 'transform([ $FZF_SELECT_COUNT -eq 0 ] && echo select-all)',
             -- },
             ['ctrl-x'] = { fn = a.file_delete, reload = true },
-            ['ctrl-r'] = { fn = a.file_rename, reload = true }, -- TODO: cursor missed
+            ['ctrl-r'] = { fn = a.file_rename, reload = true },
             ['ctrl-o'] = { fn = a.file_edit_bg, reload = true }, -- TODO: not work well in rg
             ['ctrl-y'] = {
               fn = function(selected, opts)

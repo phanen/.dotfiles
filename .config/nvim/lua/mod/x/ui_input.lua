@@ -32,6 +32,8 @@ function input.input(opts, on_confirm)
     width = input_width,
     height = 1,
     title = prompt,
+    -- fix popup on fzf term
+    zindex = 250,
   }
 
   local win_config = vim.tbl_deep_extend('force', default_win_config, opts.win_config or {})

@@ -65,6 +65,7 @@ return {
   -- 'DiagnosticChanged',
   {
     dir = 'mod/stc',
+    main = 'mod.stc',
     cond = false,
     event = {
       'BufWritePost',

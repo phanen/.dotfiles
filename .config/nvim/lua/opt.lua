@@ -3,7 +3,7 @@
 -- * xx-func
 -- * xx-prg
 
-local o, g = vim.o, vim.g
+local o = vim.o
 
 -- vim.opt.shm = 'I'
 
@@ -138,7 +138,6 @@ vim.o.viewoptions = 'folds,curdir'
 vim.o.completeopt = 'menu,menuone,noselect'
 
 -- vim.o.confirm = true
-
 vim.o.diffopt = opt_tbl2str {
   'internal',
   'filler',
@@ -149,7 +148,9 @@ vim.o.diffopt = opt_tbl2str {
 }
 
 if fn.executable('rg') == 1 then
-  -- ignore
-  vim.o.grepprg = 'rg --vimgrep -.'
+  vim.o.grepprg = 'rg --vimgrep -.' -- ignore
   -- vim.o.grepformat = '%f:%l:%c:%m'
 end
+
+-- vim.go.statusline = [[%{mode()} %{mode()}]]
+vim.go.statusline = [[%!v:lua.require('mod.stl').get()]]

@@ -4,9 +4,10 @@ return {
     'tpope/vim-fugitive',
     cmd = { 'G' },
     keys = {
+      -- todo: if staged then amend (maybe use gitsigns)
       { ' ga', '<cmd>silent G commit --amend --no-edit<cr>' },
       { ' gr', '<cmd>Gr<cr>' },
-      -- { '+gd', '<cmd>Gvdiffsplit<cr>' },
+      -- { ' gd', '<cmd>Gvdiffsplit<cr>' },
       { ' gb', '<cmd>G blame<cr>' },
       { ' gg', '<cmd>G<cr>' },
       { ' gP', '<cmd>G push<cr>' },
@@ -126,7 +127,6 @@ return {
       end,
     },
   },
-  -- TODO: this produce many [no name] buf...
   {
     'TimUntersberger/neogit',
     cmd = 'Neogit',

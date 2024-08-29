@@ -25,11 +25,7 @@ require 'cmd'
 require 'pm'
 
 -- modules not explictly lazy-loaded
-require 'mod.comment'
-require 'mod.diagnostic'
-require 'mod.fmt'
 require 'mod.idl'
-require 'mod.msg'
 require 'mod.runner'
 require 'mod.colors'
 -- pcall(vim.cmd.colorscheme, vim.g.colors_name)

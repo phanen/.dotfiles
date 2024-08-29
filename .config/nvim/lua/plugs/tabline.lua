@@ -48,7 +48,7 @@ return {
   },
   {
     'nvim-lualine/lualine.nvim',
-    enabled = false,
+    cond = vim.go.statusline == '',
     event = { 'BufReadPre', 'BufNewFile' },
     init = function() vim.opt.laststatus = 0 end,
     opts = {
@@ -130,9 +130,6 @@ return {
         'toggleterm',
         'trouble',
       },
-    },
-    dependencies = {
-      { 'parsifa1/nvim-web-devicons' },
     },
   },
 

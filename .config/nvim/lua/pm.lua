@@ -100,25 +100,3 @@ require('lazy').setup {
     colorscheme = { 'tokyonight' },
   },
 }
-
----Lazy-load runtime files
----@param runtime string
----@param flag string
----@param event string|string[]
-local _load = function(event, runtime, flag)
-  if not g[flag] then
-    g[flag] = 0
-    autocmd(event, {
-      once = true,
-      callback = function()
-        g[flag] = nil
-        vim.cmd.runtime(runtime)
-        return true
-      end,
-    })
-  end
-end
-
--- _load('FileType', 'plugin/rplugin.vim', 'loaded_remote_plugins')
--- seems ported to lua now
--- _load('FileType', 'provider/python3.vim', 'loaded_python3_provider')

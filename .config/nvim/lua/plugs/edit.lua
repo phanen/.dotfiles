@@ -1,13 +1,5 @@
 return {
   {
-    'folke/ts-comments.nvim',
-    opts = {},
-    event = 'VeryLazy',
-    enabled = fn.has('nvim-0.10.0') == 1,
-    -- or we can use hook:
-    -- { 'JoosepAlviste/nvim-ts-context-commentstring' },
-  },
-  {
     'kylechui/nvim-surround',
     keys = {
       'ys',
@@ -199,6 +191,7 @@ return {
   },
   {
     'mbbill/undotree',
+    cond = true,
     cmd = 'UndotreeToggle',
     keys = { { '+u', '<Cmd>UndotreeToggle<CR>' } },
     config = function()
@@ -210,6 +203,13 @@ return {
       vim.g.undotree_TreeNodeShape = '◦'
       vim.g.undotree_WindowLayout = 2
     end,
+  },
+  {
+    'jiaoshijie/undotree',
+    cond = false,
+    main = 'undotree',
+    name = 'undotree-nvim',
+    opts = true,
   },
   {
     'okuuva/auto-save.nvim',
@@ -282,5 +282,57 @@ return {
       { 'g_', function() require('substitute.exchange').visual() end, mode = 'x' },
     },
     opts = {},
+  },
+  {
+    'ThePrimeagen/refactoring.nvim',
+    keys = {
+      { '<leader>re', ':Refactor extract ', mode = 'x' },
+      { '<leader>rf', ':Refactor extract_to_file ', mode = 'x' },
+      { '<leader>rv', ':Refactor extract_var ', mode = 'x' },
+      { '<leader>ri', ':Refactor inline_var', mode = { 'n', 'x' } },
+      { '<leader>rI', ':Refactor inline_func', mode = 'n' },
+      { '<leader>rb', ':Refactor extract_block', mode = 'n' },
+      { '<leader>rbf', ':Refactor extract_block_to_file', mode = 'n' },
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    config = function() require('refactoring').setup() end,
+  },
+  {
+    'AndrewRadev/splitjoin.vim',
+    cond = false, -- lazy = false,
+    keys = 'gJ',
+  },
+  {
+    'kevinhwang91/nvim-hlslens',
+    keys = {
+      {
+        'n',
+        [[<cmd>execute('normal! ' . v:count1 . 'n') | lua require('hlslens').start()<cr>zz]],
+      },
+      {
+        'N',
+        [[<cmd>execute('normal! ' . v:count1 . 'N') | lua require('hlslens').start()<cr>zz]],
+      },
+      {
+        '*',
+        [[*<cmd>lua require('hlslens').start()<cr>]],
+        { remap = true },
+      },
+      { '#', [[#<cmd>lua require('hlslens').start()<cr>]] },
+      { 'g*', [[g*<cmd>lua require('hlslens').start()<cr>]] },
+      { 'g#', [[g#<cmd>lua require('hlslens').start()<cr>]] },
+      {
+        '<esc>',
+        function()
+          vim.cmd.noh()
+          require('hlslens').stop()
+          api.nvim_feedkeys(vim.keycode('<esc>'), 'n', false)
+        end,
+      },
+    },
+    opts = { calm_down = true, nearest_only = true },
   },
 }

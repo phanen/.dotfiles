@@ -1,6 +1,6 @@
 -- 'xiyaowong/speedup-cursor-move.nvim'
 -- TODO: expand fold
--- TODO: may vim.on_key
+-- TODO: vim.on_key
 
 local timeout = ...
 local _step = (function()

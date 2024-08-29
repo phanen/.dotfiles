@@ -2,11 +2,21 @@ function k_ce
     set -l line (commandline)
     if test -z "$(string trim -- $line)"
         # TODO: _fzf_search_directory
-        # set -l ent (fd . -d 1 -I -H | fzf)
-        set fzf fzf \
-            --bind "ctrl-g:reload(fd . -d 1 -I -H)"
+        set -l delimiter \xe2\x80\x82
 
-        set -l ent (fd . -H | $fzf)
+        # set -l src ifd.sh --cmd 'fd -H'
+        set -l src ifd.sh --cmd 'fd'
+        set -l src_noignore ifd.sh --cmd 'fd -d 1 -I -H'
+        set src_noignore (string escape -- $src_noignore)
+
+        set -l fzf fzf \
+            --ansi \
+            --delimiter $delimiter \
+            --nth=2 \
+            --bind "ctrl-g:reload($src_noignore)"
+
+        set -l ent ($src | $fzf | string split -f 2 $delimiter)
+
         if test -n "$ent"
             if test -d "$ent"
                 __zoxide_z "$ent"

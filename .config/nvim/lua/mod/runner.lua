@@ -14,6 +14,4 @@ map.n(' so', function()
   return '<ignore>'
 end, { expr = true })
 
-local setup = function() end
-
 return { setup = function() end }

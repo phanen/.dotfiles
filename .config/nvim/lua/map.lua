@@ -1,11 +1,15 @@
 -- TODO: dsi dsa not work?
 -- motion
 
-require('map.buf')
-require('map.common')
-require('map.tab')
-require('map.textobj')
-require('map.win')
+require 'map.buf'
+require 'map.comment'
+require 'map.common'
+require 'map.diag'
+require 'map.fmt'
+require 'map.msg'
+require 'map.tab'
+require 'map.textobj'
+require 'map.win'
 
 local n = map.n
 local x = map.n

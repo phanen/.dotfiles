@@ -1,6 +1,4 @@
 return {
-  -- TODO: replace g c-g
-  { 'jspringyc/vim-word', cmd = { 'WordCount', 'WordCountLine' } },
   { 'cissoid/vim-fullwidth-punct-convertor', cmd = 'FullwidthPunctConvert' },
   {
     -- TODO(upstream): https://github.com/3rd/image.nvim/issues/116

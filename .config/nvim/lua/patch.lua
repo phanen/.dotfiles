@@ -59,6 +59,17 @@ vim.ui.select = u.lazy_req('fzf-lua.providers.ui_select').ui_select
 vim.ui.input = require('mod.x.ui_input').input
 -- vim.text = u.lazy_req('mod.x.text')
 
+-- handle swapfile error... (just use swapfile)
+-- local nvim_set_current_buf = api.nvim_set_current_buf
+-- api.nvim_set_current_buf = function(id)
+--   xpcall(
+--     function() nvim_set_current_buf(id) end,
+--     vim.schedule_wrap(function(err)
+--       if err:match('Vim:E325: ATTENTION') then vim.cmd.edit(vim.api.nvim_buf_get_name(id)) end
+--     end)
+--   )
+-- end
+
 if false then
   vim.validate = function(...) end
   vim.deprecate = function() end

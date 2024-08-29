@@ -8,3 +8,6 @@ aug lastplace
     " au BufReadPost   * call lastplace#jump()
     " au BufWinEnter * call lastplace#open_folds()
 aug END
+
+command! -bar WordCountLine call wordcount#WordCountLine()
+command! -bar WordCount call wordcount#WordCount()
