@@ -61,6 +61,7 @@ augroup('AutoResizeWin', {
   'VimResized',
   {
     callback = function()
+      -- TODO: update some options (e.g. scrolloff)
       if vim.o.columns < 100 then
         -- if openned
         -- vim.cmd.NvimTreeClose()

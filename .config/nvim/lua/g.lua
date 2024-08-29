@@ -46,12 +46,15 @@ g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]]
 g.netrw_liststyle = 1
 g.netrw_localcopydircmd = 'cp -r'
 
--- fzf
+-- fzf packaged from vimfiles
 g.fzf_layout = { window = { width = 0.7, height = 0.7, pos = 'center' } }
 env.FZF_DEFAULT_OPTS = (env.FZF_DEFAULT_OPTS or '') .. ' --border=none --margin=0 --padding=0'
 -- vim.cmd.nnoremap [[<leader><c-e> <cmd>FZF<cr>]]
 map.n(' <c-w>', '<cmd>FZF<cr>')
 
--- neovim
 g.mapleader = ' '
 g.maplocalleader = '+'
+
+-- disable some builtin ftplugin features
+g.markdown_recommended_style = 0
+g.no_man_maps = 0
