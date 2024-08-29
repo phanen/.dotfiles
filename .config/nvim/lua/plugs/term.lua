@@ -11,11 +11,9 @@ local toggle_lazygit = function()
       dir = root,
       hidden = true,
       on_open = function()
-        map('t', '<c-\\>', function() term:toggle() end, { buffer = true })
-        map('t', '<c-`>', function() term:toggle() end, { buffer = true })
+        map.t('<c-\\>', function() term:toggle() end, { buffer = true })
         -- since forgettable (no 'q' binding for lazygit)
-        map('t', 'q', '<c-\\>', { remap = true, buffer = true })
-        map('t', 'q', '<c-`>', { remap = true, buffer = true })
+        map.t('q', '<c-\\>', { remap = true, buffer = true })
       end,
     }
     _TERM_LIST[root] = term

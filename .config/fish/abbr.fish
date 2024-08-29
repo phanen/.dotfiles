@@ -22,7 +22,6 @@ abbr tree "command tree"
 
 abbr tree "command eza --tree"
 
-
 abbr dm '$EDITOR (fd .  ~/dot -d 1 | fzf)'
 
 abbr df df -h
@@ -53,7 +52,6 @@ abbr vm nvim --cmd \'lua vim.go.loadplugins = false\'
 abbr vn nvim -u NONE
 abbr wh which -a
 abbr ze zoxide edit
-
 
 abbr pa xsel -ob \| patch -Np1 -i -
 abbr rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg

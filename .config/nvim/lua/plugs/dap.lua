@@ -187,7 +187,6 @@ return {
     lazy = true,
     dependencies = {
       'mfussenegger/nvim-dap',
-      'kyazdani42/nvim-web-devicons',
     },
     config = function() require('configs.nvim-dap-ui') end,
   },

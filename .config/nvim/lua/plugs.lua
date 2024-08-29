@@ -1,30 +1,14 @@
 return {
   { import = 'plugs' },
   { import = 'mods' },
-  -- -- FIXME: should trigger only once (other than once for each event)
-  -- au({
-  --   'CmdlineEnter',
-  --   'InsertEnter',
-  -- }, {
-  --   once = true,
-  --   group = ag('InsertMappings', { clear = true }),
-  --   callback = function()
-  --     -- vim.print('loaded insertmappings')
-  --     -- FIXME: order matter, do not override cmp
-  --     u.insert.setup()
-  --   end,
-  -- })
-  -- {
-  --   dir = 'mod',
-  --   main = 'mod.insert',
-  --   event = { 'CmdlineEnter', 'InsertEnter' },
-  --   opts = {},
-  -- },
-  { 'nvim-neorocks/lz.n', mod = true },
-  { 'stevearc/dressing.nvim', lazy = false },
 
-  -- lsp-rename, but verbose show
-  {
+  { 'nvim-neorocks/lz.n' },
+
+  { 'HiPhish/rainbow-delimiters.nvim', cond = true, event = { 'BufReadPre', 'BufNewFile' } },
+
+  { 'itchyny/vim-highlighturl', cond = true, event = 'ColorScheme' },
+
+  { -- lsp-rename verbosely display
     'smjonas/inc-rename.nvim',
     cond = true,
     cmd = 'IncRename',
@@ -33,49 +17,36 @@ return {
       -- post_hook = function() fn.histdel('cmd', '^IncRename ') end,
     },
   },
-  -- TODO:
-  -- https://github.com/liangxianzhe/floating-input.nvim
-  {
-    'psliwka/vim-dirtytalk',
-    build = ':DirtytalkUpdate',
-    config = function() vim.opt.spelllang = { 'en', 'programming' } end,
-  },
-  { 'rktjmp/hotpot.nvim', lazy = true },
+
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
-  { 'folke/lazy.nvim' },
-  -- buggy in wayalnd
-  -- { 'lilydjwg/fcitx.vim', cond = not env.WAYLAND_DISPLAY, event = 'InsertEnter' },
+
   { 'tpope/vim-eunuch', cmd = { 'Rename', 'Delete' } },
-  { 'voldikss/vim-translator', cmd = 'Translate' },
+
   -- { 'Konfekt/vim-select-replace', lazy = false },
-  -- todo
-  { 'echasnovski/mini.nvim', cond = true, version = false },
   { 'monaqa/modesearch.vim', cond = true, keys = { { 'g/', '<Plug>(modesearch-slash)' } } },
-  { 'chentoast/marks.nvim', cond = false, lazy = false, opts = {} },
-  -- not work?
   {
     'kevinhwang91/nvim-fundo',
-    cond = false,
+    cond = true,
     event = { 'BufReadPre' },
     dependencies = 'kevinhwang91/promise-async',
     build = function() require('fundo').install() end,
     opts = {},
   },
+
+  -- translate
+  { 'voldikss/vim-translator', cmd = 'Translate' },
   {
-    'ThePrimeagen/refactoring.nvim',
-    keys = {
-      { '<leader>re', ':Refactor extract ', mode = 'x' },
-      { '<leader>rf', ':Refactor extract_to_file ', mode = 'x' },
-      { '<leader>rv', ':Refactor extract_var ', mode = 'x' },
-      { '<leader>ri', ':Refactor inline_var', mode = { 'n', 'x' } },
-      { '<leader>rI', ':Refactor inline_func', mode = 'n' },
-      { '<leader>rb', ':Refactor extract_block', mode = 'n' },
-      { '<leader>rbf', ':Refactor extract_block_to_file', mode = 'n' },
-    },
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    config = function() require('refactoring').setup() end,
+    'potamides/pantran.nvim',
+    cond = true,
+    cmd = 'Pantran',
+    opts = {},
+  },
+
+  -- debug ex (:
+  {
+    'nacro90/numb.nvim',
+    cond = false,
+    event = 'CmdlineEnter',
+    config = true,
   },
 }

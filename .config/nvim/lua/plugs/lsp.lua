@@ -36,6 +36,7 @@ return {
       require('mason-lspconfig').setup {
         handlers = {
           function(server) lspconfig[server].setup { capabilities = capabilities } end,
+          -- TODO: handle workspace change..
           lua_ls = function()
             lspconfig.lua_ls.setup {
               on_attach = function(client)

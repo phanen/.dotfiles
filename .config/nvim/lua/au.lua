@@ -1,3 +1,5 @@
+-- FIXME(upstream): trigger only once (other than once for each event)
+
 -- ftplugin, but for common part
 autocmd('Filetype', {
   pattern = { 'help', 'man' },

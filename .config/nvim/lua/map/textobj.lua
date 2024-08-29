@@ -16,7 +16,6 @@ ox('an', '<cmd>lua require("various-textobjs").anyBracket("outer")<cr>')
 ox('iq', '<cmd>lua require("various-textobjs").anyQuote("inner")<cr>')
 ox('aq', '<cmd>lua require("various-textobjs").anyQuote("outer")<cr>')
 
--- FIXME: vil<esc>, then hang
 ox('il', '<cmd>lua require("various-textobjs").lineCharacterwise("inner")<cr>')
 
 ox('al', '<cmd>lua require("various-textobjs").url()<cr>')

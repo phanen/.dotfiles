@@ -1,4 +1,4 @@
-map.nxi('<c-_>', '<c-/>', { remap = true })
+map('', '<c-_>', '<c-/>', { remap = true })
 map.x('<c-/>', 'gc', { remap = true })
 -- TODO: comment empty line?
 map.i('<c-/>', '<cmd>norm <c-/><cr>')

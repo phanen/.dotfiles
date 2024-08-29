@@ -11,64 +11,56 @@ local jumpforward = function(num)
   api.nvim_feedkeys(vim.keycode(tostring(num) .. '<c-i>'), 'n', false)
 end
 
----@param stop_cond fun(from_bufnr: number, to_bufnr: number):boolean
-M.backward_cond = function(stop_cond)
+---@param should_stop fun(frm: integer, to: integer):boolean
+M.backward_util = function(should_stop)
   local jumplist, to_pos = unpack(fn.getjumplist())
   if #jumplist == 0 or to_pos == 0 then return end
 
-  local from_bufnr = fn.bufnr()
-  local from_pos = to_pos + 1
+  local frm_buf = fn.bufnr()
+  local frm_pos = to_pos + 1
   repeat
-    local to_bufnr = jumplist[to_pos].bufnr
-    if stop_cond(from_bufnr, to_bufnr) then
-      jumpbackward(from_pos - to_pos)
+    local to_buf = jumplist[to_pos].bufnr
+    if api.nvim_buf_is_valid(to_buf) and should_stop(frm_buf, to_buf) then
+      jumpbackward(frm_pos - to_pos)
       return
     end
     to_pos = to_pos - 1
   until to_pos == 0
 end
 
-M.backward = function()
-  M.backward_cond(
-    function(from_bufnr, to_bufnr) return from_bufnr ~= to_bufnr and api.nvim_buf_is_valid(to_bufnr) end
-  )
-end
-
-M.backward_same_buf = function()
-  M.backward_cond(
-    function(from_bufnr, to_bufnr) return from_bufnr == to_bufnr and api.nvim_buf_is_valid(to_bufnr) end
-  )
-end
-
----@param stop_cond fun(from_bufnr: number, to_bufnr: number):boolean
-M.forward_cond = function(stop_cond)
+---@param should_stop fun(frm: integer, to: integer):boolean
+M.forward_util = function(should_stop)
   local getjumplist = fn.getjumplist()
-  local jumplist, from_pos = getjumplist[1], getjumplist[2] + 1
+  local jumplist, frm_pos = getjumplist[1], getjumplist[2] + 1
   local max_pos = #jumplist
-  if max_pos == 0 or from_pos >= max_pos then return end
+  if max_pos == 0 or frm_pos >= max_pos then return end
 
-  local from_bufnr = fn.bufnr()
-  local to_pos = from_pos + 1
+  local frm_buf = fn.bufnr()
+  local to_pos = frm_pos + 1
   repeat
-    local to_bufnr = jumplist[to_pos].bufnr
-    if stop_cond(from_bufnr, to_bufnr) then
-      jumpforward(to_pos - from_pos)
+    local to_buf = jumplist[to_pos].bufnr
+    if api.nvim_buf_is_valid(to_buf) and should_stop(frm_buf, to_buf) then
+      jumpforward(to_pos - frm_pos)
       return
     end
     to_pos = to_pos + 1
   until to_pos == max_pos + 1
 end
 
-M.forward = function()
-  M.forward_cond(
-    function(from_bufnr, to_bufnr) return from_bufnr ~= to_bufnr and api.nvim_buf_is_valid(to_bufnr) end
-  )
+M.backward_buf = function()
+  M.backward_util(function(frm, to) return frm ~= to end)
 end
 
-M.forward_same_buf = function()
-  M.forward_cond(
-    function(from_bufnr, to_bufnr) return from_bufnr == to_bufnr and api.nvim_buf_is_valid(to_bufnr) end
-  )
+M.backward_in_buf = function()
+  M.backward_util(function(frm, to) return frm == to end)
+end
+
+M.forward_buf = function()
+  M.forward_util(function(frm, to) return frm ~= to end)
+end
+
+M.forward_in_buf = function()
+  M.forward_util(function(frm, to) return frm == to end)
 end
 
 M.delete = function()

@@ -1,5 +1,13 @@
 return {
   {
+    'folke/ts-comments.nvim',
+    opts = {},
+    event = 'VeryLazy',
+    enabled = fn.has('nvim-0.10.0') == 1,
+    -- or we can use hook:
+    -- { 'JoosepAlviste/nvim-ts-context-commentstring' },
+  },
+  {
     'numToStr/Comment.nvim',
     cond = false,
     -- cond = fn.has('nvim-0.10') == 0,
@@ -21,7 +29,9 @@ return {
       { '<c-/>', '<Plug>(comment_toggle_linewise_visual)', mode = 'v' },
     },
     opts = {
-      pre_hook = function(...) require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(...) end,
+      pre_hook = function(...)
+        require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(...)
+      end,
     },
     dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
   },

@@ -72,24 +72,6 @@ return {
     end,
   },
 
-  -- http
-  {
-    'rest-nvim/rest.nvim',
-    cond = false,
-    ft = 'http',
-    main = 'rest-nvim',
-  },
-  {
-    'wet-sandwich/hyper.nvim',
-    cond = false,
-    keys = {
-      { ' hy', [[<cmd>lua require('hyper.view').show()<cr>]] },
-    },
-    tag = '0.1.3',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    -- opts = {},
-  },
-
   -- rust
   {
     'saecki/crates.nvim',
@@ -117,6 +99,7 @@ return {
       map.n('+cC', crates.open_crates_io)
     end,
   },
+
   {
     'mrcjkb/rustaceanvim',
     ft = { 'rust' },
