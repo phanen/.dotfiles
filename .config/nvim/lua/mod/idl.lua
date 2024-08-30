@@ -1,4 +1,4 @@
--- credit to https://www.reddit.com/r/neovim/comments/18d6yb6/use_the_builtin_listchars_option_to_implement
+-- https://www.reddit.com/r/neovim/comments/18d6yb6/use_the_builtin_listchars_option_to_implement
 -- TODO: this still break on empty
 -- TODO: try mini.indnetation
 
