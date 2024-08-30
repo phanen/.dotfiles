@@ -1,5 +1,4 @@
--- one more step from https://github.com/neovim/neovim/pull/27216
-_G.u = {
+local U = {
   -- TODO: not sure how to typing these
   eval = ..., ---@type function
   lazy_req = ..., ---@type function
@@ -38,8 +37,10 @@ _G.u = {
   util = nil, ---@module 'lib.util'
 }
 
-setmetatable(u, {
-  ---like lazy_req, but adapted to use module under 'lib' by default
+-- one more step from https://github.com/neovim/neovim/pull/27216
+-- also lazy on key (side effect is )
+setmetatable(U, {
+  ---`lib_lazy_req`, like lazy_req, but adapted to use module under 'lib' by default
   ---cache in global u
   __index = function(_, key)
     local path = 'lib.' .. key
@@ -62,7 +63,7 @@ setmetatable(u, {
         return mod
       end,
     })
-    rawset(u, key, mod)
+    rawset(U, key, mod)
     return mod
   end,
 })
@@ -72,7 +73,7 @@ setmetatable(u, {
 ---   the cost is `stacklevel++`
 ---   in early reference
 ---   which is accpetable for most cases
-u.lazy_reg, u.lazy_req = (function()
+U.lazy_reg, U.lazy_req = (function()
   local lazy_reg = {}
   return lazy_reg,
     ---@param modname string
@@ -83,6 +84,7 @@ u.lazy_reg, u.lazy_req = (function()
       if lazy_loaded then return lazy_loaded end
       local lazy_mod = setmetatable({}, {
         __index = function(self, k)
+          -- require('fidget').notify(('%s.%s'):format(modname, k))
           return function(...)
             local v = require(modname)[k] -- reduce stacklevel in the next reference
             if type(v) == 'function' then
@@ -105,16 +107,16 @@ u.lazy_reg, u.lazy_req = (function()
     end
 end)()
 
-u.tu = u.lazy_req 'nvim-treesitter.ts_utils'
-u.tc = u.lazy_req 'nvim-treesitter.configs'
-u.ts = u.lazy_req 'vim.treesitter'
+U.tu = U.lazy_req 'nvim-treesitter.ts_utils'
+U.tc = U.lazy_req 'nvim-treesitter.configs'
+U.ts = U.lazy_req 'vim.treesitter'
 
 -- override defaults
 -- vim.print('') -> linebreak
 -- vim.print('a', 'b') -> "a\nb"
 -- u.print() -> linebreak
 ---@return nil
-u.print = function(...)
+U.print = function(...)
   -- note: both `#{...}` and `ipairs{...}` not work as expected
   local n = select('#', ...)
   if n == 0 then return print('\n') end
@@ -132,11 +134,13 @@ u.print = function(...)
   return print(table.concat(tbl, ' '))
 end
 
-u.eval = function(v, ...)
+U.eval = function(v, ...)
   if vim.is_callable(v) then return v(...) end
   return v
 end
 
-u.tu = u.lazy_req 'nvim-treesitter.ts_utils'
-u.tc = u.lazy_req 'nvim-treesitter.configs'
-u.ts = u.lazy_req 'vim.treesitter'
+U.tu = U.lazy_req 'nvim-treesitter.ts_utils'
+U.tc = U.lazy_req 'nvim-treesitter.configs'
+U.ts = U.lazy_req 'vim.treesitter'
+
+return U

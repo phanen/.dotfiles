@@ -1,5 +1,5 @@
--- chrishrb/gx.nvim
-local M = {}
+-- 'chrishrb/gx.nvim'
+local Gx = {}
 
 ---@class GxHandler
 ---@field filetype string|string[]?
@@ -145,7 +145,7 @@ options = {
   },
 }
 
-M.setup = function(opts) options = vim.tbl_deep_extend('force', opts or {}, options) end
+Gx.setup = function(opts) options = vim.tbl_deep_extend('force', opts or {}, options) end
 
 ---@type fun(mode: string): string?
 local get_text = function(mode)
@@ -166,7 +166,7 @@ end
 
 ---@param text string?
 ---@return nil
-M.open = function(text)
+Gx.open = function(text)
   local mode = api.nvim_get_mode().mode
   text = text or get_text(mode)
   if not text then return nil end
@@ -233,4 +233,4 @@ M.open = function(text)
   end)
 end
 
-return M
+return Gx

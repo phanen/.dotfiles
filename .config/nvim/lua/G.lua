@@ -18,19 +18,11 @@ _G.lsp = vim.lsp
 _G.g = vim.g
 _G.env = vim.env
 
--- TODO: curry...
-_G.map = setmetatable({}, {
-  ---@param k string
-  __index = function(t, k)
-    local f = function(...) vim.keymap.set(vim.split(k, ''), ...) end
-    rawset(t, k, f)
-    return f
-  end,
-  __call = function(_, ...) return vim.keymap.set(...) end,
-})
-
 _G.cmd = vim.api.nvim_create_user_command
 _G.ag = vim.api.nvim_create_augroup
+
+_G.map = require('G.m')
+_G.u = require('G.u')
 
 ---@param group string
 ---@vararg { [1]: string|string[], [2]: vim.api.keyset.create_autocmd }
@@ -53,3 +45,6 @@ _G.autocmd = function(ev, opts)
   opts.group = opts.group or grp -- we cannot use clear here
   vim.api.nvim_create_autocmd(ev, opts)
 end
+
+require 'G.g'
+require 'G.patch'

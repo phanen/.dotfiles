@@ -1,5 +1,5 @@
--- vim-redir-output
 local n = map.n
+local nx = map.nx
 
 -- n(' m;', 'g<')
 n(' mk', '<cmd>messages clear<cr>')
@@ -13,10 +13,28 @@ cmd('R', function(opt) u.msg.pipe_cmd(opt.args) end, {
   complete = 'command',
 })
 n(' me', '<cmd>R messages<cr>')
+n(' ma', u.msg.pipe_messages)
 
--- command! -nargs=1 -complete=command Redir lua u.util.pipe_cmd(<q-args>)()
--- command! -nargs=1 RedirT silent call <SID>redir('tabnew', <f-args>)
-n(' ma', function() u.msg.pipe_cmd('messages') end)
+n(' mi', ('<cmd>!tail %s<cr>'):format(g.state_path .. '/lsp.log'))
 
-local lsp_log = g.state_path .. '/lsp.log'
-n(' mp', ('<cmd>!tail %s<cr>'):format(lsp_log))
+n(' wo', '<cmd>AerialToggle!<cr>')
+n(' wi', '<cmd>LspInfo<cr>')
+n(' wl', '<cmd>Lazy<cr>')
+n(' wm', '<cmd>Mason<cr>')
+n(' wh', '<cmd>ConformInfo<cr>')
+
+n(' bi', '<cmd>ls<cr>')
+n(' bI', '<cmd>ls!<cr>')
+
+-- misc
+n('+E', '<cmd>lua vim.treesitter.query.edit()<cr>')
+n('+I', '<cmd>lua vim.treesitter.inspect_tree()<cr>')
+n('+L', u.lazy.lazy_chore_update)
+n(' I', '<cmd>lua vim.show_pos()<cr>')
+nx(' L', ':Linediff<cr>') -- TODO: quit it
+
+n(" '", '<cmd>marks<cr>')
+n(' "', '<cmd>reg<cr>')
+
+nx('_', 'K')
+nx('K', ':Translate<cr>')

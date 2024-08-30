@@ -1,5 +1,3 @@
-if env.NVIM_NO3RD then return end
-
 local pkg_root = g.data_path .. '/lazy'
 
 local lazy_path = pkg_root .. '/lazy.nvim'

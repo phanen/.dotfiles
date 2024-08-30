@@ -1,6 +1,6 @@
 -- 'ruifm/gitlinker.nvim'
 -- 'sontungexpt/url-open'
-local M = {}
+local Gl = {}
 
 -- this functions maybe should not kept here
 local get_base_https_url = function(ctx)
@@ -10,7 +10,7 @@ local get_base_https_url = function(ctx)
 end
 
 --- Constructs a github style url
-function M.get_github_type_url(ctx)
+function Gl.get_github_type_url(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/blob/' .. ctx.rev .. '/' .. ctx.file
@@ -22,7 +22,7 @@ function M.get_github_type_url(ctx)
 end
 
 --- Constructs a gitea style url
-function M.get_gitea_type_url(ctx)
+function Gl.get_gitea_type_url(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/src/commit/' .. ctx.rev .. '/' .. ctx.file
@@ -34,7 +34,7 @@ function M.get_gitea_type_url(ctx)
 end
 
 --- Constructs a gitlab style url
-function M.get_gitlab_type_url(ctx)
+function Gl.get_gitlab_type_url(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/-/blob/' .. ctx.rev .. '/' .. ctx.file
@@ -46,7 +46,7 @@ function M.get_gitlab_type_url(ctx)
 end
 
 --- Constructs a bitbucket style url
-function M.get_bitbucket_type_url(ctx)
+function Gl.get_bitbucket_type_url(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/src/' .. ctx.rev .. '/' .. ctx.file
@@ -59,7 +59,7 @@ function M.get_bitbucket_type_url(ctx)
 end
 
 --- Constructs a gogs style url
-function M.get_gogs_type_url(ctx)
+function Gl.get_gogs_type_url(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/src/' .. ctx.rev .. '/' .. ctx.file
@@ -72,7 +72,7 @@ function M.get_gogs_type_url(ctx)
 end
 
 --- Constructs a cgit style url
-function M.get_cgit_type_url(ctx)
+function Gl.get_cgit_type_url(ctx)
   if ctx.path then ctx.path = ctx.path .. '.git/' end
 
   local url = 'https://' .. ctx.host
@@ -83,7 +83,7 @@ function M.get_cgit_type_url(ctx)
 end
 
 --- Constructs a sourcehut style url
-function M.get_srht_type_url(ctx)
+function Gl.get_srht_type_url(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/tree/' .. ctx.rev .. '/item/' .. ctx.file
@@ -96,7 +96,7 @@ function M.get_srht_type_url(ctx)
 end
 
 --- Constructs a launchpad style url
-function M.get_launchpad_type_url(ctx)
+function Gl.get_launchpad_type_url(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/tree/' .. ctx.file .. '?id=' .. ctx.rev
@@ -106,7 +106,7 @@ function M.get_launchpad_type_url(ctx)
 end
 
 --- Constructs a repo.or.cz style url
-function M.get_repoorcz_type_url(ctx)
+function Gl.get_repoorcz_type_url(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/blob/' .. ctx.rev .. ':/' .. ctx.file
@@ -122,17 +122,17 @@ local options = {
   end, -- callback for what to do with the url
   print_url = true, -- print the url after action
   routers = { -- (host, callback) pairs
-    ['github.com'] = M.get_github_type_url,
-    ['gitlab.com'] = M.get_gitlab_type_url,
-    ['try.gitea.io'] = M.get_gitea_type_url,
-    ['codeberg.org'] = M.get_gitea_type_url,
-    ['bitbucket.org'] = M.get_bitbucket_type_url,
-    ['try.gogs.io'] = M.get_gogs_type_url,
-    ['git.sr.ht'] = M.get_srht_type_url,
-    ['git.launchpad.net'] = M.get_launchpad_type_url,
-    ['repo.or.cz'] = M.get_repoorcz_type_url,
-    ['git.kernel.org'] = M.get_cgit_type_url,
-    ['git.savannah.gnu.org'] = M.get_cgit_type_url,
+    ['github.com'] = Gl.get_github_type_url,
+    ['gitlab.com'] = Gl.get_gitlab_type_url,
+    ['try.gitea.io'] = Gl.get_gitea_type_url,
+    ['codeberg.org'] = Gl.get_gitea_type_url,
+    ['bitbucket.org'] = Gl.get_bitbucket_type_url,
+    ['try.gogs.io'] = Gl.get_gogs_type_url,
+    ['git.sr.ht'] = Gl.get_srht_type_url,
+    ['git.launchpad.net'] = Gl.get_launchpad_type_url,
+    ['repo.or.cz'] = Gl.get_repoorcz_type_url,
+    ['git.kernel.org'] = Gl.get_cgit_type_url,
+    ['git.savannah.gnu.org'] = Gl.get_cgit_type_url,
   },
 }
 
@@ -214,7 +214,7 @@ local parse_url_data = function(root)
 end
 
 ---@returns string?
-function M.permalink()
+function Gl.permalink()
   local root = assert(u.git.root())
   local ctx = assert(parse_url_data(root))
   assert(ctx.host, 'fail to get host')
@@ -229,6 +229,4 @@ function M.permalink()
   return url
 end
 
-M.setup = function(opts) options = vim.tbl_deep_extend('force', options, opts or {}) end
-
-return M
+return Gl

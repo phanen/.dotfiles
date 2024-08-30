@@ -1,10 +1,10 @@
+-- not sure if we should g.xx -> u.xx
 g.config_path = fn.stdpath('config') ---@as string
 g.state_path = fn.stdpath('state') ---@as string
 g.cache_path = fn.stdpath('cache') ---@as string
 g.data_path = fn.stdpath('data') ---@as string
 g.run_path = fn.stdpath('run') ---@as string
 
--- env.NVIM_NONF = true
 -- env.NVIM_NO3RD
 
 env.COLORTERM = 256
@@ -18,8 +18,8 @@ g.has_gui = fn.has('gui_running') == 1
 g.modern_ui = g.has_ui and env.DISPLAY ~= nil
 
 -- FIXME(?): env is ''? nil?
-g.no_nf = not g.modern_ui or env.NVIM_NONF or false
-g.no_3rd = not g.modern_ui or env.NVIM_NO3RD or false
+g.no_nf = not g.modern_ui or false
+g.no_3rd = not g.modern_ui or false
 
 -- g.lazy_shada = true
 
@@ -49,8 +49,6 @@ g.netrw_localcopydircmd = 'cp -r'
 -- fzf packaged from vimfiles
 g.fzf_layout = { window = { width = 0.7, height = 0.7, pos = 'center' } }
 env.FZF_DEFAULT_OPTS = (env.FZF_DEFAULT_OPTS or '') .. ' --border=none --margin=0 --padding=0'
--- vim.cmd.nnoremap [[<leader><c-e> <cmd>FZF<cr>]]
-map.n(' <c-w>', '<cmd>FZF<cr>')
 
 g.mapleader = ' '
 g.maplocalleader = '+'

@@ -11,19 +11,6 @@ return {
     event = { 'ModeChanged *:[ictRss\x13]*' },
     opts = {},
   },
-  {
-    dir = 'mod/gx',
-    main = 'mod.gx',
-    cmd = 'Browse',
-    keys = { { 'gl', function() require('mod.gx').open() end, mode = { 'n', 'x' } } },
-    opts = {},
-  },
-  {
-    dir = 'mod/gl',
-    main = 'mod.gl',
-    keys = { { ' gl', function() require('mod.gl').permalink() end, mode = { 'n', 'x' } } },
-    opts = {},
-  },
   -- e.g. useful in `require`
   -- {
   --   dir = 'mod/lua-gf',

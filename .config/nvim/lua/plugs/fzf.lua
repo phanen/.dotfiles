@@ -309,6 +309,7 @@ return {
       -- { ' <c-l>', '<cmd>Files<cr>', mode = { 'n', 'x' } },
       { ' <c-k>', '<cmd>Rg<cr>', mode = { 'n', 'x' } },
       -- { '<leader><c-j>', '<cmd>RgD -path=~/notes -pattern=<cr>', mode = { 'n', 'x' } },
+      { ' ff', '<cmd>FZF<cr>' },
     },
     config = function()
       vim.cmd [[

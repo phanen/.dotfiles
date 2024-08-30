@@ -1,7 +1,7 @@
 -- 'kwkarlwang/bufjump.nvim'
 -- 'famiu/bufdelete.nvim'
 
-local M = {} ---@module "lib.bufop"
+local Bufop = {} ---@module "lib.bufop"
 
 local jumpbackward = function(num)
   api.nvim_feedkeys(vim.keycode(tostring(num) .. '<c-o>'), 'n', false)
@@ -12,7 +12,7 @@ local jumpforward = function(num)
 end
 
 ---@param should_stop fun(frm: integer, to: integer):boolean
-M.backward_util = function(should_stop)
+Bufop.backward_util = function(should_stop)
   local jumplist, to_pos = unpack(fn.getjumplist())
   if #jumplist == 0 or to_pos == 0 then return end
 
@@ -29,7 +29,7 @@ M.backward_util = function(should_stop)
 end
 
 ---@param should_stop fun(frm: integer, to: integer):boolean
-M.forward_util = function(should_stop)
+Bufop.forward_util = function(should_stop)
   local getjumplist = fn.getjumplist()
   local jumplist, frm_pos = getjumplist[1], getjumplist[2] + 1
   local max_pos = #jumplist
@@ -47,32 +47,38 @@ M.forward_util = function(should_stop)
   until to_pos == max_pos + 1
 end
 
-M.backward_buf = function()
-  M.backward_util(function(frm, to) return frm ~= to end)
+Bufop.backward_buf = function()
+  Bufop.backward_util(function(frm, to) return frm ~= to end)
 end
 
-M.backward_in_buf = function()
-  M.backward_util(function(frm, to) return frm == to end)
+Bufop.backward_in_buf = function()
+  Bufop.backward_util(function(frm, to) return frm == to end)
 end
 
-M.forward_buf = function()
-  M.forward_util(function(frm, to) return frm ~= to end)
+Bufop.forward_buf = function()
+  Bufop.forward_util(function(frm, to) return frm ~= to end)
 end
 
-M.forward_in_buf = function()
-  M.forward_util(function(frm, to) return frm == to end)
+Bufop.forward_in_buf = function()
+  Bufop.forward_util(function(frm, to) return frm == to end)
 end
 
-M.delete = function()
+---@return nil
+Bufop.delete = function()
   if fn.filereadable(fn.expand('%p')) == 0 and vim.bo.modified then
     local choice = fn.input('File is not saved, force delete? [y/N]')
-    if choice == 'y' or string.len(choice) == 0 then vim.cmd('bd!') end
+    if choice == 'y' or choice:len() == 0 then
+      -- vim.cmd('bd!')
+      return api.nvim_buf_delete(0, { force = true })
+    end
     return
   end
 
   local force = not vim.bo.buflisted or vim.bo.buftype == 'nofile'
   local buf = api.nvim_get_current_buf()
   vim.cmd(force and 'sil! bd!' or ('sil! bp | sil! bd! %s'):format(buf))
+  -- FIXME: lsp error, sematics token (maybe no autocmd?)
+  -- api.nvim_buf_delete(0, {})
 end
 
-return M
+return Bufop

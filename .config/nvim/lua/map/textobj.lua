@@ -35,18 +35,10 @@ ox('ic', u.textobj.comment)
 -- TODO: line before
 ox('ac', u.textobj.comment)
 
-x(
-  'iz',
-  [[':<c-u>sil! keepj norm! ' . v:lua.require'lib.textobj'.fold('i') . '<cr>']],
-  { silent = true, expr = true, remap = true }
-)
-x(
-  'az',
-  [[':<c-u>sil! keepj norm! ' . v:lua.require'lib.textobj'.fold('a') . '<cr>']],
-  { silent = true, expr = true, remap = true }
-)
-o('iz', '<cmd>sil! norm Viz<cr>', { silent = true, remap = true })
-o('az', '<cmd>sil! norm Vaz<cr>', { silent = true, remap = true })
+x.expr.remap('iz', [[':<c-u>sil! keepj norm! ' . v:lua.u.textobj.fold('i') . '<cr>']])
+x.expr.remap('az', [[':<c-u>sil! keepj norm! ' . v:lua.u.textobj.fold('a') . '<cr>']])
+o.remap('iz', '<cmd>sil! norm Viz<cr>')
+o.remap('az', '<cmd>sil! norm Vaz<cr>')
 
 ox('ii', u.textobj.indent_i)
 ox('iI', u.textobj.indent_I)
@@ -54,14 +46,14 @@ ox('ai', u.textobj.indent_a)
 ox('aI', u.textobj.indent_A)
 
 -- didn't work
--- ox('zz', function() vim.cmd.normal { 'a', bang = true } end, { expr = true })
+ox('zz', vim.schedule_wrap(function() vim.cmd.normal { 'a', bang = true } end), { expr = true })
 
 -- don't include extra spaces around quotes
-ox('a"', '2i"', { remap = true })
-ox("a'", "2i'", { remap = true })
-ox('a`', '2i`', { remap = true })
+ox.remap('a"', '2i"')
+ox.remap("a'", "2i'")
+ox.remap('a`', '2i`')
 
-o('g{', '<Cmd>sil! norm Vg{<CR>', { remap = true })
-o('g}', '<Cmd>sil! norm Vg}<CR>', { remap = true })
-nx('g{', u.misc.goto_paragraph_firstline, { remap = true })
-nx('g}', u.misc.goto_paragraph_lastline, { remap = true })
+o.remap('g{', '<cmd>sil! norm Vg{<cr>')
+o.remap('g}', '<cmd>sil! norm Vg}<cr>')
+nx.remap('g{', u.misc.goto_paragraph_firstline)
+nx.remap('g}', u.misc.goto_paragraph_lastline)

@@ -1,9 +1,9 @@
 -- { 'sbulav/nredir.nvim', cmd = 'Nredir' },
 -- { 'suliveevil/vim-redir-output', cmd = 'RedirV' },
 
-local M = {}
+local Msg = {}
 
-M.pipe_cmd = function(cmd)
+Msg.pipe_cmd = function(cmd)
   local ui = api.nvim_list_uis()[1]
   local width = ui.width - 20
   local height = ui.height - 10
@@ -37,6 +37,8 @@ M.pipe_cmd = function(cmd)
   api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
 end
 
-M.yank_last_message = function() fn.setreg('+', vim.trim(fn.execute('1message'))) end
+Msg.pipe_messages = Msg.pipe_cmd('messages')
 
-return M
+Msg.yank_last_message = function() fn.setreg('+', vim.trim(fn.execute('1message'))) end
+
+return Msg
