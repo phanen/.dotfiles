@@ -16,6 +16,7 @@ return {
       ui = { height = 0.85, border = vim.g.border },
     },
   },
+  -- TODO: restart nvim but not lsp (.....overhead)
   {
     'neovim/nvim-lspconfig',
     cmd = { 'LspInfo', 'LspInstall', 'LspUninstall' },
@@ -33,191 +34,103 @@ return {
           vim.tbl_deep_extend('force', capabilities, cmp_nvim_lsp.default_capabilities())
       end
 
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server) lspconfig[server].setup { capabilities = capabilities } end,
-          -- TODO: handle workspace change..
-          lua_ls = function()
-            lspconfig.lua_ls.setup {
-              on_attach = function(client)
-                -- FIXME: color mess.....
+      -- put it here, or put it in ftplugin
+      -- lspconfig.lua_ls.setup {
+      --   -- cmd = { vim.fs.normalize '~/b/lua-language-server/build/bin/lua-language-server' },
+      --   cmd = { '/bin/lua-language-server' },
+      --   -- cmd = { '/bin/lua-language-server' },
+      --   on_attach = function(client) end,
+      --   capabilities = capabilities,
+      --   settings = {},
+      -- }
 
-                -- disable semantic highlight
-                -- client.server_capabilities.semanticTokensProvider = nil
+      require('mason-lspconfig').setup {}
+      require('mason-lspconfig').setup_handlers {
+        function(server) lspconfig[server].setup { capabilities = capabilities } end,
+        rust_analyzer = function() end,
+        -- lua_ls = function() end,
+        -- TODO: handle workspace change..
+        lua_ls = function()
+          lspconfig.lua_ls.setup {
+            on_attach = function(client)
+              -- FIXME: color mess.....
 
-                -- disable treesitter highlight
-                if client.server_capabilities.semanticTokensProvider then
-                  -- FIXME: this will disable on all filetype....
-                  -- vim.cmd.TSDisable('highlight')
-                end
-              end,
-              -- on_attach = function(client, bufnr)
-              --   local function keymap(lhs, rhs, opts, mode)
-              --     opts = type(opts) == 'string' and { desc = opts }
-              --       or vim.tbl_extend('error', opts --[[@as table]], { buffer = bufnr })
-              --     mode = mode or 'n'
-              --     map(mode, lhs, rhs, opts)
-              --   end
-              --
-              --   ---For replacing certain <C-x>... keymaps.
-              --   ---@param keys string
-              --   local function feed(keys)
-              --     api.nvim_feedkeys(api.nvim_replace_termcodes(keys, true, false, true), 'n', true)
-              --   end
-              --
-              --   ---Is the completion menu open?
-              --   local function pumvisible() return tonumber(fn.pumvisible()) ~= 0 end
-              --
-              --   -- Enable completion and configure keybindings.
-              --   if client.supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
-              --     vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
-              --     print(client.id)
-              --     print(bufnr)
-              --     keymap(
-              --       '<cr>',
-              --       function() return pumvisible() and '<C-y>' or '<cr>' end,
-              --       { expr = true },
-              --       'i'
-              --     )
-              --
-              --     -- Use slash to dismiss the completion menu.
-              --     keymap(
-              --       '/',
-              --       function() return pumvisible() and '<C-e>' or '/' end,
-              --       { expr = true },
-              --       'i'
-              --     )
-              --
-              --     -- Use <C-n> to navigate to the next completion or:
-              --     -- - Trigger LSP completion.
-              --     -- - If there's no one, fallback to vanilla omnifunc.
-              --     keymap('<C-n>', function()
-              --       if pumvisible() then
-              --         feed '<C-n>'
-              --       else
-              --         if next(vim.lsp.get_clients { bufnr = 0 }) then
-              --           vim.lsp.completion.trigger()
-              --         else
-              --           if vim.bo.omnifunc == '' then
-              --             feed '<C-x><C-n>'
-              --           else
-              --             feed '<C-x><C-o>'
-              --           end
-              --         end
-              --       end
-              --     end, 'Trigger/select next completion', 'i')
-              --
-              --     -- Buffer completions.
-              --     keymap('<C-u>', '<C-x><C-n>', { desc = 'Buffer completions' }, 'i')
-              --
-              --     -- Use <Tab> to accept a Copilot suggestion, navigate between snippet tabstops,
-              --     -- or select the next completion.
-              --     -- Do something similar with <S-Tab>.
-              --     keymap('<Tab>', function()
-              --       local copilot = require 'copilot.suggestion'
-              --
-              --       if copilot.is_visible() then
-              --         copilot.accept()
-              --       elseif pumvisible() then
-              --         feed '<C-n>'
-              --       elseif vim.snippet.active { direction = 1 } then
-              --         vim.snippet.jump(1)
-              --       else
-              --         feed '<Tab>'
-              --       end
-              --     end, {}, { 'i', 's' })
-              --     keymap('<S-Tab>', function()
-              --       if pumvisible() then
-              --         feed '<C-p>'
-              --       elseif vim.snippet.active { direction = -1 } then
-              --         vim.snippet.jump(-1)
-              --       else
-              --         feed '<S-Tab>'
-              --       end
-              --     end, {}, { 'i', 's' })
-              --
-              --     -- Inside a snippet, use backspace to remove the placeholder.
-              --     keymap('<BS>', '<C-o>s', {}, 's')
-              --   end
-              -- end,
-              capabilities = capabilities,
-              settings = {
-                Lua = {
-                  hint = { enable = true, setType = true },
-                  completion = {
-                    callSnippet = 'Replace',
-                    postfix = '.',
-                    showWord = 'Disable',
-                    workspaceWord = false,
-                  },
-                  format = {
-                    defaultConfig = {
-                      call_arg_parentheses = 'remove_table_only',
-                      add_comma = 'comma',
-                    },
-                  },
-                  diagnostics = {
-                    disable = { 'missing-fields', 'incomplete-signature-doc' },
-                  },
-                  runtime = { version = 'LuaJIT' },
+              -- disable semantic highlight
+              -- client.server_capabilities.semanticTokensProvider = nil
+
+              -- disable treesitter highlight
+              if client.server_capabilities.semanticTokensProvider then
+                -- FIXME: this will disable on all filetype....
+                -- vim.cmd.TSDisable('highlight')
+              end
+            end,
+            capabilities = capabilities,
+            settings = {
+              Lua = {
+                hint = { enable = true, setType = true },
+                completion = {
+                  callSnippet = 'Replace',
+                  postfix = '.',
+                  showWord = 'Disable',
+                  workspaceWord = false,
                 },
-              },
-            }
-          end,
-          clangd = function()
-            lspconfig.clangd.setup {
-              capabilities = capabilities,
-              cmd = { 'clangd', '--background-index', '--clang-tidy', '--header-insertion=iwyu' },
-              root_dir = lspconfig.util.root_pattern(
-                'compile_commands.json',
-                'compile_flags.txt',
-                '.git'
-              ),
-            }
-          end,
-          -- FIXME: weird hang
-          pyright = function()
-            lspconfig.pyright.setup {
-              cmd = { 'pyright-langserver', '--stdio' },
-              capabilities = capabilities,
-              settings = {
-                python = {
-                  analysis = {
-                    autoSearchPaths = true,
-                    useLibraryCodeForTypes = true,
-                    diagnosticMode = 'openFilesOnly',
+                format = {
+                  defaultConfig = {
+                    call_arg_parentheses = 'remove_table_only',
+                    add_comma = 'comma',
                   },
                 },
+                diagnostics = {
+                  disable = { 'missing-fields', 'incomplete-signature-doc' },
+                },
+                runtime = { version = 'LuaJIT' },
               },
-            }
-          end,
-          gopls = function()
-            lspconfig.gopls.setup {
-              settings = {
-                gopls = {
-                  hints = {
-                    assignVariableTypes = true,
-                    compositeLiteralFields = true,
-                    compositeLiteralTypes = true,
-                    constantValues = true,
-                    functionTypeParameters = true,
-                    parameterNames = true,
-                    rangeVariableTypes = true,
-                  },
+            },
+          }
+        end,
+        -- FIXME: hang if don't use venv
+        pyright = function()
+          lspconfig.pyright.setup {
+            -- FIXME: to run this (use this command), we must ensure lsp is installed
+            cmd = { 'pyright-langserver', '--stdio' },
+            capabilities = capabilities,
+            settings = {
+              python = {
+                analysis = {
+                  autoSearchPaths = true,
+                  useLibraryCodeForTypes = true,
+                  diagnosticMode = 'openFilesOnly',
                 },
               },
-            }
-          end,
-          rust_analyzer = function() end,
-          volar = function()
-            lspconfig.volar.setup {
-              on_attach = function(client, _)
-                client.server_capabilities.documentFormattingProvider = false
-              end,
-              capabilities = capabilities,
-            }
-          end,
-        },
+            },
+          }
+        end,
+        -- FIXME: also hang
+        gopls = function()
+          lspconfig.gopls.setup {
+            settings = {
+              gopls = {
+                hints = {
+                  assignVariableTypes = true,
+                  compositeLiteralFields = true,
+                  compositeLiteralTypes = true,
+                  constantValues = true,
+                  functionTypeParameters = true,
+                  parameterNames = true,
+                  rangeVariableTypes = true,
+                },
+              },
+            },
+          }
+        end,
+        volar = function()
+          lspconfig.volar.setup {
+            on_attach = function(client, _)
+              client.server_capabilities.documentFormattingProvider = false
+            end,
+            capabilities = capabilities,
+          }
+        end,
       }
     end,
   },
@@ -232,6 +145,7 @@ return {
         sh = { 'shfmt' },
         xml = { 'xmlformat' },
         toml = { 'taplo' },
+        c = { 'uncrustify' },
 
         -- note: for arch, need `perl-unicode-linebreak` as extra dependency
         -- TODO: force a `:retab` for formatter use tab only...
@@ -255,6 +169,10 @@ return {
         shfmt = {
           command = 'shfmt',
           args = { '-i', '2', '-filename', '$FILENAME' },
+        },
+        uncrustify_neovim = {
+          command = env.HOME .. 'b/neovim/build/bin/uncrustify',
+          args = { '-q', '-l', 'C', '-c', '$CONFIG' },
         },
       },
     },
