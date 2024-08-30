@@ -130,6 +130,9 @@ return {
       })
     end,
   },
+  -- TODO: postfix............
+  -- i think this should be provided by lsp
+  -- but fine if we has it in snippet
   {
     'L3MON4D3/LuaSnip',
     -- cond = false,
@@ -144,6 +147,27 @@ return {
     end,
   },
   {
+    's1n7ax/nvim-snips',
+    dependencies = {
+      's1n7ax/nvim-ts-utils',
+      'L3MON4D3/LuaSnip',
+    },
+    event = 'InsertEnter',
+  },
+  {
+    'danymat/neogen',
+    cmd = 'Neogen',
+    keys = { { '<leader>.', '<cmd>Neogen<cr>' } },
+    opts = {
+      snippet_engine = 'luasnip',
+      languages = {
+        lua = {
+          template = { annotation_convention = 'emmylua' },
+        },
+      },
+    },
+  },
+  { -- actually inlay-hint
     -- TODO: not prompt edit in the middle of line
     'zbirenbaum/copilot.lua',
     cond = fn.argv()[1] ~= 'leetcode.nvim',
