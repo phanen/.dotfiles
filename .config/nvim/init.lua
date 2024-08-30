@@ -13,9 +13,13 @@ if vim.g.vscode then
   return
 end
 
-require 'G'
-require 'g'
-require 'patch'
+vim.api.nvim_set_keymap('n', '<c-s><c-d>', '<cmd>mksession! /tmp/reload.vim | cq!123<cr>', {})
+
+require 'global.G'
+require 'global.u'
+require 'global.g'
+require 'global.patch'
+
 require 'opt'
 require 'au'
 require 'map'
@@ -29,4 +33,4 @@ require 'mod.runner'
 require 'mod.colors'
 
 -- pcall(vim.cmd.colorscheme, vim.g.colors_name)
--- TODO: postfix
+-- TODO: template system
