@@ -57,6 +57,9 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
   m('n', '<c-d>', '<c-d>zz')
   m('n', '<c-u>', '<c-u>zz')
 
+  m('n', 'd', '<c-d>')
+  m('n', 'u', '<c-u>')
+
   local term_bufnr = api.nvim_create_buf(true, false)
   local term_io = api.nvim_open_term(term_bufnr, {})
 
