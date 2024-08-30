@@ -29,3 +29,4 @@ require 'mod.runner'
 require 'mod.colors'
 
 -- pcall(vim.cmd.colorscheme, vim.g.colors_name)
+-- TODO: postfix
