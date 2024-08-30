@@ -1,8 +1,26 @@
+diff --git a/lua/fzf-lua/config.lua b/lua/fzf-lua/config.lua
+index 0ddad79..929fb6b 100644
+--- a/lua/fzf-lua/config.lua
++++ b/lua/fzf-lua/config.lua
+@@ -267,10 +267,11 @@ function M.normalize_opts(opts, globals, __resume_key)
+   -- Merge arrays from globals|defaults, can't use 'vim.tbl_xxx'
+   -- for these as they only work for maps, ie. '{ key = value }'
+   for _, k in ipairs({ "file_ignore_patterns" }) do
++    if not opts[k] then opts[k] = {} end
+     for _, m in ipairs({ globals, M.globals }) do
+       if m[k] then
+-        for _, item in ipairs(m[k]) do
+-          if not opts[k] then opts[k] = {} end
++        local items = type(m[k]) == "function" and m[k]() or m[k]
++        for _, item in ipairs(items) do
+           table.insert(opts[k], item)
+         end
+       end
 diff --git a/lua/fzf-lua/core.lua b/lua/fzf-lua/core.lua
-index e408d7c..d017075 100644
+index c9e1a54..6286d93 100644
 --- a/lua/fzf-lua/core.lua
 +++ b/lua/fzf-lua/core.lua
-@@ -1090,10 +1090,6 @@ M.convert_reload_actions = function(reload_cmd, opts)
+@@ -1099,10 +1099,6 @@ M.convert_reload_actions = function(reload_cmd, opts)
        end
      end
    end

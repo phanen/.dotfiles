@@ -68,11 +68,34 @@ return {
   {
     'ibhagwan/fzf-lua',
     cmd = 'FzfLua *',
+    -- FIXME: ugly patch.......
+    keys = ' <c-e>',
     config = function()
       local f = require('fzf-lua')
       local a = require('flo.actions')
+
+      local path = g.state_path .. '/file_ignore_patterns.conf'
+      map.n(' <c-e>', function() vim.cmd.edit(path) end)
       f.setup {
         'default-title',
+        -- TODO(upstream): dynamic filter, popup a rule windows
+        -- TODO: implement a generic hover framework
+        -- hope this work for all pickers...
+        file_ignore_patterns = function()
+          local content = u.fs.read_file(path)
+          local patterns = content and vim.split(content, '\n', { trimempty = true }) or {}
+
+          -- TODO: can only get options from file, cannot get options from content/modeline
+          -- local ft = vim.filetype.match({ contents = { '#!/bin/bash' } })
+          -- local cm = (vim.filetype.get_option('conf', 'commentstring') --[[@as string]]):sub(1, 1)
+
+          patterns = vim
+            .iter(patterns)
+            :filter(function(line) return line ~= '' end) -- trimempty don't trim existed empty
+            :filter(function(line) return not vim.startswith(line, '#') end)
+            :totable()
+          return vim.list_extend(patterns, { 'LICENSE', '*-lock.json' })
+        end,
         previewers = {
           builtin = {
             extensions = {
