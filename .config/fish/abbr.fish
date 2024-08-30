@@ -101,7 +101,7 @@ end
 
 function abbr_-
     set -l proc (commandline -p)
-    if string match -q -r man -- $proc
+    if string match -q -r ^man -- $proc
         echo -l -
     else
         echo \-
