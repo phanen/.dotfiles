@@ -4,6 +4,8 @@ local U = {
   lazy_req = ..., ---@type function
   lazy_reg = ..., ---@type table to check what we've register
 
+  cache = ..., ---@type table
+
   tu = ..., ---@type table
   tc = ..., ---@type table
   ts = ..., ---@type table
@@ -124,11 +126,11 @@ U.print = function(...)
   -- local pack = { ... }
   for i = 1, n do
     -- local v = pack[i]
-    local v = select(i, ...)
+    local v = select(i, ...) -- this will drop all val (use vim.F.pack_len(...)[i] ?)
     if type(v) == 'nil' then
       tbl[#tbl + 1] = 'nil'
     else
-      tbl[#tbl + 1] = vim.inspect(v)
+      tbl[#tbl + 1] = vim.inspect(v) -- TODO: quote is unneeded (inline mode for table/ prefer inline)
     end
   end
   return print(table.concat(tbl, ' '))
@@ -142,5 +144,62 @@ end
 U.tu = U.lazy_req 'nvim-treesitter.ts_utils'
 U.tc = U.lazy_req 'nvim-treesitter.configs'
 U.ts = U.lazy_req 'vim.treesitter'
+
+-- TODO: if u.lua become big (lazy load itself?)
+-- idea: u.x ?-> lib.x ?-> func.x
+-- catch error is slow?
+
+-- TODO: cache_tablize
+-- func = cache_tablize(func), -> func[one_arg_only]
+U.cache_tablize = function(cb)
+  return setmetatable({}, {
+    __index = function(t, key)
+      local v = cb(key)
+      rawset(t, key, v)
+      return v
+    end,
+  })
+end
+
+-- it provide hash = resolve_hash(hash) to give key
+---@see vim.func._memorize
+U.cache_hash = function(cb, hash)
+  local f = U.cache_tablize(cb)
+  return function(...)
+    if hash then
+      local key = hash(...)
+      return f[key]
+    end
+    -- local first = ...
+    return f[...]
+  end
+end
+
+U.cache_one = function(cb)
+  local cache
+  return function()
+    if cache then return cache end
+    cache = cb()
+    return cache
+  end
+end
+
+U.cache_one_table = function(cb)
+  local cache
+  return function()
+    if cache then return cache end
+    cache = cb()
+    return cache
+  end
+end
+
+U.cat = function(path)
+  local content = u.fs.read_file(path)
+  if content then
+    print(content)
+  else
+    print('file not found:', path)
+  end
+end
 
 return U

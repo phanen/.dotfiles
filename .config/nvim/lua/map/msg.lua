@@ -15,7 +15,7 @@ cmd('R', function(opt) u.msg.pipe_cmd(opt.args) end, {
 n(' me', '<cmd>R messages<cr>')
 n(' ma', u.msg.pipe_messages)
 
-n(' mi', ('<cmd>!tail %s<cr>'):format(g.state_path .. '/lsp.log'))
+n(' mi', ('<cmd>!tail %s<cr>'):format(lsp.get_log_path()))
 
 n(' wo', '<cmd>AerialToggle!<cr>')
 n(' wi', '<cmd>LspInfo<cr>')

@@ -1,3 +1,10 @@
+-- pcall(vim.cmd.colorscheme, vim.g.colors_name)
+-- TODO: template system
+-- TODO: lib better to be independent
+-- TODO: 'lewis6991/hover.nvim'
+-- TODO: meta layer for au/cmd
+-- TODO: restart nvim but not lsp (.....overhead)
+
 -- https://github.com/neovim/neovim/pull/24044
 vim.loader.enable()
 
@@ -22,16 +29,10 @@ require 'opt'
 require 'au'
 require 'map'
 require 'cmd'
--- note: lazy.nvim will override `require`
+-- lazy.nvim append package.loaders (auto setup)
 require 'pm'
 
 -- modules not explictly lazy-loaded
 require 'mod.idl'
 require 'mod.runner'
 require 'mod.colors'
-
--- pcall(vim.cmd.colorscheme, vim.g.colors_name)
--- TODO: template system
--- TODO: lib better to be independent
--- TODO: 'lewis6991/hover.nvim'
--- TODO: meta layer for au/cmd

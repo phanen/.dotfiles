@@ -1,0 +1,37 @@
+diff --git a/lua/lspconfig/configs.lua b/lua/lspconfig/configs.lua
+index 62f22c2..37ea77d 100644
+--- a/lua/lspconfig/configs.lua
++++ b/lua/lspconfig/configs.lua
+@@ -59,6 +59,7 @@ function configs.__newindex(t, config_name, config_def)
+   local M = {}
+ 
+   local default_config = tbl_deep_extend('keep', config_def.default_config, util.default_config)
++  -- vim.print(config_def.default_config)
+ 
+   -- Force this part.
+   default_config.name = config_name
+diff --git a/lua/lspconfig/ui/lspinfo.lua b/lua/lspconfig/ui/lspinfo.lua
+index 886014a..cb1c8a2 100644
+--- a/lua/lspconfig/ui/lspinfo.lua
++++ b/lua/lspconfig/ui/lspinfo.lua
+@@ -197,6 +197,7 @@ return function()
+   windows.default_options.breakindent = true
+   windows.default_options.breakindentopt = 'shift:25'
+   windows.default_options.showbreak = 'NONE'
++  windows.default_options.border = vim.g.border
+ 
+   local win_info = windows.percentage_range_window(0.8, 0.7)
+   local bufnr, win_id = win_info.bufnr, win_info.win_id
+diff --git a/lua/lspconfig/util.lua b/lua/lspconfig/util.lua
+index 2fb5e72..65ea163 100644
+--- a/lua/lspconfig/util.lua
++++ b/lua/lspconfig/util.lua
+@@ -16,7 +16,7 @@ M.default_config = {
+   init_options = vim.empty_dict(),
+   handlers = {},
+   autostart = true,
+-  capabilities = lsp.protocol.make_client_capabilities(),
++  capabilities = u.lsp.make_capabilities(),
+ }
+ 
+ -- global on_setup hook
