@@ -57,7 +57,8 @@ return {
           },
           ['<c-i>'] = m {
             i = function(fb)
-              if c.visible() and c.get_selected_entry() then return c.confirm() end
+              -- if c.visible() and c.get_selected_entry() then return c.confirm() end
+              if c.visible() then return c.confirm({ select = not c.get_selected_entry() }) end
               if ls.jumpable(1) then return ls.jump(1) end
               return ls.expandable() and ls.expand() or fb()
             end,
@@ -74,7 +75,7 @@ return {
               if c.visible() then c.abort() end
               return fb()
             end,
-            s = function() ls.jump(-1) end,
+            s = function() return ls.jump(-1) end,
           },
           ['<c-p>'] = m {
             i = function(fb) return ls.jumpable() and ls.jump(-1) or fb() end,
