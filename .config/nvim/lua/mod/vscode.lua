@@ -4,7 +4,7 @@ if not g.vscode then return end
 g.mapleader = ' '
 g.maplocalleader = '+'
 
-local n = function(...) map('n', ...) end
+local n = map.n
 -- use some vscode builtin
 local vc = function(cmd) return "<cmd>lua require('vscode-neovim').call('" .. cmd .. "')<cr>" end
 -- x('<leader>cf', cmd('editor.action.formatSelection'))

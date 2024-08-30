@@ -1,9 +1,17 @@
-map.nx('<c- >', u.lazy_req('mder.line').toggle_lines, { buffer = 0 })
-map.x('<c-e>', u.lazy_req('mder.codeblock').surround, { buffer = 0 })
-map.n('o', u.lazy_req('mder.autolist').listdn, { buffer = 0 })
-map.n('O', u.lazy_req('mder.autolist').listup, { buffer = 0 })
+local n = map.n[0]
+local nx = map.nx[0]
+local ox = map.ox[0]
+local x = map.x[0]
 
-map.ox('i<c-e>', u.textobj.codeblock_i, { buffer = 0 })
-map.ox('a<c-e>', u.textobj.codeblock_a, { buffer = 0 })
+nx('<c- >', u.lazy_req('mder.line').toggle_lines)
 
--- TODO: markdown ft modeline...
+n('o', u.lazy_req('mder.autolist').listdn)
+n('O', u.lazy_req('mder.autolist').listup)
+
+x('<c-e>', u.lazy_req('mder.codeblock').surround)
+ox('i<c-e>', u.textobj.codeblock_i)
+ox('a<c-e>', u.textobj.codeblock_a)
+
+nx(' E', ':EditCodeBlock<cr>') -- TODO: kill buffer when close
+
+-- FIXME: markdown ft modeline...

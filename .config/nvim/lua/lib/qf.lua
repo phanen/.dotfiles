@@ -1,12 +1,13 @@
-local M = {}
+local Qf = {}
 
 -- FIXME: two def via lsp??
-function M.qf_toggle()
+Qf.toggle = function()
   local has_qf = vim.iter(fn.getwininfo()):any(function(win) return win.quickfix == 1 end)
   vim.cmd[has_qf and 'cclose' or 'copen']()
 end
 
-M.qf_delete = function()
+-- FIXME: visual mode not wkr
+Qf.delete = function()
   local bufnr = api.nvim_get_current_buf()
   local qflist = fn.getqflist()
   local lnum = fn.line '.'
@@ -33,4 +34,4 @@ M.qf_delete = function()
   fn.setpos('.', { bufnr, lnum, 1, 0 }) -- restore current line
 end
 
-return M
+return Qf

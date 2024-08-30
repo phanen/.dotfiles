@@ -1,2 +1,2 @@
-map.n('dd', u.qf.qf_delete, { buffer = 0 })
-map.x('d', u.qf.qf_delete, { buffer = 0 })
+map.n[0]('dd', u.qf.delete)
+map.x[0]('d', u.qf.delete)

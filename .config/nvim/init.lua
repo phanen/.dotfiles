@@ -8,17 +8,15 @@ vim.loader.enable()
 
 if vim.g.vscode then
   require 'opt'
-  require 'map'
+  -- require 'map'
+  vim.fn['vscode#setup']()
   require 'mod.vscode'
   return
 end
 
-vim.api.nvim_set_keymap('n', '<c-s><c-d>', '<cmd>mksession! /tmp/reload.vim | cq!123<cr>', {})
+vim.api.nvim_set_keymap('n', '<c-s><c-d>', '<cmd>up | mks! /tmp/reload.vim | cq!123<cr>', {})
 
-require 'global.G'
-require 'global.u'
-require 'global.g'
-require 'global.patch'
+require 'G'
 
 require 'opt'
 require 'au'
@@ -34,3 +32,5 @@ require 'mod.colors'
 
 -- pcall(vim.cmd.colorscheme, vim.g.colors_name)
 -- TODO: template system
+-- TODO: lib better to be independent
+-- TODO: 'lewis6991/hover.nvim'

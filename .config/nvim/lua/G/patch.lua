@@ -1,11 +1,7 @@
 ---@diagnostic disable: duplicate-set-field
 
-g.has_11 = fn.has('nvim-0.11') == 1
-g.has_10 = fn.has('nvim-0.10') == 1
-
--- maybe ti should be compatiable
-vim.fs.joinpath = function(...) return (table.concat({ ... }, '/'):gsub('//+', '/')) end
-vim.keycode = function(str) return api.nvim_replace_termcodes(str, true, true, true) end
+vim.g.has_11 = vim.fn.has('nvim-0.11') == 1
+vim.g.has_10 = vim.fn.has('nvim-0.10') == 1
 
 -- no vim.iter, just drop it, use flake
 local get_parser = vim.treesitter.get_parser
@@ -59,7 +55,7 @@ vim.ui.select = u.lazy_req('fzf-lua.providers.ui_select').ui_select
 vim.ui.input = require('mod.x.ui_input').input
 -- vim.text = u.lazy_req('mod.x.text')
 
--- handle swapfile error... (just use swapfile)
+-- handle error when use bufferline.nvim with `swapfile=true`
 -- local nvim_set_current_buf = api.nvim_set_current_buf
 -- api.nvim_set_current_buf = function(id)
 --   xpcall(
@@ -70,11 +66,6 @@ vim.ui.input = require('mod.x.ui_input').input
 --   )
 -- end
 
-if false then
-  vim.validate = function(...) end
-  vim.deprecate = function() end
-end
-
 if g.has_11 then
   vim.keymap.del('n', 'grn')
   vim.keymap.del('n', 'grr')
@@ -82,8 +73,6 @@ if g.has_11 then
 end
 
 if g.has_10 then
-  vim.keymap.del('n', '<c-w>d')
-  vim.keymap.del('n', '<c-w><c-d>')
   vim.tbl_add_reverse_lookup = function(o)
     for _, k in ipairs(vim.tbl_keys(o)) do
       local v = o[k]
@@ -100,4 +89,9 @@ if g.has_10 then
     end
     return o
   end
+end
+
+if false then
+  vim.validate = function(...) end
+  vim.deprecate = function() end
 end

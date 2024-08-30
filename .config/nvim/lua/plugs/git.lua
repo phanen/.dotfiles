@@ -110,7 +110,7 @@ return {
                     :totable()
                   rhs = table.concat(cmds)
                 end
-                map.n(lhs, rhs, { buffer = bufnr })
+                map.n[bufnr](lhs, rhs)
               end
             end
           end,
@@ -134,7 +134,7 @@ return {
     'TimUntersberger/neogit',
     cmd = 'Neogit',
     keys = {
-      { ' gn', function() require('neogit').open { cwd = u.smart.root() } end },
+      { ' gn', function() require('neogit').open { cwd = u.git.root() } end },
     },
     opts = {
       disable_hint = true,

@@ -118,37 +118,6 @@ augroup('LazyPatch', {
   },
 })
 
--- TODO: set a short query timeout...
--- check nvim's lsp preset `:h lsp-config`
--- * tagfunc <c-]>
--- * omnifunc c-x c-o, buggy, no idea if there's really someone use omnifunc...
--- * formatexpr gq
--- * https://github.com/neovim/neovim//blob/6ad025ac88f968dbeaea05e95cf40d64782793e0/runtime/lua/vim/lsp.lua#L330
--- * https://github.com/neovim/neovim//blob/6ad025ac88f968dbeaea05e95cf40d64782793e0/src/nvim/insexpand.c#L1103
-augroup('Lsp', {
-  'LspAttach',
-  {
-    callback = function(ev)
-      -- lsp.inlay_hint.enable()
-      local bn = function(lhs, rhs, opts)
-        opts = opts or {}
-        opts.buffer = ev.buf
-        map.n(lhs, rhs, opts)
-      end
-      bn('gD', lsp.buf.declaration)
-      bn('gI', lsp.buf.implementation)
-      bn('gs', lsp.buf.signature_help)
-      bn('_', lsp.buf.hover)
-      bn(' rn', lsp.buf.rename)
-
-      -- vim.keymap.set({ 'n', 'x' }, 'g/', lsp.buf.references)
-      -- vim.keymap.set({ 'n', 'x' }, 'g.', lsp.buf.implementation)
-
-      bn(' rn', function() return ':IncRename ' .. vim.fn.expand('<cword>') end, { expr = true })
-    end,
-  },
-})
-
 augroup('BigFileSettings', {
   'BufReadPre',
   {
@@ -416,9 +385,13 @@ augroup('DeleteNoName', {
 autocmd('CmdwinEnter', {
   desc = 'cmdwin enter',
   pattern = '*',
-  callback = function()
+  callback = function(ev)
+    -- FIXME(upstream): set in source (but not work)
+    -- tbh, cmdwin is really useless...
+    vim.bo[ev.buf].ft = 'vim'
     vim.wo.signcolumn = 'no'
     vim.wo.foldcolumn = '0'
+    map.n('<cr>', 'a<cr>', { buffer = ev.buf })
   end,
 })
 
@@ -443,6 +416,7 @@ augroup('ToggleWhenDiff', {
           bufnr = ev.buf,
           method = lsp.protocol.Methods.textDocument_inlayHint,
         }
+        vim.print(clients)
         if #clients > 0 and not lsp.inlay_hint.is_enabled { bufnr = ev.buf } then
           lsp.inlay_hint.enable(true, { bufnr = ev.buf })
         end
@@ -450,15 +424,4 @@ augroup('ToggleWhenDiff', {
       end
     end,
   },
-})
-
--- ???
-autocmd('FileChangedShellPost', {
-  group = ag('RefreshGitBranchCache', {}),
-  callback = function(info) vim.b[info.buf].git_branch = nil end,
-})
-
-autocmd({ 'BufWrite', 'FileChangedShellPost' }, {
-  group = ag('RefreshGitDiffCache', {}),
-  callback = function(info) vim.b[info.buf].git_diffstat = nil end,
 })

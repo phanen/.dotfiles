@@ -185,7 +185,7 @@ return {
     event = 'LspAttach',
     opts = {
       hint_prefix = '🧐 ',
-      handler_opts = { boarder = 'rounded' },
+      handler_opts = { border = 'rounded' },
     },
   },
 

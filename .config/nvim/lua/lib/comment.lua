@@ -16,7 +16,8 @@ local comment_above_or_below = function(lnum)
   api.nvim_feedkeys('a', 'ni', true)
 end
 
-M.comment_below = comment_above_or_below(0)
+-- FIXME: broken
+M.comment_below = comment_above_or_below(1)
 M.comment_above = comment_above_or_below(0)
 
 return M

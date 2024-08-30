@@ -183,8 +183,8 @@ M.setup = function()
   if vim.g.loaded_readline then return end
   vim.g.loaded_readline = true
 
-  ic('<c-p>', '<up>', { remap = true })
-  ic('<c-n>', '<down>', { remap = true })
+  ic.remap('<c-p>', '<up>')
+  ic.remap('<c-n>', '<down>')
   i('<down>', '<cmd>norm! g<down><cr>')
   i('<up>', '<cmd>norm! g<up><cr>')
 
@@ -193,21 +193,21 @@ M.setup = function()
   -- i('<c-b>', backward_char, { expr = true })
   -- i('<c-f>', forward_char, { expr = true })
 
-  ic('<c-a>', require('readline').dwim_beginning_of_line)
+  ic('<c-a>', u.lazy_req('readline').dwim_beginning_of_line)
   ic('<c-e>', '<end>')
 
   -- TODO: more sep, _-
-  ic('<c-j>', require('readline').forward_word)
-  ic('<c-o>', require('readline').backward_word)
+  ic('<c-j>', u.lazy_req('readline').forward_word)
+  ic('<c-o>', u.lazy_req('readline').backward_word)
   -- ic('<c-o>', backward_word, { expr = true })
   -- ic('<c-j>', forward_word, { expr = true })
 
   -- TODO: kill next line
-  -- ic('<c-l>', require('readline').kill_word)
+  -- ic('<c-l>', u.lazy_req('readline').kill_word)
   -- FIXME: not work well for unicode
   ic('<c-l>', kill_word, { expr = true })
 
-  ic('<c-k>', require('readline').kill_line)
+  ic('<c-k>', u.lazy_req('readline').kill_line)
   i('<c-k>', kill_line, { expr = true })
   c('<c-k>', '<c-\\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<cr>')
 
@@ -264,7 +264,7 @@ M.setup = function()
 
   for _, char in ipairs({ ' ', '-', '_', ':', '.', '/' }) do
     -- i(char, function() return char .. '<c-g>u' end, { expr = true })
-    i(char, function()
+    i.expr(char, function()
       if fn.reg_executing() ~= '' or fn.reg_recording() ~= '' then return char end
       return char .. '<c-g>u'
     end, { expr = true })

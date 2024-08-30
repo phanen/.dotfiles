@@ -6,7 +6,7 @@ return {
     lazy = not fn.argv()[1],
     event = 'CmdlineEnter',
     cmd = { 'NvimTreeFindFileToggle' },
-    keys = { 'gf', { '<leader>k', '<cmd>NvimTreeFindFileToggle<cr>' } },
+    keys = { 'gf', { ' k', '<cmd>NvimTreeFindFileToggle<cr>' } },
     opts = {
       sync_root_with_cwd = true,
       actions = { change_dir = { enable = true, global = true } },
@@ -48,7 +48,6 @@ return {
   {
     'mikavilpas/yazi.nvim',
     keys = {
-      { ' -', '<cmd>Yazi<cr>' },
       { ' +', '<cmd>Yazi toggle<cr>', desc = 'Resume the last yazi session' },
       { ' cw', '<cmd>Yazi cwd<cr>' },
     },
