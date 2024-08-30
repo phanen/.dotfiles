@@ -74,6 +74,9 @@ return {
       local f = require('fzf-lua')
       local a = require('flo.actions')
 
+      -- FIXME: treesitter bootstrap
+      -- require('nvim-treesitter').setup()
+
       local path = g.state_path .. '/file_ignore_patterns.conf'
       map.n(' <c-e>', function() vim.cmd.edit(path) end)
       f.setup {

@@ -16,121 +16,83 @@ return {
       ui = { height = 0.85, border = vim.g.border },
     },
   },
-  -- TODO: restart nvim but not lsp (.....overhead)
-  {
-    'neovim/nvim-lspconfig',
-    cmd = { 'LspInfo', 'LspInstall', 'LspUninstall' },
-    config = function() require('lspconfig.ui.windows').default_options.border = vim.g.border end,
-  },
   {
     'williamboman/mason-lspconfig.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    cmd = { 'LspInstall', 'LspUninstall' },
+    opts = {},
+  },
+  {
+    'neovim/nvim-lspconfig',
+    cmd = { 'LspInfo' },
+    event = 'FileType',
     config = function()
-      local lspconfig = require 'lspconfig'
-      local ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      if ok then
-        capabilities =
-          vim.tbl_deep_extend('force', capabilities, cmp_nvim_lsp.default_capabilities())
-      end
+      -- lspconfig define FileType autocmd, so don't use it in ftplugin
+      -- mason path should be prepended to PATH
+      local l = require('lspconfig')
+      -- local cap = u.lsp.make_capabilities()
 
-      -- put it here, or put it in ftplugin
-      -- lspconfig.lua_ls.setup {
-      --   -- cmd = { vim.fs.normalize '~/b/lua-language-server/build/bin/lua-language-server' },
-      --   cmd = { '/bin/lua-language-server' },
-      --   -- cmd = { '/bin/lua-language-server' },
-      --   on_attach = function(client) end,
-      --   capabilities = capabilities,
-      --   settings = {},
-      -- }
-
-      require('mason-lspconfig').setup {}
-      require('mason-lspconfig').setup_handlers {
-        function(server) lspconfig[server].setup { capabilities = capabilities } end,
-        rust_analyzer = function() end,
-        -- lua_ls = function() end,
-        -- TODO: handle workspace change..
-        lua_ls = function()
-          lspconfig.lua_ls.setup {
-            on_attach = function(client)
-              -- FIXME: color mess.....
-
-              -- disable semantic highlight
-              -- client.server_capabilities.semanticTokensProvider = nil
-
-              -- disable treesitter highlight
-              if client.server_capabilities.semanticTokensProvider then
-                -- FIXME: this will disable on all filetype....
-                -- vim.cmd.TSDisable('highlight')
-              end
-            end,
-            capabilities = capabilities,
-            settings = {
-              Lua = {
-                hint = { enable = true, setType = true },
-                completion = {
-                  callSnippet = 'Replace',
-                  postfix = '.',
-                  showWord = 'Disable',
-                  workspaceWord = false,
-                },
-                format = {
-                  defaultConfig = {
-                    call_arg_parentheses = 'remove_table_only',
-                    add_comma = 'comma',
-                  },
-                },
-                diagnostics = {
-                  disable = { 'missing-fields', 'incomplete-signature-doc' },
-                },
-                runtime = { version = 'LuaJIT' },
+      l.lua_ls.setup {
+        -- cmd = { vim.fs.normalize '~/b/lua-language-server/build/bin/lua-language-server' },
+        on_attach = function(client) client.server_capabilities.semanticTokensProvider = nil end,
+        -- capabilities = cap,
+        settings = {
+          Lua = {
+            hint = { enable = true, setType = true },
+            completion = {
+              callSnippet = 'Replace',
+              postfix = '.', -- TODO: not work (a:xx/ string.method)
+              showWord = 'Disable',
+              workspaceWord = false,
+            },
+            format = {
+              defaultConfig = {
+                call_arg_parentheses = 'remove_table_only',
+                add_comma = 'comma',
               },
             },
-          }
-        end,
-        -- FIXME: hang if don't use venv
-        pyright = function()
-          lspconfig.pyright.setup {
-            -- FIXME: to run this (use this command), we must ensure lsp is installed
-            cmd = { 'pyright-langserver', '--stdio' },
-            capabilities = capabilities,
-            settings = {
-              python = {
-                analysis = {
-                  autoSearchPaths = true,
-                  useLibraryCodeForTypes = true,
-                  diagnosticMode = 'openFilesOnly',
-                },
-              },
+            runtime = { version = 'LuaJIT' },
+          },
+        },
+      }
+
+      l.clangd.setup {
+        cmd = { 'clangd', '--background-index', '--clang-tidy', '--header-insertion=iwyu' },
+      }
+
+      l.pyright.setup {
+        -- cmd = { "delance-langserver", "--stdio" },
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = 'openFilesOnly',
             },
-          }
-        end,
-        -- FIXME: also hang
-        gopls = function()
-          lspconfig.gopls.setup {
-            settings = {
-              gopls = {
-                hints = {
-                  assignVariableTypes = true,
-                  compositeLiteralFields = true,
-                  compositeLiteralTypes = true,
-                  constantValues = true,
-                  functionTypeParameters = true,
-                  parameterNames = true,
-                  rangeVariableTypes = true,
-                },
-              },
+          },
+        },
+      }
+
+      l.gopls.setup {
+        settings = {
+          gopls = {
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
             },
-          }
+          },
+        },
+      }
+
+      l.volar.setup {
+        on_attach = function(client, _)
+          client.server_capabilities.documentFormattingProvider = false
         end,
-        volar = function()
-          lspconfig.volar.setup {
-            on_attach = function(client, _)
-              client.server_capabilities.documentFormattingProvider = false
-            end,
-            capabilities = capabilities,
-          }
-        end,
+        capabilities = cap,
       }
     end,
   },
@@ -145,7 +107,9 @@ return {
         sh = { 'shfmt' },
         xml = { 'xmlformat' },
         toml = { 'taplo' },
-        c = { 'uncrustify' },
+        -- TODO: forback?
+        -- c = { 'uncrustify_nvim', 'clang-format' },
+        c = { 'uncrustify_nvim' },
 
         -- note: for arch, need `perl-unicode-linebreak` as extra dependency
         -- TODO: force a `:retab` for formatter use tab only...
@@ -170,15 +134,18 @@ return {
           command = 'shfmt',
           args = { '-i', '2', '-filename', '$FILENAME' },
         },
-        uncrustify_neovim = {
-          command = env.HOME .. 'b/neovim/build/bin/uncrustify',
-          args = { '-q', '-l', 'C', '-c', '$CONFIG' },
+        uncrustify_nvim = {
+          command = g.nvim_root .. '/build/usr/bin/uncrustify',
+          args = function()
+            if u.git.root() == g.nvim_root then
+              local cfg = g.nvim_root .. '/src/uncrustify.cfg'
+              return { '-q', '-l', 'C', '-c', cfg }
+            end
+          end,
         },
       },
     },
   },
-
-  -- never find it useful now
   {
     'ray-x/lsp_signature.nvim',
     cond = false,
@@ -217,6 +184,7 @@ return {
   --     })
   --   end,
   -- },
+
   {
     'mfussenegger/nvim-lint',
     cond = false,

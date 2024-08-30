@@ -56,3 +56,6 @@ g.maplocalleader = '+'
 -- disable some builtin ftplugin features
 g.markdown_recommended_style = 0
 g.no_man_maps = 0
+
+-- project consts
+g.nvim_root = env.HOME .. '/b/neovim' -- todo: check exist

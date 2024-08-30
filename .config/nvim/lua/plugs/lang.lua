@@ -1,5 +1,5 @@
 return {
-  { 'HiPhish/info.vim', cond = false, cmd = 'Info' },
+  { 'HiPhish/info.vim', cmd = 'Info' },
   { 'fladson/vim-kitty', ft = 'kitty' },
   { 'chrisbra/csv.vim', ft = 'csv' },
   { 'kmonad/kmonad-vim', ft = 'kbd' },
@@ -79,24 +79,21 @@ return {
     config = function()
       require('crates').setup()
       local crates = require 'crates'
-
-      map.n('+ct', crates.toggle)
-      map.n('+cr', crates.reload)
-      map.n('+cv', crates.show_versions_popup)
-      map.n('+cf', crates.show_features_popup)
-      map.n('+cd', crates.show_dependencies_popup)
-      -- n('+cu', crates.update_crate)
-      -- vim.keymap.set('v', '+cu', crates.update_crates)
-      -- n('+ca', crates.update_all_crates)
-      -- n('+cU', crates.upgrade_crate)
-      -- vim.keymap.set('v', '+cU', crates.upgrade_crates)
-      -- n('+cA', crates.upgrade_all_crates)
-      map.n('+cx', crates.expand_plain_crate_to_inline_table)
-      map.n('+cX', crates.extract_crate_into_table)
-      map.n('+cH', crates.open_homepage)
-      map.n('+cR', crates.open_repository)
-      map.n('+cD', crates.open_documentation)
-      map.n('+cC', crates.open_crates_io)
+      map.n[0]('+ct', crates.toggle)
+      map.n[0]('+cr', crates.reload)
+      map.n[0]('+cv', crates.show_versions_popup)
+      map.n[0]('+cf', crates.show_features_popup)
+      map.n[0]('+cd', crates.show_dependencies_popup)
+      map.n[0]('+cu', crates.update_crate)
+      map.n[0]('+ca', crates.update_all_crates)
+      map.n[0]('+cU', crates.upgrade_crate)
+      map.n[0]('+cA', crates.upgrade_all_crates)
+      map.n[0]('+cx', crates.expand_plain_crate_to_inline_table)
+      map.n[0]('+cX', crates.extract_crate_into_table)
+      map.n[0]('+cH', crates.open_homepage)
+      map.n[0]('+cR', crates.open_repository)
+      map.n[0]('+cD', crates.open_documentation)
+      map.n[0]('+cC', crates.open_crates_io)
     end,
   },
 
