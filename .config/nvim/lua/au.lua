@@ -1,16 +1,4 @@
 -- FIXME(upstream): trigger only once (other than once for each event)
-
--- ftplugin, but for common part
-autocmd('Filetype', {
-  pattern = { 'help', 'man' },
-  callback = function(ev)
-    if vim.bo.bt ~= '' then
-      map.n('u', '<c-u>', { buffer = ev.buf })
-      map.n('d', '<c-d>', { buffer = ev.buf })
-    end
-  end,
-})
-
 augroup('YankHighlight', {
   'TextYankPost',
   {
@@ -28,13 +16,15 @@ augroup('YankHighlight', {
 })
 
 -- https://github.com/jeffkreeftmeijer/vim-numbertoggle
+-- FIXME: :h :quit
+-- TODO: colorize
 augroup('NumberToggle', {
   { 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter', 'CmdlineEnter' },
   { command = [[if &nu && mode() != 'i' | set rnu | endif]] },
 }, {
-  { 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave', 'CmdlineLeave' },
-  { command = [[if &nu | set nornu | endif]] },
-})
+{ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave', 'CmdlineLeave' },
+{ command = [[if &nu | set nornu | endif]] },
+ })
 
 -- create directories when needed
 augroup('AutoMkdir', {

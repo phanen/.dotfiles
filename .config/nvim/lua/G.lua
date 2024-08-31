@@ -37,6 +37,17 @@ _G.augroup = function(group, ...)
   return id
 end
 
+-- TODO:
+_G.augroup2 = setmetatable({}, {
+  __index = function(_, group) return ag(group, {}) end,
+  __newindex = function(_, group, spec)
+    ag(group, { clear = true })
+    assert(type(spec) == 'table')
+    if group == 'table' then
+    end
+  end,
+})
+
 -- `clear` -> reloadable
 -- _G.au = api.nvim_create_autocmd
 local grp = ag('Conf', { clear = true })

@@ -1,6 +1,6 @@
 local Qf = {}
 
--- FIXME: two def via lsp??
+-- TODO: local list...
 Qf.toggle = function()
   local has_qf = vim.iter(fn.getwininfo()):any(function(win) return win.quickfix == 1 end)
   vim.cmd[has_qf and 'cclose' or 'copen']()

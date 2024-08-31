@@ -84,13 +84,12 @@ n(' q', u.qf.toggle)
 -- * formatexpr gq
 -- * https://github.com/neovim/neovim//blob/6ad025ac88f968dbeaea05e95cf40d64782793e0/runtime/lua/vim/lsp.lua#L330
 -- * https://github.com/neovim/neovim//blob/6ad025ac88f968dbeaea05e95cf40d64782793e0/src/nvim/insexpand.c#L1103
-augroup('Lsp', {
+augroup('BufferKeymap', {
   'LspAttach',
   {
     callback = function(ev)
       -- lsp.inlay_hint.enable()
       -- TODO: set a short query timeout...
-
       ---@diagnostic disable-next-line: redefined-local
       local n = n[ev.buf]
       n('<c-h>', lsp.buf.signature_help)
@@ -102,5 +101,39 @@ augroup('Lsp', {
         { expr = true, replace_keycodes = true }
       )
     end,
+  },
+}, {
+  'Filetype',
+  {
+    pattern = '*',
+    callback = (function()
+      local quit_filetypes = setmetatable({
+        ['qf'] = true,
+        ['NvimTree'] = true,
+        ['help'] = true,
+        ['man'] = true,
+        ['aerial'] = true,
+        ['gitcommit'] = true,
+        ['git'] = true,
+        ['floggraph'] = true,
+      }, {
+        __index = function(_, k)
+          if k:match('fugitive*') then
+            rawset(_, k, true)
+            return true
+          end
+        end,
+      })
+      return function()
+        if vim.bo.bt ~= '' and not vim.bo.ma then
+          map.n[0]('u', '<c-u>')
+          map.n[0].nowait('d', '<c-d>')
+        end
+        if quit_filetypes[vim.bo.ft] then
+          -- TODO: vim.wo.winfixbuf = true
+          map.n[0]('q', 'ZZ')
+        end
+      end
+    end)(),
   },
 })
