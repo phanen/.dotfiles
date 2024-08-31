@@ -112,38 +112,20 @@ Misc.blank_below = function()
 end
 
 Misc.quit = function()
-  -- -- redirect buf open to other window
-  -- au('Filetype', {
-  --   pattern = { 'qf', 'NvimTree', 'help', 'man', 'aerial', 'fugitive*' },
-  --   callback = function(args)
-  --     -- if vim.bo.bt ~= '' then map('n', 'q', '<cmd>q<cr>', { buffer = args.buf }) end
-  --     -- TODO: winfixbuf not always work...
-  --   end,
-  -- })
+  if fn.reg_recording() ~= '' or fn.reg_executing() ~= '' then
+    return api.nvim_feedkeys('q', 'n', false)
+  end
 
   -- unknow: check ft here as workaround for autocmd not always work
-  local filetypes = setmetatable({
-    ['qf'] = true,
-    ['NvimTree'] = true,
-    ['help'] = true,
-    ['man'] = true,
-    ['aerial'] = true,
-    ['gitcommit'] = true,
-    ['git'] = true,
-    ['floggraph'] = true,
-  }, {
-    __index = function(_, k) return k:match('fugitive*') and true or false end,
-  })
-
-  -- TODO: not sure what to do with these cases
-  -- if fn.reg_recorded() ~= '' or fn.reg_executing() ~= '' then return '<ignore>' end
 
   local wclose = function(...) pcall(api.nvim_win_close, ...) end
 
   -- close current window if floating
   local curwind = api.nvim_get_current_win()
-  if api.nvim_win_get_config(curwind).relative ~= '' or filetypes[vim.bo.ft] then
-    return wclose(curwind, true)
+  if api.nvim_win_get_config(curwind).relative ~= '' then
+    print(vim.bo.ft)
+    vim.cmd.quit { bang = true }
+    return '<ignore>'
   end
 
   -- close all focusable floating windows (:fclose! ?)
@@ -159,7 +141,7 @@ Misc.quit = function()
   end
 
   if count == 0 then -- fallback
-    api.nvim_feedkeys(vim.keycode('q'), 'n', false)
+    return api.nvim_feedkeys('q', 'n', false)
   end
 end
 

@@ -1,14 +1,9 @@
 -- TODO: BufRead trigger man plugin (set buf)
-vim.bo.bh = 'hide'
-vim.bo.bt = ''
+-- make <c-s><c-d> work
+vim.bo.bh = 'hide' -- unload -> hide
+vim.bo.bt = '' -- nofile -> ''
 
-local n = map.n
-local nx = map.nx
-
--- TODO: not sure why this is needed (ft.lua)
-nx('u', '<c-u>', { buffer = 0 })
-nx('d', '<c-d>', { buffer = 0, nowait = true })
-
-n('go', require 'man'.show_toc)
+-- TODO: also for helpdocs
+map.n[0]('go', require 'man'.show_toc)
 
 -- FIXME: `o` just delete qf/loc/list...

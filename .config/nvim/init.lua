@@ -34,3 +34,4 @@ require 'mod.colors'
 -- TODO: template system
 -- TODO: lib better to be independent
 -- TODO: 'lewis6991/hover.nvim'
+-- TODO: meta layer for au/cmd
