@@ -24,7 +24,7 @@ local colors_file = vim.fs.joinpath(g.state_path, 'colors.json')
 -- 2. Spawn setbg/setcolors on colorscheme change to make other nvim instances
 --    and system color consistent with the current nvim instance.
 
-local saved = u.json.read(colors_file)
+local saved = u.fs.read_json(colors_file)
 saved.colors_name = saved.colors_name or 'default'
 
 if saved.bg then vim.go.bg = saved.bg end
@@ -44,11 +44,11 @@ autocmd('Colorscheme', {
     if g.script_set_bg or g.script_set_colors then return end
 
     vim.schedule(function()
-      local data = u.json.read(colors_file)
+      local data = u.fs.read_json(colors_file)
       if data.colors_name ~= g.colors_name or data.bg ~= vim.go.bg then
         data.colors_name = g.colors_name
         data.bg = vim.go.bg
-        if not u.json.write(colors_file, data) then return end
+        if not u.fs.write_json(colors_file, data) then return end
       end
 
       vim.F.npcall(vim.system, { 'setbg', vim.go.bg })

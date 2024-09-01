@@ -145,8 +145,6 @@ options = {
   },
 }
 
-Gx.setup = function(opts) options = vim.tbl_deep_extend('force', opts or {}, options) end
-
 ---@type fun(mode: string): string?
 local get_text = function(mode)
   mode = mode or api.nvim_get_mode().mode
