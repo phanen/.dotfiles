@@ -35,7 +35,7 @@ g.disable_cache_docs = false
 
 g.disable_Autosave = true
 
-g.vendor_bar = true
+g.vendor_bar = false
 
 -- netrw
 g.netrw_banner = 0

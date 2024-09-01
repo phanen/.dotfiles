@@ -46,7 +46,17 @@ return {
     dependencies = { -- fzf support
       -- 'nvim-telescope/telescope-fzf-native.nvim',
     },
-    opts = { general = { enable = require('mod.winbar.config').opts.enable } },
+    opts = {
+      general = {
+        enable = function(buf, win)
+          return vim.bo[buf].ft == 'fugitiveblame'
+            or fn.win_gettype(win) == ''
+              and vim.wo[win].winbar == ''
+              and (vim.bo[buf].bt == '')
+              and (pcall(vim.treesitter.get_parser, buf, vim.bo[buf].ft))
+        end,
+      },
+    },
   },
   -- 'LspAttach',
   -- 'DiagnosticChanged',
