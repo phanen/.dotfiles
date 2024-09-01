@@ -21,13 +21,6 @@ return {
     config = function()
       local jdtls = require 'jdtls'
       local mason = require 'mason-registry'
-      local ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-      -- local capabilities = require 'capabilities'
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      if ok then
-        capabilities =
-          vim.tbl_deep_extend('force', capabilities, cmp_nvim_lsp.default_capabilities())
-      end
 
       local opts = {
         cmd = { vim.fs.joinpath(mason.get_package('jdtls'):get_install_path(), '/bin/jdtls') },
@@ -43,7 +36,7 @@ return {
             },
           },
         },
-        capabilities = capabilities,
+        capabilities = u.lsp.make_capabilities(),
         on_attach = function(client, bufnr)
           jdtls.setup_dap { hotcodereplace = 'auto' }
           require('jdtls.setup').add_commands()
@@ -61,14 +54,7 @@ return {
         },
       }
 
-      autocmd('FileType', {
-        pattern = 'java',
-        desc = 'Attach jdtls',
-        callback = function()
-          jdtls.start_or_attach(opts)
-          vim.bo.tabstop = 4
-        end,
-      })
+      jdtls.start_or_attach(opts)
     end,
   },
 

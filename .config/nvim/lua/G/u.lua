@@ -10,10 +10,8 @@ local U = {
   tc = ..., ---@type table
   ts = ..., ---@type table
 
-  -- defered modules
-  -- TODO: @module typing, lsp @
-  -----@source lib/buf.lua
-  buf = nil, ---@module 'lib.buf'
+  -- defered modules (TODO: @module typing, lsp @)
+  buf = nil, ---@module 'lib.buf'   -- @source lib/buf.lua
   bufop = nil, ---@module 'lib.bufop'
   colors = nil, ---@module 'lib.colors'
   comment = nil, ---@module 'lib.comment'
@@ -21,13 +19,13 @@ local U = {
   export = nil, ---@module 'lib.export'
   fs = nil, ---@module 'lib.fs'
   git = nil, ---@module 'lib.git'
-  gitlink = nil, ---@module 'lib.gitlink'
   gx = nil, ---@module 'lib.gx'
+  gl = nil, ---@module 'lib.gl'
   hl = nil, ---@module 'lib.hl'
-  json = nil, ---@module 'lib.json'
   keymap = nil, ---@module 'lib.keymap'
   lazy = nil, ---@module 'lib.lazy'
   log = nil, ---@module 'lib.log'
+  lsp = nil, ---@module 'lib.lsp'
   misc = nil, ---@module 'lib.misc'
   msg = nil, ---@module 'lib.msg'
   qf = nil, ---@module 'lib.qf'
@@ -36,7 +34,6 @@ local U = {
   string = nil, ---@module 'lib.string'
   textobj = nil, ---@module 'lib.textobj'
   treesitter = nil, ---@module 'lib.treesitter'
-  util = nil, ---@module 'lib.util'
 }
 
 -- one more step from https://github.com/neovim/neovim/pull/27216
@@ -145,12 +142,11 @@ U.tu = U.lazy_req 'nvim-treesitter.ts_utils'
 U.tc = U.lazy_req 'nvim-treesitter.configs'
 U.ts = U.lazy_req 'vim.treesitter'
 
--- TODO: if u.lua become big (lazy load itself?)
--- idea: u.x ?-> lib.x ?-> func.x
--- catch error is slow?
-
--- TODO: cache_tablize
 -- func = cache_tablize(func), -> func[one_arg_only]
+---@generic T
+---@param cb fun(...): T
+---@return table<string|number, T>
+---@see vim.func.__memoize
 U.cache_tablize = function(cb)
   return setmetatable({}, {
     __index = function(t, key)
@@ -162,7 +158,11 @@ U.cache_tablize = function(cb)
 end
 
 -- it provide hash = resolve_hash(hash) to give key
----@see vim.func._memorize
+---@generic T
+---@param cb fun(...): T
+---@param hash fun(...): string|number
+---@return fun(...): T
+---@see vim.func.__memoize
 U.cache_hash = function(cb, hash)
   local f = U.cache_tablize(cb)
   return function(...)
@@ -175,16 +175,10 @@ U.cache_hash = function(cb, hash)
   end
 end
 
+---@generic T
+---@param cb fun(): T
+---@return fun(): T
 U.cache_one = function(cb)
-  local cache
-  return function()
-    if cache then return cache end
-    cache = cb()
-    return cache
-  end
-end
-
-U.cache_one_table = function(cb)
   local cache
   return function()
     if cache then return cache end

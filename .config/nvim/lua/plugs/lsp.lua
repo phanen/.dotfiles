@@ -12,10 +12,7 @@ return {
     'williamboman/mason.nvim',
     build = ':MasonUpdate',
     cmd = 'Mason',
-    opts = {
-      -- PATH = 'append',
-      ui = { height = 0.85, border = vim.g.border },
-    },
+    opts = { ui = { height = 0.85, border = vim.g.border } },
   },
   {
     'williamboman/mason-lspconfig.nvim',
@@ -30,18 +27,16 @@ return {
       -- lspconfig define FileType autocmd, so don't use it in ftplugin
       -- mason path should be prepended to PATH
       local l = require('lspconfig')
-      -- local cap = u.lsp.make_capabilities()
-
+      -- u.lsp.make_capabilities
       l.lua_ls.setup {
         -- cmd = { vim.fs.normalize '~/b/lua-language-server/build/bin/lua-language-server' },
-        on_attach = function(client) client.server_capabilities.semanticTokensProvider = nil end,
-        -- capabilities = cap,
+        -- on_attach = function(client) client.server_capabilities.semanticTokensProvider = nil end,
         settings = {
           Lua = {
             hint = { enable = true, setType = true },
             completion = {
               callSnippet = 'Replace',
-              postfix = '.', -- TODO: not work (a:xx/ string.method)
+              -- postfix = '.', -- TODO: not work (a:xx/ string.method)
               showWord = 'Disable',
               workspaceWord = false,
             },
@@ -93,7 +88,6 @@ return {
         on_attach = function(client, _)
           client.server_capabilities.documentFormattingProvider = false
         end,
-        capabilities = cap,
       }
     end,
   },
@@ -161,6 +155,7 @@ return {
   {
     'folke/lazydev.nvim',
     ft = 'lua',
+    cond = true,
     opts = {
       -- FIXME: not work
       library = {
