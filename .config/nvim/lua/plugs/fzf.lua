@@ -97,7 +97,7 @@ return {
             :filter(function(line) return line ~= '' end) -- trimempty don't trim existed empty
             :filter(function(line) return not vim.startswith(line, '#') end)
             :totable()
-          return vim.list_extend(patterns, { 'LICENSE', '*-lock.json' })
+          return patterns
         end,
         previewers = {
           builtin = {

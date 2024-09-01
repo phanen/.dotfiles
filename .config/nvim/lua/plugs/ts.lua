@@ -77,7 +77,7 @@ local treesitter_setup = function()
           enable = true,
           set_jumps = true,
           goto_next_start = {
-            [']a'] = '@parameter.outer',
+            [']a'] = '@parameter.inner',
             [']f'] = '@function.outer',
             [']r'] = '@function.outer',
             [']s'] = '@class.outer',
@@ -93,7 +93,7 @@ local treesitter_setup = function()
             [']K'] = '@loop.outer',
           },
           goto_previous_start = {
-            ['[a'] = '@parameter.outer',
+            ['[a'] = '@parameter.inner',
             ['[f'] = '@function.outer',
             ['[r'] = '@function.outer',
             ['[s'] = '@class.outer',
@@ -215,7 +215,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     build = function() require('nvim-treesitter.install').update { with_sync = true } end,
     event = { 'BufReadPre', 'BufNewFile' },
-    -- event = { 'Filetype' },
+    -- event = { 'FileType' },
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },

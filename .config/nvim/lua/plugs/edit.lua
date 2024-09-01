@@ -255,12 +255,7 @@ return {
         enable_close_on_slash = false, -- Auto close on trailing </
       },
     },
-    -- per_filetype = {
-    --   ['html'] = { enable_close = false },
-    -- },
   },
-
-  -- replace
   {
     'mizlan/iswap.nvim',
     cmd = {
@@ -272,6 +267,10 @@ return {
       'ISwapWithRight',
       'ISwapNodeWithLeft',
       'ISwapNodeWithRight',
+    },
+    opts = {
+      flash_style = true,
+      move_cursor = true,
     },
   },
   {

@@ -1,3 +1,4 @@
+local i = map.i
 local m = map['']
 local n = map.n
 local nx = map.nx
@@ -72,16 +73,19 @@ n('<a-h>', '<<')
 n('<a-l>', '>>')
 x('<a-h>', '<gv')
 x('<a-l>', '>gv')
+n('<a-n>', '<cmd>ISwapNodeWithRight<cr>')
+n('<a-p>', '<cmd>ISwapNodeWithLeft<cr>')
 x('>', ':ri<cr>')
 x('<', ':le<cr>')
-x('<c-i>', '=') -- fix indent (another way: `x[p`)
+n('<c-h>', '==')
+x('<c-h>', '=') -- fix indent (another way: `x[p`)
 
 -- fmt
 n('gw', [[<cmd>lua require('conform').format { lsp_fallback = true }<cr>]])
 x('gw', [[:lua require('conform').format { lsp_fallback = true }<cr>]])
 local s = function(lhs, pattern)
-  map.n(lhs, ('<cmd>%%%s<cr>``'):format(pattern))
-  map.x(lhs, (':%s<cr>``'):format(pattern))
+  n(lhs, ('<cmd>%%%s<cr>``'):format(pattern))
+  x(lhs, (':%s<cr>``'):format(pattern))
 end
 s(' rp', [[FullwidthPunctConvert]])
 -- x(' rp', ':FullwidthPunctConvert<cr>') -- TODO: not change cursor pos
