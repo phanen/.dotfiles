@@ -66,7 +66,7 @@ M.root = function()
   local bufname = M.bufname()
   bufname = fn.resolve(bufname)
   local root = u.git.root { bufname = bufname }
-  local home = vim.uv.os_get_passwd().homedir
+  local home = uv.os_get_passwd().homedir
   if
     not root
     or root == home and u.git { 'check-ignore', '-q', bufname, cwd = home }:wait().code == 0

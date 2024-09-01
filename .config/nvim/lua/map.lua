@@ -71,7 +71,7 @@ n('gcO', u.comment.comment_above)
 -- git
 n(' go', u.git.browse)
 nx(' gl', u.gl.permalink) -- FIXME: normal mode Lx-Lx
-nx(' gx', u.gx.open)
+nx('gl', u.gx.open)
 
 -- quickfix
 n('<c-g>n', '<cmd>cnext<cr>')
@@ -80,7 +80,8 @@ n(' q', u.qf.toggle)
 
 -- check nvim's lsp preset `:h lsp-config`
 -- * tagfunc <c-]>
--- * omnifunc c-x c-o, buggy, no idea if there's really someone use omnifunc...
+-- * omnifunc c-x c-o, buggy, no idea if there's really someone use omnifunc
+--
 -- * formatexpr gq
 -- * https://github.com/neovim/neovim//blob/6ad025ac88f968dbeaea05e95cf40d64782793e0/runtime/lua/vim/lsp.lua#L330
 -- * https://github.com/neovim/neovim//blob/6ad025ac88f968dbeaea05e95cf40d64782793e0/src/nvim/insexpand.c#L1103
@@ -92,7 +93,7 @@ augroup('BufferKeymap', {
       -- TODO: set a short query timeout...
       ---@diagnostic disable-next-line: redefined-local
       local n = n[ev.buf]
-      n('<c-h>', lsp.buf.signature_help)
+      -- n('<c-h>', lsp.buf.signature_help)
       n('_', lsp.buf.hover)
       n(' rn', lsp.buf.rename)
       n(
@@ -108,14 +109,16 @@ augroup('BufferKeymap', {
     pattern = '*',
     callback = (function()
       local quit_filetypes = setmetatable({
-        ['qf'] = true,
-        ['NvimTree'] = true,
-        ['help'] = true,
-        ['man'] = true,
         ['aerial'] = true,
-        ['gitcommit'] = true,
-        ['git'] = true,
         ['floggraph'] = true,
+        ['gitcommit'] = true,
+        ['gitsigns-blame'] = true,
+        ['git'] = true,
+        ['help'] = true,
+        ['info'] = true,
+        ['man'] = true,
+        ['NvimTree'] = true,
+        ['qf'] = true,
       }, {
         __index = function(_, k)
           if k:match('fugitive*') then
@@ -125,15 +128,35 @@ augroup('BufferKeymap', {
         end,
       })
       return function()
+        local n = map.n[0]
         if vim.bo.bt ~= '' and not vim.bo.ma then
-          map.n[0]('u', '<c-u>')
-          map.n[0].nowait('d', '<c-d>')
+          n('u', '<c-u>')
+          n.nowait('d', '<c-d>')
         end
         if quit_filetypes[vim.bo.ft] then
           -- TODO: vim.wo.winfixbuf = true
-          map.n[0]('q', 'ZZ')
+          n('q', 'ZZ')
         end
       end
     end)(),
   },
 })
+
+-- TODO: fix toggleterm mode switch
+-- tn('gn', function()
+--   -- vim.cmd.ToggleTerm()
+--   require('toggleterm').toggle(1)
+--   require('toggleterm').toggle(2)
+--   -- require('toggleterm').toggle()
+--   -- vim.cmd.ToggleTerm()
+--   -- vim.cmd.ToggleTerm()
+-- end)
+--
+-- tn('gp', function()
+--   -- vim.cmd.ToggleTerm()
+--   require('toggleterm').toggle(2)
+--   require('toggleterm').toggle(1)
+--   -- require('toggleterm').toggle()
+--   -- vim.cmd.ToggleTerm()
+--   -- vim.cmd.ToggleTerm()
+-- end)

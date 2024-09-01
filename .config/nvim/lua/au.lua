@@ -22,9 +22,9 @@ augroup('NumberToggle', {
   { 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter', 'CmdlineEnter' },
   { command = [[if &nu && mode() != 'i' | set rnu | endif]] },
 }, {
-{ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave', 'CmdlineLeave' },
-{ command = [[if &nu | set nornu | endif]] },
- })
+  { 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave', 'CmdlineLeave' },
+  { command = [[if &nu | set nornu | endif]] },
+})
 
 -- create directories when needed
 augroup('AutoMkdir', {
@@ -172,7 +172,7 @@ augroup('Autosave', {
       if
         vim.bo[ev.buf].bt == ''
         and vim.bo[ev.buf].ft ~= ''
-        and (vim.uv.fs_stat(ev.file) or {}).type == 'file'
+        and (uv.fs_stat(ev.file) or {}).type == 'file'
       then
         vim.cmd.update { mods = { emsg_silent = true } }
       end
@@ -192,9 +192,13 @@ augroup('Autosave', {
 augroup('LastPosJump', {
   'BufReadPost',
   { -- NOTE: if `nvim +{num}`?
+    -- FIXME:
+    --   Error detected while processing BufReadPost Autocommands for "*"..function lastplace#jump:
+    --   line   10:
+    --   E20: Mark not set
     command = [[call lastplace#jump()]],
-    --  command = [[silent! normal! g`"zv']] ,
-    -- function() vim.api.nvim_exec2('silent! normal! g`"zv', { output = false }) end
+    --  command = [[sil! normal! g`"zv']] ,
+    -- function() vim.api.nvim_exec2('sil! normal! g`"zv', { output = false }) end
   },
 })
 

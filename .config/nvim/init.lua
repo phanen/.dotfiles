@@ -1,15 +1,13 @@
 -- pcall(vim.cmd.colorscheme, vim.g.colors_name)
 -- TODO: template system
 -- TODO: lib better to be independent
--- TODO: 'lewis6991/hover.nvim'
 -- TODO: meta layer for au/cmd
 -- TODO: restart nvim but not lsp (.....overhead)
+-- TODO: module path
+-- https://stackoverflow.com/questions/60283272/how-to-get-the-exact-path-to-the-script-that-was-loaded-in-lua
 
 -- https://github.com/neovim/neovim/pull/24044
 vim.loader.enable()
-
--- TODO: module path
--- https://stackoverflow.com/questions/60283272/how-to-get-the-exact-path-to-the-script-that-was-loaded-in-lua
 
 -- vim.go.loadplugins = true
 

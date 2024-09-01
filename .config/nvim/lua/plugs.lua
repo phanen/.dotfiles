@@ -4,6 +4,7 @@ return {
 
   { 'nvim-neorocks/lz.n' },
 
+  -- FIXME: block visual mode not work well
   { 'HiPhish/rainbow-delimiters.nvim', cond = true, event = { 'BufReadPre', 'BufNewFile' } },
 
   { 'itchyny/vim-highlighturl', cond = true, event = 'ColorScheme' },
