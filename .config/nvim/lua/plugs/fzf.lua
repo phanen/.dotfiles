@@ -1,16 +1,14 @@
 return {
-  -- FIXME: fzf-lua fzf window colide with toggleterm <c-;>
   {
     'phanen/fzf-lua-overlay',
     main = 'flo',
     cond = not vim.g.vscode,
-    -- TODO: split source
-    init = function() require('flo').init() end,
-    -- stylua: ignore
+    init = u.lazy_req('flo').init, -- TODO: remove this
     keys = function()
       local f = u.lazy_req('flo')
+      -- stylua: ignore
       return {
-        { '<c-b>',      f.buffers,               mode = { 'n', 'x' } },
+        { '<c-b>',      f.recentfiles,           mode = { 'n', 'x' } },
         { '+<c-f>',     f.lazy,                  mode = { 'n', 'x' } },
         { ' <c-f>',     f.zoxide,                mode = { 'n', 'x' } },
         { ' <c-j>',     f.todo_comment,          mode = { 'n', 'x' } },
@@ -41,7 +39,7 @@ return {
         { ' fk',        f.keymaps,               mode = { 'n', 'x' } },
         { '+fl',        f.license,               mode = { 'n', 'x' } },
         { ' fm',        f.marks,                 mode = { 'n', 'x' } },
-        { ' fo',        f.recentfiles,           mode = { 'n', 'x' } },
+        { ' fo',        f.oldfiles,              mode = { 'n', 'x' } },
         { ' fp',        f.loclist,               mode = { 'n', 'x' } },
         { ' fq',        f.quickfix,              mode = { 'n', 'x' } },
         { '  ',         f.resume,                mode = { 'n', 'x' } },
@@ -62,51 +60,36 @@ return {
         { 'z=',         f.spell_suggest,         mode = { 'n', 'x' } },
       }
     end,
-    opts = {},
-    -- dependencies = 'ibhagwan/fzf-lua',
   },
   {
     'ibhagwan/fzf-lua',
     cmd = 'FzfLua *',
-    -- FIXME: ugly patch.......
     keys = ' <c-e>',
     config = function()
       local f = require('fzf-lua')
       local a = require('flo.actions')
-
       -- FIXME: treesitter bootstrap
       -- require('nvim-treesitter').setup()
-
       local path = g.state_path .. '/file_ignore_patterns.conf'
       map.n(' <c-e>', function() vim.cmd.edit(path) end)
       f.setup {
         'default-title',
         -- TODO(upstream): dynamic filter, popup a rule windows
-        -- TODO: implement a generic hover framework
-        -- hope this work for all pickers...
         file_ignore_patterns = function()
           local content = u.fs.read_file(path)
           local patterns = content and vim.split(content, '\n', { trimempty = true }) or {}
-
-          -- TODO: can only get options from file, cannot get options from content/modeline
-          -- local ft = vim.filetype.match({ contents = { '#!/bin/bash' } })
-          -- local cm = (vim.filetype.get_option('conf', 'commentstring') --[[@as string]]):sub(1, 1)
-
-          patterns = vim
-            .iter(patterns)
-            :filter(function(line) return line ~= '' end) -- trimempty don't trim existed empty
-            :filter(function(line) return not vim.startswith(line, '#') end)
-            :totable()
+          patterns = vim.tbl_filter(
+            function(line) return line ~= '' and not vim.startswith(line, '#') end,
+            patterns
+          )
           return patterns
         end,
         previewers = {
           builtin = {
             extensions = {
-              ['png'] = { 'viu', '-b' },
-              ['jpg'] = { 'ueberzug' },
+              ['png'] = { 'ueberzug' },
               ['jpeg'] = { 'ueberzug' },
               ['gif'] = { 'ueberzug' },
-              ['svg'] = { 'chafa', '{file}' },
             },
             ueberzug_scaler = 'cover',
           },
@@ -116,6 +99,7 @@ return {
         },
         winopts = {
           height = 0.6,
+          width = 0.85,
           border = g.border,
           backdrop = 90,
           preview = { delay = 40 },
@@ -135,57 +119,28 @@ return {
             ['<c-d>'] = 'preview-page-down',
             ['<c-u>'] = 'preview-page-up',
           },
-          -- FIXME(libvterm): not work well with c-\\ in terminal
-          fzf = {},
+          fzf = {}, -- FIXME(libvterm): c-\\ work int fzf, but not in nvim's term
         },
-        awesome_colorschemes = {
-          prompt = 'LiveColors> ',
-          winopts = {
-            row = 0.3,
-            col = 0.5,
-            width = 0.3,
-            backdrop = false,
-          },
-          max_threads = 5,
-          dbfile = 'data/colorschemes.json',
-        },
-        -- TODO: exclude current buffer
         files = {
-          -- this work as require path: `_fmt = M.globals["formatters." .. opts.formatter]`
-          -- formatter = 'path.filename_first',
-          -- formatter = 'path.dirname_first',
           cwd_prompt = true,
           git_icons = false,
           winopts = { preview = { hidden = 'hidden' } },
-          actions = {
-            ['alt-n'] = a.file_create_open,
-          },
-          -- no_header = true,
           no_header_i = true,
         },
-        oldfiles = { -- also use this config for recentfiles
-          path_shorten = 4,
+        oldfiles = {
+          -- path_shorten = 4,
+          include_current_session = true, -- TODO: buffer! t is defered (unknown)
           previewer = 'builtin', -- need it to make recentfiles previewable
-          actions = {
-            ['default'] = f.actions.file_edit,
-            ['ctrl-o'] = { fn = a.file_edit_bg, resume = true },
-          },
+          winopts = { preview = { hidden = 'hidden' } },
         },
         grep = {
-          debug = false,
           file_icons = false,
           git_icons = false,
-          -- no_header = true,
           no_header_i = true,
-          -- de-dup followed?
-          rg_opts = '-L --no-messages --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
-          -- multiline = 0, -- fzf 0.53+
-          actions = {
-            ['ctrl-r'] = f.actions.toggle_ignore,
-            ['alt-n'] = function() end,
-          },
+          -- rg_opts = '-L --no-messages --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
+          -- multiline = 1, -- fzf 0.53+
+          actions = { ['ctrl-r'] = f.actions.toggle_ignore },
         },
-        buffers = { formatter = 'path.filename_first' },
         commands = {
           sort_lastused = true,
           include_builtin = true,
@@ -194,13 +149,12 @@ return {
           -- async = true,
           async_or_timeout = 5000,
           jump_to_single_result = true,
-          -- iwefj
           includeDeclaration = false,
           ignore_current_line = true,
           unique_line_items = true,
           code_actions = {
             previewer = fn.executable('delta') == 1 and 'codeaction_native' or 'codeaction',
-            -- previewer = 'codeaction', -- no highlgiht?
+            -- previewer = 'codeaction', -- TODO: no highlgiht?
           },
         },
         git = {
@@ -208,8 +162,6 @@ return {
             previewer = 'git_diff',
             -- preview_pager = false,
             actions = {
-              ['right'] = false,
-              ['left'] = false,
               ['ctrl-s'] = { fn = f.actions.git_stage_unstage, reload = true },
               ['ctrl-x'] = { fn = f.actions.git_reset, reload = true },
             },
@@ -217,122 +169,45 @@ return {
         },
         helptags = {
           winopts = { preview = { hidden = 'hidden' } },
-
-          actions = {
-            ['ctrl-o'] = {
-              fn = a.file_edit_bg,
-              -- using `reload = true` will fallback to `resume`
-              resume = true,
-            },
-          },
+          actions = { ['ctrl-o'] = { fn = a.file_edit_bg, exec_silent = true } },
         },
         spell_suggest = {
-          winopts = {
-            border = 'none',
-            backdrop = false,
-          },
+          winopts = { border = 'none', backdrop = false },
+        },
+        complete_path = { -- TODO: `:setf dir`
+          file_icons = true,
+          color_icons = true,
+          previewer = 'builtin',
+          winopts = { preview = { hidden = 'hidden' } },
         },
         actions = {
           files = {
-            ['default'] = f.actions.file_edit,
-            -- ['ctrl-s'] = f.actions.file_edit_or_qf,
+            ['enter'] = f.actions.file_edit, -- 'default' cannot be overrided by `complete_path`
             ['ctrl-s'] = f.actions.file_sel_to_qf,
-            -- ['ctrl-s'] = fzf.actions.file_sel_to_ll,
+            -- https://github.com/ibhagwan/fzf-lua/issues/1241
             ['alt-q'] = { fn = f.actions.file_sel_to_qf, prefix = 'select-all' },
-            -- ['alt-s'] = {
-            --   fn = function(sel) print('no items:', #sel) end,
-            --   prefix = 'transform([ $FZF_SELECT_COUNT -eq 0 ] && echo select-all)',
-            -- },
+            ['alt-n'] = a.file_create_open,
             ['ctrl-x'] = { fn = a.file_delete, reload = true },
             ['ctrl-r'] = { fn = a.file_rename, reload = true },
-            ['ctrl-o'] = { fn = a.file_edit_bg, reload = true }, -- TODO: not work well in rg
-            ['ctrl-y'] = {
-              fn = function(selected, opts)
-                local paths = vim
-                  .iter(selected)
-                  :map(function(v) return f.path.entry_to_file(v, opts).path end)
-                  :totable()
-                fn.setreg('+', table.concat(paths, ' '))
-              end,
-              -- exec_silent = true,
-            },
-            ['ctrl-l'] = {
-              fn = function()
-                f.builtin {
-                  actions = {
-                    ['default'] = function(selected)
-                      f[selected[1]] {
-                        query = f.config.__resume_data.last_query,
-                        cwd = f.config.__resume_data.opts.cwd,
-                      }
-                    end,
-                  },
-                }
-              end,
-            },
+            ['ctrl-o'] = { fn = a.file_edit_bg, exec_silent = true },
+            ['ctrl-y'] = function(selected, opts)
+              local paths = vim
+                .iter(selected)
+                :map(function(v) return f.path.entry_to_file(v, opts).path end)
+                :join(' ')
+              fn.setreg('+', paths)
+            end,
           },
-        },
-        fzf_colors = {
-          -- ['fg'] = { 'fg', 'NormalFloat' },
-          -- ['bg'] = { 'bg', 'NormalFloat' },
-          ['hl'] = { 'fg', 'Statement' },
-          ['fg+'] = { 'fg', 'NormalFloat' },
-          ['bg+'] = { 'bg', 'CursorLine' },
-          ['hl+'] = { 'fg', 'Statement' },
-          ['info'] = { 'fg', 'PreProc' },
-          -- ['prompt'] = { 'fg', 'Conditional' },
-          -- ['pointer'] = { 'fg', 'Exception' },
-          -- ['marker'] = { 'fg', 'Keyword' },
-          -- ['spinner'] = { 'fg', 'Label' },
-          -- ['header'] = { 'fg', 'Comment' },
-          -- ['gutter'] = { 'bg', 'NormalFloat' },
         },
       }
     end,
   },
   { 'vijaymarupudi/nvim-fzf-commands' },
   { 'vijaymarupudi/nvim-fzf', main = 'fzf' },
-  {
-    'tani/pickup.nvim',
-    cond = false,
-    dependencies = { 'MunifTanjim/nui.nvim' },
-    opts = {},
-  },
   { -- https://github.com/junegunn/fzf.vim/issues/837
     'junegunn/fzf.vim',
-    -- cond = not vim.g.vscode,
-    cond = true,
-    cmd = {
-      'Files',
-      'RG',
-      'Rg',
-      'Commands',
-    },
-    keys = {
-      -- { ' <c-l>', '<cmd>Files<cr>', mode = { 'n', 'x' } },
-      { ' <c-k>', '<cmd>Rg<cr>', mode = { 'n', 'x' } },
-      -- { '<leader><c-j>', '<cmd>RgD -path=~/notes -pattern=<cr>', mode = { 'n', 'x' } },
-      { ' ff', '<cmd>FZF<cr>' },
-    },
-    config = function()
-      vim.cmd [[
-    function! RgDir(isFullScreen, args)
-    let l:restArgs = [a:args]
-
-    let l:restArgs = split(l:restArgs[0], '-pattern=', 1)
-    let l:pattern = join(l:restArgs[1:], '')
-
-    let l:restArgs = split(l:restArgs[0], '-path=', 1)
-    " Since 8.0.1630 vim has a built-in trim() function
-    let l:path = trim(l:restArgs[1])
-
-    call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. shellescape(l:pattern), 1, {'dir': l:path}, a:isFullScreen)
-    endfunction
-
-    " the path param should not have `-pattern=`
-    command! -bang -nargs=+ -complete=dir RgD call RgDir(<bang>0, <q-args>)
-    ]]
-    end,
+    cond = not vim.g.vscode,
+    cmd = { 'Files', 'RG', 'Rg', 'Commands' },
     dependencies = { 'junegunn/fzf' },
   },
   {
