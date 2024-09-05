@@ -13,9 +13,15 @@ if env.SSH_TTY then
         local encoded = vim.base64.encode(content)
         api.nvim_chan_send(2, string.format('\027]52;c;%s\027\\', encoded))
       end,
+      ['*'] = function(lines)
+        local content = table.concat(lines, '\n')
+        local encoded = vim.base64.encode(content)
+        api.nvim_chan_send(2, string.format('\027]52;p;%s\027\\', encoded))
+      end,
     },
     paste = {
-      ['+'] = function() require('vim.ui.clipboard.osc52').paste('+')() end,
+      ['+'] = function() return require('vim.ui.clipboard.osc52').paste('+')() end,
+      ['*'] = function() return require('vim.ui.clipboard.osc52').paste('*')() end,
     },
   }
 end

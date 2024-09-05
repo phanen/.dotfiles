@@ -1,4 +1,3 @@
-local i = map.i
 local m = map['']
 local n = map.n
 local nx = map.nx
@@ -26,14 +25,17 @@ n( -- https://github.com/neovim/neovim/discussions/24285
   [[ms<cmd>let @/='\V\<'.escape(expand('<cword>'), '/\').'\>' | call histadd('/',@/) | se hls<cr>]]
 )
 
-m(' ', '<nop>')
 n('-', '<cmd>TSJToggle<cr>')
+x('-', [[:s/\(\s\+\)/\r/g<cr>]]) -- PERF: delim, indent
+m(' ', '<nop>')
 nx(' -', '<cmd>e%:p<cr>')
 nx('$', 'g_') -- TODO: $$ ^^ like twin (when not in macro mode)
 x('.', ':norm .<cr>')
 n('[ ', u.misc.blank_above)
 n('] ', u.misc.blank_below)
+
 n('gy', '`[v`]')
+n('gp', 'gvP')
 nx(' gJ', function()
   n('J', 'gJ') -- TODO: toggle
   n('gJ', 'J') -- TODO: eat whitespace?
@@ -64,6 +66,8 @@ nx('D', '"kD')
 nx('c', '"kc')
 nx('C', '"kC')
 nx('<c-p>', '"kP')
+x('p', 'P')
+x('P', 'p')
 
 n('<a-k>', '<cmd>move-2<cr>==') -- FIXME: may cause lsp diagnostics error
 n('<a-j>', '<cmd>move+<cr>==') -- append `=` to smart indent it
