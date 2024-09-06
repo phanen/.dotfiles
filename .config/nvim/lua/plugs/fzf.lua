@@ -9,7 +9,6 @@ return {
       -- stylua: ignore
       return {
         { '<c-b>',      f.recentfiles,           mode = { 'n', 'x' } },
-        { '+<c-f>',     f.lazy,                  mode = { 'n', 'x' } },
         { ' <c-f>',     f.zoxide,                mode = { 'n', 'x' } },
         { ' <c-j>',     f.todo_comment,          mode = { 'n', 'x' } },
         { '<c-l>',      f.files,                 mode = { 'n', 'x' } },
@@ -19,10 +18,10 @@ return {
         { '<c-x><c-l>', f.complete_line,         mode = 'i' },
         { '<c-x><c-p>', f.complete_path,         mode = 'i' },
         { ' e',         f.find_notes,            mode = { 'n', 'x' } },
-        { '+e',         f.grep_notes,            mode = { 'n', 'x' } },
         { ' fa',        f.builtin,               mode = { 'n', 'x' } },
         { 'f<c-e>',     f.grep_notes,            mode = { 'n', 'x' } },
         { ' fc',        f.awesome_colorschemes,  mode = { 'n', 'x' } },
+        { 'f<c-f>',     f.lazy,                  mode = { 'n', 'x' } },
         { 'f<c-l>',     f.grep_dots,             mode = { 'n', 'x' } },
         { 'f<c-o>',     f.recentfiles,           mode = { 'n', 'x' } },
         { 'f<c-s>',     f.commands,              mode = { 'n', 'x' } },
@@ -53,7 +52,7 @@ return {
         { 'gd',         f.lsp_definitions,       mode = { 'n', 'x' } },
         { 'gh',         f.lsp_code_actions,      mode = { 'n', 'x' } },
         { 'gm',         f.lsp_typedefs,          mode = { 'n', 'x' } },
-        { 'gr',         f.lsp_references,        mode = { 'n', 'x' } },
+        { 'gr',         f.lsp_references,        mode = { 'n', 'x' }, nowait = true },
         { ' l',         f.find_dots,             mode = { 'n', 'x' } },
         { '+l',         f.grep_dots,             mode = { 'n', 'x' } },
         { 'U',          f.undo,                  mode = { 'n', 'x' } },
@@ -65,11 +64,10 @@ return {
     'ibhagwan/fzf-lua',
     cmd = 'FzfLua *',
     keys = ' <c-e>',
+    dependencies = 'nvim-treesitter', -- must be setup for preview
     config = function()
       local f = require('fzf-lua')
       local a = require('flo.actions')
-      -- FIXME: treesitter bootstrap
-      -- require('nvim-treesitter').setup()
       local path = g.state_path .. '/file_ignore_patterns.conf'
       map.n(' <c-e>', function() vim.cmd.edit(path) end)
       f.setup {
@@ -97,13 +95,17 @@ return {
             cmd = 'man %s | col -bx',
           },
         },
-        winopts = {
-          height = 0.6,
-          width = 0.85,
-          border = g.border,
-          backdrop = 90,
-          preview = { delay = 40 },
-        },
+        winopts_fn = function()
+          -- vim.o.columns / max_columns
+          -- vim.o.lines / min_columns
+          return {
+            height = 0.6,
+            width = 0.85,
+            border = g.border,
+            backdrop = 90,
+            preview = { delay = 40 },
+          }
+        end,
         fzf_opts = {
           ['--history'] = vim.g.state_path .. '/telescope_history',
           ['--info'] = 'inline', -- easy to see count
