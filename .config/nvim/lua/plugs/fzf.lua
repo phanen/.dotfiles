@@ -210,6 +210,7 @@ return {
     cmd = { 'Files', 'RG', 'Rg', 'Commands' },
     dependencies = { 'junegunn/fzf' },
   },
+  { 'Yggdroot/LeaderF', build = ':LeaderfInstallCExtension', lazy = false },
   {
     'leisiji/fzf_utils',
     cond = false,
