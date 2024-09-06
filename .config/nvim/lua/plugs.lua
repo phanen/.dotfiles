@@ -7,7 +7,8 @@ return {
   -- FIXME: block visual mode not work well
   { 'HiPhish/rainbow-delimiters.nvim', cond = true, event = { 'BufReadPre', 'BufNewFile' } },
 
-  { 'itchyny/vim-highlighturl', cond = true, event = 'ColorScheme' },
+  -- TODO: only apply when treesitter not available...
+  { 'itchyny/vim-highlighturl', cond = false, event = 'ColorScheme' },
 
   { -- lsp-rename verbosely display
     'smjonas/inc-rename.nvim',

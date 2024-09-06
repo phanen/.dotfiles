@@ -15,7 +15,6 @@
 vim.loader.enable()
 
 -- vim.go.loadplugins = true
-
 if vim.g.vscode then
   require 'opt'
   -- require 'map'
@@ -32,10 +31,9 @@ require 'opt'
 require 'au'
 require 'map'
 require 'cmd'
+require 'hi'
 -- lazy.nvim append package.loaders (auto setup)
 require 'pm'
-
-vim.treesitter.language.register('bash', 'lua')
 
 -- modules not explictly lazy-loaded
 require 'mod.idl'
