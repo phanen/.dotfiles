@@ -1,23 +1,27 @@
 #!/bin/sh
 
-# TODO: reattch to neovide after restart
+# TODO: reattach to neovide after restart
+ROOT=$HOME/b/neovim
+MAGIC=123
+ARGS+=--luamod-dev
 
-# normal enter...
-if command -v ~/b/neovim/build/bin/nvim 1>/dev/null 2>/dev/null; then
-  VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim "$@"
+if command -v $ROOT/build/bin/nvim 1>/dev/null 2>/dev/null; then
+  VIMRUNTIME=$ROOT/runtime
+  NVIM_BIN=$ROOT/build/bin/nvim
+elif command -v /bin/nvim; then
+  NVIM_BIN=/bin/nvim
 else
-  /bin/nvim "$@"
+  exit
 fi
 
-# rebirth if needed
-test $? != 123 && exit
+# . /usr/share/makepkg/util/message.sh
+# colorize
+# msg "$NVIM_BIN"
 
-session_cmd="so /tmp/reload.vim"
-while true; do
-  if command -v ~/b/neovim/build/bin/nvim 1>/dev/null 2>/dev/null; then
-    VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim +"$session_cmd"
-  else
-    /bin/nvim +"$session_cmd"
-  fi
-  test $? != 123 && exit
-done
+# $ARGS then $@: if `--` in "$@"
+# "" is required for sh -c 'nvim xx'
+VIMRUNTIME=$VIMRUNTIME $NVIM_BIN "$ARGS" "$@"
+
+builtin test $? != $MAGIC && exit
+
+exec $0 "+so /tmp/reload.vim"

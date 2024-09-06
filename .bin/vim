@@ -1,11 +1,5 @@
 #!/bin/sh
-
+MAGIC=123
 /bin/vim "$@"
-test $? != 123 && exit
-
-session_cmd="so /tmp/reload-vim.vim"
-
-while true; do
-  /bin/vim +"$session_cmd"
-  test $? != 123 && exit
-done
+builtin test $? != $MAGIC && exit
+exec $0 "+so /tmp/reload-vim.vim"
