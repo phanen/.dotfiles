@@ -1,27 +1,9 @@
 return {
-  {
-    -- TODO: re-blame on file switch
-    'tpope/vim-fugitive',
-    cmd = { 'G' },
-    keys = {
-      -- todo: if staged then amend (maybe use gitsigns)
-      { ' ga', '<cmd>silent G commit --amend --no-edit<cr>' },
-      { ' gr', '<cmd>Gr<cr>' },
-      -- { ' gd', '<cmd>Gvdiffsplit<cr>' },
-      { ' gb', '<cmd>G blame<cr>' },
-      { ' gg', '<cmd>G<cr>' },
-      { ' gP', '<cmd>G push<cr>' },
-      { ' gs', '<cmd>Gwrite<cr>' },
-      { ' gw', '<cmd>G commit<cr>' },
-    },
-  },
+  { 'tpope/vim-fugitive', cmd = { 'G', 'Gwrite' } },
+  { 'rbong/vim-flog', cmd = { 'Flog', 'Flogsplit' }, dependencies = { 'tpope/vim-fugitive' } },
   {
     'sindrets/diffview.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    keys = {
-      { ' gd', ':DiffviewOpen<cr>', mode = { 'n', 'x' } },
-      { ' gh', ':DiffviewFileHistory %<cr>', mode = { 'n', 'x' } },
-    },
+    cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
     opts = {
       enhanced_diff_hl = true,
       -- default_args = { DiffviewFileHistory = { '%' } },
@@ -133,9 +115,6 @@ return {
   {
     'TimUntersberger/neogit',
     cmd = 'Neogit',
-    keys = {
-      { ' gn', function() require('neogit').open { cwd = u.git.root() } end },
-    },
     opts = {
       disable_hint = true,
       disable_insert_on_commit = false,
@@ -144,12 +123,6 @@ return {
         fzf_lua = true,
       },
     },
-  },
-  {
-    'rbong/vim-flog',
-    cmd = { 'Flog', 'Flogsplit' },
-    keys = { { ' gf', '<cmd>Flog<cr>' } },
-    dependencies = { 'tpope/vim-fugitive' },
   },
   {
     'SuperBo/fugit2.nvim',

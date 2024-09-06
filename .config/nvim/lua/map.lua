@@ -72,11 +72,22 @@ n('gcO', u.comment.comment_above)
 n(' go', u.git.browse)
 nx(' gl', u.gl.permalink) -- FIXME: normal mode Lx-Lx
 nx('gl', u.gx.open)
+n(' ga', '<cmd>silent G commit --amend --no-edit<cr>')
+n(' gr', '<cmd>Gr<cr>')
+n(' gb', '<cmd>G blame<cr>')
+n(' gg', '<cmd>G<cr>')
+n(' gP', '<cmd>G push<cr>')
+n(' gs', '<cmd>Gwrite<cr>')
+n(' gw', '<cmd>G commit<cr>')
 
+nx(' gd', ':DiffviewOpen<cr>')
+nx(' gh', ':DiffviewFileHistory %<cr>')
+nx(' gf', ':Flog<cr>')
 -- quickfix
 n('<c-g>n', '<cmd>cnext<cr>')
 n('<c-g>p', '<cmd>cprev<cr>')
 n(' q', u.qf.toggle)
+n(' gn', function() require('neogit').open { cwd = u.git.root() } end)
 
 -- check nvim's lsp preset `:h lsp-config`
 -- * tagfunc <c-]>
