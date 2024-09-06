@@ -141,6 +141,7 @@ options = {
     },
     url_scheme = { -- get url from text (with http/s)
       handle = '(https?://[a-zA-Z%d_/%%%-%.~@\\+#=?&:–]+)',
+      -- handle = function(_) return vim.ui._get_urls()[1] end,
     },
   },
 }
@@ -202,8 +203,9 @@ Gx.open = function(text)
 
   -- just use url if we found scheme
   ---@cast urls table<string, integer>
-  if urls.url_scheme then
-    local url = urls[urls.url_scheme].url
+  local url_scheme_index = urls.url_scheme
+  if url_scheme_index then
+    local url = urls[url_scheme_index].url
     return vim.ui.open(url)
   end
 
