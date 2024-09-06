@@ -1,14 +1,18 @@
 local U = {
   -- TODO: not sure how to typing these
   eval = ..., ---@type function
+  req = ..., ---@type function
   lazy_req = ..., ---@type function
+
   lazy_reg = ..., ---@type table to check what we've register
 
   cache = ..., ---@type table
 
-  tu = ..., ---@type table
-  tc = ..., ---@type table
-  ts = ..., ---@type table
+  -- alias
+  tu = ...,
+  tc = ...,
+  ts = ...,
+  tq = ...,
 
   -- defered modules (TODO: @module typing, lsp @)
   buf = nil, ---@module 'lib.buf'   -- @source lib/buf.lua
@@ -67,8 +71,19 @@ setmetatable(U, {
   end,
 })
 
+---@param modname string
+---@return table
+U.req = function(modname)
+  return setmetatable({}, {
+    __index = function(m, k)
+      local v = require(modname)[k]
+      rawset(m, k, v)
+      return v
+    end,
+  })
+end
+
 ---lazy require:
----   create a metatable under lazy_reg
 ---   the cost is `stacklevel++`
 ---   in early reference
 ---   which is accpetable for most cases
@@ -106,9 +121,10 @@ U.lazy_reg, U.lazy_req = (function()
     end
 end)()
 
-U.tu = U.lazy_req 'nvim-treesitter.ts_utils'
-U.tc = U.lazy_req 'nvim-treesitter.configs'
-U.ts = U.lazy_req 'vim.treesitter'
+U.tu = U.req 'nvim-treesitter.ts_utils'
+U.tq = U.req 'nvim-treesitter.query'
+U.tc = U.req 'nvim-treesitter.configs'
+U.ts = U.req 'vim.treesitter'
 
 -- override defaults
 -- vim.print('') -> linebreak
@@ -137,10 +153,6 @@ U.eval = function(v, ...)
   if vim.is_callable(v) then return v(...) end
   return v
 end
-
-U.tu = U.lazy_req 'nvim-treesitter.ts_utils'
-U.tc = U.lazy_req 'nvim-treesitter.configs'
-U.ts = U.lazy_req 'vim.treesitter'
 
 -- func = cache_tablize(func), -> func[one_arg_only]
 ---@generic T
