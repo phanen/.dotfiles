@@ -34,6 +34,8 @@ if saved.colors_name and saved.colors_name ~= g.colors_name then
     args = { saved.colors_name },
     mods = { emsg_silent = true },
   })
+  -- to fix fzf preview not dim, just never dim...
+  vim.cmd [[hi! link WinBarNC WinBar]]
 end
 
 -- TODO: completion

@@ -11,52 +11,26 @@ return {
     event = { 'ModeChanged *:[ictRss\x13]*' },
     opts = {},
   },
-  -- e.g. useful in `require`
-  -- {
-  --   dir = 'mod/lua-gf',
-  --   main = 'mod.lua-gf',
-  --   ft = 'lua',
-  -- },
-  {
-    dir = 'mod/winbar',
-    cond = g.vendor_bar,
-    event = {
-      'BufReadPost',
-      -- 'BufWritePost',
-      'BufNewFile',
-      -- 'BufEnter',
-    },
-    main = 'mod.winbar',
-    keys = function()
-      ---@module 'mod.winbar.api'
-      local w = u.lazy_req('mod.winbar.api')
-      return {
-        { '+;', w.pick },
-        { '[C', w.goto_context_start },
-        { ']C', w.select_next_context },
-      }
-    end,
-    opts = {},
-  },
   {
     'Bekaboo/dropbar.nvim',
-    cond = not g.vendor_bar,
-    -- cond = fn.has('nvim-0.10') == 1,
     event = { 'BufReadPre', 'BufNewFile' },
+    -- { 'BufReadPost', 'BufWritePost', 'BufNewFile', 'BufEnter', }
     dependencies = { -- fzf support
       -- 'nvim-telescope/telescope-fzf-native.nvim',
     },
-    opts = {
-      general = {
-        enable = function(buf, win)
-          return vim.bo[buf].ft == 'fugitiveblame'
-            or fn.win_gettype(win) == ''
+    config = function()
+      require('dropbar').setup {
+        general = {
+          enable = function(buf, win, info)
+            if vim.bo[buf].ft == 'fugitiveblame' then return true end
+            return fn.win_gettype(win) == ''
               and vim.wo[win].winbar == ''
-              and (vim.bo[buf].bt == '')
-              and (pcall(vim.treesitter.get_parser, buf, vim.bo[buf].ft))
-        end,
-      },
-    },
+              and vim.bo[buf].bt == ''
+              and u.has_ts(buf)
+          end,
+        },
+      }
+    end,
   },
   -- 'LspAttach',
   -- 'DiagnosticChanged',

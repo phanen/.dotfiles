@@ -8,25 +8,13 @@ return {
   {
     'ibhagwan/fzf-lua',
     cmd = 'FzfLua',
-    keys = ' <c-e>',
     dependencies = 'nvim-treesitter', -- must be setup for preview
     config = function()
-      local f = require('fzf-lua')
       local a = require('flo.actions')
-      local path = g.state_path .. '/file_ignore_patterns.conf'
-      map.n(' <c-e>', function() vim.cmd.edit(path) end)
+      local f = require('fzf-lua')
       f.setup {
         'default-title',
-        -- TODO(upstream): dynamic filter, popup a rule windows
-        file_ignore_patterns = function()
-          local content = u.fs.read_file(path)
-          local patterns = content and vim.split(content, '\n', { trimempty = true }) or {}
-          patterns = vim.tbl_filter(
-            function(line) return line ~= '' and not vim.startswith(line, '#') end,
-            patterns
-          )
-          return patterns
-        end,
+        file_ignore_patterns = function(opts) return loadfile(g.local_path)(opts) or {} end,
         previewers = {
           builtin = {
             extensions = {
@@ -36,25 +24,30 @@ return {
             },
             ueberzug_scaler = 'cover',
           },
-          man = { -- use man-db
-            cmd = 'man %s | col -bx',
-          },
+          man = { cmd = 'man %s | col -bx' }, -- use man-db
         },
-        winopts_fn = function()
-          -- vim.o.columns / max_columns
-          -- vim.o.lines / min_columns
+        winopts = { -- 'keep'
+          height = 0.6,
+          width = 0.85,
+          border = g.border,
+          backdrop = 90,
+          preview = { delay = 40, border = 'noborder' },
+        },
+        winopts_fn = function(opts) -- 'force' (after 'winopts')
+          if not package.loaded['dropbar'] then require('dropbar') end
           return {
-            height = 0.6,
-            width = 0.85,
-            border = g.border,
-            backdrop = 90,
-            preview = { delay = 40 },
+            preview = {
+              winopts = {
+                winbar = opts.winopts.preview.winopts.cursorline
+                    and '%{%v:lua.dropbar.get_dropbar_str()%}'
+                  or nil,
+              },
+            },
           }
         end,
         fzf_opts = {
           ['--history'] = vim.g.state_path .. '/telescope_history',
           ['--info'] = 'inline', -- easy to see count
-          ['--border'] = 'none',
         },
         keymap = {
           builtin = {
@@ -86,6 +79,7 @@ return {
           no_header_i = true,
           -- rg_opts = '-L --no-messages --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
           -- multiline = 1, -- fzf 0.53+
+          glob_separator = '%s%-%-%s', -- query separator pattern (lua): ' --'
           actions = { ['ctrl-r'] = f.actions.toggle_ignore },
         },
         commands = {
@@ -157,7 +151,7 @@ return {
     cmd = { 'Files', 'RG', 'Rg', 'Commands' },
     dependencies = { 'junegunn/fzf' },
   },
-  { 'Yggdroot/LeaderF', build = ':LeaderfInstallCExtension', lazy = false },
+  { 'Yggdroot/LeaderF', cond = false, build = ':LeaderfInstallCExtension', lazy = false },
   {
     'leisiji/fzf_utils',
     cond = false,

@@ -160,7 +160,7 @@ nx('<c-b>', f.recentfiles)
 nx(' <c-f>', f.zoxide)
 nx(' <c-j>', f.todo_comment)
 nx('<c-l>', f.files)
-nx('<c-n>', f.live_grep_native)
+nx('<c-n>', f.live_grep_glob)
 nx(' e', f.find_notes)
 nx(' fa', f.builtin)
 nx('f<c-e>', f.grep_notes)
@@ -198,9 +198,11 @@ nx('gh', f.lsp_code_actions)
 nx('gm', f.lsp_typedefs)
 nx(' l', f.find_dots)
 nx('+l', f.grep_dots)
-nx.nowait('gr', f.lsp_references)
+nx.nowait('gr', f.lsp_references) -- note: nowait only apply to before mappings
 nx('U', f.undo)
 nx('z=', f.spell_suggest)
+
+n(' <c-e>', function() vim.cmd.edit(g.local_path) end)
 
 -- TODO: fix toggleterm mode switch
 -- tn('gn', function()

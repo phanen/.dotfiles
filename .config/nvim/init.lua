@@ -9,9 +9,10 @@
 -- TODO: string one of mini.nvim
 -- TODO: pager set width (lazygit)
 -- TODO: bufferline don' choose right icons (e.g. .bin/vim)
+-- TODO: gitsigns hunks pickers
 -- https://stackoverflow.com/questions/60283272/how-to-get-the-exact-path-to-the-script-that-was-loaded-in-lua
-
 -- https://github.com/neovim/neovim/pull/24044
+
 vim.loader.enable()
 
 -- vim.go.loadplugins = true

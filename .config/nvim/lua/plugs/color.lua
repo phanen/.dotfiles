@@ -20,6 +20,12 @@ return {
     opts = { filetypes = { '*' }, buftypes = {} },
   },
   {
+    'uga-rosa/ccc.nvim',
+    cond = false,
+    lazy = false,
+    opts = {},
+  },
+  {
     'winston0410/range-highlight.nvim',
     cond = false,
     dependencies = { 'winston0410/cmd-parser.nvim' },
