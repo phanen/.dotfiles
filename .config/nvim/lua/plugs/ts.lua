@@ -70,6 +70,10 @@ local treesitter_setup = function()
         swap_previous = { ['<leader>sk'] = '@parameter.inner' },
       },
     },
+    matchup = {
+      enable = false, -- mandatory, false will disable the whole extension
+      -- disable = { 'c', 'ruby' }, -- optional, list of language that will be disabled
+    },
     nvim_next = {
       enable = true,
       textobjects = {
