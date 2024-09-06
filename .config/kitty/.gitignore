@@ -6,3 +6,4 @@
 !lua
 !open-actions.conf
 !*.py
+!tab-fzf.sh
