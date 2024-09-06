@@ -211,4 +211,8 @@ U.cat = function(path)
   end
 end
 
+--FIXME: break chaning in upstream
+---@return boolean
+U.has_ts = function(buf) return pcall(vim.treesitter.get_parser, buf, vim.bo[buf].ft) and true or false end
+
 return U

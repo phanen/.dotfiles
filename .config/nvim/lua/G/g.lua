@@ -31,7 +31,7 @@ g.disable_AutoCwd = true
 -- g.disable_CmdwinEnter = true
 
 -- seems resolved(?): https://github.com/ibhagwan/fzf-lua/discussions/1296
-g.disable_cache_docs = false
+g.disable_cache_docs = true
 
 g.disable_Autosave = true
 
@@ -59,3 +59,5 @@ g.no_man_maps = 0
 
 -- project consts
 g.nvim_root = env.HOME .. '/b/neovim' -- todo: check exist
+-- handle project local config
+g.local_path = g.state_path .. '/local.lua'

@@ -27,15 +27,11 @@ end
 M.lazy_cache_docs = function()
   -- note: seems not loaded when LazyInstall
   if g.disable_cache_docs then
-    return (function()
-      for _, plugin in pairs(lazy_config.plugins) do
-        local docs = fs.joinpath(plugin.dir, 'doc')
-        if uv.fs_stat(docs) then
-          vim.print(docs)
-          pcall(vim.cmd.helptags, docs)
-        end
-      end
-    end)()
+    -- for _, plugin in pairs(lazy_config.plugins) do
+    --   local docs = fs.joinpath(plugin.dir, 'doc')
+    --   if uv.fs_stat(docs) then pcall(vim.cmd.helptags, docs) end
+    -- end
+    return
   end
   local docs_path = fs.joinpath(g.docs_path, 'doc')
   fn.mkdir(docs_path, 'p')

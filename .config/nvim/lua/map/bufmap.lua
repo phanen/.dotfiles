@@ -49,7 +49,7 @@ local ts_keymap = function()
   x('<s-tab>', ts_is.scope_incremental)
 end
 
-local ft_keymap = function()
+local ft_keymap = function(ev)
   if vim.bo.bt ~= '' and not vim.bo.ma then
     n('u', '<c-u>')
     n.nowait('d', '<c-d>')
@@ -59,8 +59,11 @@ local ft_keymap = function()
     n('q', 'ZZ')
   end
 
-  local has_ts = pcall(vim.treesitter.get_parser, 0, vim.bo[0].ft)
-  if has_ts then ts_keymap() end
+  if u.has_ts(0) then ts_keymap() end
+  local buf = ev.buf
+  -- local wins = fn.win_findbuf(buf)
+  -- vim.b.gitsigns_preview
+  -- vim.w
 end
 
 augroup(
