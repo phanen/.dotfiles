@@ -111,34 +111,29 @@ Misc.blank_below = function()
   api.nvim_buf_set_lines(0, lnum, lnum, true, repeated)
 end
 
+local wclose = function(...) pcall(api.nvim_win_close, ...) end
+
 Misc.quit = function()
   if fn.reg_recording() ~= '' or fn.reg_executing() ~= '' then
     return api.nvim_feedkeys('q', 'n', false)
   end
 
-  -- unknow: check ft here as workaround for autocmd not always work
-
-  local wclose = function(...) pcall(api.nvim_win_close, ...) end
-
-  -- close current window if floating
-  local curwind = api.nvim_get_current_win()
-  if api.nvim_win_get_config(curwind).relative ~= '' then
-    print(vim.bo.ft)
-    vim.cmd.quit { bang = true }
-    return '<ignore>'
-  end
+  -- close current floating windows
+  if api.nvim_win_get_config(0).relative ~= '' then return vim.cmd.quit { bang = true } end
 
   -- close all focusable floating windows (:fclose! ?)
   local count = 0
-  for _, win in ipairs(api.nvim_tabpage_list_wins(0)) do
-    if api.nvim_win_is_valid(win) then
+  vim
+    .iter(api.nvim_tabpage_list_wins(0))
+    :filter(api.nvim_win_is_valid)
+    :filter(function(win) -- -- skip unfocusable(e.g. fidget)
       local cfg = api.nvim_win_get_config(win)
-      if cfg.relative ~= '' and cfg.focusable then -- skip unfocusable(e.g. fidget)
-        wclose(win, false)
-        count = count + 1
-      end
-    end
-  end
+      return cfg.relative ~= '' and cfg.focusable and true or false
+    end)
+    :each(function(win)
+      wclose(win, false)
+      count = count + 1
+    end)
 
   if count == 0 then -- fallback
     return api.nvim_feedkeys('q', 'n', false)
