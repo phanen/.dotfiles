@@ -149,7 +149,7 @@ return {
   {
     -- TODO: 或许只需要 snippet 的类似物, print 的内容我自己提供
     'andrewferrier/debugprint.nvim',
-    cond = false,
+    cond = true,
     -- stylua: ignore
     keys = {
       { '+dp', function() return require('debugprint').debugprint() end,                   expr = true },

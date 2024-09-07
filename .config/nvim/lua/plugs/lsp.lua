@@ -103,8 +103,8 @@ return {
         xml = { 'xmlformat' },
         toml = { 'taplo' },
         -- TODO: forback?
-        -- c = { 'uncrustify_nvim', 'clang-format' },
-        c = { 'uncrustify_nvim' },
+        c = { 'clang-format' },
+        -- c = { 'uncrustify_nvim' },
 
         -- note: for arch, need `perl-unicode-linebreak` as extra dependency
         -- TODO: force a `:retab` for formatter use tab only...

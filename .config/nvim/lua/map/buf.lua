@@ -1,4 +1,4 @@
-local n = map.n
+---@diagnostic disable: undefined-global
 
 n(']b', '<cmd>exec v:count1 . "bn"<cr>')
 n('[b', '<cmd>exec v:count1 . "bp"<cr>')
@@ -39,7 +39,7 @@ n('gT', tabswitch(vim.cmd.tabprev))
 -- TODO: don't create annoying raw buffer
 n(' 0', '<cmd>0tabnew<cr>')
 for i = 1, 9 do
-  n(' ' .. tostring(i), tabswitch(vim.cmd.tabnext, i))
+  n(' ' .. i, tabswitch(vim.cmd.tabnext, i))
   n('+' .. i, '<cmd>BufferLineGoToBuffer ' .. i .. '<cr>')
 end
 

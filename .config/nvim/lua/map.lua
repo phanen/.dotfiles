@@ -1,11 +1,6 @@
 -- TODO: dsi dsa not work?
 -- TODO: v:count repeat may not really needed
-
 -- TODO: dofile + setfenv
-require 'map.buf'
-require 'map.edit' -- TODO: gd swapfile need refresh buffer
-require 'map.msg'
-require 'map.textobj'
 
 local i = map.i
 local m = map['']
@@ -14,6 +9,43 @@ local nx = map.nx
 local t = map.t
 local tn = map.tn
 local x = map.x
+local ox = map.ox
+local nxo = map.nxo
+
+local mm = {
+  api = api,
+  fn = fn,
+  map = map,
+  u = u,
+  vim = vim,
+
+  i = i,
+  m = m,
+  n = n,
+  nx = nx,
+  t = t,
+  tn = tn,
+  x = x,
+  ox = ox,
+  require = require,
+
+  g = g,
+  loadfile = loadfile,
+}
+
+local function what()
+  -- mm = vim.tbl_extend('force', mm, _G)
+  setfenv(loadfile(g.config_path .. '/lua/map/buf.lua'), mm)()
+  --require 'map.buf'
+  --loadfile(g.config_path .. '/lua/map/buf.lua')()
+end
+what()
+--setfenv(what, mm)()
+
+require 'map.edit' -- TODO: gd swapfile need refresh buffer
+require 'map.msg'
+require 'map.textobj'
+require 'map.bufmap'
 
 n(' t', ':e /tmp/tmp/')
 
@@ -44,20 +76,12 @@ n(' ow', '<cmd>se wrap!<cr>')
 -- diagnostic
 n(' di', '<cmd>lua vim.diagnostic.open_float()<cr>')
 n(' do', '<cmd>lua vim.diagnostic.setqflist()<cr>')
-n(' dj', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-n(' dk', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 n(' ds', '<cmd>lua vim.diagnostic.setloclist()<cr>')
-n(' dj', '<cmd>lua vim.diagnostic.jump{count = 1}<cr>')
-n(' dk', '<cmd>lua vim.diagnostic.jump{count = -1}<cr>')
 n(' dt', function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end)
 
 -- terminal
 t('<c- >', '<c-\\><c-n>')
 tn('<c-\\>', '<cmd>execute v:count . "ToggleTerm"<cr>')
-
--- quickfix
-n('<c-g>n', '<cmd>cnext<cr>')
-n('<c-g>p', '<cmd>cprev<cr>')
 
 -- comment
 m('<c-_>', '<c-/>', { remap = true })
@@ -72,6 +96,7 @@ n('gcO', u.comment.comment_above)
 n(' go', u.git.browse)
 nx(' gl', u.gl.permalink) -- FIXME: normal mode Lx-Lx
 nx('gl', u.gx.open)
+
 n(' ga', '<cmd>silent G commit --amend --no-edit<cr>')
 n(' gr', '<cmd>Gr<cr>')
 n(' gb', '<cmd>G blame<cr>')
@@ -83,75 +108,99 @@ n(' gw', '<cmd>G commit<cr>')
 nx(' gd', ':DiffviewOpen<cr>')
 nx(' gh', ':DiffviewFileHistory %<cr>')
 nx(' gf', ':Flog<cr>')
--- quickfix
-n('<c-g>n', '<cmd>cnext<cr>')
-n('<c-g>p', '<cmd>cprev<cr>')
-n(' q', u.qf.toggle)
 n(' gn', function() require('neogit').open { cwd = u.git.root() } end)
 
--- check nvim's lsp preset `:h lsp-config`
--- * tagfunc <c-]>
--- * omnifunc c-x c-o, buggy, no idea if there's really someone use omnifunc
---
--- * formatexpr gq
--- * https://github.com/neovim/neovim//blob/6ad025ac88f968dbeaea05e95cf40d64782793e0/runtime/lua/vim/lsp.lua#L330
--- * https://github.com/neovim/neovim//blob/6ad025ac88f968dbeaea05e95cf40d64782793e0/src/nvim/insexpand.c#L1103
-augroup('BufferKeymap', {
-  'LspAttach',
-  {
-    callback = function(ev)
-      -- lsp.inlay_hint.enable()
-      -- TODO: set a short query timeout...
-      ---@diagnostic disable-next-line: redefined-local
-      local n = n[ev.buf]
-      -- n('<c-h>', lsp.buf.signature_help)
-      n('_', lsp.buf.hover)
-      n(' rn', lsp.buf.rename)
-      n(
-        ' <c-r>',
-        function() return ':IncRename ' .. fn.expand('<cword>') end,
-        { expr = true, replace_keycodes = true }
-      )
-    end,
-  },
-}, {
-  'Filetype',
-  {
-    pattern = '*',
-    callback = (function()
-      local quit_filetypes = setmetatable({
-        ['aerial'] = true,
-        ['floggraph'] = true,
-        ['gitcommit'] = true,
-        ['gitsigns-blame'] = true,
-        ['git'] = true,
-        ['help'] = true,
-        ['info'] = true,
-        ['man'] = true,
-        ['NvimTree'] = true,
-        ['qf'] = true,
-      }, {
-        __index = function(_, k)
-          if k:match('fugitive*') then
-            rawset(_, k, true)
-            return true
-          end
-        end,
-      })
-      return function()
-        local n = map.n[0]
-        if vim.bo.bt ~= '' and not vim.bo.ma then
-          n('u', '<c-u>')
-          n.nowait('d', '<c-d>')
-        end
-        if quit_filetypes[vim.bo.ft] then
-          -- TODO: vim.wo.winfixbuf = true
-          n('q', 'ZZ')
-        end
-      end
-    end)(),
-  },
-})
+-- repeat move
+nxo(';', u.repmove.repeat_last_move)
+nxo(',', u.repmove.repeat_last_move_opposite)
+nxo.expr('f', u.repmove.builtin_f_expr) -- dot repeatable (dfx)
+nxo.expr('F', u.repmove.builtin_F_expr)
+nxo.expr('t', u.repmove.builtin_t_expr)
+nxo.expr('T', u.repmove.builtin_T_expr)
+nxo('gj', u.repmove.next_hunk)
+nxo('gk', u.repmove.prev_hunk)
+nxo(' dj', u.repmove.next_diag)
+nxo(' dk', u.repmove.prev_diag)
+nxo(']d', u.repmove.next_diag)
+nxo('[d', u.repmove.prev_diag)
+n('<c-g>j', u.repmove.next_qfit)
+n('<c-g>k', u.repmove.prev_qfit)
+
+-- TODO: qf/ll toggle
+n(' q', u.qf.toggle)
+
+-- ts
+n(' sj', '<cmd>TSTextobjectSwapNext @parameter.inner<cr>')
+n(' sk', '<cmd>TSTextobjectSwapPrev @parameter.inner<cr>')
+
+-- cmd_alias('TSTextobjectGotoPreviousStart', 'TSTextobjectGotoPrevStart')
+-- TODO: wrap
+-- nxo('[a', '<cmd>TSTextobjectGotoPreviousStart @parameter.inner<cr>')
+nxo('[a', function()
+  local ts_m = require 'nvim-treesitter.textobjects.move'
+  ts_m.goto_previous_start('@parameter.inner')
+end)
+nxo('[f', '<cmd>TSTextobjectGotoPreviousStart @function.inner<cr>')
+nxo('[s', '<cmd>TSTextobjectGotoPreviousStart @class.inner<cr>')
+nxo('[k', '<cmd>TSTextobjectGotoPreviousStart @conditional.inner<cr>')
+nxo('[l', '<cmd>TSTextobjectGotoPreviousStart @loop.inner<cr>')
+nxo(']a', '<cmd>TSTextobjectGotoNextStart @parameter.inner<cr>')
+nxo(']f', '<cmd>TSTextobjectGotoNextStart @function.inner<cr>')
+nxo(']s', '<cmd>TSTextobjectGotoNextStart @class.inner<cr>')
+nxo(']k', '<cmd>TSTextobjectGotoNextStart @conditional.inner<cr>')
+nxo(']l', '<cmd>TSTextobjectGotoNextStart @loop.inner<cr>')
+
+-- fzf
+-- TODO: nowait gr
+local f = u.lazy_req('flo') ---@module 'flo'
+i('<c-x>f', f.complete_file)
+i('<c-x>l', f.complete_bline)
+i('<c-x>p', f.complete_path)
+nx('<c-b>', f.recentfiles)
+nx(' <c-f>', f.zoxide)
+nx(' <c-j>', f.todo_comment)
+nx('<c-l>', f.files)
+nx('<c-n>', f.live_grep_native)
+nx(' e', f.find_notes)
+nx(' fa', f.builtin)
+nx('f<c-e>', f.grep_notes)
+nx(' fc', f.awesome_colorschemes)
+nx('f<c-f>', f.lazy)
+nx('f<c-k>', f.keymaps)
+nx('f<c-l>', f.grep_dots)
+nx('f<c-o>', f.recentfiles)
+nx('f<c-s>', f.commands)
+nx(' fdb', f.dap_breakpoints)
+nx(' fdc', f.dap_configurations)
+nx(' fde', f.dap_commands)
+nx(' fdf', f.dap_frames)
+nx(' fdv', f.dap_variables)
+nx(' f;', f.command_history)
+nx(' fh', f.help_tags)
+nx('+fi', f.gitignore)
+nx(' fi', f.git_status)
+nx(' fj', f.tagstack)
+nx('+fl', f.license)
+nx(' fm', f.marks)
+nx(' fo', f.oldfiles)
+nx(' fp', f.loclist)
+nx(' fq', f.quickfix)
+nx('  ', f.resume)
+nx('+fr', f.rtp)
+nx(' /', f.search_history)
+nx(' fs', f.lsp_document_symbols)
+nx('+fs', f.scriptnames)
+nx(' fw', f.lsp_workspace_symbols)
+nx('g<c-d>', f.lsp_declarations)
+nx('g<c-i>', f.lsp_implementations)
+nx('gd', f.lsp_definitions)
+nx('gh', f.lsp_code_actions)
+nx('gm', f.lsp_typedefs)
+nx(' l', f.find_dots)
+nx('+l', f.grep_dots)
+nx.nowait('gr', f.lsp_references)
+nx('U', f.undo)
+nx('z=', f.spell_suggest)
 
 -- TODO: fix toggleterm mode switch
 -- tn('gn', function()

@@ -1,3 +1,4 @@
+-- TODO: put it in a meta file maybe helpful to fix typecast error
 local U = {
   -- TODO: not sure how to typing these
   eval = ..., ---@type function
@@ -21,10 +22,12 @@ local U = {
   comment = nil, ---@module 'lib.comment'
   debug = nil, ---@module 'lib.debug'
   export = nil, ---@module 'lib.export'
+  faster = nil, ---@module 'lib.faster'
+  repmove = nil, ---@module 'lib.repmove'
   fs = nil, ---@module 'lib.fs'
   git = nil, ---@module 'lib.git'
-  gx = nil, ---@module 'lib.gx'
   gl = nil, ---@module 'lib.gl'
+  gx = nil, ---@module 'lib.gx'
   hl = nil, ---@module 'lib.hl'
   keymap = nil, ---@module 'lib.keymap'
   lazy = nil, ---@module 'lib.lazy'

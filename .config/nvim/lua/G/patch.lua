@@ -1,20 +1,16 @@
 ---@diagnostic disable: duplicate-set-field
 
-vim.g.has_11 = vim.fn.has('nvim-0.11') == 1
-vim.g.has_10 = vim.fn.has('nvim-0.10') == 1
+-- vim.g.has_11 = vim.fn.has('nvim-0.11') == 1
+-- vim.g.has_10 = vim.fn.has('nvim-0.10') == 1
 
 -- no vim.iter, just drop it, use flake
 local get_parser = vim.treesitter.get_parser
 vim.treesitter.get_parser = function(bufnr, lang, opts)
   if bufnr == nil or bufnr == 0 then bufnr = api.nvim_get_current_buf() end
-  if
-    (function()
-      if vim.bo[bufnr].ft == 'tex' then return true end
-      return api.nvim_buf_line_count(bufnr) > 100000
-    end)()
-  then
-    error('skip treesitter for large buf')
-  end
+  -- TODO: better way to disable treesitter
+  -- if vim.bo[bufnr].ft == 'tex' or api.nvim_buf_line_count(bufnr) > 10000 then
+  --   error('skip treesitter for large buf')
+  -- end
   return get_parser(bufnr, lang, opts)
 end
 
@@ -50,9 +46,10 @@ end
 --   end
 -- end
 
+-- print(rawget(vim, 'ui'))
 vim.ui.select = u.lazy_req('fzf-lua.providers.ui_select').ui_select
+vim.ui.input = u.lazy_req('mod.x.ui_input').input
 
-vim.ui.input = require('mod.x.ui_input').input
 -- vim.text = u.lazy_req('mod.x.text')
 
 -- handle error when use bufferline.nvim with `swapfile=true`
@@ -66,29 +63,21 @@ vim.ui.input = require('mod.x.ui_input').input
 --   )
 -- end
 
-if g.has_11 then
-  vim.keymap.del('n', 'grn')
-  vim.keymap.del('n', 'grr')
-  vim.keymap.del({ 'n', 'x' }, 'gra')
-end
-
-if g.has_10 then
-  vim.tbl_add_reverse_lookup = function(o)
-    for _, k in ipairs(vim.tbl_keys(o)) do
-      local v = o[k]
-      if o[v] then
-        error(
-          string.format(
-            'The reverse lookup found an existing value for %q while processing key %q',
-            tostring(v),
-            tostring(k)
-          )
+vim.tbl_add_reverse_lookup = function(o)
+  for _, k in ipairs(vim.tbl_keys(o)) do
+    local v = o[k]
+    if o[v] then
+      error(
+        string.format(
+          'The reverse lookup found an existing value for %q while processing key %q',
+          tostring(v),
+          tostring(k)
         )
-      end
-      o[v] = k
+      )
     end
-    return o
+    o[v] = k
   end
+  return o
 end
 
 if false then

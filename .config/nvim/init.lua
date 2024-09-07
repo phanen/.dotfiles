@@ -4,6 +4,11 @@
 -- TODO: meta layer for au/cmd
 -- TODO: restart nvim but not lsp (.....overhead)
 -- TODO: module path
+-- TODO: qf/ll toggle
+-- TODO: gr/lazygit-term-edit (also like gd)... maybe all loc relavant stuffs need rewrite
+-- TODO: string one of mini.nvim
+-- TODO: pager set width (lazygit)
+-- TODO: bufferline don' choose right icons (e.g. .bin/vim)
 -- https://stackoverflow.com/questions/60283272/how-to-get-the-exact-path-to-the-script-that-was-loaded-in-lua
 
 -- https://github.com/neovim/neovim/pull/24044
@@ -29,6 +34,8 @@ require 'map'
 require 'cmd'
 -- lazy.nvim append package.loaders (auto setup)
 require 'pm'
+
+vim.treesitter.language.register('bash', 'lua')
 
 -- modules not explictly lazy-loaded
 require 'mod.idl'
