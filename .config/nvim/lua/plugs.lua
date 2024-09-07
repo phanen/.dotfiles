@@ -50,4 +50,27 @@ return {
     event = 'CmdlineEnter',
     config = true,
   },
+
+  -- TODO: vendor it
+  {
+    'ghostbuster91/nvim-next',
+    cond = false,
+    -- treesitter don't lazy-load, so needless
+    -- keys = { ' dj', ' dk', ' <c-g>p', ' <c-g>n' },
+    config = function()
+      local next = require 'nvim-next'
+      local b = require 'nvim-next.builtins'
+      local i = require 'nvim-next.integrations'
+      next.setup {
+        default_mappings = { repeat_style = 'original' },
+        -- items = { b.f, b.t },
+      }
+      local diag = i.diagnostic()
+      local nqf = i.quickfix()
+      map.n(' dk', diag.goto_prev())
+      map.n(' dj', diag.goto_next())
+      map.n('<c-g>p', nqf.cprevious)
+      map.n('<c-g>n', nqf.cnext)
+    end,
+  },
 }

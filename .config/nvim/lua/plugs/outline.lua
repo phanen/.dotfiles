@@ -5,7 +5,12 @@ return {
     version = '*',
     cond = true,
     event = { 'BufReadPre', 'BufNewFile' },
-    cmd = { 'BufferLineMovePrev', 'BufferLineMoveNext' },
+    cmd = {
+      'BufferLineCycleNext',
+      'BufferLineCyclePrev',
+      'BufferLineMoveNext',
+      'BufferLineMovePrev',
+    },
     opts = {
       options = {
         tab_size = 10,

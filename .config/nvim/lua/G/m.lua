@@ -9,6 +9,7 @@
 -- save old ref, safe to change vim.keymap.set after this
 -- TODO: maybe can reord its the args
 -- TODO: how about n[bufnr](lhs, rhs).silent = 'desc string'
+-- TODO: function... hashing picker
 local keymap = vim.keymap.set
 
 ---@param mode string[]

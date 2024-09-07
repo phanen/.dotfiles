@@ -29,7 +29,7 @@ _G.u = require('G.u')
 ---@return integer?
 _G.augroup = function(group, ...)
   if g['disable_' .. group] then return end
-  local id = ag(group, { clear = true })
+  local id = ag(group, {}) -- clear previous group by default
   for _, a in ipairs { ... } do
     a[2].group = id
     autocmd(unpack(a))

@@ -3,6 +3,19 @@ local o = map.o
 local ox = map.ox
 local nx = map.nx
 
+ox('aa', '<cmd>TSTextobjectSelect @parameter.outer<cr>')
+ox('ia', '<cmd>TSTextobjectSelect @parameter.inner<cr>')
+ox('af', '<cmd>TSTextobjectSelect @function.outer<cr>')
+ox('if', '<cmd>TSTextobjectSelect @function.inner<cr>')
+ox('ar', '<cmd>TSTextobjectSelect @return.outer<cr>')
+ox('ir', '<cmd>TSTextobjectSelect @return.outer<cr>')
+ox('as', '<cmd>TSTextobjectSelect @class.outer<cr>')
+ox('is', '<cmd>TSTextobjectSelect @class.inner<cr>')
+ox('aj', '<cmd>TSTextobjectSelect @conditional.outer<cr>')
+ox('ij', '<cmd>TSTextobjectSelect @conditional.inner<cr>')
+ox('ak', '<cmd>TSTextobjectSelect @loop.outer<cr>')
+ox('ik', '<cmd>TSTextobjectSelect @loop.inner<cr>')
+
 -- TODO: dsi dsa not work?
 -- TODO: restore pos after `yix`
 
