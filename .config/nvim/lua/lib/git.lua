@@ -48,7 +48,7 @@ local git = setmetatable(Git, {
         local bufnr = api.nvim_win_get_buf(winid)
         path = api.nvim_buf_get_name(bufnr)
       else
-        path = u.smart.bufname()
+        path = u.misc.bufname()
       end
     end
 

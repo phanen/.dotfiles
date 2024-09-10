@@ -17,7 +17,7 @@ local x = map.x
 
 n(' t', ':e /tmp/tmp/')
 
-n('cd', u.smart.cd)
+n('cd', u.misc.cd)
 n(' cf', '<cmd>cd %:h<cr>')
 n(' cy', u.misc.yank_filename)
 n('cx', '<cmd>!chmod +x %<cr>')
