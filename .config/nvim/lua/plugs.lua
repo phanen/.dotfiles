@@ -5,7 +5,8 @@ return {
   { 'nvim-neorocks/lz.n' },
 
   -- FIXME: block visual mode not work well
-  { 'HiPhish/rainbow-delimiters.nvim', cond = true, event = { 'BufReadPre', 'BufNewFile' } },
+  -- FIXME: very slow on large file
+  { 'HiPhish/rainbow-delimiters.nvim', cond = false, event = { 'BufReadPre', 'BufNewFile' } },
 
   -- TODO: only apply when treesitter not available...
   { 'itchyny/vim-highlighturl', cond = false, event = 'ColorScheme' },

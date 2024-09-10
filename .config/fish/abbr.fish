@@ -41,6 +41,8 @@ abbr ll eza -1
 abbr ls eza
 abbr lt eza --tree
 abbr mx chmod +x
+abbr nh nvim --headless
+abbr rx 'chmod -x'
 abbr sc sysctl
 abbr sh bash
 abbr ta tmux a || tmux

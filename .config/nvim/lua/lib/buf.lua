@@ -42,15 +42,10 @@ local getregion = function(mode)
   return lines
 end
 
-local is_visual_mode = function(mode)
-  mode = mode or api.nvim_get_mode().mode
-  return vim.tbl_contains({ 'v', 'V', '\022' }, mode)
-end
-
 -- get visual selected with no side effect
 Buf.getregion = function(mode)
   mode = mode or api.nvim_get_mode().mode
-  if not is_visual_mode(mode) then return {} end
+  if not mode:match('[vV\022]') then return {} end
   local ok, lines = pcall(fn.getregion, fn.getpos '.', fn.getpos 'v', { type = mode })
   if ok then return lines end
   return getregion(mode)
