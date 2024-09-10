@@ -7,7 +7,7 @@ return {
   },
   {
     'ibhagwan/fzf-lua',
-    cmd = 'FzfLua *',
+    cmd = 'FzfLua',
     keys = ' <c-e>',
     dependencies = 'nvim-treesitter', -- must be setup for preview
     config = function()
