@@ -28,12 +28,13 @@ end
 local next_qfit = function() return vim.cmd('sil! ' .. vim.v.count1 .. 'cnext') end
 local prev_qfit = function() return vim.cmd('sil! ' .. vim.v.count1 .. 'cprev') end
 
-local next_llit = function() return vim.cmd('sil! ' .. vim.v.count1 .. 'lnext') end
-local prev_llit = function() return vim.cmd('sil! ' .. vim.v.count1 .. 'lprev') end
-
 Repmove.next_hunk, Repmove.prev_hunk = ts_repmove.make_repeatable_move_pair(next_hunk, prev_hunk)
 Repmove.next_diag, Repmove.prev_diag = ts_repmove.make_repeatable_move_pair(next_diag, prev_diag)
 Repmove.next_qfit, Repmove.prev_qfit = ts_repmove.make_repeatable_move_pair(next_qfit, prev_qfit)
 Repmove.next_llit, Repmove.prev_llit = ts_repmove.make_repeatable_move_pair(next_llit, prev_llit)
 
+Repmove.forward_buf, Repmove.backward_buf =
+  ts_repmove.make_repeatable_move_pair(u.bufop.backward_buf, u.bufop.forward_buf)
+
+-- Repmove.next_, Repmove.
 return setmetatable(Repmove, { __index = ts_repmove })
