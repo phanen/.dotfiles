@@ -39,6 +39,10 @@ Plug 'dracula/vim'
 # Plug 'girishji/fFtT.vim'
 # Plug 'girishji/devdocs.vim'
 
+
+Plug 'ZSaberLv0/ZFVimJob' # required for job impl
+Plug 'ZSaberLv0/ZFVimTerminal'
+nnoremap <leader>zs :ZFTerminal<space>
 plug#end()
 
 # import autoload 'scope/fuzzy.vim'
