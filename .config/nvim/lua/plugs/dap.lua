@@ -152,10 +152,11 @@ return {
     cond = true,
     -- stylua: ignore
     keys = {
-      { '+dp', function() return require('debugprint').debugprint() end,                   expr = true },
-      { '+dv', function() return require('debugprint').debugprint { variable = true } end, expr = true },
-      { '+do', function() return require('debugprint').debugprint { motion = true } end,   expr = true },
-      { '+da', function() return require('debugprint').deleteprints() end,                 expr = true, mode = { 'n', 'x' } },
+      { '<c-h>', function() return require('debugprint').debugprint() end,                   expr = true },
+      { '+dp',   function() return require('debugprint').debugprint() end,                   expr = true },
+      { '+dv',   function() return require('debugprint').debugprint { variable = true } end, expr = true },
+      { '+do',   function() return require('debugprint').debugprint { motion = true } end,   expr = true },
+      { '+da',   function() return require('debugprint').deleteprints() end,                 expr = true, mode = { 'n', 'x' } },
     },
     opts = { create_keymaps = false },
   },

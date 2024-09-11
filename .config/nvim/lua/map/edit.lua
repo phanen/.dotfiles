@@ -73,8 +73,8 @@ nx('<a-n>', '<cmd>ISwapNodeWithRight<cr>')
 nx('<a-p>', '<cmd>ISwapNodeWithLeft<cr>')
 x('>', ':ri<cr>')
 x('<', ':le<cr>')
-n('<c-h>', '==')
-x('<c-h>', '=') -- fix indent (another way: `x[p`)
+-- n('<c-h>', '==')
+-- x('<c-h>', '=') -- fix indent (another way: `x[p`)
 
 -- fmt
 n('gw', [[<cmd>lua require('conform').format { lsp_fallback = true }<cr>]])
