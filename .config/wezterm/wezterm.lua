@@ -33,6 +33,7 @@ local M = {
   use_fancy_tab_bar = false,
   hide_tab_bar_if_only_one_tab = false,
   tab_bar_at_bottom = false,
+
   -- HACK: `PROC_INFO_CACHE_TTL` limit the refresh of `get_foreground_process_name`
   -- but anyhow set a low interval will force a stale (no idea why...)
   -- then wezterm will spawn a thread to update, this seems also not ensure update

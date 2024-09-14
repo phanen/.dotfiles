@@ -64,7 +64,6 @@ function po --wrap ls
     end
 end
 
-
 function vw
     if command -q $argv
         command $EDITOR (command -v $argv)
@@ -108,7 +107,6 @@ end
 function po --wrap ls
     pacman -Qo $argv || pacman -F $argv
 end
-
 
 function psi --wrap 'pacman -S'
     pacman -Qi $argv || pacman -Si $argv

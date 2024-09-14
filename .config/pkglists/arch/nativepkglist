@@ -2,6 +2,7 @@ aarch64-linux-gnu-binutils
 aarch64-linux-gnu-gcc
 aarch64-linux-gnu-gdb
 acpi
+act
 alacritty
 alsa-utils
 apr
@@ -12,7 +13,6 @@ archlinuxcn-mirrorlist-git
 aria2-fast
 ast-grep
 atuin
-aurpublish
 autoconf
 automake
 awesome-terminal-fonts
@@ -41,7 +41,6 @@ ccache
 cgdb
 chafa
 chitose
-chromium
 clang
 clash-meta-alpha-git
 cliphist
@@ -53,6 +52,7 @@ cppman
 cpu-x
 dae-bin-x64-v3
 darkman
+dash
 debootstrap
 debugedit
 devtools-archlinuxcn
@@ -94,7 +94,6 @@ flameshot
 flex
 frpc
 frps
-fuzzel
 fx
 fzf
 gawk
@@ -104,10 +103,8 @@ gdu
 gettext
 git
 git-absorb
-git-cliff
 git-delta
 github-cli
-gitui
 gnu-free-fonts
 gnu-netcat
 go
@@ -120,6 +117,7 @@ groff
 grub
 gsmartcontrol
 gtk-vnc
+gtk2
 gtk4
 gvim
 gzip
@@ -127,7 +125,6 @@ hashcat
 haveged
 hdf5
 help2man
-hexer
 hexyl
 hostapd
 htop
@@ -158,7 +155,6 @@ jdk17-openjdk
 jpegoptim
 jq
 just
-kakoune
 kexec-tools
 kitty
 kotlin
@@ -175,6 +171,7 @@ libsixel
 libsmbios
 libtool
 libtree
+libutf8proc
 libva-intel-driver
 libva-utils
 libxft
@@ -192,8 +189,8 @@ lshw
 lsof
 ltrace
 lua
+lua-language-server
 lua-socket
-luarocks
 m4
 make
 man-db
@@ -209,6 +206,7 @@ mpv
 mtpfs
 musl
 namcap
+neovide
 neovim-git
 net-tools
 nim
@@ -225,7 +223,6 @@ nvidia-open-dkms
 nvidia-prime
 nvidia-settings
 nvidia-utils
-nvtop
 obsidian
 ocaml
 ocaml-findlib
@@ -237,6 +234,7 @@ p7zip
 pacman
 pacman-contrib
 pacutils
+pandoc-bin
 paru
 patch
 pdfgrep
@@ -249,7 +247,6 @@ pkgfile
 pnpm
 polybar
 postgresql
-prettier
 pulseaudio-alsa
 pulsemixer
 pwgen
@@ -266,10 +263,11 @@ python-pipx
 python-poetry
 python-psutil
 python-pynvim
-python-pyquery
 python-pyxdg
 python-vermin
+qemu-full
 qemu-system-x86
+quickemu
 rbw
 rclone
 reflector
@@ -278,19 +276,6 @@ repo
 reptyr
 ripgrep
 ripgrep-all
-riscv32-elf-binutils
-riscv32-elf-gdb
-riscv32-elf-newlib
-riscv64-elf-binutils
-riscv64-elf-gcc
-riscv64-elf-gdb
-riscv64-elf-newlib
-riscv64-linux-gnu-binutils
-riscv64-linux-gnu-gcc
-riscv64-linux-gnu-gdb
-riscv64-linux-gnu-glibc
-riscv64-unknown-elf-binutils-debug
-riscv64-unknown-elf-gcc
 rofi
 rofi-rbw
 rsync
@@ -304,15 +289,9 @@ sdkmanager
 sed
 setconf
 simde
-sing-box
-sing-geoip-db
-sing-geoip-rule-set
-sing-geosite-db
-sing-geosite-rule-set
-skim
 slock
 sniffglue
-speedtest-cli
+spike
 stow
 strace
 sudo
@@ -326,10 +305,9 @@ tdlib-tg-git
 tealdeer
 telegram-desktop
 terminus-font
-termshark
 texinfo
-the_silver_searcher
 tig
+tinyemu
 tmux
 tokei
 traceroute
@@ -342,9 +320,7 @@ ttf-cascadia-code
 ttf-nerd-fonts-symbols
 typst
 ubuntu-keyring
-udisks2
 ueberzug
-ugrep
 uncrustify
 unzip
 upower
@@ -354,12 +330,13 @@ vagrant
 vaultwarden
 vdpauinfo
 verilator
-vi
 vimrc-git
 viu
 w3m
 wakeonlan
+webkit2gtk
 weston
+wezterm
 wget
 which
 wimlib
@@ -374,7 +351,6 @@ xdotool
 xf86-video-vesa
 xfsdump
 xh
-xmake
 xorg-bdftopcf
 xorg-docs
 xorg-font-util
@@ -420,8 +396,7 @@ xsel
 yarn
 yazi
 yq
+zeal
 zig
 zip
-zotero-bin
 zoxide
-zsh

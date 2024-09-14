@@ -15,6 +15,8 @@ abbr s systemctl
 abbr t type -a
 abbr y paru
 
+abbr cd z
+abbr f z
 abbr fr funcrm
 abbr fed funced
 abbr type type -a
@@ -83,15 +85,6 @@ abbr ii curl -sL http://ipinfo.io
 
 abbr kt kitty +kitten transfer
 
-if set -q FISH_LATEST
-    # FIXME: collision with normal case...
-    # sadly... that's not what we want
-    # abbr -c systemctl a start
-    # abbr -c systemctl o stop
-    # abbr -c systemctl s status
-    # abbr -c systemctl dr daemon-reload
-end
-
 function abbr_s
     set -l proc (commandline -p)
     if string match -q -r systemctl $proc
@@ -118,7 +111,6 @@ function abbr_e
     end
 end
 
-# TODO: to be more useful, first we need a k-v abstract anyway...
 abbr -p anywhere -f abbr_s -- s
 abbr -p anywhere -f abbr_- -- -
 

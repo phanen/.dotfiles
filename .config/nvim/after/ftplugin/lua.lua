@@ -59,3 +59,11 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'FileType' }, {
 
 -- For lazy-loading environments, if current buffer is Lua, then run the autocmd
 if vim.bo.ft == 'lua' or vim.bo.ft == 'fennel' then vim.schedule(attach) end
+
+vim.cmd [[
+  nnoremap <buffer> yxal :luafile %<cr>
+  inoreabbrev <buffer> lo local
+  inoreabbrev <buffer> lf local function()<left><left>
+  inoreabbrev <buffer> fu function() end<left><left><left><left>
+  inoreabbrev <buffer> fo (''):format()<left><left><s-left><left><left><left>
+]]

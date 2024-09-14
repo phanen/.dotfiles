@@ -1,8 +1,9 @@
 return {
   {
-    'hrsh7th/nvim-cmp',
-    -- cond = false,
-    event = { 'InsertEnter', 'CmdlineEnter' },
+    'phanen/nvim-cmp', -- 'hrsh7th/nvim-cmp'
+    branch = 'perf-up', -- 'yioneko/nvim-cmp'
+    dev = true,
+    event = { 'InsertEnter', 'CmdlineEnter' }, -- TODO: should also on select mode enter...
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lsp-signature-help',
@@ -22,7 +23,8 @@ return {
       local m = c.mapping
       local wopts = {
         winblend = 1,
-        winhighlight = 'Normal:Normal',
+        -- winhighlight = 'Normal:Normal',
+        winhighlight = 'Visual:Visual',
         border = vim.g.border,
       }
       c.setup {
@@ -41,10 +43,10 @@ return {
         mapping = {
           ['<c-d>'] = m(m.scroll_docs(4), { 'i', 'c' }),
           ['<c-u>'] = m(m.scroll_docs(-4), { 'i', 'c' }),
-          ['<c-\\>'] = m(
-            function() return c.visible() and c.abort() or c.complete() end,
-            { 'i', 'c' }
-          ),
+          ['<a-;>'] = m(function()
+            if c.visible() then return c.abort() end
+            return c.complete()
+          end, { 'i', 'c' }),
           ['<c-k>'] = m {
             i = m.select_prev_item(),
             c = m.select_prev_item(),
@@ -58,12 +60,19 @@ return {
           ['<c-i>'] = m {
             i = function(fb)
               -- if c.visible() and c.get_selected_entry() then return c.confirm() end
-              if c.visible() then return c.confirm({ select = not c.get_selected_entry() }) end
-              if ls.jumpable(1) then return ls.jump(1) end
-              return ls.expandable() and ls.expand() or fb()
+              print('hhhhhhhhhh')
+              if c.visible() then
+                -- if fn.pumvisible() == 1 then return m.select_next_item()() end
+                return c.confirm({ select = not c.get_selected_entry() })
+              end
+              if ls.expandable() then return ls.expand() end
+              return fb()
             end,
             c = m.confirm { select = true },
-            s = function(fb) return ls.jumpable() and ls.jump(1) or fb() end,
+            s = function(fb)
+              if ls.jumpable() then return ls.jump(1) end
+              return fb()
+            end,
           },
           ['<c-o>'] = m {
             i = function(fb)
@@ -78,11 +87,17 @@ return {
             s = function() return ls.jump(-1) end,
           },
           ['<c-p>'] = m {
-            i = function(fb) return ls.jumpable() and ls.jump(-1) or fb() end,
+            i = function(fb)
+              if ls.jumpable() then return ls.jump(-1) end
+              return fb()
+            end,
             s = function() return ls.jump(-1) end,
           },
           ['<c-n>'] = m {
-            i = function(fb) return ls.jumpable() and ls.jump(1) or fb() end,
+            i = function(fb)
+              if ls.jumpable() then return ls.jump(1) end
+              return fb()
+            end,
             s = function() return ls.jump(1) end,
           },
           ['<cr>'] = m(m.confirm(), { 'i', 'c' }),
@@ -116,12 +131,9 @@ return {
           },
         },
         performance = {
-          -- NOTE: no total limit, use it as workaround
-          max_view_entries = 12,
+          max_view_entries = 20, -- NOTE: no total limit, use it as workaround
         },
       }
-      -- FIXME: search up/down
-      -- c.setup.cmdline('/', { sources = { { name = 'buffer' } } })
       c.setup.cmdline(':', {
         sources = {
           { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },
@@ -131,12 +143,8 @@ return {
       })
     end,
   },
-  -- TODO: postfix............
-  -- i think this should be provided by lsp
-  -- but fine if we has it in snippet
   {
-    'L3MON4D3/LuaSnip',
-    -- cond = false,
+    'L3MON4D3/LuaSnip', -- TODO: postfix............
     event = 'InsertEnter',
     build = 'make install_jsregexp',
     dependencies = { 'rafamadriz/friendly-snippets' },
@@ -147,34 +155,13 @@ return {
       require('luasnip').filetype_extend('all', { '_' })
     end,
   },
-  {
-    's1n7ax/nvim-snips',
-    dependencies = {
-      's1n7ax/nvim-ts-utils',
-      'L3MON4D3/LuaSnip',
-    },
-    event = 'InsertEnter',
-  },
-  {
-    'danymat/neogen',
-    cmd = 'Neogen',
-    keys = { { '<leader>.', '<cmd>Neogen<cr>' } },
-    opts = {
-      snippet_engine = 'luasnip',
-      languages = {
-        lua = {
-          template = { annotation_convention = 'emmylua' },
-        },
-      },
-    },
-  },
   { -- actually inlay-hint
     -- TODO: not prompt edit in the middle of line
     'zbirenbaum/copilot.lua',
     cond = fn.argv()[1] ~= 'leetcode.nvim',
     cmd = 'Copilot',
     event = 'InsertEnter',
-    dependencies = { 'hrsh7th/nvim-cmp' },
+    dependencies = 'nvim-cmp',
     opts = {
       panel = { layout = { position = 'right', ratio = 0.4 } },
       suggestion = {

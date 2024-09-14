@@ -1,9 +1,7 @@
--- TODO: BufRead trigger man plugin (set buf)
--- make <c-s><c-d> work
-vim.bo.bh = 'hide' -- unload -> hide
+local n = map.n[0]
+n['u'] = '<c-u>'
+n['a'] = '<c-u>'
+n.nowait['d'] = '<c-d>'
+
+-- make ression reload work
 vim.bo.bt = '' -- nofile -> ''
-
--- TODO: also for helpdocs
-map.n[0]('go', require 'man'.show_toc)
-
--- FIXME: `o` just delete qf/loc/list...
