@@ -4,9 +4,8 @@ function k_ce
         # TODO: _fzf_search_directory
         set -l delimiter \xe2\x80\x82
 
-        # set -l src ifd.sh --cmd 'fd -H'
-        set -l src ifd.sh --cmd 'fd'
-        set -l src_noignore ifd.sh --cmd 'fd -d 1 -I -H'
+        set -l src fd
+        set -l src_noignore fd -d 1 -I -H
         set src_noignore (string escape -- $src_noignore)
 
         set -l fzf fzf \
@@ -15,11 +14,12 @@ function k_ce
             --nth=2 \
             --bind "ctrl-g:reload($src_noignore)"
 
-        set -l ent ($src | $fzf | string split -f 2 $delimiter)
+        # set -l ent ($src | ifd.sh | $fzf | string split -f 2 $delimiter)
+        set -l ent ($src | file_web_devicon | $fzf | string split -f 2 $delimiter)
 
         if test -n "$ent"
             if test -d "$ent"
-                __zoxide_z "$ent"
+                z "$ent"
             else if test -f "$ent"
                 nvim "$ent"
             end

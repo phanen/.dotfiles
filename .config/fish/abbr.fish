@@ -15,6 +15,8 @@ abbr s systemctl
 abbr t type -a
 abbr y paru
 
+abbr cd z
+abbr f z
 abbr fr funcrm
 abbr fed funced
 abbr type type -a
@@ -74,7 +76,7 @@ abbr grm git rm --cached
 
 abbr ghg git rev-list --all \| GIT_PAGER=cat xargs git grep
 
-abbr ch gh repo checkout
+abbr ch gh pr checkout
 
 abbr pv python -m virtualenv venv
 abbr pe . ./venv/bin/activate.fish
@@ -82,15 +84,6 @@ abbr pe . ./venv/bin/activate.fish
 abbr ii curl -sL http://ipinfo.io
 
 abbr kt kitty +kitten transfer
-
-if set -q FISH_LATEST
-    # FIXME: collision with normal case...
-    # sadly... that's not what we want
-    # abbr -c systemctl a start
-    # abbr -c systemctl o stop
-    # abbr -c systemctl s status
-    # abbr -c systemctl dr daemon-reload
-end
 
 function abbr_s
     set -l proc (commandline -p)
@@ -118,12 +111,13 @@ function abbr_e
     end
 end
 
-# TODO: to be more useful, first we need a k-v abstract anyway...
 abbr -p anywhere -f abbr_s -- s
 abbr -p anywhere -f abbr_- -- -
 
 abbr list 'string join \n'
 abbr ju journalctl -eu
+
+abbr luajit rlwrap luajit
 
 # abbr pi sudo pacman -S
 # abbr pd sudo pacman -Rns

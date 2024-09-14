@@ -1,0 +1,46 @@
+#!/usr/bin/env -S nvim -l
+
+local uv = vim.uv
+
+local function mkdir(path)
+  uv.fs_mkdir(path, 493, function(err) -- 0755
+    if err and not err:match('^EEXIST:') then error(err) end
+  end)
+end
+
+local write = function(path, content, flag)
+  uv.fs_open(path, flag, 438, function(open_err, fd) -- 0666
+    assert(not open_err, open_err)
+    uv.fs_write(fd, content, -1, function(write_err)
+      assert(not write_err, write_err)
+      uv.fs_close(fd, function(close_err) assert(not close_err, close_err) end)
+    end)
+  end)
+end
+
+-- just want ts injection
+local exec_lua = function(str) return str end
+
+local id = assert(arg[1], 'provide a name')
+local root = vim.fn.expand './'
+local path = root .. '/repro-' .. id .. '.lua'
+
+mkdir(root)
+
+local content = exec_lua [[
+for _, url in ipairs {
+
+} do
+  local name = url:match('.+/(.+)$')
+  local path = vim.fn.stdpath('data') .. '/lazy/' .. name
+  if vim.fn.isdirectory(path) == 0 then
+    vim.fn.system { 'git', 'clone', url, path }
+  end
+  vim.opt.runtimepath:append(path)
+end
+]]
+
+write(path, content, 'w')
+vim.cmd.edit(path)
+
+-- vim:ft=lua

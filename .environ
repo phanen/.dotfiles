@@ -1,4 +1,4 @@
-# vim:ft=sh
+#!/bin/sh
 # PATH is exported in /etc/profile
 
 PATH=$HOME/.bin:$PATH
@@ -10,26 +10,17 @@ append_path() {
     ;;
   esac
 }
-append_path $HOME/.local/bin
-append_path $HOME/.cargo/bin
-append_path $HOME/.local/share/nvim/mason/bin
-append_path $HOME/.nimble/bin
+
+append_path "$HOME"/.local/bin
+append_path "$HOME"/.cargo/bin
+append_path "$HOME"/.local/share/nvim/mason/bin
+append_path "$HOME"/.nimble/bin
 
 export EDITOR=nvim
 export VISUAL=nvim
-# export BROWSER=firefox
 export BROWSER=firefox-nightly
 export MANPAGER='nvim +Man!'
 export MANWIDTH=80
-
-export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
-export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta
-export LESS_TERMCAP_me=$(printf '\e[0m')     # turn off all appearance modes (mb, md, so, us)
-export LESS_TERMCAP_se=$(printf '\e[0m')     # leave standout mode
-export LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode - yellow
-export LESS_TERMCAP_ue=$(printf '\e[0m')     # leave underline mode
-export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode - cyan
-# ignore case, long prompt, exit if it fits on one screen, allow colors for ls and grep colors
 export LESS="-iMFXR"
 
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -54,56 +45,33 @@ export SDL_IM_MODULE=fcitx
 export GLFW_IM_MODULE=ibus
 
 # always use posix shell to exec script
-export SXHKD_SHELL='/usr/bin/sh'
-
-# dark mode
-# export GTK_THEME=Adwaita-dark
-# export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
-# export QT_STYLE_OVERRIDE=adwaita-dark
-# gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+export SXHKD_SHELL='/bin/sh'
 
 # fix swing gui
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-# export LIBRARY_PATH=$LIBRARY_PATH:/opt/cuda/include/
-# export CPATH=$CPATH:/opt/cuda/include/
-# export PATH=$PATH:/opt/cuda/bin/
-
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
 export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 
-# chores
-export NEMU_HOME=$HOME/ysyx-workbench/nemu
-export NPC_HOME=$HOME/ysyx-workbench/npc
-export NVBOARD_HOME=$HOME/ysyx-workbench/nvboard
-
-# remove all but the last identical command, and commands that start with a space
-export HISTCONTROL="erasedups:ignorespace"
-
-## fzf config
+## fzf config (note: comment is unsupported in old version)
 export FZF_DEFAULT_OPTS="
   --layout=reverse
   --height=45%
   --prompt='~ ' --pointer='▶' --marker='✓'
   --scroll-off=10
   --multi
-  --bind=';:toggle-preview'
-  --bind='ctrl-/:toggle-preview'
+  -e # exact match
+  --bind='alt-;:toggle-preview'
   --bind='ctrl-d:preview-page-down'
   --bind='ctrl-u:preview-page-up'
-  --bind='ctrl-q:unix-line-discard'
+  --bind='ctrl-q:toggle-all'
   --bind='ctrl-o:execute(xdg-open {})'
-  --bind='alt-s:select-all'
-  --bind='alt-d:deselect-all'
+  --bind='ctrl-y:execute-silent(echo {} | xclip -sel clipboard)'
+  --bind='ctrl-alt-y:execute-silent(xclip -sel clipboard {})'
   --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
   --cycle
   --info=inline
   --history=$XDG_DATA_HOME/fzfhistory
 "
 
-export ANDROID_HOME=$HOME/android/
-
-case $(tty) in
-*tty*) setfont ter-d28b ;;
-*) ;;
-esac
+export ANDROID_HOME="$HOME"/android/

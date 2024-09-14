@@ -5,6 +5,9 @@
 
 PS1='[\u@\h \W]\$ '
 
+# remove all but the last identical command, and commands that start with a space
+export HISTCONTROL="erasedups:ignorespace"
+
 # autocd accept expansion e.g. `*` (seems dangerous)
 shopt -s autocd checkwinsize
 
