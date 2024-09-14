@@ -1,0 +1,21 @@
+diff --git a/lua/nvim-treesitter-textobjects/move.lua b/lua/nvim-treesitter-textobjects/move.lua
+index fd991d0..a5bf58a 100644
+--- a/lua/nvim-treesitter-textobjects/move.lua
++++ b/lua/nvim-treesitter-textobjects/move.lua
+@@ -1,7 +1,6 @@
+ local api = vim.api
+ 
+ local shared = require "nvim-treesitter-textobjects.shared"
+-local repeatable_move = require "nvim-treesitter-textobjects.repeatable_move"
+ local global_config = require "nvim-treesitter-textobjects.config"
+ 
+ ---@param range Range4?
+@@ -137,7 +136,7 @@ local function move(opts, query_strings, query_group)
+ end
+ 
+ ---@type fun(opts: TSTextObjects.MoveOpts, query_strings: string[]|string, query_group?: string)
+-local move_repeatable = repeatable_move.make_repeatable_move(move)
++local move_repeatable = u.repmv.wrap(move)
+ 
+ ---@param query_strings string|string[]
+ ---@param query_group? string

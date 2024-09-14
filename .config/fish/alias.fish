@@ -44,9 +44,9 @@ end
 
 function po --wrap ls
     # TODO: merge completion, ls + pacman -Qo
-    # TODO: missing colorize...
-    # FIXME: args to pkgfile should be sanitized (e.g. `/bin` -> `/bin/`, `/var/ -> /var/`)
-    # FIXME: multiple args (pkgfile accept only one file)
+    # missing colorize...
+    # args to pkgfile should be sanitized (e.g. `/bin` -> `/bin/`, `/var/ -> /var/`)
+    # multiple args (pkgfile accept only one file)
     argparse -n po --max-args v/ vv/ = -- $argv
 
     pacman -Qo $argv
@@ -63,7 +63,6 @@ function po --wrap ls
         end
     end
 end
-
 
 function vw
     if command -q $argv
@@ -108,7 +107,6 @@ end
 function po --wrap ls
     pacman -Qo $argv || pacman -F $argv
 end
-
 
 function psi --wrap 'pacman -S'
     pacman -Qi $argv || pacman -Si $argv

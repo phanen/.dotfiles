@@ -1,4 +1,7 @@
+# *
 /*
+# */
+# */*
 
 !.bash_profile
 !.bashrc
@@ -22,7 +25,7 @@
 
 !.cargo/
 .cargo/*
-!.cargo/config
+!.cargo/config.toml
 
 !.ssh/
 .ssh/*

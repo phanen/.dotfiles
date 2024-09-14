@@ -1,3 +1,4 @@
+[general]
 ipc_socket = true
 live_config_reload = true
 
@@ -79,7 +80,7 @@ action = "ScrollHalfPageDown"
 key = "D"
 mode = "Vi|~Search"
 
-[shell]
+[terminal.shell]
 program = "/bin/fish"
 
 [window]

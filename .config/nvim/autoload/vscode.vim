@@ -49,8 +49,28 @@ function! s:manageEditorWidth(...)
 endfunction
 
 function! vscode#setup() abort
+
+    let g:mapleader = ' '
+    let g:maplocalleader = '+'
+
     " Use VSCode syntax highlighting
     syntax off
+    xnoremap <leader>cf   <Cmd>call VSCodeNotify('editor.action.formatSelection')<CR>
+    nnoremap <leader>cf   <Cmd>call VSCodeNotify('prettier.forceFormatDocument')<CR>
+    nnoremap _            <Cmd>call VSCodeNotify('editor.action.showDefinitionPreviewHover')<CR>
+    nnoremap <leader>cp   <Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>
+    nnoremap <leader>ch   <Cmd>call VSCodeNotify('editor.showCallHierarchy')<CR>
+    nnoremap <leader>ci   <Cmd>call VSCodeNotify('editor.action.peekImplementation')<CR>
+    nnoremap <c-l>        <Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>
+    nnoremap <c-n>        <Cmd>call VSCodeNotify('workbench.action.findInFiles')<CR>
+    nnoremap gh[          <Cmd>call VSCodeNotify('workbench.action.editor.previousChange')<CR>
+    nnoremap gh]          <Cmd>call VSCodeNotify('workbench.action.editor.nextChange')<CR>
+    nnoremap gha          <Cmd>call VSCodeNotify('git.stage')<CR>
+    nnoremap <leader>gs   <Cmd>call VSCodeNotify('git.openChange')<CR>
+    nnoremap ghb          <Cmd>call VSCodeNotify('gitlens.toggleFileBlame')<CR>
+    nnoremap ghr          <Cmd>call VSCodeNotify('git.clean')<CR>
+    nnoremap <leader>gc   <Cmd>call VSCodeNotify('git.commit')<CR>
+    nnoremap <leader>gg   <Cmd>call VSCodeNotify('workbench.view.scm')<CR>
 
     nnoremap K     <Cmd>call VSCodeNotify('editor.action.showHover')<CR>
     nnoremap gD    <Cmd>call <SID>vscodeGoToDefinition('revealDeclaration')<CR>

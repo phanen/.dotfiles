@@ -1,9 +1,23 @@
+#!/bin/sh
+
 . ~/.environ
-if shopt -q login_shell && [ -z "$SSH_TTY" ] && [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ ! -e /tmp/xorg.boot ]; then
-  # DISPLAY=:0 kmonad.sh
-  # DISPLAY=:0 kanata & >/dev/null
-  touch /tmp/xorg.boot
-  exec startx
-fi
+
+case $0 in
+-*)
+  if [ -z "$SSH_TTY" ] && [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ ! -e /tmp/xorg.boot ]; then
+    : >/tmp/xorg.boot
+    exec startx
+  fi
+  ;;
+*) ;;
+esac
+
+case $(tty) in
+*tty*) setfont ter-d28b ;;
+*) ;;
+esac
+
 # for ssh login
+
+# use fish as interactive shell only (not default shell)
 exec fish

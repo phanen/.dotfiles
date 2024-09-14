@@ -1,7 +1,10 @@
+local blink = false
 return {
   {
-    'hrsh7th/nvim-cmp',
-    -- cond = false,
+    'phanen/nvim-cmp', -- 'hrsh7th/nvim-cmp'
+    cond = not blink,
+    branch = 'perf-up', -- 'yioneko/nvim-cmp'
+    dev = true,
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
@@ -10,20 +13,16 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-cmdline',
-      {
-        'onsails/lspkind.nvim',
-        opts = { preset = 'codicons', mode = 'symbol_text' },
-        config = function(_, opts) require('lspkind').init(opts) end,
-      },
     },
     config = function()
       local c = require 'cmp'
       local ls = require 'luasnip'
       local m = c.mapping
       local wopts = {
-        winblend = 1,
-        winhighlight = 'Normal:Normal',
-        border = vim.g.border,
+        -- winblend = 10,
+        -- winhighlight = 'Normal:Normal',
+        winhighlight = 'Visual:Visual',
+        -- border = g.border,
       }
       c.setup {
         window = { completion = wopts, documentation = wopts },
@@ -41,10 +40,10 @@ return {
         mapping = {
           ['<c-d>'] = m(m.scroll_docs(4), { 'i', 'c' }),
           ['<c-u>'] = m(m.scroll_docs(-4), { 'i', 'c' }),
-          ['<c-\\>'] = m(
-            function() return c.visible() and c.abort() or c.complete() end,
-            { 'i', 'c' }
-          ),
+          ['<a-;>'] = m(function()
+            if c.visible() then return c.abort() end
+            return c.complete()
+          end, { 'i', 'c' }),
           ['<c-k>'] = m {
             i = m.select_prev_item(),
             c = m.select_prev_item(),
@@ -58,12 +57,18 @@ return {
           ['<c-i>'] = m {
             i = function(fb)
               -- if c.visible() and c.get_selected_entry() then return c.confirm() end
-              if c.visible() then return c.confirm({ select = not c.get_selected_entry() }) end
-              if ls.jumpable(1) then return ls.jump(1) end
-              return ls.expandable() and ls.expand() or fb()
+              if c.visible() then
+                -- if fn.pumvisible() == 1 then return m.select_next_item()() end
+                return c.confirm({ select = not c.get_selected_entry() })
+              end
+              if ls.expandable() then return ls.expand() end
+              return fb()
             end,
             c = m.confirm { select = true },
-            s = function(fb) return ls.jumpable() and ls.jump(1) or fb() end,
+            s = function(fb)
+              if ls.jumpable() then return ls.jump(1) end
+              return fb()
+            end,
           },
           ['<c-o>'] = m {
             i = function(fb)
@@ -78,11 +83,17 @@ return {
             s = function() return ls.jump(-1) end,
           },
           ['<c-p>'] = m {
-            i = function(fb) return ls.jumpable() and ls.jump(-1) or fb() end,
+            i = function(fb)
+              if ls.jumpable() then return ls.jump(-1) end
+              return fb()
+            end,
             s = function() return ls.jump(-1) end,
           },
           ['<c-n>'] = m {
-            i = function(fb) return ls.jumpable() and ls.jump(1) or fb() end,
+            i = function(fb)
+              if ls.jumpable() then return ls.jump(1) end
+              return fb()
+            end,
             s = function() return ls.jump(1) end,
           },
           ['<cr>'] = m(m.confirm(), { 'i', 'c' }),
@@ -115,13 +126,16 @@ return {
             },
           },
         },
+        -- no total limit, use it as workaround
         performance = {
-          -- NOTE: no total limit, use it as workaround
-          max_view_entries = 12,
+          debounce = 30,
+          throttle = 30,
+          fetching_timeout = 500,
+          confirm_resolve_timeout = 80,
+          async_budget = 1,
+          max_view_entries = 200,
         },
       }
-      -- FIXME: search up/down
-      -- c.setup.cmdline('/', { sources = { { name = 'buffer' } } })
       c.setup.cmdline(':', {
         sources = {
           { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },
@@ -131,64 +145,38 @@ return {
       })
     end,
   },
-  -- TODO: postfix............
-  -- i think this should be provided by lsp
-  -- but fine if we has it in snippet
   {
-    'L3MON4D3/LuaSnip',
-    -- cond = false,
-    event = 'InsertEnter',
-    build = 'make install_jsregexp',
-    dependencies = { 'rafamadriz/friendly-snippets' },
-    config = function()
-      require('luasnip.loaders.from_lua').lazy_load()
-      require('luasnip.loaders.from_vscode').lazy_load()
-      require('luasnip.loaders.from_vscode').lazy_load { paths = './snippets' }
-      require('luasnip').filetype_extend('all', { '_' })
-    end,
-  },
-  {
-    's1n7ax/nvim-snips',
-    dependencies = {
-      's1n7ax/nvim-ts-utils',
-      'L3MON4D3/LuaSnip',
-    },
-    event = 'InsertEnter',
-  },
-  {
-    'danymat/neogen',
-    cmd = 'Neogen',
-    keys = { { '<leader>.', '<cmd>Neogen<cr>' } },
+    'saghen/blink.cmp',
+    cond = blink,
+    lazy = false, -- lazy loading handled internally
+    -- optional: provides snippets for the snippet source
+    dependencies = 'rafamadriz/friendly-snippets',
+
+    -- use a release tag to download pre-built binaries
+    version = 'v0.*',
+    -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+    -- build = 'cargo build --release',
+    -- If you use nix, you can build from source using latest nightly rust with:
+    -- build = 'nix run .#build-plugin',
+
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
     opts = {
-      snippet_engine = 'luasnip',
-      languages = {
-        lua = {
-          template = { annotation_convention = 'emmylua' },
-        },
+      highlight = {
+        -- sets the fallback highlight groups to nvim-cmp's highlight groups
+        -- useful for when your theme doesn't support blink.cmp
+        -- will be removed in a future release, assuming themes add support
+        use_nvim_cmp_as_default = true,
       },
-    },
-  },
-  { -- actually inlay-hint
-    -- TODO: not prompt edit in the middle of line
-    'zbirenbaum/copilot.lua',
-    cond = fn.argv()[1] ~= 'leetcode.nvim',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    dependencies = { 'hrsh7th/nvim-cmp' },
-    opts = {
-      panel = { layout = { position = 'right', ratio = 0.4 } },
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        keymap = {
-          accept = '<a-s>',
-          accept_word = '<a-f>',
-          accept_line = '<a-e>',
-          next = '<a-n>',
-          prev = '<a-p>',
-          dismiss = '<a-c>',
-        },
-      },
+      -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+      -- adjusts spacing to ensure icons are aligned
+      nerd_font_variant = 'normal',
+
+      -- experimental auto-brackets support
+      -- accept = { auto_brackets = { enabled = true } }
+
+      -- experimental signature help support
+      -- trigger = { signature_help = { enabled = true } }
     },
   },
 }

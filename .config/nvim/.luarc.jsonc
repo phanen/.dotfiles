@@ -10,6 +10,5 @@
       "${3rd}/luv/library"
     ]
   },
-  "diagnostics.disable": ["missing-fields"],
-  //"diagnostics.globals": ["map", "au"],
+  "diagnostics": {}
 }

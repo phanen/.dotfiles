@@ -1,0 +1,22 @@
+diff --git a/autoload/vm/maps/all.vim b/autoload/vm/maps/all.vim
+index 2e51d5e..b79f3b9 100644
+--- a/autoload/vm/maps/all.vim
++++ b/autoload/vm/maps/all.vim
+@@ -192,14 +192,14 @@ fun! vm#maps#all#buffer() abort
+         \"I Up Arrow":              ['<Up>',        'i'],
+         \"I Down Arrow":            ['<Down>',      'i'],
+         \"I Return":                ['<CR>',        'i'],
+-        \"I BS":                    ['<BS>',        'i'],
++        \"I BS":                    ['<C-H>',       'i'],
+         \"I CtrlW":                 ['<C-w>',       'i'],
+         \"I CtrlU":                 ['<C-u>',       'i'],
+         \"I CtrlD":                 ['<C-d>',       'i'],
+         \"I Ctrl^":                 ['<C-^>',       'i'],
+         \"I Del":                   ['<Del>',       'i'],
+-        \"I Home":                  ['<Home>',      'i'],
+-        \"I End":                   ['<End>',       'i'],
++        \"I Home":                  ['<C-A>',       'i'],
++        \"I End":                   ['<C-E>',       'i'],
+         \"I CtrlB":                 ['<C-b>',       'i'],
+         \"I CtrlF":                 ['<C-f>',       'i'],
+         \"I CtrlC":                 ['<C-c>',       'i'],

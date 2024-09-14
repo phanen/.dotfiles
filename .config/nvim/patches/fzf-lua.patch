@@ -1,23 +1,21 @@
-diff --git a/lua/fzf-lua/config.lua b/lua/fzf-lua/config.lua
-index 0ddad79..929fb6b 100644
---- a/lua/fzf-lua/config.lua
-+++ b/lua/fzf-lua/config.lua
-@@ -267,10 +267,11 @@ function M.normalize_opts(opts, globals, __resume_key)
-   -- Merge arrays from globals|defaults, can't use 'vim.tbl_xxx'
-   -- for these as they only work for maps, ie. '{ key = value }'
-   for _, k in ipairs({ "file_ignore_patterns" }) do
-+    if not opts[k] then opts[k] = {} end
-     for _, m in ipairs({ globals, M.globals }) do
-       if m[k] then
--        for _, item in ipairs(m[k]) do
--          if not opts[k] then opts[k] = {} end
-+        local items = type(m[k]) == "function" and m[k]() or m[k]
-+        for _, item in ipairs(items) do
-           table.insert(opts[k], item)
+diff --git a/lua/fzf-lua/actions.lua b/lua/fzf-lua/actions.lua
+index ae62123..ff12a08 100644
+--- a/lua/fzf-lua/actions.lua
++++ b/lua/fzf-lua/actions.lua
+@@ -198,9 +198,9 @@ M.vimcmd_entry = function(_vimcmd, selected, opts, pcall_vimcmd)
+       if entry.uri then
+         if utils.is_term_bufname(entry.uri) then
+           -- nvim_exec2(): Vim(normal):Can't re-enter normal mode from terminal mode
+-          pcall(vim.lsp.util.jump_to_location, entry, "utf-16")
++          pcall(utils.jump_to_location, entry, "utf-16")
+         else
+-          vim.lsp.util.jump_to_location(entry, "utf-16")
++          utils.jump_to_location(entry, "utf-16")
          end
-       end
+       elseif entry.ctag then
+         vim.api.nvim_win_set_cursor(0, { 1, 0 })
 diff --git a/lua/fzf-lua/core.lua b/lua/fzf-lua/core.lua
-index c9e1a54..6286d93 100644
+index dff0d11..580f585 100644
 --- a/lua/fzf-lua/core.lua
 +++ b/lua/fzf-lua/core.lua
 @@ -1099,10 +1099,6 @@ M.convert_reload_actions = function(reload_cmd, opts)
@@ -31,3 +29,75 @@ index c9e1a54..6286d93 100644
    if fallback then
      -- for fallback, conversion to "old-style" actions is sufficient
      return opts
+diff --git a/lua/fzf-lua/previewer/builtin.lua b/lua/fzf-lua/previewer/builtin.lua
+index 65e255a..2e68fff 100644
+--- a/lua/fzf-lua/previewer/builtin.lua
++++ b/lua/fzf-lua/previewer/builtin.lua
+@@ -643,7 +643,7 @@ function Previewer.buffer_or_file:populate_preview_buf(entry_str)
+     -- LSP 'jdt://' entries, see issue #195
+     -- https://github.com/ibhagwan/fzf-lua/issues/195
+     vim.api.nvim_win_call(self.win.preview_winid, function()
+-      local ok, res = pcall(vim.lsp.util.jump_to_location, entry, "utf-16", false)
++      local ok, res = pcall(utils.jump_to_location, entry, "utf-16", false)
+       if ok then
+         self.preview_bufnr = vim.api.nvim_get_current_buf()
+       else
+diff --git a/lua/fzf-lua/providers/lsp.lua b/lua/fzf-lua/providers/lsp.lua
+index 1479e2c..a884555 100644
+--- a/lua/fzf-lua/providers/lsp.lua
++++ b/lua/fzf-lua/providers/lsp.lua
+@@ -85,7 +85,7 @@ local jump_to_location = function(opts, result, enc)
+     return opts.jump_to_single_result_action({ entry }, opts)
+   end
+ 
+-  return vim.lsp.util.jump_to_location(result, enc)
++  return utils.jump_to_location(result, enc)
+ end
+ 
+ local regex_filter_fn = function(regex_filter)
+@@ -880,7 +880,7 @@ end
+ -- TODO: not needed anymore, it seems that `vim.lsp.buf.code_action` still
+ -- uses the old `vim.lsp.diagnostic` API, we will do the same until neovim
+ -- stops using this API
+---[[ local function get_line_diagnostics(_)
++local function get_line_diagnostics(_)
+   if not vim.diagnostic then
+     return vim.lsp.diagnostic.get_line_diagnostics()
+   end
+@@ -907,7 +907,7 @@ end
+       } }
+       -- Must return an empty table or some LSP servers fail (#707)
+       or {}
+-end ]]
++end
+ 
+ M.code_actions = function(opts)
+   opts = normalize_lsp_opts(opts, "lsp.code_actions")
+@@ -935,7 +935,7 @@ M.code_actions = function(opts)
+       -- Neovim still uses `vim.lsp.diagnostic` API in "nvim/runtime/lua/vim/lsp/buf.lua"
+       -- continue to use it until proven otherwise, this also fixes #707 as diagnostics
+       -- must not be nil or some LSP servers will fail (e.g. ruff_lsp, rust_analyzer)
+-      diagnostics = vim.lsp.diagnostic.get_line_diagnostics(core.CTX().bufnr) or {}
++      diagnostics = get_line_diagnostics(core.CTX().bufnr) or {}
+     }
+ 
+     -- make sure 'gen_lsp_contents' is run synchronously
+diff --git a/lua/fzf-lua/utils.lua b/lua/fzf-lua/utils.lua
+index c9b7e8f..d57e659 100644
+--- a/lua/fzf-lua/utils.lua
++++ b/lua/fzf-lua/utils.lua
+@@ -1249,4 +1249,14 @@ function M.has_ts_parser(lang)
+   end
+ end
+ 
++function M.jump_to_location(location, offset_encoding, reuse_win)
++  if M.__HAS_NVIM_011 then
++    return vim.lsp.util.show_document(location, offset_encoding,
++      { reuse_win = reuse_win, focus = true })
++  else
++    ---@diagnostic disable-next-line: deprecated
++    return vim.lsp.util.jump_to_location(location, offset_encoding, reuse_win)
++  end
++end
++
+ return M

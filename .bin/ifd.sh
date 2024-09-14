@@ -132,7 +132,7 @@ if [ $# -gt 0 ]; then
   exit 4
 fi
 
-if [ -d $BASEDIR ]; then
+if [ -d "$BASEDIR" ]; then
 
   nvim -n --headless --clean --cmd "lua vim.g.did_load_filetypes=1; loadfile(
   [[${BASEDIR}/lua/fzf-lua/libuv.lua]])().spawn_stdio(

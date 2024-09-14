@@ -19,7 +19,7 @@
   lctl lmet lalt           spc            ralt rctl
 )
 
-(deflayer qwelayer
+(deflayer qwerty
   lrld _    _    3    4    5    6    7    8    9    0    _    _    bspc
   @tb  q    w    e    r    t    y    u    i    o    p    bspc caps \
   @ec  a    s    d    f    g    h    j    k    l    @;s  @'s  ret
@@ -47,7 +47,7 @@
 (deflayer control
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    \    _    _
+  _    _    _    _    _    _    _    _    _    _    ;    _    _
   _    _    _    _    _    _    _    _    _    _    _    @gs
   _    _    _              _              _    _
 )
@@ -134,7 +134,7 @@
   's   (multi f24 (tap-hold-release 0 200 ' (multi lctl lsft)))
   gs   (multi f24 (tap-hold-press 0 200 grv (multi lsft (layer-toggle shift))))
   ;; FIXME: same
-  ec   (multi f24 (tap-hold-press 0 200 esc (multi lctrl (layer-toggle qwelayer) (layer-toggle control))))
+  ec   (multi f24 (tap-hold-press 0 200 esc (multi lctrl (layer-toggle qwerty) (layer-toggle control))))
   sm   (multi f24 (tap-hold-release 0 200 spc (layer-toggle superlayer)))
   tb   (multi f24 (tap-hold-press 0 200 tab (layer-toggle tablayer)))
   mec  (multi lmeta @ec)

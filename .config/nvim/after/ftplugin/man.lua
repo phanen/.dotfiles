@@ -1,9 +1,5 @@
--- TODO: BufRead trigger man plugin (set buf)
--- make <c-s><c-d> work
-vim.bo.bh = 'hide' -- unload -> hide
+vim.cmd.runtime { 'after/ftplugin/viewonly.lua', bang = true }
+map[0].n.gO = [[:lua require'man'.show_toc()<CR>]]
+-- make ression reload work
 vim.bo.bt = '' -- nofile -> ''
-
--- TODO: also for helpdocs
-map.n[0]('go', require 'man'.show_toc)
-
--- FIXME: `o` just delete qf/loc/list...
+vim.bo.keywordprg = ':Man'

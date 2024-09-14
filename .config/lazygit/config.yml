@@ -1,7 +1,6 @@
 # /usr/share/doc/lazygit/Config.md
 
 git:
-  # branchLogCmd: 'git log --graph --color=always --date=human --format="%C(#e3c78a)%h%C(#ff5454)%d%C(reset) - %C(#36c692)(%ad)%C(reset) %s %C(#80a0ff){%an}%C(reset)" {{branchName}} --'
   paging:
     colorArg: always
     # delta won't detect theme in lazygit https://github.com/jesseduffield/lazygit/pull/3420
@@ -12,7 +11,6 @@ promptToReturnFromSubprocess: false
 
 customCommands:
   # https://github.com/jesseduffield/lazygit/pull/3104
-  # TODO: menu bind
   - key: "y"
     prompts:
       - type: "menu"
@@ -34,16 +32,11 @@ customCommands:
     description: "copy file content to clipboard"
     subprocess: true
 
-# TODO: fix hang when xdg-open use terminal as opener
+# fix hang when xdg-open use terminal as opener
 # or hang on first open?
 keybinding:
   universal:
     openFile: ""
-# FIXME: use flatten now, no unique way now to toggle term
-# os:
-#   edit: '[[ -z "$NVIM" ]] && { nvim {{filename}} &>/dev/tty; true; } || { nvim -u NONE --server $NVIM --remote-expr "execute(\"ToggleTerm | e {{filename}}\")"; }'
-#   editAtLine: '[[ -z "$NVIM" ]] && { nvim +{{line}} {{filename}} &>/dev/tty; true; } || { nvim -u NONE --server $NVIM --remote-expr "execute(\"ToggleTerm | e {{filename}} | call cursor({{line}}, 0)\")"; }'
-#   # https://github.com/jesseduffield/lazygit/issues/996
-#   editAtLineAndWait: "nvim +{{line}} {{filename}}"
-#   editInTerminal: true
-#   # open: "xdg-open {{filename}} >/dev/null &"
+
+os:
+  openLink: 'xdg-open {{link}} & >/dev/null'

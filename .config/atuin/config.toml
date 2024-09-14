@@ -10,18 +10,11 @@ invert = true
 show_preview = true
 max_preview_height = 2
 
-# TODO: ctrl-i donnot work, so we don't preselect it now
-enter_accept = false
-
-## TODO: maybe less candidate, and i don't want use number
-## use ctrl instead of alt as shortcuts
-ctrl_n_shortcuts = true
-
+enter_accept = false    # TODO: ctrl-i confirm, enter -> run-with-no-confirm
+ctrl_n_shortcuts = true # use ctrl+x instead alt+x to select
 
 sync_address = "http://ali:18888"
 sync_frequency = "10m"
-# style = "compact"
-# search_mode = "fulltext"
 
 [sync]
 records = true

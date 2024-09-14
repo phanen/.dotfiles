@@ -1,11 +1,8 @@
 #!/bin/sh
 
-# TODO: reattach to neovide after restart
 ROOT=$HOME/b/neovim
-MAGIC=123
-ARGS+=--luamod-dev
 
-if command -v $ROOT/build/bin/nvim 1>/dev/null 2>/dev/null; then
+if command -v "$ROOT"/build/bin/nvim 1>/dev/null 2>/dev/null; then
   VIMRUNTIME=$ROOT/runtime
   NVIM_BIN=$ROOT/build/bin/nvim
 elif command -v /bin/nvim; then
@@ -18,10 +15,17 @@ fi
 # colorize
 # msg "$NVIM_BIN"
 
+SESSION=/tmp/reload.vim
+MAGIC=123
+# https://vi.stackexchange.com/questions/36957/update-all-of-the-unsaved-buffers-at-vim
+CMD1="+nnoremap <nowait> <c-s><c-d> <cmd>wa!\|mks!$SESSION\|cq!$MAGIC<cr>"
+CMD2="+nnoremap <nowait> <c-s><c-s> <cmd>quit!<cr>"
+ARG=--luamod-dev
+
 # $ARGS then $@: if `--` in "$@"
 # "" is required for sh -c 'nvim xx'
-VIMRUNTIME=$VIMRUNTIME $NVIM_BIN "$ARGS" "$@"
+VIMRUNTIME=$VIMRUNTIME $NVIM_BIN "$CMD1" "$CMD2" "$ARG" "$@"
 
-builtin test $? != $MAGIC && exit
+test $? != $MAGIC && exit
 
-exec $0 "+so /tmp/reload.vim"
+exec $0 "+so $SESSION"
