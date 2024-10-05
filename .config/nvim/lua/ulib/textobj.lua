@@ -108,9 +108,7 @@ end
 -- linewise do (delete, visual, yank) by region
 -- https://stackoverflow.com/questions/19195160/push-a-location-to-the-jumplist
 local linewise = function(s, e)
-  -- PERF: expandable?
-  -- if current region is the same as last region, then trigger expand version
-  -- like vip ip ip ...
+  -- PERF: expandable? like vip ip ip ...
 
   if not s or not e then return end
   vim.cmd.normal { 'm`', bang = true }

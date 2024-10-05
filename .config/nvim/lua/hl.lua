@@ -9,13 +9,13 @@ end
 
 local function update_hl()
   -- vim.treesitter.language.register('bash', 'lua')
-  -- https://github.com/search?q=%40lsp.type.comment.lua&type=code
   vim.cmd [[
-    hi! @lsp.type.comment.lua        guifg=NONE
+    " https://github.com/search?q=%40lsp.type.comment.lua&type=code
+    " hi! @lsp.type.comment.lua        guifg=NONE
+    " https://github.com/neovim/neovim/pull/30192
+    " TODO: not work with url in other place (e.g. lua string/terminal buf)
     hi! @string.special.url.comment  term=underline cterm=underline ctermfg=44 gui=underline guifg=#00dfdf
     hi! @string.special.url.html     term=underline cterm=underline ctermfg=44 gui=underline guifg=#00dfdf
-    " TODO: url in other place (e.g. lua string/terminal buf)
-    " https://github.com/neovim/neovim/pull/30192
   ]]
 
   -- if we don't use _meta.lua

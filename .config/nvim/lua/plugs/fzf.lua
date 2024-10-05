@@ -2,14 +2,7 @@ return {
   {
     'phanen/fzf-lua-overlay',
     main = 'flo',
-    opts = {
-      specs = {
-        todo_comment = {
-          fn = 'grep',
-          opts = { search = 'TODO|HACK|PERF|NOTE|FIXME', no_esc = true },
-        },
-      },
-    },
+    opts = {},
   },
   { 'vijaymarupudi/nvim-fzf', main = 'fzf' },
   { 'junegunn/fzf.vim', cmd = { 'Files', 'RG', 'Rg' }, dependencies = { 'junegunn/fzf' } },
@@ -69,8 +62,7 @@ return {
         },
         winopts_fn = function(opts) -- 'force' (after 'winopts')
           if not package.loaded['dropbar'] then require('dropbar') end
-          -- TODO: not reflect the right cursor pos
-          return {
+          return { -- FIXME: no change event for cursor pos (should update when view update)
             preview = {
               winopts = { winbar = opts.winopts.preview.winopts.cursorline and g.winbar or nil },
             },

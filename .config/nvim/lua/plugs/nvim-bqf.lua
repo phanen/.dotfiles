@@ -4,10 +4,7 @@ return {
   opts = {
     preview = {
       border = g.border,
-      extra_opts = {
-        description = 'Extra options for fzf',
-        default = { '--bind', 'ctrl-q:toggle-all' },
-      },
+      extra_opts = { '--bind', 'ctrl-q:toggle-all' },
       -- should_preview_cb = function(bufnr, _)
       --   local bufname = api.nvim_buf_get_name(bufnr)
       --   local fsize = fn.getfsize(bufname)
@@ -15,6 +12,19 @@ return {
       --   if fsize > 100 * 1024 then return false end
       --   return true
       -- end,
+    },
+  },
+
+  filter = {
+    fzf = {
+      action_for = {
+        ['ctrl-t'] = 'tabedit',
+        ['ctrl-v'] = 'vsplit',
+        ['ctrl-x'] = 'split',
+        ['ctrl-q'] = 'fuck', -- 'signtoggle',
+        ['ctrl-c'] = 'closeall',
+      },
+      extra_opts = { '--bind', 'ctrl-q:toggle-all' },
     },
   },
 }

@@ -38,7 +38,8 @@ P.print = function(...)
     if type(v) == 'nil' then
       tbl[#tbl + 1] = 'nil'
     else
-      tbl[#tbl + 1] = vim.inspect(v) -- TODO: quote is unneeded (inline mode for table/ prefer inline)
+      -- depth newline indent process
+      tbl[#tbl + 1] = vim.inspect(v) -- TODO: no quote
     end
   end
   return print(table.concat(tbl, ' '))

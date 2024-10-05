@@ -26,7 +26,7 @@ x['>'] = ':ri<cr>'
 x['<'] = ':le<cr>'
 n['<a-j>'] = '<cmd>move+<cr>==' -- append `=` to smart indent it
 x['<a-j>'] = ":move '>+<cr>gv=gv"
-n['<a-k>'] = '<cmd>move-2<cr>==' -- FIXME: may cause lsp diagnostics error
+n['<a-k>'] = '<cmd>move-2<cr>=='
 x['<a-k>'] = ":move '<-2<cr>gv=gv"
 n['<a-h>'] = '<<'
 n['<a-l>'] = '>>'
@@ -42,8 +42,9 @@ x['.'] = ':norm .<cr>'
 n['gy'] = '`[v`]'
 n.expr['i'] = [[v:count || len(getline('.')) ? 'i' : '"_cc']] -- auto indent
 n.expr['a'] = [[v:count || len(getline('.')) ? 'a' : '"_cc']]
-n.expr[' rn'] = [[':IncRename ' . expand('<cword>')]] -- FIXME: trigger hl on enter
+n.expr[' rn'] = [[':IncRename ' . expand('<cword>')]] -- if lazy-load, hl don't work at the first time
 n['@w'] = '<nop>' -- avoid kanata typo
+n[' .'] = '<cmd>Neogen<cr>'
 
 -- unimpaired + repeat
 nxo[';'] = function() return u.repmove.repeat_last_move() end
@@ -100,7 +101,7 @@ ox['id'] = '<cmd>lua require("various-textobjs").diagnostic("wrap")<cr>'
 ox['ig'] = function() return u.textobj.buffer() end
 ox['ag'] = function() return u.textobj.buffer() end
 ox['ic'] = function() return u.textobj.comment() end
-ox['ac'] = function() return u.textobj.comment() end -- TODO: line before
+ox['ac'] = function() return u.textobj.comment() end
 ox['ii'] = function() return u.textobj.indent_i() end
 ox['iI'] = function() return u.textobj.indent_I() end
 ox['ai'] = function() return u.textobj.indent_a() end
@@ -118,7 +119,7 @@ n['+I'] = '<cmd>lua vim.treesitter.inspect_tree()<cr>'
 n['+L'] = function() return u.script.update_chore() end
 nx['+y'] = function() return u.misc.archive() end
 n[' <c-d>'] = '<cmd>lua vim.diagnostic.open_float()<cr>'
-nx[' L'] = ':Linediff<cr>' -- TODO: quit it
+nx[' L'] = ':Linediff<cr>'
 n[' t'] = ':e /tmp/tmp/'
 n[' q'] = function() return u.misc.qf_or_ll_toggle() end
 n[" '"] = '<cmd>marks<cr>'
@@ -154,14 +155,14 @@ n[' cl'] = function() return u.dirstack.hist() end
 n[' dq'] = '<cmd>lua vim.diagnostic.setqflist()<cr>'
 n[' dl'] = '<cmd>lua vim.diagnostic.setloclist()<cr>'
 
--- format
+-- format (TODO: keep cursor pos)
 nx['ga'] = '<plug>(EasyAlign)'
 n['gw'] = function() return u.fmt.conform() end
 n[' ff'] = vim.lsp.buf.format
 n['-'] = '<cmd>TSJToggle<cr>'
-n[' rp'] = [[:%FullwidthPunctConvert<cr>]]
-x[' rp'] = ':FullwidthPunctConvert<cr>' -- TODO: not change cursor pos
-x[' rr'] = [[:s/\(\s\+\)/\r/g<cr>]] -- PERF: delim, indent
+n[' rp'] = ':%FullwidthPunctConvert<cr>'
+x[' rp'] = ':FullwidthPunctConvert<cr>'
+x[' rr'] = [[:s/\(\s\+\)/\r/g<cr>]]
 n[' rj'] = ':Pangu<cr>'
 x[' ro'] = ':!sort<cr>'
 n[' rs'] = [[:s/\s*$//g<cr>``]]
@@ -169,9 +170,9 @@ n[' rl'] = [[:g/^$/d]]
 n[' r*'] = [[:s/^\([  ]*\)- \(.*\)/\1* \2/g]]
 n[' r '] = [[:s;^\(\s\+\);\=repeat(' ', len(submatch(0))/2);g]]
 
--- comment
+-- comment (TODO: keep cursor pos)
 x.remap['<c-/>'] = 'gc'
-i['<c-/>'] = '<cmd>norm <c-/><cr>' -- TODO: comment empty line?
+i['<c-/>'] = '<cmd>norm <c-/><cr>'
 n.expr.remap['<c-/>'] = function() return vim.v.count == 0 and 'gcl' or 'gcj' end
 n[' <c-/>'] = '<cmd>norm vic<c-/><cr>'
 n['gco'] = function() return u.misc.comment(0) end
@@ -211,7 +212,7 @@ nx[' ;'] = function() return u.pick.commands() end
 
 n[' <c-b>'] = function() return u.pick.git_bcommits() end
 n[' <c-f>'] = function() return u.pick.zoxide() end
-n[' <c-j>'] = function() return u.pick.todo_comment() end
+n[' <c-j>'] = function() return u.pick.todos() end
 n['z='] = function() return u.pick.spell_suggest() end
 n['  '] = function() return u.pick.resume() end
 n[' a'] = function() return u.pick.builtin() end
@@ -301,7 +302,7 @@ local map_cmdwin = function(_)
   local bn = map.n[_.buf]
   bn['<cr>'] = 'a<cr>'
   bn['q'] = '<cmd>q<cr>'
-  bn['s'] = 's' -- FIXME: flash.nvim crash
+  bn['s'] = 's' -- fix flash.nvim's crash in cmdwin
 end
 
 -- terminal

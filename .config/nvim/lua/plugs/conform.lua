@@ -9,15 +9,10 @@ return {
       sh = { 'shfmt', 'shellcheck' },
       xml = { 'xmlformat' },
       toml = { 'taplo' },
-      -- TODO: forback?
       c = { 'clang-format' },
       -- c = { 'uncrustify_nvim' },
-
-      -- note: for arch, need `perl-unicode-linebreak` as extra dependency
-      -- TODO: force a `:retab` for formatter use tab only...
-      tex = { 'latexindent', '--GCString' },
+      tex = { 'latexindent', '--GCString' }, -- for GCString feature, install `perl-unicode-linebreak` as extra dependency (for arch)
       bib = { 'bibtex-tidy' },
-
       css = { 'prettier' },
       html = { 'prettier' },
       javascript = { 'prettier' },

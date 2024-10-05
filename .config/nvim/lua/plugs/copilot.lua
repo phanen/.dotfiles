@@ -1,6 +1,6 @@
 return {
   {
-    'zbirenbaum/copilot.lua',
+    'zbirenbaum/copilot.lua', -- ? this won't prompt when edit in the middle of line
     cond = fn.argv()[1] ~= 'leetcode.nvim',
     cmd = 'Copilot',
     event = 'InsertEnter',

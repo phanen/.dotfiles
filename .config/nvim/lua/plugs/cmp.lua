@@ -3,7 +3,7 @@ return {
     'phanen/nvim-cmp', -- 'hrsh7th/nvim-cmp'
     branch = 'perf-up', -- 'yioneko/nvim-cmp'
     dev = true,
-    event = { 'InsertEnter', 'CmdlineEnter' }, -- TODO: should also on select mode enter...
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lsp-signature-help',
@@ -130,9 +130,8 @@ return {
             },
           },
         },
-        performance = {
-          max_view_entries = 20, -- NOTE: no total limit, use it as workaround
-        },
+        -- no total limit, use it as workaround
+        -- performance = { max_view_entries = 20 },
       }
       c.setup.cmdline(':', {
         sources = {
@@ -144,7 +143,7 @@ return {
     end,
   },
   {
-    'L3MON4D3/LuaSnip', -- TODO: postfix............
+    'L3MON4D3/LuaSnip',
     event = 'InsertEnter',
     build = 'make install_jsregexp',
     dependencies = { 'rafamadriz/friendly-snippets' },
@@ -154,28 +153,5 @@ return {
       require('luasnip.loaders.from_vscode').lazy_load { paths = './snippets' }
       require('luasnip').filetype_extend('all', { '_' })
     end,
-  },
-  { -- actually inlay-hint
-    -- TODO: not prompt edit in the middle of line
-    'zbirenbaum/copilot.lua',
-    cond = fn.argv()[1] ~= 'leetcode.nvim',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    dependencies = 'nvim-cmp',
-    opts = {
-      panel = { layout = { position = 'right', ratio = 0.4 } },
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        keymap = {
-          accept = '<a-s>',
-          accept_word = '<a-f>',
-          accept_line = '<a-e>',
-          next = '<a-n>',
-          prev = '<a-p>',
-          dismiss = '<a-c>',
-        },
-      },
-    },
   },
 }

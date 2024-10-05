@@ -9,7 +9,7 @@ local api = vim.api
 ---@param rhs string|function
 ---@param opts? vim.keymap.set.Opts
 local keymap = function(mode, lhs, rhs, opts)
-  -- TODO: ideally we should not need it
+  -- FIXME: ideally we should not need it
   -- opts = opts or {}
   opts = vim.deepcopy(opts or {}, true)
 
@@ -59,11 +59,7 @@ local function new_mapper(mode, curr_opts)
       rawset(self, flag, new_mapper(mode, next_opts))
       return rawget(self, flag)
     end,
-    -- TODO: deprecate arg _opts
-    ---@param opts table[] to be deprecated
-    __call = function(_, lhs, rhs, opts)
-      return keymap(mode, lhs, rhs, u.merge(curr_opts or {}, opts or {}))
-    end,
+    __call = function(_, lhs, rhs) return keymap(mode, lhs, rhs, curr_opts) end,
     __newindex = function(_, lhs, rhs) return keymap(mode, lhs, rhs, curr_opts) end,
   })
 end

@@ -4,13 +4,13 @@ return {
     ft = 'lua',
     cond = true,
     opts = {
-      -- FIXME: not work
       library = {
+        -- not work
         -- { path = 'luvit-meta/library', words = { 'vim%.uv' } },
         { 'luvit-meta/library' },
       },
       enabled = function(root_dir)
-        -- NOTE: in this way we also don't lazy load .dotfile now (since we've used global notations in `set.lua`)
+        -- hack: don't lazy load .dotfile (for some global annotations)
         return not uv.fs_stat(root_dir .. '/.luarc.jsonc')
           and not uv.fs_stat(root_dir .. '/.luarc.json')
       end,

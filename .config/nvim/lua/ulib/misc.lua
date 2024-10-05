@@ -15,6 +15,9 @@ Misc.quit = function()
     return api.nvim_feedkeys('q', 'n', false)
   end
 
+  -- quit Linediff
+  if vim.o.diff then return vim.cmd('quit!') end
+
   if api.nvim_win_get_config(0).relative ~= '' then -- close current float
     return vim.cmd('quit!')
   end

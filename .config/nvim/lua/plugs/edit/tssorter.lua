@@ -19,8 +19,6 @@ return {
           -- if ordinals are specified in the config above they will be included at the end
           order_by = function(node1, node2, ordinal1, ordinal2)
             if ordinal1 and ordinal2 then return ordinal1 < ordinal2 end
-
-            -- TODO: add more helpers to make it easier to interact with these
             local line1 = require('tssorter.tshelper').get_text(node1)
             local line2 = require('tssorter.tshelper').get_text(node2)
             print(line1, line2)

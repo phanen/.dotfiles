@@ -14,5 +14,4 @@ local function setup_neovim_local_formatter()
   require('fidget').notify('uncrustify attached')
 end
 
--- TODO: g[did_my_ft .. vim.bo.ft]/ftdetect/autocmd once(work at first time)
 if u.git.root() == nvim_root then setup_neovim_local_formatter() end

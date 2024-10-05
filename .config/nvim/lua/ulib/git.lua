@@ -23,7 +23,7 @@ local exec = function(cmd, cwd) return vim.system({ 'git', unpack(cmd) }, { cwd 
 
 local Git = {}
 
---- FIXME: terrible api... should clean it up
+--- TODO: refactor
 ---@overload fun(args: git_args_t): vim.SystemObj
 local git = setmetatable(Git, {
   ---exec git in specified directory/buffer/bufname/bufnr/winid
@@ -40,7 +40,7 @@ local git = setmetatable(Git, {
     local path = args.bufname
     if not path then
       if args.bufnr then
-        -- TODO: run git on specified bufnr
+        -- run git on specified bufnr
         local bufnr = args.bufnr ---@type number
         path = api.nvim_buf_get_name(bufnr)
       elseif args.winid then -- winid -> bufnr -> bufname -> dirname

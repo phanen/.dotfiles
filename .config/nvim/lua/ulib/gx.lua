@@ -215,16 +215,13 @@ Gx.open = function(text)
   if n_urls == 0 then return nil end
   if n_urls == 1 then return vim.ui.open(urls[1].url) end
 
-  -- TODO: jump to single result?
+  -- should jump to single result?
   vim.ui.select(urls, {
     prompt = 'Multiple patterns match. Select:',
-    format_item = (function()
-      local format_len = #'package_json'
-      return function(item)
-        local pad_str = (' '):rep(format_len - #item.name)
-        return ('(%s)%s %s'):format(item.name, pad_str, item.url)
-      end
-    end)(),
+    format_item = function(item)
+      local pad_str = (' '):rep(15 - #item.name)
+      return ('(%s)%s %s'):format(item.name, pad_str, item.url)
+    end,
   }, function(selected)
     if not selected then return end
     return vim.ui.open(selected.url)

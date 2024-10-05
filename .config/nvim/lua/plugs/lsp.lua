@@ -28,7 +28,7 @@ return {
             hint = { enable = true, setType = true },
             completion = {
               callSnippet = 'Replace',
-              -- postfix = '.', -- TODO: not work (a:xx/ string.method)
+              postfix = '.', -- no string.method now
               showWord = 'Disable',
               workspaceWord = false,
             },

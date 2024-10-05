@@ -1,6 +1,6 @@
 return {
-  -- TODO: slow on large file (treesitter?)
-  -- FIXME: crash ... ml_get
+  -- FIXME(upstream): slow on large file (treesitter?)
+  -- crash ... ml_get
   'altermo/ultimate-autopair.nvim',
   event = { 'InsertEnter', 'CmdlineEnter' },
   opts = {

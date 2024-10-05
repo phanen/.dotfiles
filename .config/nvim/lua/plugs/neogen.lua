@@ -1,7 +1,7 @@
 return {
   'danymat/neogen',
   cmd = 'Neogen',
-  keys = { { '<leader>.', '<cmd>Neogen<cr>' } },
+  dependencies = 'nvim-cmp', -- when enter selection mode, ensure cmp mappings setuped
   opts = {
     snippet_engine = 'luasnip',
     languages = {

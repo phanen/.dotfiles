@@ -1,12 +1,11 @@
 local flo = require('flo')
 
 local Pick = {}
--- FIXME: unable to stat netrw
--- paste https://
+-- FIXME(upstream): unable to stat netrw 'https://'
 
 -- curl -sLO https://github.com/phanen/file-web-devicons/releases/download/main/file_web_devicon-x86_64-unknown-linux-gnu
 local options = {
-  iconprg = 'file_web_devicon', -- TODO: for non-utf-8 input
+  iconprg = 'file_web_devicon', -- TODO: for non-utf-8 input (e.g. binary test file)
   fd_cmd = [[fd --color=never --type f --hidden --follow --exclude .git]],
   rg_cmd = [[rg --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e ]],
 }
@@ -76,12 +75,9 @@ end
 
 -- Picker.lgrep = fzf.live_grep_glob
 
-local files_with = function() end
-local grep_with = function() end
-
 ---@param picker function
 local make_picker_persist = function(picker)
-  local build_opts_from_state = function() -- FIXME: maybe this hack don't work well...
+  local build_opts_from_state = function() -- maybe this hack don't work well...
     return { resume = true, query = '' }
   end
 
@@ -142,6 +138,10 @@ local make_mux_from_pair = function(a, b, a_title, b_title, a_opts, b_opts, pers
   end
 end
 
+-- TODO:
+-- local files_with = function() end
+-- local grep_with = function() end
+
 -- stylua: ignore
 Pick.dots = make_mux_from_pair(Pick.files, Pick.lgrep, 'FILES_DOTS', 'LGREP_DOTS', { cwd = '~' }, { cwd = '~' })
 -- stylua: ignore
@@ -175,6 +175,11 @@ Pick.builtin = function(opts)
   }
   opts = u.merge(default, opts or {})
   return flo.builtin(opts)
+end
+
+Pick.todos = function(opts)
+  opts = u.merge({ previewer = 'builtin' }, opts or {})
+  return fzf_exec(options.rg_cmd .. libuv.shellescape('TODO|HACK|PERF|NOTE|FIXME'), opts)
 end
 
 setmetatable(Pick, { __index = flo })

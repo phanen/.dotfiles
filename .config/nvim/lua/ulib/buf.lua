@@ -1,6 +1,5 @@
 local Buf = {}
 
--- TODO: get rid of dep
 ---@param bufname string?
 ---@param root string
 ---@return string

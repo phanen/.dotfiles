@@ -65,21 +65,19 @@ end
 
 -- wrap url, then paste it
 local paste = function(wrap_cb, url)
-  if not url then
-    local text = vim.fn.getreg '+'
-    if text == nil then return end
-    -- TODO: whatever, treat it as url now
-    url = text:gsub('\n', '')
+  if not url then -- use url form clipboard
+    local text = fn.getreg '+'
+    if not text then return end
+    url = text
   end
+  url = url:gsub('\n', '')
   url = wrap_cb(url)
-  vim.api.nvim_paste(url, true, 1)
+  api.nvim_paste(url, true, 1)
 end
 
 -- return line with wrapped url, or nil if no url in line
 local wrap_line = function(cb, line)
-  -- https://github.com/sportshead/gx.nvim/blob/77241c1508883882c027aa971b98cd0631ff2a10/lua/gx/helper.lua?plain=1#L49-L60
-  local url_patterns = {
-    -- FIXME: wikipedia '–'(0x8211) is not '-'
+  local url_patterns = { -- workaround, wikipedia '–'(0x8211) is not '-'
     '(https?://[a-zA-Z%d_/%%%-%.~@\\+#=?&:–]+)',
     '([a-zA-Z%d_/%-%.~@\\+#]+%.[a-zA-Z%d_/%%%-%.~@\\+#=?&:–]+)',
   }
@@ -103,21 +101,21 @@ end
 
 -- normal mode only
 local wrap_or_paste = function(cb)
-  local line = vim.api.nvim_get_current_line()
+  local line = api.nvim_get_current_line()
   local wrapped = wrap_line(cb, line)
   if not wrapped then return paste(cb) end
-  vim.api.nvim_set_current_line(wrapped)
+  api.nvim_set_current_line(wrapped)
 end
 
 local wrap_lines = function(cb)
   -- normal: wrap or paste
-  local mode = vim.api.nvim_get_mode().mode
+  local mode = api.nvim_get_mode().mode
   if mode == 'n' then return wrap_or_paste(cb) end
   -- visual: linewise wrap
   local vs, ve = u.buf.visual_line_region()
-  local lines = vim.api.nvim_buf_get_lines(0, vs, ve, true)
+  local lines = api.nvim_buf_get_lines(0, vs, ve, true)
   lines = vim.tbl_map(function(line) return wrap_line(cb, line) or line end, lines)
-  vim.api.nvim_buf_set_lines(0, vs, ve, true, lines)
+  api.nvim_buf_set_lines(0, vs, ve, true, lines)
 end
 
 -- wrap with pos indicator...

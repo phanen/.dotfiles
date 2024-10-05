@@ -24,9 +24,7 @@ return {
     },
   },
   {
-    -- FIXME(upstream): hunk reset in last line not work
-    -- ~/.local/share/nvim/lazy/nvim-snips/lua/snips/lua/init.lua
-    -- also space is auto trim by what
+    -- FIXME(upstream): sometimes hunk reset in last line not work
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     cmd = 'Gitsigns',
