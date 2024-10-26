@@ -1,7 +1,7 @@
 return {
   'kevinhwang91/nvim-bqf',
   ft = 'qf',
-  cond = false,
+  cond = true,
   opts = {
     preview = {
       border = g.border,
