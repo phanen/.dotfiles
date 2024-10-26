@@ -85,7 +85,6 @@ return {
   { import = 'plugs.lint' },
   { import = 'plugs.neogen' },
   { import = 'plugs.nvim-bqf' },
-  { import = 'plugs.quicker' },
   { import = 'plugs.snip' },
   { import = 'plugs.tree' },
   { import = 'plugs.which-key' },

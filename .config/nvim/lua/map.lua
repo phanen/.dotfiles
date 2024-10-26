@@ -191,4 +191,4 @@ aug.termopen = {
 }
 
 n['@w'] = '' -- avoid kanata typo
-n[' I'] = '<cmd>Inspect<cr>' -- avoid kanata typo
+n[' I'] = '<cmd>Inspect<cr>'
