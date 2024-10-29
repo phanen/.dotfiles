@@ -19,7 +19,7 @@ return {
     branch = 'main',
     cmd = { 'TSUpdate', 'TSInstall', 'TSUninstall' },
     build = ':TSUpdate', -- ./scripts/update-parsers.lua
-    opts = { ensure_install = { 'core' } },
+    opts = { ensure_install = { 'all' } },
   },
   { 'neovim/nvim-lspconfig' },
 
@@ -30,6 +30,7 @@ return {
   { 'onsails/lspkind.nvim', opts = {} },
   { 'tpope/vim-eunuch', cmd = { 'Rename', 'Delete' } },
   { 'tpope/vim-sleuth', lazy = false },
+  -- { 'folke/ts-comments.nvim', event = 'VeryLazy', opts = {} },
 
   { 'andrewferrier/debugprint.nvim', keys = 'g?', opts = {} },
   { 'phanen/readline.nvim', branch = 'fix-dir-structure' },

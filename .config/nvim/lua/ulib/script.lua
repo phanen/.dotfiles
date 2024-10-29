@@ -56,7 +56,7 @@ Script.update_meta = function(path)
   if g.updating_meta then return end
   g.updating_meta = true
 
-  local global = env.MYVIMRC
+  local global = g.config_path .. '/lua/rc.lua'
   local ulib = g.config_path .. '/lua/ulib'
   path = path or g.config_path .. '/lua/_meta.lua'
 

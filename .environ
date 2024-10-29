@@ -15,6 +15,7 @@ append_path "$HOME"/.local/bin
 append_path "$HOME"/.cargo/bin
 append_path "$HOME"/.local/share/nvim/mason/bin
 append_path "$HOME"/.nimble/bin
+append_path "$HOME"/.luarocks/bin
 
 export EDITOR=nvim
 export VISUAL=nvim
