@@ -11,6 +11,7 @@ local function update_hl()
   -- https://github.com/neovim/neovim/pull/30192
   vim.cmd [[
     " this not work with url in other place (e.g. lua string/terminal buf)
+    hi! @lsp.type.comment.lua guifg=none " fix "#xx"
     hi! @string.special.url.comment  term=underline cterm=underline ctermfg=44 gui=underline guifg=#00dfdf
     hi! @string.special.url.html     term=underline cterm=underline ctermfg=44 gui=underline guifg=#00dfdf
   ]]

@@ -1,7 +1,16 @@
 --- @meta
 --- AUTO GENERATED
 
---- parsed from /init.lua
+--- parsed from /lua/rc.lua
+_G.api = vim.api
+_G.env = vim.env
+_G.fn = vim.fn
+_G.fs = vim.fs
+_G.g = vim.g
+_G.lsp = vim.lsp
+_G.uv = vim.uv
+_G.u = require('ulib')
+_G.map = u.map
 
 --- parsed from /lua/ulib
 u.buf = require('ulib.buf') ---@source ulib/buf.lua

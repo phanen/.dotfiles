@@ -159,7 +159,6 @@ kotlin
 lazygit
 lib32-gcc-libs
 lib32-nvidia-utils
-lib32-vulkan-intel
 lib32-vulkan-mesa-layers
 libappindicator-gtk3
 libfaketime
@@ -188,6 +187,7 @@ lsof
 ltrace
 lua
 lua-socket
+luarocks
 m4
 make
 man-db
@@ -394,6 +394,7 @@ yarn
 yazi
 yq
 zeal
+zed
 zig
 zip
 zoxide

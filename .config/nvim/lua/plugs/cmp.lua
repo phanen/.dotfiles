@@ -1,18 +1,17 @@
 local blink = false
 return {
   {
-    'phanen/nvim-cmp', -- 'hrsh7th/nvim-cmp'
+    'hrsh7th/nvim-cmp',
+    -- 'iguanacucumber/magazine.nvim',
     cond = not blink,
-    branch = 'perf-up', -- 'yioneko/nvim-cmp'
-    dev = true,
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-cmdline',
+      'https://codeberg.org/FelipeLema/cmp-async-path',
     },
     config = function()
       local c = require 'cmp'
@@ -102,8 +101,9 @@ return {
         snippet = { expand = function(args) ls.lsp_expand(args.body) end },
         sources = {
           { name = 'nvim_lsp' },
+          { name = 'nvim_lsp_signature_help' },
           { name = 'luasnip' },
-          { name = 'path' },
+          { name = 'async_path' },
           { name = 'buffer' },
         },
         formatting = {
@@ -119,10 +119,11 @@ return {
               return item
             end,
             menu = {
-              buffer = '[buf]',
-              nvim_lsp = '[lsp]',
-              path = '[path]',
-              luasnip = '[snip]',
+              buffer = '[B]',
+              nvim_lsp = '[L]',
+              async_path = '[P]',
+              nvim_lsp_signature_help = '[H]',
+              luasnip = '[S]',
             },
           },
         },
@@ -139,7 +140,7 @@ return {
       c.setup.cmdline(':', {
         sources = {
           { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },
-          { name = 'path' },
+          { name = 'async_path' },
           { name = 'buffer' },
         },
       })

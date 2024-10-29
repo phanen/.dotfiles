@@ -40,8 +40,8 @@ n['+.'] = function() require('debugprint').deleteprints() end
 n['gw'] = function() u.fmt.conform() end
 n['-'] = '<cmd>TSJToggle<cr>'
 -- swap
-n['g_'] = function() require('substitute.exchange').operator() end
-x['g_'] = function() require('substitute.exchange').visual() end
+n['gx'] = function() require('substitute.exchange').operator() end
+x['gx'] = function() require('substitute.exchange').visual() end
 -- comment
 x['<c-/>'] = [[<cmd>eval 'gc'->feedkeys('m')<cr>]]
 n['<c-/>'] = [[<cmd>eval (v:count == 0 ?'gcl' :v:count.'gcj')->feedkeys('m')<cr>]]
@@ -144,6 +144,7 @@ nx[' gl'] = function() u.gl.permalink_open() end
 nx['<c-l>'] = function() u.pick.files() end
 nx['<c-n>'] = function() u.pick.lgrep() end
 nx[' ;'] = function() u.pick.commands() end
+nx[' /'] = function() u.pick.command_history() end
 nx[' <c-b>'] = function() u.pick.git_bcommits() end
 n[' z'] = function() u.pick.zoxide() end
 n['z='] = function() u.pick.spell_suggest() end

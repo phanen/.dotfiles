@@ -63,7 +63,6 @@ return {
   { import = 'plugs.ed-cmd' },
   { import = 'plugs.edit.autopair' },
   { import = 'plugs.edit.autotag' },
-  { import = 'plugs.edit.comment' },
   { import = 'plugs.edit.dial' },
   { import = 'plugs.edit.hlslen' },
   { import = 'plugs.edit.matchup' },
