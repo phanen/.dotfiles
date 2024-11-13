@@ -1,6 +1,7 @@
-[build]
+# [build]
 # rustc -vV | sed -n 's/host: //p'
-target = "x86_64-unknown-linux-gnu"
+# target = "x86_64-unknown-linux-gnu"
+
 [source.crates-io]
 # registry = "https://github.com/rust-lang/crates.io-index"
 replace-with = 'rsproxy-sparse'
