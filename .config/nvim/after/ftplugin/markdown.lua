@@ -7,4 +7,3 @@ map.n['O'] = u.markup.listup
 map.x['<c-e>'] = u.markup.surround
 map.ox['i<c-e>'] = u.textobj.codeblock_i
 map.ox['a<c-e>'] = u.textobj.codeblock_a
-pcall(vim.treesitter.start)
