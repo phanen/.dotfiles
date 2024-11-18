@@ -1,4 +1,5 @@
 # /usr/share/doc/bspwm/examples/sxhkdrc
+# vim:ft=sxhkdrc
 super + z
   pkill -USR1 -x sxhkd; bspc wm -r; systemctl restart --user kanata; pkill polybar; polybar -r; notify-send 'reload wm config'
 # TODO: remove `bspc` ad-hoc stuffs
