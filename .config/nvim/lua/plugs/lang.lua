@@ -2,8 +2,6 @@ local specs = {
   -- syntax
   { 'HiPhish/info.vim', cmd = 'Info' },
   { 'fladson/vim-kitty', ft = 'kitty' },
-  { 'baskerville/vim-sxhkdrc', event = 'BufReadPre sxhkdrc' },
-
   -- text process
   { 'hotoo/pangu.vim', cmd = 'Pangu', ft = 'markdown' },
   { 'cissoid/vim-fullwidth-punct-convertor', cmd = 'FullwidthPunctConvert' },
