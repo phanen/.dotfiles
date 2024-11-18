@@ -3,8 +3,6 @@ aarch64-linux-gnu-gcc
 aarch64-linux-gnu-gdb
 acpi
 act
-alacritty
-alsa-utils
 apr
 apr-util
 archlinux-keyring
@@ -203,7 +201,6 @@ mpv
 mtpfs
 musl
 namcap
-neovide
 neovim
 net-tools
 nim
@@ -334,7 +331,6 @@ w3m
 wakeonlan
 webkit2gtk
 weston
-wezterm
 wget
 which
 wimlib
