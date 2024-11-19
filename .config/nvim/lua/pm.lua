@@ -58,6 +58,7 @@ return {
   { import = 'plugs.aerial' },
   { import = 'plugs.cmp' },
   { import = 'plugs.conform' },
+  { import = 'plugs.context' },
   { import = 'plugs.copilot' },
   { import = 'plugs.deps' },
   { import = 'plugs.ed-cmd' },
