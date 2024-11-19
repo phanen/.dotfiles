@@ -60,7 +60,7 @@ end
 ---1-index
 ---@return integer, integer
 Buf.visual_line_region = function()
-  local sv, ev = vim.fn.line '.', vim.fn.line 'v'
+  local sv, ev = fn.line '.', fn.line 'v'
   if sv > ev then
     sv, ev = ev, sv
   end
