@@ -67,20 +67,78 @@ Lsp.setup = function()
   -- ensure mason path is prepended to PATH
   local l = require('lspconfig')
   l.lua_ls.setup {
-    -- cmd = { vim.fs.normalize '~/b/lua-language-server/build/bin/lua-language-server' },
-    -- on_attach = function(client, _) client.server_capabilities.semanticTokensProvider = nil end,
     settings = {
       Lua = {
-        hint = { enable = true, setType = true },
-        completion = {
-          callSnippet = 'Replace',
-          -- postfix = '.', -- no string.method now
-          showWord = 'Disable',
-          workspaceWord = false,
+        workspace = {
+          checkThirdParty = false,
+          library = {
+            vim.env.VIMRUNTIME,
+            '${3rd}/busted/library',
+            '${3rd}/luv/library',
+          },
         },
         runtime = { version = 'LuaJIT' },
       },
     },
+    on_attach = function(client, bufnr)
+      --- @param x string
+      --- @return string?
+      local function match_require(x)
+        -- WIP: match u.xx?
+        return x:match('require')
+          and (
+            x:match("require%s*%(%s*'([^.']+).*'%)")
+            or x:match('require%s*%(%s*"([^."]+).*"%)')
+            or x:match("require%s*'([^.']+).*'%)")
+            or x:match('require%s*"([^."]+).*"%)')
+          )
+      end
+
+      if client.workspace_folders then
+        local path = client.workspace_folders[1].name
+        if uv.fs_stat(path .. '/.luarc.json') or uv.fs_stat(path .. '/.luarc.jsonc') then
+          -- Updates to settings are igored if a .luarc.json is present
+          return
+        end
+
+        -- local fd = uv.fs_open(root_dir .. '/.luarc.json', 'r', 438)
+        -- local luarc = vim.json.decode(assert(vim.uv.fs_read(fd, vim.uv.fs_fstat(fd).size)))
+        -- if not (luarc.workspace and luarc.workspace.library) then return end
+      end
+
+      client.settings = u.merge({ Lua = { workspace = { library = {} } } }, client.settings)
+
+      --- @param first? integer
+      --- @param last? integer
+      local function on_lines(first, last)
+        local do_change = false
+
+        local lines = api.nvim_buf_get_lines(bufnr, first or 0, last or -1, false)
+        for _, line in ipairs(lines) do
+          local m = match_require(line)
+          if m then
+            for _, mod in ipairs(vim.loader.find(m, { patterns = { '', '.lua' } })) do
+              local lib = fs.dirname(mod.modpath)
+              local libs = client.settings.Lua.workspace.library
+              if not vim.tbl_contains(libs, lib) then
+                libs[#libs + 1] = lib
+                do_change = true
+              end
+            end
+          end
+        end
+
+        if do_change then
+          client.notify('workspace/didChangeConfiguration', { settings = client.settings })
+        end
+      end
+
+      api.nvim_buf_attach(bufnr, false, {
+        on_lines = function(_, _, _, first, _, last) on_lines(first, last) end,
+        on_reload = function() on_lines() end,
+      })
+      on_lines()
+    end,
   }
 
   l.clangd.setup {

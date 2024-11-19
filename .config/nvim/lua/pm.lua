@@ -80,7 +80,6 @@ return {
   { import = 'plugs.fzf' },
   { import = 'plugs.gitsigns' },
   { import = 'plugs.lang' },
-  { import = 'plugs.lazydev' },
   { import = 'plugs.leetcode' },
   { import = 'plugs.lint' },
   { import = 'plugs.neogen' },
