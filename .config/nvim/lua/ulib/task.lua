@@ -22,7 +22,7 @@ local runners = {
 }
 
 Task.termrun = function()
-  local buf = vim.api.nvim_buf_get_name(0)
+  local buf = api.nvim_buf_get_name(0)
   local ftype = vim.filetype.match({ filename = buf })
   local exec = runners[ftype]
   if exec ~= nil then

@@ -39,7 +39,7 @@ return {
         command = 'shfmt',
         args = function(_, ctx)
           local args = { '-filename', '$FILENAME' }
-          local has_editorconfig = vim.fs.find(
+          local has_editorconfig = fs.find(
             '.editorconfig',
             { path = ctx.dirname, upward = true }
           )[1] ~= nil

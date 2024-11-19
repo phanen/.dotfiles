@@ -12,7 +12,7 @@ end
 local TSInjector = {}
 
 TSInjector.cache = {} ---@type table<number, table<string,{parser: vim.treesitter.LanguageTree, highlighter:vim.treesitter.highlighter, enabled:boolean}>>
-local ns = vim.api.nvim_create_namespace 'egrepify.highlighter'
+local ns = api.nvim_create_namespace 'egrepify.highlighter'
 
 local TSHighlighter = vim.treesitter.highlighter
 
@@ -34,13 +34,13 @@ function TSInjector.setup()
   if TSInjector.did_setup then return end
   TSInjector.did_setup = true
 
-  vim.api.nvim_set_decoration_provider(ns, {
+  api.nvim_set_decoration_provider(ns, {
     on_win = wrap '_on_win',
     on_line = wrap '_on_line',
   })
 
-  vim.api.nvim_create_autocmd('BufWipeout', {
-    group = vim.api.nvim_create_augroup('egrepify.treesitter.hl', { clear = true }),
+  api.nvim_create_autocmd('BufWipeout', {
+    group = api.nvim_create_augroup('egrepify.treesitter.hl', { clear = true }),
     callback = function(ev) TSInjector.cache[ev.buf] = nil end,
   })
 end

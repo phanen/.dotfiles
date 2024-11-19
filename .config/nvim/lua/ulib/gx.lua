@@ -151,7 +151,7 @@ local get_text = function(mode)
   local text = nil
   -- if mode == 'n' or mode == 'nt' then
   if mode:match('n') then
-    -- text = vim.api.nvim_get_current_line()
+    -- text = api.nvim_get_current_line()
     text = fn.expand('<cWORD>')
   elseif mode:match('[vV\022]') then
     text = table
