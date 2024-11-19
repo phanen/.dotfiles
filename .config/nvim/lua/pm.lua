@@ -61,7 +61,6 @@ return {
   { import = 'plugs.context' },
   { import = 'plugs.copilot' },
   { import = 'plugs.deps' },
-  { import = 'plugs.ed-cmd' },
   { import = 'plugs.edit.autopair' },
   { import = 'plugs.edit.autotag' },
   { import = 'plugs.edit.dial' },
