@@ -69,6 +69,12 @@ Lsp.setup = function()
   l.lua_ls.setup {
     settings = {
       Lua = {
+        completion = {
+          callSnippet = 'Replace',
+          -- postfix = '.', -- no string.method now
+          showWord = 'Disable',
+          workspaceWord = false,
+        },
         workspace = {
           checkThirdParty = false,
           library = {
