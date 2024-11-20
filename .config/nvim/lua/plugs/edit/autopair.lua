@@ -1,8 +1,5 @@
 return {
-  -- FIXME(upstream): slow on large file (treesitter?)
-  -- crash ... ml_get, -- this also happend on comment, probably treesitter stuff...
   'altermo/ultimate-autopair.nvim',
-  cond = true,
   event = { 'InsertEnter', 'CmdlineEnter' },
   opts = {
     fastwarp = { map = '<c-s>', cmap = '<c-s>', faster = true },
@@ -12,7 +9,7 @@ return {
   config = function(_, opts)
     -- https://github.com/altermo/ultimate-autopair.nvim/issues/82
     local ua = require 'ultimate-autopair'
-    ua.init({
+    ua.init {
       ua.extend_default(opts),
       {
         profile = 'map',
@@ -34,6 +31,6 @@ return {
           end,
         },
       },
-    })
+    }
   end,
 }

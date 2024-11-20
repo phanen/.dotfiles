@@ -88,7 +88,7 @@ aug.bigfile = { 'BufReadPre', function(_) u.misc.bigfile_preset(_) end }
 aug.lastpos = { 'BufReadPost', [[sil! norm! g`"zv']] }
 aug.reflow = { 'VimResized', [[if &co<100 | winc\| | else | winc= |endif]] }
 aug.bdelete = { 'BufDelete', function(_) u.misc.record_bdelete(_) end }
-aug.yankhl = { 'TextYankPost', function() vim.highlight.on_yank { timeout = 100 } end }
+aug.yankhl = { 'TextYankPost', function() vim.hl.on_yank { timeout = 100 } end }
 aug.autowrite = -- auto reload buffer on external write
   { { 'FocusGained', 'BufEnter', 'CursorHold' }, [[if getcmdwintype() == ''| checkt | endif]] }
 aug.autosave = { { 'BufLeave', 'WinLeave', 'FocusLost' }, [[if &bt == '' | update! | endif]] }
