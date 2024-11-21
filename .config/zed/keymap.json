@@ -7,13 +7,16 @@
 // from the command palette.
 [
   {
-    "context": "Workspace",
+    // "context": "Workspace",
+    "context": "menu || Editor && (vim_mode != insert)",
     "bindings": {
       // "shift shift": "file_finder::Toggle"
+      "space k": "workspace::ToggleLeftDock"
     }
   },
   {
     // https://www.youtube.com/watch?v=IHPgokWisYE&t=903s
+    // https://github.com/jlvihv/zed
     // "context": "Editor",
     "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
     "bindings": {
@@ -26,6 +29,11 @@
     "context": "Editor && (vim_mode == insert)",
     "bindings": {
       // "ctrl-j":
+      "ctrl-e": "vim::EndOfLine",
+      "ctrl-a": "vim::StartOfLine",
+      "ctrl-o": "vim::PreviousWordStart",
+      "ctrl-j": "vim::NextWordEnd"
+      // "ctrl-k": "vim::DeleteToEndOfLine"
     }
   }
 ]
