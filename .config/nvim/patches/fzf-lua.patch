@@ -1,5 +1,5 @@
 diff --git a/lua/fzf-lua/core.lua b/lua/fzf-lua/core.lua
-index dff0d11..580f585 100644
+index 3b8debc..f0fcac7 100644
 --- a/lua/fzf-lua/core.lua
 +++ b/lua/fzf-lua/core.lua
 @@ -1099,10 +1099,6 @@ M.convert_reload_actions = function(reload_cmd, opts)
@@ -14,10 +14,28 @@ index dff0d11..580f585 100644
      -- for fallback, conversion to "old-style" actions is sufficient
      return opts
 diff --git a/lua/fzf-lua/providers/lsp.lua b/lua/fzf-lua/providers/lsp.lua
-index d615c5e..e6bc948 100644
+index 93c076f..1a0ec94 100644
 --- a/lua/fzf-lua/providers/lsp.lua
 +++ b/lua/fzf-lua/providers/lsp.lua
-@@ -880,7 +880,7 @@ end
+@@ -472,7 +472,7 @@ local function gen_lsp_contents(opts)
+   -- build positional params for the LSP query
+   -- from the context buffer and cursor position
+   if not lsp_params then
+-    lsp_params = vim.lsp.util.make_position_params(core.CTX().winid)
++    lsp_params = vim.lsp.util.make_position_params(core.CTX().winid, vim.lsp.get_clients({ bufnr = core.CTX().bufnr })[1].offset_encoding)
+     lsp_params.context = {
+       includeDeclaration = opts.includeDeclaration == nil and true or opts.includeDeclaration
+     }
+@@ -601,7 +601,7 @@ end
+ 
+ -- see $VIMRUNTIME/lua/vim/buf.lua:pick_call_hierarchy_item()
+ local function gen_lsp_contents_call_hierarchy(opts)
+-  local lsp_params = opts.lsp_params or vim.lsp.util.make_position_params(core.CTX().winid)
++  local lsp_params = opts.lsp_params or vim.lsp.util.make_position_params(core.CTX().winid, vim.lsp.get_clients({ bufnr = core.CTX().bufnr })[1].offset_encoding)
+   local method = "textDocument/prepareCallHierarchy"
+   local res, err = vim.lsp.buf_request_sync(0, method, lsp_params, 2000)
+   if err then
+@@ -886,7 +886,7 @@ end
  -- TODO: not needed anymore, it seems that `vim.lsp.buf.code_action` still
  -- uses the old `vim.lsp.diagnostic` API, we will do the same until neovim
  -- stops using this API
@@ -26,7 +44,7 @@ index d615c5e..e6bc948 100644
    if not vim.diagnostic then
      return vim.lsp.diagnostic.get_line_diagnostics()
    end
-@@ -907,7 +907,7 @@ end
+@@ -913,7 +913,7 @@ end
        } }
        -- Must return an empty table or some LSP servers fail (#707)
        or {}
@@ -35,7 +53,13 @@ index d615c5e..e6bc948 100644
  
  M.code_actions = function(opts)
    opts = normalize_lsp_opts(opts, "lsp.code_actions")
-@@ -935,7 +935,7 @@ M.code_actions = function(opts)
+@@ -936,12 +936,12 @@ M.code_actions = function(opts)
+     -- irrelevant for code actions and can cause
+     -- single results to be skipped with 'async = false'
+     opts.jump_to_single_result = false
+-    opts.lsp_params = vim.lsp.util.make_range_params(0)
++    opts.lsp_params = vim.lsp.util.make_range_params(0, vim.lsp.get_clients({ bufnr = core.CTX().bufnr })[1].offset_encoding)
+     opts.lsp_params.context = opts.context or {
        -- Neovim still uses `vim.lsp.diagnostic` API in "nvim/runtime/lua/vim/lsp/buf.lua"
        -- continue to use it until proven otherwise, this also fixes #707 as diagnostics
        -- must not be nil or some LSP servers will fail (e.g. ruff_lsp, rust_analyzer)
