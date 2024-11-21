@@ -30,9 +30,6 @@ return {
   { 'onsails/lspkind.nvim', opts = {} },
   { 'tpope/vim-eunuch', cmd = { 'Rename', 'Delete' } },
   { 'tpope/vim-sleuth', lazy = false },
-  -- { 'folke/ts-comments.nvim', event = 'VeryLazy', opts = {} },
-
   { 'andrewferrier/debugprint.nvim', keys = 'g?', opts = {} },
   { 'phanen/readline.nvim', branch = 'fix-dir-structure' },
-  { 'gbprod/substitute.nvim', opts = {} },
 }
