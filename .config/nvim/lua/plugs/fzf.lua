@@ -70,6 +70,7 @@ function TSInjector._attach_lang(buf, lang, regions)
   if not TSInjector.cache[buf][lang] then
     local ok, parser = pcall(vim.treesitter.languagetree.new, buf, lang)
     if not ok then return end
+    ---@diagnostic disable-next-line: invisible
     parser:set_included_regions(regions)
     TSInjector.cache[buf][lang] = {
       parser = parser,
@@ -79,6 +80,7 @@ function TSInjector._attach_lang(buf, lang, regions)
   TSInjector.cache[buf][lang].enabled = true
   local parser = TSInjector.cache[buf][lang].parser
 
+  ---@diagnostic disable-next-line: invisible
   parser:set_included_regions(regions)
 end
 

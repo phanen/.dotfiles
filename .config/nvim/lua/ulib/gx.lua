@@ -4,7 +4,7 @@ local Gx = {}
 ---@class GxHandler
 ---@field filetype string|string[]?
 ---@field filename string?
----@field disable boolean
+---@field disable boolean?
 ---@field handle string|fun(mode: string, text: string): string?
 
 ---@class GxOptions
