@@ -1,6 +1,6 @@
 [Default Applications]
 text/=nvim.desktop
-application/pdf=google-chrome.desktop
+application/pdf=userapp-Nightly-XSOER2.desktop
 application/html=chrome.desktop
 x-scheme-handler/https=userapp-Nightly-XSOER2.desktop
 x-scheme-handler/http=userapp-Nightly-XSOER2.desktop
