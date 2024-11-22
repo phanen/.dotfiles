@@ -31,5 +31,4 @@ return {
   { 'tpope/vim-eunuch', cmd = { 'Rename', 'Delete' } },
   { 'tpope/vim-sleuth', lazy = false },
   { 'andrewferrier/debugprint.nvim', keys = 'g?', opts = {} },
-  { 'phanen/readline.nvim', branch = 'fix-dir-structure' },
 }
