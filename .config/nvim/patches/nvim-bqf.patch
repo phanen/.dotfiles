@@ -1,5 +1,5 @@
 diff --git a/lua/bqf/preview/treesitter.lua b/lua/bqf/preview/treesitter.lua
-index b38c642..983f15d 100644
+index b38c642..214935e 100644
 --- a/lua/bqf/preview/treesitter.lua
 +++ b/lua/bqf/preview/treesitter.lua
 @@ -2,8 +2,10 @@
@@ -34,14 +34,7 @@ index b38c642..983f15d 100644
      end
  end
  
-@@ -38,13 +40,14 @@ end
- ---@param loaded boolean
- ---@return boolean
- function M.tryAttach(srcBufnr, dstBufnr, loaded)
-+    print(srcBufnr, dstBufnr, loaded)
-     local ret = false
-     if not initialized then
-         return ret
+@@ -44,7 +46,7 @@ function M.tryAttach(srcBufnr, dstBufnr, loaded)
      end
      local parser
      if loaded then
@@ -50,7 +43,7 @@ index b38c642..983f15d 100644
      else
          parser = parsersCache:get(srcBufnr)
          if parser and not api.nvim_buf_is_valid(parser:source()) then
-@@ -52,7 +55,7 @@ function M.tryAttach(srcBufnr, dstBufnr, loaded)
+@@ -52,7 +54,7 @@ function M.tryAttach(srcBufnr, dstBufnr, loaded)
              parsersCache:set(srcBufnr, nil)
          end
      end
@@ -59,7 +52,7 @@ index b38c642..983f15d 100644
          injectParserForHighlight(parser, srcBufnr, dstBufnr, loaded)
          ret = true
      end
-@@ -69,8 +72,8 @@ function M.attach(srcBufnr, dstBufnr, fileType)
+@@ -69,8 +71,8 @@ function M.attach(srcBufnr, dstBufnr, fileType)
      if not initialized then
          return ret
      end
@@ -70,7 +63,7 @@ index b38c642..983f15d 100644
          return ret
      end
  
-@@ -80,9 +83,9 @@ function M.attach(srcBufnr, dstBufnr, fileType)
+@@ -80,9 +82,9 @@ function M.attach(srcBufnr, dstBufnr, fileType)
      if loaded then
          -- delete old cache if buffer has loaded
          parsersCache:set(srcBufnr, nil)
@@ -82,7 +75,7 @@ index b38c642..983f15d 100644
          -- no need to deepcopy the parser for the cache, upstream only dereference parser and
          -- invalidate it to make self._tree up to date, so we can cache the parser and reuse it
          -- to speed up rendering buffer.
-@@ -112,12 +115,17 @@ function M.shrinkCache()
+@@ -112,12 +114,17 @@ function M.shrinkCache()
  end
  
  local function init()

@@ -111,15 +111,8 @@ local linewise = function(s, e)
   if not s or not e then return end
   vim.cmd.normal { 'm`', bang = true }
   fn.cursor(s, 0)
-
-  if not fn.mode():find('V') then
-    vim.cmd.normal { 'V', bang = true }
-    -- api.nvim_feedkeys('V', 'n', false)
-    -- api.nvim_input('V')
-  end
-  -- api.nvim_feedkeys('o', 'n', false)
+  if not fn.mode():find('V') then vim.cmd.normal { 'V', bang = true } end
   vim.cmd.normal { 'o', bang = true }
-  -- api.nvim_input('o')
   fn.cursor(e, 0)
 end
 
