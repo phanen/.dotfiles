@@ -81,8 +81,6 @@ input_mode_enter_callback(buf)
 local i = map.i
 local c = map.c
 
-local rl = u.lreq('readline')
-
 Im.setup = function()
   u.aug.im = {
     'ModeChanged',
@@ -102,13 +100,13 @@ Im.setup = function()
 
   i['<c-f>'] = '<right>'
   i['<c-b>'] = '<left>'
-  i['<c-a>'] = rl.dwim_beginning_of_line
+  i['<c-a>'] = u.rl.dwim_beginning_of_line
   i['<c-e>'] = '<end>'
-  i['<c-j>'] = rl.forward_word
-  i['<c-o>'] = rl.backward_word
-  i['<c-l>'] = rl.kill_word
-  i['<c-k>'] = rl.kill_line
-  i['<c-u>'] = rl.dwim_backward_kill_line
+  i['<c-j>'] = u.rl.forward_word
+  i['<c-o>'] = u.rl.backward_word
+  i['<c-l>'] = u.rl.kill_word
+  i['<c-k>'] = u.rl.kill_line
+  i['<c-u>'] = u.rl.dwim_backward_kill_line
   i['<c-bs>'] = '<c-w>'
 
   for _, char in ipairs { ' ', '-', '_', ':', '.', '/' } do
@@ -126,13 +124,13 @@ Im.setup = function()
   c['<c-n>'] = '<down>'
   c['<c-f>'] = '<right>'
   c['<c-b>'] = '<left>'
-  c['<c-a>'] = rl.dwim_beginning_of_line
+  c['<c-a>'] = u.rl.dwim_beginning_of_line
   c['<c-e>'] = '<end>'
-  c['<c-j>'] = rl.forward_word
-  c['<c-o>'] = rl.backward_word
-  c['<c-l>'] = rl.kill_word
-  c['<c-k>'] = rl.kill_line
-  c['<c-u>'] = rl.dwim_backward_kill_line
+  c['<c-j>'] = u.rl.forward_word
+  c['<c-o>'] = u.rl.backward_word
+  c['<c-l>'] = u.rl.kill_word
+  c['<c-k>'] = u.rl.kill_line
+  c['<c-u>'] = u.rl.dwim_backward_kill_line
   c['<c-bs>'] = '<c-w>'
 end
 
