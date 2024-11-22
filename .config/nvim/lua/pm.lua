@@ -79,7 +79,6 @@ return {
   { import = 'plugs.fzf' },
   { import = 'plugs.gitsigns' },
   { import = 'plugs.lang' },
-  { import = 'plugs.leetcode' },
   { import = 'plugs.lint' },
   { import = 'plugs.neogen' },
   { import = 'plugs.nvim-bqf' },
