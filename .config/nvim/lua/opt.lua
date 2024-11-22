@@ -91,7 +91,10 @@ aug.bdelete = { 'BufDelete', function(_) u.misc.record_bdelete(_) end }
 aug.yankhl = { 'TextYankPost', function() vim.hl.on_yank { timeout = 100 } end }
 aug.autowrite = -- auto reload buffer on external write
   { { 'FocusGained', 'BufEnter', 'CursorHold' }, [[if getcmdwintype() == ''| checkt | endif]] }
-aug.autosave = { { 'BufLeave', 'WinLeave', 'FocusLost' }, [[if &bt == '' | update! | endif]] }
+aug.autosave = {
+  { 'BufLeave', 'WinLeave', 'FocusLost', 'InsertLeave', 'TextChanged' },
+  [[if &bt == '' && bufname() != '' | update! | endif]],
+}
 
 aug.lz_load = {
   'ModeChanged',
