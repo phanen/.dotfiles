@@ -25,7 +25,6 @@ return {
 
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
   { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
-  { 'gbprod/substitute.nvim', opts = {} },
   { 'onsails/lspkind.nvim', opts = {} },
   { 'tpope/vim-eunuch', cmd = { 'Rename', 'Delete' } },
   { 'tpope/vim-sleuth', lazy = false },
