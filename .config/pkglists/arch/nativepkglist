@@ -26,7 +26,6 @@ binutils
 bison
 bluez
 bluez-utils
-bob
 bottom
 bpftop
 bpftrace
@@ -35,6 +34,7 @@ bspwm
 btrfs-progs
 ca-certificates
 cabextract
+cataclysm-dda-ncurses
 ccache
 cgdb
 chafa
@@ -80,6 +80,7 @@ fcitx5-configtool
 fcitx5-gtk
 fcitx5-mozc
 fcitx5-nord
+fcitx5-pinyin-moegirl
 fcitx5-pinyin-zhwiki
 fcitx5-qt
 fd
@@ -325,7 +326,6 @@ vagrant
 vaultwarden
 vdpauinfo
 verilator
-vimrc-git
 viu
 w3m
 wakeonlan
@@ -390,7 +390,6 @@ xsel
 yarn
 yazi
 yq
-zeal
 zed
 zig
 zip
