@@ -42,6 +42,7 @@ u.repmv = require('ulib.repmv') ---@source ulib/repmv.lua
 u.rl = require('ulib.rl') ---@source ulib/rl.lua
 u.script = require('ulib.script') ---@source ulib/script.lua
 u.string = require('ulib.string') ---@source ulib/string.lua
+u.swap = require('ulib.swap') ---@source ulib/swap.lua
 u.task = require('ulib.task') ---@source ulib/task.lua
 u.term = require('ulib.term') ---@source ulib/term.lua
 u.textobj = require('ulib.textobj') ---@source ulib/textobj.lua
