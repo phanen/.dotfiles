@@ -92,6 +92,7 @@ Script.update_meta = function(path)
   local buf = fn.bufadd(path)
   fn.bufload(buf)
   u.fmt.conform { buf = buf }
+  api.nvim_buf_call(buf, function() vim.cmd.write { bang = true } end)
   g.updating_meta = false
 end
 
@@ -130,6 +131,7 @@ Script.update_spec = function(path)
   index = index or api.nvim_buf_line_count(buf)
   api.nvim_buf_set_lines(buf, index - 1, -1, true, lines)
   u.fmt.conform { buf = buf }
+  api.nvim_buf_call(buf, function() vim.cmd.write { bang = true } end)
   g.updating_specs = false
 end
 
