@@ -40,8 +40,7 @@ n['+.'] = function() require('debugprint').deleteprints() end
 n['gw'] = function() u.fmt.conform() end
 n['-'] = '<cmd>TSJToggle<cr>'
 -- swap
-n['gx'] = function() require('substitute.exchange').operator() end
-x['gx'] = function() require('substitute.exchange').visual() end
+nx['gs'] = function() u.swap.operator() end
 -- comment
 x['<c-/>'] = [[<cmd>eval 'gc'->feedkeys('m')<cr>]]
 n['<c-/>'] = [[<cmd>eval (v:count == 0 ?'gcl' :v:count.'gcj')->feedkeys('m')<cr>]]
@@ -98,7 +97,7 @@ ox['in'] = function() require('various-textobjs').anyBracket('inner') end
 ox['an'] = function() require('various-textobjs').anyBracket('outer') end
 ox['iq'] = function() require('various-textobjs').anyQuote('inner') end
 ox['aq'] = function() require('various-textobjs').anyQuote('outer') end
-ox['il'] = function() require('various-textobjs').lineCharacterwise('inner') end
+ox['_'] = function() require('various-textobjs').lineCharacterwise('inner') end
 ox['iu'] = function() require('various-textobjs').url() end
 ox['id'] = function() require('various-textobjs').diagnostic('wrap') end
 ox['ig'] = function() u.textobj.buffer() end
@@ -112,7 +111,7 @@ ox['aI'] = function() u.textobj.indent_A() end
 ox['ih'] = ':<c-u>Gitsigns select_hunk<cr>' -- find hunk
 
 -- inspect
-nx['_'] = 'K'
+n['_'] = 'K'
 nx['K'] = function() lsp.buf.signature_help() end
 nx[' i'] = '<cmd>Gitsigns preview_hunk<cr>'
 n[' t'] = ':e /tmp/tmp/'
