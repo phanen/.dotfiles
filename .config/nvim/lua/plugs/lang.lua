@@ -3,7 +3,7 @@ local specs = {
   { 'HiPhish/info.vim', cmd = 'Info' },
   { 'fladson/vim-kitty', ft = 'kitty' },
   -- text process
-  { 'hotoo/pangu.vim', cmd = 'Pangu', ft = 'markdown' },
+  { 'hotoo/pangu.vim', cmd = { 'Pangu', 'PanguEnable' } },
   { 'cissoid/vim-fullwidth-punct-convertor', cmd = 'FullwidthPunctConvert' },
   { 'HakonHarnes/img-clip.nvim', cmd = 'PasteImage', opts = {} },
 
