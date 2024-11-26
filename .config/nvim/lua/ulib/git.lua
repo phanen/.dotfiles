@@ -30,7 +30,7 @@ local git = setmetatable(Git, {
   ---when there's no cwd, determine cwd on specified buffer or use heuristics
   __call = function(_, args)
     args = args or {}
-    vim.validate { args = { args, 't', true } }
+    vim.validate('args', args, 'table', true)
     -- all integer-indexed string as cmd
     -- this may avoid potential side effect
     local cmd = tolist(args) or args.cmd or {}
