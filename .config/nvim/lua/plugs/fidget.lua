@@ -7,4 +7,3 @@ return {
     integration = { ['nvim-tree'] = { enable = false } },
   },
 }
-

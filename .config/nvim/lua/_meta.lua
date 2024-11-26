@@ -41,6 +41,7 @@ u.refactor = require('ulib.refactor') ---@source ulib/refactor.lua
 u.repmv = require('ulib.repmv') ---@source ulib/repmv.lua
 u.rl = require('ulib.rl') ---@source ulib/rl.lua
 u.script = require('ulib.script') ---@source ulib/script.lua
+u.spinner = require('ulib.spinner') ---@source ulib/spinner.lua
 u.string = require('ulib.string') ---@source ulib/string.lua
 u.swap = require('ulib.swap') ---@source ulib/swap.lua
 u.task = require('ulib.task') ---@source ulib/task.lua
