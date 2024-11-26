@@ -35,8 +35,9 @@ o.cursorlineopt = 'number'
 o.cursorline = true
 o.showtabline = 2 -- always show tab title
 o.laststatus = 3 -- one statusline for all windows
+
 o.statusline =
-  "%F [%{get(b:,'gitsigns_head','')}] %l:%c/%L%= [%{&fileencoding?&fileencoding:&encoding}] "
+  "%F [%{get(b:,'gitsigns_head','')}] %l:%c/%L %{%v:lua.u.spinner.lsp_progress()%} %= [%{&fileencoding?&fileencoding:&encoding}] "
 
 -- indentline '|'
 o.expandtab = true -- use space (`:retab!` to swap space and tabs)
