@@ -8,23 +8,15 @@ abbr i ipython
 abbr j -f _make_or_just
 abbr k pkill
 abbr l eza -lh
-abbr n nvim -l
 abbr o bat
 abbr p python
 abbr s systemctl
 abbr t type -a
 abbr y paru
 
-abbr cd z
-abbr f z
-abbr fr funcrm
-abbr fed funced
+abbr f cd
 abbr type type -a
-abbr tree "command tree"
-
 abbr tree "command eza --tree"
-
-abbr dm '$EDITOR (fd .  ~/dot -d 1 | fzf)'
 
 abbr df df -h
 abbr du dust
@@ -43,19 +35,13 @@ abbr ll eza -1
 abbr ls eza
 abbr lt eza --tree
 abbr mx chmod +x
-abbr nh nvim --headless
 abbr rx 'chmod -x'
 abbr sc sysctl
 abbr sh bash
 abbr ta tmux a || tmux
 abbr tl tldr
-abbr vi vim
 abbr vj NVIM_APPNAME=nvim-test nvim
-abbr vk VIMRUNTIME=~/b/neovim/runtime ~/b/neovim/build/bin/nvim
-abbr vm nvim --cmd \'lua vim.go.loadplugins = false\'
-abbr vn nvim -u NONE
 abbr wh which -a
-abbr ze zoxide edit
 
 abbr pa xsel -ob \| patch -Np1 -i -
 abbr rb extra-riscv64-build -- -d ~/pkg-riscv64/:/var/cache/pacman/pkg
