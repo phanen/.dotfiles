@@ -263,7 +263,6 @@ python-vermin
 qemu-full
 qemu-system-x86
 quickemu
-rbw
 rclone
 reflector
 repgrep
@@ -273,7 +272,6 @@ ripgrep
 ripgrep-all
 rlwrap
 rofi
-rofi-rbw
 rsync
 rtorrent
 ruby
