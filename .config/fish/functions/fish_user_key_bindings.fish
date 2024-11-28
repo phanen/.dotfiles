@@ -9,7 +9,7 @@ bind ctrl-g k_cg
 bind ctrl-h '_empty_then "echo;tokei;commandline -f repaint" "_autopair_backspace"'
 bind ctrl-j nextd-or-forward-word
 # TODO: if at the beginning of word, also kill space...
-bind ctrl-l '_empty_trim_then "cl;commandline -f repaint" "commandline -f kill-bigword"'
+bind ctrl-l '_empty_trim_then "_clean;commandline -f repaint" "commandline -f kill-bigword"'
 bind ctrl-o prevd-or-backward-word
 bind ctrl-q '_empty_trim_then "lazygit;commandline -f repaint" fish_clipboard_copy'
 bind ctrl-r atuin_search

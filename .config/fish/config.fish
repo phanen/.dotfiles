@@ -31,20 +31,6 @@ end
 # ON-VARIBALE
 
 status is-interactive; and begin
-    string match -rq '(?<FISH_SEMVER>\d+\.\d+\.\d+)-?(?<FISH_GITVER>.*)' $FISH_VERSION
-
-    # semver $FISH_VERSION -r ">=3.7.1" -p
-    if ver_test $FISH_SEMVER -ge 3.8.0
-        or begin
-            # FISH_GITVER is always set here, check if it's empty
-            ver_test $FISH_SEMVER -eq 3.7.1; and test -n $FISH_GITVER
-        end
-        set FISH_LATEST
-    end >/dev/null
-
-    # abbr f cd
-    # alias cd z
-
     # limit: fisher cannot used in `non-interactive` shell
     # we now not vendor fisher
     #not functions -q fisher; and _fisher_bootstrap
