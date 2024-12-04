@@ -86,14 +86,17 @@ com.YF = [[let @+= '%:p'->expand()]]
 
 aug.bigfile = { 'BufReadPre', function(_) u.misc.bigfile_preset(_) end }
 aug.lastpos = { 'BufReadPost', [[sil! norm! g`"zv']] }
-aug.reflow = { 'VimResized', [[if winnr()>1 | if &co<100 | winc\| | else | winc= | endif | endif]] }
 aug.bdelete = { 'BufDelete', function(_) u.misc.record_bdelete(_) end }
 aug.yankhl = { 'TextYankPost', function() vim.hl.on_yank { timeout = 100 } end }
+aug.reflow = {
+  'VimResized',
+  [[if winnr()>1 | if &co<100 | exe("norm! \<c-w>\|") | el | exe("norm! \<c-w>=") | endi | endi]],
+}
 aug.autowrite = -- auto reload buffer on external write
-  { { 'FocusGained', 'BufEnter', 'CursorHold' }, [[if getcmdwintype()=='' | checkt | endif]] }
+  { { 'FocusGained', 'BufEnter', 'CursorHold' }, [[if getcmdwintype()=='' | checkt | endi]] }
 aug.autosave = {
   { 'BufLeave', 'WinLeave', 'FocusLost', 'InsertLeave', 'TextChanged' },
-  [[if &bt=='' && bufname()!='' | update! | endif]],
+  [[if &bt=='' && bufname()!='' | update! | endi]],
 }
 
 aug.lz_load = {
