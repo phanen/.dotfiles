@@ -184,6 +184,8 @@ Lsp.setup = function()
   l.volar.setup {
     on_attach = function(client, _) client.server_capabilities.documentFormattingProvider = false end,
   }
+
+  l.vimls.setup {}
 end
 
 return Lsp
