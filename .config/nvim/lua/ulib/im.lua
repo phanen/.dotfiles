@@ -126,6 +126,7 @@ Im.setup = function()
   c['<c-b>'] = '<left>'
   c['<c-a>'] = u.rl.dwim_beginning_of_line
   c['<c-e>'] = '<end>'
+  c['<c-d>'] = '<del>'
   c['<c-j>'] = u.rl.forward_word
   c['<c-o>'] = u.rl.backward_word
   c['<c-l>'] = u.rl.kill_word
