@@ -62,7 +62,6 @@ export FZF_DEFAULT_OPTS="
   --scroll-off=10
   --multi
   -e # exact match
-  -i # smartcase
   --bind='alt-;:toggle-preview'
   --bind='ctrl-d:preview-page-down'
   --bind='ctrl-u:preview-page-up'
