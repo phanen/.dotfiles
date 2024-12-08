@@ -6,7 +6,7 @@ local specs = {
   { 'hotoo/pangu.vim', cmd = { 'Pangu', 'PanguEnable' } },
   { 'cissoid/vim-fullwidth-punct-convertor', cmd = 'FullwidthPunctConvert' },
   { 'HakonHarnes/img-clip.nvim', cmd = 'PasteImage', opts = {} },
-
+  { 'chaimleib/vim-renpy', ft = 'renpy' },
   -- tex
   {
     'lervag/vimtex',
