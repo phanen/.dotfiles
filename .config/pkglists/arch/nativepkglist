@@ -308,8 +308,8 @@ tokei
 traceroute
 translate-shell
 tree
-tree-sitter
 tree-sitter-cli
+tree-sitter-git
 treedec
 ttf-cascadia-code
 ttf-nerd-fonts-symbols
