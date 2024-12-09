@@ -3,7 +3,7 @@ local Lsp = {}
 ---@return lsp.ClientCapabilities
 Lsp.make_capabilities = function()
   local ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-  local lsp_cap = vim.lsp.protocol.make_client_capabilities()
+  local lsp_cap = lsp.protocol.make_client_capabilities()
   local cmp_cap = ok and cmp_nvim_lsp.default_capabilities()
   return u.merge(lsp_cap or {}, cmp_cap or {})
 end
@@ -62,6 +62,31 @@ end
 Lsp.setup = function()
   -- ensure mason path is prepended to PATH
   local l = require('lspconfig')
+
+  -- lsp folding
+  if lsp._folding_range then
+    vim.opt.fillchars = {
+      eob = ' ',
+      diff = '╱',
+      foldopen = '',
+      foldclose = '',
+      foldsep = '▕',
+    }
+    vim.o.foldmethod = 'expr'
+    vim.o.foldexpr = 'v:lua.vim.lsp.foldexpr()'
+    vim.o.foldtext = 'v:lua.vim.lsp.foldtext()'
+    vim.o.foldcolumn = '1'
+    vim.o.foldlevel = 99
+
+    api.nvim_create_autocmd('LspNotify', {
+      callback = function(args)
+        if args.data.method == 'textDocument/didOpen' then
+          lsp.foldclose('imports', vim.fn.bufwinid(args.buf))
+        end
+      end,
+    })
+  end
+
   l.lua_ls.setup {
     settings = {
       Lua = {
