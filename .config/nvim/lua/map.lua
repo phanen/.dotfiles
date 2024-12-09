@@ -30,6 +30,8 @@ n['gy'] = '`[v`]'
 x['gb'] = function() u.refactor.to_file(nil, true) end
 x['+y'] = function() u.misc.archive() end
 n[' .'] = '<cmd>Neogen<cr>'
+n['<cr>'] = 'gF'
+n['<tab>'], n['<c-i>'] = 'za', '<c-i>' -- https://github.com/neovim/neovim/pull/17932
 
 -- debugprint
 n.expr['g.'] = function() return require('debugprint').debugprint() end
