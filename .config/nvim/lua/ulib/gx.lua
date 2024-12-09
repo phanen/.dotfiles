@@ -75,21 +75,19 @@ options.handlers.github = {
 options.handlers.go = {
   filetype = { 'go' },
   handle = function()
-    local node = vim.treesitter.get_node()
-    if not node then return end
-    if node:type() ~= 'import_spec' then
-      if node:type() == 'import_declaration' then
-        node = node:named_child(0)
-      else
+    -- interpreted_string_literal_content https://github.com/tree-sitter/tree-sitter-go/commit/47e8b1fae7541f6e01cead97201be19321ec362a
+    local ancestor_import_spec = function()
+      local node = vim.treesitter.get_node()
+      while node and node:type() ~= 'import_spec' do
         node = node:parent()
       end
-      if not node then return end
-      if node:type() ~= 'import_spec' then return end
+      return node
     end
-
+    local node = ancestor_import_spec()
+    if not node then return end
     local path_node = node:field('path')[1]
     local start_line, start_col, end_line, end_col = path_node:range()
-
+    assert(start_line) -- why...
     local text = api.nvim_buf_get_lines(0, start_line, end_line + 1, false)[1]
     local pkg = text:sub(start_col + 2, end_col - 1) -- remove quotes
     return 'https://pkg.go.dev/' .. pkg
