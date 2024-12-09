@@ -31,6 +31,7 @@ return {
               ['gif'] = { 'ueberzug' },
             },
             ueberzug_scaler = 'cover',
+            treesitter = { context = true },
           },
           man = { -- use man-db
             cmd = 'man %s | col -bx',
@@ -41,7 +42,7 @@ return {
           width = 0.9,
           border = g.border,
           backdrop = 100,
-          -- treesitter = true,
+          treesitter = true,
           preview = { delay = 50, border = 'noborder' },
         },
         -- easy to see count (but not spinner)
