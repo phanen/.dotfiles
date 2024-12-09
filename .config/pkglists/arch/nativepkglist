@@ -48,6 +48,7 @@ code
 cpio
 cppman
 cpu-x
+cython
 dae-bin-x64-v3
 darkman
 dash
@@ -257,6 +258,7 @@ python-pip
 python-pipx
 python-poetry
 python-psutil
+python-pygame-sdl2-git
 python-pynvim
 python-pyxdg
 python-vermin
@@ -338,6 +340,7 @@ wireshark-qt
 wpa_supplicant
 xclip
 xdg-desktop-portal
+xdialog
 xdo
 xdotool
 xf86-video-vesa
@@ -385,6 +388,7 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xsel
+xterm
 yarn
 yazi
 yq
