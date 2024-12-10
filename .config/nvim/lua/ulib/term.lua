@@ -94,7 +94,7 @@ setmetatable(Term, {
       buf = api.nvim_create_buf(false, true),
       term = nil,
       config = u.merge(defaults, cfg or {}),
-    }, { __index = self })
+    }, { __index = self, __gc = self.cleanup })
   end,
 })
 
@@ -114,6 +114,13 @@ function Term:create_win()
   )
   vim.wo[win].winhl = ('Normal:%s'):format('Normal')
   self.win = win
+  api.nvim_create_autocmd('VimResized', {
+    callback = function()
+      if not u.is.win_valid(self.win) then return true end
+      api.nvim_win_set_config(self.win, get_layout(self.config.win_config))
+    end,
+  })
+
   return self
 end
 
