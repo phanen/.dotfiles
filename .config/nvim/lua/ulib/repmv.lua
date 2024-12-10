@@ -74,6 +74,9 @@ end
 local next_spel = function() return (pcall(vim.cmd.normal, { vim.v.count1 .. ']s', bang = true })) end
 local prev_spel = function() return (pcall(vim.cmd.normal, { vim.v.count1 .. '[s', bang = true })) end
 
+local next_fold = function() return (pcall(vim.cmd.normal, { vim.v.count1 .. 'zj', bang = true })) end
+local prev_fold = function() return (pcall(vim.cmd.normal, { vim.v.count1 .. 'zk', bang = true })) end
+
 local make_func = function(cmd_next, cmd_prev, cmd_head, cmd_tail)
   local n = function()
     if pcall(vim.cmd[cmd_next], { count = vim.v.count1 }) then return end
@@ -93,6 +96,7 @@ Repmv.next_q, Repmv.prev_q = Repmv.pair_wrap(make_func('cnext', 'cprev', 'cfirst
 Repmv.next_l, Repmv.prev_l = Repmv.pair_wrap(make_func('lnext', 'lprev', 'lfirst', 'llast'))
 Repmv.next_b, Repmv.prev_b = Repmv.pair_wrap(make_func('bnext', 'bprev', 'bfirst', 'blast'))
 Repmv.next_s, Repmv.prev_s = Repmv.pair_wrap(next_spel, prev_spel)
+Repmv.next_z, Repmv.prev_z = Repmv.pair_wrap(next_fold, prev_fold)
 Repmv.next_O, Repmv.prev_O = Repmv.pair_wrap(u.bufop.forward_buf, u.bufop.backward_buf)
 Repmv.next_o, Repmv.prev_o = Repmv.pair_wrap(u.bufop.forward_in_buf, u.bufop.backward_in_buf)
 
