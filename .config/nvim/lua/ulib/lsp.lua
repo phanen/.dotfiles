@@ -59,26 +59,26 @@ Lsp.on = function(_)
   end
 end
 
+---@autocmd
 Lsp.setup = function()
   -- ensure mason path is prepended to PATH
   local l = require('lspconfig')
 
   -- lsp folding
-  if lsp._folding_range then
+  if false and lsp._folding_range then
     vim.opt.sessionoptions:remove('folds')
-    vim.opt.fillchars = {
+    vim.opt_local.fillchars = {
       eob = ' ',
       diff = '╱',
       foldopen = '',
       foldclose = '',
       foldsep = '▕',
     }
-    vim.o.foldmethod = 'expr'
-    vim.o.foldexpr = 'v:lua.vim.lsp.foldexpr()'
-    vim.o.foldtext = 'v:lua.vim.lsp.foldtext()'
-    vim.o.foldcolumn = '1'
+    vim.wo.foldmethod = 'expr'
+    vim.wo.foldexpr = 'v:lua.vim.lsp.foldexpr()'
+    vim.wo.foldtext = 'v:lua.vim.lsp.foldtext()'
+    vim.wo.foldcolumn = '1'
     vim.o.foldlevel = 99
-
     api.nvim_create_autocmd('LspNotify', {
       callback = function(args)
         if args.data.method == 'textDocument/didOpen' then
