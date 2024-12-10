@@ -204,4 +204,19 @@ Misc.update_idl = function(is_local)
   opt.listchars = opt.listchars + new_opt
 end
 
+---@autocmd
+Misc.lz_shada = function()
+  local shada_read ---@boolean?
+  ---@return true
+  local rshada = function()
+    if shada_read then return true end
+    shada_read = true
+    vim.cmd.set('shada&')
+    pcall(vim.cmd.rshada)
+    return true
+  end
+  vim.schedule(rshada)
+  return true
+end
+
 return Misc
