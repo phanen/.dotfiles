@@ -1,8 +1,18 @@
 local Ts = {}
 
-local select = require 'nvim-treesitter-textobjects.select'
-local move = require 'nvim-treesitter-textobjects.move'
-local swap = require 'nvim-treesitter-textobjects.swap'
+local select = u.lreq 'nvim-treesitter-textobjects.select'
+local move = u.lreq 'nvim-treesitter-textobjects.move'
+local swap = u.lreq 'nvim-treesitter-textobjects.swap'
+
+---@autocmd
+Ts.setup = function(_)
+  local ok = pcall(vim.treesitter.start)
+  if not ok then return end
+  vim.wo.foldmethod = 'expr'
+  vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+  vim.wo.foldtext = ''
+  vim.o.foldlevelstart = 99
+end
 
 Ts.select_textobject = select.select_textobject
 Ts.goto_next_start = move.goto_next_start

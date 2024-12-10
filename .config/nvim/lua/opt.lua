@@ -107,12 +107,12 @@ aug.lz_load = {
   { once = true, pattern = '*:[ictRss\x13]*', callback = function() u.im.setup() end },
   'DirchangedPre',
   { once = true, callback = function() u.dirstack.setup() end },
+  'FileType', -- namespace window-local?
+  { callback = function(_) u.ts.setup(_) end },
   'FileType',
   { once = true, callback = function() u.lsp.setup() end },
   'LspAttach',
   { callback = function(_) u.lsp.on(_) end },
-  'FileType',
-  { callback = function() pcall(vim.treesitter.start) end },
   'UIEnter', -- lazy shada
   { once = true, callback = function() return u.misc.lz_shada() end },
 }
