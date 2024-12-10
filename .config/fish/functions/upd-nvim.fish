@@ -68,15 +68,16 @@ function upd-nvim
         set -q _flag_force; or return
     end
 
-    cmake -S. -Bbuild \
-        -DCMAKE_BUILD_TYPE=$cmake_build_type \
-        -DCMAKE_C_COMPILER=clang \
-        -DENABLE_LTO=ON \
-        --fresh
-    # -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold" \
-    # -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold"
-    cmake --build build --clean-first # --verbose
+    # cmake -S. -Bbuild \
+    #     -DCMAKE_BUILD_TYPE=$cmake_build_type \
+    #     -DCMAKE_C_COMPILER=clang \
+    #     -DENABLE_LTO=ON \
+    #     --fresh
+    # # -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold" \
+    # # -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold"
+    # cmake --build build --clean-first # --verbose
 
+    make CMAKE_BUILD_TYPE=Release
     nvim -es '+helptags $VIMRUNTIME/doc' +q
 
     # lua5.1 https://github.com/ibhagwan/fzf-lua/issues/1346
