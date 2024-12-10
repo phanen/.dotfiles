@@ -1,3 +1,5 @@
 line-length = 100
+
+[lint]
 # pyflakes, pycodestyle, isort
 select = ["F", "E", "W", "I001"]

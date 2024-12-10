@@ -179,7 +179,10 @@ Lsp.setup = function()
   }
 
   l.pyright.setup {
-    -- cmd = { "delance-langserver", "--stdio" },
+    cmd = {
+      fn.executable('delance-langserver') == 1 and 'delance-langserver' or 'pyright-langserver',
+      '--stdio',
+    },
     settings = {
       python = {
         analysis = {

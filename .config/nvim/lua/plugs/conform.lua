@@ -5,7 +5,7 @@ return {
     formatters_by_ft = {
       fish = { 'fish_indent', '--only-indent' },
       lua = { 'stylua' },
-      python = { 'ruff' },
+      python = { 'ruff_fix', 'ruff_format' },
       sh = { 'shfmt', 'shellcheck' },
       xml = { 'xmlformat' },
       toml = { 'taplo' },
@@ -39,10 +39,8 @@ return {
         command = 'shfmt',
         args = function(_, ctx)
           local args = { '-filename', '$FILENAME' }
-          local has_editorconfig = fs.find(
-            '.editorconfig',
-            { path = ctx.dirname, upward = true }
-          )[1] ~= nil
+          local has_editorconfig = fs.find('.editorconfig', { path = ctx.dirname, upward = true })[1]
+            ~= nil
 
           -- If there is an editorconfig, don't pass any args because shfmt will apply settings from there
           -- when no command line args are passed.
