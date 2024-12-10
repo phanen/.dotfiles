@@ -15,6 +15,10 @@
       "program": "fish"
     }
   },
+  "vim": {
+    "toggle_relative_line_numbers": true,
+    "highlight_on_yank_duration": 100
+  },
   "theme": {
     "mode": "system",
     "light": "Rosé Pine Dawn",
