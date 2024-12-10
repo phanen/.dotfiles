@@ -100,6 +100,8 @@ aug.autosave = {
   [[if &bt=='' && bufname()!='' | update! | endi]],
 }
 
+-- defer shada read
+o.shada = ''
 aug.lz_load = {
   'ModeChanged',
   { once = true, pattern = '*:[ictRss\x13]*', callback = function() u.im.setup() end },
@@ -111,6 +113,8 @@ aug.lz_load = {
   { callback = function(_) u.lsp.on(_) end },
   'FileType',
   { callback = function() pcall(vim.treesitter.start) end },
+  'UIEnter', -- lazy shada
+  { once = true, callback = function() return u.misc.lz_shada() end },
 }
 
 -- vim.treesitter.language.register('json', { 'jsonc' })
