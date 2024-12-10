@@ -8,10 +8,10 @@ local swap = u.lreq 'nvim-treesitter-textobjects.swap'
 Ts.setup = function(_)
   local ok = pcall(vim.treesitter.start)
   if not ok then return end
+  vim.o.foldlevelstart = 99
   vim.wo.foldmethod = 'expr'
   vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
   vim.wo.foldtext = ''
-  vim.o.foldlevelstart = 99
 end
 
 Ts.select_textobject = select.select_textobject

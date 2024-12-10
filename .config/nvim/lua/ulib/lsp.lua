@@ -74,11 +74,11 @@ Lsp.setup = function()
       foldclose = '',
       foldsep = '▕',
     }
+    vim.o.foldlevel = 99
     vim.wo.foldmethod = 'expr'
     vim.wo.foldexpr = 'v:lua.vim.lsp.foldexpr()'
     vim.wo.foldtext = 'v:lua.vim.lsp.foldtext()'
     vim.wo.foldcolumn = '1'
-    vim.o.foldlevel = 99
     api.nvim_create_autocmd('LspNotify', {
       callback = function(args)
         if args.data.method == 'textDocument/didOpen' then
