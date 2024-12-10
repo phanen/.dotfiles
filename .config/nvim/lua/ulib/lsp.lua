@@ -210,6 +210,8 @@ Lsp.setup = function()
     },
   }
 
+  l.ts_ls.setup {}
+
   l.volar.setup {
     on_attach = function(client, _) client.server_capabilities.documentFormattingProvider = false end,
   }
