@@ -63,4 +63,5 @@ g.clipboard = g.is_remote
 require 'opt'
 require 'map'
 require 'hl'
+if vim.fn.has('nvim-0.11') ~= 1 then return end
 require 'pm'
