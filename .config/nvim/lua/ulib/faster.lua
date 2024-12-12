@@ -70,6 +70,9 @@ return setmetatable({
   l = _key('l', h_spec),
   j = _key_jk('j', v_spec),
   k = _key_jk('k', v_spec),
+  w = _key('w', h_spec),
+  b = _key('b', h_spec),
+  e = _key('e', h_spec),
   cd = _key_ctrl_d('<c-d>', v_spec),
   cu = _key_ctrl_d('<c-u>', v_spec),
 }, {
