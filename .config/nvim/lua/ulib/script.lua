@@ -88,7 +88,7 @@ Script.update_meta = function(path)
       lines[#lines + 1] = line
     end
   end)
-  u.fs.must_writefile(lines, path)
+  u.fs.write_file_by_lines(path, lines)
   local buf = fn.bufadd(path)
   fn.bufload(buf)
   u.fmt.conform { buf = buf }
@@ -141,6 +141,30 @@ Script.update_chore = function(should_patch)
   Script.update_meta()
   Script.update_spec()
   fn.delete(lsp.get_log_path())
+end
+
+---@param clean boolean clean build
+Script.update_nvim = function(clean)
+  if not u.is.nvim_local_build() then return end
+  local cmds = { 'fish -c "upd-nvim -p"' }
+  if clean then cmds[#cmds + 1] = '&& make distclean' end
+  cmds[#cmds + 1] = '&& fish -c "upd-nvim"'
+  local cmd = table.concat(cmds, ' ')
+  ---@diagnostic disable-next-line: missing-fields
+  u.muxterm.spawn {
+    cmd = cmd,
+    cwd = g.nvim_root,
+    on_exit = function()
+      vim.cmd.helptags('$VIMRUNTIME/doc')
+      vim.cmd [[up!|mks!/tmp/reload.vim]]
+      local init_cmd = ([[lua u.muxterm.spawn{ cmd = "%s", cwd = "%s" }]]):format(
+        'lazygit',
+        g.nvim_root
+      )
+      u.fs.write_file('/tmp/reload.vim', init_cmd, 'a')
+      vim.cmd [[cq!123]]
+    end,
+  }
 end
 
 return Script
