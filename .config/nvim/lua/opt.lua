@@ -67,6 +67,7 @@ com.R = { function(_) u.msg.pipe_cmd(_.args) end, nargs = '*', complete = 'comma
 com.ToggleDiag = function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end
 com.ToggleInlay = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
 com.UpdateChore = function() u.script.update_chore(true) end
+com.UpdateNvim = { function(_) u.script.update_nvim(_.bang) end, bang = true }
 com.Gitignore = function() u.pick.gitignore() end
 com.License = function() u.pick.license() end
 com.Nvim = function() return u.pick.nvim() end
