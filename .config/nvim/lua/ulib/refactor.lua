@@ -23,9 +23,7 @@ Refactor.to_file = function(path, delete)
       local content = table.concat(lines, '\n')
       local f = vim.b[buf].refactor_format or fmt[vim.bo[buf].ft]
       if f then content = f(content) end
-      vim.print(path)
-      vim.print(content)
-      u.fs.must_write_file(path, content)
+      u.fs.write_file(path, content)
       if delete and pos1 and pos2 then u.buf.delete_range(pos1, pos2, buf, mode) end
       vim.cmd.vsplit(path)
       -- local new_buf = api.nvim_get_current_buf()
