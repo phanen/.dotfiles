@@ -184,16 +184,14 @@ n['<a-;>'] = function() u.muxterm.toggle() end
 aug.termopen = {
   'TermOpen',
   function(_)
-    local bt = map[_.buf].t
+    local bt, bn, bnt = map[_.buf].t, map[_.buf].n, map[_.buf].tn
     bt['<c- >'] = '<c-\\><c-n>'
     if not vim.b[_.buf].is_float_muxterm then return end
-    local bn = map[_.buf].n
-    local bnt = map[_.buf].tn
     bt['<a-;>'] = function() u.muxterm.toggle() end
     bn['i'], bn['a'] = 'I', 'A' -- workaround, insert at bottom not work
     bnt['<a-j>'] = function() u.muxterm.cycle_next() end
     bnt['<a-k>'] = function() u.muxterm.cycle_prev() end
-    bnt['<a-l>'] = function() u.muxterm.insert_then_switch() end
+    bnt['<a-l>'] = function() u.muxterm.spawn() end
   end,
 }
 

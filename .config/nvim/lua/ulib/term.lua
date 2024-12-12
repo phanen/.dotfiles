@@ -1,23 +1,24 @@
 -- WIP: support split,vsplit,tab
--- WIP: multiple win (in multiple tab)
+-- WIP: float (lazy.nvim)
 
 ---@alias TermCmd string|string[]|function
 
 ---@class TermConfig
 ---@field cmd TermCmd
----@field clear_env boolean
+---@field cwd? string
+---@field clear_env? boolean
 ---@field env? table
 ---@field on_exit? function
 ---@field on_stdout? function
 ---@field on_stderr? function
----@field auto_close boolean
+---@field auto_close? boolean unused now
 ---@field win_config vim.api.keyset.win_config
 
 ---@type TermConfig
 local defaults = {
   cmd = g.term_shell or vim.o.shell,
   clear_env = false,
-  auto_close = true,
+  -- auto_close = true,
   win_config = {
     height = 0.95,
     width = 0.95,
@@ -89,17 +90,19 @@ setmetatable(Term, {
   ---@return Term
   __call = function(self, cfg)
     -- buf is always alive (to set b:var on create)
-    return setmetatable({
+    -- or we can init win here, toggle term via hide/unhide...
+    -- or init term on created
+    local obj = setmetatable({
       win = nil,
       buf = api.nvim_create_buf(false, true),
       term = nil,
       config = u.merge(defaults, cfg or {}),
     }, { __index = self, __gc = self.cleanup })
+    return obj
   end,
 })
 
----@return Term
-function Term:create_win()
+function Term:open_win()
   local win_config = self.config.win_config
   local lay = get_layout(win_config)
   local win = api.nvim_open_win(
@@ -120,8 +123,6 @@ function Term:create_win()
       api.nvim_win_set_config(self.win, get_layout(self.config.win_config))
     end,
   })
-
-  return self
 end
 
 function Term:cleanup()
@@ -132,11 +133,12 @@ function Term:cleanup()
   self.term = nil
 end
 
----@return Term
-function Term:open_term()
-  local cfg = self.config
+---@param term_cfg TermConfig?
+function Term:spawn(term_cfg)
+  local cfg = u.merge(self.config, term_cfg or {})
   self.term = fn.termopen(u.eval(cfg.cmd), {
     clear_env = cfg.clear_env,
+    cwd = cfg.cwd,
     env = cfg.env,
     on_stdout = cfg.on_stdout,
     on_stderr = cfg.on_stderr,
@@ -146,42 +148,29 @@ function Term:open_term()
       self:cleanup()
     end,
   })
-  return self
 end
 
-function Term:toggle()
-  if u.is.win_valid(self.win) then
-    self:close()
-  else
-    self:open()
-  end
-end
+function Term:is_focusd() return u.is.win_valid(self.win) end
 
 --- cannot create unopen term now, so just create and open it
---- buf -> win -> term
-function Term:open()
+--- buf (created on init) -> win -> term
+---@param opts TermConfig?
+function Term:open(opts)
   assert(u.is.buf_valid(self.buf))
-  if self.term then
-    self:create_win()
-    return
-  end
-  self:create_win()
-  self:open_term()
+  self:open_win()
+  if not self.term then self:spawn(opts) end
 end
 
 function Term:close()
-  if u.is.win_valid(self.win) then api.nvim_win_close(self.win, true) end
+  if self:is_focusd() then api.nvim_win_close(self.win, true) end
   self.win = nil
 end
 
 ---@param cmd TermCmd
----@return Term
-function Term:run(cmd)
-  self:open()
+function Term:send(cmd)
   cmd = u.eval(cmd)
   cmd = type(cmd) == 'table' and table.concat(cmd, ' ') or cmd
   api.nvim_chan_send(self.term, table.concat({ cmd, vim.keycode('<cr>') }))
-  return self
 end
 
 return Term
