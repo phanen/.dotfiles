@@ -21,6 +21,9 @@ nx.expr['h'] = function() return u.faster.h() end
 nx.expr['l'] = function() return u.faster.l() end
 nx.expr['j'] = function() return u.faster.j() end -- normal j/k: (<up>/<down>, ':normal j/k')
 nx.expr['k'] = function() return u.faster.k() end
+nx.expr['w'] = function() return u.faster.w() end -- foldopen
+nx.expr['b'] = function() return u.faster.b() end
+nx.expr['e'] = function() return u.faster.e() end
 n.expr['i'] = [[v:count||getline('.')->len() ?'i' :'"_cc']] -- auto indent
 n.expr['a'] = [[v:count||getline('.')->len() ?'a' :'"_cc']]
 
