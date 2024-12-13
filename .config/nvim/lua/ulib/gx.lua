@@ -47,7 +47,7 @@ options.handlers.commit = {
     if not commit_hash or #commit_hash > 40 then return end
     local _, git_url = u.git.smart_remote_url()
     if not git_url then return end
-    git_url = git_url:gsub('%.git$', '')
+    git_url = git_url:gsub('%.git$', ''):gsub('%/$', '')
     return git_url .. '/commit/' .. commit_hash
   end,
 }
@@ -68,7 +68,7 @@ options.handlers.github = {
 
     local _, git_url = u.git.smart_remote_url() -- get_remote_url(remotes, push, owner, repo)
     if not git_url then return end
-    git_url = git_url:gsub('%.git$', '')
+    git_url = git_url:gsub('%.git$', ''):gsub('%/$', '')
     return git_url .. '/issues/' .. issue
   end,
 }
