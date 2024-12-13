@@ -27,14 +27,13 @@ local specs = {
     cond = fn.argv()[1] == 'leetcode.nvim',
     lazy = false,
     keys = {
-      { '+a', '<cmd>Leet lang<cr>' },
       { '+c', '<cmd>Leet console<cr>' },
-      { '+d', '<cmd>Leet desc<cr>' },
+      { '+k', '<cmd>Leet desc<cr>' },
       { '+i', '<cmd>Leet info<cr>' },
       { '+l', '<cmd>Leet list<cr>' },
       { '+r', '<cmd>Leet run<cr>' },
       { '+s', '<cmd>Leet submit<cr>' },
-      { '+t', '<cmd>Leet tabs<cr>' },
+      { '+t', '<cmd>Leet test<cr>' },
       { '+y', '<cmd>Leet yank<cr>' },
       {
         '+o',
