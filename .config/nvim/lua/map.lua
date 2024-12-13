@@ -80,8 +80,8 @@ n['sj'] = function() u.repmv.next_q() end
 n['sk'] = function() u.repmv.prev_q() end
 n['sh'] = function() u.repmv.next_l() end
 n['sl'] = function() u.repmv.prev_l() end
-n['[d'] = function() u.repmv.next_d() end
-n[']d'] = function() u.repmv.prev_d() end
+n[']d'] = function() u.repmv.next_d() end
+n['[d'] = function() u.repmv.prev_d() end
 n[']b'] = function() u.repmv.next_b() end
 n['[b'] = function() u.repmv.prev_b() end
 n['g<c-i>'] = function() u.repmv.next_o() end
@@ -197,3 +197,4 @@ aug.termopen = {
 
 n['@w'] = '' -- avoid kanata typo
 n[' I'] = '<cmd>Inspect<cr>'
+n['S'] = '<cmd>InspectTree<cr>'
