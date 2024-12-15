@@ -18,16 +18,17 @@ local runners = {
   -- lua = 'lua',
   lua = { 'nvim', '-l' },
   javascript = 'node',
-  rust = { 'cargo', 'build' },
+  rust = { 'cargo', 'run' },
 }
 
 Task.termrun = function()
-  local buf = api.nvim_buf_get_name(0)
-  local ftype = vim.filetype.match({ filename = buf })
-  local exec = runners[ftype]
-  if exec ~= nil then
-    if type(exec) == 'string' then exec = { exec } end
-    u.muxterm.scratch { cmd = vim.list_extend(exec, { buf }) }
+  ---@diagnostic disable-next-line: param-type-mismatch
+  local cmd = vim.deepcopy(assert(runners[vim.bo.ft]))
+  if cmd then
+    if type(cmd) == 'string' then cmd = { cmd } end
+    cmd[#cmd + 1] = api.nvim_buf_get_name(0)
+    vim.print(cmd)
+    u.muxterm.send(cmd, false)
   end
 end
 
