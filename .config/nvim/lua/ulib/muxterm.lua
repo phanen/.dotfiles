@@ -97,6 +97,7 @@ MuxTerm.is_focusd = function() return not MuxTerm.is_empty() and MuxTerm.curr.da
 
 ---@param opts TermConfig?
 ---then switch to it (currently, only start exec on the first focus...)
+---WIP: why open it...
 MuxTerm.spawn = function(opts)
   -- hook on term close
   local delete = function()
@@ -142,10 +143,13 @@ MuxTerm.toggle = function(opts)
 end
 
 ---@param cmd TermCmd
-MuxTerm.send = function(cmd)
-  MuxTerm.open()
-  vim.wait(30) -- hack: wait fish prompt...
-  MuxTerm.curr.data:send(cmd)
+MuxTerm.send = function(cmd, do_open)
+  if do_open ~= false then MuxTerm.open() end
+  if MuxTerm.is_empty() then
+    MuxTerm.spawn()
+    vim.wait(30) -- hack: wait fish prompt...
+    MuxTerm.curr.data:send(cmd)
+  end
 end
 
 return MuxTerm
