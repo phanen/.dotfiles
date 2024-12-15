@@ -27,7 +27,7 @@ function upd-nvim
         git branch patch origin/patch
         git checkout patch
         git branch --set-upstream-to=upstream/master
-        set -q _flag_force; or return
+        set -q _flag_force; or return 0
     end
 
     if set -q _flag_pull; or set -q _flag_sync
@@ -39,7 +39,7 @@ function upd-nvim
             git push origin patch -f
             git push origin master
         end
-        set -q _flag_force; or return
+        set -q _flag_force; or return 0
     end
 
     # set -lx CC clang
@@ -65,7 +65,7 @@ function upd-nvim
         # -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold" \
         # -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold"
         cmake --build .deps --clean-first
-        set -q _flag_force; or return
+        set -q _flag_force; or return 0
     end
 
     # cmake -S. -Bbuild \
