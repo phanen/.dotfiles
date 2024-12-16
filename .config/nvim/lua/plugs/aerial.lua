@@ -17,6 +17,7 @@ return {
       markdown = { Interface = '󰪥' },
     },
     filter_kind = false,
+    link_tree_to_folds = false,
     nav = { -- bad ratio...
       preview = true,
       border = g.border,
