@@ -58,6 +58,7 @@ devtools-archlinuxcn
 devtools-riscv64
 dex
 dhclient
+discord
 dkms
 docker
 dog
@@ -107,6 +108,7 @@ github-cli
 gnu-free-fonts
 gnu-netcat
 go
+gofumpt
 gperf
 gpg-tui
 gradle
@@ -203,6 +205,7 @@ mpv
 mtpfs
 musl
 namcap
+neovide
 neovim
 net-tools
 nim
@@ -224,6 +227,7 @@ ocaml
 ocaml-findlib
 onefetch
 onlyoffice-bin
+openslide
 openssh
 os-prober
 p7zip
@@ -242,6 +246,7 @@ pkgconf
 pkgfile
 pnpm
 polybar
+poppler-glib
 postgresql
 pulseaudio-alsa
 pulsemixer
@@ -259,6 +264,7 @@ python-pipx
 python-poetry
 python-psutil
 python-pygame-sdl2-git
+python-pylint
 python-pynvim
 python-pyxdg
 python-vermin
@@ -317,18 +323,18 @@ ttf-cascadia-code
 ttf-nerd-fonts-symbols
 typst
 ubuntu-keyring
-ueberzug
+ueberzugpp
 unzip
 upower
 upx
 usbutils
 vagrant
-vaultwarden
 vdpauinfo
 verilator
 viu
 w3m
 wakeonlan
+wayland-protocols
 webkit2gtk
 weston
 wget

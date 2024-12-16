@@ -77,7 +77,7 @@ options.handlers.go = {
   handle = function()
     -- interpreted_string_literal_content https://github.com/tree-sitter/tree-sitter-go/commit/47e8b1fae7541f6e01cead97201be19321ec362a
     local ancestor_import_spec = function()
-      local node = vim.treesitter.get_node()
+      local node = ts.get_node()
       while node and node:type() ~= 'import_spec' do
         node = node:parent()
       end

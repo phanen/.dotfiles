@@ -85,7 +85,7 @@ return {
           },
         },
         helptags = { winopts = { preview = { hidden = 'hidden' } } },
-        commands = { actions = { enter = a.ex_run, ['ctrl-s'] = f.actions.ex_run } },
+        commands = { actions = { enter = f.actions.ex_run_cr, ['ctrl-s'] = f.actions.ex_run } },
         spell_suggest = { winopts = { border = 'none', backdrop = false } },
         complete_path = { file_icons = true, previewer = 'builtin' },
         actions = { files = g.fzf_lua_file_actions },
