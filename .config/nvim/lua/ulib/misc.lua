@@ -268,7 +268,7 @@ Misc.auto_lua_require = function(client, bufnr)
     end
 
     if do_change then
-      client.notify('workspace/didChangeConfiguration', { settings = client.settings })
+      client:notify('workspace/didChangeConfiguration', { settings = client.settings })
     end
   end
 

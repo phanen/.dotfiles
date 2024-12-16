@@ -11,7 +11,9 @@ _G.fn = vim.fn
 _G.fs = vim.fs
 _G.g = vim.g
 _G.lsp = vim.lsp
+_G.ts = vim.treesitter
 _G.uv = vim.uv or vim.loop
+
 _G.u = require('ulib')
 _G.map = u.map
 

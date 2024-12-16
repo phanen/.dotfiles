@@ -6,7 +6,7 @@ local swap = u.lreq 'nvim-treesitter-textobjects.swap'
 
 ---@autocmd
 Ts.setup = function(_)
-  local ok = pcall(vim.treesitter.start)
+  local ok = pcall(ts.start)
   if not ok then return end
   vim.o.foldlevelstart = 99
   vim.wo.foldmethod = 'expr'

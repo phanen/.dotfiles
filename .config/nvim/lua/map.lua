@@ -90,6 +90,8 @@ n[' <c-i>'] = function() u.repmv.next_O() end
 n[' <c-o>'] = function() u.repmv.prev_O() end
 n['[s'] = function() u.repmv.prev_s() end
 n[']s'] = function() u.repmv.next_s() end
+n['s<cr>'] = function() require('treesitter-context').go_to_context(vim.v.count1) end
+
 n['[a'] = function() u.ts.goto_prev_start '@parameter.inner' end
 n[']a'] = function() u.ts.goto_next_start '@parameter.inner' end
 n['[f'] = function() u.ts.goto_prev_start '@function.inner' end
@@ -149,6 +151,7 @@ nx[' gl'] = function() u.gl.permalink_open() end
 -- fzf
 nx['<c-l>'] = function() u.pick.files() end
 nx['<c-n>'] = function() u.pick.lgrep() end
+nx['<c-h>'] = function() u.pick.help_tags() end
 nx[' ;'] = function() u.pick.commands() end
 nx[' /'] = function() u.pick.command_history() end
 nx[' <c-b>'] = function() u.pick.git_bcommits() end
@@ -159,8 +162,7 @@ n[' a'] = function() u.pick.builtin() end
 nx[' e'] = function() u.pick.notes() end
 nx[' fe'] = function() u.pick.notes() end
 nx[' l'] = function() u.pick.dots() end
-nx[' fl'] = function() u.pick.dots() end
-nx[' fh'] = function() u.pick.help_tags() end
+nx[' w'] = function() u.pick.lsp_live_workspace_symbols() end
 nx[' fo'] = function() u.pick.recentfiles() end
 nx[' fi'] = function() u.pick.git_status() end
 
