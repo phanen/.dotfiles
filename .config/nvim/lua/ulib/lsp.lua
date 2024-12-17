@@ -102,6 +102,8 @@ Lsp.setup = function()
 
   l.vimls.setup {}
 
+  l.rust_analyzer.setup {}
+
   vim.diagnostic.config {
     -- update_in_insert = true,
     float = { border = 'none' },
