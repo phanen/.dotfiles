@@ -18,7 +18,7 @@ fi
 SESSION=/tmp/reload.vim
 MAGIC=123
 # https://vi.stackexchange.com/questions/36957/update-all-of-the-unsaved-buffers-at-vim
-CMD1="+nnoremap <nowait> <c-s><c-d> <cmd>wa!\|mks!$SESSION\|cq!$MAGIC<cr>"
+CMD1="+nnoremap <nowait> <c-s><c-d> <cmd>sil!wa!\|mks!$SESSION\|cq!$MAGIC<cr>"
 CMD2="+nnoremap <nowait> <c-s><c-s> <cmd>quit!<cr>"
 ARG=--luamod-dev
 
