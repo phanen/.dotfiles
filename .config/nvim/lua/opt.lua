@@ -94,7 +94,7 @@ aug.autowrite = -- auto reload buffer on external write
   { { 'FocusGained', 'BufEnter', 'CursorHold' }, [[if getcmdwintype()=='' | checkt | endi]] }
 aug.autosave = {
   { 'BufLeave', 'WinLeave', 'FocusLost', 'InsertLeave', 'TextChanged' },
-  [[if &bt=='' && bufname()!='' | update! | endi]],
+  [[if &bt=='' && bufname()!='' && &ma | silent! update! | endi]],
 }
 
 -- defer shada read
