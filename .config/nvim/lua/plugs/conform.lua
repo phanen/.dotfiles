@@ -9,8 +9,8 @@ return {
       sh = { 'shfmt', 'shellcheck' },
       xml = { 'xmlformat' },
       toml = { 'taplo' },
-      -- c = { 'clang-format' },
-      -- c = { 'uncrustify_nvim' },
+      c = { 'clang-format' },
+      cpp = { 'clang-format' },
       tex = { 'latexindent', '--GCString' }, -- for GCString feature, install `perl-unicode-linebreak` as extra dependency (for arch)
       bib = { 'bibtex-tidy' },
       css = { 'prettier' },
@@ -25,16 +25,10 @@ return {
       typescriptreact = { 'prettier' },
       vue = { 'prettier' },
       yaml = { 'prettier' },
+      -- markdown = { 'injected' },
+      help = { 'injected' },
     },
     formatters = {
-      uncrustify_nvim = {
-        command = g.nvim_root .. '/build/usr/bin/uncrustify',
-        args = function()
-          local cfg = g.nvim_root .. '/src/uncrustify.cfg'
-          return { '-q', '-l', 'C', '-c', cfg }
-        end,
-      },
-
       shfmt = {
         command = 'shfmt',
         args = function(_, ctx)
