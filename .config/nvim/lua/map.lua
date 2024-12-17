@@ -174,7 +174,7 @@ n['<c-f>'] =
 n['<c-e>'] = [[<cmd>exe(tabpagenr('$')==1 ?v:count1.'bp' :v:count1.'tabp')<cr>]]
 n['+q'] = [[<cmd>exe(tabpagenr("$")==1 ?'qa!' :'tabc!')<cr>]]
 n['<c-s>'] = function() u.misc.mimic_wincmd() end
-n['<c-s><c-d>'] = [[<cmd>up!\|mks!/tmp/reload.vim\|cq!123<cr>]] -- in case just exec binary
+n['<c-s><c-d>'] = [[<cmd>sil!wa!\|mks!/tmp/reload.vim\|cq!123<cr>]] -- in case just exec binary
 n['<c-s><c-s>'] = [[<cmd>quit!<cr>]]
 n['<c-s>d'] = [[<cmd>DiagFloat<cr>]]
 n['<c-j>'] = function() u.misc.one_win_then('vs|winc p', 'winc w') end
