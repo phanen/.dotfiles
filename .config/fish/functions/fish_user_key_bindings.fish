@@ -16,7 +16,7 @@ bind ctrl-r atuin_search
 bind ctrl-s k_cs
 bind ctrl-t k_ct
 bind ctrl-u '_empty_then "htop;commandline -f repaint" "commandline -f backward-kill-line"'
-bind ctrl-w '_empty_then "echo;ls;commandline -f repaint" "commandline -f backward-kill-path-component"'
+bind ctrl-w '_empty_then "echo;eza -lh;commandline -f repaint" "commandline -f backward-kill-path-component"'
 
 bind alt-\; 'exec fish'
 bind alt-i 'tmux a &>/dev/null || tmux &>/dev/null || tmux det'
