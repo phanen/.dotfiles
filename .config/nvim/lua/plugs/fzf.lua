@@ -84,6 +84,8 @@ return {
             actions = { ['ctrl-o'] = function(s) vim.cmd.DiffviewOpen(s[1]:match('[^ ]+')) end },
           },
         },
+        lines = { winopts = { preview = { hidden = 'hidden' } } },
+        blines = { winopts = { preview = { hidden = 'hidden' } } },
         helptags = { winopts = { preview = { hidden = 'hidden' } } },
         commands = { actions = { enter = f.actions.ex_run_cr, ['ctrl-s'] = f.actions.ex_run } },
         spell_suggest = { winopts = { border = 'none', backdrop = false } },
