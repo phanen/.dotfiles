@@ -31,11 +31,6 @@ local defaults = {
 }
 
 u.aug.termmode = {
-  'TermOpen',
-  function()
-    -- u.pp('TermOpen: startinsert')
-    vim.cmd.startinsert()
-  end,
   'ModeChanged',
   function(ev)
     if vim.bo[ev.buf].bt == 'terminal' then

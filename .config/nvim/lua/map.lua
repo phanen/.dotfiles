@@ -1,7 +1,8 @@
+-- vim:fdm=marker
 local n, nx, nxo, ox, x = map.n, map.nx, map.nxo, map.ox, map.x
 local aug = u.aug
 
--- yank/paste
+-- yank/paste {{{
 nx['d'] = '"-d'
 nx['D'] = '"-D'
 nx['c'] = '"-c'
@@ -11,12 +12,9 @@ n[' p'] = '<cmd>%d_|norm!VP<cr>'
 n[' y'] = '<cmd>%y<cr>'
 n[' j'] = '<cmd>t .<cr>'
 x[' j'] = '"gy\'>"gp'
+-- }}}
 
--- text move
-n['<a-j>'], x['<a-j>'] = [[<cmd>exe("m+".v:count1)|norm!==<cr>]], [[:m '>+<cr>gv=gv]]
-n['<a-k>'], x['<a-k>'] = [[<cmd>move-2<cr>==]], [[:m '<-2<cr>gv=gv]]
-
--- cursor move
+-- cursor move {{{
 nx.expr['h'] = function() return u.faster.h() end
 nx.expr['l'] = function() return u.faster.l() end
 nx.expr['j'] = function() return u.faster.j() end -- normal j/k: (<up>/<down>, ':normal j/k')
@@ -26,8 +24,9 @@ nx.expr['b'] = function() return u.faster.b() end
 nx.expr['e'] = function() return u.faster.e() end
 n.expr['i'] = [[v:count||getline('.')->len() ?'i' :'"_cc']] -- auto indent
 n.expr['a'] = [[v:count||getline('.')->len() ?'a' :'"_cc']]
+-- }}}
 
--- operator
+-- operator {{{
 x['.'] = ':norm .<cr>'
 n['gy'] = '`[v`]'
 x['gb'] = function() u.refactor.to_file(nil, true) end
@@ -36,12 +35,19 @@ n[' .'] = '<cmd>Neogen<cr>'
 n['<cr>'] = 'gF'
 n['<tab>'], n['<c-i>'] = 'za', '<c-i>' -- https://github.com/neovim/neovim/pull/17932
 
--- debugprint
+nx.expr[' so'] = function() return u.task.so() end
+nx[' <cr>'] = function() u.task.termrun() end
+-- }}}
+
+-- debugprint {{{
 n.expr['g.'] = function() return require('debugprint').debugprint() end
 n.expr['gm'] = function() return require('debugprint').debugprint { variable = true } end
 n['+.'] = function() require('debugprint').deleteprints() end
+-- }}}
 
--- text process
+-- text process {{{
+n['<a-j>'], x['<a-j>'] = [[<cmd>exe("m+".v:count1)|norm!==<cr>]], [[:m '>+<cr>gv=gv]]
+n['<a-k>'], x['<a-k>'] = [[<cmd>move-2<cr>==]], [[:m '<-2<cr>gv=gv]]
 n['gw'] = function() u.fmt.conform() end
 n['-'] = '<cmd>TSJToggle<cr>'
 -- swap
@@ -52,11 +58,9 @@ n['<c-/>'] = [[<cmd>eval (v:count == 0 ?'gcl' :v:count.'gcj')->feedkeys('m')<cr>
 n[' <c-/>'] = [[<cmd>eval 'gcic'->feedkeys('m')<cr>]]
 n['gco'] = function() u.misc.comment(0) end
 n['gcO'] = function() u.misc.comment(-1) end
+-- }}}
 
-nx.expr[' so'] = function() return u.task.so() end
-nx[' <cr>'] = function() u.task.termrun() end
-
--- search
+-- search (hls) {{{
 n['n'] = [[<cmd>exe('norm!'.v:count1.'n')|lua require('hlslens').start()<cr>zz]]
 n['N'] = [[<cmd>exe('norm!'.v:count1.'N')|lua require('hlslens').start()<cr>zz]]
 n['*'] = [[*<cmd>lua require('hlslens').start()<cr>]]
@@ -64,8 +68,9 @@ n['#'] = [[#<cmd>lua require('hlslens').start()<cr>]]
 n['g*'] = [[g*<cmd>lua require('hlslens').start()<cr>]]
 n['g#'] = [[g#<cmd>lua require('hlslens').start()<cr>]]
 n['<esc>'] = [[<cmd>noh|dif<cr><esc>]]
+-- }}}
 
--- unimpaired
+-- unimpaired & textobj {{{
 nxo.expr[';'] = function() return u.repmv.forward(';') end
 nxo.expr[','] = function() return u.repmv.backward(',') end
 nxo.expr['f'] = function() return u.repmv.builtin('f') end
@@ -118,8 +123,9 @@ ox['iI'] = function() u.textobj.indent_I() end
 ox['ai'] = function() u.textobj.indent_a() end
 ox['aI'] = function() u.textobj.indent_A() end
 ox['ih'] = ':<c-u>Gitsigns select_hunk<cr>' -- find hunk
+-- }}}
 
--- inspect
+-- inspect {{{
 n['_'] = 'K'
 nx['K'] = function() lsp.buf.signature_help() end
 nx[' i'] = '<cmd>Gitsigns preview_hunk<cr>'
@@ -130,16 +136,18 @@ n[' h'] = '<cmd>AerialToggle!<cr>'
 n['mk'] = '<cmd>messages clear<cr>'
 n['ml'] = '<cmd>messages<cr>'
 n['me'] = '<cmd>R messages<cr>'
+-- }}}
 
--- file/dir
+-- file/dir {{{
 n['s'] = ''
 n['sn'] = [[:Rename ]]
 n['sm'] = [[:Delete!]]
 n['M'] = function() u.misc.cd() end
 n['L'] = function() u.dirstack.next() end
 n['H'] = function() u.dirstack.prev() end
+-- }}}
 
--- git
+-- git {{{
 n['g<cr>'] = '<cmd>G<cr>'
 n['do'] = [[<cmd>exe(&diff ?'diffget' :'Gitsigns reset_hunk')<cr>]]
 n['dp'] = [[<cmd>exe(&diff ?'diffput' :'Gitsigns stage_hunk')<cr>]]
@@ -147,8 +155,9 @@ n[' b'] = '<cmd>G blame<cr>'
 n[' go'] = function() u.git.browse() end
 nx['gl'] = function() u.gx.open() end
 nx[' gl'] = function() u.gl.permalink_open() end
+-- }}}
 
--- fzf
+-- fzf {{{
 nx['<c-l>'] = function() u.pick.files() end
 nx['<c-n>'] = function() u.pick.lgrep() end
 nx['<c-h>'] = function() u.pick.help_tags() end
@@ -165,8 +174,9 @@ nx[' l'] = function() u.pick.dots() end
 nx[' w'] = function() u.pick.lsp_live_workspace_symbols() end
 nx[' fo'] = function() u.pick.recentfiles() end
 nx[' fi'] = function() u.pick.git_status() end
+-- }}}
 
--- buf / win / tab
+-- buf / win / tab {{{
 n.nowait['<c-w>'] = '<c-^>'
 n['<c-b>'] = function() u.pick.buffers() end
 n['<c-f>'] =
@@ -180,8 +190,9 @@ n['<c-s>d'] = [[<cmd>DiagFloat<cr>]]
 n['<c-j>'] = function() u.misc.one_win_then('vs|winc p', 'winc w') end
 n['<c-k>'] = function() u.misc.one_win_then('sp', 'winc W') end
 n['q'] = function() u.misc.quit() end
+-- }}}
 
--- terminal
+-- terminal {{{
 n['<a-;>'] = function() u.muxterm.toggle() end
 aug.termopen = {
   'TermOpen',
@@ -196,6 +207,7 @@ aug.termopen = {
     bnt['<a-l>'] = function() u.muxterm.spawn() end
   end,
 }
+-- }}}
 
 n['@w'] = '' -- avoid kanata typo
 n[' I'] = '<cmd>Inspect<cr>'

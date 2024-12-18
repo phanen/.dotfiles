@@ -72,6 +72,7 @@ dust
 efibootmgr
 egl-wayland
 eglexternalplatform
+emscripten
 evtest
 expac
 eza
@@ -206,7 +207,7 @@ mtpfs
 musl
 namcap
 neovide
-neovim
+neovim-git
 net-tools
 nim
 ninja
@@ -316,8 +317,8 @@ tokei
 traceroute
 translate-shell
 tree
+tree-sitter
 tree-sitter-cli
-tree-sitter-git
 treedec
 ttf-cascadia-code
 ttf-nerd-fonts-symbols
