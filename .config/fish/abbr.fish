@@ -2,19 +2,20 @@
 abbr c cargo
 abbr d docker
 abbr e nvim
+abbr f cd
 abbr g git
 abbr h tokei
 abbr i ipython
 abbr j -f _make_or_just
 abbr k pkill
 abbr l eza -lh
+abbr n nvimz
 abbr o bat
 abbr p python
 abbr s systemctl
 abbr t type -a
 abbr y paru
 
-abbr f cd
 abbr type type -a
 abbr tree "command eza --tree"
 

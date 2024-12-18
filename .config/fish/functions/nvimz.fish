@@ -1,8 +1,18 @@
-function nvimz --wrap nvim
-    set -qx NVIM_BIN
-    or set NVIM_BIN nvim
+function _find_nvim
+    set -q XDG_CONFIG_HOME; or set -l XDG_CONFIG_HOME ~/.config
+    set -l getrc_cmd '$(test -f $XDG_CONFIG_HOME/{}/init.vim && echo $XDG_CONFIG_HOME/{}/init.vim || echo $XDG_CONFIG_HOME/{}/init.lua)'
 
-    echo $NVIM_BIN
-    set -lx NVIM_APPNAME (fd 'init.lua' ~/.config/ -I -d 2 --prune -F -x basename {//} | fzf -1 --preview 'bat -f ~/.config/{}/init.lua' -0)
-    $NVIM_BIN $argv
+    fd 'init.(vim|lua)' $XDG_CONFIG_HOME -I -d 2 -L --prune -x basename {//} \
+        | uniq \
+        | rg -v '^nvim$' \
+        | fzf -1 -0 \
+        --preview "bat -f $getrc_cmd" \
+        --bind "ctrl-s:execute(nvim $getrc_cmd)" \
+        --bind "ctrl-x:execute(rm -rf ~/.local/{share,state}/{})"
+end
+
+function nvimz --wrap nvim
+    set -l NVIM_APPNAME (_find_nvim)
+    test -n "$NVIM_APPNAME"; and NVIM_APPNAME=$NVIM_APPNAME nvim $argv
+    true
 end
