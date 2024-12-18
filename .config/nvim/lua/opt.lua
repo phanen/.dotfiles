@@ -1,5 +1,4 @@
 local o, aug, com = vim.o, u.aug, u.com
-
 o.nu = true
 o.rnu = true
 o.ignorecase = true
@@ -26,6 +25,7 @@ o.keywordprg = ':KeywordPrg'
 o.diffopt = 'internal,filler,closeoff,hiddenoff,algorithm:minimal' -- https://github.com/neovim/neovim/pull/14537
 o.exrc = true
 o.foldlevelstart = 99
+o.guicursor = 'n-v-c-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20,t:ver25'
 -- o.lazyredraw = true
 -- o.showcmd = false
 
