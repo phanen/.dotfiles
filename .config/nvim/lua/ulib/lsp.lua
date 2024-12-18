@@ -22,8 +22,9 @@ end
 
 ---@autocmd
 Lsp.setup = function(_)
-  -- https://github.com/neovim/neovim/pull/31031
+  u.aug.lsp_attach = { 'LspAttach', function(_) u.lsp.on(_) end }
 
+  if vim.bo[_.buf].ft == 'bigfile' then return end
   local cap = pcall(require, 'cmp_nvim_lsp')
   if cap then lsp.config('*', { capablities = cap }) end
 
@@ -36,6 +37,7 @@ Lsp.setup = function(_)
 
   -- TODO: on_clangd.. on_lua_ls...
   -- e.g. lspconfig command feature, e.g. ClangdSwitchSourceHeader
+  -- https://github.com/neovim/neovim/pull/31031
   lsp.config('clangd', {
     cmd = { 'clangd', '--clang-tidy', '--background-index', '--offset-encoding=utf-8' },
     filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },

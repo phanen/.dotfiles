@@ -6,6 +6,11 @@ local swap = u.lreq 'nvim-treesitter-textobjects.swap'
 
 ---@autocmd
 Ts.setup = function(_)
+  local buf = _.buf
+  if vim.bo[buf].ft == 'bigfile' then -- fallback to syntax highlighting
+    vim.schedule(function() vim.bo[buf].syntax = vim.filetype.match { buf = buf } or '' end)
+    return
+  end
   local ok = pcall(ts.start)
   if not ok then return end
   vim.wo.foldmethod = 'expr'

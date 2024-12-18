@@ -108,9 +108,7 @@ aug.lz_load = {
   'FileType', -- namespace window-local?
   { callback = function(_) u.ts.setup(_) end },
   'FileType',
-  { once = true, callback = function() u.lsp.setup() end },
-  'LspAttach',
-  { callback = function(_) u.lsp.on(_) end },
+  { once = true, callback = function(_) u.lsp.setup(_) end },
 }
 
 -- vim.treesitter.language.register('json', { 'jsonc' })
