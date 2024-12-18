@@ -40,8 +40,9 @@ nx[' <cr>'] = function() u.task.termrun() end
 -- }}}
 
 -- debugprint {{{
-n.expr['g.'] = function() return require('debugprint').debugprint() end
-n.expr['gm'] = function() return require('debugprint').debugprint { variable = true } end
+-- for c, typed printf...
+n['g.'] = function() return require('debugprint').debugprint() end
+n['gm'] = function() return require('debugprint').debugprint { variable = true } end
 n['+.'] = function() require('debugprint').deleteprints() end
 -- }}}
 
