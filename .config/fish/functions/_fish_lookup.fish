@@ -1,15 +1,5 @@
-function k_cg
-    set -l line "$(commandline)"
-    if test -z "$(string trim -- $line)"
-        yazi
-        commandline -f repaint
-    else
-        __fish_lookup
-    end
-end
-
 # ~/b/fish-shell/share/functions/__fish_man_page.fish
-function __fish_lookup
+function _fish_lookup
     set -l args (string match -rv '^-|^$' -- (commandline -cpo && commandline -t))
     if not set -q args[1]
         printf \a
