@@ -8,12 +8,20 @@ Lsp.on = function(_)
   n['gh'] = function() u.pick.lsp_code_actions() end
   n.nowait['gr'] = function() u.pick.lsp_references() end -- note: nowait only apply to before mappings
 
-  -- TODO: on_clangd.. on_lua_ls...
-  -- e.g. lspconfig command feature, e.g. ClangdSwitchSourceHeader
+  if true then return end
+  local client = assert(lsp.get_client_by_id(_.data.client_id))
+  if client:supports_method('textDocument/codeLens') then
+    lsp.codelens.refresh { bufnr = _.buf }
+    local _f = u.lodash.debounce(200, function(_) lsp.codelens.refresh { bufnr = _.buf } end)
+    u.aug.lsp_codelens = {
+      { 'BufEnter', 'CursorHold', 'InsertLeave' },
+      { callback = _f },
+    }
+  end
 end
 
 ---@autocmd
-Lsp.setup = function()
+Lsp.setup = function(_)
   -- https://github.com/neovim/neovim/pull/31031
 
   local cap = pcall(require, 'cmp_nvim_lsp')
@@ -26,6 +34,8 @@ Lsp.setup = function()
     '--stdio',
   }
 
+  -- TODO: on_clangd.. on_lua_ls...
+  -- e.g. lspconfig command feature, e.g. ClangdSwitchSourceHeader
   lsp.config('clangd', {
     cmd = { 'clangd', '--clang-tidy', '--background-index', '--offset-encoding=utf-8' },
     filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
@@ -109,7 +119,6 @@ Lsp.setup = function()
     float = { border = 'none' },
   }
 
-  if true then return end
   -- lsp folding
   if false and lsp._folding_range then
     vim.opt.sessionoptions:remove('folds')
@@ -120,7 +129,6 @@ Lsp.setup = function()
       foldclose = '',
       foldsep = '▕',
     }
-    vim.o.foldlevel = 99
     vim.wo.foldmethod = 'expr'
     vim.wo.foldexpr = 'v:lua.vim.lsp.foldexpr()'
     vim.wo.foldtext = 'v:lua.vim.lsp.foldtext()'
@@ -134,6 +142,7 @@ Lsp.setup = function()
     })
   end
 
+  if true then return end
   -- https://github.com/lewis6991/dotfiles/blob/main/config%2Fnvim%2Flua%2Flewis6991%2Flsp.lua
   local method = 'textDocument/documentHighlight'
   local f = function(args)
@@ -157,16 +166,6 @@ Lsp.setup = function()
     { 'FocusLost', 'WinLeave', 'BufLeave' },
     { callback = lsp.buf.clear_references },
   }
-
-  local client = assert(lsp.get_client_by_id(_.data.client_id))
-  if client:supports_method('textDocument/codeLens') then
-    lsp.codelens.refresh { bufnr = _.buf }
-    local _f = u.lodash.debounce(200, function(_) lsp.codelens.refresh { bufnr = _.buf } end)
-    u.aug.lsp_codelens = {
-      { 'BufEnter', 'CursorHold', 'InsertLeave' },
-      { callback = _f },
-    }
-  end
 end
 
 return Lsp

@@ -38,6 +38,7 @@ m('c', '<c-n>', '<down>')
 m('c', '<c-a>', '<home>')
 m('c', '<c-e>', '<end>')
 
+m('n', '<cr>', 'gF')
 m('n', '<c-f>', '<nop>')
 m('n', '<c-b>', '<nop>')
 m('n', 'q', '<cmd>q<cr>')
@@ -63,7 +64,7 @@ local plug = function(basename)
 end
 plug 'flash.nvim' { modes = { search = { enabled = false } } }
 
-api.nvim_set_hl(0, 'Visual', { bg = 'Cyan', fg = 'Black' })
+-- api.nvim_set_hl(0, 'Visual', { bg = 'Cyan', fg = 'Black' })
 
 -- local term_bufnr = api.nvim_get_current_buf()
 -- TODO: open_term on current buf https://github.com/neovim/neovim/commit/ed089369

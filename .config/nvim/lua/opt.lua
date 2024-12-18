@@ -25,6 +25,7 @@ o.omnifunc = 'v:lua.vim.lsp.omnifunc' -- set before lsp attach
 o.keywordprg = ':KeywordPrg'
 o.diffopt = 'internal,filler,closeoff,hiddenoff,algorithm:minimal' -- https://github.com/neovim/neovim/pull/14537
 o.exrc = true
+o.foldlevelstart = 99
 -- o.lazyredraw = true
 -- o.showcmd = false
 
@@ -90,15 +91,15 @@ aug.bigfile = { 'BufReadPre', function(_) u.misc.bigfile_preset(_) end }
 aug.lastpos = { 'BufReadPost', [[sil! norm! g`"zv']] }
 aug.bdelete = { 'BufDelete', function(_) u.misc.record_bdelete(_) end }
 aug.yankhl = { 'TextYankPost', function() vim.hl.on_yank { timeout = 100 } end }
-aug.autowrite = -- auto reload buffer on external write
-  { { 'FocusGained', 'BufEnter', 'CursorHold' }, [[if getcmdwintype()=='' | checkt | endi]] }
+aug.autowrite = { -- auto reload buffer on external write
+  { 'FocusGained', 'BufEnter', 'CursorHold' },
+  [[if getcmdwintype()=='' | checkt | endi]],
+}
 aug.autosave = {
   { 'BufLeave', 'WinLeave', 'FocusLost', 'InsertLeave', 'TextChanged' },
   [[if &bt=='' && bufname()!='' && &ma | silent! update! | endi]],
 }
-
--- defer shada read
-o.shada = ''
+aug.term = { 'TermOpen', [[startinsert]] }
 aug.lz_load = {
   'ModeChanged',
   { once = true, pattern = '*:[ictRss\x13]*', callback = function() u.im.setup() end },
@@ -110,8 +111,6 @@ aug.lz_load = {
   { once = true, callback = function() u.lsp.setup() end },
   'LspAttach',
   { callback = function(_) u.lsp.on(_) end },
-  'UIEnter', -- lazy shada
-  { once = true, callback = function() return u.misc.lz_shada() end },
 }
 
 -- vim.treesitter.language.register('json', { 'jsonc' })
