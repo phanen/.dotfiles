@@ -1,0 +1,13 @@
+diff --git a/lua/luasnip/loaders/from_vscode.lua b/lua/luasnip/loaders/from_vscode.lua
+index a42c09f..397466d 100644
+--- a/lua/luasnip/loaders/from_vscode.lua
++++ b/lua/luasnip/loaders/from_vscode.lua
+@@ -170,7 +170,7 @@ local function get_snippet_files(manifest)
+ 	if
+ 		not package_data.contributes or not package_data.contributes.snippets
+ 	then
+-		log.warn("Manifest %s does not contribute any snippets.", manifest)
++		log.info("Manifest %s does not contribute any snippets.", manifest)
+ 		return {}
+ 	end
+ 

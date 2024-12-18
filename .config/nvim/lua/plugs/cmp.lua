@@ -1,3 +1,8 @@
+-- https://github.com/hrsh7th/cmp-cmdline/issues/101
+fn.getcompletion = (function(cb)
+  return function(...) return vim.F.npcall(cb, ...) or {} end
+end)(fn.getcompletion)
+
 return {
   'hrsh7th/nvim-cmp',
   event = { 'InsertEnter', 'CmdlineEnter' },
@@ -39,60 +44,22 @@ return {
           if c.visible() then return c.abort() end
           return c.complete()
         end, { 'i', 'c' }),
-        ['<c-k>'] = m {
-          i = m.select_prev_item(),
-          c = m.select_prev_item(),
-          s = function() ls.jump(-1) end,
-        },
-        ['<c-j>'] = m {
-          i = m.select_next_item(),
-          c = m.select_next_item(),
-          s = function() ls.jump(1) end,
-        },
-        ['<c-i>'] = m {
-          i = function(fb)
-            -- if c.visible() and c.get_selected_entry() then return c.confirm() end
-            if c.visible() then
-              -- if fn.pumvisible() == 1 then return m.select_next_item()() end
-              return c.confirm({ select = not c.get_selected_entry() })
-            end
-            if ls.expandable() then return ls.expand() end
-            return fb()
-          end,
-          c = m.confirm { select = true },
-          s = function(fb)
-            if ls.jumpable() then return ls.jump(1) end
-            return fb()
-          end,
-        },
-        ['<c-o>'] = m {
-          i = function(fb)
-            -- if ls.jumpable() then return ls.jump(-1) end
-            if c.visible() then c.abort() end
-            return fb()
-          end,
-          c = function(fb)
-            if c.visible() then c.abort() end
-            return fb()
-          end,
-          s = function() return ls.jump(-1) end,
-        },
-        ['<c-p>'] = m {
-          i = function(fb)
-            if ls.jumpable() then return ls.jump(-1) end
-            return fb()
-          end,
-          s = function() return ls.jump(-1) end,
-        },
-        ['<c-n>'] = m {
-          i = function(fb)
-            if ls.jumpable() then return ls.jump(1) end
-            return fb()
-          end,
-          s = function() return ls.jump(1) end,
-        },
+        ['<c-k>'] = m(m.select_prev_item(), { 'i', 'c' }),
+        ['<c-j>'] = m(m.select_next_item(), { 'i', 'c' }),
+        ['<c-i>'] = m(function(fb)
+          if c.visible() then
+            if not c.get_selected_entry() and ls.locally_jumpable(1) then return ls.jump(1) end
+            return c.confirm { select = true }
+          end
+          if ls.locally_jumpable(1) then return ls.jump(1) end
+          return fb()
+        end, { 'i', 'c', 's' }),
+        ['<c-o>'] = m(function(fb)
+          if ls.locally_jumpable(-1) then return ls.jump(-1) end
+          if c.visible() then c.close() end
+          return fb()
+        end, { 'i', 'c', 's' }),
         ['<cr>'] = m(m.confirm(), { 'i', 'c' }),
-        ['<c-l>'] = m(m.complete_common_string(), { 'i', 'c' }),
       },
       snippet = { expand = function(args) ls.lsp_expand(args.body) end },
       sources = {
@@ -133,6 +100,8 @@ return {
         max_view_entries = 200,
       },
     }
+
+    -- TODO: reverse cmdline view?
     c.setup.cmdline(':', {
       sources = {
         { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },

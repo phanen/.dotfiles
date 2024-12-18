@@ -6,6 +6,7 @@ return {
     -- support for <c-w> https://github.com/altermo/ultimate-autopair.nvim/issues/54
     -- bs = { map = { '<bs>', '<c-h>' }, cmap = { '<bs>', '<c-h>' } },
   },
+  -- force insert )... e.g. <c-r>)
   config = function(_, opts)
     -- https://github.com/altermo/ultimate-autopair.nvim/issues/82
     local ua = require 'ultimate-autopair'
