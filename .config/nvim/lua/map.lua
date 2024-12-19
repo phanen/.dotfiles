@@ -210,6 +210,16 @@ aug.termopen = {
 }
 -- }}}
 
+-- profile {{{
+n['+r'] = function() require('plenary.profile').start('profile.log', { flame = true }) end
+n['+s'] = function()
+  require('plenary.profile').stop()
+  if not uv.fs_stat('profile.log') then return end
+  fn.system('inferno-flamegraph profile.log > profile.svg')
+  vim.system { env.BROWSER, 'profile.svg' }
+end
+-- }}}
+
 n['@w'] = '' -- avoid kanata typo
 n[' I'] = '<cmd>Inspect<cr>'
 n['S'] = '<cmd>InspectTree<cr>'
