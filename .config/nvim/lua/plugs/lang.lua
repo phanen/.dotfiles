@@ -24,7 +24,8 @@ local specs = {
   {
     'kawre/leetcode.nvim',
     dependencies = { 'MunifTanjim/nui.nvim' },
-    cmd = 'Leet',
+    cond = g.leetcode,
+    lazy = false,
     keys = {
       { '+c', '<cmd>Leet console<cr>' },
       { '+k', '<cmd>Leet desc<cr>' },

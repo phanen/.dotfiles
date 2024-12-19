@@ -47,6 +47,7 @@ g.local_path = g.state_path .. '/local.lua'
 g.border = { '┏', '━', '┓', '┃', '┛', '━', '┗', '┃' }
 g.indentsym = '|'
 g.is_remote = env.SSH_TTY and true or false
+g.leetcode = vim.v.argv[#vim.v.argv] == '+Leet'
 g.is_local = not g.is_remote
 g.clipboard = g.is_remote
     and {
