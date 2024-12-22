@@ -78,9 +78,6 @@ local buf = api.nvim_get_current_buf()
 input_mode_leave_callback(buf)
 input_mode_enter_callback(buf)
 
-local i = map.i
-local c = map.c
-
 Im.setup = function()
   u.aug.im = {
     'ModeChanged',
@@ -94,45 +91,6 @@ Im.setup = function()
       callback = function(info) input_mode_leave_callback(info.buf) end,
     },
   }
-
-  i['<down>'] = '<cmd>norm! g<down><cr>'
-  i['<up>'] = '<cmd>norm! g<up><cr>'
-
-  i['<c-f>'] = '<right>'
-  i['<c-b>'] = '<left>'
-  i['<c-a>'] = u.rl.dwim_beginning_of_line
-  i['<c-e>'] = '<end>'
-  i['<c-j>'] = u.rl.forward_word
-  i['<c-o>'] = u.rl.backward_word
-  i['<c-l>'] = u.rl.kill_word
-  i['<c-k>'] = u.rl.kill_line
-  i['<c-u>'] = u.rl.dwim_backward_kill_line
-  i['<c-bs>'] = '<c-w>'
-
-  for _, char in ipairs { ' ', '-', '_', ':', '.', '/' } do
-    i.expr[char] = function()
-      if fn.reg_executing() ~= '' or fn.reg_recording() ~= '' then return char end
-      return char .. '<c-g>u'
-    end
-  end
-
-  i['<c-x>f'] = function() return u.pick.complete_file() end
-  i['<c-x>l'] = function() return u.pick.complete_bline() end
-  i['<c-x>p'] = function() return u.pick.complete_path() end
-
-  c['<c-p>'] = '<up>'
-  c['<c-n>'] = '<down>'
-  c['<c-f>'] = '<right>'
-  c['<c-b>'] = '<left>'
-  c['<c-a>'] = u.rl.dwim_beginning_of_line
-  c['<c-e>'] = '<end>'
-  c['<c-d>'] = '<del>'
-  c['<c-j>'] = u.rl.forward_word
-  c['<c-o>'] = u.rl.backward_word
-  c['<c-l>'] = u.rl.kill_word
-  c['<c-k>'] = u.rl.kill_line
-  c['<c-u>'] = u.rl.dwim_backward_kill_line
-  c['<c-bs>'] = '<c-w>'
 end
 
 return Im
