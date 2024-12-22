@@ -223,3 +223,58 @@ end
 n['@w'] = '' -- avoid kanata typo
 n[' I'] = '<cmd>Inspect<cr>'
 n['S'] = '<cmd>InspectTree<cr>'
+
+-- insert & command mode {{{
+local cs = u.lreq('copilot.suggestion')
+local i, c = map.i, map.c
+i.expr['<c-f>'] = function()
+  if not cs.is_visible() then return '<right>' end
+  cs.accept()
+end
+i.expr['<c-e>'] = function()
+  if not cs.is_visible() then return '<end>' end
+  cs.accept_line()
+end
+i['<c-j>'] = function()
+  if not cs.is_visible() then u.rl.forward_word() end
+  cs.accept_word()
+end
+i.expr['<c-p>'] = function()
+  if not cs.is_visible() then return '<c-p>' end
+  cs.prev()
+end
+i.expr['<c-n>'] = function()
+  if not cs.is_visible() then return '<c-n>' end
+  cs.next()
+end
+i['<c-b>'] = '<left>'
+i['<c-a>'] = function() u.rl.dwim_beginning_of_line() end
+i['<c-o>'] = function() u.rl.backward_word() end
+i['<c-l>'] = function() u.rl.kill_word() end
+i['<c-k>'] = function() u.rl.kill_line() end
+i['<c-u>'] = function() u.rl.dwim_backward_kill_line() end
+i['<c-bs>'] = '<c-w>'
+
+for _, char in ipairs { ' ', '-', '_', ':', '.', '/' } do
+  i.expr[char] = function()
+    if fn.reg_executing() ~= '' or fn.reg_recording() ~= '' then return char end
+    return char .. '<c-g>u'
+  end
+end
+
+i['<c-x>f'] = function() return u.pick.complete_file() end
+i['<c-x>l'] = function() return u.pick.complete_bline() end
+i['<c-x>p'] = function() return u.pick.complete_path() end
+
+c['<c-p>'], c['<c-n>'] = '<up>', '<down>'
+c['<c-f>'], c['<c-b>'] = '<right>', '<left>'
+c['<c-a>'], c['<c-e>'] = function() u.rl.dwim_beginning_of_line() end, '<end>'
+c['<c-d>'] = '<del>'
+c['<c-j>'] = function() u.rl.forward_word() end
+c['<c-o>'] = function() u.rl.backward_word() end
+c['<c-l>'] = function() u.rl.kill_word() end
+c['<c-k>'] = function() u.rl.kill_line() end
+c['<c-u>'] = function() u.rl.dwim_backward_kill_line() end
+c['<c-bs>'] = '<c-w>'
+--- }}}
+n['<F13>'] = '<cmd>edit $MYVIMRC<cr>'
