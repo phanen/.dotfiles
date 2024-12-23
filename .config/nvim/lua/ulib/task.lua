@@ -27,7 +27,7 @@ Task.termrun = function()
   if cmd then
     if type(cmd) == 'string' then cmd = { cmd } end
     cmd[#cmd + 1] = api.nvim_buf_get_name(0)
-    vim.print(cmd)
+    -- vim.print(cmd)
     u.muxterm.send(cmd, false)
   end
 end
