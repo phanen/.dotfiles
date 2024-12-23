@@ -12,6 +12,7 @@ local options = {
   rg_cmd = [[rg --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e ]],
   -- not sure if is this a sorter-friendly opt-in
   -- fzf_opts = { ['--nth'] = 2, ['--delimiter'] = fzf.utils.nbsp },
+  glob_regex = '(.*)%s%-%-%s(.*)',
 }
 
 ---@alias content (string|number)[]|fun(fzf_cb: fun(entry?: string|number, cb?: function))|string|nil
@@ -45,6 +46,49 @@ Pick.files = function(opts)
   return fzf_exec(cmd, opts)
 end
 
+local get_grep_cmd = function(query, inv_globs)
+  local search_query, glob_query = query:match(options.glob_regex)
+  local globs = vim.deepcopy(inv_globs)
+  if search_query and glob_query then
+    local query_globs = vim.split(glob_query, '%s+', { trimempty = true })
+    globs = vim.list_extend(globs, query_globs)
+  else
+    search_query = query
+  end
+  search_query = libuv.shellescape(search_query)
+  globs = vim.tbl_map(libuv.shellescape, globs)
+  local cmd = table.concat({ options.rg_cmd .. search_query, unpack(globs) }, ' -g ')
+  return options.iconprg and ('%s | %s'):format(cmd, options.iconprg) or cmd
+end
+
+Pick.grep = function(opts)
+  local default = {
+    multiprocess = false,
+    previewer = 'builtin',
+    query = rg_escape(table.concat(u.buf.getregion())),
+    winopts = { title = '[GREP]', title_pos = 'center' },
+    fzf_opts = options.fzf_opts,
+    actions = u.merge(
+      g.fzf_lua_file_actions,
+      { ['ctrl-g'] = function() Pick.lgrep { query = fzf.get_last_query() } end }
+    ),
+    input_prompt = 'Grep> ',
+  }
+  local input = function(prompt)
+    local ok, res
+    ok, res = pcall(vim.fn.input, { prompt = prompt, cancelreturn = 3 })
+    if res == 3 then
+      ok, res = false, nil
+    end
+    return ok and res or nil
+  end
+  opts = u.merge(default, opts or {})
+  local ignore_globs = u.project.get('ignore_globs', { cwd = opts.cwd }) or {}
+  local inv_globs = vim.tbl_map(function(g) return '!' .. g end, ignore_globs)
+  local query = (opts.query and #opts.query ~= 0) and opts.query or input(opts.input_prompt) or ''
+  return fzf_exec(get_grep_cmd(query, inv_globs), opts)
+end
+
 Pick.lgrep = function(opts)
   local default = {
     multiprocess = false,
@@ -52,25 +96,17 @@ Pick.lgrep = function(opts)
     query = rg_escape(table.concat(u.buf.getregion())),
     winopts = { title = '[LGREP]', title_pos = 'center' },
     fzf_opts = options.fzf_opts,
-    actions = g.fzf_lua_file_actions,
+    actions = u.merge(
+      g.fzf_lua_file_actions,
+      { ['ctrl-g'] = function() Pick.grep { query = fzf.get_last_query() } end }
+    ),
+    prompt = '',
   }
   opts = u.merge(default, opts or {})
+  opts.prompt = (opts.prompt and opts.prompt:match('^%*')) and opts.prompt or ('*' .. opts.prompt)
   local ignore_globs = u.project.get('ignore_globs', { cwd = opts.cwd }) or {}
   local inv_globs = vim.tbl_map(function(g) return '!' .. g end, ignore_globs)
-  opts.fn_reload = function(query)
-    local search_query, glob_query = query:match('(.*)%s%-%-%s(.*)')
-    local globs = vim.deepcopy(inv_globs)
-    if search_query and glob_query then
-      local query_globs = vim.split(glob_query, '%s+', { trimempty = true })
-      globs = vim.list_extend(globs, query_globs)
-    else
-      search_query = query
-    end
-    search_query = libuv.shellescape(search_query)
-    globs = vim.tbl_map(libuv.shellescape, globs)
-    local cmd = table.concat({ options.rg_cmd .. search_query, unpack(globs) }, ' -g ')
-    return options.iconprg and ('%s | %s'):format(cmd, options.iconprg) or cmd
-  end
+  opts.fn_reload = function(query) return get_grep_cmd(query, inv_globs) end
   return fzf_exec(nil, opts)
 end
 
