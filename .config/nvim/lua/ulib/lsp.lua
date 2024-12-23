@@ -123,7 +123,6 @@ Lsp.setup = function(_)
 
   -- lsp folding
   if false and lsp._folding_range then
-    vim.opt.sessionoptions:remove('folds')
     vim.opt_local.fillchars = {
       eob = ' ',
       diff = '╱',
