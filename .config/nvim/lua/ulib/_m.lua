@@ -31,6 +31,7 @@ local function make_map(ctx)
         opts.callback = nil
       end,
     })
+    if type(ctx.key) == 'number' and ctx.key ~= 0 then return child end
     rawset(ctx.parent, ctx.key, child)
     return child
   end

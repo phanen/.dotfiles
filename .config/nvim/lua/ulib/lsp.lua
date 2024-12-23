@@ -2,7 +2,7 @@ local Lsp = {}
 
 ---@autocmd
 Lsp.on = function(_)
-  local n = map[0].n
+  local n = map[_.buf].n -- cannot use `0` here (current focused buf differ from LspAttach event buf)
   n[' rn'] = function() lsp.buf.rename() end
   n['gd'] = function() u.pick.lsp_definitions() end
   n['gh'] = function() u.pick.lsp_code_actions() end
