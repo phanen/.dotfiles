@@ -165,7 +165,7 @@ nx['<c-h>'] = function() u.pick.help_tags() end
 nx[' ;'] = function() u.pick.commands() end
 nx[' /'] = function() u.pick.command_history() end
 nx[' <c-b>'] = function() u.pick.git_bcommits() end
-n[' z'] = function() u.pick.zoxide() end
+n[' <c-f>'] = function() u.pick.zoxide() end
 n['z='] = function() u.pick.spell_suggest() end
 n['  '] = function() u.pick.resume() end
 n[' a'] = function() u.pick.builtin() end
@@ -223,6 +223,8 @@ end
 n['@w'] = '' -- avoid kanata typo
 n[' I'] = '<cmd>Inspect<cr>'
 n['S'] = '<cmd>InspectTree<cr>'
+n[' Q'] = '<cmd>qa!<cr>'
+n['?'] = '<cmd>Lazy<cr>'
 
 -- insert & command mode {{{
 local cs = u.lreq('copilot.suggestion')

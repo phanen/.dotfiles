@@ -1,6 +1,4 @@
-aarch64-linux-gnu-binutils
-aarch64-linux-gnu-gcc
-aarch64-linux-gnu-gdb
+7zip
 acpi
 act
 apr
@@ -54,6 +52,7 @@ darkman
 dash
 debootstrap
 debugedit
+deno
 devtools-archlinuxcn
 devtools-riscv64
 dex
@@ -102,6 +101,7 @@ gcc
 gdb
 gdu
 gettext
+ghq
 git
 git-absorb
 git-delta
@@ -109,6 +109,7 @@ github-cli
 gnu-free-fonts
 gnu-netcat
 go
+go-yq
 gofumpt
 gperf
 gpg-tui
@@ -231,7 +232,6 @@ onlyoffice-bin
 openslide
 openssh
 os-prober
-p7zip
 pacman
 pacman-contrib
 pacutils
@@ -398,7 +398,6 @@ xsel
 xterm
 yarn
 yazi
-yq
 zed
 zig
 zip
