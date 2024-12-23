@@ -2,5 +2,5 @@ return {
   'willothy/flatten.nvim',
   lazy = false,
   ft = { 'terminal', 'Fterm' },
-  opts = { window = { open = 'alternate' } },
+  opts = { window = { open = 'tab' } },
 }
