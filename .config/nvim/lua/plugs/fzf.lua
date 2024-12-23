@@ -84,6 +84,11 @@ return {
             actions = { ['ctrl-o'] = function(s) vim.cmd.DiffviewOpen(s[1]:match('[^ ]+')) end },
           },
         },
+        buffers = {
+          actions = {
+            ['ctrl-r'] = { fn = function() u.bufop.delete_irrelavant() end, reload = true },
+          },
+        },
         lines = { winopts = { preview = { hidden = 'hidden' } } },
         blines = { winopts = { preview = { hidden = 'hidden' } } },
         helptags = { winopts = { preview = { hidden = 'hidden' } } },

@@ -81,4 +81,17 @@ Bufop.delete = function()
   -- api.nvim_buf_delete(0, {})
 end
 
+Bufop.delete_irrelavant = function()
+  local root = uv.cwd()
+  vim.print(api.nvim_list_bufs())
+  vim
+    .iter(api.nvim_list_bufs())
+    :filter(
+      function(buf) return not vim.bo.bt[buf] and api.nvim_buf_get_name(buf):sub(1, #root) ~= root end
+    )
+    :each(function(buf)
+      if api.nvim_buf_is_valid(buf) then api.nvim_buf_delete(buf, { force = true }) end
+    end)
+end
+
 return Bufop
