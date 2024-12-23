@@ -26,6 +26,7 @@ o.diffopt = 'internal,filler,closeoff,hiddenoff,algorithm:minimal' -- https://gi
 o.exrc = true
 o.foldlevelstart = 99
 o.guicursor = 'n-v-c-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20,t:ver25'
+vim.opt.sessionoptions:remove('folds')
 -- o.lazyredraw = true
 -- o.showcmd = false
 
