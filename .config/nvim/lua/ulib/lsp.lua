@@ -44,44 +44,9 @@ Lsp.setup = function(_)
     root_markers = { '.clangd', 'compile_commands.json' },
   })
 
-  lsp.config('lua_ls', {
-    cmd = { 'lua-language-server' },
-    filetypes = { 'lua' },
-    root_markers = {
-      '.luarc.json',
-      '.luarc.jsonc',
-      '.luacheckrc',
-      '.stylua.toml',
-      'stylua.toml',
-      'selene.toml',
-      'selene.yml',
-    },
-    -- Note this is ignored if the project has a .luarc.json
-    settings = {
-      Lua = {
-        completion = {
-          callSnippet = 'Replace',
-          -- postfix = '.', -- no string.method now
-          showWord = 'Disable',
-          workspaceWord = false,
-        },
-        workspace = {
-          checkThirdParty = false,
-          library = {
-            vim.env.VIMRUNTIME,
-            '${3rd}/busted/library',
-            '${3rd}/luv/library',
-          },
-        },
-        runtime = { version = 'LuaJIT' },
-      },
-    },
-    on_attach = function(...) return u.misc.auto_lua_require(...) end,
-  })
-
   lsp.enable {
     -- 'clangd',
-    'lua_ls',
+    'luals',
   }
 
   local l = require('lspconfig')
@@ -89,22 +54,6 @@ Lsp.setup = function(_)
   l.clangd.setup {}
 
   l.pyright.setup { cmd = pylance } -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md
-
-  l.gopls.setup {
-    settings = {
-      gopls = {
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
-        },
-      },
-    },
-  }
 
   l.ts_ls.setup {}
 
