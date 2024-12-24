@@ -131,7 +131,8 @@ end
 ---@param term_cfg TermConfig?
 function Term:spawn(term_cfg)
   local cfg = u.merge(self.config, term_cfg or {})
-  self.term = fn.termopen(u.eval(cfg.cmd), {
+  self.term = fn.jobstart(u.eval(cfg.cmd), {
+    term = true,
     clear_env = cfg.clear_env,
     cwd = cfg.cwd,
     env = cfg.env,

@@ -1,8 +1,8 @@
 ---@alias HashKey string|number or has __tostring...
 
 ---@class HashNode
----@field prev HashNode
----@field next HashNode
+---@field prev HashNode?
+---@field next HashNode?
 ---@field key HashKey
 ---@field data any
 

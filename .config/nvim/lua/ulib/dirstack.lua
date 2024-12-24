@@ -113,7 +113,7 @@ Dirstack.fuzzy = function()
   local ui_select = function()
     local items = {}
     hlist:foreach(function(node) items[#items + 1] = node.key end)
-    vim.ui.select(items, { prompt = 'Dirstack: ' }, function(x) fn.chdir(x) end)
+    vim.ui.select(items, { prompt = 'Dirstack: ' }, function(x) fn.chdir(assert(x)) end)
   end
   Dirstack.fuzzy = ok and fzf_fuzzy or ui_select
   Dirstack.fuzzy()

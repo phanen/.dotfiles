@@ -5,7 +5,7 @@ local Repmv = {}
 ---@field fn_forward? function
 ---@field fn_backward? function
 ---protocol mux
----@field fn_nav? fun(opts: { forward: boolean })
+---@field fn_nav? fun(opts: { forward: boolean }, ...)
 ---@field opts? { forward: boolean }
 ---@field args? table more args
 
