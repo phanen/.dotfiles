@@ -269,7 +269,7 @@ i['<c-x>f'] = function() return u.pick.complete_file() end
 i['<c-x>l'] = function() return u.pick.complete_bline() end
 i['<c-x>p'] = function() return u.pick.complete_path() end
 
-c['<c-p>'], c['<c-n>'] = '<up>', '<down>'
+c['<a-p>'], c['<a-n>'] = '<up>', '<down>'
 c['<c-f>'], c['<c-b>'] = '<right>', '<left>'
 c['<c-a>'], c['<c-e>'] = function() u.rl.dwim_beginning_of_line() end, '<end>'
 c['<c-d>'] = '<del>'
