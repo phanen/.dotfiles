@@ -111,6 +111,16 @@ Lsp.setup = function(_)
   l.volar.setup {
     on_attach = function(client, _) client.server_capabilities.documentFormattingProvider = false end,
   }
+  l.fish_lsp.setup {}
+
+  l.yamlls.setup {
+    settings = {
+      -- yaml = {
+      --   schemaStore = { enable = false, url = '' },
+      --   schemas = require('schemastore').yaml.schemas(),
+      -- },
+    },
+  }
 
   l.vimls.setup {}
 

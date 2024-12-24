@@ -12,7 +12,13 @@ return {
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
-    opts = { ui = { height = 0.85, width = 0.95, border = g.border } },
+    opts = {
+      ui = { height = 0.85, width = 0.95, border = g.border },
+      registries = {
+        'github:phanen/mason-registry-extra',
+        'github:mason-org/mason-registry',
+      },
+    },
   },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -22,6 +28,7 @@ return {
     opts = { ensure_install = { 'all' } },
   },
   { 'neovim/nvim-lspconfig' },
+  { 'b0o/SchemaStore.nvim' },
 
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
   { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
