@@ -2,9 +2,7 @@ return {
   { 'phanen/fzf-lua-overlay', main = 'flo', opts = {} },
   {
     'ibhagwan/fzf-lua',
-    -- branch = 'dev',
     cmd = 'FzfLua',
-    dependencies = 'nvim-treesitter', -- must be setup for preview
     config = function()
       local a = require('flo.actions')
       local f = require('fzf-lua')
@@ -92,7 +90,11 @@ return {
         lines = { winopts = { preview = { hidden = 'hidden' } } },
         blines = { winopts = { preview = { hidden = 'hidden' } } },
         helptags = { winopts = { preview = { hidden = 'hidden' } } },
-        commands = { actions = { enter = f.actions.ex_run_cr, ['ctrl-s'] = f.actions.ex_run } },
+        manpages = { winopts = { preview = { hidden = 'hidden' } } },
+        commands = {
+          winopts = { preview = { hidden = 'hidden' } },
+          actions = { enter = f.actions.ex_run_cr, ['ctrl-e'] = f.actions.ex_run },
+        },
         spell_suggest = { winopts = { border = 'none', backdrop = false } },
         complete_path = { file_icons = true, previewer = 'builtin' },
         actions = { files = g.fzf_lua_file_actions },
