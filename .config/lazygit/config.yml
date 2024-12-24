@@ -1,5 +1,7 @@
 # /usr/share/doc/lazygit/Config.md
 
+gui:
+  showFileTree: false
 git:
   paging:
     colorArg: always
@@ -34,6 +36,14 @@ customCommands:
     context: "files"
     description: "copy file content to clipboard"
     subprocess: true
+  - key: "<c-j>"
+    command: "git absorb -f -F"
+    context: "files"
+    description: "one commit"
+  - key: "<c-k>"
+    command: "git absorb -f -Fw"
+    context: "files"
+    description: "git absorb -Fw"
 
 # fix hang when xdg-open use terminal as opener
 # or hang on first open?

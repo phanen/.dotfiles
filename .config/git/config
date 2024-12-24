@@ -1,5 +1,7 @@
-[include]
-	path = ~/.gitconfig.local
+[user]
+	email = 91544758+phanen@users.noreply.github.com
+	name = phanium
+	signingkey = phanium
 
 [init]
 	defaultBranch = master
@@ -15,8 +17,21 @@
 	who = shortlog -sne
 	amend = commit --amend --all --no-edit
 
-[user]
-	signingkey = phanium
+[absorb]
+	maxStack = 30
+	oneFixupPerCommit = true
+
+[difftool]
+	prompt = true
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
+[maintenance]
+	auto = false
+	strategy = incremental
+
 [commit]
 	gpgsign = false
 [credential "https://gitlab.archlinux.org"]
