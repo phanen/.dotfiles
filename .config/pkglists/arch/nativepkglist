@@ -36,6 +36,7 @@ cataclysm-dda-ncurses
 ccache
 cgdb
 chafa
+check
 chitose
 clang
 clash-meta-alpha-git
@@ -71,6 +72,7 @@ dust
 efibootmgr
 egl-wayland
 eglexternalplatform
+emacs
 emscripten
 evtest
 expac
@@ -191,6 +193,7 @@ lsof
 ltrace
 lua
 lua-socket
+lua51
 luarocks
 m4
 make
@@ -235,7 +238,6 @@ os-prober
 pacman
 pacman-contrib
 pacutils
-pandoc-bin
 paru
 patch
 pdfgrep
@@ -244,7 +246,6 @@ perl-image-exiftool
 pipewire-pulse
 pipewire-session-manager
 pkgconf
-pkgfile
 pnpm
 polybar
 poppler-glib
@@ -337,6 +338,7 @@ w3m
 wakeonlan
 wayland-protocols
 webkit2gtk
+webkit2gtk-4.1
 weston
 wget
 which

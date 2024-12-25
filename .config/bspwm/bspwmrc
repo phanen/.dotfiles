@@ -20,9 +20,7 @@ bspc rule -a SimpleScreenRecorder state=floating
 bspc rule -a pangoterm state=floating
 bspc rule -a a.out state=floating
 
-bspc rule -a Nightly state=tiled
-bspc rule -a Firefox state=tiled
-bspc rule -a firefox state=tiled
+bspc rule -a "$BROWSER" state=tiled
 
 # when disable internal monitor, also remove its desktop
 # https://github.com/baskerville/bspwm/issues/1106

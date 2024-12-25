@@ -1,5 +1,6 @@
 return {
   'mbbill/undotree',
+  lazy = false,
   cmd = 'UndotreeToggle',
   config = function()
     vim.g.undotree_DiffAutoOpen = 0
