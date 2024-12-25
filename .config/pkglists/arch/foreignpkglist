@@ -1,9 +1,10 @@
-archosaur-bin
 code-features
 code-marketplace
 codelldb-bin
 fish-git
 localsend-bin
+nvimpager
+pandoc-bin
 rar
 sunshine-bin
 systemd-cron

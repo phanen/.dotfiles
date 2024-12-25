@@ -7,6 +7,8 @@ nx['d'] = '"-d'
 nx['D'] = '"-D'
 nx['c'] = '"-c'
 nx['C'] = '"-C'
+nx['X'] = '"-X'
+n['x'] = '"-x'
 nx['<c-p>'] = '"-P'
 n[' p'] = '<cmd>%d_|norm!VP<cr>'
 n[' y'] = '<cmd>%y<cr>'
@@ -32,7 +34,7 @@ n['gy'] = '`[v`]'
 x['gb'] = function() u.refactor.to_file(nil, true) end
 x['+y'] = function() u.misc.archive() end
 n[' .'] = '<cmd>Neogen<cr>'
-n['<cr>'] = 'gF'
+nx['<cr>'] = 'gF'
 n['<tab>'], n['<c-i>'] = 'za', '<c-i>' -- https://github.com/neovim/neovim/pull/17932
 
 nx.expr[' so'] = function() return u.task.so() end
@@ -41,15 +43,15 @@ nx[' <cr>'] = function() u.task.termrun() end
 
 -- debugprint {{{
 -- for c, typed printf...
-n['g.'] = function() return require('debugprint').debugprint() end
-n['gm'] = function() return require('debugprint').debugprint { variable = true } end
+n['gm'] = function() return require('debugprint').debugprint() end
+n['g.'] = function() return require('debugprint').debugprint { variable = true } end
 n['+.'] = function() require('debugprint').deleteprints() end
 -- }}}
 
 -- text process {{{
 n['<a-j>'], x['<a-j>'] = [[<cmd>exe("m+".v:count1)|norm!==<cr>]], [[:m '>+<cr>gv=gv]]
 n['<a-k>'], x['<a-k>'] = [[<cmd>move-2<cr>==]], [[:m '<-2<cr>gv=gv]]
-n['gw'] = function() u.fmt.conform() end
+nx['gw'] = function() u.fmt.conform() end
 n['-'] = '<cmd>TSJToggle<cr>'
 -- swap
 nx['gs'] = function() u.swap.operator() end
@@ -90,6 +92,7 @@ n[']d'] = function() u.repmv.next_d() end
 n['[d'] = function() u.repmv.prev_d() end
 n[']b'] = function() u.repmv.next_b() end
 n['[b'] = function() u.repmv.prev_b() end
+n['g<tab>'] = 'g<tab>'
 n['g<c-i>'] = function() u.repmv.next_o() end
 n['g<c-o>'] = function() u.repmv.prev_o() end
 n[' <c-i>'] = function() u.repmv.next_O() end
@@ -162,6 +165,7 @@ nx[' gl'] = function() u.gl.permalink_open() end
 nx['<c-l>'] = function() u.pick.files() end
 nx['<c-n>'] = function() u.pick.lgrep() end
 nx['<c-h>'] = function() u.pick.help_tags() end
+nx['<c-m>'] = function() u.pick.manpages() end
 nx[' ;'] = function() u.pick.commands() end
 nx[' /'] = function() u.pick.command_history() end
 nx[' <c-b>'] = function() u.pick.git_bcommits() end
@@ -202,6 +206,7 @@ aug.termopen = {
     local bt, bn, bnt = map[_.buf].t, map[_.buf].n, map[_.buf].tn
     bt['<c- >'] = '<c-\\><c-n>'
     if not vim.b[_.buf].is_float_muxterm then return end
+    bn['<cr>'] = '<cmd>tabnew <cfile><cr>'
     bt['<a-;>'] = function() u.muxterm.toggle() end
     bn['i'], bn['a'] = 'I', 'A' -- workaround, insert at bottom not work
     bnt['<a-j>'] = function() u.muxterm.cycle_next() end
@@ -221,7 +226,7 @@ n['+s'] = function()
 end
 -- }}}
 
-n['@w'] = '' -- avoid kanata typo
+nx['@w'], nx['@^'] = '', '' -- avoid kanata typo
 n[' I'] = '<cmd>Inspect<cr>'
 n['S'] = '<cmd>InspectTree<cr>'
 n[' Q'] = '<cmd>qa!<cr>'

@@ -27,6 +27,7 @@ o.exrc = true
 o.foldlevelstart = 99
 o.guicursor = 'n-v-c-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20,t:ver25'
 vim.opt.sessionoptions:remove('folds')
+o.messagesopt = 'hit-enter,history:2000'
 -- o.lazyredraw = true
 -- o.showcmd = false
 
@@ -64,6 +65,7 @@ com.AppendModeline = function() return u.misc.append_modeline() end
 com.EditFtplugin =
   { function(_) return u.misc.edit_ftplugin(_.fargs[1]) end, nargs = '*', complete = 'filetype' }
 com.Ghist = [[G log -p --follow -- %]]
+com.Log = [[edit $NVIM_LOG_FILE]]
 com.KeywordPrg = { function(_) return u.misc.keywordprg(_) end, nargs = '*' }
 com.R = { function(_) u.msg.pipe_cmd(_.args) end, nargs = '*', complete = 'command' }
 com.ToggleDiag = function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end
@@ -86,11 +88,11 @@ com.DiagFloat = [[lua vim.diagnostic.open_float()]]
 com.DirHist = function() u.dirstack.hist() end
 com.Hypen2Star = [[%s/^\([  ]*\)- \(.*\)/\1* \2/g]]
 com.Four2Two = [[%s;^\(\s\+\);\=repeat(' ', submatch(0)->len()/2);g]]
-com.YF = [[let @+= '%:p'->expand()]]
+com.YankFilename = [[let @+= '%:p'->expand()]]
 
 aug.bigfile = { 'BufReadPre', function(_) u.misc.bigfile_preset(_) end }
 aug.lastpos = { 'BufReadPost', [[sil! norm! g`"zv']] }
-aug.bdelete = { 'BufDelete', function(_) u.misc.record_bdelete(_) end }
+aug.bdelete = { 'BufEnter', function(_) u.misc.record_bdelete(_) end }
 aug.yankhl = { 'TextYankPost', function() vim.hl.on_yank { timeout = 100 } end }
 aug.autowrite = { -- auto reload buffer on external write
   { 'FocusGained', 'BufEnter', 'CursorHold' },
