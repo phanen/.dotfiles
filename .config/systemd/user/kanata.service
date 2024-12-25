@@ -6,10 +6,8 @@ Documentation=https://github.com/jtroo/kanata
 [Service]
 # maybe useful for cmd (not sure)
 Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
-Environment=DISPLAY=:0
-Environment=HOME=/home/phan/
 Type=simple
-ExecStart=/usr/local/bin/kanata --cfg /home/phan/.config/kanata/kanata.kbd
+ExecStart=kanata --cfg ${HOME}/.config/kanata/kanata.kbd
 Restart=no
 
 [Install]

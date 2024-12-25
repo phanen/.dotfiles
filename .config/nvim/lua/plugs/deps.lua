@@ -7,8 +7,6 @@ return {
   { 'tweekmonster/helpful.vim', cmd = 'HelpfulVersion' },
   { 'junegunn/fzf.vim', cmd = { 'Files', 'RG', 'Rg' } },
 
-  { 'folke/flash.nvim' },
-
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',

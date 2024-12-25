@@ -27,20 +27,12 @@ o.ignorecase = true
 o.smartcase = true
 
 -- setup keymap first in case we crash in half
-local m = vim.keymap.set
-m({ 'n', 'x', 'o' }, 's', "<cmd>lua require('flash').jump()<cr>")
-m({ 'n', 'x', 'o' }, 's', "<cmd>lua require('flash').jump()<cr>")
--- m({ 'n', 'x', 'o' }, '<c-s>', "<cmd>lua require('flash').jump()<cr>")
+local m = function(mode, lhs, rhs) return api.nvim_set_keymap(mode, lhs, rhs, { noremap = true }) end
 m('c', '<c-f>', '<right>')
 m('c', '<c-b>', '<left>')
-m('c', '<c-p>', '<up>')
-m('c', '<c-n>', '<down>')
 m('c', '<c-a>', '<home>')
 m('c', '<c-e>', '<end>')
-
-m('n', '<cr>', 'gF')
-m('n', '<c-f>', '<nop>')
-m('n', '<c-b>', '<nop>')
+m('n', '<cr>', '<cmd>sil! !kitten @launch --type overlay nvim <cfile><cr>')
 m('n', 'q', '<cmd>q<cr>')
 m('n', 'i', '<cmd>q<cr>')
 m('n', 'a', '<cmd>q<cr>')
@@ -51,20 +43,8 @@ m('n', ' m', '<cmd>messages<cr>')
 m('n', '$', 'g_')
 m('n', '<c-d>', '<c-d>zz')
 m('n', '<c-u>', '<c-u>zz')
-
 m('n', 'd', '<c-d>')
 m('n', 'u', '<c-u>')
-
-local root = vim.env.XDG_DATA_HOME .. '/nvim/lazy'
-
-local plug = function(basename)
-  vim.opt.rtp:prepend(root .. '/' .. basename)
-  local packname = fn.trim(basename, '.nvim')
-  return function(opts) require(packname).setup(opts) end
-end
-plug 'flash.nvim' { modes = { search = { enabled = false } } }
-
--- api.nvim_set_hl(0, 'Visual', { bg = 'Cyan', fg = 'Black' })
 
 -- local term_bufnr = api.nvim_get_current_buf()
 -- TODO: open_term on current buf https://github.com/neovim/neovim/commit/ed089369
