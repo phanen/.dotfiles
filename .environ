@@ -11,11 +11,12 @@ append_path() {
   esac
 }
 
-append_path "$HOME"/.local/bin
-append_path "$HOME"/.cargo/bin
-append_path "$HOME"/.local/share/nvim/mason/bin
-append_path "$HOME"/.nimble/bin
-append_path "$HOME"/.luarocks/bin
+append_path "$HOME/.local/bin"
+append_path "$HOME/.cargo/bin"
+append_path "$HOME/.local/share/nvim/mason/bin"
+append_path "$HOME/.nimble/bin"
+append_path "$HOME/.luarocks/bin"
+append_path "$HOME/flutter/bin"
 
 export EDITOR=nvim
 export VISUAL=nvim
@@ -36,7 +37,7 @@ export https_proxy=$http_proxy
 export ftp_proxy=$http_proxy
 export rsync_proxy=$http_proxy
 export all_proxy=$http_proxy
-export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,::1"
 
 # fcitx5
 export GTK_IM_MODULE=fcitx
