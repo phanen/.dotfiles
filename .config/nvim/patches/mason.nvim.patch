@@ -1,0 +1,13 @@
+diff --git a/lua/mason/ui/instance.lua b/lua/mason/ui/instance.lua
+index c8f7856b..a14129a2 100644
+--- a/lua/mason/ui/instance.lua
++++ b/lua/mason/ui/instance.lua
+@@ -23,7 +23,7 @@ local function GlobalKeybinds(state)
+     return Ui.Node {
+         Ui.Keybind(settings.current.ui.keymaps.toggle_help, "TOGGLE_HELP", nil, true),
+         Ui.Keybind("q", "CLOSE_WINDOW", nil, true),
+-        Ui.When(not state.view.language_filter, Ui.Keybind("<Esc>", "CLOSE_WINDOW", nil, true)),
++        -- Ui.When(not state.view.language_filter, Ui.Keybind("<Esc>", "CLOSE_WINDOW", nil, true)),
+         Ui.When(state.view.language_filter, Ui.Keybind("<Esc>", "CLEAR_LANGUAGE_FILTER", nil, true)),
+         Ui.When(state.view.is_searching, Ui.Keybind("<Esc>", "CLEAR_SEARCH_MODE", nil, true)),
+         Ui.Keybind(settings.current.ui.keymaps.apply_language_filter, "LANGUAGE_FILTER", nil, true),
