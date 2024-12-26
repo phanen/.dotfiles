@@ -73,7 +73,6 @@ return {
   { import = 'plugs.edit.undo' },
   { import = 'plugs.fidget' },
   { import = 'plugs.flatten' },
-  { import = 'plugs.flog' },
   { import = 'plugs.fugitive' },
   { import = 'plugs.fundo' },
   { import = 'plugs.fzf' },
