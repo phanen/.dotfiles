@@ -53,8 +53,7 @@ n['<a-j>'], x['<a-j>'] = [[<cmd>exe("m+".v:count1)|norm!==<cr>]], [[:m '>+<cr>gv
 n['<a-k>'], x['<a-k>'] = [[<cmd>move-2<cr>==]], [[:m '<-2<cr>gv=gv]]
 nx['gw'] = function() u.fmt.conform() end
 n['-'] = '<cmd>TSJToggle<cr>'
--- swap
-nx['gs'] = function() u.swap.operator() end
+nx.expr['gs'] = function() return u.swap.swap() end
 -- comment
 x['<c-/>'] = [[<cmd>eval 'gc'->feedkeys('m')<cr>]]
 n['<c-/>'] = [[<cmd>eval (v:count == 0 ?'gcl' :v:count.'gcj')->feedkeys('m')<cr>]]
