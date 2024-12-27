@@ -189,7 +189,7 @@ local parse_url_data = function(root)
   local remote, remote_url = u.git.smart_remote_url()
   local ctx = parse_url(remote_url)
   local rev = assert(u.git.get_closest_remote_compatible_rev(remote))
-  local relative_path = u.buf.relative_to(nil, root)
+  local relative_path = api.nvim_buf_get_name(0):gsub('^' .. root, ''):gsub('^/', '')
   -- is file in rev
   local obj = u.git { 'cat-file', '-e', rev .. ':' .. relative_path }:wait()
   if obj.code ~= 0 then return vim.notify(string.format('%s', obj.stderr), vim.log.levels.ERROR) end

@@ -1,49 +1,41 @@
 local Buf = {}
 
----@param bufname string?
----@param root string
----@return string
-function Buf.relative_to(bufname, root)
-  bufname = bufname or api.nvim_buf_get_name(0)
-  return require('fzf-lua').path.relative_to(bufname, root)
-end
-
-Buf.sort_range = function(ls, cs, le, ce)
-  if ls > le then
-    ls, cs, le, ce = le, ce, ls, cs
-  elseif ls == le and cs > ce then
-    cs, ce = ce, cs
+Buf.sort_range = function(start_row, start_col, end_row, end_col)
+  if start_row > end_row then
+    start_row, start_col, end_row, end_col = end_row, end_col, start_row, start_col
+  elseif start_row == end_row and start_col > end_col then
+    start_col, end_col = end_col, start_col
   end
-  return ls, cs, le, ce
+  return start_row, start_col, end_row, end_col
 end
 
 -- for vim without fn.getregion
 Buf.getregion2 = function(mode)
-  local ls, cs = fn.line 'v', fn.col 'v'
-  local le, ce = fn.line '.', fn.col '.'
-  if ls > le then
-    ls, cs, le, ce = le, ce, ls, cs
-  elseif ls == le and cs > ce then
-    cs, ce = ce, cs
+  local start_row, start_col = fn.line 'v', fn.col 'v'
+  local end_row, end_col = fn.line '.', fn.col '.'
+  if start_row > end_row then
+    start_row, start_col, end_row, end_col = end_row, end_col, start_row, start_col
+  elseif start_row == end_row and start_col > end_col then
+    start_col, end_col = end_col, start_col
   end
-  local lines = api.nvim_buf_get_lines(0, ls - 1, le, false)
+  local lines = api.nvim_buf_get_lines(0, start_row - 1, end_row, false)
   if mode == 'v' then
     if #lines == 1 then
-      lines[1] = lines[1]:sub(cs, ce)
+      lines[1] = lines[1]:sub(start_col, end_col)
     else
-      lines[1] = lines[1]:sub(cs)
-      lines[#lines] = lines[#lines]:sub(1, ce)
+      lines[1] = lines[1]:sub(start_col)
+      lines[#lines] = lines[#lines]:sub(1, end_col)
     end
   elseif mode == '\022' then -- not sure behavior
     for i, line in pairs(lines) do
-      if #line >= ce then
-        lines[i] = line:sub(cs, ce)
-      elseif #line < cs - 1 then
-        lines[i] = (' '):rep(ce - cs + 1)
-      elseif #line < cs then
+      if #line >= end_col then
+        lines[i] = line:sub(start_col, end_col)
+      elseif #line < start_col - 1 then
+        lines[i] = (' '):rep(end_col - start_col + 1)
+      elseif #line < start_col then
         lines[i] = ''
       else
-        lines[i] = line:sub(cs, nil)
+        lines[i] = line:sub(start_col, nil)
       end
     end
   end
@@ -74,21 +66,21 @@ Buf.replace_range = function(replace, pos1, pos2, buf, mode)
   if not pos1 and not pos2 then
     pos1, pos2 = fn.getpos '.', fn.getpos 'v'
   end
-  local ls, cs = pos1[2], pos1[3]
-  local le, ce = pos2[2], pos2[3]
-  ls, cs, le, ce = Buf.sort_range(ls, cs, le, ce)
+  local start_row, start_col = pos1[2], pos1[3]
+  local end_row, end_col = pos2[2], pos2[3]
+  start_row, start_col, end_row, end_col = Buf.sort_range(start_row, start_col, end_row, end_col)
   if mode == 'v' then
-    if ce == fn.col '$' then
-      if le ~= fn.line '$' then
-        le, ce = le + 1, 0
+    if end_col == fn.col '$' then
+      if end_row ~= fn.line '$' then
+        end_row, end_col = end_row + 1, 0
       else
-        ce = ce - 1
+        end_col = end_col - 1
       end
     end
-    api.nvim_buf_set_text(buf, ls - 1, cs - 1, le - 1, ce, replace)
+    api.nvim_buf_set_text(buf, start_row - 1, start_col - 1, end_row - 1, end_col, replace)
   else
-    api.nvim_buf_set_lines(buf, ls - 1, le, true, replace)
-    api.nvim_win_set_cursor(fn.bufwinid(buf), { ls, cs - 1 })
+    api.nvim_buf_set_lines(buf, start_row - 1, end_row, true, replace)
+    api.nvim_win_set_cursor(fn.bufwinid(buf), { start_row, start_col - 1 })
   end
   api.nvim_feedkeys(vim.keycode '<esc>', 'n', false)
 end
@@ -99,9 +91,9 @@ Buf.delete_range = function(pos1, pos2, buf, mode) Buf.replace_range({}, pos1, p
 ---starts with 1 and the ending is inclusive.
 ---@return integer, integer, integer, integer
 Buf.visual_range = function()
-  local _, ls, cs, _ = unpack(fn.getpos 'v')
-  local _, le, ce, _ = unpack(fn.getpos '.')
-  return Buf.sort_range(ls, cs, le, ce)
+  local _, start_row, start_col, _ = unpack(fn.getpos 'v')
+  local _, end_row, end_col, _ = unpack(fn.getpos '.')
+  return Buf.sort_range(start_row, start_col, end_row, end_col)
 end
 
 return Buf
