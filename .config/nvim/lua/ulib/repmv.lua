@@ -70,6 +70,22 @@ end
 local prev_diag = function()
   return vim.diagnostic.jump { count = -vim.v.count1, float = false, wrap = vim.o.wrapscan }
 end
+local next_err = function()
+  return vim.diagnostic.jump {
+    count = vim.v.count1,
+    float = false,
+    wrap = vim.o.wrapscan,
+    severity = vim.diagnostic.severity.ERROR,
+  }
+end
+local prev_err = function()
+  return vim.diagnostic.jump {
+    count = -vim.v.count1,
+    float = false,
+    wrap = vim.o.wrapscan,
+    severity = vim.diagnostic.severity.ERROR,
+  }
+end
 
 local next_spel = function() return (pcall(vim.cmd.normal, { vim.v.count1 .. ']s', bang = true })) end
 local prev_spel = function() return (pcall(vim.cmd.normal, { vim.v.count1 .. '[s', bang = true })) end
@@ -92,6 +108,7 @@ end
 -- WIP: conflict, comment block, diagnostic-with-level, travel-tree, arglist, tabpage, taglist...
 Repmv.next_h, Repmv.prev_h = Repmv.pair_wrap(next_hunk, prev_hunk)
 Repmv.next_d, Repmv.prev_d = Repmv.pair_wrap(next_diag, prev_diag)
+Repmv.next_e, Repmv.prev_e = Repmv.pair_wrap(next_err, prev_err)
 Repmv.next_q, Repmv.prev_q = Repmv.pair_wrap(make_func('cnext', 'cprev', 'cfirst', 'clast'))
 Repmv.next_l, Repmv.prev_l = Repmv.pair_wrap(make_func('lnext', 'lprev', 'lfirst', 'llast'))
 Repmv.next_b, Repmv.prev_b = Repmv.pair_wrap(make_func('bnext', 'bprev', 'bfirst', 'blast'))
