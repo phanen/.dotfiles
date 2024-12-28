@@ -116,7 +116,7 @@ ox['in'] = function() u.textobj.anyBracket('inner') end
 ox['an'] = function() u.textobj.anyBracket('outer') end
 ox['iq'] = function() u.textobj.anyQuote('inner') end
 ox['aq'] = function() u.textobj.anyQuote('outer') end
-ox['_'] = function() u.textobj.lineCharacterwise('inner') end
+ox['il'] = function() u.textobj.lineCharacterwise('inner') end
 ox['iu'] = function() u.textobj.url() end
 ox['id'] = function() u.textobj.diagnostic('wrap') end
 ox['ig'] = function() u.textobj.buffer() end
@@ -132,7 +132,15 @@ ox['ih'] = ':<c-u>Gitsigns select_hunk<cr>' -- find hunk
 
 -- inspect {{{
 n['_'] = 'K'
-nx['K'] = function() lsp.buf.signature_help() end
+x['_'] = function()
+  local mode = api.nvim_get_mode().mode
+  if mode:match('[vV\022]') and #table.concat(u.buf.getregion(mode), '\n') == 1 then
+    u.textobj.lineCharacterwise('inner')
+  else -- not sure if hover work in visual mode
+    api.nvim_feedkeys('K', 'n', false)
+  end
+end
+nx['K'] = function() lsp.buf.signature_help() end -- hover
 nx[' i'] = '<cmd>Gitsigns preview_hunk<cr>'
 n[' t'] = ':e /tmp/tmp/'
 n[' q'] = function() u.misc.qf_or_ll_toggle() end
