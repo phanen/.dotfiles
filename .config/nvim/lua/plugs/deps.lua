@@ -1,3 +1,6 @@
+-- otherwise, we'll get semantic error (upstream?)
+g.linediff_buffer_type = 'scratch'
+
 return {
   { 'folke/lazy.nvim' },
   { 'kyazdani42/nvim-web-devicons' },
@@ -28,7 +31,7 @@ return {
   { 'neovim/nvim-lspconfig' },
   { 'b0o/SchemaStore.nvim' },
 
-  { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
+  { 'AndrewRadev/linediff.vim', cmd = 'Linediff', keys = '<Plug>(linediff-operator)' },
   { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
   { 'onsails/lspkind.nvim', opts = {} },
   { 'tpope/vim-eunuch', cmd = { 'Rename', 'Delete' } },

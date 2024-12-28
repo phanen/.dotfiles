@@ -39,6 +39,8 @@ n['<tab>'], n['<c-i>'] = 'za', '<c-i>' -- https://github.com/neovim/neovim/pull/
 
 nx.expr[' so'] = function() return u.task.so() end
 nx[' <cr>'] = function() u.task.termrun() end
+x[' d'] = ':Linediff<cr>'
+n[' d'] = '<Plug>(linediff-operator)'
 -- }}}
 
 -- debugprint {{{
