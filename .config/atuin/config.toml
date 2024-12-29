@@ -1,7 +1,9 @@
 # https://docs.atuin.sh/configuration/config/
 
+style = 'full'
 show_help = false
 
+search_mode = 'fulltext'
 # inline ui, don't fullscreen
 inline_height = 20
 invert = true
