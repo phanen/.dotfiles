@@ -72,11 +72,12 @@ Lsp.setup = function(_)
   }
 
   l.ts_ls.setup {}
+  if fn.executable('nix') == 1 then l.nil_ls.setup {} end
 
   l.volar.setup {
     on_attach = function(client, _) client.server_capabilities.documentFormattingProvider = false end,
   }
-  l.fish_lsp.setup {}
+  if fn.executable('fish_lsp') == 1 then l.fish_lsp.setup {} end
 
   l.yamlls.setup {
     settings = {
