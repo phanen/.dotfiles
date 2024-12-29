@@ -26,13 +26,16 @@ local function update_hl()
   hi('Status_DivLine', { bg = '#1e1e2e', fg = '#313244' })
 end
 
-local color_path = fs.joinpath(g.cache_path, 'fzf-lua/pack/fzf-lua/opt')
-g.color_path = color_path
-for dir, type in fs.dir(color_path) do
-  if type == 'directory' then vim.opt.rtp:append(fs.joinpath(color_path, dir)) end
+if true then
+  local color_path = fs.joinpath(g.cache_path, 'fzf-lua/pack/fzf-lua/opt')
+  g.color_path = color_path
+  for dir, type in fs.dir(color_path) do
+    if type == 'directory' then vim.opt.rtp:append(fs.joinpath(color_path, dir)) end
+  end
 end
 
 local colors_file = fs.joinpath(g.state_path, 'colors.json')
+if not uv.fs_stat(colors_file) then fs.write_file(colors_file, '{}') end
 local saved = u.fs.read_json(colors_file)
 saved.colors_name = saved.colors_name or 'default'
 
