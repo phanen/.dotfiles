@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 https://github.com/ziglang/zig/issues/15048
 
 set -e

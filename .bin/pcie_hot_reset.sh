@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://github.com/alexforencich/verilog-pcie/blob/master/scripts/pcie_hot_reset.sh
 

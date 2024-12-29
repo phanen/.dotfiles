@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # $(xprop -id $(xdotool getactivewindow) | rg WM_CLASS | cut -d '"' -f2)
 if [ "$(xdotool getactivewindow getwindowclassname)" = *kitty* ]; then

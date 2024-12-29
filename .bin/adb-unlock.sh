@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 adb shell input keyevent KEYCODE_WAKEUP
 sleep 1

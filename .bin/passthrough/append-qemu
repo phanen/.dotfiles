@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Sources: https://libvirt.org/kbase/qemu-passthrough-security.html
 #	  https://passthroughpo.st/using-evdev-passthrough-seamless-vm-input/

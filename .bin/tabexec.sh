@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # any node is not in containers by default
 # this script first wrap current node into container

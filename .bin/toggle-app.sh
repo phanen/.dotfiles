@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # https://my-take-on.tech/2020/07/03/some-tricks-for-sxhkd-and-bspwm/
 
 if [ $# = 0 ]; then

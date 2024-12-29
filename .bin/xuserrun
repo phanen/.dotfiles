@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://github.com/rephorm/xuserrun/blob/master/xuserrun
 # Run a command as the currently active X11 user

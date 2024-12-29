@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://github.com/kovidgoyal/kitty/issues/1303#issuecomment-1311202869
 
