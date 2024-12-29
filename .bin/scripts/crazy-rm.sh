@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 paccache -rk0
 rm -rf .cache/joshuto/*
 rm -rf .cache/vifm/*

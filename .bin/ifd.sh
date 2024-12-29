@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # $XDG_DATA_HOME/nvim/lazy/fzf-lua/scripts/headless_fd.sh --cwd .
 
 BASEDIR=$XDG_DATA_HOME/nvim/lazy/fzf-lua/

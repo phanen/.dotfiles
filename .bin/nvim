@@ -7,6 +7,8 @@ if command -v "$ROOT"/build/bin/nvim 1>/dev/null 2>/dev/null; then
   NVIM_BIN=$ROOT/build/bin/nvim
 elif command -v /bin/nvim 1>/dev/null 2>/dev/null; then
   NVIM_BIN=/bin/nvim
+elif command -v /run/current-system/sw/bin/nvim 1>/dev/null 2>/dev/null; then
+  NVIM_BIN=/run/current-system/sw/bin/nvim
 else
   exit
 fi

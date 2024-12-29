@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # original creator: 
 # https://forum.manjaro.org/t/configuring-touchpad-speed-with-libinput/4098 
