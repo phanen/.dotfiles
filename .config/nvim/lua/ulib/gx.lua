@@ -141,6 +141,15 @@ options.handlers.url_scheme = { -- get url from text (with http/s)
   handle = '(https?://[a-zA-Z%d_/%%%-%.~@\\+#=?&:–]+)',
   -- handle = function(_) return vim.ui._get_urls()[1] end,
 }
+options.handlers.nix = {
+  filetype = { 'nix' },
+  handle = function(text)
+    local author, repo = text:match('"github:(.-)/(.*)"')
+    if not author or not repo then return end
+    repo = (repo:gsub('/.*$', ''))
+    return 'https://github.com/' .. author .. '/' .. repo
+  end,
+}
 
 ---@type fun(mode: string): string?
 local get_text = function(mode)
