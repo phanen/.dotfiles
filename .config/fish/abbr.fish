@@ -9,8 +9,9 @@ abbr i ipython
 abbr j -f _make_or_just
 abbr k pkill
 abbr l eza -lh
+abbr m mkdir -p
 abbr n nvimz
-abbr o bat
+abbr o echo
 abbr p python
 abbr s systemctl
 abbr t type -a
