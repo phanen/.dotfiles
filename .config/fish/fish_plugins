@@ -1,2 +1,4 @@
-jorgebucaran/autopair.fish
-gazorby/fifc
+# vim:ft=conf
+https://github.com/jorgebucaran/autopair.fish
+# https://github.com/gazorby/fifc
+$__fish_user_data_dir/plug/fifc
