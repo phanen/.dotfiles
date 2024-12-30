@@ -103,6 +103,7 @@ gcc
 gdb
 gdu
 gettext
+ghostty
 ghq
 git
 git-absorb
@@ -397,7 +398,6 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xsel
-xterm
 yarn
 yazi
 zed
