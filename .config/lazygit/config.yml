@@ -44,6 +44,10 @@ customCommands:
     command: "git absorb -f -Fw"
     context: "files"
     description: "git absorb -Fw"
+  - key: "p"
+    command: "git pull --autostash --rebase"
+    context: "global"
+    description: "git pull --autostash --rebase"
 
 # fix hang when xdg-open use terminal as opener
 # or hang on first open?
