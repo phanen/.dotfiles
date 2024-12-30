@@ -20,10 +20,19 @@ require('lazy').setup {
   spec = { import = 'pm' },
   lockfile = g.lock_path,
   defaults = { lazy = true },
-  ui = { size = { height = 0.8, width = 0.95 }, border = g.border, backdrop = 100 },
   change_detection = { enabled = false, notify = false },
-  git = { filter = false }, -- git blame
+  git = { filter = g.is_remote }, -- git blame
   install = { colorscheme = { 'tokyonight' } },
+  ui = {
+    size = { height = 0.8, width = 0.95 },
+    border = g.border,
+    backdrop = 100,
+    custom_keys = {
+      [' k'] = {
+        function(p) vim.system { 'kitten', '@launch', '--cwd=' .. p.dir, '--type=tab' } end,
+      },
+    },
+  },
   dev = {
     path = g.dev_path,
     patterns = { 'phanen' },
