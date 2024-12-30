@@ -1,7 +1,4 @@
-# TODO: kitty ssh cannot be nested
-test $TERM = xterm-kitty
+test $TERM = xterm-kitty; and set -q KITTY_PID; and set -q KITTY_WINDOW_ID
 and function ssh --wrap ssh
-    # fix error: completion reached maximum recursion depth, possible cycle?
-    # TODO: Error: The SSH kitten is meant to run inside a kitty window
-    kitty +kitten ssh $argv
+    kitten ssh $argv
 end
