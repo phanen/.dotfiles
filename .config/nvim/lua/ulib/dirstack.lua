@@ -15,6 +15,7 @@ local noau = false
 local chdir_noau = function(dir)
   noau = true
   fn.chdir(dir)
+  log(dir)
   noau = false
 end
 
