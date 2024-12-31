@@ -1,17 +1,11 @@
 function _fzf_dirs
-    set cmd1 fd . -d 1 --type d -I
-    set cmd2 zoxide query -l
-    set cmd3 realpath ~/.local/share/nvim/lazy/* ~/dot/* ~/b/*
-
-    set fzf fzf \
-        --bind "ctrl-d:reload(zoxide remove {};$cmd1;$cmd2)" \
-        --bind "ctrl-g:reload([[ -f /tmp/fish_k_cf ]] && { $cmd1; rm /tmp/fish_k_cf; true; } || { $cmd2; touch /tmp/fish_k_cf; })"
-
-    # sort by zoxide frequency
-    begin
-        $cmd1
-        $cmd2
-        $cmd3
-    end | sort | uniq | $fzf
+    # set -l src_c fd . -d 1 --type d -I
+    set -l src_z zoxide query -l
+    set -l src_u fd . ~/.local/share/nvim/lazy/ ~/dot/ ~/b/ -d 1 --type directory -a \| (string escape -- rg '/$' -r '')
+    set -l filter (string escape -- awk '!_[$0]++')
+    set -l start "{ $src_z; $src_u; } | $filter"
+    fzf \
+        --bind "start:reload:$start" \
+        --bind "ctrl-d:execute-silent(zoxide remove {})+reload($start)"
     commandline -f repaint
 end

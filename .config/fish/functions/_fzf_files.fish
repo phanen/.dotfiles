@@ -1,18 +1,18 @@
 function _fzf_files
     set -l delimiter \xe2\x80\x82
+    set -l src fd --color=always
+    set -l src_ni fd -I -H --color=always
+    set -l filter file_web_devicon
 
-    set -l src fd
-    # set -l src_noignore fd -d 1 -I -H
-    set -l src_noignore fd -I -H
-    set src_noignore (string escape -- $src_noignore)
+    command -q $filter
+    and set -a src \| $filter
+    and set -a src_ni \| $filter
 
     set -l fzf fzf \
         --ansi \
-        --delimiter $delimiter \
-        --nth=2 \
-        --bind "ctrl-g:reload($src_noignore | file_web_devicon)"
+        --bind "start:reload:$src" \
+        --bind "ctrl-g:reload:$src_ni"
 
-    # $src | ifd.sh | $fzf | string split -f 2 $delimiter
-    $src | file_web_devicon | $fzf | string split -f 2 $delimiter
+    $fzf | string split -f 2 $delimiter
     commandline -f repaint
 end
