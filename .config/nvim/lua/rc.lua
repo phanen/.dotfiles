@@ -49,6 +49,7 @@ g.indentsym = '|'
 g.is_remote = env.SSH_TTY and true or false
 g.leetcode = vim.v.argv[#vim.v.argv] == '+Leet'
 g.is_local = not g.is_remote
+g.disable_icon = true
 g.clipboard = g.is_remote
     and {
       name = 'OSC 52',
