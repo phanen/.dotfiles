@@ -188,8 +188,8 @@ Pick.nvim = make_mux_from_pair(Pick.files, Pick.lgrep, 'FILES_NVIM', 'LGREP_NVIM
 -- stylua: ignore
 Pick.notes = make_mux_from_pair(
   Pick.files, Pick.lgrep, 'FILES_NOTES', 'LGREP_NOTES',
-  { cwd = '~/notes', actions = { ['ctrl-n'] = require('flo.actions').create_notes } },
-  { cwd = '~/notes' }
+  { cwd = g.notes_path or '~/notes', actions = { ['ctrl-n'] = require('flo.actions').create_notes } },
+  { cwd = g.notes_path or '~/notes' }
 )
 
 -- stylua: ignore
