@@ -1,10 +1,11 @@
 local Project = {}
 
 ---get project local config
----@param ctx table
+---@param ctx table?
 Project.get = function(name, ctx)
-  if not uv.fs_stat(g.local_path) then return {} end
-  local conf = g.local_path and loadfile(g.local_path)() or {}
+  ctx = ctx or {}
+  if not uv.fs_stat(g.rc_path) then return end
+  local conf = g.rc_path and loadfile(g.rc_path)() or {}
   local cwd = ctx.cwd or uv.cwd()
   if not cwd then return {} end
   local root = u.git.root { cwd = fs.normalize(cwd) }
