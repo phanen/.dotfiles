@@ -42,7 +42,7 @@ Pick.files = function(opts)
   local ignore_globs = u.project.get('ignore_globs', { cwd = opts.cwd }) or {}
   local cmd = options.fd_cmd
   cmd = table.concat({ cmd, unpack(vim.tbl_map(libuv.shellescape, ignore_globs)) }, ' -E ')
-  if options.iconprg and fn.executable(options.iconprg) == 1 then
+  if not g.disable_icon and options.iconprg and fn.executable(options.iconprg) == 1 then
     cmd = ('%s | %s'):format(cmd, options.iconprg)
   end
   return fzf_exec(cmd, opts)
@@ -60,7 +60,8 @@ local get_grep_cmd = function(query, inv_globs)
   search_query = libuv.shellescape(search_query)
   globs = vim.tbl_map(libuv.shellescape, globs)
   local cmd = table.concat({ options.rg_cmd .. search_query, unpack(globs) }, ' -g ')
-  return options.iconprg
+  return not g.disable_icon
+      and options.iconprg
       and fn.executable(options.iconprg) == 1
       and ('%s | %s'):format(cmd, options.iconprg)
     or cmd

@@ -3,7 +3,7 @@ g.linediff_buffer_type = 'scratch'
 
 return {
   { 'folke/lazy.nvim' },
-  { 'kyazdani42/nvim-web-devicons' },
+  { 'kyazdani42/nvim-web-devicons', cond = not g.disable_icon },
   { 'echasnovski/mini.nvim', version = false },
   { 'nvim-lua/plenary.nvim', cmd = 'PlenaryBustedDirectory' },
   { 'kevinhwang91/promise-async' },
