@@ -24,7 +24,6 @@ end
 Lsp.setup = function(_)
   u.aug.lsp_attach = { 'LspAttach', function(_) u.lsp.on(_) end }
 
-  if vim.bo[_.buf].ft == 'bigfile' then return end
   local cap = pcall(require, 'cmp_nvim_lsp')
   if cap then lsp.config('*', { capablities = cap }) end
 

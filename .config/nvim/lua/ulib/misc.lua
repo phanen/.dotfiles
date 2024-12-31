@@ -164,23 +164,8 @@ end
 
 ---@autocmd
 Misc.bigfile_preset = function(ev)
-  local stat = uv.fs_stat(ev.match)
-  if stat and stat.size > 1000000 then
-    vim.b.bigfile = true
-    vim.wo.spell = false
-    vim.bo.swapfile = false
-    vim.bo.undofile = false
-    vim.bo.syntax = ''
-    vim.wo.colorcolumn = ''
-    vim.wo.statuscolumn = ''
-    vim.wo.signcolumn = 'no'
-    vim.wo.foldcolumn = '0'
-    vim.wo.winbar = ''
-    api.nvim_create_autocmd(
-      'BufReadPost',
-      { once = true, buffer = ev.buf, callback = function() vim.bo.syntax = '' end }
-    )
-  end
+  vim.b.file_size = fn.getfsize(ev.match)
+  if vim.b.file_size > g.bigfile_size then vim.b.disable_ts = true end
 end
 
 ---@autocmd

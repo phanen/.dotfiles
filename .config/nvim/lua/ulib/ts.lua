@@ -4,11 +4,16 @@ local select = u.lreq 'nvim-treesitter-textobjects.select'
 local move = u.lreq 'nvim-treesitter-textobjects.move'
 local swap = u.lreq 'nvim-treesitter-textobjects.swap'
 
+local use_syntax = {
+  po = true,
+}
+
 ---@autocmd
 Ts.setup = function(_)
   local buf = _.buf
-  if vim.bo[buf].ft == 'bigfile' then -- fallback to syntax highlighting
-    vim.schedule(function() vim.bo[buf].syntax = vim.filetype.match { buf = buf } or '' end)
+  local ft = vim.bo[buf].ft
+  if vim.b.disable_ts or use_syntax[ft] then
+    vim.bo[buf].syntax = ft or use_syntax[ft] or ''
     return
   end
   local ok = pcall(ts.start)

@@ -28,14 +28,4 @@ vim.filetype.add({
       return (has_cpp_file_in_header_dir() or contain_cpp_specific_keywords()) and 'cpp' or 'c'
     end,
   },
-  pattern = {
-    ['.*'] = function(path, bufnr)
-      return vim.bo[bufnr]
-          and vim.bo[bufnr].ft ~= 'bigfile'
-          and path
-          and fn.getfsize(path) > (1024 * 500) -- 500 KB
-          and 'bigfile'
-        or nil
-    end,
-  },
 })
