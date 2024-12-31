@@ -14,7 +14,7 @@ if test $__fish_initialized -lt 3800
     bind \ct 'commandline -i -- (_fzf_files)'
     bind \cu '_empty_then "htop;commandline -f repaint" "commandline -f backward-kill-line"'
     bind \cw '_empty_then "__fish_echo eza -lh --hyperlink" "commandline -f backward-kill-path-component"'
-    bind \cm 'nvim -- (commandline -t)'
+    # bind \cm 'nvim -- (commandline -t)'
 
     bind \e\; 'exec fish'
     bind \ei 'tmux a &>/dev/null || tmux &>/dev/null || tmux det'

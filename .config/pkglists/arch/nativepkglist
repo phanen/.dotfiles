@@ -315,6 +315,7 @@ texinfo
 tig
 tinyemu
 tmux
+toilet
 tokei
 traceroute
 translate-shell
@@ -335,6 +336,7 @@ vagrant
 vdpauinfo
 verilator
 viu
+vivid
 w3m
 wakeonlan
 wayland-protocols
