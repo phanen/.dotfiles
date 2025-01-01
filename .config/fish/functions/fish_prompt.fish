@@ -1,5 +1,14 @@
-# name: Default
-# author: Lily Ballard
+function prompt_login
+    not set -q SSH_TTY
+    and return
+
+    set -l color_host $fish_color_host
+    if set -q SSH_TTY; and set -q fish_color_host_remote
+        set color_host $fish_color_host_remote
+    end
+
+    echo -n -s (set_color $fish_color_user) "$USER" (set_color normal) @ (set_color $color_host) (prompt_hostname) (set_color normal)
+end
 
 function fish_prompt --description 'Write out the prompt'
     set -l last_pipestatus $pipestatus
@@ -10,7 +19,7 @@ function fish_prompt --description 'Write out the prompt'
 
     # Color the prompt differently when we're root
     set -l color_cwd $fish_color_cwd
-    set -l suffix '>'
+    set -l suffix '❱'
     if functions -q fish_is_root_user; and fish_is_root_user
         if set -q fish_color_cwd_root
             set color_cwd $fish_color_cwd_root
@@ -30,5 +39,5 @@ function fish_prompt --description 'Write out the prompt'
     set -l statusb_color (set_color $bold_flag $fish_color_status)
     set -l prompt_status (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
 
-    echo -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status $suffix " "
+    echo -n -s (set_color -o) (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (set_color -io) (fish_vcs_prompt ' ') $normal $prompt_status (set_color brwhite) (set_color -o) $suffix " "
 end
