@@ -6,4 +6,5 @@ status is-interactive; and begin
         test -z "$fish_private_mode"
         and command zoxide add -- (builtin pwd -L)
     end
+    command -q atuin; and source $__fish_config_dir/atuin.fish
 end
