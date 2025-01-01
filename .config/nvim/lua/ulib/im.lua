@@ -1,9 +1,5 @@
 local Im = {}
 
-local fcitx_cmd = fn.executable('fcitx5-remote') == 1 and 'fcitx5-remote'
-  or fn.executable('fcitx-remote') == 1 and 'fcitx-remote'
-if not fcitx_cmd then return end
-
 -- This is how it works:
 -- - vim.b[{buf}].__im_restore is set when the input method is temporarily
 --   disabled for the buffer {buf} and should be restored when entering
@@ -43,25 +39,23 @@ local function inside_input_mode()
 end
 
 ---Callback to invoke when (possibly) enter input mode
----@param buf integer buffer handler
----@return nil
-local function input_mode_enter_callback(buf)
+---@param buf integer
+Im.enter = function(buf)
   if not inside_input_mode() then return end
   g.__im_input_enter = buf
   if vim.b[buf].__im_restore then
     vim.b[buf].__im_restore = nil
-    vim.system { fcitx_cmd, '-o' }
+    vim.system { 'fcitx5-remote', '-o' }
   end
 end
 
 ---Callback to invoke when (possibly) leave input mode
----@param buf integer handler
----@return nil
-local function input_mode_leave_callback(buf)
+---@param buf integer
+Im.leave = function(buf)
   if inside_input_mode() then return end
-  vim.system({ fcitx_cmd }, {}, function(obj)
+  vim.system({ 'fcitx5-remote' }, {}, function(obj)
     if obj.code ~= 0 or tonumber(obj.stdout) == 2 then
-      vim.system { fcitx_cmd, '-c' }
+      vim.system { 'fcitx5-remote', '-c' }
       -- `g.__im_input_enter` may not be set, in which case it
       -- should just be the current buffer
       g.__im_input_enter = g.__im_input_enter or buf
@@ -74,23 +68,8 @@ local function input_mode_leave_callback(buf)
   end)
 end
 
-local buf = api.nvim_get_current_buf()
-input_mode_leave_callback(buf)
-input_mode_enter_callback(buf)
-
-Im.setup = function()
-  u.aug.im = {
-    'ModeChanged',
-    {
-      pattern = '*:[ictRss\x13]*',
-      callback = function(info) input_mode_enter_callback(info.buf) end,
-    },
-    'ModeChanged',
-    {
-      pattern = '[ictRss\x13]*:*',
-      callback = function(info) input_mode_leave_callback(info.buf) end,
-    },
-  }
-end
+-- local buf = api.nvim_get_current_buf()
+-- Im.leave(buf)
+-- Im.enter(buf)
 
 return Im

@@ -104,8 +104,6 @@ aug.autosave = {
 }
 aug.term = { 'TermOpen', [[startinsert]] }
 aug.lz_load = {
-  'ModeChanged',
-  { once = true, pattern = '*:[ictRss\x13]*', callback = function() u.im.setup() end },
   'DirchangedPre',
   { once = true, callback = function() u.dirstack.setup() end },
   'FileType', -- namespace window-local?
@@ -113,5 +111,14 @@ aug.lz_load = {
   'FileType',
   { once = true, callback = function(_) u.lsp.setup(_) end },
 }
+
+if g.is_local and fn.executable('fcitx5-remote') == 1 then
+  u.aug.im = {
+    'ModeChanged',
+    { pattern = '*:[ictRss\x13]*', callback = function(info) u.im.enter(info.buf) end },
+    'ModeChanged',
+    { pattern = '[ictRss\x13]*:*', callback = function(info) u.im.leave(info.buf) end },
+  }
+end
 
 -- vim.treesitter.language.register('json', { 'jsonc' })
