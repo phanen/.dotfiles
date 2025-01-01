@@ -11,8 +11,9 @@ function _forward_or_fzf
     end
 
     # || test $buf_cur_idx -ne 0
-    set -l ent (_fzf_dirs)
+    set -l ent (fzf_dirs)
     if test -d "$ent"
         cd $ent
     end
+    commandline -f repaint
 end

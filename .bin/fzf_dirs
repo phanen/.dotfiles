@@ -1,0 +1,4 @@
+#!/bin/sh
+fzf \
+  --bind "start:reload:find_dir" \
+  --bind "ctrl-d:execute-silent(zoxide remove {})+reload(find_dir)"

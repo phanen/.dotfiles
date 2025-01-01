@@ -10,7 +10,8 @@ function _eol_or_fzf
         return
     end
 
-    set -l ent (_fzf_files)
+    set -l ent (fzf_files)
+    commandline -f repaint
 
     if test -n "$line" # buffer is empty
         commandline -i -- "$ent"

@@ -3,6 +3,7 @@ emulate sh -c '. ~/.shellrc'
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
+# opt {{{
 setopt autocd
 setopt interactive_comments
 setopt sharehistory
@@ -27,7 +28,9 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
 # bash-like
 # setopt NO_AUTOLIST BASH_AUTOLIST NO_MENUCOMPLETE
+# }}}
 
+# bind {{{
 bindkey -e # must set first
 bindkey -s '\eq' '\C-a\C-e >/dev/null 2>&1 &'
 bindkey -s '\ew' '\C-asudo \C-a\C-e'
@@ -37,6 +40,20 @@ bindkey -s '\eg' '\C-a\C-e 2>&1 | nvim -'
 bindkey -s '\ek' '\C-uclear\C-m'
 bindkey -s '\el' '\C-a\C-e | bat'
 bindkey -s '\es' '\C-uresource\C-m'
+
+# edit in editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
+# fish-like smart c-w, https://unix.stackexchange.com/questions/258656/how-can-i-have-two-keystrokes-to-delete-to-either-a-slash-or-a-word-in-zsh
+backward-kill-path-component () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle backward-kill-word
+    zle -f kill
+}
+zle -N backward-kill-path-component
+bindkey '^W' backward-kill-path-component
 
 # complete, https://thevaluable.dev/zsh-completion-guide-examples/
 autoload -U compinit
@@ -56,35 +73,24 @@ _comp_options+=(globdots)		# include hidden files.
 # load syntax highlighting; should be last
 # . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
 # https://github.com/Aloxaf/fzf-tab/wiki/Configuration
-. /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh
-# zstyle ':completion:*:git-checkout:*' sort false
-zstyle ':completion:*:descriptions' format '[w]'
-zstyle ':fzf-tab:*' switch-group 'ctrl-p' 'ctrl-n'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':fzf-tab:*' fzf-bindings 'space:accept' ';:abort' # 'ctrl-a:toggle-all'
-bindkey '\ee' toggle-fzf-tab
-
+if [ -f /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh ]; then
+  . /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh
+  # zstyle ':completion:*:git-checkout:*' sort false
+  zstyle ':completion:*:descriptions' format '[w]'
+  zstyle ':fzf-tab:*' switch-group 'ctrl-p' 'ctrl-n'
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+  zstyle ':fzf-tab:*' fzf-bindings 'space:accept' ';:abort' # 'ctrl-a:toggle-all'
+  bindkey '\ee' toggle-fzf-tab
+fi
 bindkey "^N" history-search-forward
 bindkey "^P" history-search-backward
+# }}}
 
+# alias & abbr {{{
 # https://stackoverflow.com/questions/4405382/how-can-i-read-documentation-about-built-in-zsh-commands
 unalias run-help
 autoload run-help
 alias help='run-help'
-
-# edit in editor
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey '^X^E' edit-command-line
-
-# fish-like smart c-w, https://unix.stackexchange.com/questions/258656/how-can-i-have-two-keystrokes-to-delete-to-either-a-slash-or-a-word-in-zsh
-backward-kill-path-component () {
-    local WORDCHARS=${WORDCHARS/\/}
-    zle backward-kill-word
-    zle -f kill
-}
-zle -N backward-kill-path-component
-bindkey '^W' backward-kill-path-component
 
 # https://dev.to/frost/fish-style-abbreviations-in-zsh-40aa
 # declare a list of expandable aliases to fill up later
@@ -123,9 +129,18 @@ zle -N accept-line expand-alias-and-accept-line
 
 abbrev-alias px='http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890 all_proxy=http://127.0.0.1:7890'
 abbrev-alias spx='--preserve-env=http_proxy,https_proxy,all_proxy'
+# }}}
 
-. /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+if [ -f /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh ]; then
+  . /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+fi
+
+if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh ]; then
+ . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+fi
+
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
+command -v atuin >/dev/null && eval "$(atuin init zsh)"
 stty stop undef
-eval "$(atuin init zsh)"
+
+# vim:fdm=marker

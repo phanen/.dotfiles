@@ -1,0 +1,6 @@
+#!/bin/sh
+{
+  # fd . -d 1 --type d -I
+  zoxide query -l
+  fd . ~/.local/share/nvim/lazy/ ~/dot/ ~/b/ -d 1 --type directory -a | rg '/$' -r ''
+} | awk '!_[$0]++'

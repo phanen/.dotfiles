@@ -4,9 +4,7 @@
 # better to manager bookmark via browser, but that's really suck
 # maybe we could filter it
 shopt -s nullglob
-PROJ_DIR=$(realpath ~/.local/share/nvim/lazy/* ~/dot/* ~/b/* | sort | uniq | rofi -dmenu -matching regex)
-
-# PROJ_DIR="$(zoxide query -l |  ~/b/path-git-format/target/debug/path-git-format --filter -f '{path}' | rofi -dmenu)"
+PROJ_DIR=$(find_dir | rofi -dmenu -matching regex)
 [ -z "$PROJ_DIR" ] || [ ! -e "$PROJ_DIR"/.git ] && exit 0
 
 # gh will replace url to upstream

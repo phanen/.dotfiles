@@ -29,11 +29,13 @@ eval "$(atuin init bash)"
 stty stop undef
 
 # . /usr/share/fzf/key-bindings.bash
-. ~/.local/share/blesh/ble.sh
-ble-import -d integration/fzf-completion
-ble-import -d integration/fzf-key-bindings
-ble-import contrib/prompt-git
-bleopt prompt_rps1='\q{contrib/git-info}'
+if [ -f ~/.local/share/blesh/ble.sh ]; then
+  . ~/.local/share/blesh/ble.sh
+  ble-import -d integration/fzf-completion
+  ble-import -d integration/fzf-key-bindings
+  ble-import contrib/prompt-git
+  bleopt prompt_rps1='\q{contrib/git-info}'
+fi
 
 #
 # _ble_contrib_fzf_git_config=key-binding:sabbrev:arpeggio
