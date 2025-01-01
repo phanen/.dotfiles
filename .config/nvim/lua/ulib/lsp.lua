@@ -26,6 +26,7 @@ Lsp.setup = function(_)
 
   local cap = pcall(require, 'cmp_nvim_lsp')
   if cap then lsp.config('*', { capablities = cap }) end
+  lsp.config('*', { root_markers = { '.git' } })
 
   -- ensure mason path is prepended to PATH
   local pylance = {
@@ -43,18 +44,32 @@ Lsp.setup = function(_)
     root_markers = { '.clangd', 'compile_commands.json' },
   })
 
-  lsp.enable {
-    -- 'clangd',
-    'luals',
-  }
+  lsp.config('pyright', { -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+    cmd = pylance,
+    filetypes = { 'python' },
+    root_markers = {
+      'pyproject.toml',
+      'setup.py',
+      'setup.cfg',
+      'requirements.txt',
+      'Pipfile',
+      'pyrightconfig.json',
+    },
+    settings = {
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = true,
+          diagnosticMode = 'openFilesOnly',
+        },
+      },
+    },
+  })
 
-  local l = require('lspconfig')
-
-  l.clangd.setup {}
-
-  l.pyright.setup { cmd = pylance } -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md
-
-  l.gopls.setup {
+  lsp.config('gopls', {
+    cmd = { 'gopls' },
+    filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+    root_markers = { 'go.work', 'go.mod' },
     settings = {
       gopls = {
         hints = {
@@ -68,30 +83,81 @@ Lsp.setup = function(_)
         },
       },
     },
-  }
+  })
 
-  l.ts_ls.setup {}
-  if fn.executable('nix') == 1 then l.nil_ls.setup {} end
-
-  l.volar.setup {
-    on_attach = function(client, _) client.server_capabilities.documentFormattingProvider = false end,
-  }
-  if fn.executable('fish_lsp') == 1 then l.fish_lsp.setup {} end
-
-  l.yamlls.setup {
-    settings = {
-      -- yaml = {
-      --   schemaStore = { enable = false, url = '' },
-      --   schemas = require('schemastore').yaml.schemas(),
-      -- },
+  lsp.config('yaml_ls', {
+    cmd = { 'yaml-language-server', '--stdio' },
+    filetypes = { 'yaml', 'yaml.docker-compose', 'yaml.gitlab' },
+    settings = { -- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
+      redhat = { telemetry = { enabled = false } },
     },
+  })
+
+  lsp.config('vim_ls', {
+    cmd = { 'vim-language-server', '--stdio' },
+    filetypes = { 'vim' },
+  })
+
+  lsp.config('dart_ls', {
+    cmd = { 'dart', 'language-server', '--protocol=lsp' },
+    filetypes = { 'dart' },
+    root_markers = { 'pubspec.yaml' },
+    settings = { dart = { completeFunctionCalls = true, showTodos = true } },
+  })
+
+  lsp.config('fish_ls', {
+    cmd = { 'fish-lsp', 'start' },
+    filetypes = { 'fish' },
+  })
+
+  lsp.config('ts_ls', {
+    cmd = { 'typescript-language-server', '--stdio' },
+    filetypes = {
+      'javascript',
+      'javascriptreact',
+      'javascript.jsx',
+      'typescript',
+      'typescriptreact',
+      'typescript.tsx',
+    },
+    root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json' },
+    init_options = { hostInfo = 'neovim' },
+  })
+
+  lsp.config('nix_ls', {
+    cmd = { 'nil' },
+    filetypes = { 'nix' },
+    root_markers = { 'flake.nix' },
+  })
+
+  lsp.config('volar', {
+    cmd = { 'vue-language-server', '--stdio' },
+    filetypes = { 'vue' },
+    root_markers = { 'package.json' },
+    on_attach = function(client, _) client.server_capabilities.documentFormattingProvider = false end,
+  })
+
+  lsp.config('rust_analyzer', {
+    cmd = { 'rust-analyzer' },
+    filetypes = { 'rust' },
+    root_markers = { 'Cargo.toml' },
+  })
+
+  lsp.enable {
+    'clangd',
+    'dart_ls',
+    'fish_ls',
+    'gopls',
+    'lua_ls',
+    'nix_ls',
+    'pyright',
+    'rust_analyzer',
+    'ts_ls',
+    'vim_ls',
+    'volar',
+    'yaml_ls',
   }
 
-  l.vimls.setup {}
-
-  l.rust_analyzer.setup {}
-
-  l.dartls.setup {}
   vim.diagnostic.config {
     -- update_in_insert = true,
     float = { border = 'none' },
