@@ -28,6 +28,7 @@ return {
       yaml = { 'prettier' },
       markdown = { 'injected' },
       help = { 'injected' },
+      query = { 'format-queries' },
     },
     formatters = {
       latexindent = { inherit = true, prepend_args = { '--GCString' } }, -- need perl-unicode-linebreak

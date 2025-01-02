@@ -1,5 +1,5 @@
 -- vim:fdm=marker
-local n, nx, nxo, ox, x = map.n, map.nx, map.nxo, map.ox, map.x
+local n, nx, nxo, ox, x, i, c = map.n, map.nx, map.nxo, map.ox, map.x, map.i, map.c
 local aug = u.aug
 
 -- yank/paste {{{
@@ -237,15 +237,8 @@ n['+s'] = function()
 end
 -- }}}
 
-nx['@w'], nx['@^'] = '', '' -- avoid kanata typo
-n[' I'] = '<cmd>Inspect<cr>'
-n['S'] = '<cmd>InspectTree<cr>'
-n[' Q'] = '<cmd>qa!<cr>'
-n['?'] = '<cmd>Lazy<cr>'
-
 -- insert & command mode {{{
 local cs = u.lreq('copilot.suggestion')
-local i, c = map.i, map.c
 i.expr['<c-f>'] = function()
   if not cs.is_visible() then return '<right>' end
   cs.accept()
@@ -296,4 +289,9 @@ c['<c-k>'] = function() u.rl.kill_line() end
 c['<c-u>'] = function() u.rl.dwim_backward_kill_line() end
 c['<c-bs>'] = '<c-w>'
 --- }}}
-n['<F13>'] = '<cmd>edit $MYVIMRC<cr>'
+
+nx['@w'], nx['@^'] = '', '' -- avoid kanata typo
+n[' I'] = '<cmd>Inspect<cr>'
+n['S'] = '<cmd>InspectTree<cr>'
+n[' Q'] = '<cmd>qa!<cr>'
+n['?'] = '<cmd>Lazy<cr>'

@@ -1,4 +1,5 @@
 # sudo? maybe use alt-s...
+abbr a cat
 abbr c cargo
 abbr d docker
 abbr e nvim

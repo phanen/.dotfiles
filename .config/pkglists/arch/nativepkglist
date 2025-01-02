@@ -48,7 +48,6 @@ cpio
 cppman
 cpu-x
 cython
-dae-bin-x64-v3
 darkman
 dash
 debootstrap
@@ -101,9 +100,7 @@ fzf
 gawk
 gcc
 gdb
-gdu
 gettext
-ghostty
 ghq
 git
 git-absorb
@@ -231,7 +228,6 @@ nvidia-utils
 obsidian
 ocaml
 ocaml-findlib
-onefetch
 onlyoffice-bin
 openslide
 openssh
@@ -247,7 +243,6 @@ perl-image-exiftool
 pipewire-pulse
 pipewire-session-manager
 pkgconf
-pnpm
 polybar
 poppler-glib
 postgresql
@@ -273,7 +268,6 @@ python-pyxdg
 python-vermin
 qemu-full
 qemu-system-x86
-quickemu
 rclone
 reflector
 repgrep
@@ -284,7 +278,6 @@ ripgrep-all
 rlwrap
 rofi
 rsync
-rtorrent
 ruby
 rustup
 sad
@@ -294,7 +287,6 @@ sdkmanager
 sed
 setconf
 simde
-sing-box-alpha
 slock
 sniffglue
 spike

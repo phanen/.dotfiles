@@ -3,6 +3,7 @@ return {
   keys = {
     'cs',
     'ds',
+    'ys',
     { 's', mode = 'x' },
     { '`', '<Plug>(nvim-surround-visual)`', mode = 'x' },
     { 'q', '<Plug>(nvim-surround-visual)"', mode = 'x' },
