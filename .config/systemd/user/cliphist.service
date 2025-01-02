@@ -2,13 +2,10 @@
 Description=cliphist daemon
 
 [Service]
-# maybe useful for cmd (not sure)
-Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
 Environment=DISPLAY=:0
-Environment=HOME=/home/phan/
 Type=simple
-ExecStart=/home/phan/.bin/clipnotify.sh
-Restart=no
+ExecStart=sh -c ${HOME}/.bin/clipnotify.sh
+Restart=always
 
 [Install]
 WantedBy=default.target

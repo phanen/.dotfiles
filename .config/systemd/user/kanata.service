@@ -4,8 +4,6 @@ Description=Kanata keyboard remapper
 Documentation=https://github.com/jtroo/kanata
 
 [Service]
-# maybe useful for cmd (not sure)
-Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
 Type=simple
 ExecStart=kanata --cfg ${HOME}/.config/kanata/kanata.kbd
 Restart=no

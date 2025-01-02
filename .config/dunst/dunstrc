@@ -4,7 +4,7 @@
 [global]
 width = (300, 500)
 origin = bottom-right
-offset = 0x0
+offset = (0, 0)
 
 font = monospace 16
 frame_color = "#282a36"
