@@ -28,6 +28,7 @@ sxhkd -a Tab &
 # input-leapc --disable-crypto --server arch
 # xrandr --auto
 # xrandr -o right
+[ $(hostname) = 'romp' ] && xrandr --output eDP-1 --scale 1.3x1.3
 
 ~/.bin/xrate-refresh.sh
 
