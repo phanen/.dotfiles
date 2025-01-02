@@ -1,0 +1,43 @@
+# theme = dark:tokyonight-storm,light:dayfox
+theme = tokyonight-storm
+
+command = fish
+shell-integration = fish
+
+font-size = 14
+font-family = mono
+# disable ligatures
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+cursor-color = green
+cursor-style-blink = false
+
+confirm-close-surface = false
+custom-shader-animation = false
+
+gtk-single-instance = true
+gtk-titlebar = false
+gtk-wide-tabs = false
+# gtk-tabs-location = bottom
+adw-toolbar-style = flat
+gtk-adwaita = true
+
+keybind = ctrl+shift+r=reload_config
+keybind = ctrl+v=paste_from_clipboard
+keybind = super+i=new_tab
+keybind = super+f=next_tab
+keybind = super+e=previous_tab
+keybind = super+ctrl+f=move_tab:+1
+keybind = super+ctrl+e=move_tab:-1
+keybind = super+escape=close_surface
+keybind = super+m=write_scrollback_file:open
+keybind = ctrl+;=text:\x1b;
+
+keybind = f24=ignore
+keybind = ctrl+f24=ignore
+keybind = shift+f24=ignore
+keybind = ctrl+shift+f24=ignore
+# text:text
+# map ctrl+; send_key alt+;
