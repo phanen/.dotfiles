@@ -4,7 +4,12 @@ local P = {}
 local timeout = 1000
 
 P.pp = function(...) --
-  vim.system { 'notify-send', '-t', tostring(timeout), vim.inspect(...) }
+  local ret = {}
+  local n = select('#', ...)
+  for i = 1, n do
+    ret[#ret + 1] = vim.inspect((select(i, ...)))
+  end
+  vim.system { 'notify-send', '-t', tostring(timeout), table.concat(ret, ' ') }
 end
 
 ---colorize debug print
