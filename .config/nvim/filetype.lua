@@ -1,4 +1,11 @@
-vim.filetype.add({
+local load_ts = function(ft)
+  return function()
+    require('nvim-treesitter')
+    return ft
+  end
+end
+
+vim.filetype.add {
   extension = {
     h = function(path) -- c or cpp
       local has_cpp_file_in_header_dir = function()
@@ -27,5 +34,8 @@ vim.filetype.add({
 
       return (has_cpp_file_in_header_dir() or contain_cpp_specific_keywords()) and 'cpp' or 'c'
     end,
+    -- to add directive set-lang-from-info-string
+    htm = load_ts('html'),
+    html = load_ts('html'),
   },
-})
+}
