@@ -23,9 +23,6 @@ end
 ---@autocmd
 Lsp.setup = function(_)
   u.aug.lsp_attach = { 'LspAttach', function(_) u.lsp.on(_) end }
-
-  local cap = pcall(require, 'cmp_nvim_lsp')
-  if cap then lsp.config('*', { capablities = cap }) end
   lsp.config('*', { root_markers = { '.git' } })
 
   -- ensure mason path is prepended to PATH
