@@ -7,7 +7,7 @@ function prompt_login
         set color_host $fish_color_host_remote
     end
 
-    echo -n -s (set_color $fish_color_user) "$USER" (set_color normal) @ (set_color $color_host) (prompt_hostname) (set_color normal)
+    echo -n -s (set_color -io $fish_color_user) "$USER" (set_color -io normal) @ (set_color -io $color_host) (prompt_hostname) (set_color normal)
 end
 
 function fish_prompt --description 'Write out the prompt'
@@ -38,6 +38,7 @@ function fish_prompt --description 'Write out the prompt'
     set -l status_color (set_color $fish_color_status)
     set -l statusb_color (set_color $bold_flag $fish_color_status)
     set -l prompt_status (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
-
-    echo -n -s (set_color -o) (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (set_color -io) (fish_vcs_prompt ' ') $normal $prompt_status (set_color brwhite) (set_color -o) $suffix " "
+    set -l vcs (fish_vcs_prompt " ")
+    test -z "$vcs"; and set vcs " "
+    echo -n -s (prompt_login)" " (set_color $color_cwd) (prompt_pwd) $normal (set_color -io) $vcs $normal $prompt_status (set_color -o brwhite)$suffix $normal " "
 end
