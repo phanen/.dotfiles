@@ -10,7 +10,7 @@ if test $__fish_initialized -lt 3800
     bind \co prevd-or-backward-word
     bind \cq '_empty_trim_then "lazygit;commandline -f repaint" fish_clipboard_copy'
     bind \cr atuin_search
-    bind \cs '_empty_then nvim __fish_man_page'
+    bind \cs '_empty_then "nvim;commandline -f repaint;" __fish_man_page'
     bind \ct 'commandline -i -- (fzf_files);commandline -f repaint'
     bind \cu '_empty_then "htop;commandline -f repaint" "commandline -f backward-kill-line"'
     bind \cw '_empty_then "__fish_echo eza -lh --hyperlink" "commandline -f backward-kill-path-component"'
@@ -41,7 +41,7 @@ bind ctrl-l '_empty_trim_then "_clean;commandline -f repaint" "commandline -f ki
 bind ctrl-o prevd-or-backward-word
 bind ctrl-q '_empty_trim_then "lazygit;commandline -f repaint" fish_clipboard_copy'
 bind ctrl-r atuin_search
-bind ctrl-s '_empty_then nvim __fish_man_page'
+bind ctrl-s '_empty_then "nvim;commandline -f repaint" __fish_man_page'
 bind ctrl-t 'commandline -i -- (fzf_files);commandline -f repaint'
 bind ctrl-u '_empty_then "htop;commandline -f repaint" "commandline -f backward-kill-line"'
 bind ctrl-w '_empty_then "__fish_echo eza -lh --hyperlink" "commandline -f backward-kill-path-component"'
