@@ -81,7 +81,7 @@ key = "D"
 mode = "Vi|~Search"
 
 [terminal.shell]
-program = "/bin/fish"
+program = "fish"
 
 [window]
 opacity = 0.9
