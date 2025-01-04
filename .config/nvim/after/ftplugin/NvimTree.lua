@@ -12,6 +12,8 @@ local n = map[0].n
 n['h'] = nvt.node.navigate.parent
 n['l'] = nvt.node.open.edit
 n['o'] = nvt.tree.change_root_to_node
+n['H'] = u.dirstack.prev
+n['L'] = u.dirstack.next
 n['<c-e>'] = function() u.pick.files { cwd = node_path_dir() or uv.cwd() } end
 n['<c-f>'] = function() u.pick.lgrep { cwd = node_path_dir() or uv.cwd() } end
 n['gj'], n['gk'] = u.repmv.pair_wrap(nvt.node.navigate.git.next, nvt.node.navigate.git.prev)

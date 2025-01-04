@@ -5,8 +5,9 @@ return {
   lazy = target_is_not_dir,
   event = 'CmdlineEnter', -- :e dir
   cmd = 'NvimTreeFindFileToggle',
-  keys = { 'gf' },
+  keys = { 'gf', 'gF', { '\r', 'gF' } },
   opts = {
+    -- hijack_directories = { enable = true, auto_open = true },
     sync_root_with_cwd = true,
     actions = { change_dir = { enable = true, global = true } },
     select_prompts = false,
