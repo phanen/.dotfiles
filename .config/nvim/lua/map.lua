@@ -268,10 +268,7 @@ i['<c-u>'] = function() u.rl.dwim_backward_kill_line() end
 i['<c-bs>'] = '<c-w>'
 
 for _, char in ipairs { ' ', '-', '_', ':', '.', '/' } do
-  i.expr[char] = function()
-    if fn.reg_executing() ~= '' or fn.reg_recording() ~= '' then return char end
-    return char .. '<c-g>u'
-  end
+  i.expr[char] = function() return vim.v.count > 0 and char or char .. '<c-g>u' end
 end
 
 i['<c-x>f'] = function() return u.pick.complete_file() end

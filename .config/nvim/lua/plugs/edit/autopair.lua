@@ -15,22 +15,8 @@ return {
       {
         profile = 'map',
         p = -1,
-        {
-          'i',
-          ' ',
-          function()
-            if fn.reg_recording() ~= '' or fn.reg_executing() ~= '' then return vim.keycode(' ') end
-            return vim.keycode(' <C-g>u')
-          end,
-        },
-        {
-          'i',
-          '-',
-          function()
-            if fn.reg_recording() ~= '' or fn.reg_executing() ~= '' then return vim.keycode('-') end
-            return vim.keycode('-<C-g>u')
-          end,
-        },
+        { 'i', ' ', function() return vim.v.count > 0 and ' ' or vim.keycode(' <C-g>u') end },
+        { 'i', '-', function() return vim.v.count > 0 and '-' or vim.keycode('-<C-g>u') end },
       },
     }
   end,
