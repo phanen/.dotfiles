@@ -6,14 +6,18 @@ return {
     config = function()
       local a = require('flo.actions')
       local f = require('fzf-lua')
+      local fa = require('fzf-lua.actions')
+      local file_edit_or_tabedit = function(sel, o)
+        return #sel > 1 and fa.file_tabedit(sel, o) or fa.file_edit(sel, o)
+      end
       g.fzf_lua_file_actions = {
-        ['enter'] = f.actions.file_edit, -- 'default' cannot be overrided by `complete_path`
-        ['ctrl-t'] = f.actions.file_tabedit,
-        ['ctrl-s'] = f.actions.file_sel_to_qf,
-        ['alt-v'] = { fn = f.actions.file_vsplit },
-        ['alt-s'] = { fn = f.actions.file_split },
+        ['enter'] = file_edit_or_tabedit, -- 'default' cannot be overrided by `complete_path`
+        ['ctrl-t'] = fa.file_tabedit,
+        ['ctrl-s'] = fa.file_sel_to_qf,
+        ['alt-v'] = { fn = fa.file_vsplit },
+        ['alt-s'] = { fn = fa.file_split },
         -- https://github.com/ibhagwan/fzf-lua/issues/1241
-        ['alt-q'] = { fn = f.actions.file_sel_to_qf, prefix = 'select-all' },
+        ['alt-q'] = { fn = fa.file_sel_to_qf, prefix = 'select-all' },
         ['alt-n'] = a.file_create_open,
         ['ctrl-x'] = { fn = a.file_delete, reload = true },
         ['ctrl-r'] = { fn = a.file_rename, reload = true },
@@ -74,8 +78,8 @@ return {
         git = {
           status = {
             actions = {
-              ['ctrl-s'] = { fn = f.actions.git_stage_unstage, reload = true },
-              ['ctrl-x'] = { fn = f.actions.git_reset, reload = true },
+              ['ctrl-s'] = { fn = fa.git_stage_unstage, reload = true },
+              ['ctrl-x'] = { fn = fa.git_reset, reload = true },
             },
           },
           bcommits = {
@@ -93,7 +97,7 @@ return {
         manpages = { winopts = { preview = { hidden = 'hidden' } } },
         commands = {
           winopts = { preview = { hidden = 'hidden' } },
-          actions = { enter = f.actions.ex_run_cr, ['ctrl-e'] = f.actions.ex_run },
+          actions = { enter = fa.ex_run_cr, ['ctrl-e'] = fa.ex_run },
         },
         spell_suggest = { winopts = { border = 'none', backdrop = false } },
         complete_path = { file_icons = true, previewer = 'builtin' },
