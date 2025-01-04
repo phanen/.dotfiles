@@ -1,0 +1,13 @@
+diff --git a/lua/aerial/window.lua b/lua/aerial/window.lua
+index bb03da2..ecc4cd6 100644
+--- a/lua/aerial/window.lua
++++ b/lua/aerial/window.lua
+@@ -250,7 +250,7 @@ end
+ M.close = function()
+   if util.is_aerial_buffer() then
+     local source_win = util.get_source_win(0)
+-    vim.api.nvim_win_close(0, false)
++    if not pcall(vim.api.nvim_win_close, 0, true) then vim.cmd("quit!") end
+     if source_win then
+       vim.api.nvim_set_current_win(source_win)
+     end

@@ -7,7 +7,7 @@ local Pick = {}
 
 -- curl -sLO https://github.com/phanen/file-web-devicons/releases/download/main/file_web_devicon-x86_64-unknown-linux-gnu
 local options = {
-  iconprg = 'file_web_devicon', -- FIXME: for non-utf-8 input (e.g. binary test file)
+  -- iconprg = 'file_web_devicon', -- FIXME: for non-utf-8 input (e.g. binary test file)
   fd_cmd = [[fd --color=always --type f --hidden --follow --exclude .git]],
   rg_cmd = [[rg --pcre2 --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e ]],
   -- not sure if is this a sorter-friendly opt-in

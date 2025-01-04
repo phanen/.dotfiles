@@ -491,4 +491,34 @@ function Rl.backward_kill_line() kill_to(curr_line_no(), 0) end
 
 function Rl.dwim_backward_kill_line() kill_to(dwim_beginning_of_line_pos(true)) end
 
+-- copilot compat
+local cs = u.lreq('copilot.suggestion')
+Rl.expr_accept_or_forward_char = function()
+  if not cs.is_visible() then return '<right>' end
+  cs.accept()
+end
+
+Rl.expr_accept_or_end_of_line = function()
+  if not cs.is_visible() then return '<end>' end
+  cs.accept_line()
+end
+
+Rl.accept_or_forward_word = function()
+  if not cs.is_visible() then
+    u.rl.forward_word()
+    return
+  end
+  cs.accept_word()
+end
+
+Rl.expr_cs_prev_or_fallback = function()
+  if not cs.is_visible() then return '<c-p>' end
+  cs.prev()
+end
+
+Rl.expr_cs_next_or_fallback = function()
+  if not cs.is_visible() then return '<c-n>' end
+  cs.next()
+end
+
 return Rl

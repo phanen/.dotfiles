@@ -10,21 +10,20 @@ if test $__fish_initialized -lt 3800
     bind \co prevd-or-backward-word
     bind \cq '_empty_trim_then "lazygit;commandline -f repaint" fish_clipboard_copy'
     bind \cr atuin_search
-    bind \cs '_empty_then "nvim;commandline -f repaint;" __fish_man_page'
+    bind \cs '_empty_then "nvim;commandline -f repaint" __fish_man_page'
     bind \ct 'commandline -i -- (fzf_files);commandline -f repaint'
     bind \cu '_empty_then "htop;commandline -f repaint" "commandline -f backward-kill-line"'
-    bind \cw '_empty_then "__fish_echo eza -lh --hyperlink" "commandline -f backward-kill-path-component"'
+    bind \cw '_empty_then "commandline -f repaint;" "commandline -f backward-kill-path-component"'
     # bind \cm 'nvim -- (commandline -t)'
 
     bind \e\; 'exec fish'
     bind \ei 'tmux a &>/dev/null || tmux &>/dev/null || tmux det'
-    bind \el clear-screen
-    bind \ew 'fish_key_reader -c'
 
     bind \eg commandline
     bind \r k_enter
     bind \e\[47\;5u undo
     bind \cx\ce edit_command_buffer
+    bind ' ' '_empty_then "nvim;commandline -f repaint;" \'commandline -i " "\';commandline -f expand-abbr'
     return
 end
 
@@ -44,16 +43,18 @@ bind ctrl-r atuin_search
 bind ctrl-s '_empty_then "nvim;commandline -f repaint" __fish_man_page'
 bind ctrl-t 'commandline -i -- (fzf_files);commandline -f repaint'
 bind ctrl-u '_empty_then "htop;commandline -f repaint" "commandline -f backward-kill-line"'
-bind ctrl-w '_empty_then "__fish_echo eza -lh --hyperlink" "commandline -f backward-kill-path-component"'
-bind ctrl-m 'nvim -- (commandline -t)'
+bind ctrl-w '_empty_then "commandline -f repaint;" "commandline -f backward-kill-path-component"'
+bind ctrl-m __fish_man_page # but nvim terminal not fully support kkp
+bind ctrl-d _bs_or_del
 
 bind alt-\; 'exec fish'
 bind alt-i 'tmux a &>/dev/null || tmux &>/dev/null || tmux det'
-bind alt-l clear-screen
-bind alt-w 'fish_key_reader -c'
 
 bind alt-g commandline
 
 #bind -k nul 'kitten @ action kitty_scrollback_nvim --config custom'
 bind enter k_enter
 bind ctrl-x,ctrl-e edit_command_buffer
+bind space '_empty_then "nvim;commandline -f repaint;" \'commandline -i " "\';commandline -f expand-abbr'
+
+# TODO: ; shouldn't expand-abbr

@@ -1,34 +1,30 @@
----@module "lib.bufop"
 local Misc = {}
 
 Misc.quit = function()
-  if vim.bo.bt == 'help' then vim.cmd('quit!') end
-  if fn.reg_recording() ~= '' or fn.reg_executing() ~= '' then
-    return api.nvim_feedkeys('q', 'n', false)
+  if fn.reg_recording() ~= '' or fn.reg_executing() ~= '' then return 'q' end
+  if
+    api.nvim_win_get_config(0).relative ~= ''
+    or vim.bo.bt == 'help'
+    or vim.wo.diff
+    or not vim.bo.ma
+  then
+    return '<cmd>quit!<cr>'
   end
-
-  -- quit Linediff
-  if vim.wo.diff then return vim.cmd('quit!') end
-
-  if api.nvim_win_get_config(0).relative ~= '' then -- close current float
-    return vim.cmd('quit!')
+  -- close all focusable float
+  for _, win in ipairs(api.nvim_tabpage_list_wins(0)) do
+    if
+      api.nvim_win_is_valid(win)
+      and api.nvim_win_get_config(win).relative ~= ''
+      and api.nvim_win_get_config(win).focusable
+    then
+      vim.schedule(function() -- https://github.com/neovim/neovim/issues/12923
+        -- vim.cmd.doautocmd('CursorMoved') -- hope this close float
+        api.nvim_win_call(win, function() vim.cmd('fclose!') end)
+      end)
+      return
+    end
   end
-
-  -- close all focusable float (:fclose! ?)
-  local count
-  vim
-    .iter(api.nvim_tabpage_list_wins(0))
-    :filter(api.nvim_win_is_valid)
-    :filter(function(win) -- -- skip unfocusable(e.g. fidget)
-      local cfg = api.nvim_win_get_config(win)
-      return cfg.relative ~= '' and cfg.focusable and true or false
-    end)
-    :each(function(win)
-      api.nvim_win_call(win, function() vim.cmd('quit!') end)
-      count = true
-    end)
-  if count then return end
-  return api.nvim_feedkeys('q', 'n', false)
+  return 'q'
 end
 
 --- find "correct" buffer

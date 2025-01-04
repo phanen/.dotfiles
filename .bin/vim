@@ -1,5 +1,1 @@
-#!/bin/sh
-MAGIC=123
-/bin/vim "$@"
-builtin test $? != $MAGIC && exit
-exec $0 "+so /tmp/reload-vim.vim"
+nvim

@@ -85,6 +85,7 @@ com.W = [[execute 'w !sudo tee % > /dev/null' <bar> edit!]]
 com.DiagQf = [[lua vim.diagnostic.setqflist()]]
 com.DiagLl = [[lua vim.diagnostic.setloclist()]]
 com.DiagFloat = [[lua vim.diagnostic.open_float()]]
+com.TabClose = [[exe(tabpagenr("$")==1 ?'q!' :'tabc!')]]
 com.DirHist = function() u.dirstack.hist() end
 com.Hypen2Star = [[%s/^\([  ]*\)- \(.*\)/\1* \2/g]]
 com.Four2Two = [[%s;^\(\s\+\);\=repeat(' ', submatch(0)->len()/2);g]]

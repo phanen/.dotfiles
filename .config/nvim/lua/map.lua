@@ -37,7 +37,7 @@ n[' .'] = '<cmd>Neogen<cr>'
 nx['<cr>'] = 'gF'
 n['<tab>'], n['<c-i>'] = 'za', '<c-i>' -- https://github.com/neovim/neovim/pull/17932
 
-nx.expr[' so'] = function() return u.task.so() end
+nx.expr['s;'] = function() return u.task.so() end
 nx[' <cr>'] = function() u.task.termrun() end
 x[' d'] = ':Linediff<cr>'
 n[' d'] = '<Plug>(linediff-operator)'
@@ -85,16 +85,14 @@ n['gj'] = function() u.repmv.next_h() end
 n['gk'] = function() u.repmv.prev_h() end
 n['zj'] = function() u.repmv.next_z() end
 n['zk'] = function() u.repmv.prev_z() end
-n['sj'] = function() u.repmv.next_q() end
-n['sk'] = function() u.repmv.prev_q() end
-n['sJ'] = function() u.repmv.next_l() end
-n['sK'] = function() u.repmv.prev_l() end
+n[']q'] = function() u.repmv.next_q() end
+n['[q'] = function() u.repmv.prev_q() end
+n[']l'] = function() u.repmv.next_l() end
+n['[l'] = function() u.repmv.prev_l() end
 n[']d'] = function() u.repmv.next_d() end
 n['[d'] = function() u.repmv.prev_d() end
 n[']e'] = function() u.repmv.next_e() end
 n['[e'] = function() u.repmv.prev_e() end
-n[']b'] = function() u.repmv.next_b() end
-n['[b'] = function() u.repmv.prev_b() end
 n['g<tab>'] = 'g<tab>'
 n['g<c-i>'] = function() u.repmv.next_o() end
 n['g<c-o>'] = function() u.repmv.prev_o() end
@@ -133,8 +131,7 @@ ox['ih'] = ':<c-u>Gitsigns select_hunk<cr>' -- find hunk
 -- }}}
 
 -- inspect {{{
-n['_'] = 'K'
-x['_'] = function()
+nx['_'] = function()
   local mode = api.nvim_get_mode().mode
   if mode:match('[vV\022]') and #table.concat(u.buf.getregion(mode), '\n') == 1 then
     u.textobj.lineCharacterwise('inner')
@@ -151,6 +148,7 @@ n[' h'] = '<cmd>AerialToggle!<cr>'
 n['mk'] = '<cmd>messages clear<cr>'
 n['ml'] = '<cmd>messages<cr>'
 n['me'] = '<cmd>R messages<cr>'
+n['md'] = [[<cmd>DiagFloat<cr>]]
 -- }}}
 
 -- file/dir {{{
@@ -176,7 +174,7 @@ nx[' gl'] = function() u.gl.permalink_open() end
 nx['<c-l>'] = function() u.pick.files() end
 nx['<c-n>'] = function() u.pick.lgrep() end
 nx['<c-h>'] = function() u.pick.help_tags() end
-nx['<c-m>'] = function() u.pick.manpages() end
+nx['<c-m>'] = function() u.pick.man_pages() end
 nx[' ;'] = function() u.pick.commands() end
 nx[' /'] = function() u.pick.command_history() end
 nx[' <c-b>'] = function() u.pick.git_bcommits() end
@@ -199,14 +197,10 @@ n['<c-b>'] = function() u.pick.buffers() end
 n['<c-f>'] =
   [[<cmd>exe(tabpagenr('$')==1 ?v:count1.'bn' :((tabpagenr()-1+v:count1)%tabpagenr('$')+1).'tabn')<cr>]]
 n['<c-e>'] = [[<cmd>exe(tabpagenr('$')==1 ?v:count1.'bp' :v:count1.'tabp')<cr>]]
-n['+q'] = [[<cmd>exe(tabpagenr("$")==1 ?'qa!' :'tabc!')<cr>]]
-n['<c-s>'] = function() u.misc.mimic_wincmd() end
-n['<c-s><c-d>'] = [[<cmd>sil!wa!\|mks!/tmp/reload.vim\|cq!123<cr>]] -- in case just exec binary
-n['<c-s><c-s>'] = [[<cmd>quit!<cr>]]
-n['<c-s>d'] = [[<cmd>DiagFloat<cr>]]
+n['s'] = '<c-w>'
 n['<c-j>'] = function() u.misc.one_win_then('vs|winc p', 'winc w') end
-n['<c-k>'] = function() u.misc.one_win_then('sp', 'winc W') end
-n['q'] = function() u.misc.quit() end
+n['<c-k>'] = function() u.misc.one_win_then('vs|winc T', 'winc W') end
+n.expr['q'] = function() return u.misc.quit() end
 -- }}}
 
 -- terminal {{{
@@ -238,27 +232,11 @@ end
 -- }}}
 
 -- insert & command mode {{{
-local cs = u.lreq('copilot.suggestion')
-i.expr['<c-f>'] = function()
-  if not cs.is_visible() then return '<right>' end
-  cs.accept()
-end
-i.expr['<c-e>'] = function()
-  if not cs.is_visible() then return '<end>' end
-  cs.accept_line()
-end
-i['<c-j>'] = function()
-  if not cs.is_visible() then u.rl.forward_word() end
-  cs.accept_word()
-end
-i.expr['<c-p>'] = function()
-  if not cs.is_visible() then return '<c-p>' end
-  cs.prev()
-end
-i.expr['<c-n>'] = function()
-  if not cs.is_visible() then return '<c-n>' end
-  cs.next()
-end
+i.expr['<c-f>'] = function() return u.rl.expr_accept_or_forward_char() end
+i.expr['<c-e>'] = function() return u.rl.expr_accept_or_end_of_line() end
+i['<c-j>'] = function() u.rl.accept_or_forward_word() end
+i.expr['<c-p>'] = function() return u.rl.expr_cs_prev_or_fallback() end
+i.expr['<c-n>'] = function() return u.rl.expr_cs_next_or_fallback() end
 i['<c-b>'] = '<left>'
 i['<c-a>'] = function() u.rl.dwim_beginning_of_line() end
 i['<c-o>'] = function() u.rl.backward_word() end
@@ -287,8 +265,13 @@ c['<c-u>'] = function() u.rl.dwim_backward_kill_line() end
 c['<c-bs>'] = '<c-w>'
 --- }}}
 
+n['sd'] = [[<cmd>sil!wa!|mks!/tmp/reload-nvim.vim|cq!123<cr>]] -- in case just exec binary
+n['s '] = [[<cmd>sil!wa!|mks!/tmp/reload-nvim.vim|cq!124<cr>]]
+n['sc'] = [[<cmd>quit!<cr>]]
+n.nowait['<c-s>'] = [[<cmd>quit!<cr>]]
 nx['@w'], nx['@^'] = '', '' -- avoid kanata typo
 n[' I'] = '<cmd>Inspect<cr>'
 n['S'] = '<cmd>InspectTree<cr>'
 n[' Q'] = '<cmd>qa!<cr>'
 n['?'] = '<cmd>Lazy<cr>'
+n[' '] = ''

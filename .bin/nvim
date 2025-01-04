@@ -1,34 +1,57 @@
 #!/bin/sh
 
-ROOT=$HOME/b/neovim
+# git clone https://github.com/phanen/neovim ~/b/neovim
+# git remote add upstream http://github.com/neovim/neovim
+# git fetch
+# git branch patch origin/patch
+# git checkout patch
+# git branch --set-upstream-to=upstream/master
+# ln -sf ~/b/n{eo,}vim
 
-if command -v "$ROOT"/build/bin/nvim 1>/dev/null 2>/dev/null; then
-  VIMRUNTIME=$ROOT/runtime
-  NVIM_BIN=$ROOT/build/bin/nvim
-elif command -v /bin/nvim 1>/dev/null 2>/dev/null; then
-  NVIM_BIN=/bin/nvim
-elif command -v /run/current-system/sw/bin/nvim 1>/dev/null 2>/dev/null; then
-  NVIM_BIN=/run/current-system/sw/bin/nvim
-else
-  exit
-fi
+VIM=$(basename "$0")
+case "$VIM" in
+nvim) ARG=--luamod-dev ;;
+vim) ROOT=$HOME/b/vim ;;
+esac
 
-# . /usr/share/makepkg/util/message.sh
-# colorize
-# msg "$NVIM_BIN"
+ROOT=$HOME/b/$VIM
+VIM_BIN=$(PATH=$ROOT/build/bin:/bin/:/usr/bin:/run/current-system/sw/bin:$PATH command -v "$VIM") || exit $?
+case "$VIM_BIN" in
+"$(realpath -s "$0")") exit 1 ;; # recursion
+"$ROOT/build/bin/$VIM") VIMRUNTIME=$ROOT/runtime ;;
+esac
 
-SESSION=/tmp/reload.vim
-MAGIC=123
+SESSION=/tmp/reload-$VIM.vim
+MAGIC_S=123 # reload session
+MAGIC_R=124 # fresh restart
+MAGIC_A=125 # restart with args
+SAVE_CWD_HERE=${SAVE_CWD_HERE:-$(mktemp)}
+
 # https://vi.stackexchange.com/questions/36957/update-all-of-the-unsaved-buffers-at-vim
-CMD1="+nnoremap <nowait> <c-s><c-d> <cmd>sil!wa!\|mks!$SESSION\|cq!$MAGIC<cr>"
-CMD2="+nnoremap <nowait> <c-s><c-s> <cmd>quit!<cr>"
-CMD3="+nnoremap <nowait> <c-s><c-e> <cmd>e \$MYVIMRC<cr>"
-ARG=--luamod-dev
+CMD="+\
+nn <nowait> sd <cmd>sil!wa!\|mks!$SESSION\|cq!$MAGIC_S<cr>|\
+nn <nowait> s<space> <cmd>sil!wa!\|mks!$SESSION\|cq!$MAGIC_R<cr>|\
+nn <nowait> sa <cmd>sil!wa!\|mks!$SESSION\|cq!$MAGIC_A<cr>|\
+nn <nowait> sc <cmd>quit!<cr>|\
+nn <nowait> se <cmd>e \$MYVIMRC<cr>|\
+nn <nowait> <c-s> <cmd>quit!<cr>|\
+au VimLeave * ++once call writefile([getcwd()], '$SAVE_CWD_HERE')"
 
 # $ARGS then $@: if `--` in "$@"
 # "" is required for sh -c 'nvim xx'
-VIMRUNTIME=$VIMRUNTIME $NVIM_BIN "$CMD1" "$CMD2" "$CMD3" "$ARG" "$@"
+# not sure how "" expand to args...
+# https://unix.stackexchange.com/questions/415990/how-can-i-expand-a-quoted-variable-to-nothing-if-its-empty
+VIMRUNTIME=$VIMRUNTIME $VIM_BIN "$CMD" ${ARG:+"$ARG"} "$@"
+STATUS=$?
 
-test $? != $MAGIC && exit
+NEW_DIR=$(cat "$SAVE_CWD_HERE")
+if [ -n "$NEW_DIR" ] && [ "$PWD" != "$NEW_DIR" ]; then
+  cd "$NEW_DIR" || exit 1
+fi
 
-exec $0 "+so $SESSION"
+case $STATUS in
+"$MAGIC_S") exec $0 -S "$SESSION" ;;
+"$MAGIC_R") exec $0 ;;
+"$MAGIC_A") exec $0 "$@" ;;
+*) exit $STATUS ;;
+esac
