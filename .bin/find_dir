@@ -1,6 +1,7 @@
 #!/bin/sh
 {
-  # fd . -d 1 --type d -I
+  builtin pwd # ensure cwd is the first one
+  fd . -a -d 1 --type d -I | rg '/$' -r ''
   zoxide query -l
-  fd . ~/.local/share/nvim/lazy/ ~/dot/ ~/b/ -d 1 --type directory -a | rg '/$' -r ''
-} | awk '!_[$0]++'
+  fd . ~/.local/share/nvim/lazy/ ~/.local/share/fish/plug/ ~/dot/ ~/b/ -d 1 --type directory -a | rg '/$' -r ''
+} | awk '!_[$0]++' | tail -n+2
