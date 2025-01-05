@@ -29,7 +29,7 @@ eval "$(atuin init bash)"
 stty stop undef
 
 # . /usr/share/fzf/key-bindings.bash
-if [ -f ~/.local/share/blesh/ble.sh ]; then
+if ! [ -f ~/.local/share/blesh/ble.sh ]; then
   . ~/.local/share/blesh/ble.sh
   ble-import -d integration/fzf-completion
   ble-import -d integration/fzf-key-bindings
