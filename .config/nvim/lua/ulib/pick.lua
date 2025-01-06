@@ -194,7 +194,7 @@ Pick.notes = make_mux_from_pair(
 
 -- stylua: ignore
 Pick.zoxide = function()
-  return fzf_exec('realpath ~/b/* ~/.local/share/nvim/lazy/* ~/dot/* ', {
+  return fzf_exec('find_dir', {
     preview = 'eza --color=always --tree --level=3 --icons=always {}',
     actions = {
       ['enter'] = function(s) return u.misc.cd(s[1]) end,

@@ -146,22 +146,20 @@ end
 ---@param clean boolean clean build
 Script.update_nvim = function(clean)
   if not u.is.nvim_local_build() then return end
-  local cmds = { 'fish -c "upd-nvim -p"' }
+  local cmds = { 'upd-nvim' }
   if clean then cmds[#cmds + 1] = '&& make distclean' end
-  cmds[#cmds + 1] = '&& fish -c "upd-nvim"'
+  cmds[#cmds + 1] = '&& make'
   local cmd = table.concat(cmds, ' ')
+  local root = g.nvim_root
   ---@diagnostic disable-next-line: missing-fields
   u.muxterm.spawn {
     cmd = cmd,
-    cwd = g.nvim_root,
+    cwd = root,
     on_exit = function()
       vim.cmd.helptags('$VIMRUNTIME/doc')
-      vim.cmd [[up!|mks!/tmp/reload.vim]]
-      local init_cmd = ([[lua u.muxterm.spawn{ cmd = "%s", cwd = "%s" }]]):format(
-        'lazygit',
-        g.nvim_root
-      )
-      u.fs.write_file('/tmp/reload.vim', init_cmd, 'a')
+      vim.cmd [[up!|mks!/tmp/reload-nvim.vim]]
+      local init_cmd = ([[cd %s |lua u.muxterm.spawn{cmd="lazygit",cwd="%s"}]]):format(root, root)
+      u.fs.write_file('/tmp/reload-nvim.vim', init_cmd, 'a')
       vim.cmd [[cq!123]]
     end,
   }

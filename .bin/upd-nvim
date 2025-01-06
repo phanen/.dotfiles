@@ -1,0 +1,7 @@
+#!/bin/sh
+cd ~/b/neovim || exit
+git checkout master
+git pull upstream master:master --autostash --rebase
+git checkout patch
+git rebase master patch
+nvim -es "+helptags $VIMRUNTIME/doc" +q
