@@ -2,6 +2,8 @@
 # PATH is exported in /etc/profile
 
 PATH=$HOME/.bin:$PATH
+PATH=$HOME/.cargo/bin:$PATH
+PATH=$HOME/go/bin:$PATH
 append_path() {
   case ":$PATH:" in
   *:"$1":*) ;;
@@ -12,7 +14,6 @@ append_path() {
 }
 
 append_path "$HOME/.local/bin"
-append_path "$HOME/.cargo/bin"
 append_path "$HOME/.local/share/nvim/mason/bin"
 append_path "$HOME/.nimble/bin"
 append_path "$HOME/.luarocks/bin"
