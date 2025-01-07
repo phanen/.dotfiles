@@ -52,6 +52,8 @@ g.leetcode = vim.v.argv[#vim.v.argv] == '+Leet'
 g.is_local = not g.is_remote
 g.disable_icon = false
 g.bigfile_size = 1048576
+
+local paste = function() return vim.split(fn.getreg '"', '\n') end
 g.clipboard = g.is_remote
     and {
       name = 'OSC 52',
@@ -59,10 +61,7 @@ g.clipboard = g.is_remote
         ['+'] = function(lines) return require('vim.ui.clipboard.osc52').copy('+')(lines) end,
         ['*'] = function(lines) return require('vim.ui.clipboard.osc52').copy('*')(lines) end,
       },
-      paste = {
-        ['+'] = function() return require('vim.ui.clipboard.osc52').paste('+')() end,
-        ['*'] = function() return require('vim.ui.clipboard.osc52').paste('*')() end,
-      },
+      paste = { ['+'] = paste, ['*'] = paste },
     }
   or nil
 
