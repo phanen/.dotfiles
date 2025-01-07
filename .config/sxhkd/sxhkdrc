@@ -56,7 +56,7 @@ super + x
 super + 1
   (rofi -dmenu) >> ~/notes/bookmark.txt
 super + Tab
-  darkman toggle
+  dunstctl close-all
 
 # BROKEN...
 # super + n
