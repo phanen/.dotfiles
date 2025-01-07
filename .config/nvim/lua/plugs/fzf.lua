@@ -45,10 +45,13 @@ return {
           border = g.border,
           backdrop = 100,
           -- treesitter = true,
-          preview = { delay = 50, border = 'noborder' },
+          preview = { delay = 50, border = g.border },
         },
         -- easy to see count (but not spinner)
-        fzf_opts = { ['--info'] = 'inline' },
+        fzf_opts = {
+          ['--info'] = 'inline',
+          ['--preview-window'] = 'border-none',
+        },
         keymap = {
           builtin = {
             ['<a-esc>'] = 'abort',
