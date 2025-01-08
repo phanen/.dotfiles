@@ -10,6 +10,10 @@ return {
       local file_edit_or_tabedit = function(sel, o)
         return #sel > 1 and fa.file_tabedit(sel, o) or fa.file_edit(sel, o)
       end
+      local file_edit_or_tabedit_hide = function(sel, o)
+        f.hide()
+        file_edit_or_tabedit(sel, o)
+      end
       g.fzf_lua_file_actions = {
         ['enter'] = file_edit_or_tabedit, -- 'default' cannot be overrided by `complete_path`
         ['ctrl-t'] = fa.file_tabedit,
@@ -22,6 +26,7 @@ return {
         ['ctrl-x'] = { fn = a.file_delete, reload = true },
         ['ctrl-r'] = { fn = a.file_rename, reload = true },
         ['ctrl-y'] = a.yank,
+        ['ctrl-o'] = { fn = file_edit_or_tabedit_hide, exec_silent = true },
       }
       f.setup {
         'default-title',
