@@ -8,6 +8,7 @@ return {
       python = { 'ruff_fix', 'ruff_format' },
       dart = { 'dart_format' },
       sh = { 'shfmt', 'shellcheck' },
+      bash = { 'shfmt', 'shellcheck' },
       xml = { 'xmlformat' },
       toml = { 'taplo' },
       c = { 'clang-format' },
