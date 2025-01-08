@@ -22,7 +22,7 @@ Fs.write_file = function(path, content, flags)
   file:close()
 end
 
-Fs.filecopy = function(from, to) return assert(fn.filecopy(from, to) == 0) end
+Fs.copy_file = function(from, to) return assert(fn.filecopy(from, to) == 1) end
 
 ---@param path string
 ---@param lines string[]
@@ -71,6 +71,15 @@ Fs.write_json = function(path, tbl, opts)
   opts = opts or {}
   local content = vim.json.encode(tbl, opts)
   Fs.write_file(path, content)
+end
+
+---Check if child file in parent dir
+---@param parent string
+---@param child string
+---@return boolean
+Fs.is_parent = function(parent, child)
+  -- TODO(upstream): rm when this merge? https://github.com/neovim/neovim/pull/31790
+  return child:sub(1, #parent) == parent
 end
 
 return Fs
