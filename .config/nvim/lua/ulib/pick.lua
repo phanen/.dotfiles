@@ -3,6 +3,21 @@ local fzf = require('fzf-lua') -- ensure g.fzf_lua_file_actions is setuped
 local libuv = require('fzf-lua.libuv')
 
 local Pick = {}
+local _Pick = setmetatable({}, {
+  __index = function(_, k)
+    local override_opts = k ~= 'resume'
+      and {
+        winopts = {
+          title = '[' .. u.string.snake_to_camel(k) .. ']',
+          title_pos = 'left',
+          preview = { title_pos = 'left' },
+        },
+      }
+    local p = Pick[k] or flo[k]
+    return function(call_opts) p(u.merge(override_opts or {}, call_opts or {})) end
+  end,
+})
+
 -- FIXME(upstream): unable to stat netrw 'https://'
 
 -- curl -sLO https://github.com/phanen/file-web-devicons/releases/download/main/file_web_devicon-x86_64-unknown-linux-gnu
@@ -32,9 +47,10 @@ end
 
 Pick.files = function(opts)
   local default = {
+    cache = true,
     multiprocess = false,
     previewer = 'builtin',
-    winopts = { title = '[FILES]', title_pos = 'center' },
+    winopts = { title = '[FILES]' },
     fzf_opts = options.fzf_opts,
     actions = g.fzf_lua_file_actions,
   }
@@ -72,7 +88,7 @@ Pick.grep = function(opts)
     multiprocess = false,
     previewer = 'builtin',
     query = rg_escape(table.concat(u.buf.getregion())),
-    winopts = { title = '[GREP]', title_pos = 'center' },
+    winopts = { title = '[GREP]' },
     fzf_opts = options.fzf_opts,
     actions = u.merge(
       g.fzf_lua_file_actions,
@@ -100,7 +116,7 @@ Pick.lgrep = function(opts)
     multiprocess = false,
     previewer = 'builtin',
     query = rg_escape(table.concat(u.buf.getregion())),
-    winopts = { title = '[LGREP]', title_pos = 'center' },
+    winopts = { title = '[LGREP]' },
     fzf_opts = options.fzf_opts,
     actions = u.merge(
       g.fzf_lua_file_actions,
@@ -161,7 +177,7 @@ local make_mux_from_pair = function(a, b, a_title, b_title, a_opts, b_opts, pers
   local function make_toggle_opts()
     local opts = {
       query = fzf.get_last_query(),
-      winopts = { title = '[' .. curr_title .. ']', title_pos = 'center' },
+      winopts = { title = '[' .. curr_title .. ']' },
       actions = {
         [key] = {
           fn = function() return toggle_state()(make_toggle_opts()) end,
@@ -209,7 +225,7 @@ Pick.builtin = function(opts)
   local default = {
     builtin_extends = Pick,
     actions = { -- cannot use noclose/reload, since win size may change
-      ['enter'] = function(s) return s[1] and Pick[s[1]]() end,
+      ['enter'] = function(s) return s[1] and _Pick[s[1]]() end,
     },
   }
   opts = u.merge(default, opts or {})
@@ -224,6 +240,4 @@ Pick.todos = function(opts)
   return fzf_exec(options.rg_cmd .. libuv.shellescape('TODO|HACK|PERF|NOTE|FIXME'), opts)
 end
 
-setmetatable(Pick, { __index = flo })
-
-return Pick
+return _Pick
