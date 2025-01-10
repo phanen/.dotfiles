@@ -85,4 +85,7 @@ if command -v vivid 1>/dev/null 2>/dev/null; then
   fi
 fi
 
+# https://unix.stackexchange.com/questions/432816/grab-id-of-os-from-etc-os-release
+export DISTRO_ID=$(command grep -ioP '^ID=\K.+' /etc/os-release)
+
 export ANDROID_HOME="$HOME"/android/
