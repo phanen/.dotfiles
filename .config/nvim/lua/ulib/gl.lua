@@ -21,36 +21,14 @@ options.routers['github.com'] = function(ctx)
   url = url .. '/blob/' .. ctx.rev .. '/' .. ctx.file
 
   if not ctx.lstart then return url end
-  url = url .. '#L' .. ctx.lstart
+  -- disable rich preview
+  local maybe_plain = ctx.file:match('%.md$') and '?plain=1' or ''
+  url = url .. maybe_plain .. '#L' .. ctx.lstart
   if ctx.lend then url = url .. '-L' .. ctx.lend end
   return url
 end
 
--- options.routers['gitlab.com'] = Gl.get_gitlab_type_url
--- options.routers['try.gitea.io'] = Gl.get_gitea_type_url
--- options.routers['codeberg.org'] = Gl.get_gitea_type_url
--- options.routers['bitbucket.org'] = Gl.get_bitbucket_type_url
--- options.routers['try.gogs.io'] = Gl.get_gogs_type_url
--- options.routers['git.sr.ht'] = Gl.get_srht_type_url
--- options.routers['git.launchpad.net'] = Gl.get_launchpad_type_url
--- options.routers['repo.or.cz'] = Gl.get_repoorcz_type_url
--- options.routers['git.kernel.org'] = Gl.get_cgit_type_url
--- options.routers['git.savannah.gnu.org'] = Gl.get_cgit_type_url
-
---- Constructs a gitea style url
-function Gl.get_gitea_type_url(ctx)
-  local url = get_base_https_url(ctx)
-  if not ctx.file or not ctx.rev then return url end
-  url = url .. '/src/commit/' .. ctx.rev .. '/' .. ctx.file
-
-  if not ctx.lstart then return url end
-  url = url .. '#L' .. ctx.lstart
-  if ctx.lend then url = url .. '-L' .. ctx.lend end
-  return url
-end
-
---- Constructs a gitlab style url
-function Gl.get_gitlab_type_url(ctx)
+options.routers['gitlab.com'] = function(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/-/blob/' .. ctx.rev .. '/' .. ctx.file
@@ -61,8 +39,20 @@ function Gl.get_gitlab_type_url(ctx)
   return url
 end
 
---- Constructs a bitbucket style url
-function Gl.get_bitbucket_type_url(ctx)
+options.routers['try.gitea.io'] = function(ctx)
+  local url = get_base_https_url(ctx)
+  if not ctx.file or not ctx.rev then return url end
+  url = url .. '/src/commit/' .. ctx.rev .. '/' .. ctx.file
+
+  if not ctx.lstart then return url end
+  url = url .. '#L' .. ctx.lstart
+  if ctx.lend then url = url .. '-L' .. ctx.lend end
+  return url
+end
+
+options.routers['codeberg.org'] = options.routers['try.gitea.io']
+
+options.routers['bitbucket.org'] = function(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/src/' .. ctx.rev .. '/' .. ctx.file
@@ -74,8 +64,7 @@ function Gl.get_bitbucket_type_url(ctx)
   return url
 end
 
---- Constructs a gogs style url
-function Gl.get_gogs_type_url(ctx)
+options.routers['try.gogs.io'] = function(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/src/' .. ctx.rev .. '/' .. ctx.file
@@ -87,19 +76,7 @@ function Gl.get_gogs_type_url(ctx)
   return url
 end
 
---- Constructs a cgit style url
-function Gl.get_cgit_type_url(ctx)
-  if ctx.path then ctx.path = ctx.path .. '.git/' end
-
-  local url = 'https://' .. ctx.host
-  if ctx.port then url = url .. ':' .. ctx.port end
-  url = url .. '/tree/' .. ctx.file .. '?id=' .. ctx.rev
-  if ctx.lstart then url = url .. '#n' .. ctx.lstart end
-  return url
-end
-
---- Constructs a sourcehut style url
-function Gl.get_srht_type_url(ctx)
+options.routers['git.sr.ht'] = function(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/tree/' .. ctx.rev .. '/item/' .. ctx.file
@@ -111,8 +88,7 @@ function Gl.get_srht_type_url(ctx)
   return url
 end
 
---- Constructs a launchpad style url
-function Gl.get_launchpad_type_url(ctx)
+options.routers['git.launchpad.net'] = function(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/tree/' .. ctx.file .. '?id=' .. ctx.rev
@@ -121,14 +97,25 @@ function Gl.get_launchpad_type_url(ctx)
   return url
 end
 
---- Constructs a repo.or.cz style url
-function Gl.get_repoorcz_type_url(ctx)
+options.routers['repo.or.cz'] = function(ctx)
   local url = get_base_https_url(ctx)
   if not ctx.file or not ctx.rev then return url end
   url = url .. '/blob/' .. ctx.rev .. ':/' .. ctx.file
   if ctx.lstart then url = url .. '#l' .. ctx.lstart end
   return url
 end
+
+options.routers['git.kernel.org'] = function(ctx)
+  if ctx.path then ctx.path = ctx.path .. '.git/' end
+
+  local url = 'https://' .. ctx.host
+  if ctx.port then url = url .. ':' .. ctx.port end
+  url = url .. '/tree/' .. ctx.file .. '?id=' .. ctx.rev
+  if ctx.lstart then url = url .. '#n' .. ctx.lstart end
+  return url
+end
+
+options.routers['git.savannah.gnu.org'] = options.routers['git.kernel.org']
 
 -- handle common pattern only
 -- https://stackoverflow.com/questions/31801271/what-are-the-supported-git-url-formats
@@ -170,6 +157,7 @@ local parse_url = function(url)
       if path:sub(1, 1) == '/' then path = path:sub(2) end
     else
       host, path = url:match('([^/]+)/(.*)$')
+      path = path:gsub('/$', '')
       if not host then error(('path: %s, url: %s'):format(path, tmp)) end
     end
   end
