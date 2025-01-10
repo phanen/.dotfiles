@@ -1,7 +1,6 @@
 status is-interactive; and begin
     set plugs https://github.com/jorgebucaran/autopair.fish \
-        # https://github.com/gazorby/fifc
-        $__fish_user_data_dir/plug/fifc
+        https://github.com/gazorby/fifc
 
     if test $__fish_initialized -ge 3800; and set -l fish_root ~/b/fish-shell; and test -d $fish_root
         set fish_complete_path \
@@ -16,6 +15,7 @@ status is-interactive; and begin
 
     source $__fish_config_dir/abbr.fish
     source $__fish_config_dir/alias.fish
+    source $__fish_config_dir/bind.fish
 
     command -q zoxide; and function __z_hook --on-variable PWD
         test -z "$fish_private_mode"
