@@ -1,20 +1,30 @@
 diff --git a/lua/debugprint/filetypes.lua b/lua/debugprint/filetypes.lua
-index f36fef5..88bcdc3 100644
+index de7db87..76c2ae1 100644
 --- a/lua/debugprint/filetypes.lua
 +++ b/lua/debugprint/filetypes.lua
-@@ -78,8 +78,61 @@ return {
-     ["c"] = {
-         left = 'fprintf(stderr, "',
-         right = '\\n");',
+@@ -75,27 +75,66 @@ return {
+         right_var = "",
+     },
+     ["bash"] = shell,
+-    ["c"] = {
+-        left = 'fprintf(stderr, "',
+-        right = '\\n");',
 -        mid_var = '%d\\n", ',
-+        mid_var = function()
-+            local d_fmt = '%d\\n", '
+-        right_var = ");",
+-        find_treesitter_variable = function(node)
+-            if node:type() == "field_expression" then
+-                return vim.treesitter.get_node_text(node, 0)
+-            elseif
+-                node:parent()
+-                and node:parent():type() == "field_expression"
+-                and node:prev_named_sibling()
++    ["c"] = function()
++        local get_mid_var = function()
 +            local s_fmt = '%s\\n", '
-+
 +            local lsp = vim.lsp
 +            local client = lsp.get_clients({ bufnr = 0, name = "clangd" })[1]
 +            if not client then
-+                return d_fmt
++                return
 +            end
 +
 +            local res, err = client:request_sync(
@@ -27,12 +37,12 @@ index f36fef5..88bcdc3 100644
 +            )
 +
 +            if err or not res then
-+                return d_fmt
++                return
 +            end
 +
 +            local content = vim.tbl_get(res, "result", "contents", "value")
 +            if not content then
-+                return d_fmt
++                return
 +            end
 +
 +            local typeinfo = content:match("### variable.-\nType: `(.-)`")
@@ -41,53 +51,40 @@ index f36fef5..88bcdc3 100644
 +            if
 +                typeinfo
 +                and (typeinfo:find("char %*") or typeinfo:find("char const%*"))
-+            then
+             then
+-                return vim.treesitter.get_node_text(node:parent(), 0)
+-            elseif node:type() == "identifier" then
+-                return vim.treesitter.get_node_text(node, 0)
+-            else
+-                return nil
 +                return s_fmt
-+            end
-+            return d_fmt
-+        end,
-         right_var = ");",
-+        find_treesitter_variable = function(node)
-+            if node:type() == "field_expression" then
-+                return vim.treesitter.get_node_text(node, 0)
-+            elseif
-+                node:parent()
-+                and node:parent():type() == "field_expression"
-+                and node:prev_named_sibling()
-+            then
-+                return vim.treesitter.get_node_text(node:parent(), 0)
-+            elseif node:type() == "identifier" then
-+                return vim.treesitter.get_node_text(node, 0)
-+            else
-+                return nil
-+            end
-+        end,
-     },
+             end
+-        end,
+-    },
++        end
++
++        return {
++            left = 'fprintf(stderr, "',
++            right = '\\n");',
++            mid_var = get_mid_var() or '%d\\n", ',
++            right_var = ");",
++            find_treesitter_variable = function(node)
++                if node:type() == "field_expression" then
++                    return vim.treesitter.get_node_text(node, 0)
++                elseif
++                    node:parent()
++                    and node:parent():type() == "field_expression"
++                    and node:prev_named_sibling()
++                then
++                    return vim.treesitter.get_node_text(node:parent(), 0)
++                elseif node:type() == "identifier" then
++                    return vim.treesitter.get_node_text(node, 0)
++                else
++                    return nil
++                end
++            end,
++        }
++    end,
      ["cmake"] = {
          left = 'message(DEBUG "',
-diff --git a/lua/debugprint/init.lua b/lua/debugprint/init.lua
-index 2b8e4c9..73b2a9a 100644
---- a/lua/debugprint/init.lua
-+++ b/lua/debugprint/init.lua
-@@ -157,7 +157,7 @@ local construct_debugprint_line = function(opts, fileconfig)
- 
-         line_to_insert = left
-             .. get_debugline_textcontent(opts, fileconfig)
--            .. fileconfig.mid_var
-+            .. (type(fileconfig.mid_var) == 'function' and fileconfig.mid_var() or fileconfig.mid_var)
-             .. opts.variable_name
-             .. fileconfig.right_var
-     else
-diff --git a/lua/debugprint/types.lua b/lua/debugprint/types.lua
-index 564204a..1415a11 100644
---- a/lua/debugprint/types.lua
-+++ b/lua/debugprint/types.lua
-@@ -5,7 +5,7 @@
- ---@class DebugprintFileTypeConfig
- ---@field left string
- ---@field right string
-----@field mid_var string
-+---@field mid_var string|fun():string
- ---@field right_var string
- ---@field find_treesitter_variable? function
- ---@field display_counter? boolean|function
+         right = '")',
