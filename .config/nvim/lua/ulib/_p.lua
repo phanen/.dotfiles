@@ -3,13 +3,26 @@ local P = {}
 
 local timeout = 1000
 
-P.pp = function(...) --
+---@param title string
+---@param body string
+---@param critical boolean?
+local osc99 = function(title, body, critical)
+  local urgency = critical and 2 or 1
+  local msg = '\x1b]99;i=1:d=0:u=%d;%s\x1b\\'
+  io.stdout:write(msg:format(urgency, title))
+  msg = '\x1b]99;i=1:d=1:u=icon:p=body:u=%d:w=%s;%s\x1b\\'
+  io.stdout:write(msg:format(urgency, timeout, body))
+end
+
+P.pp = function(...)
   local ret = {}
   local n = select('#', ...)
   for i = 1, n do
     ret[#ret + 1] = vim.inspect((select(i, ...)))
   end
-  vim.system { 'notify-send', '-t', tostring(timeout), table.concat(ret, ' ') }
+  local msg = table.concat(ret, ' ')
+  -- vim.system { 'notify-send', '-t', tostring(timeout),  }
+  osc99('', msg)
 end
 
 ---colorize debug print
