@@ -53,8 +53,8 @@ export SXHKD_SHELL='/bin/sh'
 # fix swing gui
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-export RUSTUP_DIST_SERVER="https://rsproxy.cn"
-export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
+export RUSTUP_DIST_SERVER="https://mirrors.aliyun.com/rustup"
+export RUSTUP_UPDATE_ROOT="https://mirrors.aliyun.com/rustup/rustup"
 
 ## fzf config (note: comment is unsupported in old version)
 export FZF_DEFAULT_OPTS="
