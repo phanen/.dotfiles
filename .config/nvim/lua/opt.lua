@@ -25,9 +25,11 @@ o.keywordprg = ':KeywordPrg'
 o.diffopt = 'internal,filler,closeoff,hiddenoff,algorithm:minimal' -- https://github.com/neovim/neovim/pull/14537
 o.exrc = true
 o.foldlevelstart = 99
-o.guicursor = 'n-v-c-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20,t:ver25'
 vim.opt.sessionoptions:remove('folds')
-o.messagesopt = 'hit-enter,history:2000'
+if g.nightly then
+  o.guicursor = 'n-v-c-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20,t:ver25'
+  o.messagesopt = 'hit-enter,history:2000'
+end
 -- o.lazyredraw = true
 -- o.showcmd = false
 

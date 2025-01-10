@@ -52,6 +52,7 @@ g.leetcode = vim.v.argv[#vim.v.argv] == '+Leet'
 g.is_local = not g.is_remote
 g.disable_icon = false
 g.bigfile_size = 1048576
+g.nightly = fn.has('nvim-0.11') == 1
 
 local paste = function() return vim.split(fn.getreg '"', '\n') end
 g.clipboard = g.is_remote
@@ -68,5 +69,5 @@ g.clipboard = g.is_remote
 require 'opt'
 require 'map'
 require 'hl'
-if vim.fn.has('nvim-0.11') ~= 1 then return end
+if not g.nightly then return end
 require 'pm'
