@@ -21,7 +21,9 @@ bspc rule -a SimpleScreenRecorder state=floating
 bspc rule -a pangoterm state=floating
 bspc rule -a a.out state=floating
 
-bspc rule -a "$BROWSER" state=tiled
+bspc rule -a "*:Bitwarden:$BROWSER" state=floating
+bspc rule -a "*:*:$BROWSER" state=floating
+# bspc rule -a "$BROWSER" state=tiled
 
 # when disable internal monitor, also remove its desktop
 # https://github.com/baskerville/bspwm/issues/1106
