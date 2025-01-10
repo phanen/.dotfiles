@@ -92,5 +92,4 @@ return {
   { import = 'plugs.nvim-bqf' },
   { import = 'plugs.snip' },
   { import = 'plugs.tree' },
-  { import = 'plugs.which-key' },
 }
