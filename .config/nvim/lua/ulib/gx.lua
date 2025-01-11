@@ -97,6 +97,10 @@ options.handlers.markdown = {
   filetype = { 'markdown' },
   handle = '%[[%a%d%s.,?!:;@_{}~]*%]%((https?://[a-zA-Z0-9_/%-%.~@\\+#=?&]+)%)',
 }
+options.handlers.csv = {
+  filetype = { 'csv' },
+  handle = '([^,]-),',
+}
 options.handlers.nvim_plugin = {
   filetype = { 'lua', 'vim' },
   filename = nil,
@@ -176,11 +180,13 @@ Gx.open = function(text)
   if not text then return nil end
 
   -- better than tbl_filter, since this can iterate non-list table
-  local hs = vim.iter(options.handlers):filter(function(_, h)
-    if h.filetype and vim.tbl_contains(h.filetype, vim.bo.filetype) then return true end
-    if h.filename and api.nvim_buf_get_name(0):match(h.filename) then return true end
-    return not h.filetype and not h.filename and not h.disable
-  end)
+  local hs = vim.iter(options.handlers):filter(
+    function(_, h)
+      return (h.filetype and vim.tbl_contains(h.filetype, vim.bo.filetype))
+        or (h.filename and api.nvim_buf_get_name(0):match(h.filename))
+        or not h.filetype and not h.filename and not h.disable
+    end
+  )
 
   ---@type GxSelection[]
   ---compounded type?
@@ -193,7 +199,9 @@ Gx.open = function(text)
     else
       url = h.handle(text)
     end
-    if url and not urls[url] then
+    if not url then return urls end
+    if not vim.startswith(url, 'http') then url = 'http://' .. url end
+    if not urls[url] then
       local i = #urls + 1
       urls[i] = { name = name, url = url }
       urls[url] = true -- check if we already found this url
