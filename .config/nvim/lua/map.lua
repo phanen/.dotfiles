@@ -11,6 +11,7 @@ nx['X'] = '"-X'
 n['x'] = '"-x'
 nx['<c-p>'] = '"-P'
 n[' p'] = '<cmd>%d_|norm!VP<cr>'
+x[' p'] = ':!paste -d " " <(xsel -ob) -<cr>'
 n[' y'] = '<cmd>%y<cr>'
 n[' j'] = '<cmd>t .<cr>'
 x[' j'] = '"gy\'>"gp'
@@ -161,7 +162,7 @@ n['H'] = function() u.dirstack.prev() end
 -- }}}
 
 -- git {{{
-n['g<cr>'] = '<cmd>G<cr>'
+n.expr['go'] = function() return vim.v.count > 0 and 'go' or '<cmd>G<cr>' end -- btw, how to do it in viml
 n['do'] = [[<cmd>exe(&diff ?'diffget' :'Gitsigns reset_hunk')<cr>]]
 n['dp'] = [[<cmd>exe(&diff ?'diffput' :'Gitsigns stage_hunk')<cr>]]
 n[' b'] = '<cmd>G blame<cr>'

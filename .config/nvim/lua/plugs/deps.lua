@@ -33,7 +33,6 @@ return {
 
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff', keys = '<Plug>(linediff-operator)' },
   { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
-  { 'onsails/lspkind.nvim', opts = {} },
   { 'tpope/vim-eunuch', cmd = { 'Rename', 'Delete' } },
   { 'tpope/vim-sleuth', lazy = false },
   { 'andrewferrier/debugprint.nvim', opts = {} },

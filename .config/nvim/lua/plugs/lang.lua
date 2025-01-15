@@ -2,9 +2,6 @@ local specs = {
   -- syntax
   { 'HiPhish/info.vim', cmd = 'Info' },
   { 'fladson/vim-kitty', ft = 'kitty' },
-  -- text process
-  { 'hotoo/pangu.vim', cmd = { 'Pangu', 'PanguEnable' } },
-  { 'cissoid/vim-fullwidth-punct-convertor', cmd = 'FullwidthPunctConvert' },
   { 'HakonHarnes/img-clip.nvim', cmd = 'PasteImage', opts = {} },
   { 'chaimleib/vim-renpy', ft = 'renpy' },
   -- tex

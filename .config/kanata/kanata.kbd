@@ -80,7 +80,7 @@
 
 (deflayer tablayer
   grv @s+  @s-  @l+  @l-  @lk  _    _    _    _    0    -    =    bspc ;;sysrq
-  _  ret C-bspc C-- ret   @tt  @gp  u    C-+  C--  @tp  [    ]    \
+  _  @asdf C-bspc C-- ret   @tt  @gp  u    C-+  C--  @tp  [    ]    \
   caps a    s    d   C-S-=   g bspc C-S-right C-S-left  C-S-l  ;  '    ret
   lsft z    x    @fu @tv   b    n    m    ,    .    /    rsft
   lctl lmet lalt          @fc             ralt rctl
@@ -107,6 +107,7 @@
   tp (cmd bash -c "toggle.sh polybar")
   gp (cmd bash -c "tr -dc 'a-zA-Z0-9_#@.-' < /dev/random | head -c 20 | xsel -ib")
   lk (cmd bash -c "slock")
+  asdf (cmd bash "asdf.sh")
 )
 
 (deflayer superlayer

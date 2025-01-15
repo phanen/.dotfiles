@@ -1,4 +1,5 @@
 7zip
+abduco
 acpi
 act
 apr
@@ -32,12 +33,12 @@ bspwm
 btrfs-progs
 ca-certificates
 cabextract
-cataclysm-dda-ncurses
 ccache
 cgdb
 chafa
 check
 chitose
+chromium
 clang
 clash-meta-alpha-git
 cliphist
@@ -57,6 +58,7 @@ devtools-archlinuxcn
 devtools-riscv64
 dex
 dhclient
+difftastic
 discord
 dkms
 docker
@@ -106,11 +108,12 @@ git
 git-absorb
 git-delta
 github-cli
+gitu
 gnu-free-fonts
 gnu-netcat
 go
 go-yq
-gofumpt
+gopass
 gperf
 gpg-tui
 gradle
@@ -130,7 +133,6 @@ help2man
 hexyl
 hostapd
 htop
-httpie
 httping
 hyperfine
 hyperv
@@ -200,7 +202,6 @@ man-pages
 mdf2iso
 mesa-utils
 minicom
-miniserve
 mold
 moonlight-qt
 moreutils
@@ -219,6 +220,7 @@ noto-fonts-cjk
 noto-fonts-emoji
 npm
 nspawn
+nushell
 nvchecker
 nvidia-container-toolkit
 nvidia-open-dkms
@@ -235,6 +237,7 @@ os-prober
 pacman
 pacman-contrib
 pacutils
+pandoc-bin
 paru
 patch
 pdfgrep
@@ -261,13 +264,13 @@ python-pip
 python-pipx
 python-poetry
 python-psutil
-python-pygame-sdl2-git
 python-pylint
 python-pynvim
 python-pyxdg
 python-vermin
 qemu-full
 qemu-system-x86
+rar
 rclone
 reflector
 repgrep
@@ -279,6 +282,7 @@ rlwrap
 rofi
 rsync
 ruby
+ruff-lsp
 rustup
 sad
 scrcpy
@@ -304,6 +308,7 @@ tealdeer
 telegram-desktop
 terminus-font
 texinfo
+texlive-fontsextra
 tig
 tinyemu
 tmux
@@ -321,12 +326,13 @@ typst
 ubuntu-keyring
 ueberzugpp
 unzip
-upower
 upx
 usbutils
 vagrant
+vaultwarden
 vdpauinfo
 verilator
+vis
 viu
 vivid
 w3m
@@ -337,13 +343,17 @@ webkit2gtk-4.1
 weston
 wget
 which
+whois
 wimlib
 wine
 winetricks
+wireguard-tools
 wireshark-qt
+words
 wpa_supplicant
 xclip
 xdg-desktop-portal
+xdg-ninja-git
 xdialog
 xdo
 xdotool
@@ -351,7 +361,6 @@ xf86-video-vesa
 xfsdump
 xh
 xorg-bdftopcf
-xorg-docs
 xorg-font-util
 xorg-fonts-100dpi
 xorg-fonts-75dpi

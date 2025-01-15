@@ -11,7 +11,7 @@ Script.update_lazy_patch = function(should_patch)
     if should_patch then
       local obj = u.git { 'apply', '--ignore-space-change', path, cwd = plug_path }:wait()
       if obj.code == 0 then
-        u.log.hl_echo('Patched: ' .. name, 'DevIconVimrc') -- need devicon loaded
+        u.log.hl_echo('Patched: ' .. name, '@comment.note') -- need devicon loaded
       else
         u.log.hl_echo('Failed:  ' .. name, 'Error')
       end

@@ -1,6 +1,6 @@
 return {
   'zbirenbaum/copilot.lua', -- ? this won't prompt when edit in the middle of line
-  cond = not g.leetcode,
+  cond = false,
   cmd = 'Copilot',
   event = fn.executable('node') == 1 and 'InsertEnter' or nil,
   opts = {

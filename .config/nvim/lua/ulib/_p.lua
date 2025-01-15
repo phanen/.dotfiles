@@ -21,22 +21,22 @@ P.pp = function(...)
     ret[#ret + 1] = vim.inspect((select(i, ...)))
   end
   local msg = table.concat(ret, ' ')
-  -- vim.system { 'notify-send', '-t', tostring(timeout),  }
   osc99('', msg)
+  return ...
 end
-
----colorize debug print
----path -> green
----lnum -> yellow
----mesg -> red
-local colorize = function(err) return err end
 
 local p1_done
 P.p1 = function(...)
-  if not p1_done then
-    p1_done = true
-    return vim.print(...)
-  end
+  if p1_done then return end
+  p1_done = true
+  return vim.print(...)
+end
+
+local pp1_done
+P.pp1 = function(...)
+  if pp1_done then return end
+  pp1_done = true
+  return P.pp(...)
 end
 
 -- override defaults

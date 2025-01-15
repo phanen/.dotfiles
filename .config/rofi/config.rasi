@@ -6,6 +6,7 @@ configuration {
   combi-modi: "run,drun";
   show-icons: true;
   hide-scrollbar: true;
+  case-smart: true;
 
   kb-accept-entry: "Return"; 
   kb-accept-custom: "Control+Return";
