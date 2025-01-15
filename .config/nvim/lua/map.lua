@@ -149,16 +149,16 @@ n[' h'] = '<cmd>AerialToggle!<cr>'
 n['mk'] = '<cmd>messages clear<cr>'
 n['ml'] = '<cmd>messages<cr>'
 n['me'] = '<cmd>R messages<cr>'
-n['md'] = [[<cmd>DiagFloat<cr>]]
+n['md'] = '<cmd>DiagFloat<cr>'
 -- }}}
 
 -- file/dir {{{
-n['s'] = ''
-n['sn'] = [[:Rename ]]
-n['sm'] = [[:Delete!]]
+n['dM'] = [[:Rename ]]
+n['dH'] = [[:Delete!]]
+n['dL'] = [[:Copy ]]
 n['M'] = function() u.misc.cd() end
-n['L'] = function() u.dirstack.next() end
 n['H'] = function() u.dirstack.prev() end
+n['L'] = function() u.dirstack.next() end
 -- }}}
 
 -- git {{{
@@ -174,18 +174,16 @@ nx[' gl'] = function() u.gl.permalink_open() end
 -- fzf {{{
 nx['<c-l>'] = function() u.pick.files() end
 nx['<c-n>'] = function() u.pick.lgrep() end
+nx[' <c-n>'] = function() u.pick.lgrep { query = fn.expand('<cword>') } end
 nx['<c-h>'] = function() u.pick.help_tags() end
 nx['<c-m>'] = function() u.pick.man_pages() end
-nx[' ;'] = function() u.pick.commands() end
-nx[' /'] = function() u.pick.command_history() end
+nx[' ;'] = function() u.pick.command_history() end
 nx[' <c-b>'] = function() u.pick.git_bcommits() end
-n[' <c-f>'] = function() u.pick.zoxide() end
+n[' <c-f>'] = function() u.pick.find_dir() end
 n['z='] = function() u.pick.spell_suggest() end
 n['  '] = function() u.pick.resume() end
-n[' a'] = function() u.pick.builtin() end
-nx['sl'] = function() u.pick.grep() end
+n[' a'] = function() u.pick.commands() end
 nx[' e'] = function() u.pick.notes() end
-nx[' fe'] = function() u.pick.notes() end
 nx[' l'] = function() u.pick.dots() end
 nx[' w'] = function() u.pick.lsp_live_workspace_symbols() end
 nx[' fo'] = function() u.pick.recentfiles() end

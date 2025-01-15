@@ -56,27 +56,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export RUSTUP_DIST_SERVER="https://mirrors.aliyun.com/rustup"
 export RUSTUP_UPDATE_ROOT="https://mirrors.aliyun.com/rustup/rustup"
 
-## fzf config (note: comment is unsupported in old version)
-export FZF_DEFAULT_OPTS="
-  --layout=reverse
-  --height=45%
-  --scroll-off=10
-  --multi
-  --exact
-  --bind='alt-;:toggle-preview'
-  --bind='ctrl-d:preview-page-down'
-  --bind='ctrl-u:preview-page-up'
-  --bind='ctrl-q:toggle-all'
-  --bind='ctrl-o:execute:xdg-open {}'
-  --bind='ctrl-y:execute-silent:echo {} | xclip -sel clipboard'
-  --bind='ctrl-alt-y:execute-silent:xclip -sel clipboard {}'
-  --prompt='~ ' --marker='✓' --pointer=
-  --color fg+:,bg+:bright-black,hl+:-1:reverse,hl:-1:reverse
-  --cycle
-  --info=inline
-  --history=$XDG_DATA_HOME/fzfhistory
-"
-
 if command -v vivid 1>/dev/null 2>/dev/null; then
   if command -v jq 1>/dev/null 2>/dev/null; then
     export LS_COLORS=$(vivid generate $(jq -r '.colors_name' "$XDG_STATE_HOME"/nvim/colors.json))

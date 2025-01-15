@@ -1,7 +1,7 @@
 if test $__fish_initialized -lt 3800
     bind \ci _fifc
     bind \ce _eol_or_fzf
-    bind \c\; "exec fish"
+    bind \c\; "if command -q kitten; exec kitten run-shell; else; exec fish; end"
     bind \cf _forward_or_fzf
     bind \cg '_empty_then "yazi;commandline -f repaint" _fish_lookup'
     bind \ch '_empty_then "__fish_echo tokei" "_autopair_backspace"'
@@ -47,10 +47,12 @@ bind ctrl-w '_empty_then "commandline -f repaint;" "commandline -f backward-kill
 bind ctrl-m __fish_man_page # but nvim terminal not fully support kkp
 bind ctrl-d _bs_or_del
 
-bind alt-\; 'exec fish'
+bind alt-\; 'if command -q kitten; exec kitten run-shell; else; exec fish; end'
+# bind alt-\; 'exec fish'
 bind alt-i 'tmux a &>/dev/null || tmux &>/dev/null || tmux det'
 
 bind alt-g commandline
+bind alt-o toggle-commandline
 
 #bind -k nul 'kitten @ action kitty_scrollback_nvim --config custom'
 bind enter k_enter

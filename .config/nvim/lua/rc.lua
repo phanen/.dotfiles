@@ -45,6 +45,8 @@ g.dev_path = env.HOME .. '/b'
 g.notes_path = env.HOME .. '/notes'
 g.rc_path = g.notes_path .. '/snip/rc.lua'
 g.border = { '┏', '━', '┓', '┃', '┛', '━', '┗', '┃' }
+-- g.border = { '▬', '┻', '┳', '┃', '┫', '┣', '╋', '┃' }
+-- g.border = { '┌', '─', '┐', '│', '┘', '─', '└', '│' }
 g.indentsym = '|'
 g.is_remote = env.SSH_TTY and true or false
 g.leetcode = vim.v.argv[#vim.v.argv] == '+Leet'

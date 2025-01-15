@@ -74,13 +74,6 @@ com.ToggleDiag = function() vim.diagnostic.enable(not vim.diagnostic.is_enabled(
 com.ToggleInlay = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
 com.UpdateChore = function() u.script.update_chore(true) end
 com.UpdateNvim = { function(_) u.script.update_nvim(_.bang) end, bang = true }
-com.Gitignore = function() u.pick.gitignore() end
-com.License = function() u.pick.license() end
-com.Nvim = function() return u.pick.nvim() end
-com.Plugin = function() return u.pick.lazy() end
-com.Rtp = function() return u.pick.rtp() end
-com.Todo = function() return u.pick.todos() end
-com.Scriptname = function() return u.pick.scriptnames() end
 com.Localrc = [[exe('edit' . g:rc_path)]]
 com.Trim = function() u.fmt.trim_whitespace() end
 com.W = [[execute 'w !sudo tee % > /dev/null' <bar> edit!]]

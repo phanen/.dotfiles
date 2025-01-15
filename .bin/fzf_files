@@ -1,20 +1,22 @@
 #!/bin/sh
 SRC='fd --color=always'
 SRC_NI='fd -I -H --color=always'
-FILTER='file_web_devicon'
+# FILTER='file_web_devicon'
 DELIMITER=$(printf "%b" '\xe2\x80\x82')
 ID=1
 
-if command -v $FILTER 1>/dev/null 2>/dev/null; then
+if command -v "$FILTER" >/dev/null 2>/dev/null; then
   SRC="$SRC|$FILTER"
   SRC_NI="$SRC_NI|$FILTER"
   ID=2
 fi
 
+# TODO flex layout
 # https://github.com/junegunn/fzf/issues/3987
 fzf \
   -d "$DELIMITER" \
   --ansi \
   --bind "start:reload:$SRC" \
   --bind "ctrl-g:reload:$SRC_NI" \
-  --bind "enter:become(echo {$ID})"
+  --bind "enter:become(echo {$ID})" \
+  --preview "[ -d {} ] && eza --color=always {} || bat --color=always --style=numbers,changes {}"
