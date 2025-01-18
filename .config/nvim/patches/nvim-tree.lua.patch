@@ -1,0 +1,20 @@
+diff --git a/lua/nvim-tree/renderer/builder.lua b/lua/nvim-tree/renderer/builder.lua
+index e08eb9e..6bd1067 100644
+--- a/lua/nvim-tree/renderer/builder.lua
++++ b/lua/nvim-tree/renderer/builder.lua
+@@ -288,6 +288,15 @@ function Builder:build_line(node, idx, num_children)
+ 
+   -- decorated node icon and name
+   local icon, name = self:icon_name_decorated(node)
++  icon.str = ''
++  if name.hl[1] == 'NvimTreeOpenedFolderName' then
++    name.str = name.str .. '/'
++    name.hl = { 'NvimTreeRootFolder' }
++  elseif name.hl[1] == 'NvimTreeFolderName' then
++    name.hl = { 'NvimTreeRootFolder' }
++  else
++    name.hl = icon.hl
++  end
+ 
+   local line = self:format_line(indent_markers, arrows, icon, name, node)
+   table.insert(self.lines, self:unwrap_highlighted_strings(line))

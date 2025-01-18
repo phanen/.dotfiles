@@ -1,5 +1,9 @@
 local target = fn.argv()[1]
 local target_is_not_dir = not target or not fn.isdirectory(target)
+local fix_min = g.disable_icon and 10 or 15
+local fix_max = g.disable_icon and 30 or 35
+fix_min = 10
+fix_max = 30
 return {
   'nvim-tree/nvim-tree.lua',
   lazy = target_is_not_dir,
@@ -13,13 +17,25 @@ return {
     select_prompts = false,
     view = {
       width = {
-        min = function() return math.max(math.floor(vim.go.columns), g.disable_icon and 20 or 25) end,
-        max = function() return math.min(math.floor(vim.go.columns), g.disable_icon and 30 or 35) end,
+        min = function() return math.max(math.floor(0.1 * vim.go.columns), fix_min) end,
+        max = function() return math.min(math.floor(0.2 * vim.go.columns), fix_max) end,
       },
       adaptive_size = true,
     },
     renderer = {
-      indent_width = g.disable_icon and 0 or 1,
+      -- indent_width = g.disable_icon and 0 or 1,
+      indent_width = 2,
+      indent_markers = {
+        enable = true,
+        icons = {
+          -- corner = '└',
+          corner = '│',
+          edge = '│',
+          item = '│',
+          -- bottom = '─',
+          bottom = '',
+        },
+      },
       icons = {
         show = {
           file = not g.disable_icon,
