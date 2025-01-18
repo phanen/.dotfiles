@@ -53,6 +53,21 @@ U.func_with = function(func, with)
   return function() return func(with) end
 end
 
+U.tbl_key_flatten = function(val)
+  if type(val) ~= 'table' then return val end
+  for k, v in pairs(val) do
+    if type(k) == 'string' then
+      local a, b = k:match('^([^%.]-)%.(.+)$')
+      if a and b then
+        val[a], val[k] = U.tbl_key_flatten { [b] = v }, nil
+      else
+        val[k] = U.tbl_key_flatten(v)
+      end
+    end
+  end
+  return val
+end
+
 local function make_dot_repeatable(func)
   _G._nvim_treesitter_textobject_last_function = func
   vim.o.opfunc = 'v:lua._nvim_treesitter_textobject_last_function'
