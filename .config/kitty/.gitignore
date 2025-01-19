@@ -2,8 +2,6 @@
 !init.conf
 !.gitignore
 !kitty.conf
-!*.lua
-!lua
 !open-actions.conf
 !*.py
 !tab-fzf.sh

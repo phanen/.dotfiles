@@ -13,6 +13,7 @@ o.shortmess:append 'I' -- no intro message
 o.showcmd = false
 o.showmode = false
 o.termguicolors = true
+-- o.modeline = false -- related: https://github.com/neovim/neovim/issues/32220
 -- o.virtualedit = 'all' -- all or onemore for correct position
 o.wrap = false
 o.ignorecase = true
@@ -22,7 +23,7 @@ m('c', '<c-f>', '<right>')
 m('c', '<c-b>', '<left>')
 m('c', '<c-a>', '<home>')
 m('c', '<c-e>', '<end>')
-m('n', '<cr>', '<cmd>sil! !kitten @launch --type overlay nvim <cfile><cr>')
+m('n', '<cr>', '<cmd>sil! !kitten @launch --cwd current --type overlay nvim <cfile><cr>')
 m('n', 'q', '<cmd>q<cr>')
 m('n', 'i', '<cmd>q<cr>')
 m('n', 'a', '<cmd>q<cr>')
@@ -35,11 +36,11 @@ m('n', 'd', '<c-d>')
 m('n', 'u', '<c-u>')
 
 -- https://github.com/neovim/neovim/commit/ed089369
-local buf = api.nvim_create_buf(false, false)
+-- local buf = api.nvim_create_buf(false, false)
+local buf = api.nvim_get_current_buf()
 local win = api.nvim_get_current_win()
 local chan = api.nvim_open_term(buf, {})
 
--- TODO: catcat
 ---@param INPUT_LINE_NUMBER integer the first shown line's offset from the last line in the first page (+ 1)
 ---@param CURSOR_LINE integer relative line (1-based, when equal to 0, there's no cursor in screen)
 ---@param CURSOR_COLUMN integer relative column (1-based)
@@ -47,6 +48,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
   -- convert 1-base col to 1-base byte (when overflow, narrow to line's byte len)
   local width2byte = function(str, col)
     local len, byte, strlen = 0, 0, str:len()
+    print(col, len, byte, strlen)
     while len < col and byte < strlen do
       local off = vim.str_utf_end(str, byte + 1)
       len = len + api.nvim_strwidth(str:sub(byte + 1, byte + 1 + off))
@@ -57,6 +59,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
   local setCursor = function()
     vim.wait(10)
     local row, col, off = CURSOR_LINE, CURSOR_COLUMN, INPUT_LINE_NUMBER
+    if not (row and col and off) then return end
     row = row == 0 and math.floor((vim.o.lines + 1) / 2) or row -- no cursor, then focus the middle line (scrolloff)
     row = math.min(api.nvim_buf_line_count(buf), row + off - 1)
     local line = api.nvim_buf_get_lines(buf, row - 1, row, true)[1]
