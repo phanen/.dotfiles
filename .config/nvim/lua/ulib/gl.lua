@@ -177,20 +177,20 @@ local parse_url_data = function(root)
   local remote, remote_url = u.git.smart_remote_url()
   local ctx = parse_url(remote_url)
   local rev = assert(u.git.get_closest_remote_compatible_rev(remote))
-  local relative_path = api.nvim_buf_get_name(0):gsub('^' .. root, ''):gsub('^/', '')
+  local relpath = fs.relpath(root, api.nvim_buf_get_name(0))
   -- is file in rev
-  local obj = u.git { 'cat-file', '-e', rev .. ':' .. relative_path }:wait()
+  local obj = u.git { 'cat-file', '-e', rev .. ':' .. relpath }:wait()
   if obj.code ~= 0 then return vim.notify(string.format('%s', obj.stderr), vim.log.levels.ERROR) end
 
   -- if file changed?
-  -- if u.git { 'diff', rev, '--', relative_path }:wait().stdout == 0 then
+  -- if u.git { 'diff', rev, '--', relpath }:wait().stdout == 0 then
   -- end
   local lstart, lend = u.buf.visual_line_region()
   ---@diagnostic disable-next-line: cast-local-type
   if lend == lstart then lend = nil end
   return u.merge(ctx, {
     rev = rev,
-    file = relative_path,
+    file = relpath,
     lstart = lstart,
     lend = lend,
   })
