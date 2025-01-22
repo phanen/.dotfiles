@@ -156,6 +156,7 @@ Lsp.setup = function(_)
   }
 
   vim.diagnostic.config {
+    signs = false, -- don't use signcolumn
     -- update_in_insert = true,
     float = { border = 'none' },
   }
