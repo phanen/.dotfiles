@@ -92,6 +92,7 @@ com.DirHist = function() u.dirstack.hist() end
 com.Hypen2Star = [[%s/^\([  ]*\)- \(.*\)/\1* \2/g]]
 com.Four2Two = [[%s;^\(\s\+\);\=repeat(' ', submatch(0)->len()/2);g]]
 com.YankFilename = [[let @+= '%:p'->expand()]]
+com.ZhCount = function() u.zh.count() end
 
 aug.bigfile = { 'BufReadPre', function(_) u.misc.bigfile_preset(_) end }
 aug.lastpos = { 'BufReadPost', [[sil! norm! g`"zv']] }

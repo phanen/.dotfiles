@@ -49,3 +49,4 @@ u.task = require('ulib.task') ---@source ulib/task.lua
 u.term = require('ulib.term') ---@source ulib/term.lua
 u.textobj = require('ulib.textobj') ---@source ulib/textobj.lua
 u.ts = require('ulib.ts') ---@source ulib/ts.lua
+u.zh = require('ulib.zh') ---@source ulib/zh.lua
