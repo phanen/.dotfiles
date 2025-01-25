@@ -13,6 +13,7 @@ local Repmv = {}
 local state = nil
 
 Repmv.pair_wrap = function(fn_next, fn_prev)
+  fn_prev, fn_next = vim.F.nil_wrap(fn_prev), vim.F.nil_wrap(fn_next)
   local n = function(...)
     state = { fn_forward = fn_next, fn_backward = fn_prev }
     return fn_next(...)
@@ -25,6 +26,7 @@ Repmv.pair_wrap = function(fn_next, fn_prev)
 end
 
 Repmv.wrap = function(fn_nav)
+  fn_nav = vim.F.nil_wrap(fn_nav)
   return function(opts, ...)
     state = { fn_nav = fn_nav, opts = opts, args = { ... } }
     return fn_nav(opts, ...)

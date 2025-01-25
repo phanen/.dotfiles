@@ -23,15 +23,15 @@ Ts.setup = function(_)
   vim.wo.foldtext = ''
 end
 
-Ts.select_textobject = select.select_textobject
-Ts.goto_next_start = move.goto_next_start
-Ts.goto_next_end = move.goto_next_end
-Ts.goto_prev_start = move.goto_previous_start
-Ts.goto_prev_end = move.goto_previous_end
-Ts.goto_next = move.goto_next
-Ts.goto_prev = move.goto_previous
+Ts.select_textobject = vim.F.nil_wrap(select.select_textobject)
+Ts.goto_next_start = vim.F.nil_wrap(move.goto_next_start)
+Ts.goto_next_end = vim.F.nil_wrap(move.goto_next_end)
+Ts.goto_prev_start = vim.F.nil_wrap(move.goto_previous_start)
+Ts.goto_prev_end = vim.F.nil_wrap(move.goto_previous_end)
+Ts.goto_next = vim.F.nil_wrap(move.goto_next)
+Ts.goto_prev = vim.F.nil_wrap(move.goto_previous)
 
-Ts.swap_next = swap.swap_next
-Ts.swap_prev = swap.swap_previous
+Ts.swap_next = vim.F.nil_wrap(swap.swap_next)
+Ts.swap_prev = vim.F.nil_wrap(swap.swap_previous)
 
 return Ts
