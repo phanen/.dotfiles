@@ -1,15 +1,32 @@
-local Project = {}
+---@class project.opts
+---fzf ignored globs (for files/lgrep), support negative pattern (e.g. !test)
+---https://github.com/ibhagwan/fzf-lua/discussions/1210
+---@field ignore_globs? string[]
+---project-local ft opts for conform
+---@field conform_ft_opts? table<string, string[]>
+local Project
 
----get project local config
----@param ctx table?
-Project.get = function(name, ctx)
-  ctx = ctx or {}
+---@type table<string, project.opts?>
+local mod
+
+---@param field string project field
+---@param root? string|fun():string rooter
+local get = function(field, root)
   if not uv.fs_stat(g.rc_path) then return end
-  local conf = g.rc_path and loadfile(g.rc_path)() or {}
-  local cwd = ctx.cwd or uv.cwd()
-  if not cwd then return {} end
-  local root = u.git.root { cwd = fs.normalize(cwd) }
-  return root and vim.tbl_get(conf, root, name)
+  mod = mod and mod or g.rc_path and loadfile(g.rc_path)()
+  root = root and u.eval(root) or fs.root(0, '.git') -- a trivial fallback rooter
+  local name = fs.basename(root)
+  return vim.tbl_get(mod, name, field)
 end
+
+---getter of project-local config
+Project = setmetatable({}, {
+  __index = function(_, field) return get(field) end,
+  __call = function(_, root)
+    return setmetatable({}, {
+      __index = function(_, field) return get(field, root) end,
+    })
+  end,
+})
 
 return Project

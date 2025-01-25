@@ -27,8 +27,9 @@ Refactor.to_file = function(path, delete)
       if delete and pos1 and pos2 then u.buf.delete_range(pos1, pos2, buf, mode) end
       vim.cmd.vsplit(path)
       -- local new_buf = api.nvim_get_current_buf()
-      -- u.fmt.conform { async = true, bufnr = new_buf }
-      -- u.fmt.conform { bufnr = buf }
+      -- TODO: this is wip
+      -- u.fmt { async = true, bufnr = new_buf }
+      -- u.fmt { bufnr = buf }
     end)
   )
 end

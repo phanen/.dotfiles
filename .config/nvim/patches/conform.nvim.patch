@@ -10,3 +10,26 @@ index b12e99f..84855ae 100644
 +  args = { "--stdin", "-q" },
    stdin = true,
  }
+diff --git a/lua/conform/init.lua b/lua/conform/init.lua
+index 0d6a796..2b2b03f 100644
+--- a/lua/conform/init.lua
++++ b/lua/conform/init.lua
+@@ -521,7 +521,8 @@ M.format = function(opts, callback)
+ 
+   -- check if formatters were configured for this buffer's filetype specifically (i.e. not the "_"
+   -- or "*" formatters) AND that at least one of the configured formatters is available
+-  local any_formatters = has_filetype_formatters(opts.bufnr) and not vim.tbl_isempty(formatters)
++  -- PATCH: force lsp_fallback work with "*", "_" formatters
++  local any_formatters = not vim.tbl_isempty(formatters)
+ 
+   if
+     has_lsp
+@@ -648,7 +649,7 @@ M.list_formatters_to_run = function(bufnr)
+   local formatters = M.resolve_formatters(formatter_names, bufnr, false, opts.stop_after_first)
+ 
+   local has_lsp = has_lsp_formatter(opts)
+-  local any_formatters = has_filetype_formatters(opts.bufnr) and not vim.tbl_isempty(formatters)
++  local any_formatters = not vim.tbl_isempty(formatters)
+ 
+   if
+     has_lsp

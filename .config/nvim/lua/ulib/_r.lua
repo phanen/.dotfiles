@@ -5,12 +5,7 @@ local R = {}
 ---https://github.com/neovim/neovim/pull/27216
 R.req = function(modname)
   local mt = {
-    __index = function(t, k)
-      local v = require(modname)[k]
-      --require('fidget').notify(('%s.%s'):format(modname, k))
-      rawset(t, k, v)
-      return v
-    end,
+    __index = function(_, k) return require(modname)[k] end,
     __call = function(_, ...) return require(modname)(...) end,
   }
   return setmetatable({}, mt)

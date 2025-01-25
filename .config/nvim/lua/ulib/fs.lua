@@ -24,14 +24,6 @@ end
 
 Fs.copy_file = function(from, to) return assert(fn.filecopy(from, to) == 1) end
 
----@param path string
----@param lines string[]
----@param flags string?
-Fs.write_file_by_lines = function(path, lines, flags)
-  if flags then return assert(fn.writefile(lines, path, flags) == 0) end
-  return assert(fn.writefile(lines, path) == 0)
-end
-
 --- recursive find files
 ---@param root string
 ---@param fn fun(fname: string, name: string, path: string): boolean?

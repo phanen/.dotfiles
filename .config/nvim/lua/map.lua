@@ -10,7 +10,7 @@ nx['C'] = '"-C'
 nx['X'] = '"-X'
 n['x'] = '"-x'
 nx['<c-p>'] = '"-P'
-n[' p'] = '<cmd>%d_|norm!VP<cr>'
+n[' p'] = function() api.nvim_buf_set_lines(0, 0, -1, true, vim.split(fn.getreg('+'), '\n')) end
 x[' p'] = ':!paste -d " " <(xsel -ob) -<cr>'
 n[' y'] = '<cmd>%y<cr>'
 n[' j'] = '<cmd>t .<cr>'
@@ -54,7 +54,7 @@ n['+.'] = function() require('debugprint').deleteprints() end
 -- text process {{{
 n['<a-j>'], x['<a-j>'] = [[<cmd>exe("m+".v:count1)|norm!==<cr>]], [[:m '>+<cr>gv=gv]]
 n['<a-k>'], x['<a-k>'] = [[<cmd>move-2<cr>==]], [[:m '<-2<cr>gv=gv]]
-nx['gw'] = function() u.fmt.conform() end
+nx['gw'] = function() u.fmt() end
 n['-'] = '<cmd>TSJToggle<cr>'
 nx.expr['gs'] = function() return u.swap.swap() end
 -- comment
@@ -66,8 +66,8 @@ n['gcO'] = function() u.misc.comment(-1) end
 -- }}}
 
 -- search (hls) {{{
-n['n'] = [[<cmd>exe('norm!'.v:count1.'n')|lua require('hlslens').start()<cr>zz]]
-n['N'] = [[<cmd>exe('norm!'.v:count1.'N')|lua require('hlslens').start()<cr>zz]]
+n['n'] = [[n<cmd>lua require('hlslens').start()<cr>zz]]
+n['N'] = [[N<cmd>lua require('hlslens').start()<cr>zz]]
 n['*'] = [[*<cmd>lua require('hlslens').start()<cr>]]
 n['#'] = [[#<cmd>lua require('hlslens').start()<cr>]]
 n['g*'] = [[g*<cmd>lua require('hlslens').start()<cr>]]

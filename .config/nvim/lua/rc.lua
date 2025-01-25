@@ -43,7 +43,6 @@ g.docs_path = g.state_path .. '/lazy/docs'
 g.lock_path = g.data_path .. '/lazy-lock.json'
 g.dev_path = env.HOME .. '/b'
 g.notes_path = env.HOME .. '/notes'
-g.nvim_root = g.dev_path .. '/neovim'
 g.rc_path = g.notes_path .. '/snip/rc.lua'
 g.border = { '┏', '━', '┓', '┃', '┛', '━', '┗', '┃' }
 g.indentsym = '|'
@@ -53,6 +52,7 @@ g.is_local = not g.is_remote
 g.disable_icon = false
 g.bigfile_size = 1048576
 g.nightly = fn.has('nvim-0.11') == 1
+g._ts_force_sync_parsing = true
 
 local paste = function() return vim.split(fn.getreg '"', '\n') end
 g.clipboard = g.is_remote
