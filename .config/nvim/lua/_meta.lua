@@ -15,7 +15,8 @@ _G.map = u.map
 
 --- parsed from /lua/ulib
 u.buf = require('ulib.buf') ---@source ulib/buf.lua
-u.bufop = require('ulib.bufop') ---@source ulib/bufop.lua
+u.bufdel = require('ulib.bufdel') ---@source ulib/bufdel.lua
+u.bufjump = require('ulib.bufjump') ---@source ulib/bufjump.lua
 u.cache = require('ulib.cache') ---@source ulib/cache.lua
 u.dirstack = require('ulib.dirstack') ---@source ulib/dirstack.lua
 u.faster = require('ulib.faster') ---@source ulib/faster.lua

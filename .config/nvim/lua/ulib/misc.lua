@@ -260,4 +260,10 @@ Misc.auto_lua_require = function(client, bufnr)
   on_lines()
 end
 
+-- fn.confirm don't accept ctrl-c
+Misc.confirm = function(...)
+  local ok, choice = pcall(fn.confirm, ...)
+  return not ok and 0 or choice
+end
+
 return Misc

@@ -114,8 +114,8 @@ Repmv.next_l, Repmv.prev_l = Repmv.pair_wrap(make_func('lnext', 'lprev', 'lfirst
 Repmv.next_b, Repmv.prev_b = Repmv.pair_wrap(make_func('bnext', 'bprev', 'bfirst', 'blast'))
 Repmv.next_s, Repmv.prev_s = Repmv.pair_wrap(next_spel, prev_spel)
 Repmv.next_z, Repmv.prev_z = Repmv.pair_wrap(next_fold, prev_fold)
-Repmv.next_O, Repmv.prev_O = Repmv.pair_wrap(u.bufop.forward_buf, u.bufop.backward_buf)
-Repmv.next_o, Repmv.prev_o = Repmv.pair_wrap(u.bufop.forward_in_buf, u.bufop.backward_in_buf)
+Repmv.next_O, Repmv.prev_O = Repmv.pair_wrap(u.bufjump.forward_buf, u.bufjump.backward_buf)
+Repmv.next_o, Repmv.prev_o = Repmv.pair_wrap(u.bufjump.forward_in_buf, u.bufjump.backward_in_buf)
 
 -- useful for dap mode
 Repmv.hydra = function(keys)
