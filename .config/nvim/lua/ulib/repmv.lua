@@ -66,28 +66,25 @@ local prev_hunk = function()
   require('gitsigns').nav_hunk('prev', { target = 'all' })
 end
 
-local next_diag = function()
-  return vim.diagnostic.jump { count = vim.v.count1, float = false, wrap = vim.o.wrapscan }
+local float_is_open = function()
+  return vim.iter(api.nvim_list_wins()):any(function(win)
+    local c = api.nvim_win_get_config(win)
+    return c.focusable and c.relative ~= '' and true or false
+  end)
 end
-local prev_diag = function()
-  return vim.diagnostic.jump { count = -vim.v.count1, float = false, wrap = vim.o.wrapscan }
+
+-- BUG(upstream): https://github.com/neovim/neovim/issues/12923
+local next_diag = function(s)
+  vim.diagnostic.jump { severity = s, count = vim.v.count1, wrap = vim.o.wrapscan, float = false }
+  if float_is_open() then vim.defer_fn(vim.diagnostic.open_float, 50) end
 end
-local next_err = function()
-  return vim.diagnostic.jump {
-    count = vim.v.count1,
-    float = false,
-    wrap = vim.o.wrapscan,
-    severity = vim.diagnostic.severity.ERROR,
-  }
+local prev_diag = function(s)
+  vim.diagnostic.jump { severity = s, count = -vim.v.count1, wrap = vim.o.wrapscan, float = false }
+  if float_is_open() then vim.defer_fn(vim.diagnostic.open_float, 50) end
 end
-local prev_err = function()
-  return vim.diagnostic.jump {
-    count = -vim.v.count1,
-    float = false,
-    wrap = vim.o.wrapscan,
-    severity = vim.diagnostic.severity.ERROR,
-  }
-end
+
+local next_err = function() return next_diag(vim.diagnostic.severity.ERROR) end
+local prev_err = function() return prev_diag(vim.diagnostic.severity.ERROR) end
 
 local next_spel = function() return (pcall(vim.cmd.normal, { vim.v.count1 .. ']s', bang = true })) end
 local prev_spel = function() return (pcall(vim.cmd.normal, { vim.v.count1 .. '[s', bang = true })) end
