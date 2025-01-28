@@ -209,6 +209,8 @@ aug.termopen = {
   function(_)
     local bt, bn, bnt = map[_.buf].t, map[_.buf].n, map[_.buf].tn
     bt['<c- >'] = '<c-\\><c-n>'
+    bn['d'] = '<c-d>'
+    bn['u'] = '<c-u>'
     if not vim.b[_.buf].is_float_muxterm then return end
     bn['<cr>'] = '<cmd>tabnew <cfile><cr>'
     bt['<a-;>'] = function() u.muxterm.toggle() end

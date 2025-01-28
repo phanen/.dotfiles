@@ -74,7 +74,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   @~   @!   @^   @#   @$   _    _    @&   @*   +    _    _    _    _
   @ec  [    ]   S-9  S-0  S-2  S-5  S--   -    =    _    _    _
-  grv S-\   \    _    _   @ar  S-[  S-]   _    .    /    \
+  grv  _    _    \    @|  @ar  S-[  S-]   _    .    /    \
   _    _    _             spc             _    _
 )
 
@@ -82,7 +82,7 @@
   grv @s+  @s-  @l+  @l-  @lk  _    _    _    _    0    -    =    bspc ;;sysrq
   _  @asdf C-bspc C-- ret   @tt  @gp  u    C-+  C--  @tp  [    ]    \
   caps a    s    d   C-S-=   g bspc C-S-right C-S-left  C-S-l  ;  '    ret
-  lsft z    x    @fu @tv   b    n    m    ,    .    /    rsft
+  lsft z    x    c   @tv   b    n    m    ,    .    /    rsft
   lctl lmet lalt          @fc             ralt rctl
 )
 
@@ -95,16 +95,15 @@
 )
 
 (defalias
-  s+ (cmd bash -c "control.sh sound +")
-  s- (cmd bash -c "control.sh sound -")
-  l+ (cmd bash -c "control.sh light +")
-  l- (cmd bash -c "control.sh light -")
-  t! (cmd bash -c "toggler.sh touchpad")
+  s+ (cmd bash -c "control sound +")
+  s- (cmd bash -c "control sound -")
+  l+ (cmd bash -c "control light +")
+  l- (cmd bash -c "control light -")
+  t! (cmd bash -c "toggler touchpad")
   fc (cmd bash -c "flameshot gui")
-  fu (cmd bash -c "flameshot gui -r | imgur.sh")
-  tv (cmd bash -c "toggle.sh video")
-  tt (cmd bash -c "toggle.sh touchpad")
-  tp (cmd bash -c "toggle.sh polybar")
+  tv (cmd bash -c "toggle video")
+  tt (cmd bash -c "toggle touchpad")
+  tp (cmd bash -c "toggle polybar")
   gp (cmd bash -c "tr -dc 'a-zA-Z0-9_#@.-' < /dev/random | head -c 20 | xsel -ib")
   lk (cmd bash -c "slock")
   asdf (cmd bash "asdf.sh")

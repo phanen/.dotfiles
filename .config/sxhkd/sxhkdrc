@@ -42,7 +42,7 @@ super + shift + f
   bspc node -t \~floating
 
 super + r
-  toggle-app.sh TelegramDesktop telegram-desktop; telegram-desktop;
+  toggle-app TelegramDesktop telegram-desktop; telegram-desktop;
 super + c
   kitty -1
 super + semicolon
@@ -57,11 +57,5 @@ super + 1
   (rofi -dmenu) >> ~/notes/bookmark.txt
 super + Tab
   dunstctl close-all
-
-# BROKEN...
-# super + n
-  # scratchpad.sh
-#TODO: auto hiden https://github.com/noctuid/tdrop/issues/18
-  #tdrop -n tdrop_kitty --post-create-hook "autohide-tdrop &" -y 0 -x 4 -h 97% -w 99% -mta -- kitty -1 --name kitty --class tdrop_kitty
 super + slash
   ~/.bin/scripts/rofi-browse-repo.sh

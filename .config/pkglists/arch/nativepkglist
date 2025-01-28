@@ -210,7 +210,7 @@ mtpfs
 musl
 namcap
 neovide
-neovim-git
+neovim
 net-tools
 nim
 ninja
@@ -301,7 +301,6 @@ sway
 sx
 sxhkd
 syncthing
-systemctl-tui
 tcpdump
 tdlib-tg-git
 tealdeer

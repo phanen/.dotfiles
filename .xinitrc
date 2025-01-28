@@ -30,7 +30,7 @@ sxhkd -a Tab &
 # xrandr -o right
 [ $(hostname) = 'romp' ] && xrandr --output eDP-1 --scale 1.3x1.3
 
-~/.bin/xrate-refresh.sh
+xrate-refresh
 
 # avoid firefox tearing in external monitor
 # nvidia-settings --assign CurrentMetaMode="$(xrandr | sed -nr '/(\S+) connected (primary )?([0-9]+x[0-9]+)(\+\S+).*/{ s//\1: \3 \4 { ForceFullCompositionPipeline = On }, /; H}; ${ g; s/\n//g; s/, $//; p }')" &

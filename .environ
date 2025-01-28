@@ -20,7 +20,7 @@ append_path "$HOME/.luarocks/bin"
 append_path "$HOME/flutter/bin"
 
 export EDITOR=nvim
-export VISUAL=nvim
+export VISUAL="nvim --cmd 'let g:flatten_wait=1'" # e.g. gitcommit, edit_command_buffer
 export BROWSER=firefox-nightly
 export MANPAGER='nvim +Man!'
 export MANWIDTH=80
@@ -56,15 +56,41 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export RUSTUP_DIST_SERVER="https://mirrors.aliyun.com/rustup"
 export RUSTUP_UPDATE_ROOT="https://mirrors.aliyun.com/rustup/rustup"
 
-if command -v vivid 1>/dev/null 2>/dev/null; then
-  if command -v jq 1>/dev/null 2>/dev/null; then
-    export LS_COLORS=$(vivid generate $(jq -r '.colors_name' "$XDG_STATE_HOME"/nvim/colors.json))
-  else
-    export LS_COLORS=$(vivid generate tokyonight-storm)
-  fi
+export ANDROID_HOME="$HOME"/android/
+
+## fzf config (note: comment is unsupported in old version)
+export FZF_DEFAULT_OPTS="
+  --style=minimal
+  --layout=reverse
+  --height=45%
+  --scroll-off=10
+  --multi
+  --exact
+  --bind='alt-;:toggle-preview'
+  --bind='ctrl-d:preview-page-down'
+  --bind='ctrl-u:preview-page-up'
+  --bind='ctrl-q:toggle-all'
+  --bind='ctrl-o:execute:xdg-open {}'
+  --bind='alt-y:execute-silent:echo {} | xclip -sel clipboard'
+  --bind='ctrl-alt-y:execute-silent:xclip -sel clipboard {}'
+  --bind='ctrl-l:clear-query'
+  --prompt='❯ '
+  --marker='✓'
+  --pointer=
+  --color fg+:,bg+:bright-black,hl+:-1:reverse,hl:-1:reverse
+  --cycle
+  --info='inline:❮ '
+  --preview-window=border-none
+  --history=$XDG_DATA_HOME/fzfhistory
+"
+
+if command -v jq >/dev/null 2>/dev/null; then
+  CURRENT_THEME=$(jq -r '.colors_name + "-" + .bg' "$XDG_STATE_HOME"/nvim/colors.json)
 fi
+if command -v vivid >/dev/null 2>/dev/null; then
+  export LS_COLORS=$(vivid generate $CURRENT_THEME)
+fi
+export BAT_THEME=$CURRENT_THEME
 
 # https://unix.stackexchange.com/questions/432816/grab-id-of-os-from-etc-os-release
 export DISTRO_ID=$(command grep -ioP '^ID=\K.+' /etc/os-release)
-
-export ANDROID_HOME="$HOME"/android/

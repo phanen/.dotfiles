@@ -24,6 +24,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     branch = 'main',
+    cond = fn.executable("tree-sitter") == 1 and fn.executable("cc") == 1,
     cmd = { 'TSUpdate', 'TSInstall', 'TSUninstall' },
     build = ':TSUpdate', -- ./scripts/update-parsers.lua
     opts = { ensure_install = { 'all' } },

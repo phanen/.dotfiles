@@ -1,0 +1,9 @@
+#!/bin/sh
+
+notifications=$(gh api notifications | jq ".[].unread" | grep -c true)
+
+if [ "$notifications" -gt 0 ]; then
+    echo "# $notifications"
+else
+    echo ""
+fi
