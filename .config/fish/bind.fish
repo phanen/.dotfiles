@@ -1,5 +1,4 @@
 if test $__fish_initialized -lt 3800
-    bind \ci _fifc
     bind \ce _eol_or_fzf
     bind \c\; "if command -q kitten; exec kitten run-shell; else; exec fish; end"
     bind \cf _forward_or_fzf
@@ -27,7 +26,6 @@ if test $__fish_initialized -lt 3800
     return
 end
 
-bind ctrl-i _fifc
 bind ctrl-e _eol_or_fzf
 bind ctrl-\; "exec fish"
 bind ctrl-f _forward_or_fzf
