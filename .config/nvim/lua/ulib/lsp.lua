@@ -159,6 +159,7 @@ Lsp.setup = function(_)
     signs = false, -- don't use signcolumn
     -- update_in_insert = true,
     float = { border = 'none' },
+    virtual_lines = { current_line = true },
   }
 
   -- lsp folding
@@ -177,7 +178,7 @@ Lsp.setup = function(_)
     api.nvim_create_autocmd('LspNotify', {
       callback = function(args)
         if args.data.method == 'textDocument/didOpen' then
-          lsp.foldclose('imports', vim.fn.bufwinid(args.buf))
+          lsp.foldclose('imports', fn.bufwinid(args.buf))
         end
       end,
     })
