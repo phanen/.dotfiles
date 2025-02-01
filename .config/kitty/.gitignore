@@ -1,7 +1,6 @@
 *
-!init.conf
 !.gitignore
+!init.conf
 !kitty.conf
 !open-actions.conf
 !*.py
-!tab-fzf.sh
