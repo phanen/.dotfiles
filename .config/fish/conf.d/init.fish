@@ -16,9 +16,9 @@ status is-interactive; and begin
     source $__fish_config_dir/alias.fish
     source $__fish_config_dir/bind.fish
 
-    command -q zoxide; and function __z_hook --on-variable PWD
-        test -z "$fish_private_mode"
-        and command zoxide add -- (builtin pwd -L)
+    function __pwd_hook --on-variable PWD
+        set -q fish_private_mode; or return
+        command -q zoxide; and command zoxide add -- (builtin pwd -L)
     end
     command -q atuin; and source $__fish_config_dir/atuin.fish
 

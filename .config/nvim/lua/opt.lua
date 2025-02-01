@@ -101,6 +101,8 @@ aug.autosave = {
   [[if &bt=='' && bufname()!='' && &ma | silent! update! | endi]],
 }
 aug.term = { 'TermOpen', [[startinsert]] }
+aug.set_title =
+  { 'Dirchanged', function() io.write(('\x1b]2;%s\x1b\\'):format(fs.basename(fn.getcwd()))) end }
 aug.lz_load = {
   'DirchangedPre',
   { once = true, callback = function() u.dirstack.setup() end },
